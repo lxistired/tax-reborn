@@ -1,7 +1,7 @@
 'use strict';
 (function(){
- const VERSION='tax-reborn-ui-2025-preview-9';
- const SHELL=['./','index.html','style.css','app.js','local-api.js','tax-worker.js','document-import.js','state-workspace.js','state-worker.js','offline-readiness.js','ocr-worker.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+ const VERSION='tax-reborn-ui-2025-preview-10';
+ const SHELL=['./','index.html','style.css','app.js','local-api.js','tax-worker.js','native-file-bridge.js','document-import.js','state-workspace.js','state-worker.js','offline-readiness.js','ocr-worker.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
  const BOOT=['index.html','style.css','app.js','local-api.js','tax-worker.js','offline-readiness.js'];
  const OCR_CORE=['tesseract-core','tesseract-core-lstm','tesseract-core-simd','tesseract-core-simd-lstm'].flatMap(name=>['vendor/tesseract/'+name+'.wasm.js','vendor/tesseract/'+name+'.wasm']);
  const PYODIDE=['vendor/pyodide/pyodide.js','vendor/pyodide/pyodide.asm.js','vendor/pyodide/pyodide.asm.wasm','vendor/pyodide/python_stdlib.zip','vendor/pyodide/pyodide-lock.json','vendor/pyodide/package.json'];
@@ -16,7 +16,7 @@
  function resourceGroups(assets){
   const helpers=['tax_engine.py','tax_extended.py','tax_credits.py','rules_2025.json',...assets.filter(path=>/^tax_[^/]+\.py$/.test(path))];
   const engine=[...BOOT,...PYODIDE,...helpers];
-  const image=['document-import.js','vendor/tesseract/tesseract.min.js','vendor/tesseract/worker.min.js','vendor/tesseract/eng.traineddata.gz',...OCR_CORE,...assets.filter(path=>path.startsWith('vendor/tesseract/')&&/\.wasm(?:\.js)?$/.test(path))];
+  const image=['native-file-bridge.js','document-import.js','vendor/tesseract/tesseract.min.js','vendor/tesseract/worker.min.js','vendor/tesseract/eng.traineddata.gz',...OCR_CORE,...assets.filter(path=>path.startsWith('vendor/tesseract/')&&/\.wasm(?:\.js)?$/.test(path))];
   return[{id:'shell',label:'Application shell',assets:SHELL},{id:'engine',label:'Federal tax engine',assets:engine},{id:'pdf',label:'PDF draft and readable-PDF text',assets:[...engine,'forms.py','forms/f1040-2025.pdf','vendor/python/pypdf-6.10.0.whl']},{id:'photo',label:'Local W-2 image extraction',assets:[...BOOT,'ocr-worker.js',...image]},{id:'state',label:'State tax workspace',assets:[...BOOT,'state-workspace.js','state-worker.js']}];
  }
  async function inspect(){

@@ -1,6 +1,6 @@
 'use strict';
-const VERSION='tax-reborn-ui-2025-preview-9';
-const SHELL=['./','./index.html','./style.css','./app.js','./local-api.js','./tax-worker.js','./document-import.js','./state-workspace.js','./state-worker.js','./offline-readiness.js','./ocr-worker.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
+const VERSION='tax-reborn-ui-2025-preview-10';
+const SHELL=['./','./index.html','./style.css','./app.js','./local-api.js','./tax-worker.js','./native-file-bridge.js','./document-import.js','./state-workspace.js','./state-worker.js','./offline-readiness.js','./ocr-worker.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 let configuredAssets=[];
 const canonical=value=>new URL(value,self.registration.scope).href;
 function validAsset(value){

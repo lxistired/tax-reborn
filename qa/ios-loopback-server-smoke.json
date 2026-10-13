@@ -1,0 +1,31 @@
+{
+  "all_passed" : true,
+  "checks" : [
+    "Stable local origin accepts the real offline start path",
+    "Local HEAD requests parse",
+    "Reject path \/..\/secret",
+    "Reject path \/%2e%2e\/secret",
+    "Reject path \/%252e%252e\/secret",
+    "Reject path \/vendor\/.\/file",
+    "Reject path \/api",
+    "Reject path \/api\/returns",
+    "Reject path \/\/evil.test\/file",
+    "Reject path \/bad%00name",
+    "Reject path \/bad%0aname",
+    "Reject path \/bad%5cname",
+    "Reject path https:\/\/evil.test\/index.html",
+    "Reject foreign Host\/Origin, duplicate headers or body framing",
+    "Reject foreign Host\/Origin, duplicate headers or body framing",
+    "Reject foreign Host\/Origin, duplicate headers or body framing",
+    "Reject foreign Host\/Origin, duplicate headers or body framing",
+    "Reject foreign Host\/Origin, duplicate headers or body framing",
+    "No mutation route or POST handler",
+    "Actual NWListener serves only the bundled allowlisted file",
+    "Actual response constrains worker\/connect resources to local origin",
+    "Unlisted static file is not served",
+    "Actual server rejects tax API route",
+    "Actual server rejects DNS-rebinding Host"
+  ],
+  "passed" : 24,
+  "scope" : "Actual macOS Network.framework server and shared iOS request parser; not UIKit compilation or Simulator validation"
+}

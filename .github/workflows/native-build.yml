@@ -1,0 +1,101 @@
+name: Native packages and real platform checks
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: Native build target
+        type: choice
+        default: all
+        options: [all, windows, ios]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-build-${{ github.ref }}-${{ inputs.platform }}
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    if: ${{ github.event.repository.private == false && (inputs.platform == 'all' || inputs.platform == 'windows') }}
+    runs-on: windows-2022
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+          architecture: x64
+      - name: Install pinned native dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-desktop.txt
+      - name: Verify the runner's existing Inno Setup compiler
+        shell: pwsh
+        run: |
+          $compiler = Get-Command ISCC.exe -ErrorAction SilentlyContinue
+          if (!$compiler -and !(Test-Path 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe') -and !(Test-Path 'C:\Program Files\Inno Setup 6\ISCC.exe')) { throw 'The standard runner lacks its documented Inno Setup compiler' }
+      - name: Independent Python tax checks
+        run: python -m unittest discover -s tests -v
+      - name: Build actual Windows executable and installer; frozen smoke
+        run: python scripts/build_desktop.py --output-dir dist/windows --work-dir build/windows
+      - name: Assert installer and ten real packaged checks
+        shell: pwsh
+        run: |
+          $m = Get-Content dist/windows/build-manifest-win32-x64.json -Raw | ConvertFrom-Json
+          $s = Get-Content dist/windows/frozen-smoke-win32-x64.json -Raw | ConvertFrom-Json
+          if (!$m.windows_installer_built -or !$s.frozen -or !$s.all_passed -or $s.passed -lt 10) { throw 'Native installer/frozen checks incomplete' }
+          python -m pip freeze | Set-Content dist/windows/native-dependency-versions.txt
+      - name: Run actual native GUI, calculation, edit, save and relaunch
+        shell: pwsh
+        run: |
+          ./scripts/windows_gui_smoke.ps1 -Executable "$PWD/dist/windows/Tax Reborn/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+      - name: Upload real packages and verification evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Tax-Reborn-Windows-native
+          path: |
+            dist/windows/*.exe
+            dist/windows/*.zip
+            dist/windows/*.json
+            dist/windows/*.png
+            dist/windows/*.txt
+          if-no-files-found: error
+          retention-days: 30
+
+  ios:
+    if: ${{ github.event.repository.private == false && (inputs.platform == 'all' || inputs.platform == 'ios') }}
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Verify existing Xcode and SDKs; no download or terms acceptance
+        run: |
+          xcodebuild -version
+          xcrun --sdk iphonesimulator --show-sdk-path
+          xcrun --sdk iphoneos --show-sdk-path
+          xcrun simctl list runtimes
+      - name: Build native Simulator and unsigned device apps; exercise actual WebView
+        run: python scripts/build_ios.py --output-dir dist/ios --work-dir build/ios --run-ui-tests
+      - name: Check actual build and simulator receipt
+        run: |
+          python -c 'import json; m=json.load(open("dist/ios/build-manifest-ios.json")); assert m["simulator_built"] and m["simulator_gui_tested"] and m["device_built"]; assert not m["device_signed"] and not m["real_device_tested"]'
+      - name: Upload real apps and simulator evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Tax-Reborn-iOS-native
+          path: |
+            dist/ios/*.zip
+            dist/ios/*.json
+            dist/ios/*.png
+            dist/ios/*.xcresult
+          if-no-files-found: error
+          retention-days: 30
