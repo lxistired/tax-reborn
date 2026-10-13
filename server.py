@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import html
 import json
@@ -76,10 +77,15 @@ class Store:
             conn.execute('CREATE TABLE IF NOT EXISTS state_inputs (return_id TEXT NOT NULL, jurisdiction TEXT NOT NULL, input TEXT NOT NULL, PRIMARY KEY(return_id,jurisdiction))')
         self.path.chmod(0o600)
 
+    @contextmanager
     def connect(self):
         connection = sqlite3.connect(self.path, timeout=15)
         connection.row_factory = sqlite3.Row
-        return connection
+        try:
+            with connection:
+                yield connection
+        finally:
+            connection.close()
 
     def list(self):
         with self.connect() as conn:

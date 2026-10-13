@@ -60,9 +60,10 @@ function Click-Observed($item) {
     [TaxWindow]::mouse_event(2,0,0,0,[UIntPtr]::Zero)
     [TaxWindow]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
 }
-function Save-Screenshot([string]$name) {
+function Save-Screenshot([string]$name,[bool]$strict=$true) {
     $rect = $script:root.Current.BoundingRectangle
-    if ($rect.Width -lt 1000 -or $rect.Height -lt 600) { throw 'Actual native window is too small for this desktop check.' }
+    if ($rect.IsEmpty -or $rect.Width -lt 100 -or $rect.Height -lt 100) { throw 'Actual native window has no usable screenshot area.' }
+    if ($strict -and ($rect.Width -lt 1000 -or $rect.Height -lt 600)) { throw 'Actual native window is too small for this desktop check.' }
     $bitmap = [System.Drawing.Bitmap]::new([int]$rect.Width,[int]$rect.Height)
     $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
     try {
@@ -70,7 +71,7 @@ function Save-Screenshot([string]$name) {
         $colors = [System.Collections.Generic.HashSet[int]]::new()
         for($x=0;$x -lt $bitmap.Width;$x+=20) { for($y=0;$y -lt $bitmap.Height;$y+=20) { $colors.Add($bitmap.GetPixel($x,$y).ToArgb()) | Out-Null } }
         $bitmap.Save((Join-Path $OutputDir $name),[System.Drawing.Imaging.ImageFormat]::Png)
-        if($colors.Count -lt 20) { throw 'The actual native screenshot is blank or insufficiently rendered.' }
+        if($strict -and $colors.Count -lt 20) { throw 'The actual native screenshot is blank or insufficiently rendered.' }
     } finally { $graphics.Dispose(); $bitmap.Dispose() }
 }
 function Launch-App {
@@ -126,7 +127,14 @@ try {
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
-    if($root) { try { Save-Screenshot 'windows-native-failure.png' } catch {} }
+    if($root) {
+        try { Save-Screenshot 'windows-native-failure.png' $false } catch {}
+        try {
+            $elements=$root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
+            $names=foreach($element in $elements) { $element.Current.ControlType.ProgrammaticName+' | '+$element.Current.Name }
+            $names | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-failure-hierarchy.txt')
+        } catch {}
+    }
     throw
 } finally {
     $receipt.checks=@($checks); $receipt.checked_at_utc=(Get-Date).ToUniversalTime().ToString('o')
