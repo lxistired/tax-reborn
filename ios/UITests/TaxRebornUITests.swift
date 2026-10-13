@@ -55,8 +55,18 @@ final class TaxRebornUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["$1,913"].firstMatch.waitForExistence(timeout: 120))
         screenshot("iOS-edited-and-saved-1913")
         app.terminate(); app.launch()
-        XCTAssertTrue(app.staticTexts["Let's start with you."].waitForExistence(timeout: 180))
+        // Relaunch restores the retained workspace, including its active page.
+        // Only an explicit open from My returns starts on the profile page.
+        XCTAssertTrue(app.staticTexts["Let's enter your W-2."].waitForExistence(timeout: 180))
+        XCTAssertTrue(app.staticTexts["$1,913"].firstMatch.waitForExistence(timeout: 120))
+        XCTAssertTrue(app.staticTexts["Saved on this device"].exists)
+        XCTAssertEqual(app.webViews.textFields["Employer name"].value as? String, "Example employer")
+        XCTAssertEqual(app.webViews.textFields["Box 2 · Federal income tax withheld"].value as? String, "7000")
+        let restoredOwner = app.webViews.otherElements.matching(NSPredicate(format: "label == %@ AND value == %@", "Whose W-2 is this?", "Taxpayer")).firstMatch
+        XCTAssertTrue(restoredOwner.exists, "Relaunch must retain the W-2 owner")
+        screenshot("iOS-restored-active-workspace-1913")
         tap("Open tax navigator"); tap("My returns"); tap("Open")
+        XCTAssertTrue(app.staticTexts["Let's start with you."].waitForExistence(timeout: 180))
         XCTAssertTrue(app.staticTexts["$1,913"].firstMatch.waitForExistence(timeout: 180))
         screenshot("iOS-reopened-persistent-return-1913")
         XCTAssertTrue(app.buttons["native-add-document"].exists)
