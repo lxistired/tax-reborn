@@ -1,0 +1,12 @@
+{
+  "version": "2026.10.14-preview.5",
+  "version_code": 2026101405,
+  "apk_sha256": "5928a9d74020f61d925565f0bef27299db41ee17a2d4e00df510ec406344f96f",
+  "rea_replace_install_verified": true,
+  "package_version_readback_matches": true,
+  "same_signing_certificate": true,
+  "requested_permissions_count": 0,
+  "actual_phone_relaunch_preserved_synthetic_refund": 1425,
+  "new_income_csv_phone_flow_tested": false,
+  "scope": "Installed package and 13 selected assets match source; actual phone launch retained prior synthetic saved return. New income persistence is independently tested with real Pyodide/IndexedDB mobile UI; physical-phone CSV picker not separately accepted."
+}

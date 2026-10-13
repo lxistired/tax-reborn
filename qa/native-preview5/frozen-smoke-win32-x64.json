@@ -1,0 +1,24 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.14-preview.5",
+  "all_passed": true,
+  "frozen": true,
+  "platform": "win32",
+  "machine": "AMD64",
+  "passed": 11,
+  "checks": [
+    "Bundled desktop/mobile assets and IRS2025 template load",
+    "Empty private data and final input schema are available",
+    "Real packaged tax engine matches independent official2025 tax table and refund",
+    "Return input and results persist across independent HTTP connections",
+    "State drafts persist independently and survive saving the federal return",
+    "Interactive official1040 PDF fields and appearances verify after write",
+    "Real official supporting PDF packet and factual checklist without a false filing status",
+    "JSON backup and printable worksheet export, without fabricated filing or penalty status",
+    "Foreign Origin, DNS-rebinding Host and file traversal rejected",
+    "Unsupported nonzero tax situation remains visibly blocked",
+    "Service socket closes cleanly"
+  ],
+  "scope": "US2025 federal calculation and draft exports; no filing or fullTurboTax parity"
+}

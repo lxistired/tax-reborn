@@ -1,0 +1,14 @@
+{
+  "version": "2026.10.14-preview.5",
+  "actual_frozen_native_gui": true,
+  "actual_cocoa_csv_open_panel": true,
+  "actual_gui_confirmed_import": true,
+  "line2b_before": 1350,
+  "line2b_after": 1550,
+  "refund_before": 1263,
+  "refund_after": 1239,
+  "untargeted_same_payer_row_and_review_and_id_unchanged": true,
+  "import_events": 1,
+  "synthetic_only": true,
+  "scope": "Real packaged Mac native CSV selection, exact-ID placeholder replacement, recalculation and save; no original vendor execution."
+}

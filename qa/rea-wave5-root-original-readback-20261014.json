@@ -1,0 +1,14 @@
+{
+  "checkpoint": "wave5",
+  "original_subject_sha256": "731a15d96fad8f5b1873688e71be801f63b20140301915a17af87f8e65bca8ee",
+  "native_complete_original_functions_added": 101,
+  "native_canonical_full_records_equal_final_export": 101,
+  "original_entry_bytes_independently_verified": 101,
+  "prior_original_main_unique": 4323,
+  "combined_original_main_unique": 4424,
+  "export_records": 207,
+  "export_sha256": "ccfaf509125e3855a656a5a1a3bb3e5d60e8fc40802e5650ae4c5114cb8ab938",
+  "original_runtime_cases": 0,
+  "full_product_complete": false,
+  "verification": "Root reread original Mach-O segment mapping, exact function entries, canonical producer records and prior-address union. Counts refer to functions, not formulas or paid features."
+}

@@ -50,6 +50,17 @@ replacement, replay/conflict/staleness, audit integrity, backup and concurrent
 revision refusal. The complete suite passes 385 host tests; 359 pass in the
 actual Pyodide runtime, excluding the 26 host-only integration tests.
 
+[Independent UI acceptance](../qa/income-preparation-20261014/independent-ui-acceptance-run-2026-10-13T19-11-17-843Z.json)
+passes 22 checks, eleven each in actual HTTP/SQLite and Pyodide/IndexedDB mobile
+layouts. It exercises real CSV selection, one-shot save failures and retries,
+private browser-profile close/reopen, actual JSON download/restore, review and
+unresolved-state separation, deletion summaries, INT/DIV replacement and eight
+persistence tampering refusals. Its synthetic fixture has different withholding
+from the root example, so its $2,739 refund is not substituted for $1,239 above.
+The actual packaged Mac app also selected the CSV through the Cocoa Open panel,
+completed the same exact-ID replacement, recalculated and saved; see [native
+receipt](../qa/native-preview5/macos-native-income-replacement.json).
+
 ## Original evidence and implementation boundary
 
 The packaged original topic code separates per-instance review snapshots from

@@ -1,0 +1,21 @@
+{
+  "version": "2026.10.14-preview.5",
+  "source_commit": "332d29c6ba3d50c2d419ee8a44948eb8a665c26f",
+  "run": "https://github.com/lxistired/tax-reborn/actions/runs/38452333711",
+  "download_hashes_and_sizes_match": true,
+  "portable_selected_source_byte_matches": 5,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.5-Windows-x64-portable.zip",
+      "bytes": 70397633,
+      "sha256": "f19283d214f9ebb2e3a8edbe925643f79344270ad54d036c1232511366502911"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.5-Windows-x64-Setup.exe",
+      "bytes": 57477475,
+      "sha256": "e326e1b0a7a813ed7f90485f9d6b4e47c1001bade7604a740959d6380208be0f"
+    }
+  ],
+  "native_income_import_tested": false,
+  "scope": "Native baseline calculation, edit, save/relaunch and ordinary PDF export. New income UI has separate HTTP/Pyodide acceptance and actual Mac native CSV acceptance."
+}

@@ -1,0 +1,27 @@
+{
+  "version": "2026.10.14-preview.5",
+  "source_commit": "332d29c6ba3d50c2d419ee8a44948eb8a665c26f",
+  "run": "https://github.com/lxistired/tax-reborn/actions/runs/38452333711",
+  "downloaded_hashes_and_sizes_match": true,
+  "selected_asset_byte_matches": 14,
+  "simulator_gui_tested": true,
+  "device_signed": false,
+  "real_device_tested": false,
+  "native_income_csv_flow_tested": false,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.5-iOS-Simulator.app.zip",
+      "bytes": 48961888,
+      "sha256": "483f27a2a822479aa51dad73b003f420aaee5de5b1e915a4581a4eada80b52c3",
+      "installable_on_iphone": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.5-iOS-Unsigned-Device.app.zip",
+      "bytes": 48881845,
+      "sha256": "b18af78b731e2a87dc5c1c33f9697f7473ca73b24d8b4beed2fd6b0774bea87f",
+      "installable_on_iphone": false,
+      "requires_matching_device_provisioning": true
+    }
+  ],
+  "scope": "Native Simulator baseline calculation, edit/save/terminate/reopen. Same current income assets embedded; native iPhone CSV/Files/camera and device installation not verified."
+}

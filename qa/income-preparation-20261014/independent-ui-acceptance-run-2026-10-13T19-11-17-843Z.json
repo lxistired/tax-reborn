@@ -1,0 +1,291 @@
+{
+  "started": "run-2026-10-13T19-11-17-843Z",
+  "source_hashes": {
+    "desktop.py": "37584c88bf3125de85bd7d314a77a7cb0b6ef59d7a8296845ea512845fc00260",
+    "forms.py": "d802c9b0df9adcaae1db7a1895230dcd86598322dad1e24ee695d43962cc388d",
+    "income_preparation.py": "6e2de2b7cbf05227d0e0d204f620c24554c1e6b46d7ba101fe49b7a48c865cd7",
+    "investment_metadata.py": "f2a88d1769a262919799696e0c79ea55d3183b319d7edf10f76b2b591b4dba23",
+    "official_forms.py": "bee571cf67d46fea0a287c2161f42e6e95fbc6df641bfaa4b44f6c458dfdef4e",
+    "presentation_schema.py": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c",
+    "privacy_review.py": "ab45567e34890cd1494b03ad406f68398efc2bf44f90a375a0869d5a1044a701",
+    "return_metadata.py": "7a482a83206345c4034441c8df01ccf6b77f605c24d91ca1d204af3e96eae580",
+    "server.py": "5c3a63ef179ee84a2fc837c0259bb86f3d02155bd0f7b53a256125857a8e2e41",
+    "tax_additional.py": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5",
+    "tax_credits.py": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786",
+    "tax_engine.py": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+    "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+    "tax_filing.py": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+    "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "web/app.js": "4f465c97aa1e98fd265a6a8779cf2b231718e9a6505a6890f119e04d80fdd263",
+    "web/local-api.js": "81d6660e33012212cf94acb2c41931bfc69a566ae4ab476c4c806d66bcaadae7",
+    "web/income-preparation.js": "9bf27560637de84b46663e17f306241a1b83ea2de3bc70cac58f477c3dc005bc",
+    "web/tax-worker.js": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3"
+  },
+  "modes": [
+    {
+      "mode": "http",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "storage": "isolated loopback HTTP + SQLite",
+      "checks": [
+        {
+          "name": "Create synthetic wage and same-payer interest rows through actual UI",
+          "passed": true,
+          "detail": {
+            "line2b": 1350,
+            "refund": 2763,
+            "total_tax": 5237
+          }
+        },
+        {
+          "name": "Mark exact first ID placeholder and second ID reviewed; save persisted baseline",
+          "passed": true,
+          "detail": {
+            "first_id": "2c8e3088-2936-4514-bb7c-8b4e9e733a8c",
+            "second_id": "116fedc5-6e84-4734-bd54-bb11c0b2f83e",
+            "refund": 2763
+          }
+        },
+        {
+          "name": "Invalid CSV is rejected before any old rows or history change",
+          "passed": true
+        },
+        {
+          "name": "Failed save retains old rows/history and the same dialog can be retried",
+          "passed": true,
+          "detail": {
+            "injection": "one HTTP POST500",
+            "fault": null,
+            "error": "Synthetic one-shot save failure; isolated UI acceptance"
+          }
+        },
+        {
+          "name": "Retry confirmed exact-ID replacement atomically saves line2b1550 and one audit event",
+          "passed": true,
+          "detail": {
+            "line2b": 1550,
+            "refund": 2739,
+            "total_tax": 5261,
+            "events": 1,
+            "current_ids": [
+              "fa15753a-8b8a-4d98-862c-3881d3d7a87b",
+              "116fedc5-6e84-4734-bd54-bb11c0b2f83e"
+            ]
+          }
+        },
+        {
+          "name": "Actual close and relaunch of private browser profile preserves disk IDs/review/history",
+          "passed": true,
+          "detail": {
+            "reopened_id": "3bb024b6-ff0a-440a-95f9-70401d668405",
+            "refund": 2739
+          }
+        },
+        {
+          "name": "Actual JSON download and UI restore into new return preserve IDs/review/history",
+          "passed": true,
+          "detail": {
+            "original_id": "3bb024b6-ff0a-440a-95f9-70401d668405",
+            "restored_id": "4d665056-439d-4fb4-9da9-7a8f6a403b43",
+            "refund": 2739
+          }
+        },
+        {
+          "name": "Changing amount clears only that row; zero is valid; review does not erase unresolved facts",
+          "passed": true,
+          "detail": {
+            "line2b": 350,
+            "refund": 2883,
+            "reviewed": 2,
+            "unresolved": 1
+          }
+        },
+        {
+          "name": "Delete current ID; source summary excludes historical and deleted identities",
+          "passed": true,
+          "detail": {
+            "current_count": 1,
+            "history_count": 1,
+            "line2b": 350
+          }
+        },
+        {
+          "name": "Real persistence boundary rejects tampered event ID/hash/receipt or erased history atomically",
+          "passed": true,
+          "detail": {
+            "tamper_variants_rejected": 4,
+            "transport": "actual same-page persistence API; these metadata fields have no editable UI"
+          }
+        },
+        {
+          "name": "Dividend exact-ID replacement uses actual UI and keeps unrelated same-payer record",
+          "passed": true,
+          "detail": {
+            "line3b": 280,
+            "line3a": 110,
+            "refund": 2865,
+            "events": 2
+          }
+        }
+      ],
+      "completed": true
+    },
+    {
+      "mode": "offline",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "storage": "actual Pyodide + persisted IndexedDB",
+      "checks": [
+        {
+          "name": "Create synthetic wage and same-payer interest rows through actual UI",
+          "passed": true,
+          "detail": {
+            "line2b": 1350,
+            "refund": 2763,
+            "total_tax": 5237
+          }
+        },
+        {
+          "name": "Mark exact first ID placeholder and second ID reviewed; save persisted baseline",
+          "passed": true,
+          "detail": {
+            "first_id": "217b246b-ef7d-4755-8550-f9d9072ba2ac",
+            "second_id": "dd794cf0-c27e-4240-ad3c-3b2785e23696",
+            "refund": 2763
+          }
+        },
+        {
+          "name": "Invalid CSV is rejected before any old rows or history change",
+          "passed": true
+        },
+        {
+          "name": "Failed save retains old rows/history and the same dialog can be retried",
+          "passed": true,
+          "detail": {
+            "injection": "original native IndexedDB put followed by one-shot transaction.abort; original prototype immediately restored; App functions/source/oracles unchanged",
+            "fault": {
+              "kind": "one-shot native IDB returns transaction abort",
+              "triggered": 1,
+              "restored": true
+            },
+            "error": "Device save did not complete; keep the draft open and export a backup."
+          }
+        },
+        {
+          "name": "Retry confirmed exact-ID replacement atomically saves line2b1550 and one audit event",
+          "passed": true,
+          "detail": {
+            "line2b": 1550,
+            "refund": 2739,
+            "total_tax": 5261,
+            "events": 1,
+            "current_ids": [
+              "9b4ad8c8-2ae8-4b8c-872a-cbe843d35a7c",
+              "dd794cf0-c27e-4240-ad3c-3b2785e23696"
+            ]
+          }
+        },
+        {
+          "name": "Actual close and relaunch of private browser profile preserves disk IDs/review/history",
+          "passed": true,
+          "detail": {
+            "reopened_id": "77a73e51-98f5-40fa-9bb0-dc21b0b2a808",
+            "refund": 2739
+          }
+        },
+        {
+          "name": "Actual JSON download and UI restore into new return preserve IDs/review/history",
+          "passed": true,
+          "detail": {
+            "original_id": "77a73e51-98f5-40fa-9bb0-dc21b0b2a808",
+            "restored_id": "2acf47b5-1cb3-44d5-8bee-3e34120f6017",
+            "refund": 2739
+          }
+        },
+        {
+          "name": "Changing amount clears only that row; zero is valid; review does not erase unresolved facts",
+          "passed": true,
+          "detail": {
+            "line2b": 350,
+            "refund": 2883,
+            "reviewed": 2,
+            "unresolved": 1
+          }
+        },
+        {
+          "name": "Delete current ID; source summary excludes historical and deleted identities",
+          "passed": true,
+          "detail": {
+            "current_count": 1,
+            "history_count": 1,
+            "line2b": 350
+          }
+        },
+        {
+          "name": "Real persistence boundary rejects tampered event ID/hash/receipt or erased history atomically",
+          "passed": true,
+          "detail": {
+            "tamper_variants_rejected": 4,
+            "transport": "actual same-page persistence API; these metadata fields have no editable UI"
+          }
+        },
+        {
+          "name": "Dividend exact-ID replacement uses actual UI and keeps unrelated same-payer record",
+          "passed": true,
+          "detail": {
+            "line3b": 280,
+            "line3a": 110,
+            "refund": 2865,
+            "events": 2
+          }
+        }
+      ],
+      "completed": true
+    }
+  ],
+  "all_passed": true,
+  "external_network": "blocked by browser routing; service workers disabled",
+  "original_vendor_executed": false,
+  "application_source_modified": false,
+  "notes": "Only synthetic data. Tax results read from this actual machine/runtime; no old probes or expected refund copied.",
+  "cleanup": {
+    "owned_server_closed": true,
+    "owned_browser_profiles_closed": true,
+    "independently_verified_with": "ps own server PID + exact own browser user-data-dir prefix + HTTP origin connection refused",
+    "source_hashes_end": {
+      "desktop.py": "37584c88bf3125de85bd7d314a77a7cb0b6ef59d7a8296845ea512845fc00260",
+      "forms.py": "d802c9b0df9adcaae1db7a1895230dcd86598322dad1e24ee695d43962cc388d",
+      "income_preparation.py": "6e2de2b7cbf05227d0e0d204f620c24554c1e6b46d7ba101fe49b7a48c865cd7",
+      "investment_metadata.py": "f2a88d1769a262919799696e0c79ea55d3183b319d7edf10f76b2b591b4dba23",
+      "official_forms.py": "bee571cf67d46fea0a287c2161f42e6e95fbc6df641bfaa4b44f6c458dfdef4e",
+      "presentation_schema.py": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c",
+      "privacy_review.py": "ab45567e34890cd1494b03ad406f68398efc2bf44f90a375a0869d5a1044a701",
+      "return_metadata.py": "7a482a83206345c4034441c8df01ccf6b77f605c24d91ca1d204af3e96eae580",
+      "server.py": "5c3a63ef179ee84a2fc837c0259bb86f3d02155bd0f7b53a256125857a8e2e41",
+      "tax_additional.py": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5",
+      "tax_credits.py": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786",
+      "tax_engine.py": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+      "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+      "tax_filing.py": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+      "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+      "web/app.js": "4f465c97aa1e98fd265a6a8779cf2b231718e9a6505a6890f119e04d80fdd263",
+      "web/local-api.js": "81d6660e33012212cf94acb2c41931bfc69a566ae4ab476c4c806d66bcaadae7",
+      "web/income-preparation.js": "9bf27560637de84b46663e17f306241a1b83ea2de3bc70cac58f477c3dc005bc",
+      "web/tax-worker.js": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3"
+    },
+    "source_unchanged": true,
+    "runtime_page_errors": [],
+    "blocked_external_requests": [],
+    "local_requests": 106
+  },
+  "scope": "Headless Chromium actual application at phone390x844, real bundled Pyodide/IndexedDB and isolated HTTP/SQLite; not original-vendor UI parity, physical phone or final tax-filing verification.",
+  "fault_injection_boundary": "HTTP: one actual POST500 response. Offline: original native IDBObjectStore.put invoked, then matching TaxRebornReturns/returns transaction aborted once; prototype immediately restored. App functions, app sources and tax oracles unchanged. All positive imports and reopen/restore use original persistence behavior.",
+  "visual_readback": [
+    "HTTP interest import shows saved, refund2739 and two same-payer reviewed rows",
+    "Offline review shows 2 of2 reviewed but1 unresolved, headline income-source check remains and refund2883"
+  ]
+}

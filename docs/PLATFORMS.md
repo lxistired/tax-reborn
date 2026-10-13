@@ -203,3 +203,27 @@ The independent masked-export acceptance also exercises actual HTTP/SQLite and
 Pyodide/IndexedDB UI modes, verifies eight identity/bank fields plus PDF widget
 appearances, and proves ordinary data/results remain unchanged. Its leak tests
 refuse the export without a normal-PDF fallback. See [masked review scope](MASKED_REVIEW_COPY.md).
+
+
+## Preview.5: exact income replacement and persistent review
+
+The package runtime source is `332d29c6ba3d50c2d419ee8a44948eb8a665c26f`, version
+`2026.10.14-preview.5`, with tax year 2025. [Native run 38452333711](https://github.com/lxistired/tax-reborn/actions/runs/38452333711)
+completed successfully for Windows and iOS. The source passed 385 host tests and
+359 tests in the real Pyodide worker. Separate independent acceptance exercised
+22 actual mobile-layout UI checks across HTTP/SQLite and Pyodide/IndexedDB,
+including a real storage transaction abort, same-dialog retry, profile relaunch,
+JSON restoration and immutable-history refusal.
+
+| Platform | Actual verification of this version | Boundary |
+| --- | --- | --- |
+| macOS arm64 | Eleven checks in the actual frozen executable. The packaged native app selected an income CSV through the Cocoa Open panel and confirmed replacement of the exact placeholder ID. Line 2b changed from $1,350 to $1,550; refund changed from $1,263 to $1,239. The unrelated same-payer $350 row, identity and review state remained unchanged; one event was saved. | Unsigned and not notarized. Original TurboTax execution and pixel equivalence remain unverified. |
+| Windows x64 | Eleven frozen checks; actual native $1,413 → withholding edit → $1,913; save, normal close/relaunch/reopen and a real PDF Save As with field readback. Setup and portable ZIP hashes match their manifest; selected packaged runtime modules match source. | Unsigned preview. The new income replacement is covered by real source-browser acceptance and the native Mac check; this Windows smoke did not independently exercise its CSV picker. |
+| Android | REA same-key replace install and start succeeded. Package manager readback confirms version code `2026101405`; 13 selected bundled assets match source. The actual phone retains the prior saved synthetic $1,425 return and four open checks. The APK requests zero permissions. | New income persistence is tested in real Pyodide/IndexedDB mobile UI. The physical phone's CSV picker and this version's camera workflow were not separately accepted. The previously accepted OCR worker remains unchanged. |
+| iOS | Both native targets compiled; 107 bundled assets verified. The real Simulator WKWebView/WebAssembly calculation/edit/save/terminate/relaunch/reopen passed. Downloaded ZIP hashes and seven selected assets per ZIP match source. | Device build is unsigned and needs signing/provisioning. The Simulator check does not verify real-iPhone Files, camera or the new native CSV picker. |
+
+Receipts and actual synthetic screenshots are in [`qa/native-preview5`](../qa/native-preview5/).
+See [income preparation and 22 UI checks](INCOME_DOCUMENT_PREPARATION.md) for
+stable row identity, unresolved facts, atomic history and stale-revision scope.
+Native package acceptance is specific to this source; subsequent documentation
+and binary research checkpoints do not change the package runtime.
