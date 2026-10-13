@@ -168,7 +168,8 @@ def main():
             signed=subprocess.run(['codesign','--display','--verbose=4',device],check=True,capture_output=True,text=True)
             if 'TeamIdentifier='+args.team_id not in signed.stderr or not (device/'embedded.mobileprovision').is_file():
                 raise ValueError('Device build lacks the requested team signature/provisioning profile')
-        devicezip=out/f'Tax-Reborn-{version}-iOS-'+('Development-Signed' if args.team_id else 'Unsigned-Device')+'.app.zip'
+        variant='Development-Signed' if args.team_id else 'Unsigned-Device'
+        devicezip=out/f'Tax-Reborn-{version}-iOS-{variant}.app.zip'
         zip_app(device,devicezip)
         manifest.update(device_built=True,device_signed=bool(args.team_id))
         manifest['artifacts'].append({'file':devicezip.name,'bytes':devicezip.stat().st_size,'sha256':hashlib.sha256(devicezip.read_bytes()).hexdigest(),'installable_on_iphone':bool(args.team_id),'requires_matching_device_provisioning':True})
