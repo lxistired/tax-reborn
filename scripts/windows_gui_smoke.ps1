@@ -38,6 +38,16 @@ function Wait-Named([string]$name,[int]$seconds=90,[bool]$visible=$true) {
     while ((Get-Date) -lt $until) {
         $item = Get-Named $name $visible
         if ($null -ne $item) { return $item }
+        if($visible) {
+            $candidate=Get-Named $name $false
+            if($candidate -and ($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit)) {
+                try {
+                    $scroll=$null
+                    if($candidate.TryGetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern,[ref]$scroll)) { ([System.Windows.Automation.ScrollItemPattern]$scroll).ScrollIntoView() }
+                    elseif($candidate.Current.IsKeyboardFocusable) { $candidate.SetFocus() }
+                } catch {}
+            }
+        }
         if ($script:process.HasExited) { throw 'The actual native app closed unexpectedly.' }
         Start-Sleep -Milliseconds 250
     }
@@ -63,6 +73,22 @@ function Click-Observed($item) {
     [TaxWindow]::SetCursorPos([int]($rect.Left+$rect.Width/2),[int]($rect.Top+$rect.Height/2)) | Out-Null
     [TaxWindow]::mouse_event(2,0,0,0,[UIntPtr]::Zero)
     [TaxWindow]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
+}
+function Scroll-Top {
+    $elements=$script:root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
+    foreach($element in $elements) {
+        $pattern=$null
+        if($element.TryGetCurrentPattern([System.Windows.Automation.ScrollPattern]::Pattern,[ref]$pattern)) {
+            $scroll=[System.Windows.Automation.ScrollPattern]$pattern
+            if($scroll.Current.VerticalScrollable) {
+                $scroll.SetScrollPercent([System.Windows.Automation.ScrollPattern]::NoScroll,0)
+            }
+        }
+    }
+    # Real mouse-wheel fallback if the web provider does not expose ScrollPattern.
+    $rect=$script:root.Current.BoundingRectangle
+    [TaxWindow]::SetCursorPos([int]($rect.Left+$rect.Width*0.75),[int]($rect.Top+$rect.Height*0.3)) | Out-Null
+    for($step=0;$step -lt 40;$step++) { [TaxWindow]::mouse_event(2048,0,0,120,[UIntPtr]::Zero) }
 }
 function Save-Screenshot([string]$name,[bool]$strict=$true) {
     $rect = $script:root.Current.BoundingRectangle
@@ -152,6 +178,12 @@ try {
     $field.SetFocus()
     [System.Windows.Forms.SendKeys]::SendWait('^a')
     [System.Windows.Forms.SendKeys]::SendWait('7000{TAB}')
+    $value=$field.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty)
+    if([string]$value -ne '7000') { throw "Actual withholding input is not the intended value 7000: $value" }
+    # Focusing a low W2 field can scroll the whole interview and put the refund
+    # header above the viewport. Read its real value, then bring header/Save back.
+    Wait-Named '$1,913' 120 $false | Out-Null
+    Scroll-Top
     Wait-Named '$1,913' 120 | Out-Null
     Click-Observed (Wait-Named 'Save')
     Wait-Named 'Saved on this device' | Out-Null
