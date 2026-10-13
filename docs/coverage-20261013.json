@@ -1,0 +1,1201 @@
+{
+  "tax_year": 2025,
+  "currency": "USD",
+  "scope": "US full-year resident federal preparation worksheets; no filing",
+  "implemented": [
+    "Form1040 income/tax/payments",
+    "official IRS tax table under100000",
+    "ordinary rate computation",
+    "qualified dividend/capital gain worksheet",
+    "basic ScheduleC and ScheduleSE per owner",
+    "Form8995 below simplified income threshold",
+    "ScheduleA cash charity/medical/eligible mortgage/SALT",
+    "Schedule8812 CTC/ACTC including three-child alternative",
+    "qualified US retirement-plan pension/IRA payer-taxable amounts and SS worksheet",
+    "student loan interest phaseout",
+    "Schedule1A eligible employee tips/FLSA overtime/car interest/seniors",
+    "ordinary Form8959 AdditionalMedicare and W2 excessSS credit",
+    "2025 EITC exactIRS table and eligibility",
+    "NIIT Form8960 ordinary investment/rental/annuity income",
+    "AMT Form6251 PartsI-III with ordinary qualified gains",
+    "ScheduleE/Form8582 passive rental netting/25000 allowance/carry-out",
+    "Form4952 investment-interest limitation without preferred gain election",
+    "TraditionalIRA deduction, contribution limits and no-distribution8606basis",
+    "Roth contribution MAGI screening",
+    "HSA monthly eligibility/proration, employer reduction, family sharing, catch-up and last-month rule",
+    "HSA taxable distributions, actual-date20%exceptions and current-excess6%tax",
+    "AOTC/LLC adjusted expenses, phaseout, nonrefundable tax limit and claimant-under24 refund tests",
+    "2025 annual/monthly8962PTC, below-poverty exceptions and capped excessAPTC repayment",
+    "Form2441 dependent-care credit and employeeFSA exclusion/taxable benefits with monthlystudent/disability deemed income",
+    "Form8880 Saver credit with contribution/distribution and tax-liability limits",
+    "ScheduleR elderly/disabled credit with benefit andAGI reductions"
+  ],
+  "unsupported": [
+    "state/local/nonresident/part-year tax",
+    "adoption/energy/foreign credits",
+    "foreign income/exclusions",
+    "K1/farm/royalties/nonpassive rentals and real-estate professional/disposal/vacation-home cases",
+    "QBI above8995 threshold/REIT/PTP/cooperatives",
+    "capital carry-in/special28%/1250 gains/wash-sale/QOF/options/crypto/business property",
+    "ScheduleC inventory/depreciation/home-office/employees/optionalSE",
+    "business tips deduction",
+    "Form8801 prior AMT credit and separate AMT carryover/basis schedules",
+    "capital/QBI/charity carry-ins",
+    "estimated tax penalty Form2210",
+    "Form2441 prior-year expenses/FSA carry-in/SE assistance, ordinaryMFS exclusion/householdemployeeScheduleH/missingTIN due-diligence statement",
+    "Form8880 distribution-year nonjoint MFJ exception without per-column records",
+    "IRA excess correction/SSA-contribution AppendixB/distribution-contribution8606 allocation",
+    "HSA prior excess/testing failures, MSA/funding-distribution special worksheets and employer-excess correction allocation",
+    "Education foreignMAGI/recapture and scholarship taxability/529 optimization",
+    "PTC shared-policy allocations/year-of-marriage alternative/QSEHRA-ICHRA/mixed lawful presence/SE-health iteration"
+  ],
+  "eligibility_fields": [
+    "full_year_us_resident",
+    "filing_status_confirmed",
+    "all_income_reported",
+    "eitc_not_applicable",
+    "hoh_eligible",
+    "qss_eligible",
+    "mfs_spouse_itemizes",
+    "mfs_lived_with_spouse",
+    "student_loan_eligible",
+    "itemized_eligible",
+    "self_employed_health_insurance_eligible",
+    "capital_gains_eligible",
+    "qualified_dividends_eligible",
+    "no_amt_preferences"
+  ],
+  "row_templates": {
+    "w2": {
+      "employer": "",
+      "owner": "taxpayer",
+      "wages": "0",
+      "dependent_care_benefits": "0",
+      "federal_withholding": "0",
+      "social_security_wages": "0",
+      "social_security_tips": "0",
+      "medicare_wages": "0",
+      "social_security_withholding": "0",
+      "medicare_withholding": "0"
+    },
+    "interest": {
+      "payer": "",
+      "taxable": "0",
+      "tax_exempt": "0",
+      "federal_withholding": "0"
+    },
+    "dividends": {
+      "payer": "",
+      "ordinary": "0",
+      "qualified": "0",
+      "capital_gain_distributions": "0",
+      "federal_withholding": "0"
+    },
+    "capital_gains": {
+      "description": "",
+      "term": "long",
+      "proceeds": "0",
+      "cost_basis": "0",
+      "adjustment": "0",
+      "special_rate": false
+    },
+    "businesses": {
+      "name": "",
+      "owner": "taxpayer",
+      "revenue": "0",
+      "expenses": "0",
+      "active_business": false,
+      "expenses_eligible": false,
+      "at_risk_confirmed": false,
+      "qbi_eligible": false
+    },
+    "dependents": {
+      "name": "",
+      "age": 8,
+      "qualifying_child": true,
+      "valid_ssn": true,
+      "valid_tin": true,
+      "eligibility_confirmed": false,
+      "eitc_qualifying_child": false,
+      "eitc_status_reviewed": false,
+      "eitc_relationship_residency_confirmed": false,
+      "eitc_tiebreaker_confirmed": false,
+      "eitc_full_time_student": false,
+      "eitc_permanently_disabled": false
+    },
+    "rentals": {
+      "name": "",
+      "owner": "taxpayer",
+      "rent": "0",
+      "advertising": "0",
+      "auto_travel": "0",
+      "cleaning": "0",
+      "commissions": "0",
+      "insurance": "0",
+      "legal_professional": "0",
+      "management_fees": "0",
+      "mortgage_interest": "0",
+      "other_interest": "0",
+      "repairs": "0",
+      "supplies": "0",
+      "taxes": "0",
+      "utilities": "0",
+      "depreciation": "0",
+      "other_expenses": "0",
+      "prior_unallowed_loss": "0",
+      "eligibility_confirmed": false,
+      "active_participation": false,
+      "ownership_at_least_10_percent": false,
+      "at_risk_confirmed": false,
+      "no_personal_use_or_substantial_services": false,
+      "depreciation_schedule_confirmed": false,
+      "prior_loss_active_participation": false,
+      "prior_loss_amount_confirmed": false,
+      "qbi_eligible": false,
+      "qbi_status_confirmed": false,
+      "niit_carryover_eligible": false,
+      "same_amt_basis_and_depreciation": false
+    },
+    "hsa.accounts": {
+      "owner": "taxpayer",
+      "coverage": [
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "first_day_coverage_and_eligibility_confirmed": false,
+      "personal_contributions": "0",
+      "employer_contributions": "0",
+      "archer_msa_contributions": "0",
+      "qualified_funding_distribution": "0",
+      "distributions": "0",
+      "rollover_distributions": "0",
+      "excess_withdrawal_distributions": "0",
+      "exception_taxable_distributions": "0",
+      "distribution_breakdown_confirmed": false,
+      "distribution_timing_confirmed": false,
+      "qualified_medical_expenses": "0",
+      "medical_expenses_confirmed": false,
+      "distribution_exception_confirmed": false,
+      "year_end_balance": "0",
+      "year_end_balance_confirmed": false,
+      "excess_contributions_withdrawn": "0",
+      "excess_withdrawal_and_income_reported_confirmed": false,
+      "employer_excess_in_wages_confirmed": false,
+      "no_prior_excess_or_testing_failure": false,
+      "last_month_rule": false,
+      "testing_period_obligation_confirmed": false
+    },
+    "education.students": {
+      "student_id": "",
+      "name": "",
+      "credit": "aotc",
+      "tuition_and_required_fees": "0",
+      "course_materials": "0",
+      "materials_paid_to_institution_required": false,
+      "tax_free_assistance": "0",
+      "expenses_used_elsewhere": "0",
+      "eligible_institution_and_payment_period_confirmed": false,
+      "qualified_expenses_and_no_double_benefit_confirmed": false,
+      "dependency_claim_and_tin_confirmed": false,
+      "form_1098t_received_or_exception_confirmed": false,
+      "institution_ein": "",
+      "aotc_prior_years": 0,
+      "half_time_degree_program": false,
+      "first_four_years_not_completed": false,
+      "no_felony_drug_conviction": false
+    },
+    "marketplace.months": {
+      "month": 1,
+      "enrollment_premium": "0",
+      "slcsp_premium": "0",
+      "advance_credit": "0",
+      "coverage_eligible": false,
+      "premiums_paid_and_no_other_mec_confirmed": false
+    },
+    "care.beneficiaries": {
+      "beneficiary_id": "",
+      "name": "",
+      "age": 8,
+      "disabled_incapable_self_care": false,
+      "care_before_13th_birthday_confirmed": false,
+      "qualification_residency_confirmed": false,
+      "valid_tin": true,
+      "qualified_expenses": "0"
+    },
+    "care.providers": {
+      "name": "",
+      "address": "",
+      "tin": "",
+      "amount_paid": "0",
+      "household_employee": false,
+      "eligible_provider_confirmed": false
+    },
+    "care.deemed_income_months": {
+      "month": 1,
+      "taxpayer_income": "0",
+      "spouse_income": "0",
+      "deemed_owner": "none"
+    }
+  },
+  "amount_input": "USD decimal strings, no floats",
+  "amount_output": "whole-dollar integers",
+  "can_prepare_meaning": "Supported worksheet computation with all required affirmations and no detected blocking issue; not a filed return or complete IRS form set.",
+  "ui_fields": {
+    "eitc.claim": {
+      "label": "Claim",
+      "type": "boolean",
+      "help": ""
+    },
+    "eitc.eligibility_confirmed": {
+      "label": "Eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "eitc.main_home_us_half_year": {
+      "label": "Main home us half year",
+      "type": "boolean",
+      "help": ""
+    },
+    "eitc.not_qualifying_child_of_another": {
+      "label": "Not qualifying child of another",
+      "type": "boolean",
+      "help": ""
+    },
+    "eitc.no_disallowed_claim_history": {
+      "label": "No disallowed claim history",
+      "type": "boolean",
+      "help": ""
+    },
+    "eitc.mfs_qualifying_separation": {
+      "label": "Mfs qualifying separation",
+      "type": "boolean",
+      "help": ""
+    },
+    "niit.eligibility_confirmed": {
+      "label": "Eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "niit.allocable_state_income_tax": {
+      "label": "Allocable state income tax",
+      "type": "money",
+      "help": "Only the actual itemized income tax allocated to investment income. Property taxes and amounts excluded by the SALT limit are not included."
+    },
+    "niit.deductions_confirmed": {
+      "label": "Deductions confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "niit.investment_interest_eligible": {
+      "label": "Investment interest eligible",
+      "type": "boolean",
+      "help": ""
+    },
+    "niit.investment_interest_carryover": {
+      "label": "Investment interest carryover",
+      "type": "money",
+      "help": ""
+    },
+    "niit.carryover_confirmed": {
+      "label": "Carryover confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "amt.eligibility_confirmed": {
+      "label": "Eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "amt.iso_adjustment": {
+      "label": "Iso adjustment",
+      "type": "money",
+      "help": "Verified regular-vs-AMT difference from source records; do not enter gross exercise proceeds or an unsupported basis guess."
+    },
+    "amt.private_activity_bond_interest": {
+      "label": "Private activity bond interest",
+      "type": "money",
+      "help": ""
+    },
+    "amt.other_adjustments": {
+      "label": "Other adjustments",
+      "type": "money",
+      "help": "Verified regular-vs-AMT difference from source records; do not enter gross exercise proceeds or an unsupported basis guess.",
+      "signed": true
+    },
+    "amt.capital_gain_adjustment": {
+      "label": "Capital gain adjustment",
+      "type": "money",
+      "help": "Verified regular-vs-AMT difference from source records; do not enter gross exercise proceeds or an unsupported basis guess.",
+      "signed": true
+    },
+    "rentals.*.name": {
+      "label": "Name",
+      "type": "text",
+      "help": ""
+    },
+    "rentals.*.owner": {
+      "label": "Owner",
+      "type": "enum",
+      "help": "",
+      "options": [
+        {
+          "value": "taxpayer",
+          "label": "Taxpayer"
+        },
+        {
+          "value": "spouse",
+          "label": "Spouse (joint return)"
+        }
+      ]
+    },
+    "rentals.*.rent": {
+      "label": "Rent",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.advertising": {
+      "label": "Advertising",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.auto_travel": {
+      "label": "Auto travel",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.cleaning": {
+      "label": "Cleaning",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.commissions": {
+      "label": "Commissions",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.insurance": {
+      "label": "Insurance",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.legal_professional": {
+      "label": "Legal professional",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.management_fees": {
+      "label": "Management fees",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.mortgage_interest": {
+      "label": "Mortgage interest",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.other_interest": {
+      "label": "Other interest",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.repairs": {
+      "label": "Repairs",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.supplies": {
+      "label": "Supplies",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.taxes": {
+      "label": "Taxes",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.utilities": {
+      "label": "Utilities",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.depreciation": {
+      "label": "Depreciation",
+      "type": "money",
+      "help": "Deductible amount from the verified asset depreciation schedule; new-asset Form4562 computation is not performed here."
+    },
+    "rentals.*.other_expenses": {
+      "label": "Other expenses",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.prior_unallowed_loss": {
+      "label": "Prior unallowed loss",
+      "type": "money",
+      "help": ""
+    },
+    "rentals.*.eligibility_confirmed": {
+      "label": "Eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.active_participation": {
+      "label": "Active participation",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.ownership_at_least_10_percent": {
+      "label": "Ownership at least 10 percent",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.at_risk_confirmed": {
+      "label": "At risk confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.no_personal_use_or_substantial_services": {
+      "label": "No personal use or substantial services",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.depreciation_schedule_confirmed": {
+      "label": "Depreciation schedule confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.prior_loss_active_participation": {
+      "label": "Prior loss active participation",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.prior_loss_amount_confirmed": {
+      "label": "Prior loss amount confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.qbi_eligible": {
+      "label": "Qbi eligible",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.qbi_status_confirmed": {
+      "label": "Qbi status confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.niit_carryover_eligible": {
+      "label": "Niit carryover eligible",
+      "type": "boolean",
+      "help": ""
+    },
+    "rentals.*.same_amt_basis_and_depreciation": {
+      "label": "Same amt basis and depreciation",
+      "type": "boolean",
+      "help": ""
+    },
+    "dependents.*.eitc_qualifying_child": {
+      "label": "Eitc qualifying child",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "dependents.*.eitc_status_reviewed": {
+      "label": "Eitc status reviewed",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "dependents.*.eitc_relationship_residency_confirmed": {
+      "label": "Eitc relationship residency confirmed",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "dependents.*.eitc_tiebreaker_confirmed": {
+      "label": "Eitc tiebreaker confirmed",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "dependents.*.eitc_full_time_student": {
+      "label": "Eitc full time student",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "dependents.*.eitc_permanently_disabled": {
+      "label": "Eitc permanently disabled",
+      "type": "boolean",
+      "help": "EITC child residency/tiebreaker tests differ from child-tax-credit tests."
+    },
+    "marketplace.region": {
+      "type": "select",
+      "label": "Federal poverty-line region",
+      "options": [
+        "contiguous",
+        "alaska",
+        "hawaii"
+      ],
+      "help": "Use2024FPL for2025coverage; select higherAlaska/Hawaii table when required by a move or spouses in different states."
+    },
+    "marketplace.below_poverty_exception": {
+      "type": "select",
+      "label": "Income below100%FPL exception",
+      "options": [
+        "none",
+        "marketplace_estimated_at_least100",
+        "lawful_immigrant_no_medicaid"
+      ],
+      "help": "Estimated-income exception needs Marketplace estimate at least100%, APTC in a month, no intentional/reckless misstatement and all other eligibility. Immigrant exception needs lawful presence and Medicaid ineligibility due to immigration status."
+    },
+    "education.students.*.credit": {
+      "type": "select",
+      "label": "Credit for this student",
+      "options": [
+        "aotc",
+        "llc"
+      ],
+      "help": "One credit perstudent; AOTC needs first4years, half-time degree program, fewer than4 prior claims and no felony drug conviction. LLC books qualify only when required institution payment."
+    },
+    "hsa.accounts.*.owner": {
+      "type": "select",
+      "label": "Account beneficiary",
+      "options": [
+        "taxpayer",
+        "spouse"
+      ]
+    },
+    "hsa.accounts.*.coverage.*": {
+      "type": "select",
+      "label": "First-day eligible coverage",
+      "options": [
+        "none",
+        "self",
+        "family"
+      ],
+      "help": "none includes Medicare, disqualifying coverage/FSA, dependency or otherwise ineligible; confirm eligibility before marking self/family."
+    },
+    "hsa.spouse_coverage.*": {
+      "type": "select",
+      "label": "Spouse first-day coverage even without an HSA",
+      "options": [
+        "none",
+        "self",
+        "family"
+      ]
+    },
+    "hsa.family_allocation_taxpayer_percent": {
+      "type": "percent",
+      "label": "Agreed family limit allocated to taxpayer",
+      "min": 0,
+      "max": 100,
+      "help": "The base8550 family limit is shared; the other spouse gets the remainder. Each55+ catch-up stays with its own account."
+    },
+    "ira.contributions_and_coverage_confirmed": {
+      "type": "checkbox",
+      "label": "2025contributions/timing and both employer coverage statuses verified",
+      "help": "Exclude rollover, prior-year contribution and plan deferrals; coverage includes employer/self-employed SEP,SIMPLE,qualified plans and W2Box13 retirement-plan status."
+    },
+    "ira.compensation_and_magi_confirmed": {
+      "type": "checkbox",
+      "label": "IRA compensation and modified AGI verified",
+      "help": "Compensation excludes nonqualified deferred pay, uses SE profit less SEhalf/qualified-plan deductions, and does not net a business loss against wages. MAGI is beforeIRA deduction with student-loan and statutory addbacks."
+    },
+    "hsa.accounts.*.first_day_coverage_and_eligibility_confirmed": {
+      "type": "checkbox",
+      "label": "Monthly HSA eligibility and tax-year contribution amounts verified",
+      "help": "QualifyingHDHP, no disqualifyingFSA/coverage, no Medicare or dependency on firstday of each marked eligiblemonth. Employer/Cafeteria contributions use2025 amounts, not blindly allW2CodeW if other-year contributions exist."
+    },
+    "hsa.accounts.*.distribution_breakdown_confirmed": {
+      "type": "checkbox",
+      "label": "1099-SA distribution breakdown verified",
+      "help": "Gross includes rollovers and timely excess corrections; identify their separate amounts. Qualified rollovers need60-day/once-per-year rules. Excess-withdrawal amounts include earnings."
+    },
+    "hsa.accounts.*.exception_taxable_distributions": {
+      "type": "money",
+      "label": "Taxable distributions exempt from20% additional tax",
+      "help": "Enter only dollars distributed after65thbirthday, qualifying disability or death. These dollars remain taxable income. Zero means noexception; age65atyearend alone doesnot establish timing."
+    },
+    "hsa.accounts.*.distribution_timing_confirmed": {
+      "type": "checkbox",
+      "label": "Age65 distribution dates and prebirthday portion verified"
+    },
+    "hsa.accounts.*.distribution_exception_confirmed": {
+      "type": "checkbox",
+      "label": "Entered20%exception amount and supporting dates/status verified"
+    },
+    "hsa.accounts.*.year_end_balance_confirmed": {
+      "type": "checkbox",
+      "label": "HSA year-end value including2025contributions made in2026 verified",
+      "help": "Required for the6%tax on current excess; an unverified defaultzero cannot eliminate the tax."
+    },
+    "hsa.accounts.*.personal_contributions": {
+      "type": "money",
+      "label": "Nonpayroll personal2025 HSA contributions",
+      "help": "Exclude employer contributions and salary reduction through a cafeteria plan; those belong in employer_contributions/W2CodeW. Also exclude trustee transfers and rollovers."
+    },
+    "hsa.accounts.*.excess_withdrawal_distributions": {
+      "type": "money",
+      "label": "1099-SA gross portion from timely excess correction",
+      "help": "Include both withdrawn principal and related earnings only when already in the entered gross distributions. The earnings are separately reported as income in the withdrawal year."
+    },
+    "education.claimant_refundability_facts_confirmed": {
+      "type": "checkbox",
+      "label": "Under24 claimant refund facts verified",
+      "help": "Use the return claimant\u2019s age/full-time status/earned income/total support/parent alive facts, not the dependent college student\u2019s age. A parent age40 may receive a refundable credit for a student age20."
+    },
+    "education.students.*.qualified_expenses_and_no_double_benefit_confirmed": {
+      "type": "checkbox",
+      "label": "Qualified expenses and no double benefit verified",
+      "help": "Exclude room/board, insurance, transportation and personal expenses; subtract tax-free grants/aid and amounts used for529/Coverdell/other deductions. Payment is in2025 for2025or first3months2026academic period."
+    },
+    "marketplace.coverage_and_slcsp_inputs_confirmed": {
+      "type": "checkbox",
+      "label": "Monthly1095-A amounts and correct applicable SLCSP verified",
+      "help": "Do not add duplicateSLCSP amounts from same-state policies for the same coveragefamily. Correct missing/wrong benchmarks with Marketplace records; record zero months explicitly."
+    },
+    "marketplace.tax_family_and_household_income_confirmed": {
+      "type": "checkbox",
+      "label": "Tax family and household MAGI verified",
+      "help": "Include claimed dependents only when required to file for income, plus their MAGI, tax-exempt interest, nontaxableSocialSecurity and foreignexcluded-income addbacks."
+    },
+    "marketplace.dependents_magi": {
+      "type": "money",
+      "label": "Required-filer dependents combined MAGI",
+      "min": -100000000000,
+      "max": 100000000000,
+      "help": "This signed amount already includes the dependents own MAGI addbacks. Do not include a dependent who files only to recover withheld tax and was not required to file."
+    },
+    "marketplace.annual_calculation_eligible_confirmed": {
+      "type": "checkbox",
+      "label": "Annual8962line11 eligibility verified",
+      "help": "All12months, unchanged premiums and correctSLCSP for each policy, no shared allocation or alternative marriage calculation. If this applies selectannual_calculation; otherwise usemonthly."
+    },
+    "care.enabled": {
+      "label": "Enabled",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.work_related_expenses_confirmed": {
+      "label": "Work related expenses confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.provider_information_confirmed": {
+      "label": "Provider information confirmed",
+      "type": "boolean",
+      "help": "VerifiedW10/provider name, address and TIN; no spouse/childparent/dependent/ineligibleunder19provider. Householdemployees require ScheduleH, presently blocked."
+    },
+    "care.no_double_benefit_confirmed": {
+      "label": "No double benefit confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.mfs_qualifying_separation": {
+      "label": "Mfs qualifying separation",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.benefits_carry_in": {
+      "label": "Benefits carry in",
+      "type": "money",
+      "help": ""
+    },
+    "care.benefits_forfeited_or_carried_out": {
+      "label": "Benefits forfeited or carried out",
+      "type": "money",
+      "help": ""
+    },
+    "care.benefits_expenses_incurred": {
+      "label": "Benefits expenses incurred",
+      "type": "money",
+      "help": "PartIII expenses incurred in2025 used for employee benefit exclusion; may differ from credit expenses incurred AND paid in2025."
+    },
+    "care.benefits_plan_limit": {
+      "label": "Benefits plan limit",
+      "type": "money",
+      "help": ""
+    },
+    "care.benefits_qualification_confirmed": {
+      "label": "Benefits qualification confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.self_employed_benefits": {
+      "label": "Self employed benefits",
+      "type": "money",
+      "help": ""
+    },
+    "care.prior_year_expenses_paid": {
+      "label": "Prior year expenses paid",
+      "type": "money",
+      "help": ""
+    },
+    "care.deemed_income_eligibility_confirmed": {
+      "label": "Deemed income eligibility confirmed",
+      "type": "boolean",
+      "help": "Use12 verified monthly earned-income records; each student qualifies under full-time5calendar-month rule or is incapable of self-care. Only one spouse may receive250/500deemed income in the same month."
+    },
+    "saver.enabled": {
+      "label": "Enabled",
+      "type": "boolean",
+      "help": ""
+    },
+    "saver.taxpayer_full_time_student": {
+      "label": "Taxpayer full time student",
+      "type": "boolean",
+      "help": ""
+    },
+    "saver.spouse_full_time_student": {
+      "label": "Spouse full time student",
+      "type": "boolean",
+      "help": ""
+    },
+    "saver.taxpayer_employer_contributions": {
+      "label": "Taxpayer employer contributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.spouse_employer_contributions": {
+      "label": "Spouse employer contributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.taxpayer_able_contributions": {
+      "label": "Taxpayer able contributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.spouse_able_contributions": {
+      "label": "Spouse able contributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.taxpayer_distributions": {
+      "label": "Taxpayer distributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.spouse_distributions": {
+      "label": "Spouse distributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.current_year_excluded_distributions": {
+      "label": "Current year excluded distributions",
+      "type": "money",
+      "help": ""
+    },
+    "saver.contributions_eligibility_confirmed": {
+      "label": "Contributions eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "saver.distribution_window_and_exclusions_confirmed": {
+      "label": "Distribution window and exclusions confirmed",
+      "type": "boolean",
+      "help": "Eligible distributions after2022 through2025return due date includingextensions; exclude permittedrollovers/conversions/excesscorrections/inheritednonspousalIRA and other formalexceptions."
+    },
+    "saver.all_distribution_years_joint": {
+      "label": "All distribution years joint",
+      "type": "boolean",
+      "help": "MFJ combines both spouses\u2019 eligible distributions into BOTH columns. If a distribution-year return was notjoint, this simplified pooling is blocked."
+    },
+    "elderly_credit.enabled": {
+      "label": "Enabled",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.eligibility_confirmed": {
+      "label": "Eligibility confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.mfs_lived_apart_entire_year": {
+      "label": "Mfs lived apart entire year",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.taxpayer_after_minimum_retirement_age_confirmed": {
+      "label": "Taxpayer after minimum retirement age confirmed",
+      "type": "boolean",
+      "help": "Only disability pension AFTER employerMINIMUM retirementage goes in regularpension5b and is notEIC/Care earned income. It must still meet ScheduleR preMANDATORY retirementage conditions."
+    },
+    "elderly_credit.spouse_after_minimum_retirement_age_confirmed": {
+      "label": "Spouse after minimum retirement age confirmed",
+      "type": "boolean",
+      "help": "Only disability pension AFTER employerMINIMUM retirementage goes in regularpension5b and is notEIC/Care earned income. It must still meet ScheduleR preMANDATORY retirementage conditions."
+    },
+    "elderly_credit.taxpayer_permanently_disabled": {
+      "label": "Taxpayer permanently disabled",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.spouse_permanently_disabled": {
+      "label": "Spouse permanently disabled",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.taxpayer_taxable_disability_income": {
+      "label": "Taxpayer taxable disability income",
+      "type": "money",
+      "help": ""
+    },
+    "elderly_credit.spouse_taxable_disability_income": {
+      "label": "Spouse taxable disability income",
+      "type": "money",
+      "help": ""
+    },
+    "elderly_credit.disability_income_in_return_confirmed": {
+      "label": "Disability income in return confirmed",
+      "type": "boolean",
+      "help": "ScheduleR qualifying disability income received before employer MANDATORY retirementage. This is separate from MINIMUM retirementage determining1040line1h versus5b."
+    },
+    "elderly_credit.physician_statement_confirmed": {
+      "label": "Physician statement confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "elderly_credit.other_nontaxable_pensions": {
+      "label": "Other nontaxable pensions",
+      "type": "money",
+      "help": "ScheduleR13b statutory exclusions; exclude pensionbasis return, militarydisability and listedForeignService exclusions. NontaxableSocialSecurity is supplied automatically."
+    },
+    "elderly_credit.nontaxable_benefits_confirmed": {
+      "label": "Nontaxable benefits confirmed",
+      "type": "boolean",
+      "help": ""
+    },
+    "care.beneficiaries.*.beneficiary_id": {
+      "type": "text",
+      "label": "Beneficiary id",
+      "help": ""
+    },
+    "care.beneficiaries.*.name": {
+      "type": "text",
+      "label": "Name",
+      "help": ""
+    },
+    "care.beneficiaries.*.age": {
+      "type": "integer",
+      "label": "Age",
+      "help": ""
+    },
+    "care.beneficiaries.*.disabled_incapable_self_care": {
+      "type": "boolean",
+      "label": "Disabled incapable self care",
+      "help": ""
+    },
+    "care.beneficiaries.*.care_before_13th_birthday_confirmed": {
+      "type": "boolean",
+      "label": "Care before 13th birthday confirmed",
+      "help": ""
+    },
+    "care.beneficiaries.*.qualification_residency_confirmed": {
+      "type": "boolean",
+      "label": "Qualification residency confirmed",
+      "help": ""
+    },
+    "care.beneficiaries.*.valid_tin": {
+      "type": "boolean",
+      "label": "Valid tin",
+      "help": ""
+    },
+    "care.beneficiaries.*.qualified_expenses": {
+      "type": "money",
+      "label": "Qualified expenses",
+      "help": "Gross qualified care incurred AND paid in2025, including amounts paid withFSA benefits. The engine subtracts excluded benefits once; do not subtract them before entry."
+    },
+    "care.providers.*.name": {
+      "type": "text",
+      "label": "Name",
+      "help": ""
+    },
+    "care.providers.*.address": {
+      "type": "text",
+      "label": "Address",
+      "help": ""
+    },
+    "care.providers.*.tin": {
+      "type": "text",
+      "label": "Tin",
+      "help": ""
+    },
+    "care.providers.*.amount_paid": {
+      "type": "money",
+      "label": "Amount paid",
+      "help": ""
+    },
+    "care.providers.*.household_employee": {
+      "type": "boolean",
+      "label": "Household employee",
+      "help": ""
+    },
+    "care.providers.*.eligible_provider_confirmed": {
+      "type": "boolean",
+      "label": "Eligible provider confirmed",
+      "help": ""
+    },
+    "care.deemed_income_months.*.month": {
+      "type": "integer",
+      "label": "Month",
+      "help": ""
+    },
+    "care.deemed_income_months.*.taxpayer_income": {
+      "type": "money",
+      "label": "Taxpayer income",
+      "help": "",
+      "signed": true
+    },
+    "care.deemed_income_months.*.spouse_income": {
+      "type": "money",
+      "label": "Spouse income",
+      "help": "",
+      "signed": true
+    },
+    "care.deemed_income_months.*.deemed_owner": {
+      "type": "enum",
+      "label": "Deemed owner",
+      "help": "",
+      "options": [
+        "none",
+        "taxpayer",
+        "spouse"
+      ]
+    },
+    "w2.*.dependent_care_benefits": {
+      "type": "money",
+      "label": "Box10 dependent-care benefits",
+      "help": "Actual employeeBox10 benefits not already inBox1 wages; enableCare to compute excluded/taxable benefits."
+    },
+    "retirement.disability_taxpayer_gross": {
+      "type": "money",
+      "label": "Taxpayer disability1099-R gross",
+      "help": "Separate from regularpension inputs. Employer disability pension before minimumretirementage is1040line1h; retain1099-R and eligibility/basis records."
+    },
+    "retirement.disability_taxpayer_taxable": {
+      "type": "money",
+      "label": "Taxpayer disability1099-R taxable",
+      "help": "Separate from regularpension inputs. Employer disability pension before minimumretirementage is1040line1h; retain1099-R and eligibility/basis records."
+    },
+    "retirement.disability_spouse_gross": {
+      "type": "money",
+      "label": "Spouse disability1099-R gross",
+      "help": "Separate from regularpension inputs. Employer disability pension before minimumretirementage is1040line1h; retain1099-R and eligibility/basis records."
+    },
+    "retirement.disability_spouse_taxable": {
+      "type": "money",
+      "label": "Spouse disability1099-R taxable",
+      "help": "Separate from regularpension inputs. Employer disability pension before minimumretirementage is1040line1h; retain1099-R and eligibility/basis records."
+    },
+    "retirement.disability_before_minimum_retirement_age_confirmed": {
+      "type": "boolean",
+      "label": "Before employer minimumretirementage verified",
+      "help": "Only payments received before the actual employer-set minimumretirementdate. Split later pension amounts into regularpension fields."
+    },
+    "retirement.disability_amounts_confirmed": {
+      "type": "boolean",
+      "label": "Disability1099-R amounts and no doublecount verified"
+    },
+    "itemized.force_itemized": {
+      "type": "boolean",
+      "label": "Elect itemized deductions even when smaller",
+      "help": "AMT can make a smaller ScheduleA deduction beneficial. Review both choices; automatic regular-tax deduction selection does not optimize the combined AMT liability."
+    }
+  },
+  "ui_modules": [
+    {
+      "id": "eitc",
+      "label": "Earned Income Credit",
+      "step": "deductions",
+      "description": "IRS2025 source-based worksheet with explicit qualification checks."
+    },
+    {
+      "id": "niit",
+      "label": "Net Investment Income Tax",
+      "step": "deductions",
+      "description": "IRS2025 source-based worksheet with explicit qualification checks."
+    },
+    {
+      "id": "amt",
+      "label": "Alternative Minimum Tax",
+      "step": "deductions",
+      "description": "IRS2025 source-based worksheet with explicit qualification checks."
+    },
+    {
+      "id": "rentals",
+      "label": "Rental Properties",
+      "step": "income",
+      "description": "IRS2025 source-based worksheet with explicit qualification checks."
+    },
+    {
+      "id": "care",
+      "label": "Child and Dependent Care",
+      "step": "deductions",
+      "description": "IRS2025 nonrefundable credit with explicit qualifications and tax-liability limits."
+    },
+    {
+      "id": "saver",
+      "label": "Retirement Saver Credit",
+      "step": "deductions",
+      "description": "IRS2025 nonrefundable credit with explicit qualifications and tax-liability limits."
+    },
+    {
+      "id": "elderly_credit",
+      "label": "Elderly or Disabled Credit",
+      "step": "deductions",
+      "description": "IRS2025 nonrefundable credit with explicit qualifications and tax-liability limits."
+    },
+    {
+      "id": "ira",
+      "label": "IRA Contributions",
+      "step": "deductions",
+      "description": "Source-grounded IRS2025 worksheet with verified eligibility."
+    },
+    {
+      "id": "hsa",
+      "label": "Health Savings Accounts",
+      "step": "deductions",
+      "description": "Source-grounded IRS2025 worksheet with verified eligibility."
+    },
+    {
+      "id": "education",
+      "label": "Education Credits",
+      "step": "deductions",
+      "description": "Source-grounded IRS2025 worksheet with verified eligibility."
+    },
+    {
+      "id": "marketplace",
+      "label": "Marketplace Health Insurance",
+      "step": "deductions",
+      "description": "Source-grounded IRS2025 worksheet with verified eligibility."
+    }
+  ],
+  "calculation_sources": {
+    "ira": "https://www.irs.gov/publications/p590a",
+    "ira_1040": "https://www.irs.gov/instructions/i1040gi",
+    "hsa": "https://www.irs.gov/instructions/i8889",
+    "hsa_excise": "https://www.irs.gov/pub/irs-prior/f5329--2025.pdf",
+    "education": "https://www.irs.gov/instructions/i8863",
+    "education_form": "https://www.irs.gov/pub/irs-prior/f8863--2025.pdf",
+    "marketplace": "https://www.irs.gov/instructions/i8962"
+  },
+  "coverage": {
+    "income_and_tax": {
+      "implemented": "W2/1099INT/1099DIV, ordinary securities gains/losses, payer-taxable retirement and SocialSecurity, exactIRS tax table and qualified-gain worksheet",
+      "sources": [
+        "i1040gi",
+        "i1040tt",
+        "i1040sd"
+      ],
+      "limits": "No foreign/nonresident/territory returns, special capital rates, Form8615, prior capital carry-in or retirement basis conversion calculations."
+    },
+    "service_business": {
+      "implemented": "Active cash-service ScheduleC, per-ownerSE cap, deductiblehalfSE, eligibleSEhealth and simplified199A",
+      "sources": [
+        "i1040sc",
+        "f1040sse",
+        "f8995"
+      ],
+      "limits": "No inventory, new depreciation4562, employees/payroll, home-office8829, farm, partnerships/K1, optionalSE or8995A above threshold."
+    },
+    "deductions": {
+      "implemented": "Standard and eligibleScheduleA medical/cashcharity/mortgage/SALT; Form4952 ordinary-income limit and carryout; student interest and2025Schedule1A",
+      "sources": [
+        "i1040sca",
+        "f4952",
+        "f1040s1a"
+      ],
+      "limits": "Eligibility must be verified. No noncash charity appraisal, disaster losses or charity carry-in. force_itemized permits smaller deduction election; no automatic jointAMT optimization."
+    },
+    "family_credits": {
+      "implemented": "CTC/ODC/ACTC and2025 exact-table EITC; Form2441 care/FSA exclusions/monthlydeeming; Form8880 Saver; ScheduleR elderly/disabled",
+      "sources": [
+        "f1040s8",
+        "i1040gi",
+        "i1040tt",
+        "p596",
+        "f2441",
+        "i2441",
+        "f8880",
+        "f1040sr",
+        "i1040sr"
+      ],
+      "limits": "No8862 disallowance recovery, combat-pay election or clergy/statutory-employee/inmate exceptions; noadoption credit. Careprior-year/FSAgraceperiod/SEbenefits/ordinaryMFS exclusion/householdemployeeScheduleH/missingTIN exceptions and Savernonjoint distribution-year exceptions require separate records."
+    },
+    "investment_taxes": {
+      "implemented": "AdditionalMedicare8959, ordinaryNIIT8960 including commercialannuity and allowedpassiverentals, deductibleinvestmentinterest/income-tax allocation, AMT6251 PartsI-III andISO adjustment",
+      "sources": [
+        "i8959",
+        "f8960",
+        "i8960",
+        "f6251",
+        "i6251"
+      ],
+      "limits": "No foreigncredits, business/entity disposals, AMTcarry-in/basis records/8801 credit, collectibles or1250PartIII; source-derivedISO/AMTadjustments require confirmation. No automatic reconstruction of individualISOexercises."
+    },
+    "rentals": {
+      "implemented": "Ordinarypassive US real-estate ScheduleE, verifiedexpenses/depreciation, passive netting,25000/MFS12500 allowance, MAGIphaseout and property carryout",
+      "sources": [
+        "i1040se",
+        "f8582",
+        "i8582"
+      ],
+      "limits": "No personal-use/vacation-home/self-rental/substantial-services/real-estate-professional/disposal/at-risk computation. Verifiedexistingdepreciation required; priorlossNIIT/QBIcharacter requires extra records."
+    },
+    "ira_hsa_education_marketplace": {
+      "implemented": [
+        "TraditionalIRA deduction, contribution limits and no-distribution8606basis",
+        "Roth contribution MAGI screening",
+        "HSA monthly eligibility/proration, employer reduction, family sharing, catch-up and last-month rule",
+        "HSA taxable distributions, actual-date20%exceptions and current-excess6%tax",
+        "AOTC/LLC adjusted expenses, phaseout, nonrefundable tax limit and claimant-under24 refund tests",
+        "2025 annual/monthly8962PTC, below-poverty exceptions and capped excessAPTC repayment"
+      ],
+      "sources": {
+        "ira": "https://www.irs.gov/publications/p590a",
+        "ira_1040": "https://www.irs.gov/instructions/i1040gi",
+        "hsa": "https://www.irs.gov/instructions/i8889",
+        "hsa_excise": "https://www.irs.gov/pub/irs-prior/f5329--2025.pdf",
+        "education": "https://www.irs.gov/instructions/i8863",
+        "education_form": "https://www.irs.gov/pub/irs-prior/f8863--2025.pdf",
+        "marketplace": "https://www.irs.gov/instructions/i8962"
+      },
+      "limits": [
+        "IRA excess correction/SSA-contribution AppendixB/distribution-contribution8606 allocation",
+        "HSA prior excess/testing failures, MSA/funding-distribution special worksheets and employer-excess correction allocation",
+        "Education foreignMAGI/recapture and scholarship taxability/529 optimization",
+        "PTC shared-policy allocations/year-of-marriage alternative/QSEHRA-ICHRA/mixed lawful presence/SE-health iteration"
+      ]
+    },
+    "filing_and_states": {
+      "implemented": "Local identity draft, presence checklist and calculatedfederalworkpapers",
+      "sources": [
+        "i1040gi"
+      ],
+      "limits": "No state/local returns, complete signed filing packet, electronicfiling or2210 penalty. Identity presence does not authenticate identity."
+    }
+  },
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.13-preview.2",
+  "jurisdiction": "US federal",
+  "electronic_filing": false,
+  "state_returns": "31 full-year resident calculation drafts; separate scope review required",
+  "official_product_parity": false,
+  "storage": "private local SQLite",
+  "requires_account": false,
+  "state_integration": {
+    "engine": "Invaro OpenTax",
+    "tax_year": 2025,
+    "resident_composers": 31,
+    "independently_validated_all_states": false,
+    "not_intuit_engine": true,
+    "scope": "full-year resident state calculation drafts; no official filing packet or e-file"
+  }
+}

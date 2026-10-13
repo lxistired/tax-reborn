@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "scope": "Actual app.js restore functions, isolated real HTTP API and actual bundled state worker executed in Node VM; DOM structure only, no browser/native chooser claim.",
+  "checks": {
+    "format_year_data_rejected": true,
+    "actual_federal_calculation_before_save": true,
+    "new_uuid_copy": true,
+    "old_federal_and_states_unchanged": true,
+    "unsaved_current_draft_unchanged": true,
+    "actual_state_schema_validation": true,
+    "state_failure_continues_other_states": true,
+    "invalid_federal_creates_no_return": true,
+    "simulated_state_save_failure_preserves_new_federal": true,
+    "source_attachments_not_in_backup_notice": true,
+    "my_returns_restore_button_and_file_preview_dom": true,
+    "partial_restore_result_dom": true
+  },
+  "sensitive_values_stored": false
+}

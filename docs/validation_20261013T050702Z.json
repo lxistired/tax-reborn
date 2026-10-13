@@ -1,0 +1,58 @@
+{
+  "start_utc": "2026-10-13T05:07:02.924867+00:00",
+  "before": {
+    "tax_engine.py": "8cfacbbd5239cb87139e1c4b61025ef3e363676219502ba26be9862d3b6afeb5",
+    "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+    "tax_credits.py": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786",
+    "tax_additional.py": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5",
+    "rules_2025.json": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac",
+    "tests/test_acceptance.py": "68b02553a5495a9a6a78ca07d43b3953b983550044cc777a56c9a08633355fe6",
+    "tests/test_credits.py": "138c344be0be13a642342ab017772a478a104e5fb758fdbe80da0057cd182346",
+    "tests/test_additional_acceptance.py": "58caf3a8b0a05073ab5353a0aec832a44d469bf1d88908bcec4301b542d68f93",
+    "tests/test_disability_acceptance.py": "01807d514fc24a6ac32b0a87b04f663f5ad46e1a357b9782ef06846c0b06ba68",
+    "fixtures/independent_cases.json": "bc6401f56c0b9ae7572908a23c6b5159c809723dde4ef9a0ae02c55c905e7d15",
+    "fixtures/credit_cases_2025.json": "e5a68f152b820f69a4455ce8b34a17ecc094b594018bfb29c6c1f497aff73629",
+    "fixtures/additional_independent_2025.json": "1f093ac6b39e47fce4314cb1cd6f2317a45e7b1181668fab5ee3d40613c242ef",
+    "fixtures/disability_independent_2025.json": "d493ad75a46af2ccf4ea489b6226896f90212bea8498b48f0a722a340e41188c"
+  },
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "delivery directory",
+  "end_utc": "2026-10-13T05:07:03.074002+00:00",
+  "after": {
+    "tax_engine.py": "8cfacbbd5239cb87139e1c4b61025ef3e363676219502ba26be9862d3b6afeb5",
+    "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+    "tax_credits.py": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786",
+    "tax_additional.py": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5",
+    "rules_2025.json": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac",
+    "tests/test_acceptance.py": "68b02553a5495a9a6a78ca07d43b3953b983550044cc777a56c9a08633355fe6",
+    "tests/test_credits.py": "138c344be0be13a642342ab017772a478a104e5fb758fdbe80da0057cd182346",
+    "tests/test_additional_acceptance.py": "58caf3a8b0a05073ab5353a0aec832a44d469bf1d88908bcec4301b542d68f93",
+    "tests/test_disability_acceptance.py": "01807d514fc24a6ac32b0a87b04f663f5ad46e1a357b9782ef06846c0b06ba68",
+    "fixtures/independent_cases.json": "bc6401f56c0b9ae7572908a23c6b5159c809723dde4ef9a0ae02c55c905e7d15",
+    "fixtures/credit_cases_2025.json": "e5a68f152b820f69a4455ce8b34a17ecc094b594018bfb29c6c1f497aff73629",
+    "fixtures/additional_independent_2025.json": "1f093ac6b39e47fce4314cb1cd6f2317a45e7b1181668fab5ee3d40613c242ef",
+    "fixtures/disability_independent_2025.json": "d493ad75a46af2ccf4ea489b6226896f90212bea8498b48f0a722a340e41188c"
+  },
+  "exit_code": 0,
+  "source_unchanged": true,
+  "test_modules": {
+    "test_acceptance": 70,
+    "test_credits": 72,
+    "test_additional_acceptance": 66,
+    "test_disability_acceptance": 10,
+    "test_engine": 13,
+    "test_extended": 23,
+    "test_additional": 7
+  },
+  "tests_run": 261,
+  "independently_authored_tests": 218,
+  "evidence_scope": "Synthetic Python backend; IRS calculations and input rejection, not device/UI/persistence/export/vendor parity."
+}

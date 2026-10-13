@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-10-13T06:18:08.720263+00:00",
+  "synthetic_data_only": true,
+  "device_os": "Android15",
+  "preview1": {
+    "installed": true,
+    "startup": true,
+    "initial_refund": 1413,
+    "withholding_changed_from": 6500,
+    "withholding_changed_to": 7000,
+    "new_refund": 1913,
+    "saved": true,
+    "force_stopped_and_reopened": true,
+    "persisted_refund": 1913,
+    "pdf_saved_through_system_picker": true,
+    "pdf_pages": 25,
+    "pdf_sha256": "85403b92a5908fafa75fe3f5400a1affd2314d32c46c5825e1c288349862b8e7",
+    "pdf_fields_verified": {
+      "topmostSubform[0].Page1[0].f1_47[0]": "60000",
+      "topmostSubform[0].Page1[0].f1_75[0]": "60100",
+      "topmostSubform[0].Page2[0].f2_08[0]": "5087",
+      "topmostSubform[0].Page2[0].f2_17[0]": "7000",
+      "topmostSubform[0].Page2[0].f2_30[0]": "1913"
+    },
+    "pdf_visual_render_checked": true
+  },
+  "preview2": {
+    "installed_version_readback": "2026.10.13-preview.2",
+    "installed_version_code": 2026101302,
+    "startup": true,
+    "existing_return_reopened": true,
+    "recalculated_refund": 1913,
+    "packaged_federal_source_identical_to_frozen_acceptance": true,
+    "packaged_async_button_fix_verified": true
+  },
+  "internet_permission": false,
+  "camera_capture_tested": false,
+  "on_device_ocr_recognition_tested": false,
+  "temporary_mirror_connection_disconnected": true
+}

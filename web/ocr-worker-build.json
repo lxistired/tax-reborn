@@ -1,0 +1,15 @@
+{
+  "builder": "scripts/build_worker.py",
+  "ocr_engine": "Tesseract6.0.0 non-SIMD LSTM OEM1",
+  "sources": [
+    {
+      "file": "vendor/tesseract/tesseract-core-lstm.wasm.js",
+      "sha256": "775a35df6f2ae100e02609443e6bd5cafcd07983dd6175454ca4a432a7730687"
+    },
+    {
+      "file": "vendor/tesseract/worker.min.js",
+      "sha256": "38645599043239c0eb6db08a6504a92dcdc292200535f3e9339cd77c4443b842"
+    }
+  ],
+  "worker_sha256": "8e73a53711a141cd446218998bc08bcee5ec0cc2b2bdd1f100a773679a0661fd"
+}

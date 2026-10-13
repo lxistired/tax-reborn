@@ -1,0 +1,10 @@
+{
+  "filename": "pypdf-6.10.0-py3-none-any.whl",
+  "url": "https://files.pythonhosted.org/packages/55/f2/7ebe366f633f30a6ad105f650f44f24f98cb1335c4157d21ae47138b3482/pypdf-6.10.0-py3-none-any.whl",
+  "digests": {
+    "blake2b_256": "55f27ebe366f633f30a6ad105f650f44f24f98cb1335c4157d21ae47138b3482",
+    "md5": "e9f7d10fe337a056b8289e099ce2341e",
+    "sha256": "90005e959e1596c6e6c84c8b0ad383285b3e17011751cedd17f2ce8fcdfc86de"
+  },
+  "size": 334459
+}

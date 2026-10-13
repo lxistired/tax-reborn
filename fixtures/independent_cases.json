@@ -1,0 +1,5005 @@
+{
+  "schema_version": 1,
+  "tax_year": 2025,
+  "currency": "USD",
+  "oracle_method": "Literal whole-return Form1040 values independently calculated from official2025IRS forms,tables andworksheets; no product engine used. Expectedzero values areexplicit.",
+  "authored_at_utc": "2026-10-13T03:43:02.432811+00:00",
+  "source_receipts": [
+    {
+      "id": "i1040gi_2025.html",
+      "url": "https://www.irs.gov/instructions/i1040gi",
+      "sha256": "d7df4e7826cf6d8ba95fca8f88512bde1fb332f848cdb65ae045515f7fe47de6",
+      "bytes": 2517347,
+      "retrieved_at_utc": "2026-10-13T03:38:29.185478+00:00"
+    },
+    {
+      "id": "p1040_2025.html",
+      "url": "https://www.irs.gov/publications/p1040",
+      "sha256": "83174f37b76e34f6ba5d4ceb7193119899409fcd8c192e5a259771ece86d70ec",
+      "bytes": 1597315,
+      "retrieved_at_utc": "2026-10-13T03:38:29.180088+00:00"
+    },
+    {
+      "id": "i1040sca_2025.html",
+      "url": "https://www.irs.gov/instructions/i1040sca",
+      "sha256": "b44e41320e26321901e29c81b4153a940d08651d65d9ddf986b7265cd1d8dd6d",
+      "bytes": 562592,
+      "retrieved_at_utc": "2026-10-13T03:38:28.958893+00:00"
+    },
+    {
+      "id": "p554_2025.html",
+      "url": "https://www.irs.gov/publications/p554",
+      "sha256": "56c09fe0dcd13f214436e9dfefd0c0dcbea21f22d0e6e8b3f8cc94d686d71c43",
+      "bytes": 456892,
+      "retrieved_at_utc": "2026-10-13T03:38:28.928461+00:00"
+    },
+    {
+      "id": "f1040sse_2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf",
+      "sha256": "05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347",
+      "bytes": 80290,
+      "retrieved_at_utc": "2026-10-13T03:38:28.788323+00:00"
+    },
+    {
+      "id": "f1040s1a_2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf",
+      "sha256": "64f97b38ff4218e2f188fd55a8aab7043556687487c82bbefe0b6dd1a956ecd4",
+      "bytes": 94224,
+      "retrieved_at_utc": "2026-10-13T03:38:29.865884+00:00"
+    },
+    {
+      "id": "f1040s8_2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s8--2025.pdf",
+      "sha256": "6936462d67e2309d14a795aa0b88ef613cc6d79617431cfda3a2edf44aea52db",
+      "bytes": 100829,
+      "retrieved_at_utc": "2026-10-13T03:38:30.016214+00:00"
+    },
+    {
+      "id": "f8995_2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f8995--2025.pdf",
+      "sha256": "55380ad230303e1586ce97f0f224265b8337ad18c9204f0fb7325e95a76b5cde",
+      "bytes": 72273,
+      "retrieved_at_utc": "2026-10-13T03:38:30.007506+00:00"
+    },
+    {
+      "id": "f8959_2025.pdf",
+      "url": "https://www.irs.gov/pub/irs-prior/f8959--2025.pdf",
+      "sha256": "13e64004948331d2b708c80b1b664bf69675028edd0b84f2de6e3ca9afaa996d",
+      "bytes": 71969,
+      "retrieved_at_utc": "2026-10-13T03:38:30.189267+00:00"
+    },
+    {
+      "id": "i8995_2025.html",
+      "url": "https://www.irs.gov/instructions/i8995",
+      "sha256": "45b18b75c03693e803cf34a303f8e780d86f1cd22c87af71079ba72055d2f280",
+      "bytes": 158117,
+      "retrieved_at_utc": "2026-10-13T03:38:30.455526+00:00"
+    }
+  ],
+  "supported_cases": [
+    {
+      "id": "single_w2",
+      "input": {
+        "tax_year": 2025,
+        "name": "Single W2",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "60000.00",
+            "federal_withholding": "6500",
+            "social_security_wages": "60000.00",
+            "medicare_wages": "60000.00",
+            "social_security_withholding": "3720.00",
+            "medicare_withholding": "870.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 60000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 60000,
+          "10": 0,
+          "11a": 60000,
+          "11b": 60000,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 44250,
+          "16": 5075,
+          "17": 0,
+          "18": 5075,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 5075,
+          "23": 0,
+          "24": 5075,
+          "25a": 6500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 6500,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 6500,
+          "34": 1425,
+          "35a": 1425,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 60000,
+          "taxable_income": 44250,
+          "total_tax": 5075,
+          "payments": 6500,
+          "refund": 1425,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "60000-15750=44250; official Single Tax Table [44250,44300) =>5075.",
+        "6500-5075=1425 refund."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "w2_aggregate_rounding_boundary",
+      "input": {
+        "tax_year": 2025,
+        "name": "Aggregate cents before rounding",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "10024.49",
+            "federal_withholding": "500.49",
+            "social_security_wages": "10024.49",
+            "medicare_wages": "10024.49",
+            "social_security_withholding": "621.52",
+            "medicare_withholding": "145.36"
+          },
+          {
+            "employer": "Synthetic payroll",
+            "wages": "10025.49",
+            "federal_withholding": "500.49",
+            "social_security_wages": "10025.49",
+            "medicare_wages": "10025.49",
+            "social_security_withholding": "621.58",
+            "medicare_withholding": "145.37"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 20050,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 20050,
+          "10": 0,
+          "11a": 20050,
+          "11b": 20050,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 4300,
+          "16": 433,
+          "17": 0,
+          "18": 433,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 433,
+          "23": 0,
+          "24": 433,
+          "25a": 1001,
+          "25b": 0,
+          "25c": 0,
+          "25d": 1001,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 1001,
+          "34": 568,
+          "35a": 568,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 20050,
+          "taxable_income": 4300,
+          "total_tax": 433,
+          "payments": 1001,
+          "refund": 568,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "10024.49+10025.49=20049.98 rounds to20050, not20049.",
+        "500.49+500.49=1000.98 rounds1001. 20050-15750=4300.",
+        "Official [4300,4350) Single=>433; [4250,4300)=>428 would be wrong. 1001-433=568."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "mfj_ctc_qualified_dividends",
+      "input": {
+        "tax_year": 2025,
+        "name": "MFJ two children and qualified dividends",
+        "filing_status": "mfj",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 6,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          },
+          {
+            "name": "Synthetic dependent",
+            "age": 10,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "55000.00",
+            "federal_withholding": "5000",
+            "social_security_wages": "55000.00",
+            "medicare_wages": "55000.00",
+            "social_security_withholding": "3410.00",
+            "medicare_withholding": "797.50"
+          },
+          {
+            "employer": "Synthetic payroll",
+            "wages": "35000.00",
+            "federal_withholding": "4000",
+            "social_security_wages": "35000.00",
+            "medicare_wages": "35000.00",
+            "social_security_withholding": "2170.00",
+            "medicare_withholding": "507.50"
+          }
+        ],
+        "interest": [
+          {
+            "payer": "Synthetic bank",
+            "taxable": "125",
+            "tax_exempt": "0",
+            "federal_withholding": "0"
+          }
+        ],
+        "dividends": [
+          {
+            "payer": "Synthetic brokerage",
+            "ordinary": "250",
+            "qualified": "125",
+            "capital_gain_distributions": "0",
+            "federal_withholding": "0"
+          }
+        ],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 90000,
+          "2a": 0,
+          "2b": 125,
+          "3a": 125,
+          "3b": 250,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 90375,
+          "10": 0,
+          "11a": 90375,
+          "11b": 90375,
+          "12e": 31500,
+          "13a": 0,
+          "13b": 0,
+          "14": 31500,
+          "15": 58875,
+          "16": 6576,
+          "17": 0,
+          "18": 6576,
+          "19": 4400,
+          "20": 0,
+          "21": 4400,
+          "22": 2176,
+          "23": 0,
+          "24": 2176,
+          "25a": 9000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 9000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 9000,
+          "34": 6824,
+          "35a": 6824,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 90375,
+          "taxable_income": 58875,
+          "total_tax": 2176,
+          "payments": 9000,
+          "refund": 6824,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "90375-31500=58875; ordinary taxable58875-125=58750.",
+        "MFJ [58750,58800)=>6576; qualified125 taxed0% below96700; QD worksheet tax6576.",
+        "CTC2*2200=4400; total2176; refund9000-2176=6824."
+      ],
+      "source_ids": [
+        "p1040_2025.html",
+        "i1040gi_2025.html",
+        "f1040s8_2025.pdf"
+      ]
+    },
+    {
+      "id": "mfj_additional_child_tax_credit",
+      "input": {
+        "tax_year": 2025,
+        "name": "ACTC and investment-income EITC exclusion",
+        "filing_status": "mfj",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 7,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          },
+          {
+            "name": "Synthetic dependent",
+            "age": 11,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "40000.00",
+            "federal_withholding": "500",
+            "social_security_wages": "40000.00",
+            "medicare_wages": "40000.00",
+            "social_security_withholding": "2480.00",
+            "medicare_withholding": "580.00"
+          }
+        ],
+        "interest": [
+          {
+            "payer": "Synthetic bank",
+            "taxable": "13000",
+            "tax_exempt": "0",
+            "federal_withholding": "0"
+          }
+        ],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 40000,
+          "2a": 0,
+          "2b": 13000,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 53000,
+          "10": 0,
+          "11a": 53000,
+          "11b": 53000,
+          "12e": 31500,
+          "13a": 0,
+          "13b": 0,
+          "14": 31500,
+          "15": 21500,
+          "16": 2153,
+          "17": 0,
+          "18": 2153,
+          "19": 2153,
+          "20": 0,
+          "21": 2153,
+          "22": 0,
+          "23": 0,
+          "24": 0,
+          "25a": 500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 500,
+          "26": 0,
+          "27a": 0,
+          "28": 2247,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 2247,
+          "33": 2747,
+          "34": 2747,
+          "35a": 2747,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 53000,
+          "taxable_income": 21500,
+          "total_tax": 0,
+          "payments": 2747,
+          "refund": 2747,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "53000-31500=21500; MFJ [21500,21550)=>2153.",
+        "PotentialCTC4400; nonref2153; unused2247. ACTC=min2247,3400,15%*(40000-2500)=5625=>2247.",
+        "Investment13000 exceeds official11950 EITC limit, so no omitted EITC. 500+2247=2747 refund."
+      ],
+      "source_ids": [
+        "p1040_2025.html",
+        "i1040gi_2025.html",
+        "f1040s8_2025.pdf"
+      ]
+    },
+    {
+      "id": "itemized_and_qualified_capital_gains",
+      "input": {
+        "tax_year": 2025,
+        "name": "Itemized medical SALT mortgage charity and gains",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "90000.00",
+            "federal_withholding": "10000",
+            "social_security_wages": "90000.00",
+            "medicare_wages": "90000.00",
+            "social_security_withholding": "5580.00",
+            "medicare_withholding": "1305.00"
+          }
+        ],
+        "interest": [
+          {
+            "payer": "Synthetic bank",
+            "taxable": "1000",
+            "tax_exempt": "0",
+            "federal_withholding": "0"
+          }
+        ],
+        "dividends": [
+          {
+            "payer": "Synthetic brokerage",
+            "ordinary": "1000",
+            "qualified": "800",
+            "capital_gain_distributions": "0",
+            "federal_withholding": "0"
+          }
+        ],
+        "capital_gains": [
+          {
+            "description": "Ordinary publicly traded stock",
+            "term": "long",
+            "proceeds": "50000",
+            "cost_basis": "20000",
+            "adjustment": "0"
+          }
+        ],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "12000",
+          "state_local_tax": "15000",
+          "mortgage_interest": "10000",
+          "charity": "5000",
+          "investment_interest": "0",
+          "charity_cash_only": true,
+          "mortgage_eligible": true,
+          "medical_eligible": true
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": true,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 90000,
+          "2a": 0,
+          "2b": 1000,
+          "3a": 800,
+          "3b": 1000,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 30000,
+          "8": 0,
+          "9": 122000,
+          "10": 0,
+          "11a": 122000,
+          "11b": 122000,
+          "12e": 32850,
+          "13a": 0,
+          "13b": 0,
+          "14": 32850,
+          "15": 89150,
+          "16": 12377,
+          "17": 0,
+          "18": 12377,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 12377,
+          "23": 0,
+          "24": 12377,
+          "25a": 10000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 10000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 10000,
+          "34": 0,
+          "35a": 0,
+          "36": 0,
+          "37": 2377,
+          "38": 0
+        },
+        "summary": {
+          "agi": 122000,
+          "taxable_income": 89150,
+          "total_tax": 12377,
+          "payments": 10000,
+          "refund": 0,
+          "amount_owed": 2377,
+          "deduction_type": "itemized"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "AGI90000+1000+1000+30000=122000. Medical12000-7.5%*122000=2850.",
+        "Itemized2850+15000+10000+5000=32850 >15750. Taxable89150.",
+        "Preferential30800; ordinary58350 =>Single[58350,58400)7757. Preferential30800*.15=4620. QD tax12377 less ordinary whole-income tax; owed2377."
+      ],
+      "source_ids": [
+        "i1040sca_2025.html",
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "schedule_c_se_qbi",
+      "input": {
+        "tax_year": 2025,
+        "name": "Active Schedule C self-employment and QBI",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [
+          {
+            "name": "Active domestic consulting",
+            "revenue": "60000",
+            "expenses": "10000",
+            "owner": "taxpayer",
+            "expenses_eligible": true,
+            "at_risk_confirmed": true,
+            "qbi_eligible": true,
+            "active_business": true
+          }
+        ],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "10000",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 0,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 50000,
+          "9": 50000,
+          "10": 3533,
+          "11a": 46467,
+          "11b": 46467,
+          "12e": 15750,
+          "13a": 6143,
+          "13b": 0,
+          "14": 21893,
+          "15": 24574,
+          "16": 2711,
+          "17": 0,
+          "18": 2711,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 2711,
+          "23": 7065,
+          "24": 9776,
+          "25a": 0,
+          "25b": 0,
+          "25c": 0,
+          "25d": 0,
+          "26": 10000,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 10000,
+          "34": 224,
+          "35a": 224,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 46467,
+          "taxable_income": 24574,
+          "total_tax": 9776,
+          "payments": 10000,
+          "refund": 224,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {
+          "schedule_se.taxpayer.line_4a_net_earnings": 46175,
+          "schedule_se.taxpayer.line_10_ss_tax": 5726,
+          "schedule_se.taxpayer.line_11_medicare_tax": 1339,
+          "schedule_se.taxpayer.line_12_tax": 7065,
+          "schedule_se.taxpayer.line_13_deduction": 3533,
+          "form_8995.qbi": 46467,
+          "form_8995.income_limit": 6143,
+          "form_8995.deduction": 6143
+        }
+      },
+      "manual_workings": [
+        "Profit50000; SE4a50000*.9235=46175. SE10=round(46175*.124)=5726; SE11=round(46175*.029)=1339.",
+        "SE12=7065; SE13=round(7065/2)=3533. AGI46467. BeforeQBI30717.",
+        "QBI46467*.2 rounds9293; income limit30717*.2 rounds6143; deduction6143. Taxable24574 =>Single[24550,24600)2711. Total2711+7065=9776; refund224."
+      ],
+      "source_ids": [
+        "f1040sse_2025.pdf",
+        "f8995_2025.pdf",
+        "i8995_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "senior_social_security",
+      "input": {
+        "tax_year": 2025,
+        "name": "Senior Social Security IRA and pension",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 70,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [],
+        "interest": [
+          {
+            "payer": "Synthetic bank",
+            "taxable": "1000",
+            "tax_exempt": "1000",
+            "federal_withholding": "0"
+          }
+        ],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "10000",
+          "ira_taxable": "10000",
+          "pension_gross": "20000",
+          "pension_taxable": "20000",
+          "social_security": "24000",
+          "federal_withholding": "3000",
+          "taxable_amounts_confirmed": true,
+          "early_distribution_exception_confirmed": true,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 0,
+          "2a": 1000,
+          "2b": 1000,
+          "3a": 0,
+          "3b": 0,
+          "4a": 10000,
+          "4b": 10000,
+          "5a": 20000,
+          "5b": 20000,
+          "6a": 24000,
+          "6b": 13000,
+          "7a": 0,
+          "8": 0,
+          "9": 44000,
+          "10": 0,
+          "11a": 44000,
+          "11b": 44000,
+          "12e": 17750,
+          "13a": 0,
+          "13b": 6000,
+          "14": 23750,
+          "15": 20250,
+          "16": 2195,
+          "17": 0,
+          "18": 2195,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 2195,
+          "23": 0,
+          "24": 2195,
+          "25a": 0,
+          "25b": 3000,
+          "25c": 0,
+          "25d": 3000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 3000,
+          "34": 805,
+          "35a": 805,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 44000,
+          "taxable_income": 20250,
+          "total_tax": 2195,
+          "payments": 3000,
+          "refund": 805,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {
+          "schedule_1a.senior_deduction": 6000
+        }
+      },
+      "manual_workings": [
+        "SSA combined=31000+1000exempt+12000halfSS=44000.",
+        "TaxableSSA=min(.85*24000=20400,.85*(44000-34000)+min4500,12000)=13000. AGI44000.",
+        "Standard15750+2000=17750; senior6000; taxable20250. Single[20250,20300)=>2195; refund805."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p554_2025.html",
+        "f1040s1a_2025.pdf",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "single_senior_phaseout",
+      "input": {
+        "tax_year": 2025,
+        "name": "Single senior deduction phaseout",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 67,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "100000.00",
+            "federal_withholding": "12000",
+            "social_security_wages": "100000.00",
+            "medicare_wages": "100000.00",
+            "social_security_withholding": "6200.00",
+            "medicare_withholding": "1450.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 100000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 100000,
+          "10": 0,
+          "11a": 100000,
+          "11b": 100000,
+          "12e": 17750,
+          "13a": 0,
+          "13b": 4500,
+          "14": 22250,
+          "15": 77750,
+          "16": 12025,
+          "17": 0,
+          "18": 12025,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 12025,
+          "23": 0,
+          "24": 12025,
+          "25a": 12000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 12000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 12000,
+          "34": 0,
+          "35a": 0,
+          "36": 0,
+          "37": 25,
+          "38": 0
+        },
+        "summary": {
+          "agi": 100000,
+          "taxable_income": 77750,
+          "total_tax": 12025,
+          "payments": 12000,
+          "refund": 0,
+          "amount_owed": 25,
+          "deduction_type": "standard"
+        },
+        "schedules": {
+          "schedule_1a.senior_deduction": 4500
+        }
+      },
+      "manual_workings": [
+        "Senior6000-.06*(100000-75000)=4500.",
+        "Taxable100000-17750-4500=77750; Single[77750,77800)=>12025; owed25."
+      ],
+      "source_ids": [
+        "f1040s1a_2025.pdf",
+        "p554_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "mfj_two_seniors_phaseout_each",
+      "input": {
+        "tax_year": 2025,
+        "name": "Two senior spouses deduction phaseout",
+        "filing_status": "mfj",
+        "taxpayer": {
+          "age": 65,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 70,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "160000",
+          "pension_taxable": "160000",
+          "social_security": "0",
+          "federal_withholding": "16000",
+          "taxable_amounts_confirmed": true,
+          "early_distribution_exception_confirmed": true,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 0,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 160000,
+          "5b": 160000,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 160000,
+          "10": 0,
+          "11a": 160000,
+          "11b": 160000,
+          "12e": 34700,
+          "13a": 0,
+          "13b": 10800,
+          "14": 45500,
+          "15": 114500,
+          "16": 15018,
+          "17": 0,
+          "18": 15018,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 15018,
+          "23": 0,
+          "24": 15018,
+          "25a": 0,
+          "25b": 16000,
+          "25c": 0,
+          "25d": 16000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 16000,
+          "34": 982,
+          "35a": 982,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 160000,
+          "taxable_income": 114500,
+          "total_tax": 15018,
+          "payments": 16000,
+          "refund": 982,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {
+          "schedule_1a.senior_deduction": 10800
+        }
+      },
+      "manual_workings": [
+        "Standard31500+1600+1600=34700. Senior EACH6000-.06*(160000-150000)=5400, twopeople10800.",
+        "Taxable114500; MFJ computation114500*.22-10172=15018; refund982."
+      ],
+      "source_ids": [
+        "f1040s1a_2025.pdf",
+        "p554_2025.html",
+        "i1040gi_2025.html"
+      ]
+    },
+    {
+      "id": "ctc_phaseout_200001",
+      "input": {
+        "tax_year": 2025,
+        "name": "CTC first dollar into phaseout",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 8,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "200001.00",
+            "federal_withholding": "40000",
+            "social_security_wages": "176100.00",
+            "medicare_wages": "200001.00",
+            "social_security_withholding": "10918.20",
+            "medicare_withholding": "2900.02"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 200001,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 200001,
+          "10": 0,
+          "11a": 200001,
+          "11b": 200001,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 184251,
+          "16": 37067,
+          "17": 0,
+          "18": 37067,
+          "19": 2150,
+          "20": 0,
+          "21": 2150,
+          "22": 34917,
+          "23": 0,
+          "24": 34917,
+          "25a": 40000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 40000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 40000,
+          "34": 5083,
+          "35a": 5083,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 200001,
+          "taxable_income": 184251,
+          "total_tax": 34917,
+          "payments": 40000,
+          "refund": 5083,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Taxable184251; computation184251*.24-7153=37067.24 rounds37067.",
+        "CTC2200-50*ceil((200001-200000)/1000)=2150. Total34917; refund5083.",
+        "8959 0.9%*1=.009 rounds0; no investment income for NIIT."
+      ],
+      "source_ids": [
+        "f1040s8_2025.pdf",
+        "i1040gi_2025.html",
+        "f8959_2025.pdf"
+      ]
+    },
+    {
+      "id": "table_99999",
+      "input": {
+        "tax_year": 2025,
+        "name": "table_99999",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "115749.00",
+            "federal_withholding": "17000",
+            "social_security_wages": "115749.00",
+            "medicare_wages": "115749.00",
+            "social_security_withholding": "7176.44",
+            "medicare_withholding": "1678.36"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 115749,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 115749,
+          "10": 0,
+          "11a": 115749,
+          "11b": 115749,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 99999,
+          "16": 16909,
+          "17": 0,
+          "18": 16909,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 16909,
+          "23": 0,
+          "24": 16909,
+          "25a": 17000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 17000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 17000,
+          "34": 91,
+          "35a": 91,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 115749,
+          "taxable_income": 99999,
+          "total_tax": 16909,
+          "payments": 17000,
+          "refund": 91,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Taxable99999 uses Single[99950,100000)16909; taxable100000 uses*.22-5086=16914.",
+        "This adjacent pair must switch IRS method; formula below100000 is not a valid substitute."
+      ],
+      "source_ids": [
+        "p1040_2025.html",
+        "i1040gi_2025.html"
+      ]
+    },
+    {
+      "id": "computation_100000",
+      "input": {
+        "tax_year": 2025,
+        "name": "computation_100000",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "115750.00",
+            "federal_withholding": "17000",
+            "social_security_wages": "115750.00",
+            "medicare_wages": "115750.00",
+            "social_security_withholding": "7176.50",
+            "medicare_withholding": "1678.38"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 115750,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 115750,
+          "10": 0,
+          "11a": 115750,
+          "11b": 115750,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 100000,
+          "16": 16914,
+          "17": 0,
+          "18": 16914,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 16914,
+          "23": 0,
+          "24": 16914,
+          "25a": 17000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 17000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 17000,
+          "34": 86,
+          "35a": 86,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 115750,
+          "taxable_income": 100000,
+          "total_tax": 16914,
+          "payments": 17000,
+          "refund": 86,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Taxable99999 uses Single[99950,100000)16909; taxable100000 uses*.22-5086=16914.",
+        "This adjacent pair must switch IRS method; formula below100000 is not a valid substitute."
+      ],
+      "source_ids": [
+        "p1040_2025.html",
+        "i1040gi_2025.html"
+      ]
+    },
+    {
+      "id": "dependent_age_16",
+      "input": {
+        "tax_year": 2025,
+        "name": "Dependent age 16",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 16,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "60000.00",
+            "federal_withholding": "6500",
+            "social_security_wages": "60000.00",
+            "medicare_wages": "60000.00",
+            "social_security_withholding": "3720.00",
+            "medicare_withholding": "870.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 60000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 60000,
+          "10": 0,
+          "11a": 60000,
+          "11b": 60000,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 44250,
+          "16": 5075,
+          "17": 0,
+          "18": 5075,
+          "19": 2200,
+          "20": 0,
+          "21": 2200,
+          "22": 2875,
+          "23": 0,
+          "24": 2875,
+          "25a": 6500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 6500,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 6500,
+          "34": 3625,
+          "35a": 3625,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 60000,
+          "taxable_income": 44250,
+          "total_tax": 2875,
+          "payments": 6500,
+          "refund": 3625,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Same Single W2 tax5075. Age16 eligibleCTC2200; age17 eligibleotherdependent500.",
+        "Result totals2875/refund3625 versus4575/refund1925."
+      ],
+      "source_ids": [
+        "f1040s8_2025.pdf",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "dependent_age_17",
+      "input": {
+        "tax_year": 2025,
+        "name": "Dependent age 17",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 17,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "60000.00",
+            "federal_withholding": "6500",
+            "social_security_wages": "60000.00",
+            "medicare_wages": "60000.00",
+            "social_security_withholding": "3720.00",
+            "medicare_withholding": "870.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 60000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 60000,
+          "10": 0,
+          "11a": 60000,
+          "11b": 60000,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 44250,
+          "16": 5075,
+          "17": 0,
+          "18": 5075,
+          "19": 500,
+          "20": 0,
+          "21": 500,
+          "22": 4575,
+          "23": 0,
+          "24": 4575,
+          "25a": 6500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 6500,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 6500,
+          "34": 1925,
+          "35a": 1925,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 60000,
+          "taxable_income": 44250,
+          "total_tax": 4575,
+          "payments": 6500,
+          "refund": 1925,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Same Single W2 tax5075. Age16 eligibleCTC2200; age17 eligibleotherdependent500.",
+        "Result totals2875/refund3625 versus4575/refund1925."
+      ],
+      "source_ids": [
+        "f1040s8_2025.pdf",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "salt_40000_cap",
+      "input": {
+        "tax_year": 2025,
+        "name": "2025 SALT cap",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "90000.00",
+            "federal_withholding": "7000",
+            "social_security_wages": "90000.00",
+            "medicare_wages": "90000.00",
+            "social_security_withholding": "5580.00",
+            "medicare_withholding": "1305.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "45000",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": true,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 90000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 90000,
+          "10": 0,
+          "11a": 90000,
+          "11b": 90000,
+          "12e": 40000,
+          "13a": 0,
+          "13b": 0,
+          "14": 40000,
+          "15": 50000,
+          "16": 5920,
+          "17": 0,
+          "18": 5920,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 5920,
+          "23": 0,
+          "24": 5920,
+          "25a": 7000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 7000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 7000,
+          "34": 1080,
+          "35a": 1080,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 90000,
+          "taxable_income": 50000,
+          "total_tax": 5920,
+          "payments": 7000,
+          "refund": 1080,
+          "amount_owed": 0,
+          "deduction_type": "itemized"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "SALT45000 limited40000 below500000MAGI; itemized40000 exceedsstandard15750.",
+        "Taxable50000; officialSingle[50000,50050)=>5920; refund1080. NoISO/privateactivitybonds/preferences."
+      ],
+      "source_ids": [
+        "i1040sca_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "capital_gain_zero_fifteen_stack",
+      "input": {
+        "tax_year": 2025,
+        "name": "Capital gain stacking at zero and fifteen percent",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "50000.00",
+            "federal_withholding": "5000",
+            "social_security_wages": "50000.00",
+            "medicare_wages": "50000.00",
+            "social_security_withholding": "3100.00",
+            "medicare_withholding": "725.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [
+          {
+            "description": "Ordinary publicly traded stock",
+            "term": "long",
+            "proceeds": "25000",
+            "cost_basis": "5000",
+            "adjustment": "0"
+          }
+        ],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 50000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 20000,
+          "8": 0,
+          "9": 70000,
+          "10": 0,
+          "11a": 70000,
+          "11b": 70000,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 54250,
+          "16": 4760,
+          "17": 0,
+          "18": 4760,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 4760,
+          "23": 0,
+          "24": 4760,
+          "25a": 5000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 5000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 5000,
+          "34": 240,
+          "35a": 240,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 70000,
+          "taxable_income": 54250,
+          "total_tax": 4760,
+          "payments": 5000,
+          "refund": 240,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Taxable54250; ordinary34250 =>Single[34250,34300)3875.",
+        "Zero-rategain=min20000,48350-34250=14100; remainder5900*.15=885. QD worksheet tax4760; refund240."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "capital_loss_current_limit",
+      "input": {
+        "tax_year": 2025,
+        "name": "Current capital loss with carry-out",
+        "filing_status": "single",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "60000.00",
+            "federal_withholding": "6500",
+            "social_security_wages": "60000.00",
+            "medicare_wages": "60000.00",
+            "social_security_withholding": "3720.00",
+            "medicare_withholding": "870.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [
+          {
+            "description": "Ordinary publicly traded stock",
+            "term": "short",
+            "proceeds": "1000",
+            "cost_basis": "5000",
+            "adjustment": "0"
+          },
+          {
+            "description": "Ordinary publicly traded stock",
+            "term": "long",
+            "proceeds": "1000",
+            "cost_basis": "2000",
+            "adjustment": "0"
+          }
+        ],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 60000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": -3000,
+          "8": 0,
+          "9": 57000,
+          "10": 0,
+          "11a": 57000,
+          "11b": 57000,
+          "12e": 15750,
+          "13a": 0,
+          "13b": 0,
+          "14": 15750,
+          "15": 41250,
+          "16": 4715,
+          "17": 0,
+          "18": 4715,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 4715,
+          "23": 0,
+          "24": 4715,
+          "25a": 6500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 6500,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 6500,
+          "34": 1785,
+          "35a": 1785,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 57000,
+          "taxable_income": 41250,
+          "total_tax": 4715,
+          "payments": 6500,
+          "refund": 1785,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Current shortloss4000+longloss1000=5000; annualSinglecapital deduction3000.",
+        "AGI57000; taxable41250 =>Single[41250,41300)4715; refund1785. Remaining2000 is a carry-out, not a prior-year carry-in."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "mfj_additional_medicare_withheld",
+      "input": {
+        "tax_year": 2025,
+        "name": "MFJ Additional Medicare tax and actual Box6 withheld",
+        "filing_status": "mfj",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "300000.00",
+            "federal_withholding": "52000",
+            "social_security_wages": "176100.00",
+            "medicare_wages": "300000.00",
+            "social_security_withholding": "10918.20",
+            "medicare_withholding": "5250"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 300000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 300000,
+          "10": 0,
+          "11a": 300000,
+          "11b": 300000,
+          "12e": 31500,
+          "13a": 0,
+          "13b": 0,
+          "14": 31500,
+          "15": 268500,
+          "16": 50134,
+          "17": 0,
+          "18": 50134,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 50134,
+          "23": 450,
+          "24": 50584,
+          "25a": 52000,
+          "25b": 0,
+          "25c": 900,
+          "25d": 52900,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 52900,
+          "34": 2316,
+          "35a": 2316,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 300000,
+          "taxable_income": 268500,
+          "total_tax": 50584,
+          "payments": 52900,
+          "refund": 2316,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {
+          "form_8959.tax": 450,
+          "form_8959.additional_medicare_withheld": 900
+        }
+      },
+      "manual_workings": [
+        "MFJ taxable268500*.24-14306=50134. AdditionalMedicare(300000-250000)*.009=450. Total50584.",
+        "Box6=5250; normalMedicare300000*.0145=4350; additionalwithheld900 =>25c900. Payments52900; refund2316."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "f8959_2025.pdf"
+      ]
+    },
+    {
+      "id": "irs_mfj_25300_example_extended",
+      "input": {
+        "tax_year": 2025,
+        "name": "IRS Tax Table example extended to full return",
+        "filing_status": "mfj",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "56800.00",
+            "federal_withholding": "3000",
+            "social_security_wages": "56800.00",
+            "medicare_wages": "56800.00",
+            "social_security_withholding": "3521.60",
+            "medicare_withholding": "823.60"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 56800,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 56800,
+          "10": 0,
+          "11a": 56800,
+          "11b": 56800,
+          "12e": 31500,
+          "13a": 0,
+          "13b": 0,
+          "14": 31500,
+          "15": 25300,
+          "16": 2562,
+          "17": 0,
+          "18": 2562,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 2562,
+          "23": 0,
+          "24": 2562,
+          "25a": 3000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 3000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 3000,
+          "34": 438,
+          "35a": 438,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 56800,
+          "taxable_income": 25300,
+          "total_tax": 2562,
+          "payments": 3000,
+          "refund": 438,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "IRS2025instructionsTaxTable workedexample explicitly givesMFJ taxable25300=>2562.",
+        "Syntheticwages56800-standard31500 reproduces that taxableincome. Withholding3000 =>refund438. IRS only supplied tablelookup, otherfullreturninputs are ours."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "mfs_spouse_itemizes",
+      "input": {
+        "tax_year": 2025,
+        "name": "MFS spouse itemizes, standard unavailable",
+        "filing_status": "mfs",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "60000.00",
+            "federal_withholding": "6500",
+            "social_security_wages": "60000.00",
+            "medicare_wages": "60000.00",
+            "social_security_withholding": "3720.00",
+            "medicare_withholding": "870.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": true,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": true,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 60000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 60000,
+          "10": 0,
+          "11a": 60000,
+          "11b": 60000,
+          "12e": 0,
+          "13a": 0,
+          "13b": 0,
+          "14": 0,
+          "15": 60000,
+          "16": 8120,
+          "17": 0,
+          "18": 8120,
+          "19": 0,
+          "20": 0,
+          "21": 0,
+          "22": 8120,
+          "23": 0,
+          "24": 8120,
+          "25a": 6500,
+          "25b": 0,
+          "25c": 0,
+          "25d": 6500,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 6500,
+          "34": 0,
+          "35a": 0,
+          "36": 0,
+          "37": 1620,
+          "38": 0
+        },
+        "summary": {
+          "agi": 60000,
+          "taxable_income": 60000,
+          "total_tax": 8120,
+          "payments": 6500,
+          "refund": 0,
+          "amount_owed": 1620,
+          "deduction_type": "itemized"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "Spouseitemizes, so standarddeduction0. This taxpayer has no itemizedexpenses.",
+        "Taxable60000; MFS[60000,60050)=>8120; owed1620."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html"
+      ]
+    },
+    {
+      "id": "qualifying_surviving_spouse_child",
+      "input": {
+        "tax_year": 2025,
+        "name": "Verified qualifying surviving spouse",
+        "filing_status": "qss",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 10,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "56800.00",
+            "federal_withholding": "3000",
+            "social_security_wages": "56800.00",
+            "medicare_wages": "56800.00",
+            "social_security_withholding": "3521.60",
+            "medicare_withholding": "823.60"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": false,
+          "qss_eligible": true,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 56800,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 56800,
+          "10": 0,
+          "11a": 56800,
+          "11b": 56800,
+          "12e": 31500,
+          "13a": 0,
+          "13b": 0,
+          "14": 31500,
+          "15": 25300,
+          "16": 2562,
+          "17": 0,
+          "18": 2562,
+          "19": 2200,
+          "20": 0,
+          "21": 2200,
+          "22": 362,
+          "23": 0,
+          "24": 362,
+          "25a": 3000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 3000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 3000,
+          "34": 2638,
+          "35a": 2638,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 56800,
+          "taxable_income": 25300,
+          "total_tax": 362,
+          "payments": 3000,
+          "refund": 2638,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "VerifiedQSS uses31500standardandMFJTaxTable. Taxable25300=>2562.",
+        "CTC2200 =>362tax; refund2638. Earned56800 excludesone-childnon-MFJEITC."
+      ],
+      "source_ids": [
+        "i1040gi_2025.html",
+        "p1040_2025.html",
+        "f1040s8_2025.pdf"
+      ]
+    },
+    {
+      "id": "head_of_household_child",
+      "input": {
+        "tax_year": 2025,
+        "name": "Verified head of household",
+        "filing_status": "hoh",
+        "taxpayer": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true
+        },
+        "spouse": {
+          "age": 35,
+          "blind": false,
+          "can_be_claimed": false,
+          "valid_ssn": true,
+          "valid_tin": true
+        },
+        "dependents": [
+          {
+            "name": "Synthetic dependent",
+            "age": 10,
+            "qualifying_child": true,
+            "valid_ssn": true,
+            "eligibility_confirmed": true
+          }
+        ],
+        "w2": [
+          {
+            "employer": "Synthetic payroll",
+            "wages": "52000.00",
+            "federal_withholding": "4000",
+            "social_security_wages": "52000.00",
+            "medicare_wages": "52000.00",
+            "social_security_withholding": "3224.00",
+            "medicare_withholding": "754.00"
+          }
+        ],
+        "interest": [],
+        "dividends": [],
+        "capital_gains": [],
+        "businesses": [],
+        "retirement": {
+          "ira_gross": "0",
+          "ira_taxable": "0",
+          "pension_gross": "0",
+          "pension_taxable": "0",
+          "social_security": "0",
+          "federal_withholding": "0",
+          "taxable_amounts_confirmed": false,
+          "early_distribution_exception_confirmed": false,
+          "ira_distribution_kind": "fully_taxable",
+          "ss_lump_sum_or_repayments": false
+        },
+        "other_income": {
+          "unemployment": "0",
+          "other": "0",
+          "federal_withholding": "0",
+          "taxable_other_confirmed": false
+        },
+        "adjustments": {
+          "student_loan_interest": "0",
+          "ira_deduction": "0",
+          "hsa_deduction": "0",
+          "self_employed_health_insurance": "0"
+        },
+        "itemized": {
+          "medical": "0",
+          "state_local_tax": "0",
+          "mortgage_interest": "0",
+          "charity": "0",
+          "investment_interest": "0",
+          "charity_cash_only": false,
+          "mortgage_eligible": false,
+          "medical_eligible": false
+        },
+        "schedule_1a": {
+          "qualified_tips": "0",
+          "qualified_overtime": "0",
+          "qualified_car_loan_interest": "0",
+          "eligibility_confirmed": true,
+          "tips_occupation_eligible": false,
+          "tips_not_sstb": false,
+          "overtime_flsa_eligible": false,
+          "car_loan_eligible": false
+        },
+        "payments": {
+          "estimated": "0",
+          "prior_year_credit": "0"
+        },
+        "eligibility": {
+          "full_year_us_resident": true,
+          "filing_status_confirmed": true,
+          "all_income_reported": true,
+          "eitc_not_applicable": true,
+          "hoh_eligible": true,
+          "qss_eligible": false,
+          "mfs_spouse_itemizes": false,
+          "mfs_lived_with_spouse": false,
+          "student_loan_eligible": false,
+          "itemized_eligible": false,
+          "self_employed_health_insurance_eligible": false,
+          "capital_gains_eligible": true,
+          "no_amt_preferences": true
+        },
+        "carryovers": {
+          "capital_short": "0",
+          "capital_long": "0",
+          "qbi_loss": "0",
+          "charity": "0"
+        },
+        "unsupported": [],
+        "notes": "Synthetic data. No foreign income, marketplace coverage, AMT preferences, carry-ins, or other credits."
+      },
+      "expected": {
+        "lines": {
+          "1a": 52000,
+          "2a": 0,
+          "2b": 0,
+          "3a": 0,
+          "3b": 0,
+          "4a": 0,
+          "4b": 0,
+          "5a": 0,
+          "5b": 0,
+          "6a": 0,
+          "6b": 0,
+          "7a": 0,
+          "8": 0,
+          "9": 52000,
+          "10": 0,
+          "11a": 52000,
+          "11b": 52000,
+          "12e": 23625,
+          "13a": 0,
+          "13b": 0,
+          "14": 23625,
+          "15": 28375,
+          "16": 3065,
+          "17": 0,
+          "18": 3065,
+          "19": 2200,
+          "20": 0,
+          "21": 2200,
+          "22": 865,
+          "23": 0,
+          "24": 865,
+          "25a": 4000,
+          "25b": 0,
+          "25c": 0,
+          "25d": 4000,
+          "26": 0,
+          "27a": 0,
+          "28": 0,
+          "29": 0,
+          "30": 0,
+          "31": 0,
+          "32": 0,
+          "33": 4000,
+          "34": 3135,
+          "35a": 3135,
+          "36": 0,
+          "37": 0,
+          "38": 0
+        },
+        "summary": {
+          "agi": 52000,
+          "taxable_income": 28375,
+          "total_tax": 865,
+          "payments": 4000,
+          "refund": 3135,
+          "amount_owed": 0,
+          "deduction_type": "standard"
+        },
+        "schedules": {}
+      },
+      "manual_workings": [
+        "VerifiedHOH standard23625; 52000-23625=28375. OfficialHOH[28350,28400)=>3065.",
+        "CTC2200; total865; refund3135. AGI52000 is above officialone-childEITClimit50434."
+      ],
+      "source_ids": [
+        "f1040s8_2025.pdf",
+        "p1040_2025.html"
+      ]
+    }
+  ],
+  "blocking_cases": [
+    {
+      "id": "niit_automatically_detected",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2"
+          ],
+          "value": [
+            {
+              "employer": "Synthetic payroll",
+              "wages": "180000.00",
+              "federal_withholding": "30000",
+              "social_security_wages": "176100.00",
+              "medicare_wages": "180000.00",
+              "social_security_withholding": "10918.20",
+              "medicare_withholding": "2610.00"
+            }
+          ]
+        },
+        {
+          "path": [
+            "interest"
+          ],
+          "value": [
+            {
+              "payer": "Synthetic bank",
+              "taxable": "1000",
+              "tax_exempt": "0",
+              "federal_withholding": "0"
+            }
+          ]
+        },
+        {
+          "path": [
+            "capital_gains"
+          ],
+          "value": [
+            {
+              "description": "Ordinary publicly traded stock",
+              "term": "long",
+              "proceeds": "60000",
+              "cost_basis": "10000",
+              "adjustment": "0"
+            }
+          ]
+        }
+      ],
+      "reason": "MAGI231000 and net investment51000; NIIT1178 must be supported or block; implemented scope explicitly blocks.",
+      "expected_mode": "block",
+      "message_contains_any": [
+        "NIIT",
+        "净投资",
+        "8960"
+      ]
+    },
+    {
+      "id": "qbi_above_simplified_limit",
+      "base_case": "schedule_c_se_qbi",
+      "patches": [
+        {
+          "path": [
+            "businesses"
+          ],
+          "value": [
+            {
+              "name": "Active domestic consulting",
+              "revenue": "400000",
+              "expenses": "10000",
+              "owner": "taxpayer",
+              "expenses_eligible": true,
+              "at_risk_confirmed": true,
+              "qbi_eligible": true,
+              "active_business": true
+            }
+          ]
+        }
+      ],
+      "reason": "Before-QBI taxable exceeds197300; requires8995-A wage/property/SSTB rules.",
+      "expected_mode": "block",
+      "message_contains_any": [
+        "8995",
+        "QBI",
+        "限"
+      ]
+    },
+    {
+      "id": "potential_eitc_unacknowledged",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2"
+          ],
+          "value": [
+            {
+              "employer": "Synthetic payroll",
+              "wages": "15000.00",
+              "federal_withholding": "200",
+              "social_security_wages": "15000.00",
+              "medicare_wages": "15000.00",
+              "social_security_withholding": "930.00",
+              "medicare_withholding": "217.50"
+            }
+          ]
+        },
+        {
+          "path": [
+            "eligibility",
+            "eitc_not_applicable"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Singleage35wages15000 may haveEITC; cannot silently reportzero.",
+      "expected_mode": "block",
+      "message_contains_any": [
+        "EITC",
+        "earned",
+        "劳动"
+      ]
+    },
+    {
+      "id": "amt_iso",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "AMT/ISO exercise"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "marketplace_aca",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Marketplace Form1095-A/8962"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "education_credit",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Form8863 education credit"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "foreign_income",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Foreign income Form2555/1116"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "state_return",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "State income tax return"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "collectible_28_percent",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "ScheduleD 28% collectible gain"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "unrecaptured_1250",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Unrecaptured Section1250 25% gain"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "rental_passive",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "ScheduleE passive rental income"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "capital_carry_in",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Capital loss carry-in"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "qbi_carry_in",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "QBI loss carry-in"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "aca_advance",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "unsupported"
+          ],
+          "value": [
+            "Advance premium tax credit repayment"
+          ]
+        }
+      ],
+      "reason": "Explicitly declared out-of-scope scenario must block, even if all supported lines could be calculated.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "known_capital_short_carry",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "carryovers",
+            "capital_short"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "Nonzero known prior-year carry-in must not be discarded.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "known_capital_long_carry",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "carryovers",
+            "capital_long"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "Nonzero known prior-year carry-in must not be discarded.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "known_qbi_carry",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "carryovers",
+            "qbi_loss"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "Nonzero known prior-year carry-in must not be discarded.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "known_charity_carry",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "carryovers",
+            "charity"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "Nonzero known prior-year carry-in must not be discarded.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "amt_confirmation_missing",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "eligibility",
+            "no_amt_preferences"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "No preferences acknowledgment missing; engine does not generally prepare6251.",
+      "expected_mode": "block",
+      "message_contains_any": [
+        "AMT",
+        "替代",
+        "确认"
+      ]
+    },
+    {
+      "id": "retirement_taxable_not_confirmed",
+      "base_case": "senior_social_security",
+      "patches": [
+        {
+          "path": [
+            "retirement",
+            "taxable_amounts_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Gross pension/IRA and reported taxable values need verification.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "dependent_eligibility_unconfirmed",
+      "base_case": "dependent_age_16",
+      "patches": [
+        {
+          "path": [
+            "dependents",
+            "0",
+            "eligibility_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Age alone cannot prove dependency/residency/support qualification.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "business_qbi_unconfirmed",
+      "base_case": "schedule_c_se_qbi",
+      "patches": [
+        {
+          "path": [
+            "businesses",
+            "0",
+            "qbi_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "BusinessQBIeligibility cannot be inferred fromamount alone.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "business_expenses_unconfirmed",
+      "base_case": "schedule_c_se_qbi",
+      "patches": [
+        {
+          "path": [
+            "businesses",
+            "0",
+            "expenses_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Expense deductibility not verified.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "medical_unconfirmed",
+      "base_case": "itemized_and_qualified_capital_gains",
+      "patches": [
+        {
+          "path": [
+            "itemized",
+            "medical_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "7.5% arithmetic does not prove qualifiedmedical expenses.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "mortgage_unconfirmed",
+      "base_case": "itemized_and_qualified_capital_gains",
+      "patches": [
+        {
+          "path": [
+            "itemized",
+            "mortgage_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Mortgage deduction depends onqualified debt andinterest limits.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "investment_interest_4952",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "itemized",
+            "investment_interest"
+          ],
+          "value": "1000"
+        },
+        {
+          "path": [
+            "eligibility",
+            "itemized_eligible"
+          ],
+          "value": true
+        }
+      ],
+      "reason": "Form4952 limitation andelection are not implemented.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "hsa_deduction_8889",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "adjustments",
+            "hsa_deduction"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "HSAcontributions/deductions require8889 coverage/contribution rules.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "ira_deduction_limits",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "adjustments",
+            "ira_deduction"
+          ],
+          "value": "1000"
+        }
+      ],
+      "reason": "IRA deduction requiresretirement plan coverage andincome limits.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "ss_lump_sum_election",
+      "base_case": "senior_social_security",
+      "patches": [
+        {
+          "path": [
+            "retirement",
+            "ss_lump_sum_or_repayments"
+          ],
+          "value": true
+        }
+      ],
+      "reason": "SSA lump-sum/repayment worksheet is out ofscope.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "taxpayer_under18_unearned_income",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "taxpayer",
+            "age"
+          ],
+          "value": 17
+        },
+        {
+          "path": [
+            "w2"
+          ],
+          "value": []
+        },
+        {
+          "path": [
+            "interest"
+          ],
+          "value": [
+            {
+              "payer": "Synthetic bank",
+              "taxable": "10000",
+              "tax_exempt": "0",
+              "federal_withholding": "0"
+            }
+          ]
+        }
+      ],
+      "reason": "KiddietaxForm8615 canapply; adultordinary table is insufficient.",
+      "expected_mode": "reject_or_block",
+      "message_contains_any": []
+    },
+    {
+      "id": "unknown_top_level_income",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "rental_income"
+          ],
+          "value": "5000"
+        }
+      ],
+      "reason": "Unknown nonzero income key cannot be ignored.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "unknown_nested_income",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "other_income",
+            "rental"
+          ],
+          "value": "5000"
+        }
+      ],
+      "reason": "Unknownnested income key cannot be ignored.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "unknown_document_box",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2",
+            "0",
+            "unknown_income_box"
+          ],
+          "value": "5000"
+        }
+      ],
+      "reason": "Unknown documentbox cannot be ignored.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "wrong_tax_year",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "tax_year"
+          ],
+          "value": 2026
+        }
+      ],
+      "reason": "Year2026 cannot use2025rules.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "qualified_exceeds_total_dividends",
+      "base_case": "mfj_ctc_qualified_dividends",
+      "patches": [
+        {
+          "path": [
+            "dividends",
+            "0",
+            "qualified"
+          ],
+          "value": "251"
+        }
+      ],
+      "reason": "Qualifieddividends is subsetofordinary dividends.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "negative_wages",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2",
+            "0",
+            "wages"
+          ],
+          "value": "-1"
+        }
+      ],
+      "reason": "NegativeW2wages isinvalidforordinaryW2workflow.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "nan_money",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2",
+            "0",
+            "wages"
+          ],
+          "value": "NaN"
+        }
+      ],
+      "reason": "Nonfinite monetaryvalue invalid.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "float_money",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "w2",
+            "0",
+            "wages"
+          ],
+          "value": 60000.01
+        }
+      ],
+      "reason": "Contractaccepts decimalstrings, not binaryfloat.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "string_boolean_false",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "eligibility",
+            "all_income_reported"
+          ],
+          "value": "false"
+        }
+      ],
+      "reason": "Stringfalse mustnotbe interpretedastruthy acknowledgment.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "special_gain_term",
+      "base_case": "capital_gain_zero_fifteen_stack",
+      "patches": [
+        {
+          "path": [
+            "capital_gains",
+            "0",
+            "term"
+          ],
+          "value": "collectible"
+        }
+      ],
+      "reason": "Unrecognized specialgains cannot routeordinarylong-termworksheet.",
+      "expected_mode": "reject_or_block",
+      "message_contains_any": []
+    },
+    {
+      "id": "unknown_filing_status",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "filing_status"
+          ],
+          "value": "nonresident"
+        }
+      ],
+      "reason": "1040-NR isoutofscope.",
+      "expected_mode": "reject",
+      "message_contains_any": []
+    },
+    {
+      "id": "hoh_unconfirmed",
+      "base_case": "head_of_household_child",
+      "patches": [
+        {
+          "path": [
+            "eligibility",
+            "hoh_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Filing/residency eligibility cannot be inferred from monetary values.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "qss_unconfirmed",
+      "base_case": "qualifying_surviving_spouse_child",
+      "patches": [
+        {
+          "path": [
+            "eligibility",
+            "qss_eligible"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Filing/residency eligibility cannot be inferred from monetary values.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    },
+    {
+      "id": "residency_unconfirmed",
+      "base_case": "single_w2",
+      "patches": [
+        {
+          "path": [
+            "eligibility",
+            "full_year_us_resident"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Filing/residency eligibility cannot be inferred from monetary values.",
+      "expected_mode": "block",
+      "message_contains_any": []
+    }
+  ],
+  "frozen_at_utc": "2026-10-13T03:44:07.452519+00:00"
+}

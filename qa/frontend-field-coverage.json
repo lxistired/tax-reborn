@@ -1,0 +1,6901 @@
+{
+  "format": "tax-reborn-frontend-field-coverage-v1",
+  "generated_at": "2026-10-13T05:07:34.872Z",
+  "passed": true,
+  "tax_year": 2025,
+  "runner": "Node VM with minimal DOM exercising actual web/app.js functions",
+  "app_sha256": "f2af8e313aed7faca2c74df257a5dab888e9e858c38628335f0d668ebad280f0",
+  "engine_schema_sha256": "fcc90be49edd13c29f20544ebd202b4e2395298ddee4d9cd5aea665be2755e2a",
+  "scope": "Schema/control coverage only. Counters are not tax-computation tests or physical desktop/mobile acceptance.",
+  "render_cases": 150,
+  "scalar_template_fields": 359,
+  "missing_inputs": [],
+  "modules": [
+    "identity",
+    "eitc",
+    "niit",
+    "amt",
+    "rentals",
+    "ira",
+    "hsa",
+    "education",
+    "marketplace",
+    "care",
+    "saver",
+    "elderly_credit"
+  ],
+  "fields": [
+    {
+      "input": "adjustments.hsa_deduction",
+      "schema_path": "adjustments.hsa_deduction",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "adjustments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "adjustments.ira_deduction",
+      "schema_path": "adjustments.ira_deduction",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "adjustments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "adjustments.self_employed_health_insurance",
+      "schema_path": "adjustments.self_employed_health_insurance",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "adjustments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "adjustments.student_loan_interest",
+      "schema_path": "adjustments.student_loan_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "adjustments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "amt.capital_gain_adjustment",
+      "schema_path": "amt.capital_gain_adjustment",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:amt"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "amt.eligibility_confirmed",
+      "schema_path": "amt.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:amt"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "amt.iso_adjustment",
+      "schema_path": "amt.iso_adjustment",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:amt"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "amt.other_adjustments",
+      "schema_path": "amt.other_adjustments",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:amt"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "amt.private_activity_bond_interest",
+      "schema_path": "amt.private_activity_bond_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:amt"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.active_business",
+      "schema_path": "businesses.*.active_business",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.at_risk_confirmed",
+      "schema_path": "businesses.*.at_risk_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.expenses",
+      "schema_path": "businesses.*.expenses",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.expenses_eligible",
+      "schema_path": "businesses.*.expenses_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.name",
+      "schema_path": "businesses.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.owner",
+      "schema_path": "businesses.*.owner",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.qbi_eligible",
+      "schema_path": "businesses.*.qbi_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "businesses.0.revenue",
+      "schema_path": "businesses.*.revenue",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "businesses"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.adjustment",
+      "schema_path": "capital_gains.*.adjustment",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.cost_basis",
+      "schema_path": "capital_gains.*.cost_basis",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.description",
+      "schema_path": "capital_gains.*.description",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.proceeds",
+      "schema_path": "capital_gains.*.proceeds",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.special_rate",
+      "schema_path": "capital_gains.*.special_rate",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "capital_gains.0.term",
+      "schema_path": "capital_gains.*.term",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "capital_gains"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.age",
+      "schema_path": "care.beneficiaries.*.age",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.beneficiary_id",
+      "schema_path": "care.beneficiaries.*.beneficiary_id",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.care_before_13th_birthday_confirmed",
+      "schema_path": "care.beneficiaries.*.care_before_13th_birthday_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.disabled_incapable_self_care",
+      "schema_path": "care.beneficiaries.*.disabled_incapable_self_care",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.name",
+      "schema_path": "care.beneficiaries.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.qualification_residency_confirmed",
+      "schema_path": "care.beneficiaries.*.qualification_residency_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.qualified_expenses",
+      "schema_path": "care.beneficiaries.*.qualified_expenses",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.beneficiaries.0.valid_tin",
+      "schema_path": "care.beneficiaries.*.valid_tin",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.benefits_carry_in",
+      "schema_path": "care.benefits_carry_in",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.benefits_expenses_incurred",
+      "schema_path": "care.benefits_expenses_incurred",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.benefits_forfeited_or_carried_out",
+      "schema_path": "care.benefits_forfeited_or_carried_out",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.benefits_plan_limit",
+      "schema_path": "care.benefits_plan_limit",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.benefits_qualification_confirmed",
+      "schema_path": "care.benefits_qualification_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.deemed_income_eligibility_confirmed",
+      "schema_path": "care.deemed_income_eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.deemed_income_months.0.deemed_owner",
+      "schema_path": "care.deemed_income_months.*.deemed_owner",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.deemed_income_months.0.month",
+      "schema_path": "care.deemed_income_months.*.month",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.deemed_income_months.0.spouse_income",
+      "schema_path": "care.deemed_income_months.*.spouse_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.deemed_income_months.0.taxpayer_income",
+      "schema_path": "care.deemed_income_months.*.taxpayer_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.enabled",
+      "schema_path": "care.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.mfs_qualifying_separation",
+      "schema_path": "care.mfs_qualifying_separation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.no_double_benefit_confirmed",
+      "schema_path": "care.no_double_benefit_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.prior_year_expenses_paid",
+      "schema_path": "care.prior_year_expenses_paid",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.provider_information_confirmed",
+      "schema_path": "care.provider_information_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.address",
+      "schema_path": "care.providers.*.address",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.amount_paid",
+      "schema_path": "care.providers.*.amount_paid",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.eligible_provider_confirmed",
+      "schema_path": "care.providers.*.eligible_provider_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.household_employee",
+      "schema_path": "care.providers.*.household_employee",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.name",
+      "schema_path": "care.providers.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.providers.0.tin",
+      "schema_path": "care.providers.*.tin",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.self_employed_benefits",
+      "schema_path": "care.self_employed_benefits",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "care.work_related_expenses_confirmed",
+      "schema_path": "care.work_related_expenses_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:care"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "carryovers.capital_long",
+      "schema_path": "carryovers.capital_long",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "carryovers"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "carryovers.capital_short",
+      "schema_path": "carryovers.capital_short",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "carryovers"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "carryovers.charity",
+      "schema_path": "carryovers.charity",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "carryovers"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "carryovers.qbi_loss",
+      "schema_path": "carryovers.qbi_loss",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "carryovers"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.age",
+      "schema_path": "dependents.*.age",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_full_time_student",
+      "schema_path": "dependents.*.eitc_full_time_student",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_permanently_disabled",
+      "schema_path": "dependents.*.eitc_permanently_disabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_qualifying_child",
+      "schema_path": "dependents.*.eitc_qualifying_child",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_relationship_residency_confirmed",
+      "schema_path": "dependents.*.eitc_relationship_residency_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_status_reviewed",
+      "schema_path": "dependents.*.eitc_status_reviewed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eitc_tiebreaker_confirmed",
+      "schema_path": "dependents.*.eitc_tiebreaker_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.eligibility_confirmed",
+      "schema_path": "dependents.*.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.name",
+      "schema_path": "dependents.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.qualifying_child",
+      "schema_path": "dependents.*.qualifying_child",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.valid_ssn",
+      "schema_path": "dependents.*.valid_ssn",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dependents.0.valid_tin",
+      "schema_path": "dependents.*.valid_tin",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dependents"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dividends.0.capital_gain_distributions",
+      "schema_path": "dividends.*.capital_gain_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dividends"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dividends.0.federal_withholding",
+      "schema_path": "dividends.*.federal_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dividends"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dividends.0.ordinary",
+      "schema_path": "dividends.*.ordinary",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dividends"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dividends.0.payer",
+      "schema_path": "dividends.*.payer",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dividends"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "dividends.0.qualified",
+      "schema_path": "dividends.*.qualified",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "dividends"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claim_eligibility_confirmed",
+      "schema_path": "education.claim_eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimant_earned_income",
+      "schema_path": "education.claimant_earned_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimant_full_time_student",
+      "schema_path": "education.claimant_full_time_student",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimant_parent_alive",
+      "schema_path": "education.claimant_parent_alive",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimant_refundability_facts_confirmed",
+      "schema_path": "education.claimant_refundability_facts_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimant_support",
+      "schema_path": "education.claimant_support",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.claimed_on_another_return",
+      "schema_path": "education.claimed_on_another_return",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.enabled",
+      "schema_path": "education.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.no_foreign_magi_or_prior_credit_recapture",
+      "schema_path": "education.no_foreign_magi_or_prior_credit_recapture",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.aotc_prior_years",
+      "schema_path": "education.students.*.aotc_prior_years",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.course_materials",
+      "schema_path": "education.students.*.course_materials",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.credit",
+      "schema_path": "education.students.*.credit",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.dependency_claim_and_tin_confirmed",
+      "schema_path": "education.students.*.dependency_claim_and_tin_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.eligible_institution_and_payment_period_confirmed",
+      "schema_path": "education.students.*.eligible_institution_and_payment_period_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.expenses_used_elsewhere",
+      "schema_path": "education.students.*.expenses_used_elsewhere",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.first_four_years_not_completed",
+      "schema_path": "education.students.*.first_four_years_not_completed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.form_1098t_received_or_exception_confirmed",
+      "schema_path": "education.students.*.form_1098t_received_or_exception_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.half_time_degree_program",
+      "schema_path": "education.students.*.half_time_degree_program",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.institution_ein",
+      "schema_path": "education.students.*.institution_ein",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.materials_paid_to_institution_required",
+      "schema_path": "education.students.*.materials_paid_to_institution_required",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.name",
+      "schema_path": "education.students.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.no_felony_drug_conviction",
+      "schema_path": "education.students.*.no_felony_drug_conviction",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.qualified_expenses_and_no_double_benefit_confirmed",
+      "schema_path": "education.students.*.qualified_expenses_and_no_double_benefit_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.student_id",
+      "schema_path": "education.students.*.student_id",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.tax_free_assistance",
+      "schema_path": "education.students.*.tax_free_assistance",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "education.students.0.tuition_and_required_fees",
+      "schema_path": "education.students.*.tuition_and_required_fees",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:education"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.claim",
+      "schema_path": "eitc.claim",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.eligibility_confirmed",
+      "schema_path": "eitc.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.main_home_us_half_year",
+      "schema_path": "eitc.main_home_us_half_year",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.mfs_qualifying_separation",
+      "schema_path": "eitc.mfs_qualifying_separation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.no_disallowed_claim_history",
+      "schema_path": "eitc.no_disallowed_claim_history",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eitc.not_qualifying_child_of_another",
+      "schema_path": "eitc.not_qualifying_child_of_another",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:eitc"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.disability_income_in_return_confirmed",
+      "schema_path": "elderly_credit.disability_income_in_return_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.eligibility_confirmed",
+      "schema_path": "elderly_credit.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.enabled",
+      "schema_path": "elderly_credit.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.mfs_lived_apart_entire_year",
+      "schema_path": "elderly_credit.mfs_lived_apart_entire_year",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.nontaxable_benefits_confirmed",
+      "schema_path": "elderly_credit.nontaxable_benefits_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.other_nontaxable_pensions",
+      "schema_path": "elderly_credit.other_nontaxable_pensions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.physician_statement_confirmed",
+      "schema_path": "elderly_credit.physician_statement_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.spouse_after_minimum_retirement_age_confirmed",
+      "schema_path": "elderly_credit.spouse_after_minimum_retirement_age_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.spouse_permanently_disabled",
+      "schema_path": "elderly_credit.spouse_permanently_disabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.spouse_taxable_disability_income",
+      "schema_path": "elderly_credit.spouse_taxable_disability_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.taxpayer_after_minimum_retirement_age_confirmed",
+      "schema_path": "elderly_credit.taxpayer_after_minimum_retirement_age_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.taxpayer_permanently_disabled",
+      "schema_path": "elderly_credit.taxpayer_permanently_disabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "elderly_credit.taxpayer_taxable_disability_income",
+      "schema_path": "elderly_credit.taxpayer_taxable_disability_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:elderly_credit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.all_income_reported",
+      "schema_path": "eligibility.all_income_reported",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.capital_gains_eligible",
+      "schema_path": "eligibility.capital_gains_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "capital_gains",
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.eitc_not_applicable",
+      "schema_path": "eligibility.eitc_not_applicable",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.filing_status_confirmed",
+      "schema_path": "eligibility.filing_status_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.full_year_us_resident",
+      "schema_path": "eligibility.full_year_us_resident",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.hoh_eligible",
+      "schema_path": "eligibility.hoh_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.itemized_eligible",
+      "schema_path": "eligibility.itemized_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility",
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.mfs_lived_with_spouse",
+      "schema_path": "eligibility.mfs_lived_with_spouse",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.mfs_spouse_itemizes",
+      "schema_path": "eligibility.mfs_spouse_itemizes",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.no_amt_preferences",
+      "schema_path": "eligibility.no_amt_preferences",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.qss_eligible",
+      "schema_path": "eligibility.qss_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.qualified_dividends_eligible",
+      "schema_path": "eligibility.qualified_dividends_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "dividends",
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.self_employed_health_insurance_eligible",
+      "schema_path": "eligibility.self_employed_health_insurance_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "adjustments",
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "eligibility.student_loan_eligible",
+      "schema_path": "eligibility.student_loan_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "adjustments",
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "filing_status",
+      "schema_path": "filing_status",
+      "mode": "text",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.archer_msa_contributions",
+      "schema_path": "hsa.accounts.*.archer_msa_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.0",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.1",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.10",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.11",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.2",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.3",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.4",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.5",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.6",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.7",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.8",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.coverage.9",
+      "schema_path": "hsa.accounts.*.coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.distribution_breakdown_confirmed",
+      "schema_path": "hsa.accounts.*.distribution_breakdown_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.distribution_exception_confirmed",
+      "schema_path": "hsa.accounts.*.distribution_exception_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.distribution_timing_confirmed",
+      "schema_path": "hsa.accounts.*.distribution_timing_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.distributions",
+      "schema_path": "hsa.accounts.*.distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.employer_contributions",
+      "schema_path": "hsa.accounts.*.employer_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.employer_excess_in_wages_confirmed",
+      "schema_path": "hsa.accounts.*.employer_excess_in_wages_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.exception_taxable_distributions",
+      "schema_path": "hsa.accounts.*.exception_taxable_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.excess_contributions_withdrawn",
+      "schema_path": "hsa.accounts.*.excess_contributions_withdrawn",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.excess_withdrawal_and_income_reported_confirmed",
+      "schema_path": "hsa.accounts.*.excess_withdrawal_and_income_reported_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.excess_withdrawal_distributions",
+      "schema_path": "hsa.accounts.*.excess_withdrawal_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.first_day_coverage_and_eligibility_confirmed",
+      "schema_path": "hsa.accounts.*.first_day_coverage_and_eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.last_month_rule",
+      "schema_path": "hsa.accounts.*.last_month_rule",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.medical_expenses_confirmed",
+      "schema_path": "hsa.accounts.*.medical_expenses_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.no_prior_excess_or_testing_failure",
+      "schema_path": "hsa.accounts.*.no_prior_excess_or_testing_failure",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.owner",
+      "schema_path": "hsa.accounts.*.owner",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.personal_contributions",
+      "schema_path": "hsa.accounts.*.personal_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.qualified_funding_distribution",
+      "schema_path": "hsa.accounts.*.qualified_funding_distribution",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.qualified_medical_expenses",
+      "schema_path": "hsa.accounts.*.qualified_medical_expenses",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.rollover_distributions",
+      "schema_path": "hsa.accounts.*.rollover_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.testing_period_obligation_confirmed",
+      "schema_path": "hsa.accounts.*.testing_period_obligation_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.year_end_balance",
+      "schema_path": "hsa.accounts.*.year_end_balance",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.accounts.0.year_end_balance_confirmed",
+      "schema_path": "hsa.accounts.*.year_end_balance_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.enabled",
+      "schema_path": "hsa.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.family_allocation_confirmed",
+      "schema_path": "hsa.family_allocation_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.family_allocation_taxpayer_percent",
+      "schema_path": "hsa.family_allocation_taxpayer_percent",
+      "mode": "percent",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage_confirmed",
+      "schema_path": "hsa.spouse_coverage_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.0",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.1",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.10",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.11",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.2",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.3",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.4",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.5",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.6",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.7",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.8",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "hsa.spouse_coverage.9",
+      "schema_path": "hsa.spouse_coverage.*",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:hsa"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.address",
+      "schema_path": "identity.address",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.apt",
+      "schema_path": "identity.apt",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.city",
+      "schema_path": "identity.city",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.email",
+      "schema_path": "identity.email",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.first_name",
+      "schema_path": "identity.first_name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.foreign_country",
+      "schema_path": "identity.foreign_country",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.foreign_postal_code",
+      "schema_path": "identity.foreign_postal_code",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.foreign_province",
+      "schema_path": "identity.foreign_province",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.last_name",
+      "schema_path": "identity.last_name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.middle_initial",
+      "schema_path": "identity.middle_initial",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.occupation",
+      "schema_path": "identity.occupation",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.phone",
+      "schema_path": "identity.phone",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.spouse_first_name",
+      "schema_path": "identity.spouse_first_name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.spouse_last_name",
+      "schema_path": "identity.spouse_last_name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.spouse_middle_initial",
+      "schema_path": "identity.spouse_middle_initial",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.spouse_occupation",
+      "schema_path": "identity.spouse_occupation",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.spouse_ssn",
+      "schema_path": "identity.spouse_ssn",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.ssn",
+      "schema_path": "identity.ssn",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.state",
+      "schema_path": "identity.state",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "identity.zip",
+      "schema_path": "identity.zip",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:identity"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "interest.0.federal_withholding",
+      "schema_path": "interest.*.federal_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "interest"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "interest.0.payer",
+      "schema_path": "interest.*.payer",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "interest"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "interest.0.tax_exempt",
+      "schema_path": "interest.*.tax_exempt",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "interest"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "interest.0.taxable",
+      "schema_path": "interest.*.taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "interest"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.compensation_and_magi_confirmed",
+      "schema_path": "ira.compensation_and_magi_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.contributions_and_coverage_confirmed",
+      "schema_path": "ira.contributions_and_coverage_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.enabled",
+      "schema_path": "ira.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.mfs_lived_apart_entire_year",
+      "schema_path": "ira.mfs_lived_apart_entire_year",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.mfs_living_arrangement_confirmed",
+      "schema_path": "ira.mfs_living_arrangement_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.no_rollovers_recharacterizations_or_prior_excess",
+      "schema_path": "ira.no_rollovers_recharacterizations_or_prior_excess",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.prior_basis_spouse",
+      "schema_path": "ira.prior_basis_spouse",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.prior_basis_taxpayer",
+      "schema_path": "ira.prior_basis_taxpayer",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.roth_spouse",
+      "schema_path": "ira.roth_spouse",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.roth_taxpayer",
+      "schema_path": "ira.roth_taxpayer",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.spouse_covered_by_employer_plan",
+      "schema_path": "ira.spouse_covered_by_employer_plan",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.taxpayer_covered_by_employer_plan",
+      "schema_path": "ira.taxpayer_covered_by_employer_plan",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.traditional_spouse",
+      "schema_path": "ira.traditional_spouse",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "ira.traditional_taxpayer",
+      "schema_path": "ira.traditional_taxpayer",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:ira"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.charity",
+      "schema_path": "itemized.charity",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.charity_cash_only",
+      "schema_path": "itemized.charity_cash_only",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.force_itemized",
+      "schema_path": "itemized.force_itemized",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.investment_interest",
+      "schema_path": "itemized.investment_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.medical",
+      "schema_path": "itemized.medical",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.medical_eligible",
+      "schema_path": "itemized.medical_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.mortgage_eligible",
+      "schema_path": "itemized.mortgage_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.mortgage_interest",
+      "schema_path": "itemized.mortgage_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "itemized.state_local_tax",
+      "schema_path": "itemized.state_local_tax",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "itemized"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.annual_calculation",
+      "schema_path": "marketplace.annual_calculation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.annual_calculation_eligible_confirmed",
+      "schema_path": "marketplace.annual_calculation_eligible_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.below_poverty_exception",
+      "schema_path": "marketplace.below_poverty_exception",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.below_poverty_exception_confirmed",
+      "schema_path": "marketplace.below_poverty_exception_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.coverage_and_slcsp_inputs_confirmed",
+      "schema_path": "marketplace.coverage_and_slcsp_inputs_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.dependents_magi",
+      "schema_path": "marketplace.dependents_magi",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.enabled",
+      "schema_path": "marketplace.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.foreign_excluded_income",
+      "schema_path": "marketplace.foreign_excluded_income",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.lawful_presence_confirmed",
+      "schema_path": "marketplace.lawful_presence_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.mfs_no_abuse_or_abandonment_exception",
+      "schema_path": "marketplace.mfs_no_abuse_or_abandonment_exception",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.advance_credit",
+      "schema_path": "marketplace.months.*.advance_credit",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.coverage_eligible",
+      "schema_path": "marketplace.months.*.coverage_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.enrollment_premium",
+      "schema_path": "marketplace.months.*.enrollment_premium",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.month",
+      "schema_path": "marketplace.months.*.month",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.premiums_paid_and_no_other_mec_confirmed",
+      "schema_path": "marketplace.months.*.premiums_paid_and_no_other_mec_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.months.0.slcsp_premium",
+      "schema_path": "marketplace.months.*.slcsp_premium",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.no_qsehra_or_ichra",
+      "schema_path": "marketplace.no_qsehra_or_ichra",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.no_shared_policy_or_marriage_allocation",
+      "schema_path": "marketplace.no_shared_policy_or_marriage_allocation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.region",
+      "schema_path": "marketplace.region",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "marketplace.tax_family_and_household_income_confirmed",
+      "schema_path": "marketplace.tax_family_and_household_income_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:marketplace"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "name",
+      "schema_path": "name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.allocable_state_income_tax",
+      "schema_path": "niit.allocable_state_income_tax",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.carryover_confirmed",
+      "schema_path": "niit.carryover_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.deductions_confirmed",
+      "schema_path": "niit.deductions_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.eligibility_confirmed",
+      "schema_path": "niit.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.investment_interest_carryover",
+      "schema_path": "niit.investment_interest_carryover",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "niit.investment_interest_eligible",
+      "schema_path": "niit.investment_interest_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:niit"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "notes",
+      "schema_path": "notes",
+      "mode": "text",
+      "controls": [
+        "textarea"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "other_income.federal_withholding",
+      "schema_path": "other_income.federal_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "other_income"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "other_income.other",
+      "schema_path": "other_income.other",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "other_income"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "other_income.taxable_other_confirmed",
+      "schema_path": "other_income.taxable_other_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "other_income"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "other_income.unemployment",
+      "schema_path": "other_income.unemployment",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "other_income"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "payments.estimated",
+      "schema_path": "payments.estimated",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "payments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "payments.prior_year_credit",
+      "schema_path": "payments.prior_year_credit",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "payments"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.active_participation",
+      "schema_path": "rentals.*.active_participation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.advertising",
+      "schema_path": "rentals.*.advertising",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.at_risk_confirmed",
+      "schema_path": "rentals.*.at_risk_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.auto_travel",
+      "schema_path": "rentals.*.auto_travel",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.cleaning",
+      "schema_path": "rentals.*.cleaning",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.commissions",
+      "schema_path": "rentals.*.commissions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.depreciation",
+      "schema_path": "rentals.*.depreciation",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.depreciation_schedule_confirmed",
+      "schema_path": "rentals.*.depreciation_schedule_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.eligibility_confirmed",
+      "schema_path": "rentals.*.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.insurance",
+      "schema_path": "rentals.*.insurance",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.legal_professional",
+      "schema_path": "rentals.*.legal_professional",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.management_fees",
+      "schema_path": "rentals.*.management_fees",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.mortgage_interest",
+      "schema_path": "rentals.*.mortgage_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.name",
+      "schema_path": "rentals.*.name",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.niit_carryover_eligible",
+      "schema_path": "rentals.*.niit_carryover_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.no_personal_use_or_substantial_services",
+      "schema_path": "rentals.*.no_personal_use_or_substantial_services",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.other_expenses",
+      "schema_path": "rentals.*.other_expenses",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.other_interest",
+      "schema_path": "rentals.*.other_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.owner",
+      "schema_path": "rentals.*.owner",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.ownership_at_least_10_percent",
+      "schema_path": "rentals.*.ownership_at_least_10_percent",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.prior_loss_active_participation",
+      "schema_path": "rentals.*.prior_loss_active_participation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.prior_loss_amount_confirmed",
+      "schema_path": "rentals.*.prior_loss_amount_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.prior_unallowed_loss",
+      "schema_path": "rentals.*.prior_unallowed_loss",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.qbi_eligible",
+      "schema_path": "rentals.*.qbi_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.qbi_status_confirmed",
+      "schema_path": "rentals.*.qbi_status_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.rent",
+      "schema_path": "rentals.*.rent",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.repairs",
+      "schema_path": "rentals.*.repairs",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.same_amt_basis_and_depreciation",
+      "schema_path": "rentals.*.same_amt_basis_and_depreciation",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.supplies",
+      "schema_path": "rentals.*.supplies",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.taxes",
+      "schema_path": "rentals.*.taxes",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "rentals.0.utilities",
+      "schema_path": "rentals.*.utilities",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:rentals"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.annuity_gross",
+      "schema_path": "retirement.annuity_gross",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.annuity_taxable",
+      "schema_path": "retirement.annuity_taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.annuity_taxable_amounts_confirmed",
+      "schema_path": "retirement.annuity_taxable_amounts_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_amounts_confirmed",
+      "schema_path": "retirement.disability_amounts_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_before_minimum_retirement_age_confirmed",
+      "schema_path": "retirement.disability_before_minimum_retirement_age_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_spouse_gross",
+      "schema_path": "retirement.disability_spouse_gross",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_spouse_taxable",
+      "schema_path": "retirement.disability_spouse_taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_taxpayer_gross",
+      "schema_path": "retirement.disability_taxpayer_gross",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.disability_taxpayer_taxable",
+      "schema_path": "retirement.disability_taxpayer_taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.early_distribution_exception_confirmed",
+      "schema_path": "retirement.early_distribution_exception_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.federal_withholding",
+      "schema_path": "retirement.federal_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.ira_distribution_kind",
+      "schema_path": "retirement.ira_distribution_kind",
+      "mode": "text",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.ira_gross",
+      "schema_path": "retirement.ira_gross",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.ira_taxable",
+      "schema_path": "retirement.ira_taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.pension_gross",
+      "schema_path": "retirement.pension_gross",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.pension_taxable",
+      "schema_path": "retirement.pension_taxable",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.qualified_plan_confirmed",
+      "schema_path": "retirement.qualified_plan_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.social_security",
+      "schema_path": "retirement.social_security",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.ss_lump_sum_or_repayments",
+      "schema_path": "retirement.ss_lump_sum_or_repayments",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "retirement.taxable_amounts_confirmed",
+      "schema_path": "retirement.taxable_amounts_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "retirement"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.all_distribution_years_joint",
+      "schema_path": "saver.all_distribution_years_joint",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.contributions_eligibility_confirmed",
+      "schema_path": "saver.contributions_eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.current_year_excluded_distributions",
+      "schema_path": "saver.current_year_excluded_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.distribution_window_and_exclusions_confirmed",
+      "schema_path": "saver.distribution_window_and_exclusions_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.enabled",
+      "schema_path": "saver.enabled",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.spouse_able_contributions",
+      "schema_path": "saver.spouse_able_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.spouse_distributions",
+      "schema_path": "saver.spouse_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.spouse_employer_contributions",
+      "schema_path": "saver.spouse_employer_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.spouse_full_time_student",
+      "schema_path": "saver.spouse_full_time_student",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.taxpayer_able_contributions",
+      "schema_path": "saver.taxpayer_able_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.taxpayer_distributions",
+      "schema_path": "saver.taxpayer_distributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.taxpayer_employer_contributions",
+      "schema_path": "saver.taxpayer_employer_contributions",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "saver.taxpayer_full_time_student",
+      "schema_path": "saver.taxpayer_full_time_student",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "module:saver"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.car_loan_eligible",
+      "schema_path": "schedule_1a.car_loan_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.eligibility_confirmed",
+      "schema_path": "schedule_1a.eligibility_confirmed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.overtime_flsa_eligible",
+      "schema_path": "schedule_1a.overtime_flsa_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.qualified_car_loan_interest",
+      "schema_path": "schedule_1a.qualified_car_loan_interest",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.qualified_overtime",
+      "schema_path": "schedule_1a.qualified_overtime",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.qualified_tips",
+      "schema_path": "schedule_1a.qualified_tips",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.tips_not_sstb",
+      "schema_path": "schedule_1a.tips_not_sstb",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "schedule_1a.tips_occupation_eligible",
+      "schema_path": "schedule_1a.tips_occupation_eligible",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "schedule_1a"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "spouse.age",
+      "schema_path": "spouse.age",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "mfj",
+        "mfs",
+        "qss"
+      ],
+      "covered": true
+    },
+    {
+      "input": "spouse.blind",
+      "schema_path": "spouse.blind",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "mfj",
+        "mfs",
+        "qss"
+      ],
+      "covered": true
+    },
+    {
+      "input": "spouse.can_be_claimed",
+      "schema_path": "spouse.can_be_claimed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "mfj",
+        "mfs",
+        "qss"
+      ],
+      "covered": true
+    },
+    {
+      "input": "spouse.valid_ssn",
+      "schema_path": "spouse.valid_ssn",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "mfj",
+        "mfs",
+        "qss"
+      ],
+      "covered": true
+    },
+    {
+      "input": "spouse.valid_tin",
+      "schema_path": "spouse.valid_tin",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "mfj",
+        "mfs",
+        "qss"
+      ],
+      "covered": true
+    },
+    {
+      "input": "taxpayer.age",
+      "schema_path": "taxpayer.age",
+      "mode": "int",
+      "controls": [
+        "number"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "taxpayer.blind",
+      "schema_path": "taxpayer.blind",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "taxpayer.can_be_claimed",
+      "schema_path": "taxpayer.can_be_claimed",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "taxpayer.valid_ssn",
+      "schema_path": "taxpayer.valid_ssn",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "taxpayer.valid_tin",
+      "schema_path": "taxpayer.valid_tin",
+      "mode": "boolean",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "profile"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "unsupported",
+      "schema_path": "unsupported",
+      "mode": "category_selection",
+      "controls": [
+        "checkbox"
+      ],
+      "pages": [
+        "eligibility"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.dependent_care_benefits",
+      "schema_path": "w2.*.dependent_care_benefits",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.employer",
+      "schema_path": "w2.*.employer",
+      "mode": "text",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.federal_withholding",
+      "schema_path": "w2.*.federal_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.medicare_wages",
+      "schema_path": "w2.*.medicare_wages",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.medicare_withholding",
+      "schema_path": "w2.*.medicare_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.owner",
+      "schema_path": "w2.*.owner",
+      "mode": "enum",
+      "controls": [
+        "select"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.social_security_tips",
+      "schema_path": "w2.*.social_security_tips",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.social_security_wages",
+      "schema_path": "w2.*.social_security_wages",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.social_security_withholding",
+      "schema_path": "w2.*.social_security_withholding",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    },
+    {
+      "input": "w2.0.wages",
+      "schema_path": "w2.*.wages",
+      "mode": "money",
+      "controls": [
+        "text"
+      ],
+      "pages": [
+        "w2"
+      ],
+      "filing_statuses": [
+        "hoh",
+        "mfj",
+        "mfs",
+        "qss",
+        "single"
+      ],
+      "covered": true
+    }
+  ],
+  "fixed_fields": [
+    {
+      "input": "tax_year",
+      "mode": "fixed",
+      "control": "Visible tax-year2025 headings; engine rejects other years"
+    }
+  ],
+  "frontend_interview_modes": [
+    {
+      "mode": "desktop",
+      "implementation": "Shared interview DOM with desktop CSS",
+      "visual_runtime_verified_here": false
+    },
+    {
+      "mode": "mobile",
+      "implementation": "Same interview DOM with responsive CSS",
+      "visual_runtime_verified_here": false
+    }
+  ],
+  "additional_checks": {
+    "csv_parser": true,
+    "decimal_string_inputs": true,
+    "percent_integer_modes": true,
+    "form1040_line_order": true,
+    "form1040_additional_1h_lookup": true,
+    "real_synthetic_engine_workpapers_rendered": 21
+  },
+  "sensitive_values_stored": false,
+  "service_worker": {
+    "passed": true,
+    "version": "tax-reborn-ui-2025-preview-7",
+    "actual_manifest_assets_accepted": 40,
+    "pdf_gzip_extensionless_accepted": true,
+    "rejected_path_cases": 14,
+    "api_paths_cached": false,
+    "scope": "Manifest path-validation function checks; not offline browser runtime acceptance."
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "builder": "scripts/build_worker.py",
+  "network_services": false,
+  "dynamic_eval": false,
+  "sources": [
+    {
+      "file": "vendor/pyodide/pyodide.js",
+      "sha256": "718d40f1c015dd25ec724cc8fc4e2325d6a45a92ae225121ff6953f224a16f72"
+    },
+    {
+      "file": "vendor/pyodide/pyodide.asm.js",
+      "sha256": "1263f02b5b26099b96112378156f242dd98b39a8201ba7765e5fe3d455c5ce91"
+    },
+    {
+      "file": "tax-worker-source.js",
+      "sha256": "0d7fc4b683218f64d7231639a2e65da2bb896fecc3734b83adf1b1e349274194"
+    }
+  ],
+  "worker_sha256": "a0a6006de705e7ce4479b4e137fcf8005060006d055993ecdbffb07026aafea5"
+}

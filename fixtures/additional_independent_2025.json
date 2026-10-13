@@ -1,0 +1,687 @@
+{
+  "tax_year": 2025,
+  "currency": "USD",
+  "frozen_utc": "2026-10-13T04:48:31.439139+00:00",
+  "method": "Literal IRS2025 forms and independent manual arithmetic, saved before importing tax_additional or running new whole-return cases. Input schema adaptations will be separate from these frozen facts.",
+  "sources": {
+    "care": "https://www.irs.gov/pub/irs-prior/f2441--2025.pdf",
+    "care_instructions": "https://www.irs.gov/instructions/i2441",
+    "saver": "https://www.irs.gov/pub/irs-prior/f8880--2025.pdf",
+    "elderly": "https://www.irs.gov/pub/irs-prior/f1040sr--2025.pdf",
+    "elderly_instructions": "https://www.irs.gov/instructions/i1040sr",
+    "tax_table": "https://www.irs.gov/publications/p1040"
+  },
+  "cases": [
+    {
+      "id": "care_15000",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "15000",
+        "persons": 1,
+        "expenses": "4500",
+        "earned_taxpayer": "15000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 1050,
+        "base": 3000
+      },
+      "working": "2441 line3=min4500,3000; line8=.35; credit1050."
+    },
+    {
+      "id": "care_15001",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "15001",
+        "persons": 1,
+        "expenses": "4500",
+        "earned_taxpayer": "15001",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 1020,
+        "base": 3000
+      },
+      "working": "First dollar over15000 uses.34."
+    },
+    {
+      "id": "care_43000",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "43000",
+        "persons": 1,
+        "expenses": "5000",
+        "earned_taxpayer": "43000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 630,
+        "base": 3000
+      },
+      "working": "43000 is last.21 dollar;3000*.21=630."
+    },
+    {
+      "id": "care_43001",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "43001",
+        "persons": 1,
+        "expenses": "5000",
+        "earned_taxpayer": "43001",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 600,
+        "base": 3000
+      },
+      "working": "43001 enters.20;3000*.20=600."
+    },
+    {
+      "id": "care_spouse_earned_limit",
+      "module": "care",
+      "facts": {
+        "status": "mfj",
+        "agi": "50000",
+        "persons": 2,
+        "expenses": "8000",
+        "earned_taxpayer": "30000",
+        "earned_spouse": "2000",
+        "tax_limit": 5000
+      },
+      "expected": {
+        "credit": 400,
+        "base": 2000
+      },
+      "working": "Smallest of6000/30000/2000=2000;.20=>400."
+    },
+    {
+      "id": "care_two_fsa5000",
+      "module": "care",
+      "facts": {
+        "status": "mfj",
+        "agi": "80000",
+        "persons": 2,
+        "expenses": "10000",
+        "earned_taxpayer": "50000",
+        "earned_spouse": "30000",
+        "benefits": "5000",
+        "tax_limit": 5000
+      },
+      "expected": {
+        "credit": 200,
+        "excluded_benefits": 5000,
+        "taxable_benefits": 0,
+        "base": 1000
+      },
+      "working": "Excluded5000 reduces6000 limit to1000;.20=200."
+    },
+    {
+      "id": "care_single_fsa_over_expenses",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "30000",
+        "persons": 1,
+        "expenses": "4000",
+        "earned_taxpayer": "30000",
+        "benefits": "5000",
+        "tax_limit": 5000
+      },
+      "expected": {
+        "credit": 0,
+        "excluded_benefits": 4000,
+        "taxable_benefits": 1000,
+        "base": 0
+      },
+      "working": "PartIII excluded=minbenefits5000/expenses4000/earn30000/limit5000=4000; taxable1000;creditlimit0."
+    },
+    {
+      "id": "care_spouse_low_fsa",
+      "module": "care",
+      "facts": {
+        "status": "mfj",
+        "agi": "80000",
+        "persons": 2,
+        "expenses": "6000",
+        "earned_taxpayer": "77000",
+        "earned_spouse": "3000",
+        "benefits": "5000",
+        "tax_limit": 5000
+      },
+      "expected": {
+        "credit": 600,
+        "excluded_benefits": 3000,
+        "taxable_benefits": 2000,
+        "base": 3000
+      },
+      "working": "Exclude3000spouse limit;benefits2000 taxable;remaining6000capminus3000=3000;.20=>600."
+    },
+    {
+      "id": "care_student_deemed",
+      "module": "care",
+      "facts": {
+        "status": "mfj",
+        "agi": "60000",
+        "persons": 1,
+        "expenses": "5000",
+        "earned_taxpayer": "60000",
+        "earned_spouse": "0",
+        "spouse_student_months": 5,
+        "tax_limit": 5000
+      },
+      "expected": {
+        "credit": 250,
+        "base": 1250
+      },
+      "working": "5months*250=1250;.20=>250."
+    },
+    {
+      "id": "care_tax_limit",
+      "module": "care",
+      "facts": {
+        "status": "single",
+        "agi": "60000",
+        "persons": 1,
+        "expenses": "5000",
+        "earned_taxpayer": "60000",
+        "tax_limit": 100
+      },
+      "expected": {
+        "credit": 100,
+        "base": 3000
+      },
+      "working": "600tentative limited100nonref."
+    },
+    {
+      "id": "saver_single_23750",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "23750",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 1000
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_single_23751",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "23751",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 400
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_single_25500",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "25500",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 400
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_single_25501",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "25501",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 200
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_single_39500",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "39500",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 200
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_single_39501",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "39501",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 0
+      },
+      "working": "Official8880line9 exact boundary;eligible contribution2000."
+    },
+    {
+      "id": "saver_mfj_47500",
+      "module": "saver",
+      "facts": {
+        "status": "mfj",
+        "agi": "47500",
+        "taxpayer_contribution": "2000",
+        "spouse_contribution": "2000",
+        "tax_limit": 4000
+      },
+      "expected": {
+        "credit": 2000
+      },
+      "working": "Two columns capped2000each;8880MFJrateboundary."
+    },
+    {
+      "id": "saver_mfj_47501",
+      "module": "saver",
+      "facts": {
+        "status": "mfj",
+        "agi": "47501",
+        "taxpayer_contribution": "2000",
+        "spouse_contribution": "2000",
+        "tax_limit": 4000
+      },
+      "expected": {
+        "credit": 800
+      },
+      "working": "Two columns capped2000each;8880MFJrateboundary."
+    },
+    {
+      "id": "saver_mfj_51001",
+      "module": "saver",
+      "facts": {
+        "status": "mfj",
+        "agi": "51001",
+        "taxpayer_contribution": "2000",
+        "spouse_contribution": "2000",
+        "tax_limit": 4000
+      },
+      "expected": {
+        "credit": 400
+      },
+      "working": "Two columns capped2000each;8880MFJrateboundary."
+    },
+    {
+      "id": "saver_qss_single_rates",
+      "module": "saver",
+      "facts": {
+        "status": "qss",
+        "agi": "30000",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 3000
+      },
+      "expected": {
+        "credit": 200
+      },
+      "working": "QSSusesSingle/MFSratecolumn;.10\u2014notMFJ."
+    },
+    {
+      "id": "saver_shared_distributions",
+      "module": "saver",
+      "facts": {
+        "status": "mfj",
+        "agi": "40000",
+        "taxpayer_contribution": "2000",
+        "spouse_contribution": "2000",
+        "taxpayer_distributions": "100",
+        "spouse_distributions": "400",
+        "tax_limit": 4000
+      },
+      "expected": {
+        "credit": 1500
+      },
+      "working": "BothpreviousdistributionyearsfiledMFJ;combined500inbothline4cols =>1500each*.50=1500total."
+    },
+    {
+      "id": "saver_tax_limit",
+      "module": "saver",
+      "facts": {
+        "status": "single",
+        "agi": "23000",
+        "taxpayer_contribution": "2000",
+        "tax_limit": 100
+      },
+      "expected": {
+        "credit": 100
+      },
+      "working": "Tentative1000limited100remainingtax."
+    },
+    {
+      "id": "elderly_single",
+      "module": "elderly",
+      "facts": {
+        "status": "single",
+        "taxpayer_age": 65,
+        "agi": "10000",
+        "nontaxable_ss": "1000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 413,
+        "tentative": 413
+      },
+      "working": "5000-1000-.5*(10000-7500)=2750;*.15=412.50round413."
+    },
+    {
+      "id": "elderly_single_upper",
+      "module": "elderly",
+      "facts": {
+        "status": "single",
+        "taxpayer_age": 65,
+        "agi": "17500",
+        "nontaxable_ss": "0",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 0,
+        "tentative": 0
+      },
+      "working": "5000-.5*(17500-7500)=0."
+    },
+    {
+      "id": "elderly_both",
+      "module": "elderly",
+      "facts": {
+        "status": "mfj",
+        "taxpayer_age": 67,
+        "spouse_age": 66,
+        "agi": "18000",
+        "nontaxable_ss": "2000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 225,
+        "tentative": 225
+      },
+      "working": "7500-2000-.5*(18000-10000)=1500;*.15=225."
+    },
+    {
+      "id": "elderly_one",
+      "module": "elderly",
+      "facts": {
+        "status": "mfj",
+        "taxpayer_age": 65,
+        "spouse_age": 60,
+        "agi": "18000",
+        "nontaxable_ss": "0",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 150,
+        "tentative": 150
+      },
+      "working": "5000-.5*(18000-10000)=1000;*.15=150."
+    },
+    {
+      "id": "elderly_mfs_apart",
+      "module": "elderly",
+      "facts": {
+        "status": "mfs",
+        "taxpayer_age": 65,
+        "agi": "7500",
+        "nontaxable_ss": "0",
+        "mfs_lived_apart": true,
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 375,
+        "tentative": 375
+      },
+      "working": "3750-.5*(7500-5000)=2500;*.15=375."
+    },
+    {
+      "id": "elderly_disabled",
+      "module": "elderly",
+      "facts": {
+        "status": "single",
+        "taxpayer_age": 50,
+        "agi": "10000",
+        "nontaxable_ss": "0",
+        "taxable_disability": "3000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 263,
+        "tentative": 263
+      },
+      "working": "Disabledinitial=min5000,3000=3000;minus1250=1750;*.15=262.50round263."
+    },
+    {
+      "id": "elderly_senior_disabled_spouse",
+      "module": "elderly",
+      "facts": {
+        "status": "mfj",
+        "taxpayer_age": 65,
+        "spouse_age": 50,
+        "agi": "18000",
+        "nontaxable_ss": "0",
+        "spouse_taxable_disability": "2000",
+        "tax_limit": 2000
+      },
+      "expected": {
+        "credit": 450,
+        "tentative": 450
+      },
+      "working": "Box6 line11=5000+2000=7000;min7500,7000minus4000=3000;*.15=450."
+    },
+    {
+      "id": "elderly_tax_limit",
+      "module": "elderly",
+      "facts": {
+        "status": "single",
+        "taxpayer_age": 65,
+        "agi": "10000",
+        "nontaxable_ss": "1000",
+        "tax_limit": 80
+      },
+      "expected": {
+        "credit": 80,
+        "tentative": 413
+      },
+      "working": "Tentative413limited80."
+    }
+  ],
+  "whole_returns": [
+    {
+      "id": "care_ctc_single_w2",
+      "facts": "60000W2,6500WH,oneeligible8yearold,5000careexpense,allqualificationsverified",
+      "expected": {
+        "11b": 60000,
+        "15": 44250,
+        "16": 5075,
+        "19": 2200,
+        "20": 600,
+        "24": 2275,
+        "33": 6500,
+        "35a": 4225
+      }
+    },
+    {
+      "id": "care_education_ctc_single_w2",
+      "facts": "Same60000W2+4000AOTCqualifyingtaxpayerexpense(age35)",
+      "expected": {
+        "11b": 60000,
+        "15": 44250,
+        "16": 5075,
+        "19": 2200,
+        "20": 2100,
+        "24": 775,
+        "29": 1000,
+        "33": 7500,
+        "35a": 6725
+      }
+    },
+    {
+      "id": "saver_single_w2",
+      "facts": "30000W2,2000WH,2000eligible employerplan contribution,age35notstudent ordependent",
+      "expected": {
+        "11b": 30000,
+        "15": 14250,
+        "16": 1475,
+        "20": 200,
+        "24": 1275,
+        "33": 2000,
+        "35a": 725
+      }
+    },
+    {
+      "id": "saver_ira_deduction_tax_cap",
+      "facts": "30000W2,2000WH,7000eligibletraditionalIRA,age35notstudent/dependent",
+      "expected": {
+        "10": 7000,
+        "11b": 23000,
+        "15": 7250,
+        "16": 728,
+        "20": 728,
+        "24": 0,
+        "33": 2000,
+        "35a": 2000
+      }
+    },
+    {
+      "id": "elderly_forced_itemized",
+      "facts": "Age65,10000taxableinterest,1000SSAallnontaxable,100cashcharityforceitemized,6000qualifiedsenior deduction,500WH",
+      "expected": {
+        "6a": 1000,
+        "6b": 0,
+        "11b": 10000,
+        "12e": 100,
+        "13b": 6000,
+        "15": 3900,
+        "16": 393,
+        "20": 393,
+        "24": 0,
+        "33": 500,
+        "35a": 500
+      }
+    }
+  ],
+  "before_schema_snapshot_sha256": "d84c7dbf55c5a9a31c3ba41181e47dfcf4c8f669e6f987e2f6a008f0996c4a93",
+  "scope_guards": [
+    {
+      "id": "care_missing_work_ack",
+      "module": "care",
+      "purpose": "Cannot assume expenses incurred to work/lookforwork."
+    },
+    {
+      "id": "care_missing_provider",
+      "module": "care",
+      "purpose": "Actualproviderrecordsrequired."
+    },
+    {
+      "id": "care_household_employee",
+      "module": "care",
+      "purpose": "Nanny may oweScheduleH; unsupportedpayrollcannotpass."
+    },
+    {
+      "id": "care_prior_expenses",
+      "module": "care",
+      "purpose": "Prior-year expenses need2441WorksheetA."
+    },
+    {
+      "id": "care_self_employed_benefits",
+      "module": "care",
+      "purpose": "Businessbenefitdeductionneedsadditionalintegration."
+    },
+    {
+      "id": "care_disabled_nonzero",
+      "module": "care",
+      "purpose": "Disabledsectioncannothidebenefits/documents."
+    },
+    {
+      "id": "care_missing_person_qualification",
+      "module": "care",
+      "purpose": "Age alonecannotestablishresidency/support."
+    },
+    {
+      "id": "care_bad_tin",
+      "module": "care",
+      "purpose": "MissingqualifyingpersonTINneedsformalreview."
+    },
+    {
+      "id": "care_age13_not_disabled",
+      "module": "care",
+      "purpose": "Onlycarebefore13thbirthdayqualifies."
+    },
+    {
+      "id": "care_benefits_unverified",
+      "module": "care",
+      "purpose": "EmployeeBox10exclusionfactsrequired."
+    },
+    {
+      "id": "care_no_double_benefit",
+      "module": "care",
+      "purpose": "NoScheduleA/medical/exclusionexpense reuse."
+    },
+    {
+      "id": "care_deemed_missing_ack",
+      "module": "care",
+      "purpose": "Student/disabledmonthlyfactsrequired."
+    },
+    {
+      "id": "saver_unverified_contributions",
+      "module": "saver",
+      "purpose": "Onlyqualifiedcontributiontypes."
+    },
+    {
+      "id": "saver_distribution_window",
+      "module": "saver",
+      "purpose": "Windowafter2022through2025filingdue date."
+    },
+    {
+      "id": "saver_mfj_nonjoint_distributionyear",
+      "module": "saver",
+      "purpose": "Poolingbothcolsnotvalidfornonjointdistributionyear."
+    },
+    {
+      "id": "saver_disabled_nonzero",
+      "module": "saver",
+      "purpose": "Disabledcreditcannotdiscardeligibleenteredcontributions."
+    },
+    {
+      "id": "elderly_missing_ack",
+      "module": "elderly",
+      "purpose": "Incomeandqualifiedperson factsrequired."
+    },
+    {
+      "id": "elderly_benefits_unverified",
+      "module": "elderly",
+      "purpose": "NontaxableSS/pension amountsreducecredit."
+    },
+    {
+      "id": "elderly_disabled_no_physician",
+      "module": "elderly",
+      "purpose": "Disabilityqualificationmustbecorroborated."
+    },
+    {
+      "id": "elderly_disability_not_in_income",
+      "module": "elderly",
+      "purpose": "Cannotclaimbasedondisabilitytaxableincomeabsentfromreturn."
+    }
+  ],
+  "freeze_final_utc": "2026-10-13T04:49:22.871783+00:00"
+}

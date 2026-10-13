@@ -1,0 +1,17 @@
+{
+  "all_passed": true,
+  "checks": [
+    "31-state schema and all input descriptors available",
+    "Literal 2025 Illinois 4.95% tax after $2,850 exemption",
+    "Rule evaluation is fixed to 2025 and includes derivation evidence",
+    "Unknown jurisdiction rejected instead of falling back to New York",
+    "Unknown input fields rejected",
+    "Missing AGI rejected for AGI-based state",
+    "Nonfinite and unknown status rejected",
+    "Federal $60000 example also agrees with literal whole-dollar rounding"
+  ],
+  "tests": 8,
+  "scope": "Local state adapter and two literal Illinois cases; not independent all-state validation",
+  "source": "https://tax.illinois.gov/content/dam/soi/en/web/tax/forms/incometax/documents/currentyear/individual/il-1040-instr.pdf",
+  "tax_year": 2025
+}

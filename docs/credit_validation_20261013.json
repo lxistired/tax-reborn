@@ -1,0 +1,44 @@
+{
+  "start_utc": "2026-10-13T04:42:32.934405+00:00",
+  "before": {
+    "tax_engine.py": "22e00289c7c9079a485d59907620958b8791155f997563da0562f6e46db63eaf",
+    "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+    "tax_credits.py": "887f95f1b7910214c0afd3ddfb6a8e7548bff9d62df876a0e4a400996668d7e2",
+    "rules_2025.json": "7ee6b794b8b633c9736a5a160fe4c0512346562025bbbb9d0261a45aa72fd544",
+    "tests/test_credits.py": "308c365fc26473067b67fddd12b3d234ee6af7523d797aad3d1c168424d41079",
+    "tests/test_acceptance.py": "68b02553a5495a9a6a78ca07d43b3953b983550044cc777a56c9a08633355fe6",
+    "fixtures/credit_cases_2025.json": "e5a68f152b820f69a4455ce8b34a17ecc094b594018bfb29c6c1f497aff73629",
+    "fixtures/independent_cases.json": "bc6401f56c0b9ae7572908a23c6b5159c809723dde4ef9a0ae02c55c905e7d15"
+  },
+  "command": [
+    "python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "cwd": "delivery directory",
+  "end_utc": "2026-10-13T04:42:33.046825+00:00",
+  "after": {
+    "tax_engine.py": "22e00289c7c9079a485d59907620958b8791155f997563da0562f6e46db63eaf",
+    "tax_extended.py": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+    "tax_credits.py": "887f95f1b7910214c0afd3ddfb6a8e7548bff9d62df876a0e4a400996668d7e2",
+    "rules_2025.json": "7ee6b794b8b633c9736a5a160fe4c0512346562025bbbb9d0261a45aa72fd544",
+    "tests/test_credits.py": "308c365fc26473067b67fddd12b3d234ee6af7523d797aad3d1c168424d41079",
+    "tests/test_acceptance.py": "68b02553a5495a9a6a78ca07d43b3953b983550044cc777a56c9a08633355fe6",
+    "fixtures/credit_cases_2025.json": "e5a68f152b820f69a4455ce8b34a17ecc094b594018bfb29c6c1f497aff73629",
+    "fixtures/independent_cases.json": "bc6401f56c0b9ae7572908a23c6b5159c809723dde4ef9a0ae02c55c905e7d15"
+  },
+  "exit_code": 0,
+  "source_unchanged": true,
+  "tests_passed": 176,
+  "test_modules": {
+    "test_acceptance": 70,
+    "test_credits": 70,
+    "test_engine": 13,
+    "test_extended": 23
+  },
+  "evidence_scope": "Synthetic Python backend calculations and declared rejection boundaries; no commercial-vendor parity, UI, device, save/export or filing verification."
+}

@@ -1,0 +1,39 @@
+# Tax Reborn · Project #000002
+
+A local, working US personal-tax preparation preview, researched against TurboTax Desktop2025 and its official mobile demonstrations. It calculates actual 2025 federal taxes, stores separate returns, imports reviewed documents and CSV records, prepares state calculation drafts and exports preparation records. Maintained by [@lxistired](https://github.com/lxistired).
+
+This is independent source code. REA inspected shipped desktop resources and selected native interfaces; the federal tax formulas were independently implemented from IRS rules. The state worker integrates the pinned open-source Invaro OpenTax engine. No Intuit account, licensed vendor binary, vendor artwork, hosted tax API or remote inference is required by the application.
+
+**Status: functional development preview; a complete TurboTax substitute and filing packet have not been established.** Supported arithmetic, complete paperwork and submission are separate checks. Unsupported situations are reported in the return instead of silently marked complete. Electronic filing, tax payment, expert representation and IRS acceptance are unavailable. The calculation year is2025, not2026.
+
+## Working workflows
+
+- Five filing statuses; taxpayer/dependent eligibility and optional local identity details.
+- W2 wages/withholding, interest, dividends, ordinary brokerage sales and loss carryovers, qualified dividends, sole-proprietor business/SE/QBI, ordinary retirement and Social Security.
+- Standard or supported itemized deductions, Schedule1-A tips/overtime/car-interest/senior deductions and estimated payments.
+- EITC with the official2025 IRS table; NIIT, AMT and ordinary passive rental worksheets; IRA/HSA contributions, education credits and Marketplace1095-A reconciliation.
+- Form2441 dependent-care credit and W2 Box10 employer benefits; Form8880 Saver credit; ScheduleR elderly/disabled credit; qualified employer disability before minimum retirement age reported on Form1040 line1h. Each module requires explicit eligibility facts and blocks unsupported variants.
+- Multi-return local saving and reopening. Desktop uses private SQLite outside the application bundle; the offline/mobile mode uses on-device IndexedDB. JSON backup restores to a new copy; CSV import appends reviewed records.
+- Local image OCR and text-PDF W2 extraction. The user reviews every candidate before it enters the return. Scanned PDFs require an image or manual entry. Attachments are stored separately and are not part of the JSON backup.
+- 31 full-year-resident state draft composers, with state adjustments, notes, missing situations and rule proofs. This is an open-source integration, not a claimed recovery of Intuit's state engine. Part-year/nonresident returns and other states are not covered by this interface.
+- Computed Form1040 lines, detailed workpapers, JSON/HTML export and an interactive official IRS2025 Form1040 PDF draft. Identity text entered by the user is filled locally. Signatures, bank instructions, some checkboxes and the complete set of official supporting forms remain incomplete.
+
+The live source of truth is `/api/schema` → `capabilities.coverage` and the returned `blocking_issues` / `form_readiness`. Inspect [coverage-20261013.json](docs/coverage-20261013.json), [validation](docs/validation.md), [credit validation](docs/CREDIT_MODULES.md) and [REA evidence](docs/REA_CASE.md).
+
+## Run and build
+
+Use Python3.12+; desktop build pins are in requirements-desktop.txt. Development server: `python server.py --port 8782`. Native window: `python desktop.py`. Open `http://127.0.0.1:8782/?offline=1` to exercise the mobile engine and on-device storage. Use synthetic examples for testing.
+
+- Federal tests: `python -m unittest discover -s tests -v`.
+- Packaged API test: `python desktop.py --smoke-test --smoke-report qa/api-smoke.json`.
+- Same Python tests in WebAssembly: `node scripts/test_pyodide.cjs`.
+- State adapter: `node scripts/test_state_bridge.cjs`. The upstream196 state tests are separate from our federal acceptance and our limited independent state examples.
+- macOS/Windows native build: `python scripts/build_desktop.py --work-dir <temporary-path> --output-dir dist/expanded`. Build on the target OS; macOS cannot cross-compile a verified Windows installer.
+- Android build: `python scripts/build_android.py --sdk <existing-SDK> --java-home <JDK> --work-dir <private-build-path> --output-dir dist/expanded`. Development signed, API26+, target35, no INTERNET permission. Camera and document save/open actions are initiated by the user. No native iOS build has been produced; the responsive PWA is a separate delivery.
+- Pinned state source rebuild: `python scripts/build_state.py --work-dir <temporary-path>`.
+
+No private signing keystore, original vendor artifact or user return should enter this repository. QA artifacts contain only synthetic returns and source-based expected values. A local MacDMG is not notarized; an Android development APK is not a store release. Actual build hashes and executed checks are in the corresponding `dist/expanded/build-manifest-*` and `qa/` files.
+
+## License and attribution
+
+Tax Reborn #000002 is AGPL-3.0-only because its state worker incorporates Invaro OpenTax. The original independent-code MIT notice is retained, together with authentic dependency notices and OpenTax corresponding source under `vendor/`. The separate [Ledger Reborn #000001](https://github.com/lxistired/ledger-reborn) project remains MIT. This project is not affiliated with Intuit, TurboTax or the IRS.

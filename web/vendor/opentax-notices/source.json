@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/Invaro/opentax-engine",
+  "commit": "72e1fc73ce0454c20c2fa6e8f7b7b41cd292e261",
+  "license": "AGPL-3.0-only",
+  "uses_hosted_service": false,
+  "modules": [
+    "core",
+    "corpus-us-federal",
+    "compose"
+  ],
+  "tax_year": 2025,
+  "as_of": "2025-12-31",
+  "full_year_resident_states": 31,
+  "source_archive_sha256": "593de30be251683d26e12183f7c6fe41070bf1b4923a5b3bfd70f9c0e03a82f8"
+}

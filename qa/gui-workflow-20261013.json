@@ -1,0 +1,67 @@
+{
+  "recorded_at": "2026-10-13T06:18:08.720263+00:00",
+  "data": "synthetic only",
+  "desktop_browser": {
+    "ocr_candidate_boxes_1_through_7": true,
+    "ocr_append_and_save": true,
+    "after_append": {
+      "agi": 120100,
+      "total_tax": 17891,
+      "payments": 13000,
+      "amount_owed": 4891
+    },
+    "state_il": {
+      "agi": 60100,
+      "tax": 2834,
+      "withholding": 3000,
+      "refund": 166
+    },
+    "state_reopened_withholding": 3000
+  },
+  "offline_browser": {
+    "first_importscripts_cold_failure": true,
+    "second_cached_but_cold_failure": true,
+    "fixed_tax_worker_single_bundle_and_cache_fetch_fallback": true,
+    "local_http_service_stopped_during_verification": true,
+    "cold_boot": true,
+    "reopened_saved_mfj_return": true,
+    "edited_withholding_and_saved": true,
+    "new_result": {
+      "agi": 100000,
+      "taxable_income": 68500,
+      "total_tax": 3346,
+      "payments": 10500,
+      "refund": 7154
+    },
+    "pdf_download": "offline-generated-1040-DRAFT.pdf",
+    "photo_offline": {
+      "cold_reload_with_http_service_stopped": true,
+      "reviewed_boxes_1_through_7_correct": true,
+      "screenshot": "offline-ocr-reviewed-candidates.png",
+      "worker_bundle_cache_and_async_button_repaired": true
+    },
+    "text_pdf": {
+      "wages": "42500.55",
+      "withholding": "3456.78",
+      "source_pdf": "synthetic-w2-text-2025.pdf",
+      "screenshot": "offline-text-pdf-candidates.png"
+    },
+    "json_restore": {
+      "new_id": "2b6c7e51-0a61-4daa-93ae-8c1eca9abd85",
+      "original_kept": true,
+      "opened_and_recalculated_refund": 7154,
+      "screenshot": "offline-backup-restored.png"
+    }
+  },
+  "physical_android_installed": true,
+  "native_ios_built": false,
+  "official_product_math_parity": false,
+  "android_receipt": "android-device-workflow-20261013.json",
+  "native_mac_preview2": {
+    "frozen_checks": 10,
+    "all_passed": true,
+    "updated_app_reopened_existing_return": true,
+    "refund": 1913,
+    "screenshot": "mac-preview2-reopened.png"
+  }
+}

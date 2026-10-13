@@ -1,0 +1,88 @@
+{
+  "tax_year": 2025,
+  "currency": "USD",
+  "frozen_utc": "2026-10-13T05:00:11.989474+00:00",
+  "method": "Independent official IRS2025 disability classification and EIC table. Monetary expectations below recorded before new line1h implementation exists.",
+  "sources": {
+    "classification": "https://www.irs.gov/instructions/i1040gi",
+    "earned_income": "https://www.irs.gov/publications/p596",
+    "table": "https://www.irs.gov/publications/p1040"
+  },
+  "cases": [
+    {
+      "id": "disability15000_before_minimum_retirement",
+      "facts": {
+        "filing_status": "single",
+        "age": 50,
+        "taxable_disability": "15000",
+        "wages": "0"
+      },
+      "expected": {
+        "1a": 0,
+        "5b": 0,
+        "11b": 15000,
+        "15": 0,
+        "16": 0,
+        "23": 0,
+        "24": 0,
+        "27a": 312,
+        "33": 312,
+        "35a": 312,
+        "additional_lines.1h": 15000,
+        "additional_lines.1z": 15000
+      },
+      "working": "Employer disability plan before minimumretirementage is1040line1h/earnedincome. Age50nochildrenAGI=earned15000:2025publishedEICrow15000to15050Single0=312. Standard15750leaves0TI;EIC312isrefund."
+    },
+    {
+      "id": "ordinary_w2_plus_disability",
+      "facts": {
+        "filing_status": "single",
+        "age": 50,
+        "taxable_disability": "15000",
+        "wages": "20000",
+        "federal_withholding": "2500"
+      },
+      "expected": {
+        "1a": 20000,
+        "5b": 0,
+        "11b": 35000,
+        "15": 19250,
+        "16": 2075,
+        "23": 0,
+        "24": 2075,
+        "27a": 0,
+        "33": 2500,
+        "35a": 425,
+        "additional_lines.1h": 15000,
+        "additional_lines.1z": 35000
+      },
+      "working": "AGI35000,TI19250;SingleTaxTable2075;EICabove19104none. NoSE orMed taxfor disability."
+    },
+    {
+      "id": "additional_medicare_excludes_disability",
+      "facts": {
+        "filing_status": "single",
+        "age": 50,
+        "taxable_disability": "30000",
+        "wages": "230000",
+        "federal_withholding": "55000",
+        "medicare_withholding": "3605"
+      },
+      "expected": {
+        "1a": 230000,
+        "5b": 0,
+        "11b": 260000,
+        "15": 244250,
+        "16": 55223,
+        "23": 270,
+        "24": 55493,
+        "25c": 270,
+        "33": 55270,
+        "37": 223,
+        "additional_lines.1h": 30000,
+        "additional_lines.1z": 260000
+      },
+      "working": "Taxcomputation244250*.32-22937=55223. ActualMedwages230000 =>8959(.009*30000)=270;Box63605minusregular3335=>270credit. Disability isnotW2Med/SE. AMT44694<regular55223. 55493-(55000+270)=223owed."
+    }
+  ]
+}

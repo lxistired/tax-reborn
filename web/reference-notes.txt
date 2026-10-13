@@ -1,0 +1,55 @@
+Tax Reborn #000002 — UI reference notes
+Observed 2026-10-13. Independent DOM/CSS/vector implementation. No vendor art is included.
+
+Official desktop product: https://turbotax.intuit.com/personal-taxes/cd-download/
+Observed: step-by-step return preparation, financial-document entry/import, deduction/interview guidance, federal forms. The original product's account/activation claims do not apply to this independent local implementation.
+
+Official W-2 workflow: https://ttlc.intuit.com/turbotax-support/en-us/help-article/import-export-data-files/import-enter-w-2/L55HzdeDr_US_en_US
+Observed: Desktop Federal Taxes → Wages & Income → Wages and Salaries; Start/Update; add another W-2; manual entry. Online/mobile also advertises photo and upload entry. Tax Reborn implements manual entry, mapped CSV entry and local attachments. A separately packaged local extraction module, when present, offers editable W-2 candidates for explicit review. Employer-network import is not provided.
+
+Official edit/delete workflow: https://ttlc.intuit.com/turbotax-support/en-us/help-article/small-business-processes/change-w-2-info-turbotax/L2tux0Y8v_US_en_US
+Observed: W-2 summary, edit an existing record, delete a record, add more. Independent repeating records implement these actions on actual local return data.
+
+Official Android listing/screenshots: https://play.google.com/store/apps/details?id=com.intuit.turbotax.mobile&hl=en
+Official iOS listing: https://apps.apple.com/us/app/turbotax-file-your-tax-return/id940247939
+Observed mobile screenshot via root's private local capture: black promotional background, coral heading, angled white phone, compact top navigation, coral logo and mint check marks. This is marketing artwork, not a deep live interview screenshot. It supports a focused white mobile interface but cannot establish exact input-screen or runtime parity. No crop or vendor logo is redistributed.
+
+IRS form-line reference: https://www.irs.gov/pub/irs-prior/f1040--2025.pdf
+The original 2025 Form 1040 establishes worksheet line names. Tax amounts, rules, trace, warnings and preparation status come from tax_engine. The UI does not implement tax rules itself.
+
+Desktop controls and mobile interview appearance are workflow reconstructions. Exact pixel and original-runtime parity are unverified unless a later acceptance record explicitly identifies the compared screen. Original desktop REA analysis is owned by the root task and remains outside this web source.
+
+Functional scope: every current default input and repeating-row-template field is editable through interview controls or Advanced Input JSON. All tax-result figures come from the API. Persistent saves use canonical UUIDv4 ids. Documents are separate local IndexedDB attachments; no cloud upload. A loaded local OCR/text module can suggest W-2 amounts for explicit review; extraction is not tax or document verification. No filing, acceptance, payment or expert-representation button is provided.
+
+Responsive web/PWA UI does not establish native iOS support. A native Android host is independently packaged by the root task and requires its own build/emulator/device verification. Offline calculation uses root-owned local-api.js/tax-worker.js/Pyodide assets. Service-worker cache excludes /api and return data; extra static offline engine assets may be enumerated in offline-assets.json.
+
+Official video and walkthrough research — observed 2026-10-13
+
+Official guided-interview video article: https://turbotax.intuit.com/tax-tips/brand/video-how-turbotax-guides-you-step-by-step-like-a-gps/L4txvKEaB
+Article marked updated for tax year 2025 on July 21, 2026. Embedded official video: https://www.youtube.com/watch?v=jZO3RNBCdtc
+Observed from the official article/transcript and embed metadata: questions about income/job/family, data import, a progress map, and placing answers in tax forms. This is a guided product explanation, not proof of exact desktop pixels. Frames were not independently inspected in this frontend task.
+
+Official W-2 import tutorial: https://ttlc.intuit.com/turbotax-support/en-us/help-article/import-export-data-files/import-w-2-turbotax-online/L9nDrTGyG_US_en_US
+Article marked updated January 20, 2026. Embedded official tutorial: https://www.youtube.com/watch?v=0BKPO_TssPA
+Observed workflow: Wages & Income, Start/Edit, add another W-2, identify an employer, upload a PDF/JPEG/PNG, or enter the statement manually. Employer-network import is not implemented in this project. Local extraction, if enabled by the packaged document-import module, offers editable candidates that a user must review before adding a W-2; it does not verify a vendor document or replace eligibility checks.
+
+Official mobile product demonstration page: https://turbotax.intuit.com/personal-taxes/mobile-apps/turbotax/
+Official page's “Watch how our app works” media: https://digitalasset.intuit.com/render/content/dam/intuit/cg/en_us/marketing/campaigns/may-activation-offer/images/mobile-app-diy-offer/MobileAppVideoForFrontDoors_250131.mp4
+Media URL verified from the official page HTML. Publication date is not verified; the filename is not treated as a release date. The page describes situation questions and document photos; marketing copy does not establish deep interview or native-runtime parity. No media file or vendor artwork is bundled here.
+
+Official mobile promotion: https://www.youtube.com/watch?v=oph4i7pdtUU
+Public YouTube metadata identifies Intuit TurboTax and February 13, 2026. This is an offer/promotion video, not a complete functional walkthrough.
+
+New intake modules are generated from the local engine's actual default schema, row templates and field descriptors. Showing a form does not imply a tax calculation has passed independent validation. Engine capability, blocking issues, traces and acceptance records define the supported calculation scope.
+
+CSV import/export: independently implemented mapping for current W-2/1099-INT/1099-DIV/brokerage-lot/sole-proprietor templates. Import appends records after explicit review and structural calculation validation; it does not infer eligibility. Export escapes potentially executable text cells for spreadsheet applications.
+
+Official mobile video frames actually inspected — observed 2026-10-13
+The root task retained private analysis frames from the official 47-second MobileAppVideoForFrontDoors_250131.mp4 referenced above. The frontend task inspected the frame at 00:26: a white iPhone interview surface; vendor logo left; search/help/notification icons right; centered “We’ve autofilled your information”; a bordered pale-header “Wages and income” summary card; and an example 1099-INT with Box 1 amount/name. The marketing caption “file on average 30% faster” is a vendor claim, not a measured Tax Reborn result.
+The root task also reported frames at 00:19 showing an iOS file-upload chooser and at 00:34 showing an assisted-chat interface. Those two descriptions are root-task observations, not independent frame inspections by this frontend task. These promotional frames establish visible workflow examples only. They do not establish full-interview pixels, OCR accuracy, comprehensive tax-situation coverage or original runtime parity. Vendor frames and the video remain in private work research and are not distributed with this app.
+Tax Reborn uses a separately drawn document-review card and manual confirmation step. It does not copy the logo or claim the vendor’s autofill success or filing-speed result.
+
+Final local integrations and license — 2026-10-13
+The packaged app now includes root-owned document-import.js, local Tesseract OCR/language assets, readable-PDF text extraction, and a separate state workspace/worker. The frontend integrates candidate review and actual state saves; neither integration is proof of all-document recognition or complete vendor feature parity. The state worker combines the third-party OpenTax core/corpus/composition rules. These are public open-source inputs, not claimed as a REA-derived tax engine.
+The combined Tax Reborn #000002 distribution is AGPL-3.0-only. Original independent MIT notices, upstream licenses and corresponding OpenTax source are retained by the root packaging task. Ledger Reborn #000001 remains separately MIT licensed.
+The final PWA cache validates only explicitly enumerated, same-origin, non-API asset paths and rejects traversal. PDF forms, gzipped OCR models and extensionless license files are not excluded by filename type. User return endpoints are not cached by this worker.

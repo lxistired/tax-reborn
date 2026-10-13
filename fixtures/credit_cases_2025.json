@@ -1,0 +1,2684 @@
+{
+  "version": 1,
+  "tax_year": 2025,
+  "authored_and_frozen_at_utc": "2026-10-13T04:09:21.839642+00:00",
+  "method": "Independentliteralmanual2025IRSworksheetamounts; calculationfunctionsnotimplementedorcalledatfreeze.",
+  "cases": [
+    {
+      "id": "ira_uncovered_full",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "0",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": false,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 7000,
+        "form_lines.taxpayer.deduction": 7000
+      },
+      "manual_workings": "Noemployercoverage:7000deductible belowcompensation60000."
+    },
+    {
+      "id": "ira_single_mid_phase",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "0",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": true,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "84000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 3500,
+        "form_lines.taxpayer.nondeductible": 3500
+      },
+      "manual_workings": "(89000-84000)*70%=3500; residual7000-3500=3500basis."
+    },
+    {
+      "id": "ira_single_minimum200",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "0",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": true,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "88999",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 200,
+        "form_lines.taxpayer.nondeductible": 6800
+      },
+      "manual_workings": "Remaining1*.7=.7 next10=10; statutoryworksheetminimum200."
+    },
+    {
+      "id": "ira_single_upper_boundary",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "0",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": true,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "89000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 0,
+        "form_lines.taxpayer.nondeductible": 7000
+      },
+      "manual_workings": "Atupper89000 no deduction; no minimum200 atfullyphasedout."
+    },
+    {
+      "id": "ira_mfj_worksheet_rounding",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "7000",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": true,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "mfj",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "66000",
+        "compensation_spouse": "51500",
+        "magi_before_ira": "126500",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 13830,
+        "form_lines.taxpayer.deduction": 6830,
+        "form_lines.spouse.deduction": 7000
+      },
+      "manual_workings": "146000-126500=19500 *.35=6825; worksheet saysnext10=6830; spouse uncoveredMAGI<236000=>7000. Total13830. Pub590AExample1text6825 conflictswith explicitworksheet; follow1040worksheet."
+    },
+    {
+      "id": "ira_age50_mid_phase",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "8000",
+        "traditional_spouse": "0",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": true,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 50,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "84000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 4000
+      },
+      "manual_workings": "5000*.8=4000 age50cap8000."
+    },
+    {
+      "id": "ira_spousal_compensation_pool",
+      "function": "ira",
+      "data": {
+        "enabled": true,
+        "traditional_taxpayer": "7000",
+        "traditional_spouse": "3000",
+        "roth_taxpayer": "0",
+        "roth_spouse": "0",
+        "prior_basis_taxpayer": "0",
+        "prior_basis_spouse": "0",
+        "taxpayer_covered_by_employer_plan": false,
+        "spouse_covered_by_employer_plan": false,
+        "contributions_and_coverage_confirmed": true,
+        "compensation_and_magi_confirmed": true,
+        "no_rollovers_recharacterizations_or_prior_excess": true,
+        "mfs_living_arrangement_confirmed": true,
+        "mfs_lived_apart_entire_year": false
+      },
+      "context": {
+        "filing_status": "mfj",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "10000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 10000
+      },
+      "manual_workings": "MFJpoolcompensation10000 supports7000+3000; spouse owncompensation0 doesnot barspousalIRA."
+    },
+    {
+      "id": "hsa_self_limit_employer",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "3000",
+            "employer_contributions": "1300",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 3000,
+        "additional_tax": 0,
+        "form_lines.taxpayer.contribution_limit": 4300
+      },
+      "manual_workings": "Self4300 minusemployer1300 permits3000personal deduction."
+    },
+    {
+      "id": "hsa_age55_catchup",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "5000",
+            "employer_contributions": "300",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 55,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 5000,
+        "form_lines.taxpayer.contribution_limit": 5300
+      },
+      "manual_workings": "4300+1000catchup=5300; employer300 leaves5000."
+    },
+    {
+      "id": "hsa_halfyear_proration",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "none",
+              "none",
+              "none",
+              "none",
+              "none",
+              "none"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "1150",
+            "employer_contributions": "1000",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 1150,
+        "form_lines.taxpayer.contribution_limit": 2150
+      },
+      "manual_workings": "6/12*4300=2150; subtractemployer1000=>1150."
+    },
+    {
+      "id": "hsa_mfj_family_split_catchup",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "4275",
+            "employer_contributions": "1000",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          },
+          {
+            "owner": "spouse",
+            "coverage": [
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family",
+              "family"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "3275",
+            "employer_contributions": "1000",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "mfj",
+        "taxpayer_age": 55,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 7550,
+        "form_lines.taxpayer.contribution_limit": 5275,
+        "form_lines.spouse.contribution_limit": 4275
+      },
+      "manual_workings": "Eachbase8550/2=4275; taxpayercatchup1000 gives5275. Deductions4275+3275=7550."
+    },
+    {
+      "id": "hsa_nonmedical_distribution",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "0",
+            "employer_contributions": "0",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "5000",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "4000",
+            "medical_expenses_confirmed": true,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "other_income": 1000,
+        "additional_tax": 200
+      },
+      "manual_workings": "5000distribution-4000qualified=1000taxable; 20%additionaltax200."
+    },
+    {
+      "id": "hsa_age65_distribution_exception",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "0",
+            "employer_contributions": "0",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "5000",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "4000",
+            "medical_expenses_confirmed": true,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "0",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 65,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "other_income": 1000,
+        "additional_tax": 0
+      },
+      "manual_workings": "Age65removes20%tax, not1000taxableincome."
+    },
+    {
+      "id": "hsa_current_excess6percent",
+      "function": "hsa",
+      "data": {
+        "enabled": true,
+        "accounts": [
+          {
+            "owner": "taxpayer",
+            "coverage": [
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self",
+              "self"
+            ],
+            "first_day_coverage_and_eligibility_confirmed": true,
+            "personal_contributions": "5000",
+            "employer_contributions": "0",
+            "archer_msa_contributions": "0",
+            "qualified_funding_distribution": "0",
+            "distributions": "0",
+            "rollover_distributions": "0",
+            "qualified_medical_expenses": "0",
+            "medical_expenses_confirmed": false,
+            "distribution_exception_confirmed": false,
+            "year_end_balance": "10000",
+            "excess_contributions_withdrawn": "0",
+            "excess_withdrawal_and_income_reported_confirmed": false,
+            "employer_excess_in_wages_confirmed": false,
+            "no_prior_excess_or_testing_failure": true,
+            "last_month_rule": false,
+            "testing_period_obligation_confirmed": false,
+            "year_end_balance_confirmed": true
+          }
+        ],
+        "family_allocation_taxpayer_percent": "50",
+        "family_allocation_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "deduction": 4300,
+        "additional_tax": 42,
+        "form_lines.taxpayer.excess_contributions": 700
+      },
+      "manual_workings": "5000-4300=700excess; 6%*min700,10000=42excise."
+    },
+    {
+      "id": "aotc_full_and_tax_limit",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "4000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": false,
+        "claimant_earned_income": "0",
+        "claimant_support": "0",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "500",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 1000,
+        "nonrefundable_credit": 500,
+        "form_lines.line7": 2500
+      },
+      "manual_workings": "4000eligibleexpense=>2000+25%*2000=2500; refundable1000; nonref1500limitedbytax500."
+    },
+    {
+      "id": "aotc_mfj_two_mid_phase",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "4000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          },
+          {
+            "student_id": "S2",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "4000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": false,
+        "claimant_earned_income": "0",
+        "claimant_support": "0",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "mfj",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "170000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 1000,
+        "nonrefundable_credit": 1500,
+        "form_lines.line7": 2500
+      },
+      "manual_workings": "Two2500credits=5000; MFJ170k halfway160-180k=>2500; refundable40%=1000/nonref1500."
+    },
+    {
+      "id": "llc_household_cap_phase_limit",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "llc",
+            "tuition_and_required_fees": "8000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          },
+          {
+            "student_id": "S2",
+            "name": "Synthetic student",
+            "credit": "llc",
+            "tuition_and_required_fees": "9000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": false,
+        "claimant_earned_income": "0",
+        "claimant_support": "0",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "85000",
+        "tax_liability_limit": "800",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 0,
+        "nonrefundable_credit": 800,
+        "form_lines.line18": 1000
+      },
+      "manual_workings": "Householdtuition17000 capped10000*.2=2000; MAGI85000phase50%=1000; nonref taxlimit800."
+    },
+    {
+      "id": "aotc_assistance_subtraction",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "5000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "3500",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": false,
+        "claimant_earned_income": "0",
+        "claimant_support": "0",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 600,
+        "nonrefundable_credit": 900
+      },
+      "manual_workings": "Adjustedexpense1500 =>credit1500, refundable600/nonref900."
+    },
+    {
+      "id": "llc_external_books_excluded",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "llc",
+            "tuition_and_required_fees": "1000",
+            "course_materials": "2000",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": false,
+        "claimant_earned_income": "0",
+        "claimant_support": "0",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "nonrefundable_credit": 200
+      },
+      "manual_workings": "Externalbooksnotrequiredinstitutionpayment excludedforLLC; tuition1000*.2=200."
+    },
+    {
+      "id": "aotc_under24_nonref_only",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "4000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": true,
+        "claimant_earned_income": "4000",
+        "claimant_support": "20000",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 20,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 0,
+        "nonrefundable_credit": 2500
+      },
+      "manual_workings": "Claimantage20fulltimestudent; earned4000<half20000support; parentalive; nonMFJ =>no40%refund, full2500nonref."
+    },
+    {
+      "id": "aotc_age24_refundable",
+      "function": "education",
+      "data": {
+        "enabled": true,
+        "students": [
+          {
+            "student_id": "S1",
+            "name": "Synthetic student",
+            "credit": "aotc",
+            "tuition_and_required_fees": "4000",
+            "course_materials": "0",
+            "materials_paid_to_institution_required": false,
+            "tax_free_assistance": "0",
+            "expenses_used_elsewhere": "0",
+            "eligible_institution_and_payment_period_confirmed": true,
+            "qualified_expenses_and_no_double_benefit_confirmed": true,
+            "dependency_claim_and_tin_confirmed": true,
+            "form_1098t_received_or_exception_confirmed": true,
+            "institution_ein": "00-0000001",
+            "aotc_prior_years": 0,
+            "half_time_degree_program": true,
+            "first_four_years_not_completed": true,
+            "no_felony_drug_conviction": true
+          }
+        ],
+        "claim_eligibility_confirmed": true,
+        "claimed_on_another_return": false,
+        "no_foreign_magi_or_prior_credit_recapture": true,
+        "claimant_full_time_student": true,
+        "claimant_earned_income": "4000",
+        "claimant_support": "20000",
+        "claimant_parent_alive": true,
+        "claimant_refundability_facts_confirmed": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 24,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 1000,
+        "nonrefundable_credit": 1500
+      },
+      "manual_workings": "Age24doesnotmeetunder24refundrestriction."
+    },
+    {
+      "id": "ptc_250percent_annual_net_credit",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 294,
+        "repayment": 0,
+        "form_lines.line5": 250,
+        "form_lines.line8a": 1506,
+        "form_lines.line24": 6294
+      },
+      "manual_workings": "SingleFPL15060; income37650=250%; figure.0400; annualcontribution1506; min7200,7800-1506=6294;APT6000=>net294."
+    },
+    {
+      "id": "ptc_sixmonths_monthly_round",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "600",
+            "slcsp_premium": "650",
+            "advance_credit": "500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "0",
+            "slcsp_premium": "0",
+            "advance_credit": "0",
+            "coverage_eligible": false,
+            "premiums_paid_and_no_other_mec_confirmed": false
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": false,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 144,
+        "form_lines.line8b": 126,
+        "form_lines.line24": 3144
+      },
+      "manual_workings": "Annualcontribution1506; monthlyround1506/12=126; eachmin600,650-126=524; sixmonths3144 minusAPT3000=>144."
+    },
+    {
+      "id": "ptc_repayment_cap_250percent",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "650",
+            "advance_credit": "750",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "37650",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 0,
+        "repayment": 975,
+        "form_lines.line27": 2706,
+        "form_lines.line28": 975
+      },
+      "manual_workings": "Allowed6294;APT9000=>excess2706; Single200-299%cap975."
+    },
+    {
+      "id": "ptc_over400_no_cliff_no_repayment_cap",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "75300",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 0,
+        "repayment": 4001,
+        "form_lines.line5": 401,
+        "form_lines.line8a": 6401,
+        "form_lines.line24": 5599,
+        "form_lines.line28": null
+      },
+      "manual_workings": "Income500%FPL=>line5=401; .085*75300=6400.5 rounds6401; PT12000-6401=5599, notzero. APT9600=>repayment4001, nocap."
+    },
+    {
+      "id": "ptc_exact400_no_cap",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "60240",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "repayment": 2720,
+        "form_lines.line5": 400,
+        "form_lines.line8a": 5120,
+        "form_lines.line24": 6880,
+        "form_lines.line28": null
+      },
+      "manual_workings": "Exactly400%;5120annualcontribution;credit6880;APT9600=>2720; repaymentcapdoesnotapply."
+    },
+    {
+      "id": "ptc_399_capped",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "1000",
+            "slcsp_premium": "1000",
+            "advance_credit": "800",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "single",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "60195",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 1,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "repayment": 1625,
+        "form_lines.line5": 399,
+        "form_lines.line8a": 5105,
+        "form_lines.line24": 6895,
+        "form_lines.line28": 1625
+      },
+      "manual_workings": "Ratiofloor399%;table.0848;60195*.0848=5104.536 round5105;PT6895;APT9600excess2705 capped1625."
+    },
+    {
+      "id": "ptc_family4_200percent",
+      "function": "marketplace",
+      "data": {
+        "enabled": true,
+        "region": "contiguous",
+        "months": [
+          {
+            "month": 1,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 2,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 3,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 4,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 5,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 6,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 7,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 8,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 9,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 10,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 11,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          },
+          {
+            "month": 12,
+            "enrollment_premium": "2000",
+            "slcsp_premium": "2200",
+            "advance_credit": "1500",
+            "coverage_eligible": true,
+            "premiums_paid_and_no_other_mec_confirmed": true
+          }
+        ],
+        "dependents_magi": "0",
+        "foreign_excluded_income": "0",
+        "tax_family_and_household_income_confirmed": true,
+        "lawful_presence_confirmed": true,
+        "no_shared_policy_or_marriage_allocation": true,
+        "mfs_no_abuse_or_abandonment_exception": false,
+        "below_poverty_exception": "none",
+        "below_poverty_exception_confirmed": true,
+        "annual_calculation": true,
+        "annual_calculation_eligible_confirmed": true,
+        "coverage_and_slcsp_inputs_confirmed": true,
+        "no_qsehra_or_ichra": true
+      },
+      "context": {
+        "filing_status": "mfj",
+        "taxpayer_age": 40,
+        "spouse_age": 40,
+        "compensation_taxpayer": "60000",
+        "compensation_spouse": "0",
+        "magi_before_ira": "60000",
+        "full_year_us_resident": true,
+        "taxpayer_can_be_claimed": false,
+        "spouse_can_be_claimed": false,
+        "social_security_received": false,
+        "ira_distribution_received": false,
+        "magi": "60000",
+        "tax_liability_limit": "10000",
+        "household_agi": "62400",
+        "household_ss_nontaxable": "0",
+        "household_tax_exempt_interest": "0",
+        "tax_family_size": 4,
+        "self_employed_health_insurance": "0"
+      },
+      "expected": {
+        "refundable_credit": 6000,
+        "form_lines.line4": 31200,
+        "form_lines.line5": 200,
+        "form_lines.line24": 24000
+      },
+      "manual_workings": "2024FPLfor2025family4=31200;income200%figure.02 contribution1248;SLCSP26400-1248>premium24000;PT24000-APT18000=6000."
+    }
+  ],
+  "blocking_cases": [
+    {
+      "id": "ira_coverage_unconfirmed",
+      "base": "ira_uncovered_full",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "contributions_and_coverage_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Coverage/timingverifiedbeforeclaimdeduction.",
+      "mode": "block"
+    },
+    {
+      "id": "ira_compensation_unconfirmed",
+      "base": "ira_uncovered_full",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "compensation_and_magi_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "MAGIandcompensationmustverified.",
+      "mode": "block"
+    },
+    {
+      "id": "ira_ss_circular",
+      "base": "ira_single_mid_phase",
+      "patches": [
+        {
+          "path": [
+            "context",
+            "social_security_received"
+          ],
+          "value": true
+        }
+      ],
+      "reason": "AppendixB SSA/IRA intertwinedworksheetnotimplemented.",
+      "mode": "block"
+    },
+    {
+      "id": "ira_distribution_basis",
+      "base": "ira_single_mid_phase",
+      "patches": [
+        {
+          "path": [
+            "context",
+            "ira_distribution_received"
+          ],
+          "value": true
+        }
+      ],
+      "reason": "Contributionsplusdistributions mayneed8606basisallocation.",
+      "mode": "block"
+    },
+    {
+      "id": "ira_excess_needs5329",
+      "base": "ira_uncovered_full",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "traditional_taxpayer"
+          ],
+          "value": "8000"
+        }
+      ],
+      "reason": "Over7000 age40 requires5329 andcorrection facts.",
+      "mode": "block"
+    },
+    {
+      "id": "hsa_prior_excess",
+      "base": "hsa_self_limit_employer",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "accounts",
+            "0",
+            "no_prior_excess_or_testing_failure"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Unknownprior excess/testingfailure cannotbeignored.",
+      "mode": "block"
+    },
+    {
+      "id": "hsa_unverified_coverage",
+      "base": "hsa_self_limit_employer",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "accounts",
+            "0",
+            "first_day_coverage_and_eligibility_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Medicare/FSA/dependencyfirstday HDHP testsneedconfirm.",
+      "mode": "block"
+    },
+    {
+      "id": "hsa_unverified_medical",
+      "base": "hsa_nonmedical_distribution",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "accounts",
+            "0",
+            "medical_expenses_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Medicalqualified/no doublededuction gate.",
+      "mode": "block"
+    },
+    {
+      "id": "education_double_credit_id",
+      "base": "aotc_mfj_two_mid_phase",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "students",
+            "1",
+            "student_id"
+          ],
+          "value": "S1"
+        }
+      ],
+      "reason": "Cannotclaimtwo creditsforsamestudent.",
+      "mode": "reject"
+    },
+    {
+      "id": "aotc_fifth_year",
+      "base": "aotc_full_and_tax_limit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "students",
+            "0",
+            "aotc_prior_years"
+          ],
+          "value": 4
+        }
+      ],
+      "reason": "AOTCnotavailableafter4prioryears; usermustexplicitlychooseLLC.",
+      "mode": "block"
+    },
+    {
+      "id": "aotc_no_half_time",
+      "base": "aotc_full_and_tax_limit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "students",
+            "0",
+            "half_time_degree_program"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "AOTCdegreehalf-time test.",
+      "mode": "block"
+    },
+    {
+      "id": "education_no1098T",
+      "base": "aotc_full_and_tax_limit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "students",
+            "0",
+            "form_1098t_received_or_exception_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Need1098Torstatutorydocumentexception.",
+      "mode": "block"
+    },
+    {
+      "id": "education_no_tin",
+      "base": "aotc_full_and_tax_limit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "students",
+            "0",
+            "dependency_claim_and_tin_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "ClaimedstudentandtimelyTINtest.",
+      "mode": "block"
+    },
+    {
+      "id": "education_refundable_facts_missing",
+      "base": "aotc_under24_nonref_only",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "claimant_refundability_facts_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Under24 refundabilitycannotbeassumed.",
+      "mode": "block"
+    },
+    {
+      "id": "ptc_shared_allocation",
+      "base": "ptc_250percent_annual_net_credit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "no_shared_policy_or_marriage_allocation"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "PartIV/Vpolicyallocationneedsfactsandworksheet.",
+      "mode": "block"
+    },
+    {
+      "id": "ptc_lawful_presence_missing",
+      "base": "ptc_250percent_annual_net_credit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "lawful_presence_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Mixedlawful/unlawfulAPTCrequires974allocation.",
+      "mode": "block"
+    },
+    {
+      "id": "ptc_se_health_loop",
+      "base": "ptc_250percent_annual_net_credit",
+      "patches": [
+        {
+          "path": [
+            "context",
+            "self_employed_health_insurance"
+          ],
+          "value": "2000"
+        }
+      ],
+      "reason": "Pub974deduction/PTCiterationnotimplemented.",
+      "mode": "block"
+    },
+    {
+      "id": "ptc_household_missing",
+      "base": "ptc_250percent_annual_net_credit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "tax_family_and_household_income_confirmed"
+          ],
+          "value": false
+        }
+      ],
+      "reason": "Dependentsrequired-to-fileMAGIandFPLfamilyverified.",
+      "mode": "block"
+    },
+    {
+      "id": "ptc_missing_month",
+      "base": "ptc_250percent_annual_net_credit",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "months"
+          ],
+          "value": []
+        }
+      ],
+      "reason": "Needall12months includingexplicitzero months.",
+      "mode": "reject"
+    },
+    {
+      "id": "strict_money_float",
+      "base": "ira_uncovered_full",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "traditional_taxpayer"
+          ],
+          "value": 7000.01
+        }
+      ],
+      "reason": "Decimalstringcontract.",
+      "mode": "reject"
+    },
+    {
+      "id": "strict_boolean_string",
+      "base": "ira_uncovered_full",
+      "patches": [
+        {
+          "path": [
+            "data",
+            "enabled"
+          ],
+          "value": "false"
+        }
+      ],
+      "reason": "No truthystringfalse.",
+      "mode": "reject"
+    }
+  ],
+  "sources": {
+    "ira": "https://www.irs.gov/publications/p590a",
+    "ira_1040": "https://www.irs.gov/instructions/i1040gi",
+    "hsa": "https://www.irs.gov/instructions/i8889",
+    "education": "https://www.irs.gov/instructions/i8863",
+    "education_form": "https://www.irs.gov/pub/irs-prior/f8863--2025.pdf",
+    "marketplace": "https://www.irs.gov/instructions/i8962"
+  },
+  "source_conflict": "Pub590A2025Example1prints6825 despite next10 instruction. Currentoracle follows explicit1040/Pub590AWorksheet1-2 rounding =>6830.",
+  "preexecution_schema_revision": {
+    "at_utc": "2026-10-13T04:17:18.249267+00:00",
+    "old_fixture_sha256": "55f551598a1933e72d99fd5df278e1aa30fc330c9ddac458a5ff742fb02d43c0",
+    "expected_payload_sha256_before_and_after": "32ea6e439bec7678e8db90300e7cdb0b3f07473f79b5cda0521f272907fdee65",
+    "changes": "Before any calculation run: add explicit PTC SLCSP/no-HRA and HSA yearend-balance confirmations. PTC capped-repayment synthetic enrollmentpremium increased1000 tokeepadvance750 belowpremium; premiumcap remainsnonbinding, all28expected payloads byte-equivalent."
+  }
+}

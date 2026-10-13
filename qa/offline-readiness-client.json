@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "scope": "Actual SW/client preparation functions with synthetic static responses and CacheStorage; not browser worker cold-start verification.",
+  "checks": {
+    "complete_manifest_saved_before_download_failure": true,
+    "failure_does_not_stop_later_downloads": true,
+    "missing_pdf_visible_in_dom": true,
+    "component_cache_status_distinguished": true,
+    "retry_recovers_missing_asset": true,
+    "no_manifest_does_not_report_ready": true,
+    "api_or_private_return_cache_read": false
+  },
+  "static_manifest_assets": 40
+}

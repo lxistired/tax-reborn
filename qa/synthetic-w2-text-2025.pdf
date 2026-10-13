@@ -1,0 +1,75 @@
+%PDF-1.3
+%‚„œ”
+1 0 obj
+<<
+/Producer (pypdf)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 1
+/Kids [ 4 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Type /Page
+/Resources <<
+/Font <<
+/F1 <<
+/Type /Font
+/Subtype /Type1
+/BaseFont /Helvetica
+>>
+>>
+>>
+/MediaBox [ 0.0 0.0 612 792 ]
+/Contents 5 0 R
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 668
+>>
+stream
+q
+0.62 0.15 0.05 rg
+BT /F1 15 Tf 36 760 Td (SYNTHETIC W2 PDF) Tj ET
+0 0 0 rg
+BT /F1 9 Tf 36 726 Td (2025 Form W-2 Wage and Tax Statement) Tj ET
+BT /F1 9 Tf 36 713 Td (SYNTHETIC TEST ONLY - NOT A REAL W2) Tj ET
+BT /F1 9 Tf 36 700 Td (1 Wages, tips, other compensation 42500.55) Tj ET
+BT /F1 9 Tf 36 687 Td (2 Federal income tax withheld 3456.78) Tj ET
+BT /F1 9 Tf 36 674 Td (3 Social security wages 42500.55) Tj ET
+BT /F1 9 Tf 36 661 Td (4 Social security tax withheld 2635.03) Tj ET
+BT /F1 9 Tf 36 648 Td (5 Medicare wages and tips 42500.55) Tj ET
+BT /F1 9 Tf 36 635 Td (6 Medicare tax withheld 616.26) Tj ET
+BT /F1 9 Tf 36 622 Td (7 Social security tips 0.00) Tj ET
+Q
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000054 00000 n 
+0000000113 00000 n 
+0000000162 00000 n 
+0000000343 00000 n 
+trailer
+<<
+/Size 6
+/Root 3 0 R
+/Info 1 0 R
+>>
+startxref
+1062
+%%EOF
