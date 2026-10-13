@@ -55,7 +55,7 @@ from PyInstaller.utils.hooks import collect_data_files
 webview_data = collect_data_files('webview')
 a = Analysis([{str(ROOT/'desktop.py')!r}], pathex=[{str(ROOT)!r}],
              binaries=[], datas={data!r}+webview_data,
-             hiddenimports={hidden!r}, hookspath=[], runtime_hooks=[],
+             hiddenimports={hidden!r}, hookspath=[], runtime_hooks=[{str(ROOT/'scripts'/'frozen_diagnostics.py')!r}],
              excludes=['tkinter','pytest','PyQt5','PyQt6','PySide2','PySide6','cefpython3','wx','gi'],
              noarchive=False)
 pyz = PYZ(a.pure)
