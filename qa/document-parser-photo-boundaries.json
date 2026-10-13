@@ -1,0 +1,15 @@
+{
+  "passed": 8,
+  "all_passed": true,
+  "scope": "Conservative amount candidates and source excerpts; not a claim of camera digit accuracy",
+  "cases": [
+    "same-line amount",
+    "immediate amount line",
+    "damaged next box label",
+    "missing current amount followed by bare amount after next label",
+    "two amounts remain ambiguous",
+    "same-line next box boundary",
+    "low-confidence photo never fills amounts",
+    "readable-PDF path retains values"
+  ]
+}

@@ -13,18 +13,24 @@
   const warnings=['Verify every amount against the source document before adding a W-2. OCR never establishes tax eligibility.'];
   const form_type=/(?:\bW[-–\s]?2\b|wage\s+and\s+tax\s+statement)/i.test(text)?'w2':'unknown';
   if(!/\b2025\b/.test(text))warnings.push('The extracted text does not establish tax year 2025.');
-  const candidates={};
+  const candidates={},sources={};
+  const lowQuality=Number(confidence)>0&&Number(confidence)<50;
+  if(lowQuality)warnings.push('The photo text was not read confidently. Retake a close, straight, well-lit photo or enter the amounts manually. No amount is filled from this low-quality result.');
   for(const [key,pattern] of Object.entries(labels)){
    const match=pattern.exec(text);if(!match)continue;
-   const after=text.slice(match.index+match[0].length,match.index+match[0].length+160);
-   const nextLabel=/\b(?:[1-9]|1[0-4])\s+(?:Federal|Social|Medicare|Wages|Allocated|Nonqualified|Dependent)/i.exec(after);
-   const region=nextLabel?after.slice(0,nextLabel.index):after;
+   // Never scan into another box when OCR omitted or damaged its label.
+   // Accept the label's own line, or one immediately following amount-only line.
+   const after=text.slice(match.index+match[0].length).split(/\r?\n/);
+   const inline=after[0]||'';
+   const nextLabel=/\b(?:[1-9]|1[0-4])[\s.:)]+(?:Federal|Social|Medicare|Wages|Allocated|Nonqualified|Dependent)/i.exec(inline);
+   let region=nextLabel?inline.slice(0,nextLabel.index):inline;
+   if(!region.trim()&&/^\s*\$?\s*(?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2}\s*$/.test(after[1]||''))region=after[1];
    const values=[...region.matchAll(/(?:\$\s*)?((?:\d{1,3}(?:,\d{3})+|\d+)\.\d{2})(?!\d)/g)];
-   if(values.length===1)candidates[key]=values[0][1].replaceAll(',','');
+   if(values.length===1&&!lowQuality){candidates[key]=values[0][1].replaceAll(',','');sources[key]=match[0]+' '+region.trim();}
    else warnings.push('Box '+key.replaceAll('_',' ')+': ambiguous or missing amount; enter manually.');
   }
   if(form_type==='unknown')warnings.push('Document type was not recognized as W-2. Manual entry is required.');
-  return {text:text.slice(0,100000),form_type,candidates,warnings,confidence:Number(confidence)||0};
+  return {text:text.slice(0,100000),form_type,candidates,sources,warnings,confidence:Number(confidence)||0};
  }
  function loadOCR(){
   if(!scriptPromise)scriptPromise=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='vendor/tesseract/tesseract.min.js';script.onload=resolve;script.onerror=()=>reject(Error('Local OCR runtime is missing.'));document.head.append(script);});

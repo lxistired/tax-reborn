@@ -130,26 +130,37 @@ function Close-App {
 function Save-Native-Export([string]$target) {
     $oldRoot=$script:root
     $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
+    $nameCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Save As')
     $until=(Get-Date).AddSeconds(60)
-    $edit=$null
+    $dialog=$null
     while((Get-Date) -lt $until) {
         $windows=[System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children,$condition)
         foreach($window in $windows) {
-            $script:root=$window
-            $candidate=Get-Named 'File name:' $false
-            if($candidate -and $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit) { $edit=$candidate; break }
-            $edits=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Edit))
-            foreach($input in $edits) { if($input.Current.Name -eq 'File name:') { $edit=$input; break } }
-            if($edit) { break }
+            # Windows' hosted runner exposes this system picker as a Window
+            # containing Pane controls, including the filename and Save. The
+            # real failure capture showed the picker already open; requiring
+            # ControlType.Edit incorrectly rejected it. Find this app's actual
+            # named dialog and use its normal filename keyboard accelerator.
+            $dialogs=$window.FindAll([System.Windows.Automation.TreeScope]::Subtree,$nameCondition)
+            foreach($candidate in $dialogs) {
+                if($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Window -and !$candidate.Current.IsOffscreen -and $candidate.Current.NativeWindowHandle -ne 0) {
+                    $dialog=$candidate; break
+                }
+            }
+            if($dialog) { break }
         }
-        if($edit) { break }
+        if($dialog) { break }
         Start-Sleep -Milliseconds 250
     }
     try {
-        if(!$edit) { throw 'The native export did not open a user-controlled Save As dialog.' }
-        $edit.SetFocus()
+        if(!$dialog) { throw 'The native export did not open a user-controlled Save As dialog.' }
+        $script:root=$dialog
+        Wait-Named 'File name:' 10 | Out-Null
+        [TaxWindow]::SetForegroundWindow([IntPtr]::new($dialog.Current.NativeWindowHandle)) | Out-Null
+        [System.Windows.Forms.SendKeys]::SendWait('%n')
         [System.Windows.Forms.SendKeys]::SendWait('^a')
         [System.Windows.Forms.SendKeys]::SendWait($target)
+        Save-Screenshot 'windows-native-PDF-save-as.png' $false
         Click-Observed (Wait-Named 'Save' 10)
     } finally { $script:root=$oldRoot }
     $until=(Get-Date).AddSeconds(60)

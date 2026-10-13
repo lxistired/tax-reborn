@@ -466,7 +466,7 @@ async function reviewExtractedW2(row,returnId){
   if(type==='owner'){input=el('select',{'aria-label':label},...ownerChoices.map(([key,text])=>el('option',{value:key},text)));input.value=String(value);}
   else input=el('input',{type:'text',inputmode:type==='text'?null:'decimal',class:type==='text'?'':'money',value:String(value),'aria-label':label});
   inputs[name]=input;
-  const source=candidate&&typeof candidate==='object'?(candidate.source_excerpt??candidate.source??''):'';
+  const source=candidate&&typeof candidate==='object'?(candidate.source_excerpt??candidate.source??''):(extracted.sources?.[name]||'');
   inputGrid.append(el('div',{class:'field'},el('label',{},label),type==='text'||type==='owner'?input:el('div',{class:'money-wrap'},el('span',{'aria-hidden':'true'},'$'),input),source?el('small',{},String(source)):null));
  }
  holder.append(inputGrid);

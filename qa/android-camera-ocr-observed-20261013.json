@@ -1,0 +1,14 @@
+{
+  "app_version": "2026.10.13-preview.2",
+  "synthetic_document": true,
+  "actual_camera_return_observed": true,
+  "photo_persisted_in_document_list": true,
+  "actual_local_ocr_returned": true,
+  "source_wages": 60000,
+  "source_withholding": 6500,
+  "observed_candidate_wages": 60000,
+  "observed_candidate_withholding": 60000,
+  "amount_accuracy_passed": false,
+  "wrong_candidates_committed": false,
+  "followup_source_fix": "No cross-box/long-distance amount search; low-confidence rejection; source excerpts; eight independent parser boundary checks passed. Real-photo retest pending."
+}
