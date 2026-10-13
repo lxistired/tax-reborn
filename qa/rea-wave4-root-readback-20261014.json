@@ -1,0 +1,30 @@
+{
+  "all_passed": true,
+  "main_prior_complete_unique": 430,
+  "wave4_complete_unique": 3894,
+  "wave4_new_after_prior_dedup": 3893,
+  "combined_main_complete_unique": 4323,
+  "wave4_original_entry_bytes_checked": 3894,
+  "ordinary_bounded_candidates_read": 2241,
+  "structural_bounded_candidates_read": 1608,
+  "calculation_symbol_scope_completed": 4196,
+  "original_runtime_checks": 0,
+  "source_decompiled_is_not_original_runtime_or_full_product_parity": true,
+  "bundles": [
+    {
+      "cycle": 1,
+      "bytes": 426092002,
+      "sha256": "004fd78df2e70edcb0c96a385e111f0501c0ac5e1c23bcef633348632936171a"
+    },
+    {
+      "cycle": 2,
+      "bytes": 528228719,
+      "sha256": "9b0abd65b0652c91c79a27e8e7e893da81005be9ac3ae975a1f790ea811d033f"
+    },
+    {
+      "cycle": 3,
+      "bytes": 181139639,
+      "sha256": "df8927f46c9cd76e947cd42b07a7a32c6f7df44ba0f665e2360fd26339c4ba68"
+    }
+  ]
+}

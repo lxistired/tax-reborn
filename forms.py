@@ -279,3 +279,8 @@ def paper_packet_pdf(record):
     target=io.BytesIO();writer.write(target);output=target.getvalue()
     verify_fields(output,expected)
     return output
+
+
+def masked_review_pdf(record):
+    from privacy_review import form1040_review
+    return form1040_review(record)

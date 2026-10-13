@@ -1,0 +1,229 @@
+{
+  "created_at": "2026-10-13T17:03:46.066Z",
+  "version": "2026.10.14-preview.4",
+  "all_passed": true,
+  "acceptance": "Independent actual Chromium UI downloads through isolated HTTP/SQLite and real Pyodide/IndexedDB modes",
+  "synthetic_only": true,
+  "identity_fixture": "six synthetic 9xx SSNs; public routing and fictional account; no user/phone data",
+  "modes": [
+    {
+      "mode": "desktop",
+      "actual_UI_masked_download": true,
+      "actual_UI_ordinary_download": true,
+      "real_save_reload_unchanged": true,
+      "result_summary": {
+        "agi": 160000,
+        "taxable_income": 128500,
+        "total_tax": 9298,
+        "payments": 30000,
+        "refund": 20702,
+        "amount_owed": 0,
+        "deduction_type": "standard",
+        "effective_rate": "5.81",
+        "schedules": [
+          "Form1040",
+          "Schedule8812"
+        ]
+      },
+      "pdf": {
+        "mode": "desktop",
+        "masked_sha256": "bbdcdad129f699b7155a5c3bdea814cd8c6b51045c0392b933528ca4ddb97259",
+        "ordinary_sha256": "11966e186c3f0e03e1df5eb44f5004e17a8ba24e655a2629b9ca37b207620238",
+        "masked_pages": 3,
+        "selected_fields_masked": 8,
+        "ordinary_selected_fields_unchanged": 8,
+        "other_field_values_equal": 221,
+        "PDF_objects_checked": 2501,
+        "decoded_streams_checked": 329,
+        "independent_Poppler_text_scan_passed": true,
+        "widgets": [
+          {
+            "field": "topmostSubform[0].Page1[0].f1_16[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].f1_19[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_39[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_40[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_41[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_42[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page2[0].RoutingNo[0].f2_32[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page2[0].AccountNo[0].f2_33[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          }
+        ],
+        "all_surfaces_identifiers_absent": true,
+        "both_official_page_banner_and_box_sizes_valid": true,
+        "scope": "Form1040 selected SSN/ITIN/routing/account fields only; names/contact/address/financial values intentionally retained."
+      },
+      "refusals": [
+        {
+          "case": "taxpayer SSN repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        },
+        {
+          "case": "routing repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        },
+        {
+          "case": "hyphenated SSN repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        }
+      ]
+    },
+    {
+      "mode": "offline",
+      "actual_UI_masked_download": true,
+      "actual_UI_ordinary_download": true,
+      "real_save_reload_unchanged": true,
+      "result_summary": {
+        "agi": 160000,
+        "taxable_income": 128500,
+        "total_tax": 9298,
+        "payments": 30000,
+        "refund": 20702,
+        "amount_owed": 0,
+        "deduction_type": "standard",
+        "effective_rate": "5.81",
+        "schedules": [
+          "Form1040",
+          "Schedule8812"
+        ]
+      },
+      "pdf": {
+        "mode": "offline",
+        "masked_sha256": "bbdcdad129f699b7155a5c3bdea814cd8c6b51045c0392b933528ca4ddb97259",
+        "ordinary_sha256": "38fa6a78002910b5ae5475ff0393a2ec12d83a26b06e640d9aebe87069608b73",
+        "masked_pages": 3,
+        "selected_fields_masked": 8,
+        "ordinary_selected_fields_unchanged": 8,
+        "other_field_values_equal": 221,
+        "PDF_objects_checked": 2501,
+        "decoded_streams_checked": 329,
+        "independent_Poppler_text_scan_passed": true,
+        "widgets": [
+          {
+            "field": "topmostSubform[0].Page1[0].f1_16[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].f1_19[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_39[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_40[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_41[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page1[0].Table_Dependents[0].Row3[0].f1_42[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page2[0].RoutingNo[0].f2_32[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          },
+          {
+            "field": "topmostSubform[0].Page2[0].AccountNo[0].f2_33[0]",
+            "appearance_streams": 1,
+            "all_selected_identifiers_absent": true
+          }
+        ],
+        "all_surfaces_identifiers_absent": true,
+        "both_official_page_banner_and_box_sizes_valid": true,
+        "scope": "Form1040 selected SSN/ITIN/routing/account fields only; names/contact/address/financial values intentionally retained."
+      },
+      "refusals": [
+        {
+          "case": "taxpayer SSN repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        },
+        {
+          "case": "routing repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        },
+        {
+          "case": "hyphenated SSN repeated in city",
+          "refused": true,
+          "downloads": 0,
+          "stored_return_and_tax_unchanged": true
+        }
+      ]
+    }
+  ],
+  "source_sha256": {
+    "forms.py": "d802c9b0df9adcaae1db7a1895230dcd86598322dad1e24ee695d43962cc388d",
+    "privacy_review.py": "ab45567e34890cd1494b03ad406f68398efc2bf44f90a375a0869d5a1044a701",
+    "server.py": "a6d0a7dad54e21ef80f46159e4de564e80b609af14e34410cec7221e444c5cf7",
+    "VERSION": "f35ae24de027bee1a97514e8ebf0eb78de40886fad35233af4d74eecd7c60bc3",
+    "tax_engine.py": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+    "rules_2025.json": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac",
+    "web/app.js": "655b18734a84c543b29d457e6599c33d98baed5a485833d23a3ba83f90567cac",
+    "web/local-api.js": "85f97dff365e90abccf4ab1ac4b0c104faf4a940696b6840d9c6ab9920a4aca8",
+    "web/tax-worker-source.js": "71be9df1c2279b1e9242815729fe4e60d5b28567e54b7a75f39ffa691cb43ea1",
+    "web/tax-worker.js": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3",
+    "web/service-worker.js": "b275f1f00d064b3d960fa54b283155ccc79dcf47c6f128ec2df5ce98b311ed0a"
+  },
+  "test_script_sha256": "24ce1b461bb7c940311ec284dfa3f6c4f574d3804254969ad98d5836b82f714a",
+  "independent_pdf_inspector_sha256": "8485a2c1d096d56b9513b0c52760944693f4c83a2bd71bab4a98aebdd331ce7e",
+  "isolation": {
+    "fresh_loopback_port": true,
+    "fresh_browser_contexts": true,
+    "service_workers_blocked": true,
+    "external_requests_allowed": false,
+    "external_requests_observed": 0
+  },
+  "browser_errors": [],
+  "tax_core_oracle_modified_by_acceptance": false,
+  "scope": "Only the selected Form1040 SSN/ITIN and refund routing/account fields. Names/address/contact/financial values intentionally retained. Not a full PII scrubber, full packet acceptance, native package acceptance, or original TurboTax runtime comparison."
+}

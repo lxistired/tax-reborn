@@ -76,7 +76,7 @@ self.onmessage = event => {
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
-      else if (['pdf','packet_pdf','paper_status','document_text'].includes(command)) {
+      else if (['pdf','packet_pdf','masked_pdf','paper_status','document_text'].includes(command)) {
         if (!pdfReady) pdfReady = (async () => {
           const base = new URL('./', self.location.href);
           const responses = await Promise.all(['forms.py','forms/f1040-2025.pdf','vendor/python/pypdf-6.10.0.whl'].map(name=>fetch(new URL(name,base))));
@@ -88,7 +88,7 @@ self.onmessage = event => {
           const resource=async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw new Error('Official PDF resource missing: '+name);return new Uint8Array(await response.arrayBuffer());};
           const sourceBytes=await resource('forms/official-sources-2025.json');
           const manifest=JSON.parse(new TextDecoder().decode(sourceBytes));
-          const additional=['official_forms.py','forms/official-field-map-2025.json','forms/official-sources-2025.json',...manifest.forms.filter(row=>row.sha256).map(row=>{if(!/^[A-Za-z0-9_-]+\.pdf$/.test(row.path))throw new Error('Invalid bundled IRS template path');return 'forms/'+row.path;})];
+          const additional=['official_forms.py','privacy_review.py','forms/official-field-map-2025.json','forms/official-sources-2025.json',...manifest.forms.filter(row=>row.sha256).map(row=>{if(!/^[A-Za-z0-9_-]+\.pdf$/.test(row.path))throw new Error('Invalid bundled IRS template path');return 'forms/'+row.path;})];
           const bytes=await Promise.all(additional.map(resource));
           additional.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,bytes[index]));
           await py.runPythonAsync('sys.path.insert(0, "/home/pyodide/pypdf.whl")\nimport forms, base64');
@@ -96,6 +96,7 @@ self.onmessage = event => {
         await pdfReady;
         if (command === 'pdf') code = 'json.dumps({"base64": base64.b64encode(forms.form1040_pdf(json.loads(_tax_input_json))).decode("ascii")})';
         else if (command === 'packet_pdf') code = 'json.dumps({"base64": base64.b64encode(forms.paper_packet_pdf(json.loads(_tax_input_json))).decode("ascii")})';
+        else if (command === 'masked_pdf') code = 'json.dumps({"base64": base64.b64encode(forms.masked_review_pdf(json.loads(_tax_input_json))).decode("ascii")})';
         else if (command === 'paper_status') code = 'json.dumps(forms.packet_status(json.loads(_tax_input_json)), allow_nan=False)';
         else code = `import io
 from pypdf import PdfReader

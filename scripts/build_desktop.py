@@ -24,7 +24,7 @@ from collect_licenses import collect_licenses
 
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCT = 'Tax Reborn'
-VERSION = '2026.10.13-preview.3'
+VERSION = '2026.10.14-preview.4'
 BUNDLE_ID = 'io.github.lxistired.taxreborn'
 
 
@@ -47,7 +47,7 @@ def icon_for_platform(work):
 def write_spec(work,icon,notices):
     hidden = ['webview.platforms.cocoa'] if sys.platform=='darwin' else ['webview.platforms.winforms','webview.platforms.edgechromium']
     data = [(str(ROOT/'web'),'web'),(str(ROOT/'fixtures'),'fixtures'),(str(ROOT/'forms'),'forms'),(str(ROOT/'vendor'),'vendor'),(str(notices),'THIRDPARTY_NOTICES')]
-    data += [(str(ROOT/name),'.') for name in ('VERSION','LICENSE','return_metadata.py','investment_metadata.py','rules_2025.json','tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','forms.py','official_forms.py') if (ROOT/name).is_file()]
+    data += [(str(ROOT/name),'.') for name in ('VERSION','LICENSE','return_metadata.py','investment_metadata.py','rules_2025.json','tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py','forms.py','official_forms.py') if (ROOT/name).is_file()]
     architecture = platform.machine()
     spec = work/'Tax Reborn.spec'
     text = f'''# Generated reproducible build recipe; no private reference data.

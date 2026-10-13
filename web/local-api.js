@@ -55,7 +55,7 @@
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.13-preview.3',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.4',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {
@@ -131,7 +131,7 @@
           await store('put',id,record); return json(record);
         }
       }
-      const match = path.match(/^\/api\/returns\/([^/]+)(?:\/(export\.json|worksheet\.html|form1040\.pdf|paper-packet\.pdf|paper-checklist\.json|states))?$/);
+      const match = path.match(/^\/api\/returns\/([^/]+)(?:\/(export\.json|worksheet\.html|form1040\.pdf|paper-packet\.pdf|masked-review\.pdf|paper-checklist\.json|states))?$/);
       if (match && validId(match[1])) {
         const record = await store('get',match[1]);
         if (!record) return json({error:'Return not found'},404);
@@ -149,8 +149,8 @@
           if (match[2]==='export.json') return json({format:'tax-reborn-return-v1',...record});
           if (match[2]==='worksheet.html') return new Response(worksheet(record),{headers:{'Content-Type':'text/html'}});
           if (match[2]==='paper-checklist.json') return json(await engine('paper_status',record));
-          if (match[2]==='form1040.pdf' || match[2]==='paper-packet.pdf') {
-            const output = await engine(match[2]==='paper-packet.pdf'?'packet_pdf':'pdf',record);
+          if (['form1040.pdf','paper-packet.pdf','masked-review.pdf'].includes(match[2])) {
+            const output = await engine(match[2]==='masked-review.pdf'?'masked_pdf':match[2]==='paper-packet.pdf'?'packet_pdf':'pdf',record);
             const binary = atob(output.base64);
             return new Response(Uint8Array.from(binary,c=>c.charCodeAt(0)),{headers:{'Content-Type':'application/pdf'}});
           }
