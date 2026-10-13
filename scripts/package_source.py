@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / 'VERSION').read_text().strip()
 DIRECTORIES = {'android', 'ios', '.github', 'assets', 'docs', 'fixtures', 'forms', 'qa', 'scripts', 'tests', 'vendor', 'web'}
 TOP_FILES = {'AGENTS.md', 'LICENSE', 'NOTICE', 'README.md', 'VERSION',
-             'desktop.py', 'server.py', 'return_metadata.py', 'investment_metadata.py', 'forms.py', 'tax_engine.py', 'tax_extended.py',
+             'desktop.py', 'server.py', 'return_metadata.py', 'investment_metadata.py','income_preparation.py', 'forms.py', 'tax_engine.py', 'tax_extended.py',
              'tax_credits.py', 'tax_additional.py', 'tax_longtail.py', 'tax_filing.py','presentation_schema.py','privacy_review.py', 'official_forms.py', 'rules_2025.json',
              'requirements-desktop.txt', 'requirements.txt', '.gitignore', '.gitattributes'}
 EXCLUDED_PARTS = {'__pycache__', '.git', 'node_modules', '.venv', 'dist', 'build', 'work'}

@@ -1,0 +1,14 @@
+{
+  "version": "2026.10.14-preview.5",
+  "actual_cua_clicks": true,
+  "actual_source_http_sqlite": true,
+  "synthetic_only": true,
+  "line2b_before": 1350,
+  "line2b_after": 1550,
+  "refund_before": 1263,
+  "refund_after": 1239,
+  "unrelated_same_payer_record_id_and_raw_row_preserved": true,
+  "income_import_events": 1,
+  "new_record_reviewed": true,
+  "tax_core_changed": false
+}

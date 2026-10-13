@@ -12,6 +12,7 @@ import json
 import re
 import uuid
 import investment_metadata
+import income_preparation
 
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 HASH = re.compile(r'^[0-9a-f]{64}$')
@@ -67,7 +68,7 @@ def normalize(data, provided, defaults, previous=None):
         raise ValueError('Invalid W-2 preparation record collection')
     explicit = provided is not None
     if explicit:
-        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records', 'investment_records'} or provided.get('version') != 1:
+        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records', 'investment_records', 'income_document_records', 'income_import_events'} or provided.get('version') != 1:
             raise ValueError('Unsupported local preparation metadata')
         entries = provided.get('w2_records')
         if not isinstance(entries, list) or len(entries) != len(rows):
@@ -116,4 +117,21 @@ def normalize(data, provided, defaults, previous=None):
     investments = investment_metadata.normalize(data.get('capital_gains', []),
         provided.get('investment_records') if explicit else None,
         previous.get('investment_records', []) if isinstance(previous, dict) else None)
-    return {'version': 1, 'w2_records': output, 'investment_records': investments}
+    previous = previous if isinstance(previous, dict) else {}
+    income = income_preparation.normalize(data,
+        provided.get('income_document_records') if explicit else None,
+        previous.get('income_document_records'))
+    events = provided.get('income_import_events', previous.get('income_import_events', [])) if explicit else previous.get('income_import_events', [])
+    checked = income_preparation.normalize_state({'data': data, 'preparation_metadata': {
+        'income_document_records': income, 'income_import_events': events}})
+    # Once saved, an import event is an immutable audit receipt. An older client
+    # cannot silently erase it, and a retry cannot reuse its identity for a new
+    # replacement. Data rows may still be edited normally outside that history.
+    old_events = previous.get('income_import_events', [])
+    current_events = {item['event_id']: item for item in checked['preparation_metadata']['income_import_events']}
+    for event in old_events:
+        if current_events.get(event['event_id']) != event:
+            raise ValueError('Saved income-import history cannot be removed or changed')
+    return {'version': 1, 'w2_records': output, 'investment_records': investments,
+            'income_document_records': checked['preparation_metadata']['income_document_records'],
+            'income_import_events': checked['preparation_metadata']['income_import_events']}

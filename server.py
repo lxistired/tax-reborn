@@ -20,7 +20,7 @@ import uuid
 import tax_engine
 import return_metadata
 
-VERSION = '2026.10.14-preview.4'
+VERSION = '2026.10.14-preview.5'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent)).resolve()
 WEB = BASE / 'web'
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
@@ -127,6 +127,15 @@ class Store:
         result = tax_engine.calculate_return(data)
         stamp = datetime.now(timezone.utc).isoformat()
         with self.connect() as conn:
+            if 'expected_updated_at' in payload:
+                expected = payload['expected_updated_at']
+                if expected is not None and (not isinstance(expected, str) or len(expected) > 40):
+                    raise ValueError('Invalid saved-return revision')
+                conn.execute('BEGIN IMMEDIATE')
+                saved = conn.execute('SELECT updated_at FROM returns WHERE id=?', (ident,)).fetchone()
+                actual = saved['updated_at'] if saved else None
+                if actual != expected:
+                    raise ValueError('This saved return changed in another workspace. Reopen it before saving the import')
             previous = conn.execute('SELECT metadata FROM preparation_metadata WHERE return_id=?', (ident,)).fetchone()
             metadata = return_metadata.normalize(data, payload.get('metadata'), tax_engine.ROW_DEFAULTS['w2'],
                                                  json.loads(previous['metadata']) if previous else None)

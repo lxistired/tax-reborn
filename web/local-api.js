@@ -31,7 +31,7 @@
     const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
     const fingerprints=await Promise.all(rows.map(async row=>{try{return await w2Fingerprint(row);}catch(error){if(options.draft)return null;throw error;}}));let entries;
     if(provided!=null){
-      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records','investment_records'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
+      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records','investment_records','income_document_records','income_import_events'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
       entries=provided.w2_records;
     }else{
       entries=fingerprints.map(hash=>{const old=(previous?.w2_records||[]).filter(item=>item.row_fingerprint===hash);return hash&&old.length===1&&fingerprints.filter(value=>value===hash).length===1?old[0]:{};});
@@ -46,16 +46,19 @@
       return {record_id:id,row_fingerprint:fingerprints[index],reviewed,reviewed_at:reviewed?item.reviewed_at:null,reviewed_fingerprint:reviewed?fingerprints[index]:null,source_document:localSource(item.source_document)};
     });
     const investments=await window.taxInvestmentCorrections.normalize(data.capital_gains||[],provided?.investment_records,previous?.investment_records,options);
-    return {version:1,w2_records:records,investment_records:investments};
+    const income=await window.taxIncomePreparation.normalize(data,provided?.income_document_records,previous?.income_document_records,options);
+    const events=await window.taxIncomePreparation.normalizeEvents(Object.hasOwn(provided||{},'income_import_events')?provided.income_import_events:previous?.income_import_events||[]);
+    for(const old of previous?.income_import_events||[]){const current=events.find(item=>item.event_id===old.event_id);if(!current||JSON.stringify(sorted(current))!==JSON.stringify(sorted(old)))throw Error('Saved income-import history cannot be removed or changed');}
+    return {version:1,w2_records:records,investment_records:investments,income_document_records:income,income_import_events:events};
   }
   window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,
-    empty:()=>({version:1,w2_records:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
+    empty:()=>({version:1,w2_records:[],income_document_records:{interest:[],dividends:[]},income_import_events:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
   const offline = new URLSearchParams(location.search).get('offline') === '1';
   let worker, sequence = 0, dbPromise;
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.4',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.5',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {
@@ -87,14 +90,21 @@
     });
     return dbPromise;
   }
-  async function store(operation,id,record) {
+  async function store(operation,id,record,expectedRevision) {
     const db = await database();
     return new Promise((resolve,reject)=>{
       const transaction = db.transaction('returns',operation==='get'||operation==='all'?'readonly':'readwrite');
       const object = transaction.objectStore('returns');
-      const request = operation==='get'?object.get(id):operation==='all'?object.getAll():operation==='put'?object.put(record):object.delete(id);
       let result;
-      request.onsuccess = ()=>{result=request.result;};
+      if(operation==='put'&&expectedRevision!==undefined){
+        const current=object.get(id);current.onsuccess=()=>{
+          if((current.result?.updated_at??null)!==expectedRevision){reject(new Error('This saved return changed in another workspace. Reopen it before saving the import'));transaction.abort();return;}
+          const put=object.put(record);put.onsuccess=()=>{result=put.result;};
+        };
+      }else{
+        const request = operation==='get'?object.get(id):operation==='all'?object.getAll():operation==='put'?object.put(record):object.delete(id);
+        request.onsuccess = ()=>{result=request.result;};
+      }
       transaction.oncomplete = ()=>resolve(result);
       transaction.onerror = transaction.onabort = ()=>reject(new Error('Device save did not complete; keep the draft open and export a backup.'));
     });
@@ -127,8 +137,9 @@
           const result = await engine('calculate',body.data);
           const previous=await store('get',id);
           const metadata=await normalizeMetadata(body.data,body.metadata,previous?.metadata);
-          const record = {id,data:body.data,result,metadata,states:previous?.states || {},updated_at:new Date().toISOString()};
-          await store('put',id,record); return json(record);
+          if(Object.hasOwn(body,'expected_updated_at')&&body.expected_updated_at!==null&&(typeof body.expected_updated_at!=='string'||body.expected_updated_at.length>40))throw Error('Invalid saved-return revision');
+          const record = {id,data:body.data,result,metadata,states:previous?.states || {},updated_at:new Date(Math.max(Date.now(),Number.isFinite(Date.parse(previous?.updated_at))?Date.parse(previous.updated_at)+1:0)).toISOString()};
+          await store('put',id,record,Object.hasOwn(body,'expected_updated_at')?body.expected_updated_at:undefined); return json(record);
         }
       }
       const match = path.match(/^\/api\/returns\/([^/]+)(?:\/(export\.json|worksheet\.html|form1040\.pdf|paper-packet\.pdf|masked-review\.pdf|paper-checklist\.json|states))?$/);

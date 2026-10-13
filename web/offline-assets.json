@@ -37,6 +37,7 @@
     "forms/official-sources-2025.json",
     "forms/paper-fact-schema-2025.json",
     "forms/source.json",
+    "income-preparation.js",
     "investment-corrections.js",
     "native-file-bridge.js",
     "ocr-worker-build.json",
@@ -44,6 +45,7 @@
     "official_forms.py",
     "offline-readiness.js",
     "presentation_schema.py",
+    "privacy_review.py",
     "rules_2025.json",
     "state-worker.js",
     "state-workspace.js",
@@ -85,7 +87,6 @@
     "vendor/tesseract/tesseract.min.js",
     "vendor/tesseract/tesseract.min.js.LICENSE.txt",
     "vendor/tesseract/worker.min.js",
-    "vendor/tesseract/worker.min.js.LICENSE.txt",
-    "privacy_review.py"
+    "vendor/tesseract/worker.min.js.LICENSE.txt"
   ]
 }
