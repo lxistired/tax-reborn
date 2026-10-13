@@ -233,6 +233,42 @@ function ensureW2Metadata(){
  while(metadata.w2_records.length<rows.length)metadata.w2_records.push(window.taxRecordMetadata.newRecord());
  if(metadata.w2_records.length>rows.length)metadata.w2_records.length=rows.length;
 }
+function ensureInvestmentMetadata(){
+ ensureW2Metadata();const rows=data.capital_gains||[];
+ if(!Array.isArray(metadata.investment_records))metadata.investment_records=[];
+ while(metadata.investment_records.length<rows.length)metadata.investment_records.push(window.taxInvestmentCorrections.newRecord());
+ if(metadata.investment_records.length>rows.length)metadata.investment_records.length=rows.length;
+}
+function investmentCorrectionPanel(index){
+ ensureInvestmentMetadata();const entry=metadata.investment_records[index],holder=el('div',{class:'note'},button('Correct cost basis',()=>showBasisCorrection(entry.record_id),'secondary'));
+ if(entry.basis_corrections.length)holder.append(el('strong',{},'Recorded basis corrections'),el('ul',{},entry.basis_corrections.map(item=>el('li',{},'$'+item.old_cost_basis+' → $'+item.new_cost_basis+' · '+new Date(item.applied_at).toLocaleDateString(),item.reason?el('small',{},item.reason):null))));
+ return holder;
+}
+function showBasisCorrection(recordId){
+ ensureInvestmentMetadata();const id=currentId,atRevision=revision,index=metadata.investment_records.findIndex(item=>item.record_id===recordId);
+ if(index<0)throw Error('The selected investment sale no longer exists');
+ const original=clone(data.capital_gains[index]),source=window.taxInvestmentCorrections.canonical(original),holder=el('div');
+ const basis=el('input',{type:'text',inputmode:'decimal',class:'money','aria-label':'Corrected absolute cost basis',value:window.taxInvestmentCorrections.amount(original.cost_basis??'0')});
+ const note=el('input',{type:'text',maxlength:500,'aria-label':'Basis correction source or reason'}),confirmed=el('input',{type:'checkbox','aria-label':'I checked this corrected basis against my source records'});
+ holder.append(el('p',{class:'intro'},'Enter the corrected absolute cost basis for this sale. This replaces the basis amount. Proceeds and separate gain or loss adjustments are retained.'),
+  el('div',{class:'note'},original.description||'Selected investment sale',el('br'),'Current cost basis: $'+window.taxInvestmentCorrections.amount(original.cost_basis??'0')),
+  el('div',{class:'field'},el('label',{},'Corrected absolute cost basis'),el('div',{class:'money-wrap'},el('span',{},'$'),basis)),
+  el('div',{class:'field'},el('label',{},'Source or reason'),note),
+  el('label',{class:'check-field'},confirmed,el('span',{},'I checked this corrected basis against my source records.')));
+ let submitting=false;
+ modal('Correct cost basis',holder,[['Apply basis correction',async()=>{
+  if(submitting)return;submitting=true;
+  try{
+   if(!confirmed.checked)throw Error('Check the corrected basis against your source records first');
+   ensureInvestmentMetadata();const selected=metadata.investment_records.findIndex(item=>item.record_id===recordId);
+   if(currentId!==id||revision!==atRevision||selected<0||window.taxInvestmentCorrections.canonical(data.capital_gains[selected])!==source)throw Error('This sale or return changed during review; reopen the correction');
+   const proposal=await window.taxInvestmentCorrections.plan(original,recordId,basis.value,note.value.trim());
+   const applied=await window.taxInvestmentCorrections.apply(data,metadata,proposal);
+   if(currentId!==id||revision!==atRevision)throw Error('This return changed while applying the correction; no amount was replaced');
+   data=applied.data;metadata=applied.metadata;changed();closeDialog();navigate('capital_gains');notify('Cost basis replaced and correction recorded. Save to keep this return.');
+  }finally{submitting=false;}
+ },'primary']]);
+}
 function refreshW2Review(ident){
  const entry=metadata.w2_records.find(item=>item.record_id===ident);if(!entry)return;
  document.querySelectorAll('[data-w2-review-state="'+ident+'"]').forEach(node=>node.textContent=entry.reviewed?'Reviewed':'Needs review');
@@ -270,20 +306,20 @@ function w2ReviewPanel(index){
  return holder;
 }
 function repeatRecords(key){
- const definition=recordDefinitions[key],holder=el('div'),records=data[key]||(data[key]=[]);if(key==='w2')ensureW2Metadata();
+ const definition=recordDefinitions[key],holder=el('div'),records=data[key]||(data[key]=[]);if(key==='w2')ensureW2Metadata();if(key==='capital_gains')ensureInvestmentMetadata();
  if(!records.length)holder.append(el('div',{class:'empty-state'},'No '+definition.label+' added yet.',el('br'),'Add one to enter the information from your document.'));
  for(const[rowIndex,row]of records.entries()){
-  const recordKey=key+':'+(key==='w2'?metadata.w2_records[rowIndex].record_id:rowIndex),isOpen=openRecords.has(recordKey)||records.length===1;
+  const recordKey=key+':'+(key==='w2'?metadata.w2_records[rowIndex].record_id:key==='capital_gains'?metadata.investment_records[rowIndex].record_id:rowIndex),isOpen=openRecords.has(recordKey)||records.length===1;
   const content=grid(...definition.fields.filter(([, ,type])=>type!=='check').map(([name,label,type])=>field(key+'.'+rowIndex+'.'+name,label,type==='owner'?'select':type==='term'?'select':type||'money',type==='owner'?{choices:ownerChoices}:type==='term'?{choices:[['short','Short-term'],['long','Long-term']]}:{})));
   for(const[name,label,type]of definition.fields.filter(([, ,type])=>type==='check'))content.append(check(key+'.'+rowIndex+'.'+name,label));
-  const extras=autoObject(key+'.'+rowIndex,schemaValue(key+'.'+rowIndex));if(extras)content.append(extras);if(key==='w2')content.append(w2ReviewPanel(rowIndex));
+  const extras=autoObject(key+'.'+rowIndex,schemaValue(key+'.'+rowIndex));if(extras)content.append(extras);if(key==='w2')content.append(w2ReviewPanel(rowIndex));if(key==='capital_gains')content.append(investmentCorrectionPanel(rowIndex));
   const body=el('div',{class:'record-body',hidden:!isOpen},content),caption=el('span',{},definition.label+' '+(rowIndex+1),el('small',{},row[definition.name]||'Enter details below'));
   if(key==='w2')caption.append(el('small',{'data-w2-review-state':metadata.w2_records[rowIndex].record_id},metadata.w2_records[rowIndex].reviewed?'Reviewed':'Needs review'));
   if(key==='w2'&&metadata.w2_records[rowIndex].source_document?.return_id&&metadata.w2_records[rowIndex].source_document.return_id!==currentId)caption.append(el('small',{},'Source attachment not restored'));
   const heading=el('button',{class:'record-header-button',type:'button','aria-expanded':isOpen,onClick:event=>{body.hidden=!body.hidden;event.currentTarget.setAttribute('aria-expanded',String(!body.hidden));if(body.hidden)openRecords.delete(recordKey);else openRecords.add(recordKey);}},el('span',{'aria-hidden':'true'},isOpen?'⌄':'›'),caption);
-  holder.append(el('section',{class:'record'},el('div',{class:'record-header'},heading,el('button',{class:'delete-record',type:'button','aria-label':'Remove '+definition.label+' '+(rowIndex+1),onClick:()=>{if(key==='w2')metadata.w2_records.splice(rowIndex,1);records.splice(rowIndex,1);openRecords.delete(recordKey);if(key!=='w2')openRecords.clear();changed();renderPage(false);}},'Remove')),body));
+  holder.append(el('section',{class:'record'},el('div',{class:'record-header'},heading,el('button',{class:'delete-record',type:'button','aria-label':'Remove '+definition.label+' '+(rowIndex+1),onClick:()=>{if(key==='w2')metadata.w2_records.splice(rowIndex,1);if(key==='capital_gains')metadata.investment_records.splice(rowIndex,1);records.splice(rowIndex,1);openRecords.delete(recordKey);if(key!=='w2'&&key!=='capital_gains')openRecords.clear();changed();renderPage(false);}},'Remove')),body));
  }
- holder.append(el('button',{class:'add-record',type:'button',onClick:()=>{records.push(clone(schema.capabilities?.row_templates?.[key]||definition.template));if(key==='w2'){metadata.w2_records.push(window.taxRecordMetadata.newRecord());openRecords.add(key+':'+metadata.w2_records.at(-1).record_id);}else openRecords.add(key+':'+(records.length-1));changed();renderPage(false);}},'+ Add another '+definition.label));
+ holder.append(el('button',{class:'add-record',type:'button',onClick:()=>{records.push(clone(schema.capabilities?.row_templates?.[key]||definition.template));if(key==='w2'){metadata.w2_records.push(window.taxRecordMetadata.newRecord());openRecords.add(key+':'+metadata.w2_records.at(-1).record_id);}else if(key==='capital_gains'){metadata.investment_records.push(window.taxInvestmentCorrections.newRecord());openRecords.add(key+':'+metadata.investment_records.at(-1).record_id);}else openRecords.add(key+':'+(records.length-1));changed();renderPage(false);}},'+ Add another '+definition.label));
  return holder;
 }
 function profilePage(){return[title("Let's start with you.",moduleDefinitions.has('identity')?'Tell us about your household for tax year 2025. Optional local form details are entered separately. Use synthetic identity data while testing.':'Tell us about your household for tax year 2025. We ask about SSN eligibility; do not enter actual Social Security numbers here.'),card('Return & filing status',grid(field('name','Return name','text'),field('filing_status','Filing status','select',{choices:[['single','Single'],['mfj','Married filing jointly'],['mfs','Married filing separately'],['hoh','Head of household'],['qss','Qualifying surviving spouse']]}))),card('Taxpayer',grid(field('taxpayer.age','Age on December 31, 2025','age')),check('taxpayer.blind','Taxpayer is blind'),check('taxpayer.can_be_claimed','Someone else can claim the taxpayer as a dependent'),check('taxpayer.valid_ssn','Taxpayer has an eligible SSN'),check('taxpayer.valid_tin','Taxpayer has a valid SSN or ITIN','A valid ITIN does not satisfy SSN-specific credit requirements. The SSN question remains separate.')),['mfj','mfs','qss'].includes(data.filing_status)?card('Spouse',grid(field('spouse.age','Spouse age on December 31, 2025','age')),check('spouse.blind','Spouse is blind'),check('spouse.can_be_claimed','Someone else can claim the spouse as a dependent'),check('spouse.valid_ssn','Spouse has an eligible SSN'),check('spouse.valid_tin','Spouse has an eligible SSN or ITIN')):null];}
@@ -605,7 +641,7 @@ function showAbout(){
  ));
 }
 $('#brand').addEventListener('click',showAbout);$('#save-button').addEventListener('click',()=>saveReturn().catch(()=>{}));$('#mobile-save').addEventListener('click',()=>saveReturn().catch(()=>{}));$('#returns-button').addEventListener('click',showReturns);$('#documents-button').addEventListener('click',showDocuments);$('#menu-toggle').addEventListener('click',()=>$('#navigator').classList.add('open'));$('#nav-close').addEventListener('click',()=>$('#navigator').classList.remove('open'));$('#back-button').addEventListener('click',()=>{const pages=steps.flatMap(item=>item.pages),index=pages.indexOf(page);if(index>0)navigate(pages[index-1]);});$('#next-button').addEventListener('click',()=>{const pages=steps.flatMap(item=>item.pages),index=pages.indexOf(page);navigate(pages[index+1]||'review');});document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeDialog();$('#navigator').classList.remove('open');}if((event.metaKey||event.ctrlKey)&&event.key.toLowerCase()==='s'){event.preventDefault();saveReturn().catch(()=>{});}});document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden')checkpointWorkspace();});window.addEventListener('beforeunload',event=>{checkpointWorkspace();if(dirty){event.preventDefault();event.returnValue='';}});window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('#install-button').hidden=false;});$('#install-button').addEventListener('click',async()=>{if(installPrompt){await installPrompt.prompt();installPrompt=null;$('#install-button').hidden=true;}});
-async function boot(){schema=await api('/api/schema');if(!schema.default_return)throw Error('The local service did not provide the input contract.');window.taxRecordMetadata.setDefaults(schema.capabilities?.row_templates?.w2||recordDefinitions.w2.template);configureModules();if(!await restoreWorkspace())newReturn();await checkpointWorkspace();tellNativeWorkspaceReady();renderNavigation();document.querySelectorAll('[data-boot-control]').forEach(node=>{node.disabled=false;});if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('service-worker.js').catch(()=>{});}
+async function boot(){schema=await api('/api/schema');if(!schema.default_return)throw Error('The local service did not provide the input contract.');window.taxRecordMetadata.setDefaults(schema.capabilities?.row_templates?.w2||recordDefinitions.w2.template);window.taxInvestmentCorrections.setDefaults(schema.capabilities?.row_templates?.capital_gains||recordDefinitions.capital_gains.template);configureModules();if(!await restoreWorkspace())newReturn();await checkpointWorkspace();tellNativeWorkspaceReady();renderNavigation();document.querySelectorAll('[data-boot-control]').forEach(node=>{node.disabled=false;});if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('service-worker.js').catch(()=>{});}
 boot().catch(error=>{$('#main').replaceChildren(el('div',{class:'error-page'},el('h2',{},'The local tax service is unavailable.'),error.message,el('div',{class:'inline-actions'},button('Retry',()=>location.reload(),'primary'))));notify(error.message,true);});
 
 window.addEventListener('tax-reborn-native-document',async event=>{

@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-13",
+  "tax_year": 2025,
+  "input": "One existing phone-camera photograph of a synthetic 2025 W-2; original photo and raw OCR remain private.",
+  "input_source_bytes_preserved": true,
+  "cache_version": "tax-reborn-ui-2025-preview-16",
+  "extractor_sha256": "a7790dd3ac2c7d49caefbd5d8d4cebb4a5702b950814a8afeec4898bd2ab1788",
+  "apk_sha256": "9a970ede7f25dcd69964867192ec14982bfb5ac550ab99cdef5f87cd0161699e",
+  "same_existing_private_signer": true,
+  "install_replaced_existing_app": true,
+  "device_data_cleared": false,
+  "requested_permissions": 0,
+  "internet_permission": false,
+  "actual_phone_ui": {
+    "extraction_from_existing_photo": true,
+    "amounts_manually_filled": false,
+    "employer_manually_entered_from_source": "Synthetic Widgets LLC",
+    "owner": "taxpayer",
+    "box_1": "60000.00",
+    "box_2": "6500.00",
+    "box_3": "60000.00",
+    "box_4": "3720.00",
+    "box_5": "60000.00",
+    "box_6": "870.00",
+    "box_7": "0.00",
+    "review_confirmed": true,
+    "w2_added": true,
+    "saved_locally": true,
+    "refund_estimate_usd": 1425,
+    "blocking_review_checks_visible": 4,
+    "process_force_stop_and_relaunch": true,
+    "restored_w2_page_values_and_review": true,
+    "explicit_saved_return_list_reopen": true,
+    "return_reopen_estimate_usd": 1425,
+    "source_reference_ui_readback": false,
+    "activity_recreation_during_capture_tested": false
+  },
+  "actual_production_extractor_independent_checks": {
+    "root_same_private_photo_elapsed_ms": 1326.3,
+    "root_confidence": 83,
+    "form_type": "w2",
+    "year": 2025,
+    "all_six_amounts_correct": true,
+    "actual_pinned_worker": true,
+    "android_equivalent_csp": true,
+    "worker_small_landscape_narrow_inputs_passed": 3,
+    "ocr_stub": false,
+    "confidence_gate_and_amount_parser_unchanged": true,
+    "parser_safety_checks_passed": 8,
+    "timeout_failure_terminates_worker_and_retry_restarts": true
+  },
+  "screenshots": [
+    "android-camera-candidates-box4-6-20261013.png",
+    "android-camera-saved-W2-20261013.png",
+    "android-camera-relaunched-W2-20261013.png"
+  ],
+  "limits": [
+    "Single synthetic camera photograph; not general W-2 OCR accuracy or tax eligibility validation.",
+    "Headless extractor timing/confidence are not measured phone execution timing.",
+    "Process restart and saved-return reopen are not camera-time Activity recreation.",
+    "No return was filed."
+  ]
+}

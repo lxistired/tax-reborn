@@ -102,7 +102,7 @@ def prepare(work):
         shutil.copy2(ROOT/name,assets/name)
     # These modules belong to the next integrated filing build. Older preview
     # commits remain buildable; a present module is always included and hashed.
-    for name in ('tax_longtail.py','tax_filing.py','official_forms.py'):
+    for name in ('tax_longtail.py','tax_filing.py','presentation_schema.py','official_forms.py'):
         if (ROOT/name).is_file(): shutil.copy2(ROOT/name,assets/name)
     shutil.copytree(ROOT/'forms',assets/'forms',ignore=shutil.ignore_patterns('.*','__pycache__','*.pyc'),dirs_exist_ok=True)
     shutil.copytree(ROOT/'vendor',assets/'vendor-source',ignore=shutil.ignore_patterns('.*','__pycache__','*.pyc'),dirs_exist_ok=True)

@@ -1,0 +1,14 @@
+{
+  "all_passed": true,
+  "scope": "Recorded20261013 counts; exact-byte and text marker scan. No vendor execution.",
+  "public_files_checked": 2510,
+  "archive_members_checked": 7343,
+  "check_count": 15,
+  "source_zip_sha256": "53b43df2f91f97edee3b8c9db0805526ae4d25cb38cf54f7a058ae0e7a34d857",
+  "limitations": [
+    "DMG contents not mounted; inspect built app source/resources separately.",
+    "Renamed or transformed photographs require an independent origin check.",
+    "This is not a general secret/credential scanner.",
+    "No claim of original final tax equivalence or OCR accuracy."
+  ]
+}

@@ -42,10 +42,25 @@
       "real_iphone_tested": false,
       "receipt": "qa/native-w2metadata-20261013/ios-artifact-readback.json"
     },
-    "android_closeup_camera_ocr_verified": false,
+    "android_closeup_camera_ocr_verified": true,
     "android_activity_recreation_verified": false,
-    "ocr_scope": "Browser review/source contract used synthetic extraction; actual close-up camera OCR is not established by this report.",
-    "federal_longtail_sha256": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d"
+    "ocr_scope": "One existing synthetic2025 camera photo: Box1-6 verified in actual phone UI, reviewed, saved, process restarted and explicitly reopened. This does not establish general OCR accuracy.",
+    "federal_longtail_sha256": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "android_process_restart_preserved_w2_review": true,
+    "android_camera_receipt": "qa/android-camera-ocr-accepted-20261013.json",
+    "webassembly_federal_forms_passed": 343,
+    "ocr_recovery_application_commit": "c8c49604a069c84e7b24aa9e1d750b90da18ca38",
+    "latest_native_run": {
+      "run": 38407957597,
+      "windows_and_ios_passed": true,
+      "native_python_passed": 353,
+      "windows_frozen_passed": 11,
+      "windows_gui_and_native_pdf_readback_passed": true,
+      "ios_simulator_gui_passed": true,
+      "ios_device_signed": false,
+      "real_iphone_tested": false,
+      "receipt_folder": "qa/native-ocr-final-20261013"
+    }
   },
   "claims": {
     "complete_vendor_engine": false,

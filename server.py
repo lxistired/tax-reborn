@@ -38,7 +38,8 @@ def default_data_dir():
 
 
 def capabilities():
-    return {**tax_engine.capabilities(), 'product': 'Tax Reborn', 'project_number': '000002', 'version': VERSION,
+    import presentation_schema
+    return {**presentation_schema.capabilities(), 'product': 'Tax Reborn', 'project_number': '000002', 'version': VERSION,
             'tax_year': 2025, 'jurisdiction': 'US federal', 'currency': 'USD',
             'electronic_filing': False, 'state_returns': '31 full-year resident calculation drafts; separate scope review required', 'official_product_parity': False,
             'storage': 'private local SQLite', 'requires_account': False}
@@ -249,7 +250,7 @@ class Handler(BaseHTTPRequestHandler):
                         import forms
                         return self.send_data(200, forms.packet_status(record))
             if method == 'GET' and not path.startswith('/api/'):
-                if path in ('/tax_engine.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/tax_longtail.py', '/tax_filing.py', '/rules_2025.json', '/forms.py', '/official_forms.py'):
+                if path in ('/tax_engine.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/tax_longtail.py', '/tax_filing.py', '/presentation_schema.py', '/rules_2025.json', '/forms.py', '/official_forms.py'):
                     target = BASE / path[1:]
                 elif path.startswith('/forms/'):
                     target=(BASE/path[1:]).resolve()

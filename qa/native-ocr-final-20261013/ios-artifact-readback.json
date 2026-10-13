@@ -1,0 +1,21 @@
+{
+  "ci_run": 38407957597,
+  "source_commit": "c8c49604a069c84e7b24aa9e1d750b90da18ca38",
+  "platform": "ios",
+  "all_artifacts_match_manifest": true,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Simulator.app.zip",
+      "bytes": 48947241,
+      "sha256": "4398663e76d43f0a5bb65b0ac304acffd8806369318dc24d43ce522171afd450",
+      "installable_on_iphone": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Unsigned-Device.app.zip",
+      "bytes": 48867197,
+      "sha256": "b5bd5831e8be63beb07100b720dfd36293f4c0e6fcc275073e56c1a2626b1df4",
+      "installable_on_iphone": false,
+      "requires_matching_device_provisioning": true
+    }
+  ]
+}

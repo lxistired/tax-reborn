@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-10-13T15:12:52.925593+00:00",
+  "all_passed": true,
+  "product": "Tax Reborn",
+  "scope": "Independent local investment cost-basis correction, persistence and UI acceptance",
+  "host_integration": {
+    "passed": 8,
+    "failed": 0,
+    "test_file": "tests/test_investment_metadata.py",
+    "tests": [
+      "test_legacy_duplicate_lots_receive_independent_stable_ids",
+      "test_absolute_basis_change_persists_and_changes_real_gain_and_refund",
+      "test_equal_description_lots_do_not_share_identity_or_history",
+      "test_decimal_equivalence_keeps_ids_and_fingerprints",
+      "test_actual_json_export_and_new_copy_restore_keep_history",
+      "test_invalid_money_is_rejected_without_mutating_saved_return",
+      "test_duplicate_record_id_is_rejected_atomically",
+      "test_duplicate_correction_id_across_lots_is_rejected_atomically"
+    ],
+    "backend": "Actual isolated same-origin HTTP API and committed SQLite rows"
+  },
+  "python_regression": {
+    "passed": 361,
+    "failed": 0,
+    "errors": 0,
+    "seconds": 17.342,
+    "previous_tests_preserved": 353,
+    "new_host_tests": 8
+  },
+  "browser": {
+    "passed_groups": 8,
+    "failed_groups": 0,
+    "primary_groups": [
+      "Real identical-description lots have separate UUIDs and actual initial gain/refund",
+      "Actual correction dialog replaces only the selected absolute basis and recalculates tax",
+      "Real helper rejects stale/conflicting/invalid proposals and duplicate UUIDs; exact replay is no-op",
+      "Cent-equivalent UI entry keeps identity/history; real save and relaunch checkpoint persist",
+      "Actual JSON download and restore as new return preserve correction history and recomputed result",
+      "Deletion and addition preserve the surviving corrected lot identity/history",
+      "Actual offline tax worker and IndexedDB save/reopen/backup retain corrected gain and event"
+    ],
+    "paper_fact_group": "Actual Filing details labeled dates and category select store separately from unchanged calculation records; real worker schema matches Python and facts persist after relaunch",
+    "environment": "Real headless Chromium, actual UI, downloads and JSON restore; real Pyodide dedicated worker and IndexedDB",
+    "external_requests": "Aborted in the test contexts; all successful calculations used local resources",
+    "primary_basis_batch_cache": "preview-18",
+    "final_namespaced_schema_batch_cache": "preview-19",
+    "worker_python_schema_equal": [
+      "row_templates",
+      "ui_fields"
+    ],
+    "new_sale_amount_fields_actually_entered": [
+      "Sales proceeds",
+      "Cost or other basis"
+    ],
+    "paper_fact_fields_actually_entered": [
+      "Acquisition date (YYYY-MM-DD or VARIOUS)",
+      "Sale date (YYYY-MM-DD)",
+      "Brokerage reporting category A/B/C or D/E/F (actual SELECT)"
+    ]
+  },
+  "synthetic_tax_result": {
+    "currency": "USD",
+    "tax_year": 2025,
+    "income_fixture": {
+      "w2_wages": 60000,
+      "federal_withholding": 6500,
+      "identical_short_term_lots": 2,
+      "each_proceeds": 1500,
+      "each_initial_basis": 1000,
+      "each_adjustment": 0
+    },
+    "correction": {
+      "target": "Only the second lot",
+      "basis_before": 1000,
+      "basis_after": 1200,
+      "absolute_overwrite": true,
+      "proceeds_unchanged": true,
+      "adjustment_unchanged": true
+    },
+    "before": {
+      "form1040_line7a": 1000,
+      "federal_refund_estimate": 1305
+    },
+    "after": {
+      "form1040_line7a": 800,
+      "federal_refund_estimate": 1329
+    },
+    "return_is_complete_filing_packet": false,
+    "note": "The independent synthetic case deliberately leaves unrelated household and filing confirmations unanswered. These figures are calculation acceptance, not a filed return."
+  },
+  "behaviors_verified": [
+    "Equal descriptions have distinct stable record IDs; correction affects only the selected lot",
+    "Cent-equivalent amount formatting preserves IDs, fingerprints and history",
+    "Exact correction-ID replay returns already_applied without appending or changing data",
+    "Same correction ID with different target or basis is rejected",
+    "Stale proposal and replay after a later manual basis edit are rejected",
+    "Invalid money, duplicate record IDs and correction IDs are rejected without changing saved return",
+    "Save, relaunch, actual JSON download and restore as a new return preserve history and recompute tax",
+    "Deletion and addition preserve the surviving corrected lot; new lot starts without history",
+    "Real local worker/IndexedDB save, reopen and backup preserve corrected result and history",
+    "Paper-form dates/category occupy their own namespace; calculation records and IDs remain unchanged"
+  ],
+  "tax_core_changed": false,
+  "original_oracles_changed": false,
+  "runtime_modified_by_acceptance_worker": false,
+  "source_sha256": {
+    "tax_engine.py": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+    "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "investment_metadata.py": "f2a88d1769a262919799696e0c79ea55d3183b319d7edf10f76b2b591b4dba23",
+    "return_metadata.py": "8116adadfa08dbbcc36b6980b6b60754499dbc5d89821868a1f702caf63bdd14",
+    "server.py": "29c8bfc7bc9c6b44dbd57bf0fb48ea30e04341e2ef78d046f6d52fa07d56ebe1",
+    "presentation_schema.py": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c",
+    "web/investment-corrections.js": "fd2b97126137cc8232bf4902585c7d8a23f09177151e23d063f71d36577a8edf",
+    "web/local-api.js": "b43a7c8a71337f6faef5adc21ef1c84c253a5807656edac9104a0f06aa9de1df",
+    "web/app.js": "6a8d76d8c3118804b4bb10a8ace22d376ad16cf40fb7b0b1a6826961d715b5db",
+    "web/tax-worker.js": "fbf575728c978596a9cbb912e9af38455204d3f1dc685e628f4bebb06d4a7521",
+    "tests/test_investment_metadata.py": "eeef62ce141d2a181b6caa40ad4ff6ea8b4710360114858bc044152e17d1fa9f"
+  },
+  "limitations": [
+    "No remote brokerage or paid import backend was exercised",
+    "No original TurboTax runtime parity or pixel parity is claimed",
+    "Undo is not asserted as implemented",
+    "Browser worker acceptance does not replace separately recorded native mobile/desktop package checks",
+    "Only synthetic financial inputs were used; no phone photographs or private taxpayer returns were read"
+  ],
+  "reproduction": {
+    "host_command": "python3 -m unittest discover -s tests -p test_investment_metadata.py -v",
+    "all_python_command": "python3 -m unittest discover -s tests -v",
+    "private_browser_scripts": [
+      "work/turbotax-re/rea-wave3-20261013/workflows/test_basis_browser.cjs",
+      "work/turbotax-re/rea-wave3-20261013/workflows/test_basis_facts_ui.cjs"
+    ],
+    "note": "Run host commands from outputs/tax-reborn. Browser scripts run from the repository workspace with Playwright installed and TAX_REBORN_TEST_PYTHON pointing to a Python runtime that supports the server and PDF dependencies."
+  }
+}

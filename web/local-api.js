@@ -31,7 +31,7 @@
     const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
     const fingerprints=await Promise.all(rows.map(async row=>{try{return await w2Fingerprint(row);}catch(error){if(options.draft)return null;throw error;}}));let entries;
     if(provided!=null){
-      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
+      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records','investment_records'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
       entries=provided.w2_records;
     }else{
       entries=fingerprints.map(hash=>{const old=(previous?.w2_records||[]).filter(item=>item.row_fingerprint===hash);return hash&&old.length===1&&fingerprints.filter(value=>value===hash).length===1?old[0]:{};});
@@ -45,7 +45,8 @@
       const reviewed=checked&&item.reviewed_fingerprint===fingerprints[index];
       return {record_id:id,row_fingerprint:fingerprints[index],reviewed,reviewed_at:reviewed?item.reviewed_at:null,reviewed_fingerprint:reviewed?fingerprints[index]:null,source_document:localSource(item.source_document)};
     });
-    return {version:1,w2_records:records};
+    const investments=await window.taxInvestmentCorrections.normalize(data.capital_gains||[],provided?.investment_records,previous?.investment_records,options);
+    return {version:1,w2_records:records,investment_records:investments};
   }
   window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,
     empty:()=>({version:1,w2_records:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};

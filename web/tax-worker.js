@@ -53,7 +53,7 @@ function ready() {
   if (!engineReady) engineReady = (async () => {
     const py = await loadPyodide({indexURL: new URL('vendor/pyodide/', self.location.href).href});
     const base = new URL('./', self.location.href);
-    const names = ['tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','rules_2025.json','forms/paper-fact-schema-2025.json'];
+    const names = ['tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','rules_2025.json','forms/paper-fact-schema-2025.json'];
     const contents = await Promise.all(names.map(async name => {
       const response = await fetch(new URL(name, base));
       if (!response.ok) throw new Error('Offline tax engine resource missing: '+name);
@@ -61,7 +61,7 @@ function ready() {
     }));
     py.FS.mkdirTree('/home/pyodide/forms');
     names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name, contents[index]));
-    await py.runPythonAsync('import sys\nsys.path.insert(0, "/home/pyodide")\nimport json, tax_engine');
+    await py.runPythonAsync('import sys\nsys.path.insert(0, "/home/pyodide")\nimport json, tax_engine, presentation_schema');
     return py;
   })();
   return engineReady;
@@ -75,7 +75,7 @@ self.onmessage = event => {
       py.globals.set('_tax_input_json', JSON.stringify(payload || {}));
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
-      else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": tax_engine.capabilities()}, allow_nan=False)';
+      else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
       else if (['pdf','packet_pdf','paper_status','document_text'].includes(command)) {
         if (!pdfReady) pdfReady = (async () => {
           const base = new URL('./', self.location.href);

@@ -1,0 +1,18 @@
+{
+  "ci_run": 38407957597,
+  "source_commit": "c8c49604a069c84e7b24aa9e1d750b90da18ca38",
+  "platform": "windows",
+  "all_artifacts_match_manifest": true,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-Windows-x64-portable.zip",
+      "bytes": 70351216,
+      "sha256": "5b98510d18c45ecf8e4106f0c585cf96af0249871e15be0aef262ee118006905"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-Windows-x64-Setup.exe",
+      "bytes": 57440581,
+      "sha256": "c7df4f1ed226badb68b39ec9e3d6a7915cc57621210b3d7430313f0ff30f96a6"
+    }
+  ]
+}

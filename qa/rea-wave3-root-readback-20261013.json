@@ -1,0 +1,24 @@
+{
+  "all_passed": true,
+  "wave3_main_complete_unique": 369,
+  "prior_main_complete_unique": 61,
+  "combined_main_unique": 430,
+  "wave3_bundle_sha256": "f10d1857c7914b812f309e20ed8afafb3ecc7621b0d95490e6340767c758254b",
+  "wave3_bundle_bytes": 696891610,
+  "wave3_fps_complete_functions": 18,
+  "wave3_fps_original_entry_byte_checks": 18,
+  "current_apk_sha256": "660ba0661672eb04ccc3027c2fada896e2bd09cf528c27d3399d0b6dd55f447a",
+  "current_apk_assets_equal_source": [
+    "web/app.js",
+    "web/index.html",
+    "web/local-api.js",
+    "web/investment-corrections.js",
+    "web/tax-worker.js",
+    "web/document-import.js",
+    "web/offline-readiness.js",
+    "web/service-worker.js",
+    "web/offline-assets.json",
+    "presentation_schema.py"
+  ],
+  "scope": "Root per-record original identity, complete body and export hash readback. Main body identity is not separate entry-byte/runtime proof. FPS original entry bytes checked. Functions are not tax formula/paid feature equivalence."
+}

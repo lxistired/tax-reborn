@@ -11,6 +11,7 @@ import hashlib
 import json
 import re
 import uuid
+import investment_metadata
 
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 HASH = re.compile(r'^[0-9a-f]{64}$')
@@ -66,7 +67,7 @@ def normalize(data, provided, defaults, previous=None):
         raise ValueError('Invalid W-2 preparation record collection')
     explicit = provided is not None
     if explicit:
-        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records'} or provided.get('version') != 1:
+        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records', 'investment_records'} or provided.get('version') != 1:
             raise ValueError('Unsupported local preparation metadata')
         entries = provided.get('w2_records')
         if not isinstance(entries, list) or len(entries) != len(rows):
@@ -112,4 +113,7 @@ def normalize(data, provided, defaults, previous=None):
                        'reviewed': reviewed, 'reviewed_at': stamp if reviewed else None,
                        'reviewed_fingerprint': current if reviewed else None,
                        'source_document': source_document(item.get('source_document'))})
-    return {'version': 1, 'w2_records': output}
+    investments = investment_metadata.normalize(data.get('capital_gains', []),
+        provided.get('investment_records') if explicit else None,
+        previous.get('investment_records', []) if isinstance(previous, dict) else None)
+    return {'version': 1, 'w2_records': output, 'investment_records': investments}
