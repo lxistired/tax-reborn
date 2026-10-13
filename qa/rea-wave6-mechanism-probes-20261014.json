@@ -1,0 +1,24 @@
+{
+  "synthetic_only": true,
+  "original_runtime_cases": 0,
+  "typed_record_adapter": {
+    "worker_tests_passed": 85,
+    "root_independent_tests_passed": 10,
+    "integrated_into_app": false,
+    "full_tax_file_importer": false
+  },
+  "packet_manifest": {
+    "worker_tests_passed": 58,
+    "root_independent_tests_passed": 6,
+    "integrated_into_app": false,
+    "irs_legal_required_forms_verified": false
+  },
+  "scope": "Bounded independently authored mechanisms. Counts are separate from current App 385 host/359 Pyodide and 22 real UI acceptance.",
+  "formula_resource_withholding": {
+    "new_finite_w2_cases_passed": 7,
+    "separate_total_payments_case_passed": 1,
+    "native_alias_bridge_supplied_as_precondition": true,
+    "integrated_into_app": false,
+    "full_formula_engine_recovered": false
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "checkpoint": "wave6-native-typed-loader",
+  "original_subject_sha256": "731a15d96fad8f5b1873688e71be801f63b20140301915a17af87f8e65bca8ee",
+  "new_original_function_dossiers": 40,
+  "canonical_full_records_equal_final_export": 40,
+  "original_entry_bytes_independently_verified": 40,
+  "new_entries_in_original_physical_function_starts": 40,
+  "original_physical_function_starts": 131843,
+  "prior_original_main_unique": 4424,
+  "cumulative_original_main_unique": 4464,
+  "export_records": 303,
+  "export_sha256": "ea6745d32bad575f72e244a419447cdc7b69bfc847f1d12d00068676fac84287",
+  "original_runtime_cases": 0,
+  "full_product_complete": false,
+  "function_record_scope": "Complete retained provider-defined original function address sets, not recovery of every indirect branch or tax algorithm. Scalar switch supplement and remaining gaps are reported separately.",
+  "verification": "Root independently reread actual Mach-O segment/entry bytes, all canonical records and the prior unique-address union."
+}

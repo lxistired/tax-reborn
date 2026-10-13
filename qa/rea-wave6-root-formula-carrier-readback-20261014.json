@@ -1,0 +1,27 @@
+{
+  "checkpoint": "wave6-formula-carrier",
+  "original_resource_slices_verified": 11,
+  "selected_private_carrier_digest_verified": true,
+  "original_getter_window_source_checks": [
+    {
+      "length": 48,
+      "source_bytes_sha256": "90ed7b4c60890121b7023d20dc87cf8982c1e0e44fecaf6d2953358e50c65016",
+      "original_bytes_match": true
+    },
+    {
+      "length": 32,
+      "source_bytes_sha256": "8ac80129d71a26b5b368c6e4200c856e89ba8b41b83cb36754bc19f632e4fd60",
+      "original_bytes_match": true
+    }
+  ],
+  "new_complete_native_main_dossiers": 0,
+  "original_runtime_cases": 0,
+  "tax_formula_coverage_not_established": true,
+  "scope": "Root actual original source SHA/range and private archive-member equality checks. Structure framing, selected interpretation and full original calculation are separate.",
+  "complete_compiled_producers_raw_source_and_archive_verified": 7,
+  "new_semantic_source_ranges_verified": 10,
+  "new_semantic_instruction_occurrences": 67,
+  "new_semantic_original_bytes": 212,
+  "complete_raw_producer_archive_sha256": "d60748a20dac88f12a77c47bace393a1232e3ec470752b5b15cce64204bb8ef9",
+  "original_formula_runtime_comparison_cases": 0
+}

@@ -1,0 +1,16 @@
+{
+  "checkpoint": "wave6-printing",
+  "original_subject_sha256": "6302c822198101e8dbc375e136c663df5e163b0e9d0609c8af51b6b1e2dd6e39",
+  "new_original_cil_bodies": 146,
+  "prior_distinct_bodies": 253,
+  "cumulative_distinct_selected_bodies": 399,
+  "overlap_with_prior": 0,
+  "root_verified_original_pe_methoddef_rva_and_body_headers_and_raw_il_hashes": 146,
+  "root_verified_complete_instructions_and_producer_body_and_signature": 146,
+  "export_records": 23,
+  "export_bytes": 40786175,
+  "export_sha256": "a2fcd6f14370c97b668d4d69d682a0cb45caf0d21a64cf5ff65dc1cf9dc9e0bb",
+  "original_runtime_cases": 0,
+  "full_product_complete": false,
+  "scope": "Selected complete original CIL bodies, not C# source, complete printing engine recovery or paid-feature count."
+}

@@ -1,0 +1,75 @@
+{
+  "published": true,
+  "prerelease": true,
+  "url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.14-preview.5",
+  "tag_name": "v2026.10.14-preview.5",
+  "target_commitish": "4690de49536a72d3460821dd7b5dac373a834c81",
+  "asset_count": 9,
+  "assets": [
+    {
+      "name": "release-manifest-preview5.json",
+      "size": 2094,
+      "digest": "sha256:169c85d0fe333d166b518ac045ff978fb8f999ee0e36f43afdaec50ef724e300",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/release-manifest-preview5.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "size": 919,
+      "digest": "sha256:e1aa2876e8c1f1592000aecc4c1b635a07fd7f42638fff90c9045e76b0cf5452",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/SHA256SUMS.txt"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-Android.apk",
+      "size": 48914993,
+      "digest": "sha256:5928a9d74020f61d925565f0bef27299db41ee17a2d4e00df510ec406344f96f",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-Android.apk"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-iOS-Simulator.app.zip",
+      "size": 48961888,
+      "digest": "sha256:483f27a2a822479aa51dad73b003f420aaee5de5b1e915a4581a4eada80b52c3",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-iOS-Simulator.app.zip"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-iOS-Unsigned-Device.app.zip",
+      "size": 48881845,
+      "digest": "sha256:b18af78b731e2a87dc5c1c33f9697f7473ca73b24d8b4beed2fd6b0774bea87f",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-iOS-Unsigned-Device.app.zip"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-macOS-arm64.dmg",
+      "size": 70499931,
+      "digest": "sha256:fa4a58453d4b971d22da91c485ad2034edbcbb588170f1e0a3e5157c795d89d0",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-macOS-arm64.dmg"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-source.zip",
+      "size": 63464335,
+      "digest": "sha256:2a370ca5a98c4e3fb926d12bcf008650e374d658e829234f8684de8450d15630",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-source.zip"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-Windows-x64-portable.zip",
+      "size": 70397633,
+      "digest": "sha256:f19283d214f9ebb2e3a8edbe925643f79344270ad54d036c1232511366502911",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-Windows-x64-portable.zip"
+    },
+    {
+      "name": "Tax-Reborn-2026.10.14-preview.5-Windows-x64-Setup.exe",
+      "size": 57477475,
+      "digest": "sha256:e326e1b0a7a813ed7f90485f9d6b4e47c1001bade7604a740959d6380208be0f",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.14-preview.5/Tax-Reborn-2026.10.14-preview.5-Windows-x64-Setup.exe"
+    }
+  ],
+  "runtime_source_commit": "332d29c6ba3d50c2d419ee8a44948eb8a665c26f",
+  "all_uploaded_sizes_and_digests_match_locally_verified_assets": true
+}
