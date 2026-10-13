@@ -1,0 +1,399 @@
+{
+  "tax_year": 2025,
+  "tested_at": "2026-10-13T06:43:35.188223+00:00",
+  "synthetic_only": true,
+  "cases": [
+    {
+      "case": "business",
+      "path": "outputs/tax-reborn/qa/official-business-2025-DRAFT.pdf",
+      "bytes": 709774,
+      "sha256": "4b2cf2a77bc79d86b5322859f460f116d4655a94c3254fc966b86e6cd58a7f7c",
+      "status": "draft_incomplete",
+      "verification": {
+        "pages": 10,
+        "verified_fields": 100,
+        "interactive": true,
+        "canonical_values_verified": true,
+        "widget_values_and_appearances_verified": true
+      },
+      "forms": [
+        {
+          "id": "f1040s1",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf",
+          "template_sha256": "8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa",
+          "status": "draft_facts_present",
+          "line_values": {
+            "3": 90000,
+            "5": 0,
+            "7": 0,
+            "8f": 0,
+            "8z": 0,
+            "9": 0,
+            "10": 90000,
+            "13": 0,
+            "15": 6358,
+            "17": 0,
+            "20": 0,
+            "21": 0,
+            "26": 6358
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 15,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f1040s2",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf",
+          "template_sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8",
+          "status": "draft_facts_present",
+          "line_values": {
+            "1a": 0,
+            "1z": 0,
+            "2": 0,
+            "3": 0,
+            "4": 12716,
+            "8": 0,
+            "11": 0,
+            "12": 0,
+            "17c": 0,
+            "18": 0,
+            "21": 12716
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 13,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f1040sb",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf",
+          "template_sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2",
+          "status": "draft_facts_present",
+          "line_values": {
+            "2": 100,
+            "3": 0,
+            "4": 100,
+            "6": 0
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 1,
+            "verified_fields": 11,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f1040sc",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf",
+          "template_sha256": "ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716",
+          "status": "draft_facts_present",
+          "line_values": {
+            "1": 100000,
+            "2": 0,
+            "3": 100000,
+            "4": 0,
+            "5": 100000,
+            "6": 0,
+            "7": 100000,
+            "28": 10000,
+            "29": 90000,
+            "30": 0,
+            "31": 90000,
+            "18": 10000
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 22,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f1040sse",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf",
+          "template_sha256": "05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347",
+          "status": "draft_facts_present",
+          "line_values": {
+            "1a": 0,
+            "1b": 0,
+            "2": 90000,
+            "3": 90000,
+            "4a": 83115,
+            "4b": 0,
+            "4c": 83115,
+            "5a": 0,
+            "5b": 0,
+            "6": 83115,
+            "8a": 0,
+            "8b": 0,
+            "8c": 0,
+            "8d": 0,
+            "9": 176100,
+            "10": 10306,
+            "11": 2410,
+            "12": 12716,
+            "13": 6358
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 21,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f8995",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f8995--2025.pdf",
+          "template_sha256": "55380ad230303e1586ce97f0f224265b8337ad18c9204f0fb7325e95a76b5cde",
+          "status": "draft_incomplete",
+          "line_values": {
+            "2": 83642,
+            "3": 0,
+            "4": 83642,
+            "5": 16728,
+            "6": 0,
+            "7": 0,
+            "8": 0,
+            "9": 0,
+            "10": 16728,
+            "11": 67992,
+            "12": 0,
+            "13": 67992,
+            "14": 13598,
+            "15": 13598,
+            "16": 0,
+            "17": 0
+          },
+          "unmapped_lines": [],
+          "missing_facts": [
+            "Form8995 per-business QBI allocation and taxpayer/business identifier for each activity"
+          ],
+          "verification": {
+            "pages": 1,
+            "verified_fields": 18,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        }
+      ],
+      "missing_facts": [
+        "Form8995 per-business QBI allocation and taxpayer/business identifier for each activity"
+      ]
+    },
+    {
+      "case": "credits",
+      "path": "outputs/tax-reborn/qa/official-credits-2025-DRAFT.pdf",
+      "bytes": 509918,
+      "sha256": "d052f53cfb183d00819a906ba245a86835127d2012076fdd0bb22257a2ed341b",
+      "status": "draft_incomplete",
+      "verification": {
+        "pages": 7,
+        "verified_fields": 108,
+        "interactive": true,
+        "canonical_values_verified": true,
+        "widget_values_and_appearances_verified": true
+      },
+      "forms": [
+        {
+          "id": "f1040s3",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf",
+          "template_sha256": "008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82",
+          "status": "draft_facts_present",
+          "line_values": {
+            "1": 0,
+            "2": 600,
+            "3": 1500,
+            "4": 0,
+            "5a": 0,
+            "5b": 0,
+            "6c": 0,
+            "6d": 0,
+            "7": 0,
+            "8": 2100,
+            "9": 0,
+            "11": 0,
+            "15": 0
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 1,
+            "verified_fields": 15,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f1040s8",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f1040s8--2025.pdf",
+          "template_sha256": "6936462d67e2309d14a795aa0b88ef613cc6d79617431cfda3a2edf44aea52db",
+          "status": "draft_facts_present",
+          "line_values": {
+            "1": 60000,
+            "2a": 0,
+            "2b": 0,
+            "2c": 0,
+            "2d": 0,
+            "3": 60000,
+            "4": 1,
+            "5": 2200,
+            "6": 0,
+            "7": 0,
+            "8": 2200,
+            "9": 200000,
+            "10": 0,
+            "11": 0,
+            "12": 2200,
+            "13": 2975,
+            "14": 2200,
+            "16a": 0,
+            "16b": 1700,
+            "17": 0,
+            "18a": 60000,
+            "18b": 0,
+            "19": 57500,
+            "20": 8625,
+            "27": 0
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 28,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f8863",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f8863--2025.pdf",
+          "template_sha256": "a251a1cfbd613d5dd81646b276b1cc3562d7efb8bed969491eada7c8eb0d8e00",
+          "status": "draft_incomplete",
+          "line_values": {
+            "1": 2500,
+            "7": 2500,
+            "8": 1000,
+            "9": 1500,
+            "10": 0,
+            "11": 0,
+            "18": 0,
+            "19": 1500,
+            "2": 90000,
+            "3": 60000,
+            "4": 30000,
+            "5": 10000,
+            "12": 0,
+            "13": 90000,
+            "14": 60000,
+            "15": 30000,
+            "16": 10000
+          },
+          "unmapped_lines": [],
+          "missing_facts": [
+            "Form8863 each student PartIII SSN/institution EIN/address/1098T facts and individual eligible expenses"
+          ],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 23,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        },
+        {
+          "id": "f2441",
+          "owner": "taxpayer",
+          "tax_year": 2025,
+          "source": "https://www.irs.gov/pub/irs-prior/f2441--2025.pdf",
+          "template_sha256": "6c3c2d19163fa4c4de829abf9a89b43f08b4f4f3cb169740fc7da43e914269ce",
+          "status": "draft_facts_present",
+          "line_values": {
+            "3": 3000,
+            "4": 60000,
+            "5": 60000,
+            "6": 3000,
+            "7": 60000,
+            "9a": 600,
+            "9b": 0,
+            "9c": 600,
+            "10": 5075,
+            "11": 600,
+            "12": 0,
+            "15": 0,
+            "16": 0,
+            "18": 60000,
+            "19": 60000,
+            "25": 0,
+            "26": 0,
+            "27": 3000,
+            "28": 0,
+            "29": 3000,
+            "30": 5000,
+            "31": 3000,
+            "13": 0,
+            "14": 0,
+            "17": 0,
+            "20": 0,
+            "21": 5000,
+            "22": 0,
+            "23": 0,
+            "24": 0
+          },
+          "unmapped_lines": [],
+          "missing_facts": [],
+          "verification": {
+            "pages": 2,
+            "verified_fields": 42,
+            "interactive": true,
+            "canonical_values_verified": true,
+            "widget_values_and_appearances_verified": true
+          }
+        }
+      ],
+      "missing_facts": [
+        "Form8863 each student PartIII SSN/institution EIN/address/1098T facts and individual eligible expenses"
+      ]
+    }
+  ]
+}

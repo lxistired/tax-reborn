@@ -22,6 +22,10 @@ app close. It saves screenshots and rejects blank captures. A failed GUI check
 remains a failure even if an installer exists. The receipts identify actual
 runtime versions. These packages are unsigned previews, not SmartScreen-trusted
 releases. macOS cannot produce or verify this Windows executable by cross-build.
+The next integrated test also opens the actual native Save As dialog for a PDF
+export and reads back its saved IRS fields. That check requires the desktop
+shell's `ALLOW_DOWNLOADS` setting; API PDF generation alone does not verify the
+native download. See the version-specific evidence below.
 
 ## Native iOS
 
@@ -119,13 +123,31 @@ profile downloads, then use Xcode's normal signed device/archive workflow. This
 project does not install unsigned packages, borrow a certificate, or enroll or
 charge an Apple developer account.
 
-## Evidence boundaries as of 2026-10-13
+## Verified baseline preview.2 — 2026-10-13
 
-On the author's current Mac, Command Line Tools can syntax-parse the Swift
-sources and compile the shared Network.framework server/request parser. The
-actual local server smoke checks are saved separately. Full UIKit compilation,
-iOS Simulator execution and Windows native build must be verified by the native
-CI jobs or a machine with the corresponding installed tools. Generated source,
-an unrun workflow, a Simulator build and a phone-tested build are different
-states. Read the generated `build-manifest-ios.json`, frozen smoke report and
-native GUI receipts before reporting a platform complete.
+Both native CI runs completed successfully using **2026.10.13-preview.2**. Their
+downloaded artifact sizes and SHA256 hashes were independently checked against
+the generated manifests. These results describe this baseline, not the later
+preview.3 tax modules and expanded official paper-form packet.
+
+| Platform | Actual build and execution | Remaining evidence boundary |
+| --- | --- | --- |
+| Windows x64 | [CI run 38361714557](https://github.com/lxistired/tax-reborn/actions/runs/38361714557) built a 55 MB installer and 68 MB portable ZIP. All ten checks ran against the frozen executable. The real WebView2 GUI calculated $1,413, changed withholding to $7,000, calculated $1,913, saved and retained $1,913 after normal close/relaunch/reopen. | This successful baseline did not test native GUI file downloads. Its hosted-screen capture clipped part of the default window; the next driver maximizes the actual window and aligns its own DPI coordinates. It is an unsigned Windows preview. |
+| Native iOS | [CI run 38361300928](https://github.com/lxistired/tax-reborn/actions/runs/38361300928) used Xcode 16.4 / SDK 18.5 and a real iOS **26.2 Simulator**. Simulator and device-target Swift builds succeeded. The actual WKWebView/WebAssembly GUI calculated $1,413, entered exactly $7,000 withholding, calculated $1,913, saved, terminated, relaunched and reopened the persistent $1,913 return. Bundled asset hashes were verified. | Simulator execution is not real-iPhone testing. The device-target app remains unsigned and requires matching signing/provisioning before installation. Native Files export and photo/camera flows were not part of this baseline XCUI check. |
+
+Receipts, checked scope and actual screenshots are stored in
+[`qa/native-preview2`](../qa/native-preview2/). The Windows frozen and GUI receipts
+are distinct. The iOS manifest explicitly records `device_signed: false` and
+`real_device_tested: false`. The shared loopback-server/request-parser code also
+compiled and passed 24 real Network.framework checks on the author's Mac; that
+is additional server evidence, not an iPhone installation claim.
+
+## Integrated preview.3
+
+The source now includes new tax modules and an expanded official IRS paper-form
+packet. These changes require a new native build and the same real calculations,
+save/relaunch and bundle verification before transferring preview.2's platform
+status to preview.3. The newer Windows driver additionally checks native PDF
+Save As export and saved-field readback. Until its actual run succeeds, that
+native download check remains unverified. iOS signing and real-device status do
+not change merely because a new source version or unsigned device app exists.

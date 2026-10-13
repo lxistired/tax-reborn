@@ -1,0 +1,25 @@
+{
+  "version": "2026.10.13-preview.2",
+  "synthetic_only": true,
+  "windows": {
+    "run": "https://github.com/lxistired/tax-reborn/actions/runs/38361714557",
+    "native_installer_built": true,
+    "frozen_checks_passed": 10,
+    "gui_calculation_save_reopen": true,
+    "native_GUI_file_export_tested": false,
+    "screenshot_note": "The baseline hosted display clipped part of the default window; next test driver maximizes the actual window and sets its own DPI coordinate context."
+  },
+  "ios": {
+    "run": "https://github.com/lxistired/tax-reborn/actions/runs/38361300928",
+    "xcode": "16.4",
+    "compiled_sdk": "18.5",
+    "actual_simulator_runtime": "26.2",
+    "simulator_built": true,
+    "gui_calculation_save_reopen": true,
+    "device_built": true,
+    "device_signed": false,
+    "real_device_tested": false,
+    "native_File_Photo_Camera_export_tested": false
+  },
+  "replacement_scope": "Baseline 2025 federal calculation and save workflows only. Does not validate preview.3 new tax modules, expanded official form packet or e-filing."
+}

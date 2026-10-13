@@ -1,0 +1,420 @@
+{
+  "retrieved_at": "2026-10-13T06:31:45.362532+00:00",
+  "forms": [
+    {
+      "id": "f1040s1",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s1--2025.pdf",
+      "path": "f1040s1-2025.pdf",
+      "bytes": 99940,
+      "sha256": "8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa"
+    },
+    {
+      "id": "f1040s2",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s2--2025.pdf",
+      "path": "f1040s2-2025.pdf",
+      "bytes": 96526,
+      "sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8"
+    },
+    {
+      "id": "f1040s3",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s3--2025.pdf",
+      "path": "f1040s3-2025.pdf",
+      "bytes": 69852,
+      "sha256": "008cfd3fe3ebd0860452069b90fd0a3d53dda6dd8a5d870278370aa899a63f82"
+    },
+    {
+      "id": "f1040sa",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sa--2025.pdf",
+      "path": "f1040sa-2025.pdf",
+      "bytes": 79008,
+      "sha256": "c14acf3478f4c33f27ac6e8ecd9f94b6fb25b16745b341728bd27847d2ef56bb"
+    },
+    {
+      "id": "f1040sb",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sb--2025.pdf",
+      "path": "f1040sb-2025.pdf",
+      "bytes": 76411,
+      "sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2"
+    },
+    {
+      "id": "f1040sc",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sc--2025.pdf",
+      "path": "f1040sc-2025.pdf",
+      "bytes": 122589,
+      "sha256": "ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716"
+    },
+    {
+      "id": "f1040sd",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sd--2025.pdf",
+      "path": "f1040sd-2025.pdf",
+      "bytes": 97968,
+      "sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e"
+    },
+    {
+      "id": "f1040sse",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sse--2025.pdf",
+      "path": "f1040sse-2025.pdf",
+      "bytes": 80290,
+      "sha256": "05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347"
+    },
+    {
+      "id": "f1040se",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040se--2025.pdf",
+      "path": "f1040se-2025.pdf",
+      "bytes": 148367,
+      "sha256": "c5e2c8fa0ec5ee9153a0167734df634afe0ea8bb8483040766e5f4b1b12780f3"
+    },
+    {
+      "id": "f1040s8",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s8--2025.pdf",
+      "path": "f1040s8-2025.pdf",
+      "bytes": 100829,
+      "sha256": "6936462d67e2309d14a795aa0b88ef613cc6d79617431cfda3a2edf44aea52db"
+    },
+    {
+      "id": "f1040s1a",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040s1a--2025.pdf",
+      "path": "f1040s1a-2025.pdf",
+      "bytes": 94224,
+      "sha256": "64f97b38ff4218e2f188fd55a8aab7043556687487c82bbefe0b6dd1a956ecd4"
+    },
+    {
+      "id": "f1040sr",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1040sr--2025.pdf",
+      "path": "f1040sr-2025.pdf",
+      "bytes": 93840,
+      "sha256": "9b1acf56189a88a347d38936e0792552f7466040494b73bf779af17734620b79"
+    },
+    {
+      "id": "f8995",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8995--2025.pdf",
+      "path": "f8995-2025.pdf",
+      "bytes": 72273,
+      "sha256": "55380ad230303e1586ce97f0f224265b8337ad18c9204f0fb7325e95a76b5cde"
+    },
+    {
+      "id": "f8959",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8959--2025.pdf",
+      "path": "f8959-2025.pdf",
+      "bytes": 71969,
+      "sha256": "13e64004948331d2b708c80b1b664bf69675028edd0b84f2de6e3ca9afaa996d"
+    },
+    {
+      "id": "f8960",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8960--2025.pdf",
+      "path": "f8960-2025.pdf",
+      "bytes": 76922,
+      "sha256": "9b323b7166b5845a776f781b8c82eef94ccd998354e88fc33a1051c3b3789731"
+    },
+    {
+      "id": "f6251",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f6251--2025.pdf",
+      "path": "f6251-2025.pdf",
+      "bytes": 104434,
+      "sha256": "6995bfd29c6fe1b80fdc396c9c4796c7cef58a966070db0346721eae815fea3f"
+    },
+    {
+      "id": "f8889",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8889--2025.pdf",
+      "path": "f8889-2025.pdf",
+      "bytes": 74277,
+      "sha256": "15ed4587f75bec57b0b343dfd001b4016f09698af970afee633ca1a364d5f49f"
+    },
+    {
+      "id": "f8863",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8863--2025.pdf",
+      "path": "f8863-2025.pdf",
+      "bytes": 111888,
+      "sha256": "a251a1cfbd613d5dd81646b276b1cc3562d7efb8bed969491eada7c8eb0d8e00"
+    },
+    {
+      "id": "f8962",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8962--2025.pdf",
+      "path": "f8962-2025.pdf",
+      "bytes": 117715,
+      "sha256": "dc7d2c6b566cac66badae721e2ce47ac47bb4e8b71aafb01721ff7368d803099"
+    },
+    {
+      "id": "f2441",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f2441--2025.pdf",
+      "path": "f2441-2025.pdf",
+      "bytes": 121040,
+      "sha256": "6c3c2d19163fa4c4de829abf9a89b43f08b4f4f3cb169740fc7da43e914269ce"
+    },
+    {
+      "id": "f8880",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8880--2025.pdf",
+      "path": "f8880-2025.pdf",
+      "bytes": 91662,
+      "sha256": "ba2b28770bc82d318ab0b884e56a572771030ce1a3ec80d85bafd2eea3a2778e"
+    },
+    {
+      "id": "f8606",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8606--2025.pdf",
+      "path": "f8606-2025.pdf",
+      "bytes": 96165,
+      "sha256": "748a2bf2ef45918eac8d48fab8b1958c8c0c24102b7d2103c78f6f92a69486ae"
+    },
+    {
+      "id": "f5329",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f5329--2025.pdf",
+      "path": "f5329-2025.pdf",
+      "bytes": 111659,
+      "sha256": "2ad77023aebb280c90e4083c29c931b4f0fc9fc6264183e812d2361ba7e916bb"
+    },
+    {
+      "id": "f8582",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8582--2025.pdf",
+      "path": "f8582-2025.pdf",
+      "bytes": 126437,
+      "sha256": "d929884fe07b58aca9561aefbfe9fe2196d9e8526b4726e49460589501080537"
+    },
+    {
+      "id": "f4952",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f4952--2025.pdf",
+      "path": "f4952-2025.pdf",
+      "bytes": 93053,
+      "sha256": "5113c1669c7ca4ab49b3e6322c675e14f53d6053b49e59fea27677dbc210df03"
+    },
+    {
+      "id": "f8949",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8949--2025.pdf",
+      "path": "f8949-2025.pdf",
+      "bytes": 128770,
+      "sha256": "274513891e4e281d11e14286f14b9df724c24b6030fca0f0681da64fb2e7f525"
+    },
+    {
+      "id": "f8839",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8839--2025.pdf",
+      "path": "f8839-2025.pdf",
+      "bytes": 125260,
+      "sha256": "3d3102f9b3dc3e4e87676ef1cdc8b6d39e93a79d1df68729df7c9591ecb53d12"
+    },
+    {
+      "id": "f5695",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f5695--2025.pdf",
+      "path": "f5695-2025.pdf",
+      "bytes": 174928,
+      "sha256": "e2ac6a5c4b39e9032d3716827992fc0de46289a951e8b1ffaa3d5a969278baf2"
+    },
+    {
+      "id": "f2210",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f2210--2025.pdf",
+      "path": "f2210-2025.pdf",
+      "bytes": 163566,
+      "sha256": "6899ce672648b280bf00ab47200f1b0fbf40368cfbf137df507b945b8577159a"
+    },
+    {
+      "id": "f1116",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f1116--2025.pdf",
+      "path": "f1116-2025.pdf",
+      "bytes": 120869,
+      "sha256": "2575162f86c37297265c28d3d23ff1d99e06b2b1aeeadf396f5d6e798a8cffc5"
+    }
+  ],
+  "instructions": [
+    {
+      "id": "i1040gi",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+      "sha256": "482e9c487c608f1bbeaceef35bc3c0933e8b35443cfff447e4279d590468364a",
+      "bytes": 4434643,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040sa",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sa--2025.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "id": "i1040sb",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sb--2025.pdf",
+      "sha256": "b92f31ece57a82ea576ac96507fe5df637dbda7489a80eb28aaab88e7c87b287",
+      "bytes": 153064,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040sc",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sc--2025.pdf",
+      "sha256": "b5536db91498a450572e37078d7d5ee8fdc400e385d4fee3a26c230a33e399b6",
+      "bytes": 357575,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040sd",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sd--2025.pdf",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002",
+      "bytes": 298718,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040sse",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sse--2025.pdf",
+      "sha256": "ea9e3120706f9d5e21ce1c6cbec256b5e2e2bf02c44759773d9236462cf4d800",
+      "bytes": 176326,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040se",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040se--2025.pdf",
+      "sha256": "ad71de356a6250383ab08097582e982c3c3964792be2d4f5e4bd851816867975",
+      "bytes": 235480,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040s8",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040s8--2025.pdf",
+      "sha256": "bb9788cdf068f9d3a666b2fc351b6bd963e1e848f295d0d01df63848628e1794",
+      "bytes": 232376,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1040sr",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sr--2025.pdf",
+      "sha256": "7194fa66613b2ea28fa9ed67992cc06178892b7eb461013574ea1fb239f3ff3e",
+      "bytes": 210967,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8995",
+      "url": "https://www.irs.gov/pub/irs-prior/i8995--2025.pdf",
+      "sha256": "875843baead68f6fa9aa7c3f6f27d6c1f37cb971ac334bcf414acdb4c1487684",
+      "bytes": 216021,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8959",
+      "url": "https://www.irs.gov/pub/irs-prior/i8959--2025.pdf",
+      "sha256": "1d223be73b4bac959a00e9b55784297bafa73a986567987c083671abf687b68f",
+      "bytes": 146897,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8960",
+      "url": "https://www.irs.gov/pub/irs-prior/i8960--2025.pdf",
+      "sha256": "b10fbb23ff4a053db197285497a00914c558e3ae0cdf5c956b7c0c7867376428",
+      "bytes": 377700,
+      "tax_year": 2025
+    },
+    {
+      "id": "i6251",
+      "url": "https://www.irs.gov/pub/irs-prior/i6251--2025.pdf",
+      "sha256": "b130e87362006177794ac29affd2637652cc4c8c03e54227891e2d1b9c976753",
+      "bytes": 254231,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8889",
+      "url": "https://www.irs.gov/pub/irs-prior/i8889--2025.pdf",
+      "sha256": "da6f2f588b06f3f44cc7177883ce6496dc1bb247d84bc068a79277822410cb0f",
+      "bytes": 216817,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8863",
+      "url": "https://www.irs.gov/pub/irs-prior/i8863--2025.pdf",
+      "sha256": "195cfd5e93892f0db4162c5b8882236c4d27b26e2934ed99493743ceccf9ea29",
+      "bytes": 187153,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8962",
+      "url": "https://www.irs.gov/pub/irs-prior/i8962--2025.pdf",
+      "sha256": "f4ac86ada178e8aaaf98124b3450cad0cd5d84f7b16bcadd2dd47910e07bf9a2",
+      "bytes": 402164,
+      "tax_year": 2025
+    },
+    {
+      "id": "i2441",
+      "url": "https://www.irs.gov/pub/irs-prior/i2441--2025.pdf",
+      "sha256": "86f0669e78b1dc00bfb99e956673d4fccee9e40d6c44d53623dd08e62567fd39",
+      "bytes": 200749,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8606",
+      "url": "https://www.irs.gov/pub/irs-prior/i8606--2025.pdf",
+      "sha256": "735fb7aebc36f6c933d0623a5ba680e7133b9fe62549ddd9652319fc8cac7e8f",
+      "bytes": 315925,
+      "tax_year": 2025
+    },
+    {
+      "id": "i5329",
+      "url": "https://www.irs.gov/pub/irs-prior/i5329--2025.pdf",
+      "sha256": "aec3d325edb26a0d20d3b81030feb97cf62ecc97fa90c9abd91d83dd22749146",
+      "bytes": 226385,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8582",
+      "url": "https://www.irs.gov/pub/irs-prior/i8582--2025.pdf",
+      "sha256": "76787e11a385d1205faf70a07924cdec4efd5e66628e6f47e5316d29e6035f71",
+      "bytes": 253960,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8839",
+      "url": "https://www.irs.gov/pub/irs-prior/i8839--2025.pdf",
+      "sha256": "90dd5f4de0ca435d4e92666b5b50434e1ece488c67fc43a8c6697765bfb684eb",
+      "bytes": 239505,
+      "tax_year": 2025
+    },
+    {
+      "id": "i5695",
+      "url": "https://www.irs.gov/pub/irs-prior/i5695--2025.pdf",
+      "sha256": "55113467f9689346adc0faf8add25d7fa50a0c5a91765c67f5ff24682a68cb66",
+      "bytes": 192614,
+      "tax_year": 2025
+    },
+    {
+      "id": "i2210",
+      "url": "https://www.irs.gov/pub/irs-prior/i2210--2025.pdf",
+      "sha256": "7bd6a47494e588fcb422a9ae97970a369fe24fd778ad33b224aeb1cd759e831d",
+      "bytes": 270086,
+      "tax_year": 2025
+    },
+    {
+      "id": "i1116",
+      "url": "https://www.irs.gov/pub/irs-prior/i1116--2025.pdf",
+      "sha256": "6998cf8cd04b659b60ccf0b3a3ffaa507cc1dbdb31da40850f38a599dc39e0b1",
+      "bytes": 364870,
+      "tax_year": 2025
+    },
+    {
+      "id": "i8949",
+      "url": "https://www.irs.gov/pub/irs-prior/i8949--2025.pdf",
+      "sha256": "f077991c83b086810c46cbad3755e0f126cb8dfd88cf8bf8ab2d5605d6e7ab45",
+      "bytes": 255808,
+      "tax_year": 2025
+    }
+  ]
+}

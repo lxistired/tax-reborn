@@ -18,3 +18,11 @@ Original installer SHA256: MacDMG `1ee4cfc005a361db460e5a3afcc1f101fee187bfc8566
 REA artifact records (local evidence identifiers, not a claim of public artifact hosting): app inventory `ev_02304bff8146060b003b6f90860191b35b8e8a88206c49ad13c30209b6ccf456`; selected native UI `ev_4268ff9118e1bb8d92985ab87b22f157c76ca51bfae42f526418a069f3c1f879`; selected JavaScript `ev_f1dbbd1785f008a09b75704217f106dcb82c376cc25e8b59e8ad276a44870f41`; decoder factory `ev_78961930fe649da817913dae7c1dd3a88c0ec687ddaf050c5ae5cbc6c1b9d122`.
 
 The public source/build must contain neither Intuit's raw resources nor original decompiler output. REA supplied evidence about packaging and workflow boundaries; it did not produce the independent federal formulas or the third-party state corpus.
+
+## Follow-up recorded2026-10-13
+
+REA `inspect_artifact` verified three shipped topic archives for adoption and foreign tax credits. All383 JSON members were matched to REA's child SHA256 inventory. They contain93 page definitions, alongside localization/configuration data. Static module identifiers show employer-adoption assistance and foreign-credit carryback/AMT-adjustment branches; these are broader than the independently implemented adoption-credit and limited passive-foreign-credit calculations. This is a scope comparison, not observed execution of those original branches or recovered formulas.
+
+Retained Evidence: adoption `ev_393e92d3250e6092703784ae63f443c8b4b1f3d79aba3fddb3a3ebb6cd6e9261`; foreign_tax_credit `ev_c53e855c09e98e05d647d251db07c6d8578b315f49385600fb5dd666cb13c77b`; foreigntaxcredit `ev_6c08bad49cb1efaa5df18476f4824ce972295a396342e385723a80c232456721`. Raw original resources remain private.
+
+Independent implementation subsequently added genuine official IRS supporting PDFs, the1040 paper details, bank/designee/checkbox persistence and a paper-preparation checklist. Those formulas and PDF mappings were written independently and tested against official2025 IRS records. They are not REA-generated Intuit source.

@@ -1,0 +1,62 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "DEC58316-D969-4BC6-9B4A-954CD6914F3A.txt",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-real-accessibility-hierarchy_0_A6771019-A6F4-49B2-BF9A-1CF75C3E72A3.txt",
+        "timestamp" : 1791876071.719
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "0C22C5E8-866B-4296-ADC3-2FCE92DB607C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-final-test-window_0_B2A7A186-649F-498B-AEC5-59ABA848E5DA.png",
+        "timestamp" : 1791876071.282
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "F1BA5449-F497-4B40-B603-20DF56833520.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-reopened-persistent-return-1913_0_99D4E716-2EB4-4F92-BA41-F61E8E81F3FD.png",
+        "timestamp" : 1791876071.104
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "D68FBB71-B641-4729-A3D0-A817449D9F32.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-edited-and-saved-1913_0_F61F684C-1140-429F-A082-95F12DDFDEEB.png",
+        "timestamp" : 1791876056.615
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "543CDCCF-646E-454F-8B4B-B5C23ECB47D2.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-real-withholding-entry-7000_0_EE5DEA5A-9508-4335-817C-55FFBC929A3D.png",
+        "timestamp" : 1791876053.778
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "66B8F666-1BC2-4A20-913C-0C89D9F29D1E",
+        "deviceName" : "Tax Reborn CI",
+        "exportedFileName" : "06A841E5-5BBD-4293-B4C6-951B6E65F39A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "iOS-real-calculation-1413_0_40129746-8D76-4CD2-8FA6-E18FD6C3FD7B.png",
+        "timestamp" : 1791876028.871
+      }
+    ],
+    "testIdentifier" : "TaxRebornUITests/testCalculationSaveAndReopen()",
+    "testIdentifierURL" : "test://com.apple.xcode/TaxReborn/TaxRebornUITests/TaxRebornUITests/testCalculationSaveAndReopen"
+  }
+]

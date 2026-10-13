@@ -7,15 +7,15 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = (ROOT / 'VERSION').read_text().strip()
-DIRECTORIES = {'android', 'assets', 'docs', 'fixtures', 'forms', 'qa', 'scripts', 'tests', 'vendor', 'web'}
+DIRECTORIES = {'android', 'ios', '.github', 'assets', 'docs', 'fixtures', 'forms', 'qa', 'scripts', 'tests', 'vendor', 'web'}
 TOP_FILES = {'AGENTS.md', 'LICENSE', 'NOTICE', 'README.md', 'VERSION',
              'desktop.py', 'server.py', 'forms.py', 'tax_engine.py', 'tax_extended.py',
-             'tax_credits.py', 'tax_additional.py', 'rules_2025.json',
-             'requirements-desktop.txt', 'requirements.txt', '.gitignore'}
+             'tax_credits.py', 'tax_additional.py', 'tax_longtail.py', 'tax_filing.py', 'official_forms.py', 'rules_2025.json',
+             'requirements-desktop.txt', 'requirements.txt', '.gitignore', '.gitattributes'}
 EXCLUDED_PARTS = {'__pycache__', '.git', 'node_modules', '.venv', 'dist', 'build', 'work'}
 
 def main():
-    out = ROOT / 'dist' / 'preview2'
+    out = ROOT / 'dist' / 'preview3'
     out.mkdir(parents=True, exist_ok=True)
     target = out / f'Tax-Reborn-{VERSION}-source.zip'
     records = []

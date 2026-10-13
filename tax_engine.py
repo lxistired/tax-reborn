@@ -17,6 +17,8 @@ import re
 import tax_extended
 import tax_credits
 import tax_additional
+import tax_longtail
+import tax_filing
 
 RULES = json.loads(Path(__file__).with_name('rules_2025.json').read_text(encoding='utf-8'))
 STATUSES = ('single','mfj','mfs','hoh','qss')
@@ -74,6 +76,8 @@ def default_return():
     defaults.update(tax_extended.default_inputs())
     defaults.update(tax_credits.default_inputs())
     defaults.update(tax_additional.default_inputs())
+    defaults.update(tax_longtail.default_inputs())
+    defaults.update(tax_filing.default_inputs())
     return defaults
 
 
@@ -86,6 +90,8 @@ ROW_DEFAULTS = {
  'dependents':{'name':'','age':8,'qualifying_child':True,'valid_ssn':True,'valid_tin':True,'eligibility_confirmed':False}}
 ROW_DEFAULTS['dependents'].update(tax_extended.DEPENDENT_FIELDS)
 ROW_DEFAULTS['rentals']=deepcopy(tax_extended.RENTAL_TEMPLATE)
+ROW_DEFAULTS['capital_gains'].update(wash_sale_disallowed='0',wash_sale_confirmed=False,adjustment_code='')
+ROW_DEFAULTS['dependents'].update(tax_filing.DEPENDENT_FIELDS)
 
 
 def capabilities():
@@ -114,6 +120,17 @@ def capabilities():
     result['ui_fields']['itemized.force_itemized']={'type':'boolean','label':'Elect itemized deductions even when smaller','help':'AMT can make a smaller ScheduleA deduction beneficial. Review both choices; automatic regular-tax deduction selection does not optimize the combined AMT liability.'}
     result['ui_modules']+=[{'id':key,'label':label,'step':'deductions','description':'Source-grounded IRS2025 worksheet with verified eligibility.'} for key,label in (('ira','IRA Contributions'),('hsa','Health Savings Accounts'),('education','Education Credits'),('marketplace','Marketplace Health Insurance'))]
     result['calculation_sources']=credit_capabilities['sources']
+    longtail_schema=tax_longtail.ui_schema()
+    result['row_templates'].update(tax_longtail.row_templates())
+    result['ui_fields'].update(longtail_schema['ui_fields']);result['ui_modules']+=longtail_schema['ui_modules']
+    result['ui_fields']['capital_gains.*.wash_sale_disallowed']={'type':'money','label':'Verified wash-sale disallowed loss (1099BBox1g)','help':'PositiveForm8949W adjustment; do not also enter sameamount in adjustment. Basisofreplacementlots mustbe verified separately.'}
+    result['ui_fields']['capital_gains.*.wash_sale_confirmed']={'type':'boolean','label':'Wash-sale amount and replacement basis verified'}
+    result['ui_fields']['capital_gains.*.adjustment_code']={'type':'enum','label':'Adjustment code','options':['','W'],'help':'Only verifiedW wash-sale loss is supported. Other8949basis/returnofcapital/corporateaction adjustments require separate evidence.'}
+    result['ui_fields'].update(tax_filing.field_metadata());result['row_templates'].update(tax_filing.fact_schema()['row_templates'])
+    result['ui_modules'].append({'id':'filing_details','label':'Filing details','step':'forms','description':'Actual Form1040 and supporting-form facts, directdeposit/designee choices and a paper-signature checklist. No transmission or automatic signature.'})
+    result['implemented']+=['Ordinarysecurities verifiedshort/long capital loss carry-in and carryout worksheet; verified8949W wash-sale disallowedloss','2025Form8839 domestic/foreign/specialneeds adoption credit and5000-perchild refundableportion, FIFOunexpirednonrefundablecarryovers','2025Form5695 cleanenergy andhomeimprovement caps/QMID/carry-in andcarry-out with8812WorksheetB creditordering','Form2210 regularinstallment penalty usingactualdatedpayments/withholding andofficial2025-2026IRS periods','PassiveFTC qualifiedpayee300/600simplifiedelection andlimitedordinarypassive1116standarddeduction allocation']
+    result['unsupported']=[v for v in result['unsupported'] if v not in ('adoption/energy/foreign credits','estimated tax penalty Form2210','capital/QBI/charity carry-ins','capital carry-in/special28%/1250 gains/wash-sale/QOF/options/crypto/business property')]
+    result['unsupported']+=['Form2210 ScheduleAI/waiver/disaster/farmer/earlyfiling exception','Adoption employerbenefits8839PartIII andmissingTINstatement','ForeignFTC AMT/preferentialgain/loss/high-taxkickout/itemized/treaty/carryover/redetermination cases','Energy jointoccupant/business/condominium/multiyear enablingproperty allocations','Capital special28%/1250/QOF/options/crypto/businessproperty andautomaticcrossaccountwash-sale discovery','QBI/charity carry-ins']
     result['coverage']={
       'income_and_tax':{'implemented':'W2/1099INT/1099DIV, ordinary securities gains/losses, payer-taxable retirement and SocialSecurity, exactIRS tax table and qualified-gain worksheet','sources':['i1040gi','i1040tt','i1040sd'],'limits':'No foreign/nonresident/territory returns, special capital rates, Form8615, prior capital carry-in or retirement basis conversion calculations.'},
       'service_business':{'implemented':'Active cash-service ScheduleC, per-ownerSE cap, deductiblehalfSE, eligibleSEhealth and simplified199A','sources':['i1040sc','f1040sse','f8995'],'limits':'No inventory, new depreciation4562, employees/payroll, home-office8829, farm, partnerships/K1, optionalSE or8995A above threshold.'},
@@ -123,6 +140,14 @@ def capabilities():
       'rentals':{'implemented':'Ordinarypassive US real-estate ScheduleE, verifiedexpenses/depreciation, passive netting,25000/MFS12500 allowance, MAGIphaseout and property carryout','sources':['i1040se','f8582','i8582'],'limits':'No personal-use/vacation-home/self-rental/substantial-services/real-estate-professional/disposal/at-risk computation. Verifiedexistingdepreciation required; priorlossNIIT/QBIcharacter requires extra records.'},
       'ira_hsa_education_marketplace':{'implemented':credit_capabilities['implemented'],'sources':credit_capabilities['sources'],'limits':credit_capabilities['unsupported']},
       'filing_and_states':{'implemented':'Local identity draft, presence checklist and calculatedfederalworkpapers','sources':['i1040gi'],'limits':'No state/local returns, complete signed filing packet, electronicfiling or2210 penalty. Identity presence does not authenticate identity.'}}
+    result['coverage']['income_and_tax']['limits']='No foreign/nonresident/territory returns, specialcapital rates, Form8615 orretirementbasis/conversion calculations. Verified ordinarysecurities carry-in/carryout andW adjustment supported; automaticcrossaccountlot reconstruction isnotperformed.'
+    result['coverage']['family_credits']['implemented']+='; Form8839domestic/foreign/specialneeds credit withnew5000-perchildrefund andunexpiredFIFOcarryovers;8812WorksheetB ordering'
+    result['coverage']['family_credits']['limits']='ExistingCare/Saver/EIC exceptions remain; adoption employerbenefits/absentTIN statement andexpense-age exceptions needseparate records.'
+    result['coverage']['investment_taxes']['implemented']+='; passiveFTC qualifiedpayee300/600election andordinarypassive1116 standardallocation'
+    result['coverage']['investment_taxes']['limits']='No AMTFTC, foreignpreferredgain/high-taxkickout/foreignloss/category/treaty/carryover/redetermination allocation; noforeigncreditsdeductedelsewhere. ExistingAMTbasis/8801/entitydisposal/specialrates limitsremain.'
+    result['coverage']['energy']={'implemented':'Form5695cleanenergy30percent/fuelcellcapacity/carry-in-out andhomeimprovementcategory/annualcaps/QMID, prioritywithadoption/CTC','sources':['f5695','i5695','i1040s8'],'limits':'Nojointoccupant/business/condominiumallocation ormultiyear enablingproperty. Actualqualification/manufacturercertification andneteligiblecosts required.'}
+    result['coverage']['estimated_penalty']={'implemented':'Form2210 regular-installment safeharbor,datedestimatedpayments/withholding/priorcredit/balancepayment and365day7percent periods','sources':['f2210','i2210'],'limits':'NoScheduleAI/disasterwaiver/farmer/earlyfilingexception. Line38 isseparatefromline37;payment_summary exposes balancewithpenalty.'}
+    result['coverage']['filing_and_states']['limits']='Electronicfiling/automaticpaper signature notimplemented. Detailedidentity/directdeposit/designee andactualsupportingformfacts are localdraft inputs; presencechecks donot authenticateidentity. Supportingpaperpacket completion isreportedseparately bytheformbuilder.'
     return result
 
 
@@ -130,10 +155,10 @@ def form_readiness(data):
     """Presence-only checklist; neither an identity check nor filing approval."""
     identity=data['identity']
     required=[('first_name','Taxpayer first name'),('last_name','Taxpayer last name'),('ssn','Taxpayer SSN'),('address','Street address'),('city','City'),('state','State'),('zip','ZIP code')]
-    if data['filing_status']=='mfj':required += [('spouse_first_name','Spouse first name'),('spouse_last_name','Spouse last name'),('spouse_ssn','Spouse SSN')]
+    if data['filing_status'] in ('mfj','mfs'):required += [('spouse_first_name','Spouse first name'),('spouse_last_name','Spouse last name'),('spouse_ssn','Spouse SSN')]
     return {'filing_packet_ready':False,'missing_identity':[label for key,label in required if not identity[key].strip()],
-            'unsupported_packet_parts':['Supporting schedules/forms are calculation workpapers; complete signed filing packet not implemented','Form 2210 estimated-tax penalty not computed'],
-            'electronic_filing':False,'identity_check':'Required-field presence only; names, addresses and SSNs have not been authenticated.'}
+        'unsupported_packet_parts':['Supporting-form completeness is evaluated by the paper-packet checklist; taxpayer signature and original withholding document attachments are required']+([] if data['estimated_penalty']['enabled'] else ['Form 2210 estimated-tax penalty not computed']),
+            'electronic_filing':False,'identity_check':'Required-field presence only; names, addresses and SSNs have not been authenticated.',**tax_filing.paper_facts_readiness(data)}
 
 
 def normalized(data):
@@ -169,6 +194,10 @@ def normalized(data):
                     if field=='owner' and value=='spouse' and base['filing_status']!='mfj':raise ValueError(path+' spouse income can only be included in MFJ.')
                 elif field in ('employer','payer','name','description'):
                     if not isinstance(value,str) or len(value)>1000:raise ValueError(path+' must be text.')
+                elif field=='adjustment_code':
+                    if value not in ('','W'):raise ValueError(path+' only permits an emptycode or verifiedW.')
+                elif field in tax_filing.DEPENDENT_FIELDS and isinstance(tax_filing.DEPENDENT_FIELDS[field],str):
+                    if not isinstance(value,str) or len(value)>200:raise ValueError(path+' must be textofatmost200characters.')
                 else:money(value,path,signed=field=='adjustment')
             rows.append(row)
         base[group]=rows
@@ -187,6 +216,8 @@ def normalized(data):
         if key in ('ssn','spouse_ssn') and not re.fullmatch(r'[0-9-]*',value):raise ValueError('identity.'+key+' only permits digits and hyphens, or an empty draft value.')
         base['identity'][key]=''.join(' ' if ord(character)<32 or ord(character)==127 else character for character in value).strip()
     tax_extended.normalize_extra(base,base['filing_status'])
+    tax_longtail.normalize_extra(base)
+    tax_filing.validate_facts(base)
     return base
 
 
@@ -256,7 +287,9 @@ def _calculate(data):
     if person['can_be_claimed'] and data['dependents']:block('A claimed taxpayer cannot ordinarily claim another dependent; dependent/credit exception review is not implemented.')
     for situation in data['unsupported']:block('Unsupported tax situation: '+situation)
     for field in data['carryovers']:
-        if has('carryovers',field):block('Prior-year '+field+' carry-in is not implemented; no amount has been silently applied.')
+        if has('carryovers',field):
+            if field in ('capital_short','capital_long'):require(data['capital_records']['carry_in_confirmed'],'Priorcapital loss carry-in requires verified2024 short/long loss carryover worksheet and owner allocation.')
+            else:block('Prior-year '+field+' carry-in is not implemented; no amount has been silently applied.')
     for index,row in enumerate(data['w2']):
         if money(row['wages'])>0 and money(row['medicare_wages'])==0:
             block(f'W2 {index+1}: positive ordinary wages require the actual Box5 Medicare wage amount. Zero/default Box5 cannot silently omit Form8959; Medicare-exempt/RRTA/special payroll requires an unsupported-wage review.')
@@ -267,18 +300,25 @@ def _calculate(data):
         if money(row['qualified'])>money(row['ordinary']):raise ValueError('Qualified dividends cannot exceed ordinary dividends from the same payer.')
     short=D('0');long=D('0')
     for row in data['capital_gains']:
-        gain=money(row['proceeds'])-money(row['cost_basis'])+money(row['adjustment'],signed=True)
+        ordinary_adjustment=money(row['adjustment'],signed=True);wash=money(row['wash_sale_disallowed'])
+        if wash and ordinary_adjustment:raise ValueError('Wash-sale adjustment entered twice; use wash_sale_disallowed OR originaladjustment withcodeW.')
+        actual_wash=wash if wash else ordinary_adjustment if row['adjustment_code']=='W' else D(0)
+        if actual_wash:
+            if actual_wash<0 or actual_wash>max(D(0),money(row['cost_basis'])-money(row['proceeds'])):raise ValueError('Wash-sale disallowedloss must bepositive and cannot exceed actualunadjusted loss.')
+            require(row['wash_sale_confirmed'] and data['capital_records']['wash_sale_all_accounts_reviewed'],'Wash-sale loss needs verified61-day allaccounts/spouse/IRA matching and replacementbasis; no missinglot search isperformed.')
+        gain=money(row['proceeds'])-money(row['cost_basis'])+ordinary_adjustment+wash
         if row['special_rate']:block('Collectibles/section1250/1202 and special-rate capital gains require an unimplemented ScheduleD worksheet.')
         if row['term']=='short':short+=gain
         else:long+=gain
     if data['capital_gains'] or total('dividends','capital_gain_distributions'):
-        require(elig['capital_gains_eligible'],'Confirm ordinary securities, verified holding period/basis, and no wash-sale/QOF/options/crypto/business-property/special-rate adjustments.')
-        if any(money(row['adjustment'],signed=True)!=0 for row in data['capital_gains']):block('Form8949 basis/adjustment code workflow is not implemented; nonzero adjustment requires review.')
-    short=dollars(short);long=dollars(long)+total('dividends','capital_gain_distributions');net=short+long
+        require(elig['capital_gains_eligible'],'Confirm ordinary securities, verified holdingperiod/basis, documentedwash-saleW only, and noQOF/options/crypto/business-property/special-rate adjustments.')
+        if any(money(row['adjustment'],signed=True)!=0 and row['adjustment_code']!='W' for row in data['capital_gains']):block('Form8949 nonW basis/adjustment code workflow is not implemented; nonzero adjustment requires review.')
+    short=dollars(short-money(data['carryovers']['capital_short']));long=dollars(long-money(data['carryovers']['capital_long']))+total('dividends','capital_gain_distributions');net=short+long
     capital_limit=1500 if status=='mfs' else 3000
     lines['7a']=max(net,-capital_limit)
     preferred_gain=max(0,min(long,net))
     schedules['schedule_d']={'net_short_term':short,'net_long_term':long,'net_gain_loss':net,'income_line_7a':lines['7a'],'unabsorbed_current_loss':max(0,-net-capital_limit),'carry_out_requires_next_year_worksheet':net<-capital_limit}
+    schedules['schedule_d'].update(capital_short_carry_in=n('carryovers','capital_short'),capital_long_carry_in=n('carryovers','capital_long'),wash_sale_adjustments=[{'description':row['description'],'code':'W','disallowed_loss':dollars(money(row['wash_sale_disallowed']) or money(row['adjustment'],signed=True))} for row in data['capital_gains'] if money(row['wash_sale_disallowed']) or row['adjustment_code']=='W' and money(row['adjustment'],signed=True)])
     if net<-capital_limit:warnings.append('Current capital loss exceeds the annual deduction. Next-year short/long carryover requires the IRS carryover worksheet; no future return has been prepared.')
     profits={'taxpayer':0,'spouse':0};business_rows=[]
     for index,row in enumerate(data['businesses']):
@@ -448,11 +488,12 @@ def _calculate(data):
     marketplace_context=dict(common_credit_context,household_agi=agi,household_ss_nontaxable=lines['6a']-lines['6b'],household_tax_exempt_interest=lines['2a'],tax_family_size=(2 if status=='mfj' else 1)+len(data['dependents']),self_employed_health_insurance=health)
     marketplace_result=module_result('calculate_marketplace',data['marketplace'],marketplace_context);schedules['form_8962']=marketplace_result
     lines['17']+=marketplace_result.get('repayment',0)
-    care_context.update(agi=agi,tax_liability_limit=lines['16']+lines['17'])
+    foreign_result=extended_result('form_1116',tax_longtail.calculate_foreign(data['foreign_credit'],{'filing_status':status,'interest':lines['2b'],'ordinary_dividends':lines['3b'],'qualified_dividends':lines['3a'],'regular_tax':lines['16']+marketplace_result.get('repayment',0),'amt_tax':amt['tax'],'preferred_income':preferred,'gross_income':lines['9'],'standard_deduction':lines['12e'],'adjustments':lines['10'],'taxable_before_senior':max(0,agi-lines['14']+senior_ded),'ordinary_standard_income_only':deduction_type=='standard' and not data['businesses'] and not data['rentals'] and not data['capital_gains'] and not lines['10'] and not lines['13a'] and not tips and not overtime and not car and not lines['7a']}))
+    care_context.update(agi=agi,tax_liability_limit=max(0,lines['16']+lines['17']-foreign_result['nonrefundable_credit']))
     care_result=extended_result('form_2441',tax_additional.calculate_care(data['care'],care_context))
     r_after_minimum=any(data['elderly_credit'][owner+'_after_minimum_retirement_age_confirmed'] for owner in ('taxpayer','spouse'))
-    elderly_result=extended_result('schedule_r',tax_additional.calculate_elderly(data['elderly_credit'],dict(common_credit_context,agi=agi,ss_nontaxable=lines['6a']-lines['6b'],disability_income_available=disability_total+(n('retirement','pension_taxable') if r_after_minimum else 0),tax_liability_limit=max(0,lines['16']+lines['17']-care_result['nonrefundable_credit']))))
-    before_education=care_result['nonrefundable_credit']+elderly_result['nonrefundable_credit']
+    elderly_result=extended_result('schedule_r',tax_additional.calculate_elderly(data['elderly_credit'],dict(common_credit_context,agi=agi,ss_nontaxable=lines['6a']-lines['6b'],disability_income_available=disability_total+(n('retirement','pension_taxable') if r_after_minimum else 0),tax_liability_limit=max(0,lines['16']+lines['17']-foreign_result['nonrefundable_credit']-care_result['nonrefundable_credit']))))
+    before_education=foreign_result['nonrefundable_credit']+care_result['nonrefundable_credit']+elderly_result['nonrefundable_credit']
     education_context=dict(common_credit_context,magi=agi,tax_liability_limit=max(0,lines['16']+lines['17']-before_education),taxpayer_can_be_claimed=person['can_be_claimed'],spouse_can_be_claimed=spouse['can_be_claimed'])
     education_result=module_result('calculate_education',data['education'],education_context);schedules['form_8863']=education_result
     before_saver=before_education+education_result.get('nonrefundable_credit',0)
@@ -478,6 +519,32 @@ def _calculate(data):
     credit_phase=200000 if status!='mfj' else 400000
     phaseout=int((D(max(0,agi-credit_phase))/D(1000)).to_integral_value(rounding=ROUND_CEILING))*50
     available=max(0,gross_credit-phaseout);lines['18']=lines['16']+lines['17'];lines['19']=min(available,max(0,lines['18']-lines['20']))
+    # The improvementcredit precedesCTC; adoption/cleanenergy use8812WorksheetB
+    # to reserve only the CTCportion that cannot be refunded asACTC.
+    energy_context={'improvement_tax_liability_limit':max(0,lines['18']-lines['20']),'clean_tax_liability_limit':0}
+    preliminary_energy=tax_longtail.calculate_energy(data['energy'],energy_context)
+    lines['20']+=preliminary_energy['improvement_credit']
+    reservation=min(available,max(0,lines['18']-lines['20']))
+    if ctc_children and (data['adoption']['enabled'] or data['energy']['enabled'] and preliminary_energy['form_lines'].get('13',0)):
+        b_earned=max(0,lines['1a']+care_taxable+disability_total+sum(profits.values())-half_se)
+        b_eic=tax_extended.earned_income_credit(data['eitc'],{'filing_status':status,'taxpayer':person,'spouse':spouse,'dependents':data['dependents'],'earned_income':b_earned,'agi':agi,'investment_income':lines['2a']+lines['2b']+lines['3b']+max(0,net)+max(0,rental['income'])},RULES)['credit']
+        b_excess=0
+        for owner in ('taxpayer','spouse'):
+            records=[row for row in data['w2'] if row['owner']==owner];employers={row['employer'].strip().lower() for row in records}
+            if len(employers)>=2 and '' not in employers:b_excess+=max(D(0),sum((money(row['social_security_withholding']) for row in records),D(0))-D('10918.20'))
+        b_med_wages=total('w2','medicare_wages');b_med_threshold=250000 if status=='mfj' else 125000 if status=='mfs' else 200000
+        b_additional_wage=dollars(D(max(0,b_med_wages-b_med_threshold))*D('.009'));b_additional_withheld=max(0,total('w2','medicare_withholding')-dollars(D(b_med_wages)*D('.0145')))
+        b_additional_se=dollars(D(max(0,sum(row['line_4a_net_earnings'] for row in schedule_se.values())-max(0,b_med_threshold-b_med_wages)))*D('.009'))
+        b_payroll=total('w2','social_security_withholding')+total('w2','medicare_withholding')+b_additional_wage-b_additional_withheld+dollars(D(b_additional_se)*D('.5'))
+        b_alt=max(0,b_payroll+half_se-dollars(b_excess)-b_eic) if ctc_children>=3 else 0
+        b_potential=min(ctc_children*1700,max(dollars(D(max(0,b_earned-2500))*D('.15')),b_alt));reservation=max(0,available-b_potential)
+        schedules['schedule_8812_credit_limit_b']={'1':available,'2':ctc_children*1700,'3':b_earned,'5':dollars(D(max(0,b_earned-2500))*D('.15')),'11':b_alt,'12':max(dollars(D(max(0,b_earned-2500))*D('.15')),b_alt),'13':b_potential,'14':reservation}
+    adoption_result=extended_result('form_8839',tax_longtail.calculate_adoption(data['adoption'],{'filing_status':status,'agi':agi,'tax_liability_limit':max(0,lines['18']-lines['20']-reservation)}))
+    lines['20']+=adoption_result['nonrefundable_credit'];lines['30']=adoption_result['refundable_credit']
+    energy_context['clean_tax_liability_limit']=max(0,lines['18']-lines['20']-reservation)
+    energy_result=extended_result('form_5695',tax_longtail.calculate_energy(data['energy'],energy_context));lines['20']+=energy_result['clean_credit']
+    if 'schedule_8812_credit_limit_b' in schedules:schedules['schedule_8812_credit_limit_b']['15']=adoption_result['nonrefundable_credit']+energy_result['clean_credit']
+    lines['19']=min(available,max(0,lines['18']-lines['20']))
     lines['21']=lines['19']+lines['20'];lines['22']=max(0,lines['18']-lines['21'])
     earned_income=max(0,lines['1a']+care_taxable+disability_total+sum(profits.values())-half_se)
     actc_limit=min(max(0,available-lines['19']),ctc_children*1700)
@@ -486,6 +553,7 @@ def _calculate(data):
     actc_alternative=max(0,payroll_withheld+half_se) if ctc_children>=3 else 0
     lines['28']=min(actc_limit,max(actc_earned,actc_alternative)) if parent_ctc_ssn else 0
     schedules['schedule_8812']={'qualifying_children':ctc_children,'other_dependents':other_dependents,'credit_before_phaseout':gross_credit,'phaseout':phaseout,'credit_after_phaseout':available,'nonrefundable_credit':lines['19'],'earned_income':earned_income,'actc_earned_income_amount':actc_earned,'actc_three_child_alternative':actc_alternative,'actc':lines['28']}
+    schedules['schedule_8812'].update(credit_limit_worksheet_amount=max(0,lines['18']-lines['20']),credit_limit_worksheet_type='B' if 'schedule_8812_credit_limit_b' in schedules else 'A')
     log('CTC and other-dependent credit',lines['19'],'f1040s8');log('Additional child tax credit',lines['28'],'f1040s8')
     # Require review of plausible EITC eligibility instead of silently omitting
     # a credit when the EITC module has not been completed.
@@ -536,7 +604,12 @@ def _calculate(data):
     lines['26']=dollars(money(data['payments']['estimated'])+money(data['payments']['prior_year_credit']))
     lines['32']=lines['27a']+lines['28']+lines['29']+lines['30']+lines['31'];lines['33']=lines['25d']+lines['26']+lines['32']
     lines['34']=max(0,lines['33']-lines['24']);lines['35a']=lines['34'];lines['37']=max(0,lines['24']-lines['33'])
-    if lines['37']>=1000:warnings.append('An amount owed of1000 or more may require Form2210 estimated-tax penalty review. Timing/safe-harbor penalty is not computed; line38 is blank/zero.')
+    hsa_distribution_tax=sum(row.get('line17b_additional_tax',0) for row in hsa_result.get('form_lines',{}).values() if isinstance(row,dict))
+    additional_2210=se_total+add_med+niit['tax']+hsa_distribution_tax
+    penalty_result=extended_result('form_2210',tax_longtail.calculate_penalty(data['estimated_penalty'],{'filing_status':status,'income_tax_after_credits':lines['22'],'additional_tax_for_2210':additional_2210,'tax_for_2210':lines['22']+additional_2210,'refundable_credits':lines['27a']+lines['28']+lines['29']+lines['30']+marketplace_result.get('refundable_credit',0),'withholding':lines['25d'],'excess_ss':dollars(excess_ss),'estimated':n('payments','estimated'),'prior_year_credit':n('payments','prior_year_credit')}))
+    if penalty_result['computed']:lines['38']=penalty_result['penalty']
+    if lines['37']>=1000 and not penalty_result['computed']:warnings.append('An amount owed of1000 or more may require Form2210 estimated-tax penalty review. Complete actualdatedpayments andsafeharborfacts; line38 is notcomputed.')
+    schedules['schedule_d']['carryout_worksheet']=tax_longtail.capital_carryout(short,long,max(0,-lines['7a']),agi-lines['14'])
     warnings.append('IRS age is as of December31,2025; a January1 birthday reaches the relevant age on December31. User ages must reflect that rule.')
     if blocks:warnings.append('Blocking issues remain. Displayed amounts cover only implemented worksheets; they are not a completed return and must not be submitted as final tax liability/refund.')
     forms=['Form1040']
@@ -563,15 +636,21 @@ def _calculate(data):
     if data['care']['enabled'] or sum(care_benefits.values()):forms.append('Form2441')
     if data['saver']['enabled']:forms.append('Form8880')
     if data['elderly_credit']['enabled']:forms.append('ScheduleR')
+    if data['adoption']['enabled']:forms.append('Form8839')
+    if data['energy']['enabled']:forms.append('Form5695')
+    if data['foreign_credit']['enabled'] and data['foreign_credit']['method']=='ordinary_passive_1116':forms.append('Form1116')
+    if data['estimated_penalty']['enabled']:forms.append('Form2210')
     return {'tax_year':2025,'currency':'USD','filing_status':status,'name':data['name'],'lines':lines,
             'identity':deepcopy(data['identity']),
+            'filing_details':deepcopy(data['filing_details']),
             'additional_lines':{'1e':care_taxable,'1h':disability_total,'1z':lines['1a']+care_taxable+disability_total},
             'form_readiness':form_readiness(data),
             'summary':{'agi':agi,'taxable_income':lines['15'],'total_tax':lines['24'],'payments':lines['33'],'refund':lines['35a'],'amount_owed':lines['37'],'deduction_type':deduction_type,'effective_rate':str((D(lines['24'])/D(agi)*100).quantize(D('.01'),rounding=ROUND_HALF_UP)) if agi>0 else '0.00','schedules':forms},
             'schedules':schedules,'trace':trace,'warnings':warnings,'blocking_issues':blocks,'can_prepare':not blocks,
-            'not_computed_lines':['38'],
+            'not_computed_lines':[] if penalty_result['computed'] else ['38'],
+            'payment_summary':{'tax_before_penalty':lines['24'],'estimated_tax_penalty':lines['38'],'balance_including_penalty':max(0,lines['24']+lines['38']-lines['33']),'refund_after_penalty_if_offset':max(0,lines['33']-lines['24']-lines['38']),'separate_1040_line38':True},
             'scope':'2025 supported federal calculation worksheets, not an e-file or signed IRS return','sources':deepcopy(RULES['sources']),
-            'additional_calculation_sources':deepcopy(tax_credits.capabilities()['sources'])}
+            'additional_calculation_sources':dict(deepcopy(tax_credits.capabilities()['sources']),**{key:{'url':url,'tax_year':2025} for key,url in tax_longtail.SOURCES.items()})}
 
 
 def demo_returns():

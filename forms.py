@@ -1,7 +1,7 @@
-"""Interactive IRS 2025 Form1040 calculation draft, with field readback checks.
+"""TY2025 official Form1040 and supporting paper-preparation packet.
 
-Provided identity text is printed; signatures and bank details remain blank. Supporting schedules are represented
-in the calculation trail, not fabricated as a complete paper-filing package.
+Actual identity/choices and computed amounts are verified after serialization.
+The taxpayer signs the printed return; this module never transmits a return.
 """
 from __future__ import annotations
 import io
@@ -9,6 +9,7 @@ import json
 from pathlib import Path
 import sys
 import textwrap
+import tax_filing
 
 from pypdf import PdfReader, PdfWriter, PageObject
 from pypdf.generic import (ArrayObject, DictionaryObject, DecodedStreamObject,
@@ -29,7 +30,7 @@ def identity_values(record):
     names = {'last_name':15,'ssn':16,'spouse_last_name':18,'spouse_ssn':19,'address':20,'apt':21,'city':22,'state':23,'zip':24,'foreign_country':25,'foreign_province':26,'foreign_postal_code':27}
     values = {}
     for key, number in names.items():
-        if key.startswith('spouse_') and record['result']['filing_status'] not in ('mfj','mfs'):
+        if key.startswith('spouse_') and (record['result']['filing_status'] not in ('mfj','mfs') or record['result']['filing_status']=='mfs' and key=='spouse_last_name'):
             continue
         value = identity.get(key, '')
         if key.endswith('ssn') and value:
@@ -42,6 +43,64 @@ def identity_values(record):
         if prefix and record['result']['filing_status'] != 'mfj': continue
         value = ' '.join(str(identity.get(prefix+key,'')) for key in ('first_name','middle_initial')).strip()
         if value: values[f'topmostSubform[0].Page1[0].f1_{number:02d}[0]'] = value
+    return values
+
+
+def filing_values(record):
+    data=record['data'];status=record['result']['filing_status']
+    identity=data.get('identity',{});facts={**tax_filing.DEFAULTS,**data.get('filing_details',{})}
+    p1='topmostSubform[0].Page1[0].';p2='topmostSubform[0].Page2[0].';values={}
+    statuses={'single':('Checkbox_ReadOrder[0].c1_8[0]','/1'), 'mfj':('Checkbox_ReadOrder[0].c1_8[1]','/2'),
+              'mfs':('Checkbox_ReadOrder[0].c1_8[2]','/3'), 'hoh':('c1_8[0]','/4'), 'qss':('c1_8[1]','/5')}
+    for name,state in statuses.values():values[p1+name]=NameObject('/Off')
+    name,state=statuses[status];values[p1+name]=NameObject(state)
+    def checked(prefix,short,condition,state='/1'):
+        values[prefix+short]=NameObject(state if condition else '/Off')
+    checked(p1,'c1_5[0]',facts['main_home_us_answer']=='yes')
+    checked(p1,'c1_6[0]',facts['presidential_taxpayer'])
+    checked(p1,'c1_7[0]',facts['presidential_spouse'] and status=='mfj')
+    for answer,index,state in [('yes',0,'/1'),('no',1,'/2')]:checked(p1,f'c1_10[{index}]',facts['digital_asset_answer']==answer,state)
+    if status=='mfs':values[p1+'Checkbox_ReadOrder[0].f1_28[0]']=' '.join(identity.get('spouse_'+k,'') for k in ('first_name','middle_initial','last_name') if identity.get('spouse_'+k,''))
+    if status in ('hoh','qss'):values[p1+'f1_29[0]']=facts['hoh_qss_non_dependent_child_name']
+    for index,row in enumerate(data.get('dependents',[])[:4]):
+        for offset,key in enumerate(('form_first_name','form_last_name','form_ssn','relationship')):
+            value=str(row.get(key,''));value=value.replace('-','') if key=='form_ssn' else value
+            if key=='form_ssn' and value and (not value.isdigit() or len(value)!=9):raise ValueError('Dependent SSN/ITIN must contain exactly9digits')
+            # IRS Row1..4 are first-name/last-name/SSN/relationship rows;
+            # each row contains four dependent columns.
+            values[p1+f'Table_Dependents[0].Row{offset+1}[0].f1_{31+offset*4+index}[0]']=value
+        prefix=p1+f'Table_Dependents[0].Row5[0].Dependent{index+1}[0].'
+        checked(prefix,f'c1_{12+index*2}[0]',row.get('lived_with_taxpayer_more_than_half_year',False))
+        checked(prefix,f'c1_{13+index*2}[0]',row.get('us_home_more_than_half_year',False))
+        prefix=p1+f'Table_Dependents[0].Row6[0].Dependent{index+1}[0].'
+        checked(prefix,f'c1_{20+index*2}[0]',row.get('eitc_full_time_student',False))
+        checked(prefix,f'c1_{21+index*2}[0]',row.get('permanently_disabled',False))
+        prefix=p1+f'Table_Dependents[0].Row7[0].Dependent{index+1}[0].'
+        eligible=row.get('eligibility_confirmed',False)
+        ctc=eligible and row.get('qualifying_child',False) and row.get('age',99)<17 and row.get('valid_ssn',False)
+        odc=eligible and not ctc and row.get('valid_tin',False)
+        checked(prefix,f'c1_{28+index}[0]',ctc,'/1');checked(prefix,f'c1_{28+index}[1]',odc,'/2')
+    checked(p1,'Dependents_ReadOrder[0].c1_11[0]',len(data.get('dependents',[]))>4)
+    for owner,offset in [('taxpayer',0),('spouse',2)]:
+        person=data.get(owner,{})
+        active=owner=='taxpayer' or status=='mfj'
+        checked(p2,f'c2_{5+offset}[0]',active and person.get('age',0)>=65)
+        checked(p2,f'c2_{6+offset}[0]',active and person.get('blind',False))
+    checked(p2,'c2_1[0]',data.get('taxpayer',{}).get('can_be_claimed',False))
+    checked(p2,'c2_2[0]',status in ('mfj','mfs') and data.get('spouse',{}).get('can_be_claimed',False))
+    checked(p2,'c2_3[0]',status=='mfs' and data.get('eligibility',{}).get('mfs_spouse_itemizes',False))
+    deposit=facts['refund_delivery']=='direct_deposit' and record['result']['summary']['refund']>0
+    if deposit:
+        if not tax_filing.routing_valid(facts['bank_routing']) or not facts['bank_account'] or facts['bank_type']=='unanswered':raise ValueError('Complete and verify the direct-deposit routing/account/type before PDF export')
+        values[p2+'RoutingNo[0].f2_32[0]']=facts['bank_routing'];values[p2+'AccountNo[0].f2_33[0]']=facts['bank_account']
+    checked(p2,'c2_16[0]',deposit and facts['bank_type']=='checking','/1')
+    checked(p2,'c2_16[1]',deposit and facts['bank_type']=='savings','/2')
+    checked(p2,'c2_17[0]',facts['designee_yes'],'/1');checked(p2,'c2_17[1]',not facts['designee_yes'],'/2')
+    if facts['designee_yes']:
+        for n,key in [(37,'designee_name'),(38,'designee_phone'),(39,'designee_pin')]:values[p2+f'f2_{n}[0]']=facts[key]
+    for n,key in [(40,'occupation'),(42,'spouse_occupation'),(44,'phone'),(45,'email')]:
+        if key.startswith('spouse_') and status!='mfj':continue
+        if identity.get(key):values[p2+f'f2_{n}[0]']=identity[key]
     return values
 
 
@@ -78,7 +137,7 @@ def _text_page(lines, title='CALCULATION DRAFT', watermark=False):
             content.append(f'BT /F1 9 Tf 36 {y} Td ({literal(part)}) Tj ET')
             y -= 13
     if watermark:
-        content += ['0.72 0.2 0.12 rg','BT /F1 7 Tf 36 6 Td (DRAFT - NOT FILED - SUPPORTING FORM SET AND SIGNATURE INCOMPLETE) Tj ET']
+        content += ['0.72 0.2 0.12 rg','BT /F1 7 Tf 36 6 Td (TAX REBORN DRAFT - NOT FILED - REVIEW FACTS, SIGNATURE AND REQUIRED ORIGINAL ATTACHMENTS) Tj ET']
     content += ['Q']
     stream.set_data('\n'.join(content).encode('ascii'))
     page[NameObject('/Contents')] = stream
@@ -89,7 +148,7 @@ def verify_fields(raw, expected):
     reader = PdfReader(io.BytesIO(raw))
     fields = reader.get_fields() or {}
     for key, value in expected.items():
-        if key not in fields or str(fields[key].get('/V', '')) != value:
+        if key not in fields or str(fields[key].get('/V', '')) != str(value):
             raise ValueError('Form1040 canonical field did not save: ' + key)
     seen = set()
     for page in reader.pages:
@@ -113,39 +172,52 @@ def verify_fields(raw, expected):
                 cursor = cursor['/Parent'].get_object()
                 actual = cursor.get('/V')
             appearance = obj.get('/AP', {}).get('/N')
-            if str(actual) != expected[key] or not appearance or not appearance.get_object().get_data():
+            if str(actual) != str(expected[key]):
                 raise ValueError('Form1040 widget appearance/value did not save: ' + key)
+            field_type=obj.get('/FT',cursor.get('/FT'))
+            if field_type=='/Btn':
+                state=obj.get('/AS')
+                if str(state)!=str(expected[key]) or (str(state)!='/Off' and (not appearance or state not in appearance.get_object() or not appearance.get_object()[state].get_object().get_data())):
+                    raise ValueError('Form1040 checkbox appearance did not save: '+key)
+            elif not appearance or not appearance.get_object().get_data():
+                raise ValueError('Form1040 text appearance did not save: '+key)
             seen.add(key)
     if seen != set(expected):
-        raise ValueError('Some numeric fields lack a matching page widget')
+        raise ValueError('Some Form1040 fields lack a matching page widget')
     return {'pages':len(reader.pages),'verified_fields':len(expected),'interactive':True}
 
 
-def form1040_pdf(record):
+def _official_1040(record):
     reader = PdfReader(TEMPLATE)
     if len(reader.pages) != 2 or '2025' not in reader.pages[0].extract_text():
         raise ValueError('IRS Form1040 template is not the verified tax year2025 form')
     writer = PdfWriter()
     writer.clone_document_from_reader(reader)
-    values = {**field_values(record['result']), **identity_values(record)}
+    values = {**field_values(record['result']), **identity_values(record), **filing_values(record)}
     fields = writer.get_fields() or {}
     if set(values) - set(fields):
         raise ValueError('The official IRS Form1040 field layout changed')
-    # Only unique numeric fields are edited. We don't reattach or mutate the
-    # template's repeated checkbox fields with ambiguous canonical identities.
     writer.update_page_form_field_values(None, values, auto_regenerate=False)
     for page in writer.pages:
         page.merge_page(_text_page([], title='', watermark=True))
+    target=io.BytesIO();writer.write(target);raw=target.getvalue()
+    verify_fields(raw,values)
+    return raw,values
+
+
+def form1040_pdf(record):
+    raw,values=_official_1040(record)
+    writer=PdfWriter();writer.clone_document_from_reader(PdfReader(io.BytesIO(raw)))
     result = record['result']
     cover = ['Tax Reborn - US resident federal tax year2025. Currency: USD.',
              'Return: '+str(record['data'].get('name','Untitled')),
              'Filing status for this calculation: '+result['filing_status'],
-             'Saved: '+record['updated_at'],
+             'Saved: '+record.get('updated_at','Local draft'),
              'This PDF contains a cover sheet and an interactive official IRS Form1040 with computed numeric lines.',
-             'Provided taxpayer identity text is printed locally. Filing-status checkbox, direct-deposit details and signatures remain blank.',
-             'Supporting schedules/form attachments are NOT included as a complete filing packet. Use the detailed calculation worksheet.',
-             'This is not submitted to IRS and is not ready to sign or mail. State calculation drafts are prepared separately. Electronic filing is not implemented.',
-             'Form1040 line38 (estimated-tax penalty) has not been calculated and remains blank.',
+             'Provided identity, filing-status/dependent boxes, deposit and designee choices are printed locally. Signatures are completed by the taxpayer on paper.',
+             'This export includes calculation workpapers. Use the separate official paper packet for filled IRS supporting forms.',
+             'Not transmitted to IRS. Review the paper-packet checklist before signing. State drafts are separate.',
+             'Form1040 line38: '+('not computed; review penalty applicability' if '38' in result.get('not_computed_lines',[]) else str(result['lines'].get('38',0))),
              'Supported calculation review: '+('passed required confirmations' if result['can_prepare'] else 'blocked; resolve the items below'),
              'AGI: '+str(result['summary']['agi'])+'; taxable income: '+str(result['summary']['taxable_income'])+'; total tax: '+str(result['summary']['total_tax']),
              'Payments: '+str(result['summary']['payments'])+'; refund: '+str(result['summary']['refund'])+'; amount owed: '+str(result['summary']['amount_owed']),
@@ -166,3 +238,44 @@ def form1040_pdf(record):
     raw = target.getvalue()
     verify_fields(raw, values)
     return raw
+
+
+def packet_status(record,support=None):
+    import official_forms
+    import tax_engine
+    data=tax_engine.normalized(record['data']);result=record['result']
+    support=support if support is not None else official_forms.build_official_packet(record)
+    readiness=tax_filing.paper_facts_readiness(data)
+    missing=list(result.get('blocking_issues',[]))+list(result.get('form_readiness',{}).get('missing_identity',[]))+readiness['missing_paper_facts']+support['missing_facts']
+    if result['lines'].get('27a') and any(r.get('eitc_qualifying_child') for r in data.get('dependents',[])):missing.append('Schedule EIC qualifying-child attachment is not yet generated')
+    if len(data.get('dependents',[]))>4:missing.append('More-than-four-dependent continuation attachment is not yet generated')
+    missing=list(dict.fromkeys(missing))
+    return {'tax_year':2025,'status':'needs_facts' if missing else 'ready_to_print_and_review','missing_facts':missing,
+            'calculation_ready':bool(result.get('can_prepare')),'paper_preparation_complete':not missing,
+            'supporting_forms':[{'id':f['id'],'owner':f['owner'],'pages':f['verification']['pages'],'missing_facts':f['missing_facts']} for f in support['forms']],
+            'requires_taxpayer_signature':True,'requires_original_withholding_attachments':bool(data.get('w2') or result['lines'].get('25b')),
+            'penalty_applicability_review_required':'38' in result.get('not_computed_lines',[]),
+            'electronic_filing':False,'transmitted':False,'filing_packet_ready':False}
+
+
+def paper_packet_pdf(record):
+    import official_forms
+    support=official_forms.build_official_packet(record);status=packet_status(record,support)
+    raw,values=_official_1040(record)
+    writer=PdfWriter();writer.clone_document_from_reader(PdfReader(io.BytesIO(raw)))
+    expected=dict(values)
+    if support['pdf_bytes']:
+        reader=PdfReader(io.BytesIO(support['pdf_bytes']));writer.append(reader)
+        for index,form in enumerate(support['forms']):expected.update({form['id']+'_'+str(index)+'.'+k:v for k,v in form['values'].items()})
+    lines=['Tax Reborn - official IRS TY2025 paper-preparation packet. Currency: USD.',
+           'Return: '+str(record['data'].get('name','Untitled')),
+           'Preparation: '+status['status'], 'This packet has not been transmitted. Review each page, sign the Form1040 yourself, and attach original required withholding documents.',
+           'Filled supporting forms: '+(', '.join(f['id'] for f in support['forms']) or 'None required by these entered amounts.'),
+           'Penalty applicability review: '+('required; line38 was not computed.' if status['penalty_applicability_review_required'] else 'computed from entered penalty facts.'),
+           'Missing facts / blocked situations:']+(status['missing_facts'] or ['None identified within the supported paper-preparation scope.'])
+    for offset in range(len(lines)-1,-1,-42):
+        start=max(0,offset-41);writer.insert_page(_text_page(lines[start:offset+1],title='PAPER PREPARATION CHECKLIST'),0)
+    writer.add_metadata({'/Title':'Tax Reborn 2025 official paper-preparation draft','/Author':'lxistired','/Subject':'Filled official IRS forms; taxpayer review/signature required; not transmitted'})
+    target=io.BytesIO();writer.write(target);output=target.getvalue()
+    verify_fields(output,expected)
+    return output

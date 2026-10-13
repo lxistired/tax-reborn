@@ -1,0 +1,79 @@
+{
+  "tax_year": 2025,
+  "retrieval_date": "2026-10-13",
+  "source_authority": "Internal Revenue Service public TY2025 forms/instructions/publications",
+  "documents": [
+    {
+      "name": "f1116--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f1116--2025.pdf",
+      "sha256": "2575162f86c37297265c28d3d23ff1d99e06b2b1aeeadf396f5d6e798a8cffc5",
+      "bytes": 120869
+    },
+    {
+      "name": "f2210--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f2210--2025.pdf",
+      "sha256": "6899ce672648b280bf00ab47200f1b0fbf40368cfbf137df507b945b8577159a",
+      "bytes": 163566
+    },
+    {
+      "name": "f5695--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f5695--2025.pdf",
+      "sha256": "e2ac6a5c4b39e9032d3716827992fc0de46289a951e8b1ffaa3d5a969278baf2",
+      "bytes": 174928
+    },
+    {
+      "name": "f8839--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/f8839--2025.pdf",
+      "sha256": "3d3102f9b3dc3e4e87676ef1cdc8b6d39e93a79d1df68729df7c9591ecb53d12",
+      "bytes": 125260
+    },
+    {
+      "name": "i1040s8--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040s8--2025.pdf",
+      "sha256": "bb9788cdf068f9d3a666b2fc351b6bd963e1e848f295d0d01df63848628e1794",
+      "bytes": 232376
+    },
+    {
+      "name": "i1040sd--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1040sd--2025.pdf",
+      "sha256": "650643a686378b7573e4f4476ee4e7c9f9bab1384314dca32dc336f7b2276002",
+      "bytes": 298718
+    },
+    {
+      "name": "i1116--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i1116--2025.pdf",
+      "sha256": "6998cf8cd04b659b60ccf0b3a3ffaa507cc1dbdb31da40850f38a599dc39e0b1",
+      "bytes": 364870
+    },
+    {
+      "name": "i2210--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i2210--2025.pdf",
+      "sha256": "7bd6a47494e588fcb422a9ae97970a369fe24fd778ad33b224aeb1cd759e831d",
+      "bytes": 270086
+    },
+    {
+      "name": "i5695--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i5695--2025.pdf",
+      "sha256": "55113467f9689346adc0faf8add25d7fa50a0c5a91765c67f5ff24682a68cb66",
+      "bytes": 192614
+    },
+    {
+      "name": "i8839--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/i8839--2025.pdf",
+      "sha256": "90dd5f4de0ca435d4e92666b5b50434e1ece488c67fc43a8c6697765bfb684eb",
+      "bytes": 239505
+    },
+    {
+      "name": "p505--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/p505--2025.pdf",
+      "sha256": "7cb7800da48fd9466b6aea2f4e4937d520bf554ea72f41252ac576f5d671f999",
+      "bytes": 1728846
+    },
+    {
+      "name": "p550--2025",
+      "url": "https://www.irs.gov/pub/irs-prior/p550--2025.pdf",
+      "sha256": "83552968a07e63d1c81e5b4f311fc0e54728b5ff9654b5a0d2ba6292c5574317",
+      "bytes": 2401930
+    }
+  ]
+}

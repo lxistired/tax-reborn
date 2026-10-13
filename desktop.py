@@ -56,7 +56,7 @@ def smoke_test(report_path=None):
             kind = response.getheader('Content-Type','');conn.close()
             return status,json.loads(raw) if 'json' in kind else raw
         try:
-            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_extended.py','/tax_credits.py','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
+            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_extended.py','/tax_credits.py','/tax_longtail.py','/tax_filing.py','/official_forms.py','/native-file-bridge.js','/forms/paper-fact-schema-2025.json','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
                 status,raw=request('GET',path);assert status==200 and raw
             checks.append('Bundled desktop/mobile assets and IRS2025 template load')
             status,contract=request('GET','/api/schema');assert status==200 and contract['capabilities']['tax_year']==2025
@@ -82,6 +82,10 @@ def smoke_test(report_path=None):
             import forms
             verified=forms.verify_fields(raw,forms.field_values(result));assert verified['pages']>=3 and verified['verified_fields']>=48
             checks.append('Interactive official1040 PDF fields and appearances verify after write')
+            status,packet=request('GET',f'/api/returns/{ident}/paper-packet.pdf');assert status==200 and packet.startswith(b'%PDF')
+            status,checklist=request('GET',f'/api/returns/{ident}/paper-checklist.json');assert status==200 and not checklist['transmitted'] and checklist['missing_facts']
+            assert any(row['id']=='f1040sb' for row in checklist['supporting_forms'])
+            checks.append('Real official supporting PDF packet and factual checklist without a false filing status')
             status,export=request('GET',f'/api/returns/{ident}/export.json');assert status==200 and export['data']==data
             status,worksheet=request('GET',f'/api/returns/{ident}/worksheet.html');assert status==200 and b'Not computed' in worksheet
             checks.append('JSON backup and printable worksheet export, without fabricated filing or penalty status')
@@ -118,6 +122,7 @@ def main():
     try:
         import webview
         webview.settings['OPEN_EXTERNAL_LINKS_IN_BROWSER']=True
+        webview.settings['ALLOW_DOWNLOADS']=True
         window=webview.create_window(PRODUCT_NAME,service.url,width=1360,height=900,min_size=(860,640),text_select=True,background_color='#f6f8fa')
         window.events.closed+=service.stop
         webview.start(gui='cocoa' if sys.platform=='darwin' else 'edgechromium' if sys.platform=='win32' else None,

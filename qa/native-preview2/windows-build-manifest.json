@@ -1,0 +1,32 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.13-preview.2",
+  "platform": "win32",
+  "architecture": "x64",
+  "python_version": "3.13.16",
+  "frozen_smoke": "frozen-smoke-win32-x64.json",
+  "developer_id_signed": false,
+  "notarized": false,
+  "windows_installer_built": true,
+  "third_party_notices_verified": true,
+  "license_component_count": 19,
+  "requirements": {
+    "pywebview": "6.2.1",
+    "pyinstaller": "6.22.3",
+    "Pillow": "12.3.0",
+    "pypdf": "6.10.0"
+  },
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.2-Windows-x64-portable.zip",
+      "bytes": 67560933,
+      "sha256": "2acdb50652138bd05e5452192dac923fdb91f1dbedd085fc5fe6749525f22762"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.2-Windows-x64-Setup.exe",
+      "bytes": 55005283,
+      "sha256": "ef9b16deb2e5638a578421ba9f07e5a04894025754fc9b6c48e99769f10ef6f9"
+    }
+  ]
+}

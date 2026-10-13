@@ -65,6 +65,7 @@ jobs:
             dist/windows/*.json
             dist/windows/*.png
             dist/windows/*.txt
+            dist/windows/*.pdf
           if-no-files-found: error
           retention-days: 30
 

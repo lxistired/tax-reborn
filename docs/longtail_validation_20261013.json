@@ -1,0 +1,24 @@
+{
+  "start_utc": "2026-10-13T06:52:51.526988+00:00",
+  "end_utc": "2026-10-13T06:52:51.560982+00:00",
+  "tests": 59,
+  "passed": true,
+  "failures": 0,
+  "errors": 0,
+  "before": {
+    "tax_engine.py": "198f5aecb16bc4baec41ee543bdf729b0235db0f271099ae8e04803d747fc6aa",
+    "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "tax_filing.py": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+    "tests/test_longtail.py": "8b106e65176db2402fcb0e0f86130d663006b6573983bef6f7a25e51d7833ec1",
+    "fixtures/longtail_cases_2025.json": "1f374ecdd9abc4f3e3648138efaaa8364e535b18f1d11d706b08105c4e8c6e5c"
+  },
+  "after": {
+    "tax_engine.py": "198f5aecb16bc4baec41ee543bdf729b0235db0f271099ae8e04803d747fc6aa",
+    "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "tax_filing.py": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+    "tests/test_longtail.py": "8b106e65176db2402fcb0e0f86130d663006b6573983bef6f7a25e51d7833ec1",
+    "fixtures/longtail_cases_2025.json": "1f374ecdd9abc4f3e3648138efaaa8364e535b18f1d11d706b08105c4e8c6e5c"
+  },
+  "oracle_files_changed": false,
+  "scope": "Additional literal IRS2025 source examples and actual integrated1040/credit-order/date tests; existing264oracles unchanged"
+}

@@ -8,7 +8,7 @@
 <button id="menu-toggle" class="icon-button mobile-only" aria-label="Open tax navigator">☰</button>
 <button id="brand" class="brand" aria-label="About Tax Reborn"><img src="icon.svg" alt=""><span>Tax Reborn<small>2025 · Project #000002</small></span></button>
 <div class="return-identity"><span id="return-name">New federal return</span><small id="save-state">Not saved</small></div>
-<div class="header-actions"><button id="returns-button" class="text-button">My returns</button><button id="documents-button" class="text-button">Documents</button><button id="save-button" class="button primary">Save</button></div>
+<div class="header-actions"><button id="returns-button" disabled data-boot-control class="text-button">My returns</button><button id="documents-button" disabled data-boot-control class="text-button">Documents</button><button id="save-button" disabled data-boot-control class="button primary">Save</button></div>
 <div id="refund-box" class="refund-box" aria-live="polite"><span id="refund-label">Federal estimate</span><strong id="refund-value">—</strong><small id="refund-state">Enter your information</small></div>
 </header>
 <nav id="step-tabs" class="step-tabs" aria-label="Tax preparation steps"></nav>
@@ -17,6 +17,6 @@
 <main id="main" class="main" tabindex="-1"><div class="loading">Opening your tax workspace…</div></main>
 <aside id="live-summary" class="live-summary" aria-label="Calculation summary"></aside>
 </div>
-<footer class="interview-footer"><button id="back-button" class="button secondary">Back</button><span id="step-location">Personal info</span><div><button id="mobile-save" class="button secondary mobile-only">Save</button><button id="next-button" class="button primary">Continue <span aria-hidden="true">→</span></button></div></footer>
+<footer class="interview-footer"><button id="back-button" disabled data-boot-control class="button secondary">Back</button><span id="step-location">Personal info</span><div><button id="mobile-save" disabled data-boot-control class="button secondary mobile-only">Save</button><button id="next-button" disabled data-boot-control class="button primary">Continue <span aria-hidden="true">→</span></button></div></footer>
 <div id="toast" class="toast" role="status" hidden></div><div id="dialog-root"></div>
 </body></html>

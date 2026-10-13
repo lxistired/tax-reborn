@@ -19,7 +19,7 @@ import uuid
 
 import tax_engine
 
-VERSION = '2026.10.13-preview.2'
+VERSION = '2026.10.13-preview.3'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent)).resolve()
 WEB = BASE / 'web'
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
@@ -226,9 +226,19 @@ class Handler(BaseHTTPRequestHandler):
                     if parts[4] == 'form1040.pdf':
                         import forms
                         return self.send_data(200, forms.form1040_pdf(record), 'application/pdf', 'tax-reborn-2025-1040-DRAFT.pdf')
+                    if parts[4] == 'paper-packet.pdf':
+                        import forms
+                        return self.send_data(200, forms.paper_packet_pdf(record), 'application/pdf', 'tax-reborn-2025-paper-packet-DRAFT.pdf')
+                    if parts[4] == 'paper-checklist.json':
+                        import forms
+                        return self.send_data(200, forms.packet_status(record))
             if method == 'GET' and not path.startswith('/api/'):
-                if path in ('/tax_engine.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/rules_2025.json', '/forms.py', '/forms/f1040-2025.pdf'):
+                if path in ('/tax_engine.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/tax_longtail.py', '/tax_filing.py', '/rules_2025.json', '/forms.py', '/official_forms.py'):
                     target = BASE / path[1:]
+                elif path.startswith('/forms/'):
+                    target=(BASE/path[1:]).resolve()
+                    if (BASE/'forms').resolve() not in target.parents or target.suffix not in ('.json','.pdf'):
+                        raise FileNotFoundError('Asset not found')
                 else:
                     target = (WEB / (path.lstrip('/') or 'index.html')).resolve()
                     if WEB.resolve() not in target.parents:

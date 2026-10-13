@@ -9,12 +9,16 @@ Add-Type @'
 using System;
 using System.Runtime.InteropServices;
 public class TaxWindow {
+  [DllImport("user32.dll")] public static extern bool SetProcessDpiAwarenessContext(IntPtr value);
   [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr h);
   [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr h, int n);
   [DllImport("user32.dll")] public static extern bool SetCursorPos(int x,int y);
   [DllImport("user32.dll")] public static extern void mouse_event(uint flags,uint dx,uint dy,uint data,UIntPtr extra);
 }
 '@
+# Keep automation and screenshot coordinates in the same physical pixel space.
+# This changes only the synthetic test driver, never the user's display scale.
+[TaxWindow]::SetProcessDpiAwarenessContext([IntPtr]::new(-4)) | Out-Null
 New-Item -ItemType Directory -Force -Path $OutputDir,$DataDir | Out-Null
 $checks = [System.Collections.Generic.List[string]]::new()
 $receipt = @{ platform='windows'; native_gui_tested=$false; all_passed=$false; checks=@(); synthetic_only=$true }
@@ -84,7 +88,9 @@ function Launch-App {
         Start-Sleep -Milliseconds 250
     }
     if($script:process.MainWindowHandle -eq [IntPtr]::Zero) { throw 'No real native window was created.' }
-    [TaxWindow]::ShowWindow($script:process.MainWindowHandle,9) | Out-Null
+    # The hosted Windows desktop can be smaller than the default 1360x900
+    # app. Maximize the actual window so the captured interview is not clipped.
+    [TaxWindow]::ShowWindow($script:process.MainWindowHandle,3) | Out-Null
     [TaxWindow]::SetForegroundWindow($script:process.MainWindowHandle) | Out-Null
     $script:root = [System.Windows.Automation.AutomationElement]::FromHandle($script:process.MainWindowHandle)
     Wait-Named "Let's start with you." 90 | Out-Null
@@ -94,6 +100,38 @@ function Close-App {
         $script:process.CloseMainWindow() | Out-Null
         if(!$script:process.WaitForExit(15000)) { Stop-Process -Id $script:process.Id -Force; throw 'Native window did not close normally.' }
     }
+}
+function Save-Native-Export([string]$target) {
+    $oldRoot=$script:root
+    $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
+    $until=(Get-Date).AddSeconds(60)
+    $edit=$null
+    while((Get-Date) -lt $until) {
+        $windows=[System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children,$condition)
+        foreach($window in $windows) {
+            $script:root=$window
+            $candidate=Get-Named 'File name:' $false
+            if($candidate -and $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit) { $edit=$candidate; break }
+            $edits=$window.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ControlTypeProperty,[System.Windows.Automation.ControlType]::Edit))
+            foreach($input in $edits) { if($input.Current.Name -eq 'File name:') { $edit=$input; break } }
+            if($edit) { break }
+        }
+        if($edit) { break }
+        Start-Sleep -Milliseconds 250
+    }
+    try {
+        if(!$edit) { throw 'The native export did not open a user-controlled Save As dialog.' }
+        $edit.SetFocus()
+        [System.Windows.Forms.SendKeys]::SendWait('^a')
+        [System.Windows.Forms.SendKeys]::SendWait($target)
+        Click-Observed (Wait-Named 'Save' 10)
+    } finally { $script:root=$oldRoot }
+    $until=(Get-Date).AddSeconds(60)
+    while((Get-Date) -lt $until) {
+        if((Test-Path $target) -and (Get-Item $target).Length -gt 1000) { return }
+        Start-Sleep -Milliseconds 250
+    }
+    throw 'The user-selected native export file was not actually saved.'
 }
 try {
     Launch-App
@@ -124,6 +162,16 @@ try {
     Wait-Named '$1,913' 120 | Out-Null
     Save-Screenshot 'windows-native-reopened-1913.png'
     $checks.Add('Normal close/relaunch/reopen preserved the edited return and calculation.')
+    Click-Observed (Wait-Named 'Save & export')
+    Click-Observed (Wait-Named 'Download PDF')
+    $pdf=Join-Path $OutputDir 'windows-native-export-DRAFT.pdf'
+    Save-Native-Export $pdf
+    $env:TAX_REBORN_SYNTHETIC_EXPORT=$pdf
+    python -c "import os; from pathlib import Path; import forms,tax_engine; d=tax_engine.demo_returns()[0]['data']; d['w2'][0]['federal_withholding']='7000'; r=tax_engine.calculate_return(d); assert r['summary']['refund']==1913; print(forms.verify_fields(Path(os.environ['TAX_REBORN_SYNTHETIC_EXPORT']).read_bytes(),forms.field_values(r)))"
+    if($LASTEXITCODE -ne 0) { throw 'The actual native-exported PDF failed field readback.' }
+    Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
+    $checks.Add('Actual native Save As export saved an IRS1040 draft PDF; field readback matched the edited 1913 USD return.')
+    Save-Screenshot 'windows-native-after-PDF-export.png'
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

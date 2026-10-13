@@ -1,0 +1,588 @@
+{
+  "tax_year": 2025,
+  "FORM_FACT_DEFAULTS": {
+    "other_income_description": "",
+    "schedule_a": {
+      "salt_income_tax": "0",
+      "salt_real_estate_tax": "0",
+      "salt_personal_property_tax": "0",
+      "mortgage_form1098": "0",
+      "mortgage_non1098": "0",
+      "mortgage_points": "0",
+      "salt_split_confirmed": false,
+      "mortgage_split_confirmed": false
+    },
+    "schedule_b": {
+      "foreign_account_answer": "unanswered",
+      "fbar_required_answer": "unanswered",
+      "foreign_trust_answer": "unanswered",
+      "foreign_countries": "",
+      "facts_confirmed": false
+    },
+    "businesses": [],
+    "capital_gains": [],
+    "rentals": [],
+    "qbi_businesses": [],
+    "education": {
+      "students": []
+    },
+    "care": {
+      "beneficiaries": []
+    },
+    "adoption": {
+      "children": []
+    },
+    "foreign_credit": {
+      "resident_country": "",
+      "countries": []
+    },
+    "energy": {
+      "joint_occupancy_answer": "unanswered"
+    }
+  },
+  "FORM_FACT_ROW_TEMPLATES": {
+    "businesses": {
+      "business_name": "",
+      "profession": "",
+      "business_code": "",
+      "ein": "",
+      "address": "",
+      "city_state_zip": "",
+      "requires_1099_answer": "unanswered",
+      "filed_1099_answer": "unanswered",
+      "started_2025_answer": "unanswered",
+      "expense_lines": {
+        "advertising": "0",
+        "car_truck": "0",
+        "commissions_fees": "0",
+        "contract_labor": "0",
+        "insurance": "0",
+        "mortgage_interest": "0",
+        "other_interest": "0",
+        "legal_professional": "0",
+        "office": "0",
+        "rent_equipment": "0",
+        "rent_property": "0",
+        "repairs": "0",
+        "supplies": "0",
+        "taxes_licenses": "0",
+        "travel": "0",
+        "deductible_meals": "0",
+        "utilities": "0",
+        "other_expenses": "0"
+      },
+      "other_expenses_description": "",
+      "facts_confirmed": false
+    },
+    "capital_gains": {
+      "transaction_description": "",
+      "date_acquired": "",
+      "date_sold": "",
+      "category": "unanswered",
+      "facts_confirmed": false
+    },
+    "rentals": {
+      "property_name": "",
+      "address": "",
+      "property_type": "unanswered",
+      "fair_rental_days": 0,
+      "personal_use_days": 0,
+      "requires_1099_answer": "unanswered",
+      "filed_1099_answer": "unanswered",
+      "other_expenses_description": "",
+      "facts_confirmed": false
+    },
+    "qbi_businesses": {
+      "name": "",
+      "tin": "",
+      "qbi": "0",
+      "facts_confirmed": false
+    },
+    "education.students": {
+      "student_id": "",
+      "ssn": "",
+      "institution_name": "",
+      "institution_address": "",
+      "form_1098t_received_2025_answer": "unanswered",
+      "form_1098t_2024_box7_answer": "unanswered",
+      "facts_confirmed": false
+    },
+    "care.beneficiaries": {
+      "beneficiary_id": "",
+      "first_name": "",
+      "last_name": "",
+      "ssn": "",
+      "facts_confirmed": false
+    },
+    "adoption.children": {
+      "tin": "",
+      "first_name": "",
+      "last_name": "",
+      "prior_8839_answer": "unanswered",
+      "facts_confirmed": false
+    },
+    "foreign_credit.countries": {
+      "country": "",
+      "foreign_currency_dividend_tax": "0",
+      "foreign_currency_interest_tax": "0",
+      "foreign_currency_other_tax": "0",
+      "usd_dividend_tax": "0",
+      "usd_interest_tax": "0",
+      "usd_other_tax": "0",
+      "facts_confirmed": false
+    }
+  },
+  "FORM_FACT_UI_FIELDS": {
+    "other_income_description": {
+      "type": "text",
+      "label": "Other taxable income: type/description"
+    },
+    "schedule_a.salt_income_tax": {
+      "type": "money",
+      "label": "State/local income or sales taxes"
+    },
+    "schedule_a.salt_real_estate_tax": {
+      "type": "money",
+      "label": "State/local real estate taxes"
+    },
+    "schedule_a.salt_personal_property_tax": {
+      "type": "money",
+      "label": "State/local personal property taxes"
+    },
+    "schedule_a.mortgage_form1098": {
+      "type": "money",
+      "label": "Mortgage interest/points on Form1098"
+    },
+    "schedule_a.mortgage_non1098": {
+      "type": "money",
+      "label": "Mortgage interest not on Form1098"
+    },
+    "schedule_a.mortgage_points": {
+      "type": "money",
+      "label": "Points not on Form1098"
+    },
+    "schedule_a.salt_split_confirmed": {
+      "type": "boolean",
+      "label": "SALT components verified and reconcile to deduction input"
+    },
+    "schedule_a.mortgage_split_confirmed": {
+      "type": "boolean",
+      "label": "Mortgage components verified and reconcile to deduction input"
+    },
+    "schedule_b.foreign_account_answer": {
+      "type": "select",
+      "label": "Foreign financial account held during2025",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "schedule_b.fbar_required_answer": {
+      "type": "select",
+      "label": "Required to file FinCEN114 for the account",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "schedule_b.foreign_trust_answer": {
+      "type": "select",
+      "label": "Foreign trust distribution, grantor or transferor during2025",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "schedule_b.foreign_countries": {
+      "type": "text",
+      "label": "Foreign countries"
+    },
+    "schedule_b.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "foreign_credit.resident_country": {
+      "type": "text",
+      "label": "Country of residence for foreign-tax reporting"
+    },
+    "energy.joint_occupancy_answer": {
+      "type": "select",
+      "label": "Joint occupancy answer",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "businesses.*.business_name": {
+      "type": "text",
+      "label": "Name of corresponding business"
+    },
+    "businesses.*.profession": {
+      "type": "text",
+      "label": "Principal business activity"
+    },
+    "businesses.*.business_code": {
+      "type": "text",
+      "label": "Six-digit business activity code",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "businesses.*.ein": {
+      "type": "text",
+      "label": "Business EIN (if any)",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "businesses.*.address": {
+      "type": "text",
+      "label": "Street address"
+    },
+    "businesses.*.city_state_zip": {
+      "type": "text",
+      "label": "City, state and ZIP code"
+    },
+    "businesses.*.requires_1099_answer": {
+      "type": "select",
+      "label": "Payments require Forms1099",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "businesses.*.filed_1099_answer": {
+      "type": "select",
+      "label": "Required Forms1099 filed or will be filed",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "businesses.*.started_2025_answer": {
+      "type": "select",
+      "label": "Started/acquired this business during2025",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "businesses.*.expense_lines.advertising": {
+      "type": "money",
+      "label": "Advertising"
+    },
+    "businesses.*.expense_lines.car_truck": {
+      "type": "money",
+      "label": "Car truck"
+    },
+    "businesses.*.expense_lines.commissions_fees": {
+      "type": "money",
+      "label": "Commissions fees"
+    },
+    "businesses.*.expense_lines.contract_labor": {
+      "type": "money",
+      "label": "Contract labor"
+    },
+    "businesses.*.expense_lines.insurance": {
+      "type": "money",
+      "label": "Insurance"
+    },
+    "businesses.*.expense_lines.mortgage_interest": {
+      "type": "money",
+      "label": "Mortgage interest"
+    },
+    "businesses.*.expense_lines.other_interest": {
+      "type": "money",
+      "label": "Other interest"
+    },
+    "businesses.*.expense_lines.legal_professional": {
+      "type": "money",
+      "label": "Legal professional"
+    },
+    "businesses.*.expense_lines.office": {
+      "type": "money",
+      "label": "Office expenses"
+    },
+    "businesses.*.expense_lines.rent_equipment": {
+      "type": "money",
+      "label": "Rent equipment"
+    },
+    "businesses.*.expense_lines.rent_property": {
+      "type": "money",
+      "label": "Rent property"
+    },
+    "businesses.*.expense_lines.repairs": {
+      "type": "money",
+      "label": "Repairs"
+    },
+    "businesses.*.expense_lines.supplies": {
+      "type": "money",
+      "label": "Supplies"
+    },
+    "businesses.*.expense_lines.taxes_licenses": {
+      "type": "money",
+      "label": "Taxes licenses"
+    },
+    "businesses.*.expense_lines.travel": {
+      "type": "money",
+      "label": "Travel"
+    },
+    "businesses.*.expense_lines.deductible_meals": {
+      "type": "money",
+      "label": "Deductible meals"
+    },
+    "businesses.*.expense_lines.utilities": {
+      "type": "money",
+      "label": "Utilities"
+    },
+    "businesses.*.expense_lines.other_expenses": {
+      "type": "money",
+      "label": "Other expenses"
+    },
+    "businesses.*.other_expenses_description": {
+      "type": "text",
+      "label": "Other expenses description"
+    },
+    "businesses.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "capital_gains.*.transaction_description": {
+      "type": "text",
+      "label": "Name/description of corresponding brokerage transaction"
+    },
+    "capital_gains.*.date_acquired": {
+      "type": "text",
+      "label": "Acquisition date (YYYY-MM-DD or VARIOUS)"
+    },
+    "capital_gains.*.date_sold": {
+      "type": "text",
+      "label": "Sale date (YYYY-MM-DD)"
+    },
+    "capital_gains.*.category": {
+      "type": "select",
+      "label": "Brokerage reporting category A/B/C or D/E/F",
+      "options": [
+        "unanswered",
+        "A",
+        "B",
+        "C",
+        "D",
+        "E",
+        "F"
+      ]
+    },
+    "capital_gains.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "rentals.*.property_name": {
+      "type": "text",
+      "label": "Name of corresponding rental property"
+    },
+    "rentals.*.address": {
+      "type": "text",
+      "label": "Street address"
+    },
+    "rentals.*.property_type": {
+      "type": "select",
+      "label": "Rental property type",
+      "options": [
+        "unanswered",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ]
+    },
+    "rentals.*.fair_rental_days": {
+      "type": "integer",
+      "label": "Days rented at fair rental value"
+    },
+    "rentals.*.personal_use_days": {
+      "type": "integer",
+      "label": "Days of personal use"
+    },
+    "rentals.*.requires_1099_answer": {
+      "type": "select",
+      "label": "Payments require Forms1099",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "rentals.*.filed_1099_answer": {
+      "type": "select",
+      "label": "Required Forms1099 filed or will be filed",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "rentals.*.other_expenses_description": {
+      "type": "text",
+      "label": "Other expenses description"
+    },
+    "rentals.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "qbi_businesses.*.name": {
+      "type": "text",
+      "label": "Name"
+    },
+    "qbi_businesses.*.tin": {
+      "type": "text",
+      "label": "Actual taxpayer identifying number",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "qbi_businesses.*.qbi": {
+      "type": "money",
+      "label": "Verified allocation of qualified business income"
+    },
+    "qbi_businesses.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "education.students.*.student_id": {
+      "type": "text",
+      "label": "Corresponding education student ID"
+    },
+    "education.students.*.ssn": {
+      "type": "text",
+      "label": "Actual SSN/ITIN (9digits)",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "education.students.*.institution_name": {
+      "type": "text",
+      "label": "School legal name"
+    },
+    "education.students.*.institution_address": {
+      "type": "text",
+      "label": "School full address"
+    },
+    "education.students.*.form_1098t_received_2025_answer": {
+      "type": "select",
+      "label": "Received this school\u2019s Form1098-T for2025",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "education.students.*.form_1098t_2024_box7_answer": {
+      "type": "select",
+      "label": "Received this school\u2019s2024 Form1098-T with box7 checked",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "education.students.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "care.beneficiaries.*.beneficiary_id": {
+      "type": "text",
+      "label": "Corresponding care beneficiary ID"
+    },
+    "care.beneficiaries.*.first_name": {
+      "type": "text",
+      "label": "Legal first name"
+    },
+    "care.beneficiaries.*.last_name": {
+      "type": "text",
+      "label": "Legal last name"
+    },
+    "care.beneficiaries.*.ssn": {
+      "type": "text",
+      "label": "Actual SSN/ITIN (9digits)",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "care.beneficiaries.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "adoption.children.*.tin": {
+      "type": "text",
+      "label": "Actual taxpayer identifying number",
+      "help": "Actual source record; no placeholder identity is generated."
+    },
+    "adoption.children.*.first_name": {
+      "type": "text",
+      "label": "Legal first name"
+    },
+    "adoption.children.*.last_name": {
+      "type": "text",
+      "label": "Legal last name"
+    },
+    "adoption.children.*.prior_8839_answer": {
+      "type": "select",
+      "label": "Previously filed Form8839 for this child",
+      "options": [
+        "unanswered",
+        "yes",
+        "no"
+      ],
+      "help": "Unanswered is not treated as No."
+    },
+    "adoption.children.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    },
+    "foreign_credit.countries.*.country": {
+      "type": "text",
+      "label": "Country"
+    },
+    "foreign_credit.countries.*.foreign_currency_dividend_tax": {
+      "type": "money",
+      "label": "Foreign currency dividend tax"
+    },
+    "foreign_credit.countries.*.foreign_currency_interest_tax": {
+      "type": "money",
+      "label": "Foreign currency interest tax"
+    },
+    "foreign_credit.countries.*.foreign_currency_other_tax": {
+      "type": "money",
+      "label": "Foreign currency other tax"
+    },
+    "foreign_credit.countries.*.usd_dividend_tax": {
+      "type": "money",
+      "label": "Usd dividend tax"
+    },
+    "foreign_credit.countries.*.usd_interest_tax": {
+      "type": "money",
+      "label": "Usd interest tax"
+    },
+    "foreign_credit.countries.*.usd_other_tax": {
+      "type": "money",
+      "label": "Usd other tax"
+    },
+    "foreign_credit.countries.*.facts_confirmed": {
+      "type": "boolean",
+      "label": "Verified against source documents"
+    }
+  },
+  "contract": "Stored under data.filing_details.official_form_facts. _answer selects are converted to booleans only after a user answer; facts_confirmed gates form completeness and reconciled detail. Does not alter tax calculations."
+}
