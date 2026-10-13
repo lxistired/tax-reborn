@@ -1,0 +1,23 @@
+{
+  "platform": "windows",
+  "version": "2026.10.13-preview.3",
+  "ci_run": "https://github.com/lxistired/tax-reborn/actions/runs/38368688144",
+  "ci_head_sha": "566a68da6e7c45dd80d7738ee1d68203fa7b41cf",
+  "downloaded_package_hashes_verified": true,
+  "pdf_file": "windows-native-export-DRAFT.pdf",
+  "pdf_bytes": 625732,
+  "pdf_sha256": "ac6bfca52f31b9b8ffb212efa0a267981ed65b69e88b298d78809882ff710f99",
+  "pdf_pages": 29,
+  "expected_federal_withholding": 7000,
+  "expected_refund": 1913,
+  "pdf_fields_readback": {
+    "pages": 29,
+    "verified_fields": 50,
+    "interactive": true
+  },
+  "synthetic_only": true,
+  "native_gui_tested": true,
+  "native_save_as_tested": true,
+  "real_installer_downloaded": true,
+  "code_signed": false
+}

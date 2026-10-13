@@ -1,0 +1,31 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.13-preview.3",
+  "platform": "ios",
+  "deployment_target": "16.4",
+  "stable_origin": "http://127.0.0.1:18786",
+  "asset_count": 103,
+  "source_prepared": true,
+  "simulator_built": true,
+  "simulator_gui_tested": true,
+  "device_built": true,
+  "device_signed": false,
+  "bundled_assets_verified": true,
+  "real_device_tested": false,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Simulator.app.zip",
+      "bytes": 48940661,
+      "sha256": "11028908a132461fd0e4b6859dde181a21d8ed86783388973237919aa86a7d4d",
+      "installable_on_iphone": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Unsigned-Device.app.zip",
+      "bytes": 48860617,
+      "sha256": "6795e9a271c434fd774c4997bf688c6ba447cec630d9fe794c83093506ddc1a3",
+      "installable_on_iphone": false,
+      "requires_matching_device_provisioning": true
+    }
+  ]
+}

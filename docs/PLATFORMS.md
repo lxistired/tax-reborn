@@ -8,7 +8,7 @@ or evidence of full TurboTax parity.
 ## Windows
 
 `scripts/build_desktop.py` must run on Windows. It builds the pinned PyInstaller
-executable, runs ten checks against the **actual frozen executable**, collects
+executable, runs its checks against the **actual frozen executable**, collects
 authentic third-party licenses and produces a portable ZIP. With Inno Setup 6 it
 also produces a per-user installer that needs no administrator rights.
 
@@ -145,9 +145,24 @@ is additional server evidence, not an iPhone installation claim.
 ## Integrated preview.3
 
 The source now includes new tax modules and an expanded official IRS paper-form
-packet. These changes require a new native build and the same real calculations,
-save/relaunch and bundle verification before transferring preview.2's platform
-status to preview.3. The newer Windows driver additionally checks native PDF
-Save As export and saved-field readback. Until its actual run succeeds, that
-native download check remains unverified. iOS signing and real-device status do
-not change merely because a new source version or unsigned device app exists.
+packet. The native evidence below comes from builds of **2026.10.13-preview.3**,
+not from transferring preview.2's status.
+
+| Platform | Actual build and execution | Remaining evidence boundary |
+| --- | --- | --- |
+| Native iOS | [CI run 38363853694](https://github.com/lxistired/tax-reborn/actions/runs/38363853694) built both Swift targets with 103 verified bundled assets. The actual Simulator WKWebView/WebAssembly app calculated $1,413, accepted $7,000 withholding, calculated $1,913, saved and retained $1,913 after termination/relaunch/reopen. Both downloaded app ZIP sizes and SHA256 hashes matched their build manifest. | The device build is unsigned. Real-iPhone execution, native Files export and the camera/photo chooser have not been verified by this Simulator calculation test. |
+| Windows x64 | [CI run 38366650831](https://github.com/lxistired/tax-reborn/actions/runs/38366650831) passed 343 Python checks, eleven frozen executable checks and the real $1,413 → $1,913 GUI calculation/save/relaunch/reopen flow. The actual screenshot shows a native Save As dialog for the PDF. | The added export test failed because the system picker exposes its filename as a Pane rather than the Edit control expected by the driver. The corrected dialog driver still needs a successful run that saves the actual PDF and reads back its IRS fields. This run is not a passed native-download check. |
+
+Preview.3 iOS receipts, downloaded-artifact verification and actual synthetic
+screenshots are stored in [`qa/native-preview3`](../qa/native-preview3/). The
+Windows native-download check remains unverified until its actual saved-file and
+field readback pass. iOS signing and real-device status remain separate from the
+successful native builds and Simulator execution.
+
+## Final preview.3 native checks
+
+GitHub Actions38368688144 (source566a68d) completed successfully for Windows and iOS. Windows passed343 tax/PDF tests,11 frozen checks, actual1413→7000→1913 edit/save/relaunch, and a real native Save As download with subsequent official IRS field readback. Both Windows Setup and portableZIP artifacts match the recorded bytes/SHA256.
+
+Both iOS Simulator and unsigned iphoneos apps compiled and matched their manifest. Actual WKWebView/WASM1413→7000→1913 and save/terminate/relaunch/reopen passed. iOS device signing, real-iPhone acceptance, and native Files/camera operations are separate from this successful Simulator calculation test.
+
+MacARM preview.3 also used an actual Cocoa Save dialog to save a4page1040+ScheduleB paper-preparation PDF; local readback verified1413 and Single status. Android was updated topreview.3 using the same private development signing identity aspreview.2, retaining saved returns and the existing camera photograph. The fuzzy-photo retest returned an explicit low-confidence/manual-entry prompt instead of filling the previous incorrect60000 withholding candidate. Clear near-camera amount acceptance is recorded separately.

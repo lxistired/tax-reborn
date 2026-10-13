@@ -1,6 +1,54 @@
 'use strict';
 // Offline Android/PWA adapter. Desktop uses the private loopback SQLite API.
 (function () {
+  // This state is separate from federal data and never enters the calculation worker.
+  let w2Defaults = {};
+  const metadataId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
+  const w2Money = new Set(['wages','federal_withholding','social_security_wages','social_security_withholding','medicare_wages','medicare_withholding','social_security_tips','dependent_care_benefits']);
+  w2Defaults={employer:'',owner:'taxpayer',...Object.fromEntries([...w2Money].map(key=>[key,'0']))};
+  const sorted = value => Array.isArray(value) ? value.map(sorted) : value && typeof value === 'object' ? Object.fromEntries(Object.keys(value).sort().map(key=>[key,sorted(value[key])])) : value;
+  function canonicalW2(row) {
+    const value={...w2Defaults,...row};
+    for(const key of w2Money){
+      const text=String(value[key]??'0').trim()||'0';
+      if(!/^-?\d+(\.\d{1,2})?$/.test(text))throw Error('W-2 review requires valid USD amounts with at most two decimal places');
+      const negative=text.startsWith('-'),[whole,part='']=text.replace(/^-/,'').split('.');
+      const cents=BigInt(whole)*100n+BigInt(part.padEnd(2,'0'));
+      value[key]=(negative&&cents!==0n?'-':'')+String(cents/100n)+'.'+String(cents%100n).padStart(2,'0');
+    }
+    return JSON.stringify(sorted(value));
+  }
+  async function w2Fingerprint(row) {
+    const hash=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(canonicalW2(row)));
+    return [...new Uint8Array(hash)].map(byte=>byte.toString(16).padStart(2,'0')).join('');
+  }
+  function localSource(value) {
+    if(value==null)return null;
+    if(typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!['document_id','return_id','name','method'].includes(key))||!metadataId(value.document_id)||!metadataId(value.return_id)||!['ocr','manual'].includes(value.method)||typeof(value.name??'')!=='string'||(value.name||'').length>256||/[\u0000-\u001f\u007f]/.test(value.name||''))throw Error('Invalid local source-document reference');
+    return {document_id:value.document_id,return_id:value.return_id,name:value.name||'',method:value.method};
+  }
+  async function normalizeMetadata(data,provided,previous=null,options={}) {
+    const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
+    const fingerprints=await Promise.all(rows.map(async row=>{try{return await w2Fingerprint(row);}catch(error){if(options.draft)return null;throw error;}}));let entries;
+    if(provided!=null){
+      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
+      entries=provided.w2_records;
+    }else{
+      entries=fingerprints.map(hash=>{const old=(previous?.w2_records||[]).filter(item=>item.row_fingerprint===hash);return hash&&old.length===1&&fingerprints.filter(value=>value===hash).length===1?old[0]:{};});
+    }
+    const seen=new Set(),records=entries.map((item,index)=>{
+      if(!item||typeof item!=='object'||Array.isArray(item)||Object.keys(item).some(key=>!['record_id','row_fingerprint','reviewed','reviewed_at','reviewed_fingerprint','source_document'].includes(key)))throw Error('Invalid W-2 preparation record');
+      const id=item.record_id||crypto.randomUUID();if(!metadataId(id)||seen.has(id))throw Error('W-2 preparation record identifiers must be unique UUIDv4 values');seen.add(id);
+      if(item.reviewed!=null&&typeof item.reviewed!=='boolean')throw Error('W-2 reviewed status must be true or false');
+      const checked=!!item.reviewed;
+      if(checked&&(!/^[0-9a-f]{64}$/.test(item.reviewed_fingerprint||'')||typeof item.reviewed_at!=='string'||item.reviewed_at.length>40||!/(?:Z|[+-]\d\d:\d\d)$/.test(item.reviewed_at)||!Number.isFinite(Date.parse(item.reviewed_at))))throw Error('Reviewed W-2 requires its checked values and valid review time');
+      const reviewed=checked&&item.reviewed_fingerprint===fingerprints[index];
+      return {record_id:id,row_fingerprint:fingerprints[index],reviewed,reviewed_at:reviewed?item.reviewed_at:null,reviewed_fingerprint:reviewed?fingerprints[index]:null,source_document:localSource(item.source_document)};
+    });
+    return {version:1,w2_records:records};
+  }
+  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,
+    empty:()=>({version:1,w2_records:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
   const offline = new URLSearchParams(location.search).get('offline') === '1';
   let worker, sequence = 0, dbPromise;
   const pending = new Map();
@@ -66,6 +114,7 @@
       if (method==='GET' && path==='/api/health') return json(caps);
       if (method==='GET' && path==='/api/schema') {
         const data = await engine('schema');
+        window.taxRecordMetadata.setDefaults(data.capabilities?.row_templates?.w2||{});
         return json({...data,capabilities:{...data.capabilities,...caps}});
       }
       if (method==='POST' && path==='/api/calculate') return json(await engine('calculate',body));
@@ -76,7 +125,8 @@
           if (!validId(id) || typeof body.data?.name !== 'string' || !body.data.name.trim() || body.data.name.length>200) throw new Error('Expected a named return and valid UUIDv4 identifier');
           const result = await engine('calculate',body.data);
           const previous=await store('get',id);
-          const record = {id,data:body.data,result,states:previous?.states || {},updated_at:new Date().toISOString()};
+          const metadata=await normalizeMetadata(body.data,body.metadata,previous?.metadata);
+          const record = {id,data:body.data,result,metadata,states:previous?.states || {},updated_at:new Date().toISOString()};
           await store('put',id,record); return json(record);
         }
       }
@@ -84,6 +134,8 @@
       if (match && validId(match[1])) {
         const record = await store('get',match[1]);
         if (!record) return json({error:'Return not found'},404);
+        const normalized=await normalizeMetadata(record.data,record.metadata);
+        if(JSON.stringify(normalized)!==JSON.stringify(record.metadata)){record.metadata=normalized;await store('put',record.id,record);}
         if (match[2]==='states') {
           if(method==='GET') return json({states:record.states || {}});
           if(method==='POST') {

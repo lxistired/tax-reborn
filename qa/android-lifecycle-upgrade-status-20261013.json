@@ -1,0 +1,13 @@
+{
+  "observed_at": "2026-10-13T10:22:19.254044+00:00",
+  "application_update_installed": true,
+  "install_evidence_id": "ev_44cc5f514123b7ab14fc6c13232dc88a0722cbcb8fe5d2d61ba001065e53b65b",
+  "apk_sha256": "2b738c12c7de9fa233382c21316072eb8d3ed54eb933c9bfb950577f476486d2",
+  "existing_signing_identity_preserved": true,
+  "user_data_cleared": false,
+  "current_device_screen": "locked; only system lock-screen UI observed",
+  "native_activity_restore_runtime_verified": false,
+  "near_photo_ocr_amounts_verified": false,
+  "source_fresh_workspace_restore_verified": true,
+  "app_camera_actions_requested_from_user": false
+}

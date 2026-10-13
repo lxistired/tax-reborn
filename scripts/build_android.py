@@ -23,6 +23,7 @@ def main():
     parser.add_argument('--java-home',type=Path,required=True)
     parser.add_argument('--work-dir',type=Path,required=True)
     parser.add_argument('--output-dir',type=Path,default=ROOT/'dist')
+    parser.add_argument('--signing-keystore',type=Path,help='Existing private development keystore; keep this identity when updating an installed preview')
     args=parser.parse_args();sdk=args.sdk.resolve();java=args.java_home.resolve();work=args.work_dir.resolve();out=args.output_dir.resolve()
     work.mkdir(parents=True,exist_ok=True);out.mkdir(parents=True,exist_ok=True)
     tool=sdk/'build-tools/35.0.0';platform=sdk/'platforms/android-35/android.jar'
@@ -46,7 +47,8 @@ def main():
     run([tool/'d8','--lib',platform,'--min-api','26','--output',dex,*classes.rglob('*.class')],env=env)
     with zipfile.ZipFile(unsigned,'a',compression=zipfile.ZIP_DEFLATED) as package:package.write(dex/'classes.dex','classes.dex')
     aligned=work/'aligned.apk';run([tool/'zipalign','-f','4',unsigned,aligned])
-    keystore=work/'development-signing.jks'
+    keystore=args.signing_keystore.resolve() if args.signing_keystore else work/'development-signing.jks'
+    if args.signing_keystore and not keystore.is_file():parser.error('The explicitly selected signing keystore must already exist')
     if not keystore.exists():
         run([java/'bin/keytool','-genkeypair','-keystore',keystore,'-alias','tax-reborn-development','-keyalg','RSA','-keysize','2048','-validity','3650','-storepass','android','-keypass','android','-dname','CN=Tax Reborn Development, O=Local Preview, C=US'])
         keystore.chmod(0o600)

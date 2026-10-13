@@ -5,7 +5,8 @@
   <queries><intent><action android:name="android.media.action.IMAGE_CAPTURE"/></intent></queries>
   <application android:label="Tax Reborn" android:allowBackup="false" android:usesCleartextTraffic="false" android:theme="@android:style/Theme.Material.Light.NoActionBar">
     <provider android:name=".CaptureProvider" android:authorities="io.github.lxistired.taxreborn.capture" android:exported="false" android:grantUriPermissions="true"/>
-    <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboardHidden" android:windowSoftInputMode="adjustResize">
+    <!-- Keep the current WebView/file chooser alive when a physical keyboard or navigation device attaches/detaches. -->
+    <activity android:name=".MainActivity" android:exported="true" android:configChanges="orientation|screenSize|keyboard|keyboardHidden|navigation" android:windowSoftInputMode="adjustResize">
       <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
     </activity>
   </application>

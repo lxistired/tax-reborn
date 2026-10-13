@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-13",
+  "product": "Tax Reborn",
+  "tax_year": 2025,
+  "desktop_target": "TurboTax2025.r54.069 x86_64",
+  "original_main_sha256": "731a15d96fad8f5b1873688e71be801f63b20140301915a17af87f8e65bca8ee",
+  "desktop_native_function_counts": {
+    "original_main_unique_function_dossiers": 61,
+    "original_shell_unique_function_dossiers": 4,
+    "media_unique_functions_excluded_from_tax": 16,
+    "derived_only_unique_function_windows": 0,
+    "unique_full_original_native_dossiers": 81
+  },
+  "mobile_target": "TurboTax Android5.10.0/code5100; historical2019 mirror",
+  "mobile_apk_sha256": "af48c979afea68a90e619ee41395aa8753d946b4da77549dc0db7d4498ca5aee",
+  "mobile_java_method_bodies": 30,
+  "mobile_declarations_excluded": 2,
+  "mobile_complete_producer_records": 56,
+  "mobile_complete_export_sha256": "fa1153635eaf640e52d6ab8a86b533808956340b4840cdc7f43bd9388ddf9234",
+  "vendor_runtime_comparisons": 0,
+  "implemented_followup": "Local W2 stable identities, per-record review, source references and backup restoration",
+  "validation": {
+    "python_passed": 353,
+    "browser_checks_passed": 9,
+    "real_http_sqlite_new_cases": 10,
+    "ocr_accuracy_claim": false,
+    "federal_core_sha256": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25"
+  },
+  "claims": {
+    "complete_vendor_engine": false,
+    "complete_tax_file_roundtrip": false,
+    "current_mobile_release_parity": false,
+    "pixel_parity": false,
+    "electronic_filing": false
+  },
+  "redistributed_original_vendor_bytes": false
+}

@@ -1,0 +1,29 @@
+{
+  "version": "2026.10.13-preview.3",
+  "platform": "ios",
+  "ci_run": "https://github.com/lxistired/tax-reborn/actions/runs/38363853694",
+  "checks": [
+    "Actual simulator Swift/WKWebView/PyWASM app calculated 1413 USD.",
+    "Actual withholding input changed to 7000 USD; refund became 1913 USD.",
+    "Save, terminate, relaunch and reopen retained 1913 USD.",
+    "Both simulator and unsigned iphoneos app build and packaged asset hashes passed."
+  ],
+  "simulator_gui_tested": true,
+  "real_device_tested": false,
+  "device_signed": false,
+  "native_files_export_tested": false,
+  "native_camera_photo_flows_tested": false,
+  "downloaded_artifacts_checked": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Simulator.app.zip",
+      "bytes": 48940389,
+      "sha256": "12ab4a5f0fcec81cad715c440564cc2bfb0b966dd3c2ced0909fb2dcdb2a41d0"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Unsigned-Device.app.zip",
+      "bytes": 48860345,
+      "sha256": "99ad1c240607091028e6213bad26e0b28bf5f7ce7e9e83fdc60127bcf472fc3f"
+    }
+  ],
+  "synthetic_only": true
+}

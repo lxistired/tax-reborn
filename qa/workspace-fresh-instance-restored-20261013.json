@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-13T09:43:12.112965+00:00",
+  "environment": "new browser document, same private IndexedDB origin; source build",
+  "synthetic_only": true,
+  "previous_document_saved_return": false,
+  "new_document_restored_name": "Synthetic lifecycle recovery check",
+  "new_document_restored_page": "w2",
+  "new_document_restored_employer": "Synthetic test employer",
+  "restored_wages": "60000",
+  "restored_federal_withholding": "6500",
+  "unsaved_flag_retained": true,
+  "fresh_recalculation_completed": true,
+  "native_android_activity_recreation_tested": false,
+  "camera_accuracy_tested": false
+}

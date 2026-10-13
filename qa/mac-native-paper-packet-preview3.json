@@ -1,0 +1,16 @@
+{
+  "version": "2026.10.13-preview.3",
+  "native_shell": "macOS pywebview Cocoa",
+  "actual_native_save_dialog": true,
+  "source": "real downloaded PDF after native Save",
+  "sha256": "a25667030f6013afa44b08bcd7abb229cb0830bf40933199264359296018968d",
+  "bytes": 684321,
+  "form1040_refund": 1413,
+  "supporting_schedule_b": true,
+  "verification": {
+    "pages": 4,
+    "verified_fields": 2,
+    "interactive": true
+  },
+  "transmitted": false
+}

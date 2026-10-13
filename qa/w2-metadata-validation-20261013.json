@@ -1,0 +1,56 @@
+{
+  "date": "2026-10-13",
+  "scope": "W2 stable local record identities, owner remains federal data, reviewed metadata + local source references",
+  "python_tests": {
+    "all_passed": true,
+    "count": 353,
+    "command": "bundled Python runtime -m unittest discover -s tests",
+    "real_loopback_api_cases": 10,
+    "frozen_oracle_integrity_test": "passed"
+  },
+  "browser_tests": {
+    "date": "2026-10-13T10:45:10.244Z",
+    "all_passed": true,
+    "checks": [
+      "Real API returns independent unreviewed W2 identities; frontend loads owner correctly",
+      "Manual checkbox marks each specific W2; review stays outside federal data",
+      "Cent-equivalent formatting retains review; actual amount and owner edits clear only selected W2",
+      "Delete first W2 preserves survivor stable identity, owner and review; addition is a new unreviewed identity",
+      "Actual reload checkpoint and SQLite reopen preserve IDs/review/ownership",
+      "OCR candidate confirmation links only its local source and marks imported record reviewed",
+      "Actual JSON export + restore as new draft retain record state without linking old attachments into new return",
+      "Frontend and Python cent-normalized fingerprint agree for Unicode/leading zeros/negative zero",
+      "Actual offline worker + IndexedDB API save/reopen/export retain per-W2 metadata"
+    ],
+    "tests": 9,
+    "backend": "real isolated loopback API + SQLite; real browser IndexedDB workspace",
+    "ocr_scope": "Synthetic extractor stub verifies review/source UI only; no camera or OCR accuracy claim",
+    "original_vendor_executed": false,
+    "tax_oracles_modified": false
+  },
+  "production_files_changed": [
+    "server.py",
+    "return_metadata.py",
+    "web/local-api.js",
+    "web/app.js"
+  ],
+  "federal_rule_files_modified_by_this_change": false,
+  "original_vendor_runtime_executed": false,
+  "phone_or_CUA_control": false,
+  "source_hashes": {
+    "tax_engine.py": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+    "tax_longtail.py": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d",
+    "fixtures/independent_cases.json": "bc6401f56c0b9ae7572908a23c6b5159c809723dde4ef9a0ae02c55c905e7d15",
+    "server.py": "4b8e943e021db0fd60027d285fa4297e532c49ed9138198d119308aaa251aa56",
+    "return_metadata.py": "3cfb5042ac2484bee961ca5ba9f0e70bb370046c2d21f9be93e67f71d1ff2731",
+    "web/app.js": "d91dae583037a39db409d47e256ebd4a0965145d10a757668f4769b15506e5bd",
+    "web/local-api.js": "3f18f8fc59d880cd9796e176f346a8ab41e0566be8a4ee4fa685954e8a09b526",
+    "tests/test_w2_metadata.py": "65ba0de5b1e283bc6c5ec24a02a239b5d17a251f2f4e3dfd6b2ddf628466a400",
+    "scripts/test_w2_review.cjs": "e493ddcdaaf944763b154f580ea6466c5d0814ad7db9a64b961669afc6fc0013",
+    "docs/W2_REVIEW_METADATA.md": "c6f9a798b0243031f584d684dc64f8a98f3b0c624a32573076309218658b79e0"
+  },
+  "tested_screenshots": [
+    "qa/w2-review-desktop.png",
+    "qa/w2-review-mobile.png"
+  ]
+}

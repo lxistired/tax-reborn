@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-13T10:45:10.244Z",
+  "all_passed": true,
+  "checks": [
+    "Real API returns independent unreviewed W2 identities; frontend loads owner correctly",
+    "Manual checkbox marks each specific W2; review stays outside federal data",
+    "Cent-equivalent formatting retains review; actual amount and owner edits clear only selected W2",
+    "Delete first W2 preserves survivor stable identity, owner and review; addition is a new unreviewed identity",
+    "Actual reload checkpoint and SQLite reopen preserve IDs/review/ownership",
+    "OCR candidate confirmation links only its local source and marks imported record reviewed",
+    "Actual JSON export + restore as new draft retain record state without linking old attachments into new return",
+    "Frontend and Python cent-normalized fingerprint agree for Unicode/leading zeros/negative zero",
+    "Actual offline worker + IndexedDB API save/reopen/export retain per-W2 metadata"
+  ],
+  "tests": 9,
+  "backend": "real isolated loopback API + SQLite; real browser IndexedDB workspace",
+  "ocr_scope": "Synthetic extractor stub verifies review/source UI only; no camera or OCR accuracy claim",
+  "original_vendor_executed": false,
+  "tax_oracles_modified": false
+}

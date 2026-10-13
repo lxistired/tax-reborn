@@ -18,6 +18,7 @@ from urllib.parse import unquote, urlsplit
 import uuid
 
 import tax_engine
+import return_metadata
 
 VERSION = '2026.10.13-preview.3'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent)).resolve()
@@ -75,6 +76,7 @@ class Store:
         with self.connect() as conn:
             conn.execute('CREATE TABLE IF NOT EXISTS returns (id TEXT PRIMARY KEY, name TEXT NOT NULL, updated_at TEXT NOT NULL, data TEXT NOT NULL, result TEXT NOT NULL)')
             conn.execute('CREATE TABLE IF NOT EXISTS state_inputs (return_id TEXT NOT NULL, jurisdiction TEXT NOT NULL, input TEXT NOT NULL, PRIMARY KEY(return_id,jurisdiction))')
+            conn.execute('CREATE TABLE IF NOT EXISTS preparation_metadata (return_id TEXT PRIMARY KEY, metadata TEXT NOT NULL)')
         self.path.chmod(0o600)
 
     @contextmanager
@@ -98,10 +100,18 @@ class Store:
             raise ValueError('Invalid return identifier')
         with self.connect() as conn:
             row = conn.execute('SELECT * FROM returns WHERE id=?', (ident,)).fetchone()
+            if row is not None:
+                data = json.loads(row['data'])
+                stored = conn.execute('SELECT metadata FROM preparation_metadata WHERE return_id=?', (ident,)).fetchone()
+                metadata = return_metadata.normalize(data, json.loads(stored['metadata']) if stored else None,
+                                                     tax_engine.ROW_DEFAULTS['w2'])
+                encoded = json.dumps(metadata, allow_nan=False)
+                if stored is None or stored['metadata'] != encoded:
+                    conn.execute('INSERT INTO preparation_metadata VALUES (?,?) ON CONFLICT(return_id) DO UPDATE SET metadata=excluded.metadata', (ident, encoded))
         if row is None:
             raise FileNotFoundError('Return not found')
-        return {'id': row['id'], 'updated_at': row['updated_at'], 'data': json.loads(row['data']),
-                'result': json.loads(row['result']), 'states': self.states(ident)}
+        return {'id': row['id'], 'updated_at': row['updated_at'], 'data': data,
+                'result': json.loads(row['result']), 'states': self.states(ident), 'metadata': metadata}
 
     def save(self, payload):
         if not isinstance(payload, dict) or not isinstance(payload.get('data'), dict):
@@ -116,8 +126,13 @@ class Store:
         result = tax_engine.calculate_return(data)
         stamp = datetime.now(timezone.utc).isoformat()
         with self.connect() as conn:
+            previous = conn.execute('SELECT metadata FROM preparation_metadata WHERE return_id=?', (ident,)).fetchone()
+            metadata = return_metadata.normalize(data, payload.get('metadata'), tax_engine.ROW_DEFAULTS['w2'],
+                                                 json.loads(previous['metadata']) if previous else None)
             conn.execute('INSERT INTO returns VALUES (?,?,?,?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,updated_at=excluded.updated_at,data=excluded.data,result=excluded.result',
                          (ident, name.strip(), stamp, json.dumps(data, allow_nan=False), json.dumps(result, allow_nan=False)))
+            conn.execute('INSERT INTO preparation_metadata VALUES (?,?) ON CONFLICT(return_id) DO UPDATE SET metadata=excluded.metadata',
+                         (ident, json.dumps(metadata, allow_nan=False)))
         return self.get(ident)
 
     def states(self, ident):
@@ -145,6 +160,7 @@ class Store:
         self.get(ident)
         with self.connect() as conn:
             conn.execute('DELETE FROM state_inputs WHERE return_id=?', (ident,))
+            conn.execute('DELETE FROM preparation_metadata WHERE return_id=?', (ident,))
             conn.execute('DELETE FROM returns WHERE id=?', (ident,))
 
 

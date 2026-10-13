@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-13",
+  "scope": "exact current source to new native bundle hashes",
+  "mac_bundle_checks": {
+    "web/app.js": true,
+    "web/local-api.js": true,
+    "web/service-worker.js": true,
+    "web/offline-readiness.js": true,
+    "return_metadata.py": true
+  },
+  "android_asset_checks": {
+    "web/app.js": true,
+    "web/local-api.js": true,
+    "web/service-worker.js": true,
+    "web/offline-readiness.js": true
+  },
+  "cache_version": 14,
+  "w2_metadata_module_in_mac": true,
+  "current_source_core_unchanged": true,
+  "native_GUI_W2_metadata_tested": false,
+  "phone_ocr_accuracy_tested": false,
+  "original_vendor_runtime_tested": false
+}

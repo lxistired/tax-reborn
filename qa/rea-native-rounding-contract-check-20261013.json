@@ -1,0 +1,108 @@
+{
+  "checked_at": "2026-10-13T10:19:43.216794+00:00",
+  "source_kind": "Native BigFixedPoint Round branch-derived contract, not original application execution",
+  "source_evidence_ids": [
+    "ev_a5cb2667b194cca7c12a4b246aa60968c7a5e6a03179b7be4dcaeecc49828a45",
+    "ev_95b90eef0c1638ede636b326a54101d75ba86e26b4dc562358d4dec6defab6b3",
+    "ev_74ade208908be2233c369387bba9a37dc1ecc638e5201310ccbff6b4e8b99b13",
+    "ev_1a14b8420aaec83283754c8f02b836058ba1416e484649cf05cc56cf37b683a6",
+    "ev_4c5f56abcdfc7ca4050feeb4e4a36463fd0b8bec29de806fbeef33f4575c3d3e"
+  ],
+  "rounding_fixtures_passed": 10,
+  "current_app_whole_dollars_cases": 7,
+  "tax_engine_sha256": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+  "original_application_executed": false,
+  "tax_result_parity_proven": false,
+  "rows": [
+    {
+      "mantissa": 125,
+      "scale": 2,
+      "target_scale": 1,
+      "expected_mantissa": 13,
+      "decimal_model": "1.3",
+      "app_whole_dollars": null,
+      "passed": true
+    },
+    {
+      "mantissa": -125,
+      "scale": 2,
+      "target_scale": 1,
+      "expected_mantissa": -13,
+      "decimal_model": "-1.3",
+      "app_whole_dollars": null,
+      "passed": true
+    },
+    {
+      "mantissa": 150,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": 2,
+      "decimal_model": "2",
+      "app_whole_dollars": 2,
+      "passed": true
+    },
+    {
+      "mantissa": -150,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": -2,
+      "decimal_model": "-2",
+      "app_whole_dollars": -2,
+      "passed": true
+    },
+    {
+      "mantissa": 149,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": 1,
+      "decimal_model": "1",
+      "app_whole_dollars": 1,
+      "passed": true
+    },
+    {
+      "mantissa": -149,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": -1,
+      "decimal_model": "-1",
+      "app_whole_dollars": -1,
+      "passed": true
+    },
+    {
+      "mantissa": 151,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": 2,
+      "decimal_model": "2",
+      "app_whole_dollars": 2,
+      "passed": true
+    },
+    {
+      "mantissa": -151,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": -2,
+      "decimal_model": "-2",
+      "app_whole_dollars": -2,
+      "passed": true
+    },
+    {
+      "mantissa": 123,
+      "scale": 2,
+      "target_scale": 4,
+      "expected_mantissa": 12300,
+      "decimal_model": "1.2300",
+      "app_whole_dollars": null,
+      "passed": true
+    },
+    {
+      "mantissa": 0,
+      "scale": 2,
+      "target_scale": 0,
+      "expected_mantissa": 0,
+      "decimal_model": "0",
+      "app_whole_dollars": 0,
+      "passed": true
+    }
+  ]
+}
