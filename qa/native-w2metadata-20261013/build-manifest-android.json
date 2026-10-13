@@ -1,0 +1,14 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.13-preview.3",
+  "platform": "android",
+  "min_api": 26,
+  "target_api": 35,
+  "internet_permission": false,
+  "signing": "private local development certificate; not a store release",
+  "file": "Tax-Reborn-2026.10.13-preview.3-Android.apk",
+  "bytes": 48898312,
+  "sha256": "820f764240936069c5d535125332d9d7f63d2ad1a9ffdc0968e5f01434380b95",
+  "real_device_tested": false
+}

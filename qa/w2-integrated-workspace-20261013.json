@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-13",
+  "mode": "IAB fresh document on same existing private IndexedDB origin, source offline mode",
+  "previous_workspace_name": "Synthetic lifecycle recovery check",
+  "wages": "60000",
+  "withholding": "6500",
+  "refund": 1425,
+  "prior_unsaved_workspace_restored": true,
+  "old_metadata_absent_migrated_to_unreviewed": true,
+  "manual_per_W2_review_control_changed_label_to_reviewed": true,
+  "actual_local_Save_confirmed": true,
+  "screenshot": "w2-integrated-workspace-20261013.png",
+  "native_phone_or_original_product_parity_claim": false
+}

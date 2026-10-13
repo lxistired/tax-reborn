@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-13",
+  "product": "Tax Reborn",
+  "version": "2026.10.13-preview.3",
+  "version_code": 2026101303,
+  "apk_bytes": 48898312,
+  "apk_sha256": "820f764240936069c5d535125332d9d7f63d2ad1a9ffdc0968e5f01434380b95",
+  "same_existing_private_development_signing_identity": true,
+  "REA_install_evidence_id": "ev_b62a0294208f55f49639ee9d52e86398f7155434dba06cf55650846154517c25",
+  "REA_inspect_evidence_id": "ev_99d420fcee1694140bc3532acdcb9c721b0d8d0331ed905cb5a1926428a6b9d3",
+  "installed": true,
+  "replaced_without_data_clear": true,
+  "requested_permissions_count": 0,
+  "source_cache_version": 14,
+  "current_build_phone_UI_reopened": false,
+  "clear_near_camera_OCR_accuracy_accepted": false,
+  "Android_Activity_recreation_accepted": false,
+  "native_vendor_executed": false
+}

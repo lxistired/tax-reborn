@@ -1,0 +1,111 @@
+{
+  "scope": "Recorded20261013 counts; exact-byte and text marker scan. No vendor execution.",
+  "reviewed_document_sha256": {
+    "docs/REA_NATIVE_PROGRESS_20261013.md": "7361d73b3ebfb2f1b97302d94801bf207f5c5d5b9f9c903e8f6db2bd56faa20c",
+    "docs/REA_W2_AGGREGATION_20261013.md": "7e34c72490bb69cac91d6a2e70a13acc994cec259ab73211ac55e8b71ef62459",
+    "docs/REA_W2_NATIVE_20261013.md": "1c12e67cf2ea65f82791c3b0d41a192e965cea84759395e16a23b8ecfa7d8d04",
+    "docs/REA_ANDROID_STATIC_20261013.md": "50ade2bc88e9c3c830985f3dae7b5a661233f2733ae2413633e39379ccdb17bb",
+    "qa/rea-reconstruction-batch-20261013.json": "8b095bca69c3167eaff4b9a428e1bf563441d7f43efd164a1943cff7c5430544"
+  },
+  "public_files_checked": 2471,
+  "archive_members_checked": 7306,
+  "checks": [
+    {
+      "name": "desktop61+4, media16 excluded",
+      "passed": true,
+      "detail": {
+        "MacDesktopAppShell": 4,
+        "TurboTax 2025": 61,
+        "viperex": 1,
+        "zlt": 15
+      }
+    },
+    {
+      "name": "canonical original identity keys distinct",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "public desktop counts match canonical",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mobile30 bodies+2 declarations, three additions",
+      "passed": true,
+      "detail": {
+        "decompiled_method_body": 30,
+        "native_declaration_no_native_body": 1,
+        "interface_declaration": 1
+      }
+    },
+    {
+      "name": "mobile12 original ELF identities and byte matches",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "mobile_complete_export_sha256",
+      "passed": true,
+      "detail": {
+        "expected_records": 56
+      }
+    },
+    {
+      "name": "mobile_native_supplement_export_sha256",
+      "passed": true,
+      "detail": {
+        "expected_records": 36
+      }
+    },
+    {
+      "name": "mobile_java_gmv_supplement_export_sha256",
+      "passed": true,
+      "detail": {
+        "expected_records": 9
+      }
+    },
+    {
+      "name": "baseline export scope explicit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "W2 thirteen derived anchors add zero original dossiers",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "seven synthetic partial probes, no original runtime",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "marker branch preconditions explicit",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "local subtotal not treated as final1040",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "tax core digest remains recorded",
+      "passed": true,
+      "detail": null
+    },
+    {
+      "name": "no known original bytes/raw decompiler text in inspected tree and ZIP/APK",
+      "passed": true,
+      "detail": []
+    }
+  ],
+  "all_pass": true,
+  "limitations": [
+    "DMG contents not mounted; inspect built app source/resources separately.",
+    "Renamed or transformed photographs require an independent origin check.",
+    "This is not a general secret/credential scanner.",
+    "No claim of original final tax equivalence or OCR accuracy."
+  ]
+}

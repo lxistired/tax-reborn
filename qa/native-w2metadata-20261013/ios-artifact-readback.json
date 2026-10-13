@@ -1,0 +1,25 @@
+{
+  "date": "2026-10-13",
+  "run": 38392321586,
+  "source_commit": "dbb68cfe01991b80994133a464c224e9fef64938",
+  "previous_run": 38388852637,
+  "previous_run_iOS_status": "failed: stale profile-page expectation after restored W2 workspace",
+  "test_fix_reused_vendor_or_tax_oracles": false,
+  "actual_simulator_GUI_passed_after_fix": true,
+  "device_signed": false,
+  "real_iPhone_tested": false,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Simulator.app.zip",
+      "bytes": 48945341,
+      "sha256": "76a9f22d3a0179e50d74e7feb617644c54ff211358c3fefb93c3ced8a7ba3c24",
+      "matches_manifest": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-iOS-Unsigned-Device.app.zip",
+      "bytes": 48865297,
+      "sha256": "c9ce315fe8e3c91b8f4f14a03a2a7d33e78b2891be35af712a8fd578ce4deed8",
+      "matches_manifest": true
+    }
+  ]
+}

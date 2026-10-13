@@ -2,7 +2,7 @@
 
 A local, working US personal-tax preparation preview, researched against TurboTax Desktop2025 and its official mobile demonstrations. It calculates actual 2025 federal taxes, stores separate returns, imports reviewed documents and CSV records, prepares state calculation drafts and exports preparation records. Maintained by [@lxistired](https://github.com/lxistired).
 
-This is independent source code. REA inspected the original desktop Mach-O calculation, file and workflow functions, plus30 Java method bodies in a signature-verified historical2019 Android APK; the federal tax formulas were independently implemented from IRS rules. The state worker integrates the pinned open-source Invaro OpenTax engine. No Intuit account, licensed vendor binary, vendor artwork, hosted tax API or remote inference is required by the application.
+This is independent source code. REA inspected the original desktop Mach-O calculation, file and workflow functions, plus 33 Java method bodies and 12 original ELF function dossiers in a signature-verified historical 2019 Android APK; the federal tax formulas were independently implemented from IRS rules. The state worker integrates the pinned open-source Invaro OpenTax engine. No Intuit account, licensed vendor binary, vendor artwork, hosted tax API or remote inference is required by the application.
 
 **Status: functional development preview; a complete TurboTax substitute and filing packet have not been established.** Supported arithmetic, complete paperwork and submission are separate checks. Unsupported situations are reported in the return instead of silently marked complete. Electronic filing, tax payment, expert representation and IRS acceptance are unavailable. The calculation year is2025, not2026.
 
@@ -26,7 +26,7 @@ Use Python3.12+; desktop build pins are in requirements-desktop.txt. Development
 
 - Federal tests: `python -m unittest discover -s tests -v`.
 - Packaged API test: `python desktop.py --smoke-test --smoke-report qa/api-smoke.json`.
-- Same Python tests in WebAssembly: `node scripts/test_pyodide.cjs`.
+- Federal calculation and form tests in real WebAssembly: `node scripts/test_pyodide.cjs`. The 10 host HTTP/SQLite integration checks run in native Python; the separate browser checks cover on-device W-2 metadata.
 - State adapter: `node scripts/test_state_bridge.cjs`. The upstream196 state tests are separate from our federal acceptance and our limited independent state examples.
 - macOS/Windows native build: `python scripts/build_desktop.py --work-dir <temporary-path> --output-dir dist/expanded`. Build on the target OS; macOS cannot cross-compile a verified Windows installer.
 - Android build: `python scripts/build_android.py --sdk <existing-SDK> --java-home <JDK> --work-dir <private-build-path> --output-dir dist/expanded`. Development signed, API26+, target35, no INTERNET permission. Camera and document save/open actions are initiated by the user. Native iOS Simulator and unsigned device builds have been produced; Simulator calculation/save/relaunch passed. Real-iPhone Files/camera acceptance and signed distribution remain open.

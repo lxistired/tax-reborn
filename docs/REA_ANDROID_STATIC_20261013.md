@@ -16,9 +16,12 @@ executed or installed, and no account or backend was accessed.
 Actual REA 6.4.0 Android tooling used the pinned official
 JADX headless MCP 0.7.1 JAR, Java 21, one worker and a 2 GiB heap. Package
 inspection confirms min SDK 21, target SDK 28, five DEX files and 18,286 total
-decompiler class rows. The saved index contains **32 method observations**:
+decompiler class rows. The initial index contains **32 method observations**:
 **30 decompiled method bodies**, one interface declaration, and one native
-declaration without a recovered native body. Five incoming static reference
+declaration. A follow-up adds **3 actual GMV Java bodies**, bringing the Java
+body count to **33**; the two declarations remain excluded. The separate native
+follow-up contains **12 distinct original-ELF function dossiers**, with address
+mapping and original entry bytes independently verified. Five incoming static reference
 queries were saved. These counts do not include failed queries or inventory
 as recovered functions. Display method signatures have unknown exact DEX
 descriptors; static references have unknown DEX offsets and source lines.
@@ -27,9 +30,12 @@ descriptors; static references have unknown DEX offsets and source lines.
 
 - **Local W-2 capture/scanning adapter.** Scanbot frame processing calls
   `W2Scanner.processImage` through JNI with image bytes, polygon and dimensions.
-  Completion passes a status integer and string through the callback. The actual
-  native OCR body, status meanings, returned data schema and measured accuracy
-  remain unresolved.
+  The native follow-up confirms that the completion string is scan analytics,
+  and field objects use a separate callback. The constructor enables regions-only
+  mode. That branch returns regions with status 1 and bypasses generic OCR.
+  The Tesseract-named body is a fixed unsupported-build placeholder; a symbol
+  alone does not prove a working recognition engine. Complete status meanings,
+  final box/amount mapping and measured recognition accuracy remain unresolved.
 - **OCR result handed to a web layer.** `W2CharacterScanController` reads the
   image result from an Intent and builds a `TTUApp.imageUpload` JavaScript call.
   This establishes an adapter route, not an independently recovered backend
@@ -65,13 +71,30 @@ An independent replacement can implement document capture and reviewed field
 entry, topic/save orchestration with its own backend, purchase/error states,
 and PDF/refund dispatch around an independent calculator. Exact original
 mobile parity remains open because current release bytes, original runtime
-fixtures, native OCR, web handlers and server-side tax computation are absent.
+fixtures, complete working text recognition and box mapping, web handlers and
+server-side tax computation remain unresolved. This is now actual Java and
+native APK analysis, rather than a mobile-demo-only observation. It still does
+not recover a complete current mobile tax engine.
 
 `android-static-reconstruction-contract.json` maps 23 specific observations to
 full REA Evidence IDs and their original JSON records. The complete evidence
 export retains all producer observations. `mobile_contract_probe.py` validates
 ten synthetic contract cases without network or vendor execution. Those are
 tests of the independent model, not original TurboTax differential tests.
+
+The 12-function native export contains 36 records: 12 dossiers, 12 address
+mappings and 12 entry-byte reads. A separately derived JNI byte window adds
+zero original functions. The GMV Java supplement contains 9 records, of which
+3 are actual method bodies and 6 are class inventories. These separate producer
+record totals must not be added as if they were function counts. Details are in
+[the W-2 native supplement](REA_W2_NATIVE_20261013.md).
+
+The independent Tax Reborn mobile implementation is separate from these
+historical findings. Browser tests used a synthetic OCR extractor to verify
+record review and local source references; they do not validate camera OCR
+accuracy. Real Android close-up OCR and Activity-recreation acceptance remain
+unverified in this report. Original APK execution count is 0, current-release
+parity is unverified, and original pixel parity is unverified.
 
 Keep the original APK, decompiled text and complete producer evidence private.
 This own-word summary and independently written code are the public boundary.

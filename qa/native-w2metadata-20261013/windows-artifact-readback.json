@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-13",
+  "run": 38388852637,
+  "source_commit": "2b2b7af77a2c65ac1e2b40c371412b64ecd9e5a8",
+  "Windows_native_checks_all_passed": true,
+  "frozen_checks": 11,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-Windows-x64-portable.zip",
+      "bytes": 70349150,
+      "sha256": "e17c7698f346958b8d1a77d29ee9cb9cac3ce0dad7090e51a3b3b894ad710ea0",
+      "matches_manifest": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.13-preview.3-Windows-x64-Setup.exe",
+      "bytes": 57438693,
+      "sha256": "163e1b2349bb972d2c1971352854478dc09287db04b4f74354395f1f713889cc",
+      "matches_manifest": true
+    }
+  ],
+  "downloaded_binaries_executed_on_Mac": false
+}
