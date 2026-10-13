@@ -182,3 +182,24 @@ Application source c8c4960 includes cache16 and a controlled OCR worker. A faile
 The actual existing synthetic W-2 camera photo produced correct Box1-6 candidates on the Android phone:60000.00,6500.00,60000.00,3720.00,60000.00,870.00. After source review, adding and saving, the actual app displayed1425. Process force-stop/relaunch restored the W-2 page, amounts and Reviewed state; opening the same saved return from the list retained1425. Four return checks remained open, so this is not a complete tax-return claim. Camera-time Activity recreation is a separate unverified case. See [phone receipt](../qa/android-camera-ocr-accepted-20261013.json).
 
 The new MacARM DMG passed11 checks in its actual frozen executable. [Native run38407957597](https://github.com/lxistired/tax-reborn/actions/runs/38407957597) completed successfully for Windows and iOS from source c8c4960. Artifact readback and package hashes are recorded inqa/native-ocr-final-20261013. The iOS device app remains unsigned; no actual iPhone camera/Files test is claimed.
+
+## Preview.4: investment corrections and masked review export
+
+The actual runtime source is `a501082a2c13ee1955b6be94309b1ed6e62c95dc`, version
+`2026.10.14-preview.4`, with tax year 2025. Subsequent documentation and QA commits
+do not change those package bytes. [Native run 38444768398](https://github.com/lxistired/tax-reborn/actions/runs/38444768398)
+completed successfully for Windows and iOS. The current host suite has 367 tests;
+349 tests also pass inside the actual Pyodide worker, excluding host-only integration.
+
+| Platform | Actual verification of this version | Boundary |
+| --- | --- | --- |
+| macOS arm64 | Eleven frozen-executable checks. The real native app opened the synthetic return and saved the new masked Form 1040 review copy through the Cocoa Save panel. The saved PDF equals the source-browser synthetic PDF, retains the $1,425 refund, and passes the selected-identifier scan. | Unsigned and not notarized. This export does not remove all personal information or establish original TurboTax runtime/pixel parity. |
+| Windows x64 | Eleven frozen-executable checks; real WebView2 $1,413 → withholding edit → $1,913; save, normal close/relaunch/reopen, and a native Save As ordinary IRS PDF with field readback. Setup and portable ZIP hashes match the downloaded manifest. | Unsigned preview. The new masked-export UI was tested separately in actual desktop Chromium, not by this Windows-native smoke. |
+| Android | Same-key replace install and launch verified using REA; package-manager version readback is `2026101404`. The actual phone retains the saved synthetic $1,425 return and four open checks. Eleven selected bundled assets match current source; the APK requests zero permissions. | The previous actual camera/OCR acceptance remains tied to its earlier build. The extraction worker is unchanged. This update did not independently exercise the phone's masked-PDF destination picker. |
+| iOS | Simulator and unsigned device targets compiled; 106 bundled assets verified. Actual Simulator WKWebView/WebAssembly calculation, edit, save, terminate/relaunch and reopen passed. Both downloaded ZIP hashes and ten selected assets per ZIP match current source. | The device app is unsigned and requires signing/provisioning. Simulator acceptance does not establish real-iPhone, native Files export or camera behavior. |
+
+Receipts and actual synthetic screenshots are in [`qa/native-preview4`](../qa/native-preview4/).
+The independent masked-export acceptance also exercises actual HTTP/SQLite and
+Pyodide/IndexedDB UI modes, verifies eight identity/bank fields plus PDF widget
+appearances, and proves ordinary data/results remain unchanged. Its leak tests
+refuse the export without a normal-PDF fallback. See [masked review scope](MASKED_REVIEW_COPY.md).

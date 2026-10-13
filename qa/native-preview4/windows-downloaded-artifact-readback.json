@@ -1,0 +1,22 @@
+{
+  "version": "2026.10.14-preview.4",
+  "runtime_source_commit": "a501082a2c13ee1955b6be94309b1ed6e62c95dc",
+  "run_url": "https://github.com/lxistired/tax-reborn/actions/runs/38444768398",
+  "platform": "Windows x64",
+  "all_artifact_hashes_and_sizes_match": true,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.4-Windows-x64-portable.zip",
+      "bytes": 70370639,
+      "sha256": "a21f5b22bab98a31b8bebed4a46387ccbd37e74b22365d68ed93c57752c21225"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.4-Windows-x64-Setup.exe",
+      "bytes": 57458609,
+      "sha256": "aee03d3728cd5b3c3b828e01b6baa1b2f53a917795ad75dd00e4ba4e371f181f"
+    }
+  ],
+  "native_masked_export_tested": false,
+  "native_ordinary_pdf_export_tested": true,
+  "synthetic_only": true
+}

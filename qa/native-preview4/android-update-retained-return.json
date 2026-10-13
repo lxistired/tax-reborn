@@ -1,0 +1,14 @@
+{
+  "version": "2026.10.14-preview.4",
+  "version_code": 2026101404,
+  "apk_sha256": "e68dcd67e141e7b9851847d73c804bc4b4d7a4229f6057017e6950550198301f",
+  "replace_install_verified_by_rea": true,
+  "package_version_readback_matches": true,
+  "actual_phone_screen_after_update": true,
+  "existing_synthetic_return_preserved_refund_usd": 1425,
+  "remaining_return_checks_visible": 4,
+  "same_development_signer": true,
+  "requested_permissions_count": 0,
+  "native_masked_pdf_flow_tested": false,
+  "scope": "Update, launch and retained synthetic calculation verified. Existing photo and OCR acceptance belongs to earlier source; OCR extraction worker unchanged. This is not a new camera or native masked-PDF export acceptance."
+}

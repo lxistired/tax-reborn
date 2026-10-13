@@ -1,0 +1,110 @@
+{
+  "version": "2026.10.14-preview.4",
+  "runtime_source_commit": "a501082a2c13ee1955b6be94309b1ed6e62c95dc",
+  "run_url": "https://github.com/lxistired/tax-reborn/actions/runs/38444768398",
+  "all_artifact_hashes_and_sizes_match": true,
+  "simulator_gui_tested": true,
+  "device_signed": false,
+  "real_device_tested": false,
+  "native_masked_pdf_export_tested": false,
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.4-iOS-Simulator.app.zip",
+      "bytes": 48954517,
+      "sha256": "e65a0076a8a50b59bff46cb2d3c46c83abad125ef4d97d9f7a9f8767561277c1",
+      "installable_on_iphone": false,
+      "selected_bundled_source_assets_equal": [
+        {
+          "file": "web/app.js",
+          "sha256": "655b18734a84c543b29d457e6599c33d98baed5a485833d23a3ba83f90567cac"
+        },
+        {
+          "file": "web/local-api.js",
+          "sha256": "85f97dff365e90abccf4ab1ac4b0c104faf4a940696b6840d9c6ab9920a4aca8"
+        },
+        {
+          "file": "web/tax-worker.js",
+          "sha256": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3"
+        },
+        {
+          "file": "web/tax-worker-source.js",
+          "sha256": "71be9df1c2279b1e9242815729fe4e60d5b28567e54b7a75f39ffa691cb43ea1"
+        },
+        {
+          "file": "web/tax-worker-build.json",
+          "sha256": "808330ef8cd6d3bcd84cfb3b5ffb3cb5279ff0f44ffe1f24bae8a6b5d7d5f061"
+        },
+        {
+          "file": "privacy_review.py",
+          "sha256": "ab45567e34890cd1494b03ad406f68398efc2bf44f90a375a0869d5a1044a701"
+        },
+        {
+          "file": "forms.py",
+          "sha256": "d802c9b0df9adcaae1db7a1895230dcd86598322dad1e24ee695d43962cc388d"
+        },
+        {
+          "file": "presentation_schema.py",
+          "sha256": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c"
+        },
+        {
+          "file": "web/offline-assets.json",
+          "sha256": "81051ba6faf66f8087c74c91c47d528857819c4ea6680b6980e1896cc1ef10f4"
+        },
+        {
+          "file": "web/service-worker.js",
+          "sha256": "b275f1f00d064b3d960fa54b283155ccc79dcf47c6f128ec2df5ce98b311ed0a"
+        }
+      ]
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.4-iOS-Unsigned-Device.app.zip",
+      "bytes": 48874473,
+      "sha256": "e19f04108578b7331b872072b9c10c3897afffd180077fff11457f90ccb36509",
+      "installable_on_iphone": false,
+      "requires_matching_device_provisioning": true,
+      "selected_bundled_source_assets_equal": [
+        {
+          "file": "web/app.js",
+          "sha256": "655b18734a84c543b29d457e6599c33d98baed5a485833d23a3ba83f90567cac"
+        },
+        {
+          "file": "web/local-api.js",
+          "sha256": "85f97dff365e90abccf4ab1ac4b0c104faf4a940696b6840d9c6ab9920a4aca8"
+        },
+        {
+          "file": "web/tax-worker.js",
+          "sha256": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3"
+        },
+        {
+          "file": "web/tax-worker-source.js",
+          "sha256": "71be9df1c2279b1e9242815729fe4e60d5b28567e54b7a75f39ffa691cb43ea1"
+        },
+        {
+          "file": "web/tax-worker-build.json",
+          "sha256": "808330ef8cd6d3bcd84cfb3b5ffb3cb5279ff0f44ffe1f24bae8a6b5d7d5f061"
+        },
+        {
+          "file": "privacy_review.py",
+          "sha256": "ab45567e34890cd1494b03ad406f68398efc2bf44f90a375a0869d5a1044a701"
+        },
+        {
+          "file": "forms.py",
+          "sha256": "d802c9b0df9adcaae1db7a1895230dcd86598322dad1e24ee695d43962cc388d"
+        },
+        {
+          "file": "presentation_schema.py",
+          "sha256": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c"
+        },
+        {
+          "file": "web/offline-assets.json",
+          "sha256": "81051ba6faf66f8087c74c91c47d528857819c4ea6680b6980e1896cc1ef10f4"
+        },
+        {
+          "file": "web/service-worker.js",
+          "sha256": "b275f1f00d064b3d960fa54b283155ccc79dcf47c6f128ec2df5ce98b311ed0a"
+        }
+      ]
+    }
+  ],
+  "scope": "Native Simulator calculation/edit/save/relaunch/reopen; no iPhone installation, native Files or camera acceptance."
+}

@@ -1,0 +1,18 @@
+{
+  "all_passed": true,
+  "platform": "macOS arm64",
+  "version": "2026.10.14-preview.4",
+  "actual_frozen_native_gui": true,
+  "actual_native_save_panel": true,
+  "synthetic_only": true,
+  "refund_unchanged": 1425,
+  "sha256": "566ce2fad35c6134e5145eacba7246a9bf5427240c760a3f89a426ed39ef7b0e",
+  "source_browser_synthetic_pdf_byte_equal": true,
+  "privacy_scan": {
+    "selected_identifiers_absent": true,
+    "decoded_streams_checked": 310,
+    "fields_checked": 229,
+    "pages": 3
+  },
+  "scope": "Actual packaged native Save As for selected 1040 identifiers; not original runtime, filing or all-PII removal."
+}
