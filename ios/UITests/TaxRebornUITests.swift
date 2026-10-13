@@ -15,6 +15,12 @@ final class TaxRebornUITests: XCTestCase {
         let image = XCTAttachment(screenshot: app.screenshot())
         image.name = name; image.lifetime = .keepAlways; add(image)
     }
+    override func tearDown() {
+        screenshot("iOS-final-test-window")
+        let hierarchy = XCTAttachment(string: app.debugDescription)
+        hierarchy.name = "iOS-real-accessibility-hierarchy"; hierarchy.lifetime = .keepAlways; add(hierarchy)
+        super.tearDown()
+    }
     func testCalculationSaveAndReopen() {
         continueAfterFailure = false
         app.launch()
@@ -30,8 +36,18 @@ final class TaxRebornUITests: XCTestCase {
         if !withholding.isHittable { app.swipeUp() }
         XCTAssertTrue(withholding.waitForExistence(timeout: 30))
         withholding.tap()
-        let current = withholding.value as? String ?? "6500"
-        withholding.typeText(String(repeating: XCUIKeyboardKey.delete.rawValue, count: current.count) + "7000")
+        // A center tap can place the caret before the last digit. Explicitly
+        // select the complete existing value rather than deleting from a caret.
+        withholding.press(forDuration: 1.2)
+        let all = app.buttons["Select All"].firstMatch
+        if all.waitForExistence(timeout: 10) && all.isHittable { all.tap() }
+        else {
+            let menu = app.menuItems["Select All"].firstMatch
+            XCTAssertTrue(menu.waitForExistence(timeout: 10)); menu.tap()
+        }
+        withholding.typeText("7000")
+        XCTAssertEqual(withholding.value as? String, "7000", "Real native input must contain exactly the intended withholding")
+        screenshot("iOS-real-withholding-entry-7000")
         let done = app.toolbars.buttons["Done"].firstMatch
         if done.isHittable { done.tap() }
         // Move focus so the real input/change handlers recalculate.

@@ -100,5 +100,6 @@ jobs:
             dist/ios/*.json
             dist/ios/*.png
             dist/ios/*.xcresult
+            dist/ios/ios-test-attachments/
           if-no-files-found: error
           retention-days: 30

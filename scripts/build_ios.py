@@ -100,6 +100,10 @@ def prepare(work):
     shutil.copytree(ROOT/'web',assets,ignore=shutil.ignore_patterns('.*','__pycache__','*.pyc'))
     for name in ('tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','rules_2025.json','forms.py'):
         shutil.copy2(ROOT/name,assets/name)
+    # These modules belong to the next integrated filing build. Older preview
+    # commits remain buildable; a present module is always included and hashed.
+    for name in ('tax_longtail.py','tax_filing.py','official_forms.py'):
+        if (ROOT/name).is_file(): shutil.copy2(ROOT/name,assets/name)
     shutil.copytree(ROOT/'forms',assets/'forms',ignore=shutil.ignore_patterns('.*','__pycache__','*.pyc'),dirs_exist_ok=True)
     shutil.copytree(ROOT/'vendor',assets/'vendor-source',ignore=shutil.ignore_patterns('.*','__pycache__','*.pyc'),dirs_exist_ok=True)
     (assets/'third-party-notices').mkdir(exist_ok=True)
@@ -190,10 +194,18 @@ def main():
         if result.exists(): shutil.rmtree(result)
         try:
             run(['xcrun','simctl','boot',udid]);run(['xcrun','simctl','bootstatus',udid,'-b'])
-            run(common+['-configuration','Debug','-destination','platform=iOS Simulator,id='+udid,'-resultBundlePath',result,'CODE_SIGNING_ALLOWED=NO','test'],timeout=900)
+            try:
+                run(common+['-configuration','Debug','-destination','platform=iOS Simulator,id='+udid,'-resultBundlePath',result,'CODE_SIGNING_ALLOWED=NO','test'],timeout=900)
+            except (subprocess.CalledProcessError,subprocess.TimeoutExpired):
+                subprocess.run(['xcrun','simctl','io',udid,'screenshot',str(out/'ios-native-failure.png')],capture_output=True)
+                raise
             run(['xcrun','simctl','io',udid,'screenshot',out/'ios-native-gui.png'])
             manifest['simulator_gui_tested']=True;save()
         finally:
+            if result.is_dir():
+                # Xcode 16's documented export retains real screenshots and
+                # the synthetic test hierarchy, including failed runs.
+                subprocess.run(['xcrun','xcresulttool','export','attachments','--path',str(result),'--output-path',str(out/'ios-test-attachments')],capture_output=True)
             subprocess.run(['xcrun','simctl','shutdown',udid],capture_output=True)
             subprocess.run(['xcrun','simctl','delete',udid],capture_output=True)
     print(json.dumps(manifest,indent=2),flush=True)
