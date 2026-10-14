@@ -14,7 +14,7 @@ import hashlib
 import json
 import re
 import uuid
-from source_documents import source_document, interest_boxes
+from source_documents import source_document, interest_boxes, dividend_boxes
 
 COLLECTIONS = {
     'interest': {'payer': '', 'taxable': '0', 'tax_exempt': '0', 'federal_withholding': '0'},
@@ -26,7 +26,7 @@ MONEY = re.compile(r'^-?\d+(?:\.\d{1,2})?$')
 UID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 ENTRY_FIELDS = {'record_id', 'is_placeholder', 'unresolved_fields',
                 'reviewed', 'reviewed_at', 'reviewed_fingerprint', 'row_fingerprint',
-                'source_document', 'taxml_interest_boxes'}
+                'source_document', 'taxml_interest_boxes', 'taxml_dividend_boxes'}
 
 
 def ident(value):
@@ -118,6 +118,12 @@ def normalize_entry(collection, row, item=None, draft=False):
         output['taxml_interest_boxes'] = interest_boxes(item['taxml_interest_boxes'])
     elif collection == 'interest' and source and source['method'] == 'taxml':
         raise ValueError('TaxML interest source requires its reviewed four-box snapshot')
+    if 'taxml_dividend_boxes' in item:
+        if collection != 'dividends' or not source or source['method'] != 'taxml':
+            raise ValueError('TaxML dividend boxes require a dividend source receipt')
+        output['taxml_dividend_boxes'] = dividend_boxes(item['taxml_dividend_boxes'])
+    elif collection == 'dividends' and source and source['method'] == 'taxml':
+        raise ValueError('TaxML dividend source requires its reviewed six-box snapshot')
     return output
 
 
@@ -182,7 +188,7 @@ def normalize(rows_by_type, provided=None, previous=None, options=None):
             value = normalize_entry(collection, row, entry, draft=(options or {}).get('draft', False))
             old = old_sources.get(value['record_id'], {})
             if isinstance(old.get('source_document'), dict) and old['source_document'].get('method') == 'taxml':
-                if any(value.get(key) != old.get(key) for key in ('source_document', 'taxml_interest_boxes')):
+                if any(value.get(key) != old.get(key) for key in ('source_document', 'taxml_interest_boxes', 'taxml_dividend_boxes')):
                     raise ValueError('Saved TaxML income source receipts and imported boxes cannot be removed or changed')
             if value['record_id'] in all_ids:
                 raise ValueError('Source-record identifiers must be unique across INT/DIV')

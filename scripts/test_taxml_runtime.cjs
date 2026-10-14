@@ -124,8 +124,44 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.correctedSource({...ic},intValues,true));
  const intUnknown={...intRequest,base64:Buffer.from(Buffer.from(intRequest.base64,'base64').toString().replace('</F1099I>','<UNKNOWN/></F1099I>')).toString('base64')};assert.equal((await command('taxml_inspect',intUnknown)).candidates[0].can_review,false);
  const interestAcceptance={worker_inspection:true,explicit_scope_and_payer_review:true,cents_aggregated_before_rounding:true,four_box_snapshot_retained:true,source_and_snapshot_tamper_blocked:true,row_edit_clears_review:true,corrected_XML_reparsed:true,outside_value_spans_byte_identical:true,refund:intTax.summary.refund,can_prepare:intTax.can_prepare,original_program_acceptance_verified:false};
- const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,assertions:25,
-  interest_acceptance:interestAcceptance,
+ // Six-box DIV source, qualified eligibility, subset-safe calculation and provenance.
+ const divRequest=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-native-dividend-request.json'),'utf8'));
+ const divFile=new File([Buffer.from(divRequest.base64,'base64')],'synthetic-native-dividend.xml',{type:'application/xml'});
+ const divProfile=new File([JSON.stringify(divRequest.profile)],'synthetic-native-dividend-profile.json',{type:'application/json'});
+ const divRegistry=new File([Buffer.from(divRequest.carriers[0].base64,'base64')],'synthetic-native-dividend.xprf');
+ const divResult=await context.taxMLImport.inspect(divFile,divProfile,[divRegistry],'plaintext_xml',true),dc=divResult.candidates[0];
+ assert.equal(dc.can_review,true);assert.equal(dc.record_type,'dividends');assert.equal(dc.sources.qualified.field_id,'QDIV');assert.equal(dc.sources.federal_withholding.field_id,'L2');
+ const divValues={...dc.amounts,payer:'Synthetic six-box fund',supported_scope:true,qualified_eligibility:true};
+ for(const altered of [{...divValues,payer:''},{...divValues,supported_scope:false},{...divValues,qualified_eligibility:false},{...divValues,qualified:''},{...divValues,ordinary:'1.001'},{...divValues,qualified:'1200.32'},{...divValues,collectibles_gain:'900.21'}])await assert.rejects(()=>context.taxMLImport.reviewedDividend(dc,altered,source,true));
+ await assert.rejects(()=>context.taxMLImport.reviewedDividend(dc,divValues,source,false));
+ await assert.rejects(()=>context.taxMLImport.reviewedDividend(ic,divValues,source,true));
+ await assert.rejects(()=>context.taxMLImport.reviewedInterest(dc,intValues,source,true));
+ const divPrepared=await context.taxMLImport.reviewedDividend(dc,divValues,source,true);
+ assert.equal(divPrepared.row.special_distribution_confirmed,true);assert.equal(divPrepared.metadata.taxml_dividend_boxes.capital_gain_distributions,'1000.25');
+ const divData=JSON.parse(JSON.stringify(schema.default_return));divData.interest.push({payer:'Existing synthetic bank',taxable:'1000',tax_exempt:'0',federal_withholding:'0.49'});
+ divData.dividends.push({payer:'Existing synthetic fund',ordinary:'0.49',qualified:'0',capital_gain_distributions:'0',federal_withholding:'0'},divPrepared.row);
+ const divMeta=context.taxRecordMetadata.empty();divMeta.income_document_records.interest.push(context.taxIncomePreparation.newRecord());divMeta.income_document_records.dividends.push(context.taxIncomePreparation.newRecord(),divPrepared.metadata);
+ const divSaved=await context.taxRecordMetadata.normalize(divData,divMeta),divTax=await command('calculate',divData);
+ assert.equal(divTax.lines['3b'],1201);assert.equal(divTax.lines['3a'],300);assert.equal(divTax.lines['7a'],1000);assert.equal(divTax.lines['9'],3201);assert.equal(divTax.lines['25b'],201);assert.equal(divTax.summary.refund,201);assert.equal(divTax.can_prepare,false);
+ for(const action of ['hash','remove','boxes','missing_box','subset']){
+  const altered=JSON.parse(JSON.stringify(divSaved)),entry=altered.income_document_records.dividends[1];
+  if(action==='hash')entry.source_document.taxml_receipt.source_sha256='0'.repeat(64);
+  else if(action==='remove'){delete entry.source_document;delete entry.taxml_dividend_boxes;}
+  else if(action==='boxes')entry.taxml_dividend_boxes.federal_withholding='0.00';
+  else if(action==='subset')entry.taxml_dividend_boxes.qualified='1200.32';
+  else delete entry.taxml_dividend_boxes.qualified;
+  await assert.rejects(()=>context.taxRecordMetadata.normalize(divData,altered,divSaved));
+ }
+ const divEdited=JSON.parse(JSON.stringify(divData));divEdited.dividends[1].ordinary='1200.32';const divEditMeta=await context.taxRecordMetadata.normalize(divEdited,divSaved,divSaved);
+ assert.equal(divEditMeta.income_document_records.dividends[1].reviewed,false);assert.deepEqual(JSON.parse(JSON.stringify(divEditMeta.income_document_records.dividends[1].taxml_dividend_boxes)),JSON.parse(JSON.stringify(divSaved.income_document_records.dividends[1].taxml_dividend_boxes)));
+ const divCorrected=await context.taxMLImport.correctedSource(dc,{...divValues,ordinary:'1200.32',federal_withholding:'201.49'},true);
+ const divBytes=Buffer.from(divCorrected.base64,'base64');assert.equal(divBytes.toString(),Buffer.from(divRequest.base64,'base64').toString().replace('>1200.31</td:value>','>1200.32</td:value>').replace('>200.49</td:value>','>201.49</td:value>'));
+ assert.equal((await command('taxml_inspect',{...divRequest,base64:divCorrected.base64})).candidates[0].amounts.federal_withholding,'201.49');
+ await assert.rejects(()=>context.taxMLImport.correctedSource({...dc},divValues,true));
+ await assert.rejects(()=>context.taxMLImport.correctedSource(dc,{...divValues,qualified:'1200.32'},true));
+ const dividendAcceptance={worker_inspection:true,actual_QDIV_and_L2_binding:true,payer_scope_and_qualified_eligibility_required:true,subsets_not_added_to_income:true,INT_DIV_withholding_aggregated_before_rounding:true,six_box_snapshot_retained:true,source_snapshot_tamper_blocked:true,row_edit_clears_review:true,corrected_XML_reparsed:true,outside_value_spans_byte_identical:true,refund:divTax.summary.refund,can_prepare:divTax.can_prepare,original_program_acceptance_verified:false};
+ const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,legacy_assertion_counter:25,
+  interest_acceptance:interestAcceptance,dividend_acceptance:dividendAcceptance,
   current_windows_native_shape_and_corrected_source_verified:true,corrected_XML_outside_value_spans_byte_identical:true,
   zero_copy_blocked_without_actual_multicopy_factory_binding:true,
   additional_encoding_input_probes:encodingCases.length,

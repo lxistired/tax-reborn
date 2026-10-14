@@ -1,0 +1,20 @@
+{
+  "format": "tax-reborn-taxml-native-windows-profile-v1",
+  "tax_year": 2025,
+  "entity_name": "USIndividualTaxReturn",
+  "formset_name": "OwnedSet",
+  "formset_headers": {
+    "tpsType": "formset",
+    "tpsSubType": "OWNED",
+    "checksum": "1",
+    "dataVersion": "2025",
+    "formsetAttribute": "0",
+    "implementationVersion": "owned"
+  },
+  "template": {
+    "formset_id": "S2025US1040PER",
+    "form_id": "F1099D",
+    "carrier_sha256": "66549ac5098a9bc1f0b5d1b250bf362bc68e22c7169e83e2141e9725b34ba645",
+    "resource_id": 42
+  }
+}

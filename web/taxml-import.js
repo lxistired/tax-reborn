@@ -2,6 +2,7 @@
 (function(){
  const requiredMoney=['wages','federal_withholding','social_security_wages','social_security_withholding','medicare_wages','medicare_withholding','social_security_tips','dependent_care_benefits'];
  const interestMoney=['interest_income','treasury_interest','tax_exempt_interest','federal_withholding'];
+ const dividendMoney=['ordinary','qualified','capital_gain_distributions','unrecaptured_1250_gain','collectibles_gain','federal_withholding'];
  const sourceContexts=new WeakMap();
  const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
  function encoded(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text);}
@@ -23,7 +24,7 @@
   const context=sourceContexts.get(candidate);
   if(!context||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('Reopen and inspect the source before exporting a corrected XML copy.');
   if(confirmed!==true)throw Error('Review and confirm the corrected source box amounts first.');
-  const names=candidate.record_type==='interest'?interestMoney:requiredMoney.slice(0,6);
+  const names=candidate.record_type==='dividends'?dividendMoney:candidate.record_type==='interest'?interestMoney:requiredMoney.slice(0,6);
   const amounts=Object.fromEntries(names.map(name=>[name,String(values?.[name]??'').trim()]));
   return window.taxLocalEngine('taxml_export',{inspection:context.request,expected_candidate_sha256:context.candidateHash,amounts,confirmed});
  }
@@ -54,5 +55,18 @@
   metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
   return{row,metadata};
  }
- window.taxMLImport={inspect,reviewedRecord,reviewedInterest,correctedSource,requiredMoney,interestMoney};
+ async function reviewedDividend(candidate,values,source,confirmed){
+  if(!candidate||candidate.record_type!=='dividends'||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('This dividend candidate has unresolved source facts and cannot be added.');
+  if(confirmed!==true||values?.supported_scope!==true||values?.qualified_eligibility!==true)throw Error('Confirm tax year, household, amounts, qualified-dividend eligibility and the supported dividend situation first.');
+  if(typeof values.payer!=='string'||!values.payer.trim()||values.payer.trim().length>256)throw Error('Enter the payer name from the original 1099-DIV.');
+  const boxes=window.taxIncomePreparation.dividendBoxes(Object.fromEntries(dividendMoney.map(name=>[name,String(values[name]??'').trim()])));
+  const row={payer:values.payer.trim(),...boxes,special_distribution_confirmed:true};
+  const metadata=window.taxIncomePreparation.newRecord();
+  metadata.source_document=window.taxRecordMetadata.validateSource({...source,method:'taxml',taxml_receipt:candidate.receipt});
+  metadata.taxml_dividend_boxes=boxes;
+  const fingerprint=await window.taxIncomePreparation.fingerprint('dividends',row);
+  metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
+  return{row,metadata};
+ }
+ window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,correctedSource,requiredMoney,interestMoney,dividendMoney};
 })();

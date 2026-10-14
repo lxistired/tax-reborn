@@ -1,7 +1,7 @@
 {
   "runtime": "actual pinned Pyodide via integrated worker source",
   "successful": true,
-  "assertions": 25,
+  "legacy_assertion_counter": 25,
   "interest_acceptance": {
     "worker_inspection": true,
     "explicit_scope_and_payer_review": true,
@@ -12,6 +12,21 @@
     "corrected_XML_reparsed": true,
     "outside_value_spans_byte_identical": true,
     "refund": 20,
+    "can_prepare": false,
+    "original_program_acceptance_verified": false
+  },
+  "dividend_acceptance": {
+    "worker_inspection": true,
+    "actual_QDIV_and_L2_binding": true,
+    "payer_scope_and_qualified_eligibility_required": true,
+    "subsets_not_added_to_income": true,
+    "INT_DIV_withholding_aggregated_before_rounding": true,
+    "six_box_snapshot_retained": true,
+    "source_snapshot_tamper_blocked": true,
+    "row_edit_clears_review": true,
+    "corrected_XML_reparsed": true,
+    "outside_value_spans_byte_identical": true,
+    "refund": 201,
     "can_prepare": false,
     "original_program_acceptance_verified": false
   },

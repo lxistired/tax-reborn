@@ -129,7 +129,7 @@ function Close-App {
         if(!$script:process.WaitForExit(15000)) { Stop-Process -Id $script:process.Id -Force; throw 'Native window did not close normally.' }
     }
 }
-function Save-Native-Export([string]$target) {
+function Save-Native-Export([string]$target, [int]$minimumBytes=1000) {
     $oldRoot=$script:root
     $condition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
     $nameCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Save As')
@@ -167,10 +167,55 @@ function Save-Native-Export([string]$target) {
     } finally { $script:root=$oldRoot }
     $until=(Get-Date).AddSeconds(60)
     while((Get-Date) -lt $until) {
-        if((Test-Path $target) -and (Get-Item $target).Length -gt 1000) { return }
+        if((Test-Path $target) -and (Get-Item $target).Length -gt $minimumBytes) { return }
         Start-Sleep -Milliseconds 250
     }
     throw 'The user-selected native export file was not actually saved.'
+}
+# Owned native TaxML migration on the isolated GitHub Actions Windows desktop.
+# These actions are not used on the user's computer or their returns.
+function Choose-Owned-Native-File([string]$label,[string]$target) {
+    if(!(Test-Path $target)) { throw "Missing owned fixture: $target" }
+    Click-Observed (Wait-Named $label)
+    $oldRoot=$script:root
+    $pidCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
+    $nameCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Open')
+    $dialog=$null; $until=(Get-Date).AddSeconds(60)
+    while((Get-Date) -lt $until -and !$dialog) {
+        $windows=[System.Windows.Automation.AutomationElement]::RootElement.FindAll([System.Windows.Automation.TreeScope]::Children,$pidCondition)
+        foreach($window in $windows) {
+            foreach($candidate in $window.FindAll([System.Windows.Automation.TreeScope]::Subtree,$nameCondition)) {
+                if($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Window -and !$candidate.Current.IsOffscreen -and $candidate.Current.NativeWindowHandle -ne 0) { $dialog=$candidate; break }
+            }
+            if($dialog) { break }
+        }
+        if(!$dialog) { Start-Sleep -Milliseconds 250 }
+    }
+    try {
+        if(!$dialog) { throw 'No actual application-owned Open picker appeared.' }
+        $script:root=$dialog; Wait-Named 'File name:' 10 | Out-Null
+        [TaxWindow]::SetForegroundWindow([IntPtr]::new($dialog.Current.NativeWindowHandle)) | Out-Null
+        [System.Windows.Forms.SendKeys]::SendWait('%n'); [System.Windows.Forms.SendKeys]::SendWait('^a')
+        [System.Windows.Forms.SendKeys]::SendWait($target)
+        Click-Observed (Wait-Named 'Open' 10)
+    } finally { $script:root=$oldRoot }
+    Wait-Named 'Inspect locally' | Out-Null
+}
+function Set-Owned-Edit([string]$label,[string]$text) {
+    $field=Wait-Edit $label; $field.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a'); [System.Windows.Forms.SendKeys]::SendWait($text+'{TAB}')
+    if([string]$field.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne $text) { throw "Edited field did not retain $label = $text" }
+}
+function Inspect-Owned-Income([string]$fixture) {
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    $folder=Join-Path (Split-Path $Executable) '_internal/fixtures/taxml'
+    Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder ($fixture+'.xml'))
+    Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder ($fixture+'-profile.json'))
+    Choose-Owned-Native-File 'Choose caller-owned XPRF registries' (Join-Path $folder ($fixture+'.xprf'))
+    $format=Wait-Named 'TaxML container declaration'; $format.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+    Click-Observed (Wait-Named 'Acknowledge the selected unverified wire profile')
+    Click-Observed (Wait-Named 'Inspect locally')
 }
 try {
     Launch-App
@@ -343,6 +388,50 @@ try {
     if($LASTEXITCODE -ne 0) { throw 'ActualnativeDOB PDF amount readback failed.' }
     Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
     $checks.Add('ActualnativeDOB draft PDF saved bysystemSaveAs andEIC0/refund1000 read back.')
+    # The previous synthetic workflows are saved before opening this fresh draft.
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
+    Set-Owned-Edit 'Return name' 'Synthetic Windows TaxML INT DIV migration'
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Inspect-Owned-Income 'synthetic-native-interest'
+    Click-Observed (Wait-Named 'Review 1099-INT candidate')
+    Set-Owned-Edit '1099-INT payer name' 'Synthetic native Windows bank'
+    Click-Observed (Wait-Named 'Confirm supported 1099-INT situation')
+    Click-Observed (Wait-Named 'Confirm all TaxML 1099-INT amounts and household')
+    Click-Observed (Wait-Named 'Add reviewed 1099-INT')
+    Wait-Named '$20' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    $checks.Add('Native Windows system file pickers read owned XML, JSON and XPRF; four-box INT review added a real20 USD draft.')
+    Inspect-Owned-Income 'synthetic-native-dividend'
+    Click-Observed (Wait-Named 'Review 1099-DIV candidate')
+    Set-Owned-Edit '1099-DIV payer name' 'Synthetic native Windows fund'
+    Set-Owned-Edit 'Box 4 · Federal income tax withheld' '201.49'
+    Click-Observed (Wait-Named 'Confirm qualified dividend eligibility')
+    Click-Observed (Wait-Named 'Confirm supported 1099-DIV situation')
+    Click-Observed (Wait-Named 'Confirm all TaxML 1099-DIV amounts and household')
+    Click-Observed (Wait-Named 'Download corrected XML')
+    $xml=Join-Path $OutputDir 'windows-native-dividend-corrected.xml'
+    Save-Native-Export $xml 100
+    $env:TAX_REBORN_OWNED_XML=$xml
+    python -c "import os;from pathlib import Path;p=Path('fixtures/taxml/synthetic-native-dividend.xml').read_bytes();a=Path(os.environ['TAX_REBORN_OWNED_XML']).read_bytes();assert a==p.replace(b'>200.49</td:value>',b'>201.49</td:value>')"
+    if($LASTEXITCODE -ne 0) { throw 'Native corrected XML did not preserve all other source bytes.' }
+    Remove-Item Env:TAX_REBORN_OWNED_XML
+    Click-Observed (Wait-Named 'Add reviewed 1099-DIV')
+    Wait-Named '$222' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Save-Screenshot 'windows-native-taxml-INT-DIV-222.png'
+    $checks.Add('Native six-box DIV manual eligibility and edited withholding produced222 USD joint INT/DIV refund; system corrected XML readback preserved source bytes.')
+    Close-App; Launch-App; Wait-Named '$222' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Dividends · 1099-DIV')
+    Wait-Named 'Reviewed 1099-DIV import snapshot' | Out-Null
+    Click-Observed (Wait-Named 'View source document'); Click-Observed (Wait-Named 'Download source')
+    $original=Join-Path $OutputDir 'windows-native-dividend-original.xml'; Save-Native-Export $original 100
+    $env:TAX_REBORN_OWNED_XML=$original
+    python -c "import os;from pathlib import Path;assert Path(os.environ['TAX_REBORN_OWNED_XML']).read_bytes()==Path('fixtures/taxml/synthetic-native-dividend.xml').read_bytes()"
+    if($LASTEXITCODE -ne 0) { throw 'Original native attachment changed after corrected export and relaunch.' }
+    Remove-Item Env:TAX_REBORN_OWNED_XML
+    $checks.Add('Normal close/relaunch preserved both reviewed records and222 USD result; six-box snapshot and original XML attachment survived and read back byte-identically.')
+    Save-Screenshot 'windows-native-taxml-reopened-source.png'
+    $receipt.native_taxml_INT_DIV_changed_flow_passed=$true
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

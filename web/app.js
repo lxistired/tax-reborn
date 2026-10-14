@@ -292,6 +292,7 @@ function incomeReviewPanel(key,index){
  }
  holder.append(unresolved);
  if(entry.source_document){const source=entry.source_document,restored=source.return_id!==currentId;holder.append(el('p',{},restored?'Source attachment not restored · '+source.name:'Local TaxML source · '+source.name));if(!restored)holder.append(button('View source document',()=>showLocalSource(source),'secondary',{class:'button secondary small'}));}
+ if(entry.taxml_dividend_boxes){const boxes=entry.taxml_dividend_boxes;holder.append(el('details',{},el('summary',{},'Reviewed 1099-DIV import snapshot'),el('dl',{},...dividendTaxMLFields.map(([name,label])=>[el('dt',{},label),el('dd',{},'$'+boxes[name])]).flat()),el('small',{},'These six imported amounts remain attached to the source. Editing the current record clears its review; it does not rewrite this snapshot. Boxes 2b and 2d are included in Box 2a.')));}
  if(entry.taxml_interest_boxes){const boxes=entry.taxml_interest_boxes;holder.append(el('details',{},el('summary',{},'Reviewed 1099-INT import snapshot'),el('dl',{},...interestTaxMLFields.map(([name,label])=>[el('dt',{},label),el('dd',{},'$'+boxes[name])]).flat()),el('small',{},'These four imported amounts remain attached to the source. Editing the current record clears its review; it does not rewrite this snapshot. Treasury interest may require a separate state exclusion review.')));}
  return holder;
 }
@@ -710,7 +711,7 @@ async function showTaxMLImport(){
  const carriers=el('input',{type:'file',multiple:true,accept:'.xprf,application/octet-stream','aria-label':'Choose caller-owned XPRF registries'});
  const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Explicitly declared plaintext ZIP'));
  const acknowledged=el('input',{type:'checkbox','aria-label':'Acknowledge the selected unverified wire profile'});
- holder.append(el('p',{class:'intro'},'Inspect your local plaintext TaxML with your own registry files and an explicit wire-profile JSON. This can offer reviewed W-2 and 1099-INT candidates. It does not restore a complete .tax return or decrypt a protected file.'),
+ holder.append(el('p',{class:'intro'},'Inspect your local plaintext TaxML with your own registry files and an explicit wire-profile JSON. This can offer reviewed W-2, 1099-INT and 1099-DIV candidates. It does not restore a complete .tax return or decrypt a protected file.'),
   el('div',{class:'note warning'},'The selected wire profile is supplied by you. Original TurboTax loading and calculation are unverified. Unknown fields and source facts block adding a candidate.'),
   el('div',{class:'field'},el('label',{},'Source TaxML / plaintext .tax'),source),
   el('div',{class:'field'},el('label',{},'Known file format'),container),
@@ -734,10 +735,10 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision){
   ...(inspected.warnings||[]).map(warning=>el('div',{class:'note warning'},warning)),
   el('small',{},'Source SHA-256 · '+inspected.source_sha256));
  if(inspected.unresolved_facts?.length)holder.append(el('div',{class:'note warning'},'Adding is blocked by '+inspected.unresolved_facts.length+' unresolved source facts.'),el('details',{},el('summary',{},'Show unresolved source facts'),el('ul',{},inspected.unresolved_facts.map(item=>el('li',{},item.path+' · '+item.code+(item.detail?' · '+item.detail:''))))));
- if(!inspected.candidates?.length)holder.append(el('div',{class:'empty-state'},'No supported W-2 or 1099-INT candidates were found. The source was not imported as a return.'));
+ if(!inspected.candidates?.length)holder.append(el('div',{class:'empty-state'},'No supported W-2, 1099-INT or 1099-DIV candidates were found. The source was not imported as a return.'));
  for(const candidate of inspected.candidates||[]){
-  const interest=candidate.record_type==='interest',label=interest?'1099-INT':'W-2',caption=interest?(candidate.payer||'Payer name requires review'):(candidate.employer||'Employer name requires review');
-  holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},caption),el('small',{},label+' source form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Candidate needs explicit review':'Blocked by missing or unresolved facts'))),button('Review '+label+' candidate',()=>interest?reviewTaxMLInterest(row,candidate,returnId,atRevision):reviewTaxMLW2(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small',disabled:!candidate.can_review})));
+  const interest=candidate.record_type==='interest',dividend=candidate.record_type==='dividends',label=dividend?'1099-DIV':interest?'1099-INT':'W-2',caption=interest||dividend?(candidate.payer||'Payer name requires review'):(candidate.employer||'Employer name requires review');
+  holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},caption),el('small',{},label+' source form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Candidate needs explicit review':'Blocked by missing or unresolved facts'))),button('Review '+label+' candidate',()=>dividend?reviewTaxMLDividend(row,candidate,returnId,atRevision):interest?reviewTaxMLInterest(row,candidate,returnId,atRevision):reviewTaxMLW2(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small',disabled:!candidate.can_review})));
  }
  modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
 }
@@ -804,6 +805,34 @@ function reviewTaxMLInterest(source,candidate,returnId,atRevision){
    const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.xml');notify('Corrected 1099-INT XML downloaded. Original source retained.');
+  }finally{committing=false;}
+ },'secondary']]);
+}
+const dividendTaxMLFields=[['ordinary','Box 1a · Total ordinary dividends'],['qualified','Box 1b · Qualified dividends'],['capital_gain_distributions','Box 2a · Total capital gain distributions'],['unrecaptured_1250_gain','Box 2b · Unrecaptured section 1250 gain'],['collectibles_gain','Box 2d · Collectibles (28%) gain'],['federal_withholding','Box 4 · Federal income tax withheld']];
+function reviewTaxMLDividend(source,candidate,returnId,atRevision){
+ const holder=el('div'),inputs={},payer=el('input',{type:'text',value:candidate.payer||'','aria-label':'1099-DIV payer name'}),fields=grid(el('div',{class:'field'},el('label',{},'Payer / bank name'),payer));
+ holder.append(el('p',{class:'intro'},'Check the six amounts against your original 2025 1099-DIV. Box 1b is part of Box 1a. Boxes 2b and 2d are part of Box 2a and are not added again to income. Box 4 is federal withholding. Existing income records are kept.'));
+ for(const[name,label]of dividendTaxMLFields){const input=inputs[name]=el('input',{type:'text',inputmode:'decimal',class:'money',value:candidate.amounts[name]??'','aria-label':label});fields.append(el('div',{class:'field'},el('label',{},label),el('div',{class:'money-wrap'},el('span',{},'$'),input),el('small',{},'Source '+candidate.sources[name].field_id+' · '+candidate.sources[name].wire_text)));}
+ const qualified=el('input',{type:'checkbox','aria-label':'Confirm qualified dividend eligibility'}),scope=el('input',{type:'checkbox','aria-label':'Confirm supported 1099-DIV situation'}),confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML 1099-DIV amounts and household'});
+ holder.append(fields,el('label',{class:'check-field'},qualified,el('span',{},'I verified the Box 1b qualified dividends meet the holding-period and other qualified-dividend requirements, or entered an explicit zero.')),el('label',{class:'check-field'},scope,el('span',{},'I verified these six boxes cover this record: there are no QSBS exclusions, FIRPTA distributions, nondividend distributions, section 199A dividends, investment expenses, foreign taxes, liquidation distributions, exempt-interest or private-activity bond dividends, or nominee allocations to import. Boxes 2b and 2d match the original form.')),
+  el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, this household, the payer and every amount against the original 1099-DIV.')),
+  el('p',{class:'note'},'Download corrected XML writes these six amounts to a separate plaintext XML copy. The payer is entered in this App only. The original return is not recalculated. Other distribution types need a separate supported workflow; this import does not establish them.'));
+ const values=()=>({...Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value])),payer:payer.value,supported_scope:scope.checked,qualified_eligibility:qualified.checked});let committing=false;
+ modal('Review TaxML 1099-DIV candidate',holder,[['Add reviewed 1099-DIV',async()=>{
+  if(committing)return;committing=true;
+  try{
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen the import.');
+   const prepared=await window.taxMLImport.reviewedDividend(candidate,values(),{document_id:source.id,return_id:returnId,name:String(source.name).replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256)},confirmed.checked);
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No income record was added.');
+   ensureIncomeMetadata();data.eligibility.all_income_reported=false;data.dividends.push(prepared.row);metadata.income_document_records.dividends.push(prepared.metadata);openRecords.add('dividends:'+prepared.metadata.record_id);changed();closeDialog();navigate('dividends');notify('Reviewed TaxML 1099-DIV added. Save to keep the draft and original source snapshot.');
+  }finally{committing=false;}
+ },'primary'],['Download corrected XML',async()=>{
+  if(committing)return;committing=true;
+  try{
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
+   const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
+   await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.xml');notify('Corrected 1099-DIV XML downloaded. Original source retained.');
   }finally{committing=false;}
  },'secondary']]);
 }

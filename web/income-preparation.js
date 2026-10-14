@@ -2,7 +2,7 @@
 // Independently authored local INT/DIV preparation contract. No vendor code or tax rules.
 (function () {
  const templates={interest:{payer:'',taxable:'0',tax_exempt:'0',federal_withholding:'0'},dividends:{payer:'',ordinary:'0',qualified:'0',capital_gain_distributions:'0',federal_withholding:'0',unrecaptured_1250_gain:'0',collectibles_gain:'0',special_distribution_confirmed:false}};
- const entryKeys=['record_id','row_fingerprint','reviewed','reviewed_fingerprint','reviewed_at','is_placeholder','unresolved_fields','source_document','taxml_interest_boxes'];
+ const entryKeys=['record_id','row_fingerprint','reviewed','reviewed_fingerprint','reviewed_at','is_placeholder','unresolved_fields','source_document','taxml_interest_boxes','taxml_dividend_boxes'];
  const copy=value=>JSON.parse(JSON.stringify(value));
  const sorted=value=>Array.isArray(value)?value.map(sorted):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,sorted(value[key])])):value;
  const packed=value=>JSON.stringify(sorted(value));
@@ -20,6 +20,14 @@
   const keys=['interest_income','treasury_interest','tax_exempt_interest','federal_withholding'];
   if(!object(value)||Object.keys(value).length!==keys.length||keys.some(k=>!Object.hasOwn(value,k)))throw Error('TaxML interest snapshot requires exactly Boxes 1, 3, 8 and 4');
   return Object.fromEntries(keys.map(k=>{const text=value[k];if(typeof text!=='string'||!/^[0-9]{1,13}(?:\.[0-9]{1,2})?$/.test(text))throw Error('TaxML interest snapshot requires explicit nonnegative USD amounts');const normalized=amount(text),cents=BigInt(normalized.replace('.',''));if(cents>100000000000n)throw Error('TaxML interest snapshot exceeds supported limit');return[k,normalized];}));
+ }
+ function dividendBoxes(value){
+  const keys=['ordinary','qualified','capital_gain_distributions','unrecaptured_1250_gain','collectibles_gain','federal_withholding'];
+  if(!object(value)||Object.keys(value).length!==keys.length||keys.some(k=>!Object.hasOwn(value,k)))throw Error('TaxML dividend snapshot requires exactly Boxes 1a, 1b, 2a, 2b, 2d and 4');
+  const result=Object.fromEntries(keys.map(k=>{const text=value[k];if(typeof text!=='string'||!/^[0-9]{1,13}(?:\.[0-9]{1,2})?$/.test(text))throw Error('TaxML dividend snapshot requires explicit nonnegative USD amounts');const normalized=amount(text);if(BigInt(normalized.replace('.',''))>100000000000n)throw Error('TaxML dividend snapshot exceeds supported limit');return[k,normalized];}));
+  const cents=k=>BigInt(result[k].replace('.',''));
+  if(cents('qualified')>cents('ordinary')||cents('unrecaptured_1250_gain')+cents('collectibles_gain')>cents('capital_gain_distributions'))throw Error('Dividend subset boxes exceed their source totals');
+  return result;
  }
  function canonicalObject(type,row){
   if(!Object.hasOwn(templates,type)||!object(row)||Object.keys(row).some(k=>!(k in templates[type])))throw Error('Unsupported INT/DIV row or field');
@@ -43,6 +51,8 @@
   if(Object.hasOwn(item,'source_document'))output.source_document=window.taxRecordMetadata.validateSource(item.source_document);
   if(Object.hasOwn(item,'taxml_interest_boxes')){if(type!=='interest'||output.source_document?.method!=='taxml')throw Error('TaxML interest boxes require an interest source receipt');output.taxml_interest_boxes=interestBoxes(item.taxml_interest_boxes);}
   else if(type==='interest'&&output.source_document?.method==='taxml')throw Error('TaxML interest source requires its reviewed four-box snapshot');
+  if(Object.hasOwn(item,'taxml_dividend_boxes')){if(type!=='dividends'||output.source_document?.method!=='taxml')throw Error('TaxML dividend boxes require a dividend source receipt');output.taxml_dividend_boxes=dividendBoxes(item.taxml_dividend_boxes);}
+  else if(type==='dividends'&&output.source_document?.method==='taxml')throw Error('TaxML dividend source requires its reviewed six-box snapshot');
   return output;
  }
  async function normalize(rowsByType,provided=null,previous=null,options={}){
@@ -54,7 +64,7 @@
    const entries=provided?.[type]??hashes.map(current=>{const matches=(previous?.[type]||[]).filter(x=>x.row_fingerprint===current);return current&&matches.length===1&&hashes.filter(x=>x===current).length===1?matches[0]:{};});
    if(!Array.isArray(entries)||entries.length!==rows.length)throw Error('Preparation metadata must match current income rows');
    result[type]=await Promise.all(rows.map((row,index)=>entry(type,row,entries[index],options)));
-   for(const item of result[type]){const old=oldSources.get(item.record_id);if(old?.source_document?.method==='taxml'&&(packed(item.source_document)!==packed(old.source_document)||packed(item.taxml_interest_boxes)!==packed(old.taxml_interest_boxes)))throw Error('Saved TaxML income source receipts and imported boxes cannot be removed or changed');if(ids.has(item.record_id))throw Error('Source-record IDs must be unique across INT/DIV');ids.add(item.record_id);}
+   for(const item of result[type]){const old=oldSources.get(item.record_id);if(old?.source_document?.method==='taxml'&&(packed(item.source_document)!==packed(old.source_document)||packed(item.taxml_interest_boxes)!==packed(old.taxml_interest_boxes)||packed(item.taxml_dividend_boxes)!==packed(old.taxml_dividend_boxes)))throw Error('Saved TaxML income source receipts and imported boxes cannot be removed or changed');if(ids.has(item.record_id))throw Error('Source-record IDs must be unique across INT/DIV');ids.add(item.record_id);}
   }return result;
  }
  async function validateReceipt(receipt){
@@ -105,5 +115,5 @@
   const receipt={collection:type,removed_record_ids:[...targets.keys()].sort(),result_record_ids:proposal.new_records.map(x=>x.metadata.record_id),archived_replaced_records:archived};
   meta.income_import_events.push({event_id:proposal.event_id,payload_hash:proposal.payload_hash,receipt});const final=await prepared(next,meta);return{data:next,metadata:final,already_applied:false,receipt:{status:'applied',...copy(receipt)}};
  }
- window.taxIncomePreparation={canonical,fingerprint,newRecord,normalize,normalizeEvents,markReviewed,summary,plan,apply,interestBoxes};
+ window.taxIncomePreparation={canonical,fingerprint,newRecord,normalize,normalizeEvents,markReviewed,summary,plan,apply,interestBoxes,dividendBoxes};
 })();

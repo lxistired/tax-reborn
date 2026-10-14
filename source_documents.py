@@ -8,6 +8,8 @@ import re
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 HASH = re.compile(r'^[0-9a-f]{64}$')
 INTEREST_BOXES = ('interest_income', 'treasury_interest', 'tax_exempt_interest', 'federal_withholding')
+DIVIDEND_BOXES = ('ordinary', 'qualified', 'capital_gain_distributions',
+                  'unrecaptured_1250_gain', 'collectibles_gain', 'federal_withholding')
 
 
 def taxml_receipt(value):
@@ -58,4 +60,17 @@ def interest_boxes(value):
         if not isinstance(text, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', text) or Decimal(text) > 1000000000:
             raise ValueError('TaxML interest snapshot requires explicit nonnegative USD amounts')
         output[name] = format(Decimal(text), '.2f')
+    return output
+
+
+def dividend_boxes(value):
+    if not isinstance(value, dict) or set(value) != set(DIVIDEND_BOXES):
+        raise ValueError('TaxML dividend snapshot requires exactly Boxes 1a, 1b, 2a, 2b, 2d and 4')
+    output = {}
+    for name, text in value.items():
+        if not isinstance(text, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', text) or Decimal(text) > 1000000000:
+            raise ValueError('TaxML dividend snapshot requires explicit nonnegative USD amounts')
+        output[name] = format(Decimal(text), '.2f')
+    if Decimal(output['qualified']) > Decimal(output['ordinary']) or Decimal(output['unrecaptured_1250_gain']) + Decimal(output['collectibles_gain']) > Decimal(output['capital_gain_distributions']):
+        raise ValueError('Dividend subset boxes exceed their source totals')
     return output

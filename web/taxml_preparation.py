@@ -19,6 +19,10 @@ BOX_KEYS = {1: 'wages', 2: 'federal_withholding', 3: 'social_security_wages',
             4: 'social_security_withholding', 5: 'medicare_wages', 6: 'medicare_withholding'}
 INTEREST_FIELDS = ((1, 'L1', 'interest_income'), (3, 'L3', 'treasury_interest'),
                    (8, 'EXINT', 'tax_exempt_interest'), (4, 'L4', 'federal_withholding'))
+DIVIDEND_FIELDS = (('1a', 'L1B', 'ordinary'), ('1b', 'QDIV', 'qualified'),
+                   ('2a', 'L1C', 'capital_gain_distributions'),
+                   ('2b', 'L2C', 'unrecaptured_1250_gain'),
+                   ('2d', 'L1CTX', 'collectibles_gain'), ('4', 'L2', 'federal_withholding'))
 HASH = re.compile(r'^[0-9a-f]{64}$')
 
 
@@ -250,31 +254,32 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
         fields = {f.field_name: f for f in form.fields}
         problems = list(form.unresolved)
         is_interest = owner['form_name'] == 'F1099I'
+        is_dividend = owner['form_name'] == 'F1099D'
         is_w2 = owner['form_name'] == 'FW2'
-        allowed = {field for _, field, _ in INTEREST_FIELDS} if is_interest else w2_allowed
+        mapped_fields = DIVIDEND_FIELDS if is_dividend else INTEREST_FIELDS if is_interest else tuple((box, field, BOX_KEYS[box]) for box, field in native.BOX_FIELDS)
+        allowed = {field for _, field, _ in mapped_fields} if not is_w2 else w2_allowed
         # The native loader separately checks its actual form factory's
         # IsMulticopy flag. XPRF field metadata does not establish that flag.
         # FW2 factory multicopy is source-verified; F1099I copy-zero acceptance
         # is not established. Keep both zero-copy cases out of the App adapter.
-        if (is_w2 or is_interest) and owner['copyNum'] == '0':
+        if (is_w2 or is_interest or is_dividend) and owner['copyNum'] == '0':
             problems.append('unverified_multicopy_factory_binding')
         for fact in form.fields:
             problems.extend(fact.unresolved)
-            if fact.field_name not in allowed or not (is_w2 or is_interest):
+            if fact.field_name not in allowed or not (is_w2 or is_interest or is_dividend):
                 problems.append('unmapped_source_fact')
             if is_w2 and fact.field_name in {'NAME', 'CA', 'CA2'} and fact.metadata_kind != 7:
                 problems.append('unsupported_w2_semantic_type')
             if is_w2 and fact.field_name in {'SSTIPS', 'DCB'} and (fact.metadata_kind != 11 or fact.metadata_format != 0):
                 problems.append('unsupported_w2_semantic_type')
-            if is_interest and fact.field_name in allowed and (fact.metadata_kind != 11 or fact.metadata_format != 0):
-                problems.append('unsupported_interest_semantic_type')
-            if is_interest and fact.parsed_decimal is not None and (fact.parsed_decimal < 0 or fact.parsed_decimal > 1000000000):
-                problems.append('unsupported_interest_amount')
+            if (is_interest or is_dividend) and fact.field_name in allowed and (fact.metadata_kind != 11 or fact.metadata_format != 0):
+                problems.append('unsupported_dividend_semantic_type' if is_dividend else 'unsupported_interest_semantic_type')
+            if (is_interest or is_dividend) and fact.parsed_decimal is not None and (fact.parsed_decimal < 0 or fact.parsed_decimal > 1000000000):
+                problems.append('unsupported_dividend_amount' if is_dividend else 'unsupported_interest_amount')
         unresolved.extend({'path': form_path, 'code': code, 'detail': owner['form_name']} for code in dict.fromkeys(problems))
-        if not (is_w2 or is_interest):
+        if not (is_w2 or is_interest or is_dividend):
             continue
         amounts, sources, missing, optional_missing = {}, {}, [], []
-        mapped_fields = INTEREST_FIELDS if is_interest else tuple((box, field, BOX_KEYS[box]) for box, field in native.BOX_FIELDS)
         for box, field_id, name in mapped_fields:
             fact = fields.get(field_id)
             if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
@@ -286,7 +291,10 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
             sources[name] = {'wire_text': fact.wire_text, 'field_id': field_id,
                 'key': f'{form_path}/{field_node}/0', 'value_flags': dict(fact.raw_value_attrs),
                 'specific_flags': {}, 'field_headers': dict(fact.raw_field_attrs)}
-        for name, field_id in (() if is_interest else (('social_security_tips', 'SSTIPS'), ('dependent_care_benefits', 'DCB'))):
+        if is_dividend and not missing:
+            if Decimal(amounts['qualified']) > Decimal(amounts['ordinary']) or Decimal(amounts['unrecaptured_1250_gain']) + Decimal(amounts['collectibles_gain']) > Decimal(amounts['capital_gain_distributions']):
+                unresolved.append({'path': form_path, 'code': 'invalid_dividend_box_subsets', 'detail': 'Boxes 1b, 2b and 2d must fit inside their source totals.'})
+        for name, field_id in (() if not is_w2 else (('social_security_tips', 'SSTIPS'), ('dependent_care_benefits', 'DCB'))):
             fact = fields.get(field_id)
             if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
                 optional_missing.append(name)
@@ -295,14 +303,14 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
         employer = [fields[n].wire_text for n in ('CA', 'CA2') if is_w2 and n in fields and fields[n].metadata_kind == 7]
         candidate_hash = canonical_hash({'owner': owner, 'amounts': amounts, 'sources': sources,
             'employer': employer, 'missing_boxes': missing, 'manual': optional_missing})
-        candidates.append({'record_type': 'interest' if is_interest else 'w2',
+        candidates.append({'record_type': 'dividends' if is_dividend else 'interest' if is_interest else 'w2',
             'payer': None, 'employer': ' '.join(employer) or None, 'owner': None, 'amounts': amounts,
             'sources': sources, 'missing_boxes': missing,
             'receipt': {'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
                 'template_carrier_sha256': identity[0], 'template_resource_id': identity[1],
                 'form_path': form_path, 'archive_member': archive_member, 'candidate_sha256': candidate_hash},
             'source_owner': owner, 'can_review': False,
-            'requires_manual_fields': ['payer', 'supported_interest_scope'] if is_interest else ['owner', *optional_missing]})
+            'requires_manual_fields': ['payer', 'supported_dividend_scope', 'qualified_dividend_eligibility'] if is_dividend else ['payer', 'supported_interest_scope'] if is_interest else ['owner', *optional_missing]})
     # An unsupported sibling blocks every candidate, not just that sibling.
     for candidate in candidates:
         candidate['can_review'] = not unresolved and not candidate['missing_boxes']
@@ -312,7 +320,7 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'warnings': ['Current Windows XML names and types are inspected with your explicitly bound, byte-validated XPRF registry.',
-            'Only supported W-2 or 1099-INT boxes are offered for review. This is not a complete .tax return import.',
+            'Only supported W-2, 1099-INT or 1099-DIV boxes are offered for review. This is not a complete .tax return import.',
             'Missing amounts never establish zero. Review payer or employer and the supported tax situation explicitly.',
             'Original TurboTax loading and recalculation are unverified. Check the original document before adding a record.']}
     return result, payload, leaves
@@ -333,7 +341,7 @@ def export_request(request):
         raise ValueError('The reviewed candidate is missing, ambiguous or unresolved.')
     candidate = candidates[0]
     amounts = request['amounts']
-    names = [name for _, _, name in INTEREST_FIELDS] if candidate.get('record_type') == 'interest' else list(BOX_KEYS.values())
+    names = [name for _, _, name in DIVIDEND_FIELDS] if candidate.get('record_type') == 'dividends' else [name for _, _, name in INTEREST_FIELDS] if candidate.get('record_type') == 'interest' else list(BOX_KEYS.values())
     if not isinstance(amounts, dict) or set(amounts) != set(names):
         raise ValueError('Corrected XML requires exactly the supported source box amounts.')
     edits, normalized = {}, {}
