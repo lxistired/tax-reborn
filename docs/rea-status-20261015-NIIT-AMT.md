@@ -21,6 +21,8 @@ Primary arithmetic/printed-row sources: [IRS2025 Form1040 instructions](https://
 
 The private reconstruction now links selected original raw1099 copy/summary ownership, annual constants and parent income into the 20% capital, NIIT, positiveAMT, Schedule2 and final refund/owed destinations. Root checked the frozen original-byte windows and independently reran all18 cases. The finite replay still supplies an existing Schedule2 and, when needed, an existing payment voucher, with explicit phase order. Native form creation and automatic event/scheduler execution have not been claimed.
 
+An additional bounded reconstruction now handles an initially absent F1040V voucher in three original-parent/IRS finite replays. Original bytes bind the creation, registration, NewForm event, calculation-handler code-list creation and enqueue prefix. Successful callbacks, no-alias/share/default-loading context and the initializer tail outcome are still supplied. The newly queued voucher's amount is uncomputed, and queue completion is false. This removes one pre-existing-voucher premise for those three finite cases; it does not establish original native factory execution or a completed payment voucher. The amount producer and automatic queue consumer remain next work.
+
 Windows map/template/object-factory resource decoding and native post-restore Date readback received separate original-byte audits. Ordinary persistent-object writing, full.tax compatibility, automatic mapping/constraint qualification and whole native controller execution remain open. Original native executions and validated original saved.tax files are both0. Three REA lanes continue those branches.
 
 Reproduce the App checks:
