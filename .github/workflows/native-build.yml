@@ -94,6 +94,7 @@ jobs:
             dist/windows/*.png
             dist/windows/*.txt
             dist/windows/*.pdf
+            dist/windows/*.xml
           if-no-files-found: error
           retention-days: 30
 

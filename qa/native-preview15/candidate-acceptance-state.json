@@ -1,0 +1,95 @@
+{
+  "checked_at_utc": "2026-10-14T19:04:38.297762+00:00",
+  "version": "2026.10.15-preview.15",
+  "source_published": true,
+  "native_packages_published": false,
+  "Mac_Android_compiled_source_commit": "d3d4d789b1c13f7a18ea0946e7fc808f4c3c3577",
+  "Windows_compiled_source_commit": "88927e4cdeeea911f4670cdc8612ae5f931cd0f9",
+  "product_code_unchanged_between_platform_commits": true,
+  "subsequent_platform_commit_changes": "Isolated Windows CI native test driver only",
+  "host_tests_passed": 565,
+  "actual_Pyodide_tests_run": 472,
+  "actual_Pyodide_tests_executed": 471,
+  "actual_Pyodide_tests_skipped": 1,
+  "independent_IRS_capital_cases_passed": 14,
+  "Mac": {
+    "built": true,
+    "frozen_checks": 17,
+    "actual_six_box_DIV_native_file_selection_review_edit_export_add_save_relaunch_passed": true,
+    "original_XML_system_download_after_relaunch_byte_identical": true,
+    "readonly_DMG_payload_files_matched": 346,
+    "previous_saved_returns_preserved": 7,
+    "actual_frozen_HTTP_engine_capital_cases_passed": 14,
+    "instances_retained": 1
+  },
+  "Windows": {
+    "built": true,
+    "CI_run": 38618305696,
+    "Setup_installed": true,
+    "native_GUI_checks": 20,
+    "new_INT_DIV_native_file_selection_review_export_save_relaunch_passed": true,
+    "refund_after_INT_and_DIV": 222,
+    "original_and_corrected_XML_system_save_readback_passed_in_CI": true,
+    "XML_artifacts_retrieved_and_rechecked_by_root": false,
+    "installed_actual_Pyodide_DIV_and_INT_passed": true,
+    "earlier_driver_failures": [
+      {
+        "CI_run": 38613504255,
+        "reason": "Keyboard text did not reach the return-name field; corrected to observed ValuePattern."
+      },
+      {
+        "CI_run": 38615238538,
+        "reason": "File-input accessible names include the No file chosen suffix; corrected to observed names."
+      },
+      {
+        "CI_run": 38616554460,
+        "reason": "Offscreen checkbox missing from test-driver scroll/focus handling; corrected."
+      }
+    ]
+  },
+  "Android": {
+    "built": true,
+    "original_signer_retained": true,
+    "signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+    "actual_APK_assets_worker_INT_DIV_passed": true,
+    "installed": false,
+    "phone_UI_accepted": false,
+    "USB_device_present": false,
+    "physical_reconnection_question_already_pending": true
+  },
+  "browser_IndexedDB": {
+    "actual_worker_and_UI_passed": true,
+    "source_attachment_retained_after_reload": true,
+    "row_edit_clears_review_and_keeps_snapshot": true,
+    "network_disconnected_test": false
+  },
+  "original_TurboTax_native_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "remaining_release_gates": [
+    "Android physical USB, same-signer update retaining data and actual INT/DIV plus W2 native UI acceptance.",
+    "Final release source/package manifest, native installer upload and anonymous download/hash verification."
+  ],
+  "candidate_artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.15-Android.apk",
+      "bytes": 49083871,
+      "sha256": "411e8a94c48f2e591f1d66e075bd91a11da237d68af3cd0b0acf3192cf1e82c2"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.15-Windows-x64-Setup.exe",
+      "bytes": 57673119,
+      "sha256": "a93607503cb89baef792152c30e8e13a69391eaa9c548c08005c9d84d2b053d5"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.15-Windows-x64-portable.zip",
+      "bytes": 70646192,
+      "sha256": "182e51674e7d25a9860a9539693c8537829d11d8f866ca68806236590fd2398c"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.15-macOS-arm64.dmg",
+      "bytes": 71256843,
+      "sha256": "cd817828339d2033a4ceeeae731fdaac716e001ed502951210cbcc24ed891e45"
+    }
+  ]
+}
