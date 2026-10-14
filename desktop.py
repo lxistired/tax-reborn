@@ -86,6 +86,15 @@ def smoke_test(report_path=None):
             status,checklist=request('GET',f'/api/returns/{ident}/paper-checklist.json');assert status==200 and not checklist['transmitted'] and checklist['missing_facts']
             assert any(row['id']=='f1040sb' for row in checklist['supporting_forms'])
             checks.append('Real official supporting PDF packet and factual checklist without a false filing status')
+            import io
+            from pypdf import PdfReader
+            import official_forms
+            preflight=checklist['supporting_packet_preflight']
+            assert preflight['page_identities_verified'] and preflight['expected_pages']==preflight['actual_pages']
+            manifest=json.loads(PdfReader(io.BytesIO(packet)).metadata['/TaxRebornPacketManifest'])
+            assert official_forms.verify_packet_pages(packet,manifest)['page_identities_verified']
+            assert manifest['filing_packet_ready'] is False
+            checks.append('Actual serialized packet pages and copy identities match the required plan')
             status,export=request('GET',f'/api/returns/{ident}/export.json');assert status==200 and export['data']==data
             status,worksheet=request('GET',f'/api/returns/{ident}/worksheet.html');assert status==200 and b'Not computed' in worksheet
             checks.append('JSON backup and printable worksheet export, without fabricated filing or penalty status')
