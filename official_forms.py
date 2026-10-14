@@ -15,6 +15,7 @@ from decimal import Decimal, ROUND_HALF_UP, ROUND_CEILING
 from datetime import date
 from pathlib import Path
 import tax_extended
+import tax_filing
 from pypdf import PdfReader, PdfWriter, PageObject
 from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject, TextStringObject, NumberObject
 
@@ -267,6 +268,28 @@ def official_form_specs(record):
         if status=='mfj' and id not in ('f1040sc','f1040sse','f8889','f8606','f5329'):
             spouse=_identity(data,'spouse');identity=(identity[0]+(' & '+spouse[0] if spouse[0] else ''),identity[1],identity[2]+[x for x in spouse[2] if 'legal name' in x])
         specs.append({'form_id':id,'line_values':{str(k):v for k,v in lines.items() if v is not None},'field_values':fields or {},'missing_facts':gaps or [],'owner':owner,'identity':identity,'printed_annotations':annotations or []})
+    voucher=tax_filing.payment_voucher_plan(data,r)
+    if voucher['requested']:
+        ident=data['identity'];fields={};gaps=list(voucher['missing_facts'])
+        # Form1040-V has separate name/address rows and two SSN boxes. Its
+        # printed payment amount is line3, not a generic tax subtotal.
+        identity_map={'ssn':1,'first_name':5,'last_name':6,'address':9,'apt':10,
+            'city':11,'state':12,'zip':13,'foreign_country':14,
+            'foreign_province':15,'foreign_postal_code':16}
+        for key,number in identity_map.items():
+            value=str(ident.get(key,''))
+            if key=='ssn':value=value.replace('-','').replace(' ','')
+            if key=='first_name':value=' '.join(x for x in [value,ident.get('middle_initial','')] if x)
+            if value:fields[_short('f1040v',1,number)]=value
+            elif key in ('ssn','first_name','last_name','address','city'):gaps.append('Form1040-V '+key)
+        if status=='mfj':
+            for key,number in [('spouse_ssn',2),('spouse_first_name',7),('spouse_last_name',8)]:
+                value=str(ident.get(key,''));value=value.replace('-','').replace(' ','') if key.endswith('ssn') else value
+                if key=='spouse_first_name':value=' '.join(x for x in [value,ident.get('spouse_middle_initial','')]if x)
+                if value:fields[_short('f1040v',1,number)]=value
+                else:gaps.append('Form1040-V '+key)
+        specs.append({'form_id':'f1040v','line_values':{'3':voucher['amount']} if voucher['amount'] is not None else {},
+            'field_values':fields,'missing_facts':gaps,'owner':'taxpayer','identity':None,'printed_annotations':[]})
     child=s.get('form_8814',{})
     child_other=child.get('parent_ordinary_other_income',0);child_qdiv=child.get('parent_qualified_dividends',0);child_capital=child.get('parent_capital_gain',0)
     for index,row in enumerate(child.get('form_lines',{}).get('children',[])):

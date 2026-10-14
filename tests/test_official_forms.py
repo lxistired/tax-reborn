@@ -57,7 +57,7 @@ def credits_sample():
 
 class OfficialFormsAcceptance(unittest.TestCase):
  def test_all_templates_are_original_irs2025(self):
-  self.assertEqual(len(forms.SOURCES),31)
+  self.assertEqual(len(forms.SOURCES),32)
   for id,source in forms.SOURCES.items():
    with self.subTest(form=id):
     raw=(forms.FORMS/source['path']).read_bytes();self.assertEqual(hashlib.sha256(raw).hexdigest(),source['sha256'])

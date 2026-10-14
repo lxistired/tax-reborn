@@ -10,7 +10,7 @@ from pypdf import PdfReader
 def record(case):
     data=return_for(case)
     data['identity'].update(first_name='Synthetic',last_name='Taxpayer',ssn='123456789',address='100 Example Street',city='Example City',state='IL',zip='60000',phone='5550100100',occupation='Accountant')
-    data['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes')
+    data['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes',balance_due_payment_method='electronic')
     return {'data':data,'result':tax_engine.calculate_return(data),
         'form_facts':{'schedule_b':{'foreign_account':False,'fbar_required':False,'foreign_trust':False,'facts_confirmed':True}}}
 

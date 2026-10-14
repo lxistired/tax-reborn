@@ -218,6 +218,17 @@ def smoke_test(report_path=None):
             official_forms.verify_official_pdf(high_pdf,high_expected)
             status,high_checklist=request('GET',f'/api/returns/{high_id}/paper-checklist.json');assert status==200 and high_checklist['paper_preparation_complete'] and not high_checklist['filing_packet_ready']
             checks.append('Packaged positive AMT14773/NIIT30096/refund27841 save/reopen and complete printed8960 component rows survive actual interactive PDF export')
+            high['name']='Synthetic packaged payment voucher'
+            high['w2'][0]['federal_withholding']='1000'
+            high['estimated_penalty'].update(enabled=True,prior_year_tax='0',prior_year_agi='0',prior_year_full_12_months=True,prior_year_tax_verified=True,no_prior_year_tax_full_year_resident_confirmed=True,actual_payment_records_confirmed=True)
+            high['filing_details'].update(balance_due_payment_method='check_money_order',paper_payment_amount_source='custom',paper_payment_amount='1000.25',paper_payment_confirmed=True)
+            status,voucher_saved=request('POST','/api/returns',{'data':high});assert status==200 and voucher_saved['result']['can_prepare']and voucher_saved['result']['lines']['37']==221159
+            voucher_id=voucher_saved['id'];status,voucher_reopened=request('GET','/api/returns/'+voucher_id);assert voucher_reopened==voucher_saved
+            status,voucher_pdf=request('GET',f'/api/returns/{voucher_id}/paper-packet.pdf');assert status==200
+            voucher_fields=PdfReader(io.BytesIO(voucher_pdf)).get_fields();keys=[k for k in voucher_fields if k.startswith('f1040v_')and k.endswith('.topmostSubform[0].Page1[0].f1_3[0]')];assert len(keys)==1
+            official_forms.verify_official_pdf(voucher_pdf,{keys[0]:'1000.25','topmostSubform[0].Page2[0].f2_35[0]':'221159'})
+            status,voucher_status=request('GET',f'/api/returns/{voucher_id}/paper-checklist.json');assert status==200 and voucher_status['paper_preparation_complete']and not voucher_status['payment_voucher']['payment_initiated']
+            checks.append('Packaged221159 USD balance and separate1000.25 paper-payment voucher save/reopen and actual official1040-V PDF preserve cents without recording payment')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

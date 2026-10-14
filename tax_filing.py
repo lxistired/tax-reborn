@@ -2,6 +2,7 @@
 from __future__ import annotations
 from copy import deepcopy
 from datetime import date
+from decimal import Decimal
 import json
 import math
 from pathlib import Path
@@ -16,7 +17,9 @@ DEFAULTS = {'digital_asset_answer':'unanswered', 'main_home_us_answer':'unanswer
             'refund_delivery':'check', 'bank_routing':'', 'bank_account':'', 'bank_type':'unanswered',
             'designee_yes':False, 'designee_name':'', 'designee_phone':'', 'designee_pin':'',
             'presidential_taxpayer':False, 'presidential_spouse':False,
-            'signature_date':'', 'hoh_qss_non_dependent_child_name':'', 'official_form_facts':{}}
+            'signature_date':'', 'hoh_qss_non_dependent_child_name':'',
+            'balance_due_payment_method':'unanswered', 'paper_payment_amount_source':'balance_due',
+            'paper_payment_amount':'', 'paper_payment_confirmed':False, 'official_form_facts':{}}
 
 def fact_schema():
     path = BASE / 'forms' / 'paper-fact-schema-2025.json'
@@ -49,6 +52,10 @@ def field_metadata():
         'filing_details.presidential_spouse':{'type':'boolean','label':'Spouse elects the $3 Presidential Election Campaign designation'},
         'filing_details.signature_date':{'type':'text','label':'Planned signing date','help':'YYYY-MM-DD. Print the completed draft and sign it yourself; the app does not sign on your behalf.'},
         'filing_details.hoh_qss_non_dependent_child_name':{'type':'text','label':'HOH/QSS qualifying child who is not a listed dependent'},
+        'filing_details.balance_due_payment_method':{'type':'enum','label':'Balance-due payment method','options':[['unanswered','Choose a payment method'],['check_money_order','Check or money order'],['electronic','Electronic payment arranged separately']],'help':'Form1040-V accompanies a check or money order. Electronic payments use separate IRS payment options.'},
+        'filing_details.paper_payment_amount_source':{'type':'enum','label':'Paper voucher amount','options':[['balance_due','Form1040 line37 amount owed'],['custom','Enter the amount of this check or money order']],'help':'Line37 excludes any separate line38 estimated-tax penalty. Enter a custom amount if your check or money order differs.'},
+        'filing_details.paper_payment_amount':{'type':'money','label':'Entered check or money-order amount','help':'USD, up to two decimal places. Used only for a custom paper amount; a single check must be less than100million dollars.'},
+        'filing_details.paper_payment_confirmed':{'type':'boolean','label':'I verified the paper payment amount and method','help':'Confirm the amount you will actually send with this voucher. Preparing the voucher is separate from making the payment.'},
         'dependents.*.form_first_name':{'type':'text','label':'Dependent legal first name'},
         'dependents.*.form_last_name':{'type':'text','label':'Dependent legal last name'},
         'dependents.*.form_ssn':{'type':'text','label':'Dependent SSN or ITIN'},
@@ -73,6 +80,10 @@ def validate_facts(data):
         if values[key] not in ('unanswered','yes','no'):raise ValueError(key+' must be unanswered, yes or no')
     if values['refund_delivery'] not in ('check','direct_deposit'):raise ValueError('Invalid refund delivery')
     if values['bank_type'] not in ('unanswered','checking','savings'):raise ValueError('Invalid refund account type')
+    if values['balance_due_payment_method'] not in ('unanswered','check_money_order','electronic'):raise ValueError('Invalid balance-due payment method')
+    if values['paper_payment_amount_source'] not in ('balance_due','custom'):raise ValueError('Invalid paper payment amount source')
+    if values['paper_payment_amount']:
+        payment_decimal(values['paper_payment_amount'])
     if not re.fullmatch(r'\d{0,9}',values['bank_routing']):raise ValueError('Routing number contains only up to9digits')
     if not re.fullmatch(r'[A-Za-z0-9-]{0,17}',values['bank_account']):raise ValueError('Account number contains at most17letters, digits or hyphens')
     if not re.fullmatch(r'\d{0,5}',values['designee_pin']):raise ValueError('Designee PIN contains only up to5digits')
@@ -101,6 +112,35 @@ def validate_facts(data):
             if isinstance(default,str) and (not isinstance(value,str) or len(value)>200):raise ValueError('Dependent '+key+' must be short text')
             if key=='form_ssn' and not re.fullmatch(r'[0-9-]*',value):raise ValueError('Dependent SSN only permits digits or hyphens')
     return values
+
+
+def payment_decimal(value):
+    if not isinstance(value,str) or not re.fullmatch(r'\d{1,9}(?:\.\d{1,2})?',value):
+        raise ValueError('Paper payment amount must be a nonnegative USD string with at most two decimal places')
+    amount=Decimal(value)
+    if amount>=100000000:raise ValueError('A single paper payment must be less than100million USD')
+    return amount
+
+
+def payment_voucher_plan(data,result):
+    """Explicit TY2025 paper payment choice; never a payment transaction."""
+    facts={**DEFAULTS,**data.get('filing_details',{})};method=facts['balance_due_payment_method']
+    owed=result['lines'].get('37',0);missing=[];amount=None
+    requested=method=='check_money_order' and owed>0
+    if owed>0 and method=='unanswered':missing.append('Choose a balance-due payment method before completing paper preparation')
+    if method=='check_money_order':
+        if owed<=0:missing.append('Review paper payment selection: this return no longer has a balance due')
+        elif facts['paper_payment_amount_source']=='balance_due':
+            if owed>=100000000:missing.append('A single check or money order must be less than100million USD; enter an individual payment amount')
+            else:amount=Decimal(owed)
+        elif not facts['paper_payment_amount']:missing.append('Enter the amount of this check or money order')
+        else:amount=payment_decimal(facts['paper_payment_amount'])
+        if amount is not None and amount<=0:missing.append('Paper payment amount must be positive');amount=None
+        if requested and not facts['paper_payment_confirmed']:missing.append('Confirm the paper payment amount and method')
+    return {'requested':requested,'method':method,'amount_source':facts['paper_payment_amount_source'],
+        'amount':format(amount,'.2f') if amount is not None else None,'form1040_line37':owed,
+        'missing_facts':missing,'tax_year':2025,'currency':'USD','payment_initiated':False,
+        'source':'https://www.irs.gov/pub/irs-prior/f1040v--2025.pdf'}
 
 def routing_valid(number):
     return bool(re.fullmatch(r'\d{9}',number)) and number!='000000000' and sum(int(c)*w for c,w in zip(number,[3,7,1,3,7,1,3,7,1]))%10==0

@@ -445,6 +445,39 @@ try {
     $checks.Add('Normal close/relaunch preserved both reviewed records and222 USD result; six-box snapshot and original XML attachment survived and read back byte-identically.')
     Save-Screenshot 'windows-native-taxml-reopened-source.png'
     $receipt.native_taxml_INT_DIV_changed_flow_passed=$true
+    Click-Observed (Wait-Named 'Close dialog')
+    # Create a separate owned synthetic return in the same real SQLite
+    # workspace, then operate its new interview and system export through UIA.
+    $env:TAX_REBORN_OWNED_DATADIR=$DataDir
+    python -c "import os,sys;sys.path.insert(0,'tests');import server,tax_engine;from payment_voucher_qa import cases,return_for;d=return_for(tax_engine,cases()[0]);d['filing_details'].update(balance_due_payment_method='unanswered',paper_payment_confirmed=False);server.Store(os.environ['TAX_REBORN_OWNED_DATADIR']).save({'data':d})"
+    if($LASTEXITCODE -ne 0) { throw 'Owned payment-voucher return was not saved.' }
+    Remove-Item Env:TAX_REBORN_OWNED_DATADIR
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Wait-Named 'Synthetic voucher fifteen-percent-owed' | Out-Null
+    Click-Observed (Wait-Named 'Open'); Wait-Named '$2,435' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Balance due & payment voucher')
+    $method=Wait-Named 'Balance-due payment method'; Click-Observed $method
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{ENTER}')
+    $choice=Wait-Named 'Paper voucher amount'; Click-Observed $choice
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{ENTER}')
+    Set-Owned-Edit 'Entered check or money-order amount' '1000.25'
+    Click-Observed (Wait-Named 'I verified the paper payment amount and method')
+    Set-Owned-Edit 'Entered check or money-order amount' '1000.26'
+    $confirmation=Wait-Named 'I verified the paper payment amount and method'
+    $toggle=$confirmation.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
+    if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -ne [System.Windows.Automation.ToggleState]::Off) { throw 'Payment edit did not invalidate confirmation.' }
+    Click-Observed $confirmation
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Click-Observed (Wait-Named 'Download official packet')
+    $voucherPdf=Join-Path $OutputDir 'windows-native-payment-voucher.pdf'; Save-Native-Export $voucherPdf
+    $env:TAX_REBORN_OWNED_VOUCHER_PDF=$voucherPdf
+    python -c "import os,sys,io;sys.path.insert(0,'tests');from pathlib import Path;from pypdf import PdfReader;import official_forms;from payment_voucher_qa import verify_packet;p=Path(os.environ['TAX_REBORN_OWNED_VOUCHER_PDF']).read_bytes();verify_packet(p,'1000.26',official_forms);f=PdfReader(io.BytesIO(p)).get_fields();assert f['topmostSubform[0].Page2[0].f2_35[0]']['/V']=='2435'"
+    if($LASTEXITCODE -ne 0) { throw 'Native system-saved payment-voucher fields failed readback.' }
+    Remove-Item Env:TAX_REBORN_OWNED_VOUCHER_PDF
+    Close-App; Launch-App; Wait-Named '$2,435' 120 $false | Out-Null
+    $amount=Wait-Edit 'Entered check or money-order amount'; if([string]$amount.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '1000.26') { throw 'Native voucher amount did not survive relaunch.' }
+    Save-Screenshot 'windows-native-payment-voucher-reopened.png'
+    $checks.Add('Native payment choice/custom cents/confirmation invalidation/system1040-V PDF and normal relaunch passed;2435 balance remained unchanged by1000.26 voucher.')
+    $receipt.native_payment_voucher_changed_flow_passed=$true
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

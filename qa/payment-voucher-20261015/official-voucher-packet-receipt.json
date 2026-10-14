@@ -1,0 +1,221 @@
+{
+  "tax_year": 2025,
+  "synthetic_only": true,
+  "cases": 2,
+  "passed": 2,
+  "rows": [
+    {
+      "case": "balance-due",
+      "Form1040_line37": 221159,
+      "voucher_amount": "221159.00",
+      "PDF_sha256": "d535bd1f45260ad063ba2e32a4640b3b3c0b2f0800c16ff083fd2c93cd9a99e4",
+      "proof": {
+        "canonical_and_widget_fields": 9,
+        "pages": 16,
+        "voucher_pages": 2,
+        "page_identities_verified": true,
+        "expected_fields": {
+          "f1040v_0.topmostSubform[0].Page1[0].f1_1[0]": "012345678",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_3[0]": "221159.00",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_5[0]": "Synthetic A",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_6[0]": "Taxpayer",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_9[0]": "100 Example Street",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_10[0]": "2B",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_11[0]": "Example City",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_12[0]": "IL",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_13[0]": "60000"
+        },
+        "manifest": {
+          "version": 1,
+          "tax_year": 2025,
+          "instances": [
+            {
+              "form_id": "preparation_checklist",
+              "owner": "packet",
+              "copy_index": 1,
+              "required_pages": [
+                1
+              ],
+              "template_sha256": null
+            },
+            {
+              "form_id": "f1040",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": null
+            },
+            {
+              "form_id": "f1040v",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "2426bb330ac54b765b32fbc3eceb878544aa333a3a823e1170aa8261a40fd251"
+            },
+            {
+              "form_id": "f1040s2",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8"
+            },
+            {
+              "form_id": "f1040sb",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1
+              ],
+              "template_sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2"
+            },
+            {
+              "form_id": "f1040sd",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e"
+            },
+            {
+              "form_id": "f8960",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1
+              ],
+              "template_sha256": "9b323b7166b5845a776f781b8c82eef94ccd998354e88fc33a1051c3b3789731"
+            },
+            {
+              "form_id": "f6251",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "6995bfd29c6fe1b80fdc396c9c4796c7cef58a966070db0346721eae815fea3f"
+            },
+            {
+              "form_id": "f2210",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2,
+                3
+              ],
+              "template_sha256": "6899ce672648b280bf00ab47200f1b0fbf40368cfbf137df507b945b8577159a"
+            }
+          ],
+          "expected_pdf_pages": 16,
+          "scope": "current_supported_paper_preparation",
+          "filing_packet_ready": false
+        }
+      },
+      "payment_initiated": false
+    },
+    {
+      "case": "custom-cents",
+      "Form1040_line37": 2435,
+      "voucher_amount": "1000.25",
+      "PDF_sha256": "0b54dd4abb00122400e14757d41a9952be73cf1599696776d54ad7fa74457297",
+      "proof": {
+        "canonical_and_widget_fields": 9,
+        "pages": 11,
+        "voucher_pages": 2,
+        "page_identities_verified": true,
+        "expected_fields": {
+          "f1040v_0.topmostSubform[0].Page1[0].f1_1[0]": "012345678",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_3[0]": "1000.25",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_5[0]": "Synthetic A",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_6[0]": "Taxpayer",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_9[0]": "100 Example Street",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_10[0]": "2B",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_11[0]": "Example City",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_12[0]": "IL",
+          "f1040v_0.topmostSubform[0].Page1[0].f1_13[0]": "60000"
+        },
+        "manifest": {
+          "version": 1,
+          "tax_year": 2025,
+          "instances": [
+            {
+              "form_id": "preparation_checklist",
+              "owner": "packet",
+              "copy_index": 1,
+              "required_pages": [
+                1
+              ],
+              "template_sha256": null
+            },
+            {
+              "form_id": "f1040",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": null
+            },
+            {
+              "form_id": "f1040v",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "2426bb330ac54b765b32fbc3eceb878544aa333a3a823e1170aa8261a40fd251"
+            },
+            {
+              "form_id": "f1040sb",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1
+              ],
+              "template_sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2"
+            },
+            {
+              "form_id": "f1040sd",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2
+              ],
+              "template_sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e"
+            },
+            {
+              "form_id": "f2210",
+              "owner": "taxpayer",
+              "copy_index": 1,
+              "required_pages": [
+                1,
+                2,
+                3
+              ],
+              "template_sha256": "6899ce672648b280bf00ab47200f1b0fbf40368cfbf137df507b945b8577159a"
+            }
+          ],
+          "expected_pdf_pages": 11,
+          "scope": "current_supported_paper_preparation",
+          "filing_packet_ready": false
+        }
+      },
+      "payment_initiated": false
+    }
+  ]
+}

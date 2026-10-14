@@ -251,7 +251,8 @@ def packet_status(record,support=None):
     support=support if support is not None else official_forms.build_official_packet(record)
     preflight=official_forms.verify_packet_pages(support['pdf_bytes'],support['packet_manifest'])
     readiness=tax_filing.paper_facts_readiness(data)
-    missing=list(result.get('blocking_issues',[]))+list(result.get('form_readiness',{}).get('missing_identity',[]))+readiness['missing_paper_facts']+support['missing_facts']
+    voucher=tax_filing.payment_voucher_plan(data,result)
+    missing=list(result.get('blocking_issues',[]))+list(result.get('form_readiness',{}).get('missing_identity',[]))+readiness['missing_paper_facts']+support['missing_facts']+voucher['missing_facts']
     if result['lines'].get('27a') and any(r.get('eitc_qualifying_child') for r in data.get('dependents',[])):missing.append('Schedule EIC qualifying-child attachment is not yet generated')
     if len(data.get('dependents',[]))>4:missing.append('More-than-four-dependent continuation attachment is not yet generated')
     missing=list(dict.fromkeys(missing))
@@ -261,7 +262,7 @@ def packet_status(record,support=None):
             'supporting_packet_preflight':preflight,'supporting_packet_manifest':support['packet_manifest'],
             'requires_taxpayer_signature':True,'requires_original_withholding_attachments':bool(data.get('w2') or result['lines'].get('25b')),
             'penalty_applicability_review_required':'38' in result.get('not_computed_lines',[]),
-            'electronic_filing':False,'transmitted':False,'filing_packet_ready':False}
+            'payment_voucher':voucher,'electronic_filing':False,'transmitted':False,'filing_packet_ready':False}
 
 
 def paper_packet_pdf(record):
@@ -281,6 +282,10 @@ def paper_packet_pdf(record):
            'Filled supporting forms: '+(', '.join(f['id'] for f in support['forms']) or 'None required by these entered amounts.'),
            'Penalty applicability review: '+('required; line38 was not computed.' if status['penalty_applicability_review_required'] else 'computed from entered penalty facts.'),
            'Missing facts / blocked situations:']+(status['missing_facts'] or ['None identified within the supported paper-preparation scope.'])
+    if status['payment_voucher']['requested']:
+        lines+=['', 'Form1040-V paper payment amount: $'+str(status['payment_voucher']['amount'] or 'not entered'),
+                'Include this voucher with the check or money order you arrange. Do not staple them to each other or to the return. Review the official TY2025 mailing instructions included with the voucher.',
+                'Voucher preparation does not record a completed payment.']
     special=record['result'].get('schedules',{}).get('schedule_d_tax_worksheet')
     if special:
         lines+=['', 'TY2025 SCHEDULE D TAX WORKSHEET - INDEPENDENT CALCULATION WORKPAPER',

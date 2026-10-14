@@ -1,0 +1,17 @@
+{
+  "tax_year": 2025,
+  "currency": "USD",
+  "synthetic_only": true,
+  "scope": "Single-filer ordinary domestic W2, interest and1099DIV capital distributions; prior-year-zero-tax penalty exception confirmed. Paper payment choices do not change the tax calculation.",
+  "primary_IRS_sources": [
+    "https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf",
+    "https://www.irs.gov/pub/irs-prior/f6251--2025.pdf",
+    "https://www.irs.gov/pub/irs-prior/f8960--2025.pdf",
+    "https://www.irs.gov/pub/irs-prior/f1040v--2025.pdf"
+  ],
+  "cases": [
+    {"name":"fifteen-percent-owed","wages":5000,"capital":"80000","regular_tax":3435,"AMT":0,"NIIT":0,"total_tax":3435,"withholding":1000,"owed":2435},
+    {"name":"twenty-percent-NIIT-owed","wages":5000,"capital":"600000","regular_tax":84328,"AMT":0,"NIIT":15466,"total_tax":99794,"withholding":1000,"owed":98794},
+    {"name":"positive-AMT-NIIT-owed","wages":190000,"capital":"800000","regular_tax":177290,"AMT":14773,"NIIT":30096,"total_tax":222159,"withholding":1000,"owed":221159}
+  ]
+}
