@@ -7,3 +7,8 @@ Windows installed/frozen checks17 and native GUI checks17 passed. The native Sav
 Android actual birthday example, date edit, Save and process restart passed. The unchanged-signature installed APK matches the candidate. New birthday PDF generation reached the system document picker, but saving that phone-generated file and reading it back have not been accepted. The picker was cancelled and the saved return remains intact. Do not describe this as completed mobile PDF export acceptance.
 
 The whole host suite passed482 tests. Actual Pyodide executed431 tests successfully with one host-only skip. These tests do not establish original TurboTax runtime parity, full .tax compatibility, electronic filing or unsupported tax profiles.
+
+
+## Android export acceptance completed
+
+On2026-10-14, the actual system Save completed using the numeric keypad confirmation key. The phone-generated PDF was read from its saved destination. It has30pages, EIC0, refund1000 and the expected Form1040 line27c checkbox. The PDF field readback and rendered page both passed. See android-birthday-export-readback.json and android-birthday-form1040-page2.png. No vendor runtime or vendor return fixture was used.

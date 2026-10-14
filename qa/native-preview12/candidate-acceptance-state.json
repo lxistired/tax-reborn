@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-14T13:31:03.880743+00:00",
+  "checked_at_utc": "2026-10-14T14:22:08.829843+00:00",
   "version": "2026.10.14-preview.12",
   "source_commit": "c90a64d6b7e81f21dca3972ff03b59ffe3978f3e",
   "all_figures_synthetic": true,
@@ -31,14 +31,20 @@
     "saved_and_process_restarted": true,
     "saved_DOB_2001_01_02_and_refund_1000_read_back": true,
     "native_PDF_request_reached_system_picker": true,
-    "new_DOB_PDF_saved_file_readback": false,
-    "export_picker_cancelled_returned_to_App": true,
-    "remaining": "Complete system Save and read back exact phone-generated PDF. SDK keyboard works; CUA pointer/system-save control remains unresolved; do not count picker visibility as completed export."
+    "new_DOB_PDF_saved_file_readback": true,
+    "export_picker_cancelled_returned_to_App": false,
+    "remaining": null,
+    "pdf_sha256": "17c501dc2ae02f35c9174803d7558029c57c6400cad47945e7e547843660a4ac",
+    "pdf_pages": 30,
+    "EIC": 0,
+    "refund": 1000,
+    "form1040_line27c": "/1"
   },
   "host_tests_passed": 482,
   "real_Pyodide_executed_passed": 431,
   "real_Pyodide_host_only_skipped": 1,
   "full_original_tax_compatibility": false,
   "original_runtime_executions": 0,
-  "validated_original_saved_tax_fixtures": 0
+  "validated_original_saved_tax_fixtures": 0,
+  "three_platform_acceptance_complete": true
 }

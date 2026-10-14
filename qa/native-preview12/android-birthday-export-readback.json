@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-14T14:22:08.829843+00:00",
+  "synthetic_only": true,
+  "phone_generated": true,
+  "system_picker_saved": true,
+  "system_confirmation_key": "KP_Enter after filename Tab to Save; later observation returned to App",
+  "phone_path": "/sdcard/Download/DLManager/tax-reborn-2025-5e6f79a8-form1040.pdf",
+  "bytes": 631415,
+  "sha256": "17c501dc2ae02f35c9174803d7558029c57c6400cad47945e7e547843660a4ac",
+  "pages": 30,
+  "EIC": 0,
+  "refund": 1000,
+  "form1040_line27c": "/1",
+  "visual_readback_verified": true,
+  "original_TurboTax_acceptance": false
+}
