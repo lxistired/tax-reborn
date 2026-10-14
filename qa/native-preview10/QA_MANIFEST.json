@@ -1,6 +1,7 @@
 {
   "version": "2026.10.14-preview.10",
   "synthetic_only": true,
+  "public_text_line_endings": "LF; original Windows CI artifacts retained privately",
   "files": [
     {
       "file": "amt825.json",
@@ -89,8 +90,8 @@
     },
     {
       "file": "build-manifest-win32-x64.json",
-      "bytes": 956,
-      "sha256": "70ca73ad7b8289a67914c9aaec3e3bc9f68d323eeb6208758e54ac174915ea54"
+      "bytes": 924,
+      "sha256": "710cef162a3b4b45afadd2cbcbcceec9f74d971332a285c940407b25ed7d8933"
     },
     {
       "file": "frozen-smoke-darwin-arm64.json",
@@ -99,13 +100,13 @@
     },
     {
       "file": "frozen-smoke-win32-x64-diagnostic.txt",
-      "bytes": 1496,
-      "sha256": "2b330a1e65725e0ceb0c917696d73b23d19c27259b579849ce26620047e31071"
+      "bytes": 1469,
+      "sha256": "d3dbbc84e94c6d7a3ca1022c16d3d3540a45d9082e6f69acf4625fb2e38e8f63"
     },
     {
       "file": "frozen-smoke-win32-x64.json",
-      "bytes": 1496,
-      "sha256": "2b330a1e65725e0ceb0c917696d73b23d19c27259b579849ce26620047e31071"
+      "bytes": 1469,
+      "sha256": "d3dbbc84e94c6d7a3ca1022c16d3d3540a45d9082e6f69acf4625fb2e38e8f63"
     },
     {
       "file": "host-packaged-smoke.json",
@@ -114,13 +115,13 @@
     },
     {
       "file": "installed-frozen-smoke-win32-x64-diagnostic.txt",
-      "bytes": 1496,
-      "sha256": "2b330a1e65725e0ceb0c917696d73b23d19c27259b579849ce26620047e31071"
+      "bytes": 1469,
+      "sha256": "d3dbbc84e94c6d7a3ca1022c16d3d3540a45d9082e6f69acf4625fb2e38e8f63"
     },
     {
       "file": "installed-frozen-smoke-win32-x64.json",
-      "bytes": 1496,
-      "sha256": "2b330a1e65725e0ceb0c917696d73b23d19c27259b579849ce26620047e31071"
+      "bytes": 1469,
+      "sha256": "d3dbbc84e94c6d7a3ca1022c16d3d3540a45d9082e6f69acf4625fb2e38e8f63"
     },
     {
       "file": "installed-taxml-pyodide-receipt.json",
@@ -169,8 +170,8 @@
     },
     {
       "file": "native-dependency-versions.txt",
-      "bytes": 332,
-      "sha256": "6085b7bf1f159e0a92953a55823bc383d237b017fab89d7383862f07262f316b"
+      "bytes": 315,
+      "sha256": "69fbb78fb105a034b9285b8ecf0111026e76606ef51c25d4d832449b9eb51d2e"
     },
     {
       "file": "pyodide-tests.json",
@@ -184,8 +185,8 @@
     },
     {
       "file": "windows-installer-receipt.json",
-      "bytes": 234,
-      "sha256": "45a76bc8f436488281da6ade4cd3fdd9f281284872207e3ae6601bae890d15a5"
+      "bytes": 227,
+      "sha256": "8b3933d633691332301e8a00b62a0d2f59da2b75fe1c345f10af8636f1ef428d"
     },
     {
       "file": "windows-native-AMT-edited-10963.png",
@@ -234,8 +235,8 @@
     },
     {
       "file": "windows-native-gui-smoke.json",
-      "bytes": 1281,
-      "sha256": "c408b26797a361d0431b1d4b6c10d975ce9bd01c2f85a8ac06d1387d0fe0b222"
+      "bytes": 1261,
+      "sha256": "7f9492b55fbaf69b799af3d16e9a7b2a1219a592e53e58d2c89469924ff9b562"
     },
     {
       "file": "windows-native-initial.png",
