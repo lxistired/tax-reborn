@@ -1,0 +1,62 @@
+{
+  "version": "2026.10.14-preview.10",
+  "all_passed": true,
+  "files": [
+    {
+      "file": "tax_engine.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "fafa18915d7b75f5403d38c9904082eeea7a5a3505937234f2a5f402e13a4c4d"
+    },
+    {
+      "file": "tax_special_capital.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "c5b7bc5a746369f70fc67eca2b783e0f951a8536f44dc5e09607fe07ae5d08a6"
+    },
+    {
+      "file": "tax_extended.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "eafddbaecc0f8374fa0d085859c986e99c0acc4b67320e4319265448dcc6ef94"
+    },
+    {
+      "file": "tax_credits.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786"
+    },
+    {
+      "file": "tax_additional.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5"
+    },
+    {
+      "file": "tax_longtail.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d"
+    },
+    {
+      "file": "tax_filing.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50"
+    },
+    {
+      "file": "rules_2025.json",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac"
+    },
+    {
+      "file": "forms.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "5aaae338da801dd50dc7df88689518ede9a2ec379a2f8f75972cedef5654ee70"
+    },
+    {
+      "file": "official_forms.py",
+      "same_independent_source_on_all3platforms": true,
+      "sha256": "c0f8522307667000a0bc5175364f53c89292597562ae290f27c22d6754d99cc9"
+    }
+  ],
+  "native_build_commits": {
+    "android": "59affc89f954cbb9c1ae77f387bc194a60f76dfc",
+    "windows": "c64e791",
+    "mac": "7b7b26a"
+  },
+  "difference_between_build_commits": "Native test driver requirement andnumericmacOS bundle metadata only; independenttaxcore byte-identical"
+}

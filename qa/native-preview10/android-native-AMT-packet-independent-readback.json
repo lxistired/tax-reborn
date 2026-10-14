@@ -1,0 +1,10 @@
+{
+  "case_id": "IRS2025-AMT-special-005",
+  "pages": 12,
+  "partIII_lines_verified": 29,
+  "form6251_pages": 2,
+  "AMT": 13624,
+  "packet_sha256": "b11693bb58ec2dd74595af103282c34c21685a8764ad48c9e23fa802c98ab5e2",
+  "all_passed": true,
+  "oracle": "Independent publicIRS2025 fixture, not output of the packaged engine"
+}

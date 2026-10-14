@@ -1,0 +1,18 @@
+{
+  "platform": "mac",
+  "version": "2026.10.14-preview.10",
+  "synthetic_only": true,
+  "actual_UI_ISO_100000_to_zero_refund": 24587,
+  "actual_UI_ISO_restored_refund": 10963,
+  "AMT": 13624,
+  "save_close_reopen_retained": true,
+  "system_file_save_completed": true,
+  "packet_all29_PartIII_fields_independently_read_back": true,
+  "checked_at_utc": "2026-10-14T09:05:03.076673+00:00",
+  "actual_frozen_app": true,
+  "arm64": true,
+  "stable_workspace_port": 27145,
+  "readonly_dmg_payload_byte_match": true,
+  "verified_payload_files": 324,
+  "old_preview9_return_preserved": true
+}
