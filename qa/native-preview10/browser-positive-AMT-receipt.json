@@ -1,0 +1,22 @@
+{
+  "version": "2026.10.14-preview.10",
+  "actual_browser_GUI": true,
+  "same_basis_default_false_blocks_old_return": true,
+  "explicit_new_confirmation_releases_block": true,
+  "positive_AMT_new_copy_saved": true,
+  "reload_retains_refund": 10963,
+  "actual_GUI_official_packet_exported": true,
+  "Form6251_values": {
+    "9": 19037,
+    "10": 5413,
+    "11": 13624
+  },
+  "all29_PartIII_fields_match_independent_IRS": true,
+  "actual_Form6251_pages": 2,
+  "actual_1040_line17": 13624,
+  "packet_pages": 12,
+  "PDF_sha256": "ac88e47fd70a4a54aa604cb801fea3079c755a21ed3a3a45a7cb3dbafcb8a788",
+  "native_preview10_packages_built": false,
+  "synthetic_only": true,
+  "transmitted": false
+}

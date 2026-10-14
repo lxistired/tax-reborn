@@ -1,0 +1,9 @@
+{
+  "year": 2025,
+  "cases": 825,
+  "passed": 825,
+  "failed": 0,
+  "failures": [],
+  "oracle": "Independent IRS2025 synthetic worksheet expectations",
+  "original_vendor_runtime_executions": 0
+}
