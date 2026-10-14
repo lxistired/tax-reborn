@@ -492,6 +492,14 @@ try {
     $toggle=$confirmation.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
     if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -ne [System.Windows.Automation.ToggleState]::Off) { throw 'Payment edit did not invalidate confirmation.' }
     Click-Observed $confirmation
+    Click-Observed (Wait-Named 'Interest · 1099-INT')
+    Click-Observed (Wait-Named '+ Add another 1099-INT')
+    Click-Observed (Wait-Named 'Remove 1099-INT 2')
+    Click-Observed (Wait-Named 'Balance due & payment voucher')
+    $confirmation=Wait-Control 'CheckBox' 'I verified the paper payment amount and method' $true
+    $toggle=$confirmation.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
+    if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -ne [System.Windows.Automation.ToggleState]::Off) { throw 'Record addition/removal did not invalidate paper-payment confirmation.' }
+    Click-Observed $confirmation
     Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
     Click-Observed (Wait-Named 'Download official packet')
     $voucherPdf=Join-Path $OutputDir 'windows-native-payment-voucher.pdf'; Save-Native-Export $voucherPdf

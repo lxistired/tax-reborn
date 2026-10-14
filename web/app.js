@@ -31,16 +31,12 @@ function isUUID(value){return typeof value==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}
 
 const get=path=>path.split('.').reduce((value,key)=>value?.[key],data);
 function set(path,value){
- if(path!=='filing_details.paper_payment_confirmed'&&data.filing_details?.paper_payment_confirmed){
-  data.filing_details.paper_payment_confirmed=false;
-  for(const input of document.querySelectorAll('[name="filing_details.paper_payment_confirmed"]'))input.checked=false;
- }
  const w2=path.match(/^w2\.(\d+)\./),income=path.match(/^(interest|dividends)\.(\d+)\./);let before=null;
  try{if(w2)before=window.taxRecordMetadata.canonicalW2(data.w2[Number(w2[1])]);if(income)before=window.taxIncomePreparation.canonical(income[1],data[income[1]][Number(income[2])]);}catch{}
  const parts=path.split('.');let target=data;for(let index=0;index<parts.length-1;index++){const key=parts[index];if(target[key]==null)target[key]=/^\d+$/.test(parts[index+1])?[]:{};target=target[key];}target[parts.at(-1)]=value;
  if(/^(taxpayer|spouse)\.(birth_date|death_date)$/.test(path))syncPersonAge(parts[0]);
  let after=null;try{if(w2)after=window.taxRecordMetadata.canonicalW2(data.w2[Number(w2[1])]);if(income)after=window.taxIncomePreparation.canonical(income[1],data[income[1]][Number(income[2])]);}catch{}
- if(before===null||after===null||before!==after){if(w2)clearW2Review(Number(w2[1]));if(income)clearIncomeReview(income[1],Number(income[2]));}changed();
+ if(before===null||after===null||before!==after){if(w2)clearW2Review(Number(w2[1]));if(income)clearIncomeReview(income[1],Number(income[2]));}changed(path==='filing_details.paper_payment_confirmed');
 }
 function decimalCents(value){const text=String(value??'0').trim()||'0';if(!/^-?\d+(\.\d{1,2})?$/.test(text))throw Error('Enter a USD amount with no more than two decimal places, without commas.');const sign=text.startsWith('-')?-1n:1n;const[whole,fraction='']=text.replace(/^-/,'').split('.');return sign*(BigInt(whole)*100n+BigInt(fraction.padEnd(2,'0')));}
 function dollars(value,digits=0){if(value==null)return'—';const number=Number(value);if(!Number.isFinite(number))return'—';return number.toLocaleString('en-US',{style:'currency',currency:'USD',minimumFractionDigits:digits,maximumFractionDigits:digits});}
@@ -81,7 +77,7 @@ async function rawApi(path,options={}){const response=await(window.taxApi||windo
 async function api(path,options={}){return(await rawApi(path,options)).json();}
 function notify(message,error=false){const node=$('#toast');node.textContent=message;node.className='toast'+(error?' error':'');node.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.hidden=true,6500);}
 function button(label,handler,kind='secondary',attrs={}){return el('button',{type:'button',class:'button '+kind,onClick:event=>{try{const pending=handler?.(event);if(pending?.catch)pending.catch(error=>notify(error.message,true));}catch(error){notify(error.message,true);}},...attrs},label);}
-function changed(){ensureW2Metadata();ensureIncomeMetadata();revision++;dirty=true;calculatedRevision=-1;updateHeader();scheduleCalculation();checkpointWorkspace();}
+function changed(preservePaperConfirmation=false){if(!preservePaperConfirmation&&data.filing_details?.paper_payment_confirmed){data.filing_details.paper_payment_confirmed=false;for(const input of document.querySelectorAll('[name="filing_details.paper_payment_confirmed"]'))input.checked=false;}ensureW2Metadata();ensureIncomeMetadata();revision++;dirty=true;calculatedRevision=-1;updateHeader();scheduleCalculation();checkpointWorkspace();}
 function scheduleCalculation(){clearTimeout(calculateTimer);calculateTimer=setTimeout(()=>calculate(),450);}
 async function calculate(){if(!data)return;clearTimeout(calculateTimer);const serial=++calculationSerial,atRevision=revision;updateHeader('Calculating…');let input;try{input=payload();}catch(error){calculationError=error.message;result=null;updateHeader('Check your entries');renderSummary(error.message);return null;}calculatePromise=api('/api/calculate',{method:'POST',body:JSON.stringify(input)});try{const next=await calculatePromise;if(serial!==calculationSerial||revision!==atRevision)return null;result=next;calculationError='';calculatedRevision=atRevision;updateHeader();renderSummary();if(['review','trace','forms','schedules'].includes(page))renderPage(false);return next;}catch(error){if(serial!==calculationSerial)return null;calculationError=error.message;result=null;updateHeader('Calculation unavailable');renderSummary(error.message);if(['review','trace','forms','schedules'].includes(page))renderPage(false);notify(error.message,true);return null;}}
 function incomeSourceIssueCount(){return Object.values(metadata.income_document_records||{}).flat().filter(item=>item.is_placeholder||item.unresolved_fields?.length).length;}
