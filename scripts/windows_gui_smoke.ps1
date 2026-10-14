@@ -83,6 +83,14 @@ function Click-Observed($item) {
         }
         $rect = $item.Current.BoundingRectangle
     }
+    # WebView2 can scroll the observed input before UIA refreshes its bounds.
+    # The captured address-flow failure shows the field visible in the final
+    # screenshot. Wait for the provider's updated rectangle before clicking.
+    $visibleUntil=(Get-Date).AddSeconds(5)
+    while(($rect.IsEmpty -or $item.Current.IsOffscreen) -and (Get-Date) -lt $visibleUntil) {
+        Start-Sleep -Milliseconds 100
+        $rect=$item.Current.BoundingRectangle
+    }
     if ($rect.IsEmpty -or $item.Current.IsOffscreen) { throw ('The UI control has no visible click target: '+$item.Current.Name) }
     [TaxWindow]::SetCursorPos([int]($rect.Left+$rect.Width/2),[int]($rect.Top+$rect.Height/2)) | Out-Null
     [TaxWindow]::mouse_event(2,0,0,0,[UIntPtr]::Zero)
