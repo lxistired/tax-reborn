@@ -56,12 +56,21 @@ def qname(tag):
 def xml(data):
     if not isinstance(data, bytes) or len(data) > 64 * 1024 * 1024:
         raise WireError("xml_size_or_type")
-    if b"<!DOCTYPE" in data.upper() or b"<!ENTITY" in data.upper():
-        raise WireError("xml_declaration_unsupported")
     try:
         # The studied native path explicitly obtains UTF-8 text.
-        data.decode("utf-8", errors="strict")
-        root = ET.fromstring(data, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=True, insert_pis=True)))
+        text = data.decode("utf-8", errors="strict")
+        if "\x00" in text:
+            raise WireError("invalid_utf8_xml")
+        if "<!DOCTYPE" in text.upper() or "<!ENTITY" in text.upper():
+            raise WireError("xml_declaration_unsupported")
+        declaration = re.match(r"\ufeff?\s*<\?xml\s+.*?\?>", text, re.DOTALL | re.IGNORECASE)
+        if declaration:
+            encoding = re.search(r"encoding\s*=\s*(['\"])(.*?)\1", declaration.group(), re.IGNORECASE)
+            if encoding and encoding.group(2).lower() not in ("utf-8", "utf8"):
+                raise WireError("invalid_utf8_xml")
+        # Parse the validated text, so the parser cannot reinterpret raw bytes
+        # as UTF-16 or another declaration-selected encoding.
+        root = ET.fromstring(text, parser=ET.XMLParser(target=ET.TreeBuilder(insert_comments=True, insert_pis=True)))
     except (ET.ParseError, UnicodeError) as error:
         raise WireError("invalid_utf8_xml") from error
     stack, count = [(root, 1)], 0

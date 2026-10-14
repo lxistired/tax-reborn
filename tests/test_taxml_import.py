@@ -91,6 +91,47 @@ def plaintext_archive(data, security=''):
 
 
 class InspectionAcceptance(unittest.TestCase):
+    def test_utf16_and_utf32_cannot_bypass_utf8_or_entity_boundary(self):
+        document = taxml_bytes().decode()
+        entity_document = ('<!DOCTYPE SyntheticReturn [<!ENTITY employer "Owned synthetic">]>'
+            + document.replace('Synthetic Widgets', '&employer;'))
+        for encoding, marker in [('utf-16-le', b'\xff\xfe'), ('utf-16-be', b'\xfe\xff'),
+                ('utf-32-le', b'\xff\xfe\x00\x00'), ('utf-32-be', b'\x00\x00\xfe\xff')]:
+            for content in [document, entity_document]:
+                for bom in [b'', marker]:
+                    with self.subTest(encoding=encoding, entity=content == entity_document, bom=bool(bom)):
+                        with self.assertRaises(ValueError):
+                            preparation.inspect_request(request(bom + content.encode(encoding)))
+
+    def test_utf8_bytes_with_another_declared_encoding_are_refused(self):
+        for encoding in ['UTF-16', 'UTF-32', 'ISO-8859-1', 'UTF-7']:
+            with self.subTest(encoding=encoding):
+                source = f'<?xml version="1.0" encoding="{encoding}"?>'.encode() + taxml_bytes()
+                with self.assertRaises(ValueError):
+                    preparation.inspect_request(request(source))
+
+    def test_utf8_bom_and_declaration_keep_original_source_binding(self):
+        for prefix in [b'', b'\xef\xbb\xbf', b'<?xml version="1.0" encoding="UTF-8"?>',
+                b'\xef\xbb\xbf<?xml version="1.0" encoding="UTF-8"?>']:
+            source = prefix + taxml_bytes()
+            result = preparation.inspect_request(request(source))
+            self.assertEqual(result['source_sha256'], wire.digest(source))
+            self.assertEqual(result['candidates'][0]['employer'], 'Synthetic Widgets LLC')
+
+    def test_zip_manifest_uses_the_same_utf8_guard(self):
+        source = plaintext_archive(taxml_bytes())
+        with zipfile.ZipFile(BytesIO(source)) as original:
+            manifest = original.read('manifest.xml').decode()
+            members = {name: original.read(name) for name in original.namelist()}
+        for encoding in ['utf-16-le', 'utf-16-be']:
+            result = BytesIO()
+            with zipfile.ZipFile(result, 'w') as zipped:
+                for name, content in members.items():
+                    zipped.writestr(name, manifest.encode(encoding) if name == 'manifest.xml' else content)
+            value = request(result.getvalue()); value['container'] = 'declared_plaintext_zip'
+            with self.assertRaises(ValueError):
+                preparation.inspect_request(value)
+
     def test_present_wrong_type_is_blocking_instead_of_manual_fallback(self):
         source_values = {'NAME': 'Synthetic caption / do not use as employer',
             'CA': 'Synthetic Widgets', 'CA2': 'LLC', 'SSTIPS': '301.23', 'DCB': '87.65'}

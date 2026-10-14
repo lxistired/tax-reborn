@@ -49,7 +49,18 @@ async function main(){
   assert.equal(typed.candidates[0].can_review,false);
   assert(typed.unresolved_facts.some(row=>row.code==='unsupported_w2_semantic_type'&&row.detail===specimen.field));
  }
+ const encodingCases=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-encoding-boundaries.json'),'utf8'));
+ for(const specimen of encodingCases){
+  if(specimen.expected==='reject')await assert.rejects(()=>command('taxml_inspect',specimen.request));
+  else{
+   const accepted=await command('taxml_inspect',specimen.request);
+   assert.equal(accepted.candidates[0].employer,candidate.employer);
+   const exact=Buffer.from(specimen.request.base64,'base64');
+   assert.equal(accepted.source_sha256,require('node:crypto').createHash('sha256').update(exact).digest('hex'));
+  }
+ }
  const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,assertions:25,
+  additional_encoding_input_probes:encodingCases.length,
   federal_can_prepare:result.can_prepare,all_income_reported:data.eligibility.all_income_reported,
   no_original_tax_roundtrip_claim:true,worker_source_sha256:require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'web/tax-worker-source.js'))).digest('hex')};
  fs.mkdirSync(path.join(root,'qa/taxml'),{recursive:true});fs.writeFileSync(path.join(root,'qa/taxml/runtime-receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
