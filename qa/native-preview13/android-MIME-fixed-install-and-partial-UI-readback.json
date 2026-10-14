@@ -1,0 +1,20 @@
+{
+  "checked_at_utc": "2026-10-14T16:47:11.445502+00:00",
+  "version": "2026.10.14-preview.13",
+  "compiled_Android_source_commit": "17eedb8",
+  "APK_sha256": "d4a7e2723266fd2514e8b30fdd7a05cfbbdf404c735b3b48439b1d12c250083b",
+  "same_signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "same_signer_update_installed": true,
+  "installed_base_APK_hash_readback_matches": true,
+  "real_accept_string_Java_regression_passed": true,
+  "actual_system_XML_profile_XPRF_selected": true,
+  "actual_TaxML_inspection_succeeded": true,
+  "all_return_data_synthetic": true,
+  "end_to_end_UI_acceptance": false,
+  "USB_device_absent": true,
+  "source_files": [
+    "synthetic-modern-windows-w2.xml",
+    "synthetic-modern-windows-wire-profile.json",
+    "synthetic-modern-windows-w2.xprf"
+  ]
+}

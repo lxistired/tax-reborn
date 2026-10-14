@@ -1,0 +1,7 @@
+{
+  "own_APK_asset_files_compared": 119,
+  "all_WebAssembly_JS_Python_assets_byte_identical_to_prior_exact_APK_runtime_accepted_build": true,
+  "Android_native_dex_changed": true,
+  "new_installed_APK_sha256": "d4a7e2723266fd2514e8b30fdd7a05cfbbdf404c735b3b48439b1d12c250083b",
+  "does_not_prove_complete_GUI_export_acceptance": true
+}

@@ -1,7 +1,6 @@
 {
-  "checked_at_utc": "2026-10-14T15:29:35.031064+00:00",
+  "checked_at_utc": "2026-10-14T16:47:11.445502+00:00",
   "version": "2026.10.14-preview.13",
-  "compiled_source_commit": "1c25c5e9c6d5e9f57bb6481b57825e103be2ddf4",
   "published": false,
   "all_return_figures_synthetic": true,
   "Windows": {
@@ -23,27 +22,38 @@
     "actual_refund": 129,
     "saved_and_normal_quit_relaunch": true,
     "actual_system_XML_SaveAs_byte_readback": true,
-    "original_source_download_after_relaunch_byte_identical": true
+    "original_source_download_after_relaunch_byte_identical": true,
+    "readonly_DMG_payload_verified": true
   },
   "Android": {
     "generated": true,
     "same_signer_installed_update": true,
-    "installed_APK_sha256": "b487d0039af68502a0afc9d170af339a6a20adfd3e4ca617a6b2df78d0e2da4f",
+    "installed_APK_sha256": "d4a7e2723266fd2514e8b30fdd7a05cfbbdf404c735b3b48439b1d12c250083b",
     "exact_APK_Pyodide_modules_tested": true,
     "zero_copy_guard_tested": true,
     "prior_saved_data_retained_in_UI": true,
-    "actual_new_XML_import_review_export_GUI": false
+    "actual_new_XML_import_review_export_GUI": false,
+    "actual_XML_profile_XPRF_system_file_selection": true,
+    "actual_current_native_XML_inspection": true,
+    "source_sha256_observed": "b2d87a6fb13652954432b1bf290e4f96fde23801434bf5e4b28fff329bcce0df",
+    "review_dialog_reached": true,
+    "owner_and_employer_entered": true,
+    "wages_1235_observed": true,
+    "blocking_device_state": "USB device absent after mirror disconnect and existing-transport reconnect; physical reconnection requested",
+    "end_to_end_saved_reopened_export_readback": false,
+    "same_signer_certificate_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+    "real_accept_string_Java_regression_passed": true
   },
   "remaining_release_gate": [
-    "Actual Android XML/profile/XPRF picker, review/add/save/restart and native corrected XML Save/file readback.",
+    "Finish Android reviewed amounts/add/save/restart and corrected XML system Save/file readback after the physical USB connection returns.",
     "Separate Windows native new import/file chooser acceptance if extending this preview beyond installed-module and baseline-GUI evidence.",
-    "DMG mount payload recheck, final source/QA manifest, source package, upload and anonymous public readback."
+    "Final source/QA manifest, source package, upload and anonymous public readback."
   ],
   "files": [
     {
       "file": "Tax-Reborn-2026.10.14-preview.13-Android.apk",
       "bytes": 49075679,
-      "sha256": "b487d0039af68502a0afc9d170af339a6a20adfd3e4ca617a6b2df78d0e2da4f"
+      "sha256": "d4a7e2723266fd2514e8b30fdd7a05cfbbdf404c735b3b48439b1d12c250083b"
     },
     {
       "file": "Tax-Reborn-2026.10.14-preview.13-macOS-arm64.dmg",
@@ -63,5 +73,10 @@
   ],
   "original_TurboTax_runtime_executions": 0,
   "validated_original_saved_tax_fixtures": 0,
-  "full_original_tax_compatibility": false
+  "full_original_tax_compatibility": false,
+  "compiled_source_commits": {
+    "Windows": "1c25c5e9c6d5e9f57bb6481b57825e103be2ddf4",
+    "Mac": "1c25c5e9c6d5e9f57bb6481b57825e103be2ddf4",
+    "Android": "17eedb8b730ca834c03c8c30510910cae644138f"
+  }
 }

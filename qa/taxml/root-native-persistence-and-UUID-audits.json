@@ -1,0 +1,114 @@
+[
+  {
+    "audit": "root-wave27-28-audit-20261014",
+    "result": {
+      "checked_at_utc": "2026-10-14T15:56:53.819020+00:00",
+      "receipts": [
+        {
+          "wave": 27,
+          "frozen_files_verified": 52,
+          "new_native_source_windows_verified": 11,
+          "reused_carriers_and_source_windows_verified": 18,
+          "original_instruction_and_pointer_byte_rows_verified": 27,
+          "finite_owned_model_rerun_passed": true,
+          "original_sha256": "731a15d96fad8f5b1873688e71be801f63b20140301915a17af87f8e65bca8ee",
+          "original_native_executions": 0,
+          "validated_original_tax_fixtures": 0,
+          "partial_REA_warnings_retained": true
+        },
+        {
+          "wave": 28,
+          "frozen_files_verified": 79,
+          "new_native_source_windows_verified": 19,
+          "reused_carriers_and_source_windows_verified": 5,
+          "original_instruction_and_pointer_byte_rows_verified": 30,
+          "finite_owned_model_rerun_passed": true,
+          "original_sha256": "731a15d96fad8f5b1873688e71be801f63b20140301915a17af87f8e65bca8ee",
+          "original_native_executions": 0,
+          "validated_original_tax_fixtures": 0,
+          "partial_REA_warnings_retained": true
+        }
+      ],
+      "App_changed": false
+    }
+  },
+  {
+    "audit": "root-FW2-multicopy-audit-20261015",
+    "result": {
+      "checked_at_utc": "2026-10-14T16:04:31.018064+00:00",
+      "frozen_files_verified": 7,
+      "actual_REA_complete_function_windows_verified": 18,
+      "carrier_original_equal_spans_verified": 18,
+      "LLVM_byte_supplements_verified": 3,
+      "Mac_Windows_FW2_whole_record_equal": true,
+      "selected_template_kind": 2,
+      "selected_template_count": 0,
+      "normal_factory_copy0_rejected": true,
+      "owned_model_rerun_passed": true,
+      "original_program_executions": 0,
+      "validated_original_saved_tax_fixtures": 0,
+      "App_edit": false
+    }
+  },
+  {
+    "audit": "root-INT-UUID-supplier-audit-20261015",
+    "result": {
+      "checked_at_utc": "2026-10-14T16:30:46.697985+00:00",
+      "frozen_files_verified": 54,
+      "actual_REA_responses_verified": 10,
+      "reused_responses_verified": 5,
+      "new_physical_original_equals_derived_windows_verified": 10,
+      "actual_format6_pointers_verified": 6,
+      "actual_instruction_witnesses_verified": 8,
+      "finite_mechanism_cases_rerun": 18,
+      "full_graph_tax_refund_cases_rerun": 11,
+      "original_native_executions": 0,
+      "validated_original_saved_tax_fixtures": 0,
+      "count_guard_is_persistent_record_object_count": true,
+      "old49_constructor_claim_superseded": true,
+      "App_changed": false,
+      "remaining_MEF_path_ancestry_explicit": true
+    }
+  },
+  {
+    "audit": "root-wave29-31-audit-20261015",
+    "result": {
+      "checked_at_utc": "2026-10-14T16:43:55.590293+00:00",
+      "receipts": [
+        {
+          "wave": 29,
+          "frozen_files_verified": 136,
+          "native_source_byte_windows_verified": 36,
+          "instruction_and_pointer_rows_verified": 49,
+          "finite_owned_model_rerun_passed": true,
+          "partial_warnings_retained": true,
+          "original_native_executions": 0,
+          "validated_original_saved_tax_fixtures": 0,
+          "App_changed": false
+        },
+        {
+          "wave": 30,
+          "frozen_files_verified": 60,
+          "native_source_byte_windows_verified": 15,
+          "instruction_and_pointer_rows_verified": 0,
+          "finite_owned_model_rerun_passed": true,
+          "partial_warnings_retained": true,
+          "original_native_executions": 0,
+          "validated_original_saved_tax_fixtures": 0,
+          "App_changed": false
+        },
+        {
+          "wave": 31,
+          "frozen_files_verified": 35,
+          "native_source_byte_windows_verified": 7,
+          "instruction_and_pointer_rows_verified": 16,
+          "finite_owned_model_rerun_passed": true,
+          "partial_warnings_retained": true,
+          "original_native_executions": 0,
+          "validated_original_saved_tax_fixtures": 0,
+          "App_changed": false
+        }
+      ]
+    }
+  }
+]

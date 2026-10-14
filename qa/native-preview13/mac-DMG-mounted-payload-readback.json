@@ -1,0 +1,7 @@
+{
+  "readonly_DMG_mounted": true,
+  "mounted_payload_equals_built_App": true,
+  "files": 337,
+  "sha256": "19e0d513ed58e03e06717d2796fa15dfce6d9af910c6aacafaadf86d8ff050b0",
+  "compiled_source_commit": "1c25c5e9c6d5e9f57bb6481b57825e103be2ddf4"
+}
