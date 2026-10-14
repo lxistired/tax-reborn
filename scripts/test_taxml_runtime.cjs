@@ -1,7 +1,8 @@
 // Actual staged worker source + pinned Pyodide + JS reviewed-record contracts.
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const {webcrypto}=require('node:crypto');
-const root=path.resolve(__dirname,'..');
+const root=process.env.TAX_REBORN_RUNTIME_ROOT||path.resolve(__dirname,'..');
+const fixtureRoot=process.env.TAX_REBORN_FIXTURE_ROOT||path.join(root,'fixtures/taxml');
 const {loadPyodide}=require(path.join(root,'web/vendor/pyodide/pyodide.js'));
 const context={console,URL,URLSearchParams,TextEncoder,crypto:webcrypto,Response,Blob,File,Uint8Array,ArrayBuffer,
  setTimeout,clearTimeout,location:{href:'http://stage.local/',search:''},btoa:text=>Buffer.from(text,'binary').toString('base64'),atob:text=>Buffer.from(text,'base64').toString('binary')};
@@ -16,7 +17,7 @@ vm.runInContext(fs.readFileSync(path.join(root,'web/tax-worker-source.js'),'utf8
 let id=0;
 async function command(command,payload){return new Promise((resolve,reject)=>{const current=++id;worker.self.postMessage=message=>{if(message.id!==current)return;message.error?reject(Error(message.error)):resolve(message.result);};worker.self.onmessage({data:{id:current,command,payload}});});}
 async function main(){
- const request=JSON.parse(fs.readFileSync(path.join(root,'fixtures/taxml/synthetic-caller-request.json'),'utf8'));
+ const request=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-caller-request.json'),'utf8'));
  const inspected=await command('taxml_inspect',request),candidate=inspected.candidates[0];
  assert.equal(candidate.employer,'Synthetic Widgets LLC');assert.equal(candidate.amounts.wages,'98231.17');
  assert.equal(candidate.amounts.social_security_tips,undefined);assert.equal(candidate.amounts.dependent_care_benefits,undefined);
@@ -40,10 +41,10 @@ async function main(){
  assert.equal(metadataEdited.w2_records[0].source_document.taxml_receipt.source_sha256,normalized.w2_records[0].source_document.taxml_receipt.source_sha256);
  const result=await command('calculate',data);
  assert.equal(data.eligibility.all_income_reported,false);assert.equal(result.can_prepare,false);
- const blocked=JSON.parse(JSON.stringify(request));blocked.base64=fs.readFileSync(path.join(root,'fixtures/taxml/synthetic-blocked-w2.xml')).toString('base64');
+ const blocked=JSON.parse(JSON.stringify(request));blocked.base64=fs.readFileSync(path.join(fixtureRoot,'synthetic-blocked-w2.xml')).toString('base64');
  const rejected=await command('taxml_inspect',blocked);assert.equal(rejected.candidates[0].can_review,false);
  const encrypted=JSON.parse(JSON.stringify(request));encrypted.container='encrypted_tax';await assert.rejects(()=>command('taxml_inspect',encrypted));
- for(const specimen of JSON.parse(fs.readFileSync(path.join(root,'fixtures/taxml/synthetic-wrong-semantic-types.json'),'utf8'))){
+ for(const specimen of JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-wrong-semantic-types.json'),'utf8'))){
   const typed=await command('taxml_inspect',specimen.request);
   assert.equal(typed.candidates[0].can_review,false);
   assert(typed.unresolved_facts.some(row=>row.code==='unsupported_w2_semantic_type'&&row.detail===specimen.field));
