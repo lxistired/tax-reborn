@@ -65,8 +65,11 @@ jobs:
           $sourceHash = (Get-FileHash "$out/Tax Reborn/Tax Reborn.exe" -Algorithm SHA256).Hash
           $installedHash = (Get-FileHash $installedExe -Algorithm SHA256).Hash
           if ($sourceHash -ne $installedHash) { throw 'Installed executable differs from the tested build' }
-          & $installedExe --smoke-test --smoke-report "$out/installed-frozen-smoke-win32-x64.json"
-          if ($LASTEXITCODE -ne 0) { throw 'Installed application smoke failed' }
+          $smokeArguments = '--smoke-test --smoke-report "' + $out + '/installed-frozen-smoke-win32-x64.json"'
+          $installedSmoke = Start-Process -FilePath $installedExe -ArgumentList $smokeArguments -Wait -PassThru
+          if ($installedSmoke.ExitCode -ne 0) { throw 'Installed application smoke failed' }
+          $smokeReceipt = Get-Content "$out/installed-frozen-smoke-win32-x64.json" -Raw | ConvertFrom-Json
+          if (!$smokeReceipt.frozen -or !$smokeReceipt.all_passed -or $smokeReceipt.passed -lt 12) { throw 'Installed application verification is incomplete' }
           @{ setup_installed=$true; setup_exit_code=$installation.ExitCode; installed_executable_sha256=$installedHash; installed_executable_matches_build=$true; synthetic_only=$true } | ConvertTo-Json | Set-Content "$out/windows-installer-receipt.json"
       - name: Run actual installed native GUI, calculation, edit, save and relaunch
         shell: pwsh
