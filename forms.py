@@ -91,6 +91,8 @@ def filing_values(record):
     checked(p2,'c2_1[0]',data.get('taxpayer',{}).get('can_be_claimed',False))
     checked(p2,'c2_2[0]',status in ('mfj','mfs') and data.get('spouse',{}).get('can_be_claimed',False))
     checked(p2,'c2_3[0]',status=='mfs' and data.get('eligibility',{}).get('mfs_spouse_itemizes',False))
+    eic=record['result'].get('schedules',{}).get('schedule_eic',{})
+    checked(p2,'c2_13[0]',any('No-child EITC age25-through64 test is not met.'==reason for reason in eic.get('ineligible_reasons',[])))
     deposit=facts['refund_delivery']=='direct_deposit' and record['result']['summary']['refund']>0
     if deposit:
         if not tax_filing.routing_valid(facts['bank_routing']) or not facts['bank_account'] or facts['bank_type']=='unanswered':raise ValueError('Complete and verify the direct-deposit routing/account/type before PDF export')

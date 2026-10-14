@@ -339,7 +339,7 @@ try {
     $birthdayPdf=Join-Path $OutputDir 'windows-native-birthday-DRAFT.pdf'
     Save-Native-Export $birthdayPdf
     $env:TAX_REBORN_SYNTHETIC_EXPORT=$birthdayPdf
-    python -c "import os,io; from pathlib import Path; from pypdf import PdfReader; f=PdfReader(io.BytesIO(Path(os.environ['TAX_REBORN_SYNTHETIC_EXPORT']).read_bytes())).get_fields(); p='topmostSubform[0].Page2[0].'; assert str(f[p+'f2_23[0]']['/V'])=='0'; assert str(f[p+'f2_31[0]']['/V'])=='1000'"
+    python -c "import os,io; from pathlib import Path; from pypdf import PdfReader; f=PdfReader(io.BytesIO(Path(os.environ['TAX_REBORN_SYNTHETIC_EXPORT']).read_bytes())).get_fields(); p='topmostSubform[0].Page2[0].'; assert str(f[p+'f2_23[0]']['/V'])=='0'; assert str(f[p+'f2_31[0]']['/V'])=='1000'; assert str(f[p+'c2_13[0]']['/V'])=='/1'"
     if($LASTEXITCODE -ne 0) { throw 'ActualnativeDOB PDF amount readback failed.' }
     Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
     $checks.Add('ActualnativeDOB draft PDF saved bysystemSaveAs andEIC0/refund1000 read back.')

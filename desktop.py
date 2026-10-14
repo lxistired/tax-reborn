@@ -183,6 +183,8 @@ def smoke_test(report_path=None):
             status,birthday_changed=request('POST','/api/returns',{'id':birthday_id,'data':birthday});assert status==200
             status,birthday_reopened=request('GET','/api/returns/'+birthday_id)
             assert birthday_reopened['data']['taxpayer']['birth_date']=='2001-01-02' and birthday_reopened['result']['lines']['35a']==1000
+            status,birthday_pdf=request('GET',f'/api/returns/{birthday_id}/form1040.pdf');assert status==200
+            birthday_fields=PdfReader(io.BytesIO(birthday_pdf)).get_fields();assert str(birthday_fields['topmostSubform[0].Page2[0].c2_13[0]']['/V'])=='/1'
             birthday['taxpayer']['birth_date']='2001-02-29'
             status,_=request('POST','/api/returns',{'id':birthday_id,'data':birthday});assert status==400
             status,birthday_unchanged=request('GET','/api/returns/'+birthday_id);assert birthday_unchanged==birthday_reopened

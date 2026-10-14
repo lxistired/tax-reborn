@@ -122,6 +122,7 @@ class PersonDateTests(unittest.TestCase):
                 self.assertEqual(str(fields[p+'f2_23[0]']['/V']),str(eic))
                 self.assertEqual(str(fields[p+'f2_31[0]']['/V']),str(1000+eic))
                 self.assertEqual(str(fields[p+'c2_5[0]']['/V']),'/1' if senior else '/Off')
+                self.assertEqual(str(fields[p+'c2_13[0]']['/V']),'/1' if eic==0 else '/Off')
                 self.assertFalse(any('Final decedent' in row for row in record['result']['blocking_issues']))
 
 
