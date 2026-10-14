@@ -68,7 +68,7 @@ collection = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name={PRO
 '''
     if sys.platform=='darwin':
         info = {'CFBundleName':PRODUCT,'CFBundleDisplayName':PRODUCT,'CFBundleIdentifier':BUNDLE_ID,
-                'CFBundleShortVersionString':'2026.10.13','CFBundleVersion':'2026.10.13',
+                'CFBundleShortVersionString':'2026.10.14','CFBundleVersion':'2026.1014.6',
                 'NSHighResolutionCapable':True,'NSAppTransportSecurity':{'NSAllowsLocalNetworking':True}}
         text += f'app = BUNDLE(collection, name={PRODUCT+".app"!r}, icon={str(icon)!r}, bundle_identifier={BUNDLE_ID!r}, info_plist={info!r})\n'
     spec.write_text(text,encoding='utf-8')
