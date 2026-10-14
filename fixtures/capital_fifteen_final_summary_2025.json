@@ -1,0 +1,764 @@
+{
+  "tax_year": 2025,
+  "cases": [
+    {
+      "name": "fifteen-unused-standard-deduction",
+      "wages": 5000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "60000"
+      ],
+      "W2_withholding": 1000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 60000,
+        "11b": 67000,
+        "15": 51250,
+        "16": 435,
+        "24": 435,
+        "25d": 1000,
+        "27a": 0,
+        "33": 1000,
+        "35a": 565,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 0,
+        "ordinary_tax_literal_row": null,
+        "all_tax_literal_row": {
+          "lower": 51250,
+          "upper": 51300,
+          "tax": [
+            6195,
+            5676,
+            6195,
+            5813
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,250    48,300      5,555     5,316    5,555   5,453    51,250    51,300      6,195     5,676    6,195   5,813    54,250    54,300      6,855     6,036    6,855   6,173",
+          "group": 1
+        },
+        "zero_rate_amount": 48350,
+        "fifteen_rate_amount": 2900,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "fifteen-larger-capital-refund",
+      "wages": 5000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "80000"
+      ],
+      "W2_withholding": 4000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 80000,
+        "11b": 87000,
+        "15": 71250,
+        "16": 3435,
+        "24": 3435,
+        "25d": 4000,
+        "27a": 0,
+        "33": 4000,
+        "35a": 565,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 0,
+        "ordinary_tax_literal_row": null,
+        "all_tax_literal_row": {
+          "lower": 71250,
+          "upper": 71300,
+          "tax": [
+            10595,
+            8076,
+            10595,
+            8856
+          ],
+          "source_pdf_page": 76,
+          "source_line": "68,250    68,300      9,935     7,716    9,935   8,196    71,250    71,300     10,595     8,076   10,595   8,856    74,250    74,300     11,255     8,436   11,255   9,516",
+          "group": 1
+        },
+        "zero_rate_amount": 48350,
+        "fifteen_rate_amount": 22900,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "fifteen-final-owed-existing-voucher",
+      "wages": 5000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "80000"
+      ],
+      "W2_withholding": 1000,
+      "prior_zero_tax_exception_if_owed": true,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 80000,
+        "11b": 87000,
+        "15": 71250,
+        "16": 3435,
+        "24": 3435,
+        "25d": 1000,
+        "27a": 0,
+        "33": 1000,
+        "35a": 0,
+        "37": 2435
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 0,
+        "ordinary_tax_literal_row": null,
+        "all_tax_literal_row": {
+          "lower": 71250,
+          "upper": 71300,
+          "tax": [
+            10595,
+            8076,
+            10595,
+            8856
+          ],
+          "source_pdf_page": 76,
+          "source_line": "68,250    68,300      9,935     7,716    9,935   8,196    71,250    71,300     10,595     8,076   10,595   8,856    74,250    74,300     11,255     8,436   11,255   9,516",
+          "group": 1
+        },
+        "zero_rate_amount": 48350,
+        "fifteen_rate_amount": 22900,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "ordinary-and-fifteen",
+      "wages": 60000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "10000"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 10000,
+        "11b": 72000,
+        "15": 56250,
+        "16": 6500,
+        "24": 6500,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 3500,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 46250,
+        "ordinary_tax_literal_row": {
+          "lower": 46250,
+          "upper": 46300,
+          "tax": [
+            5315,
+            5076,
+            5315,
+            5213
+          ],
+          "source_pdf_page": 73,
+          "source_line": "40,250    40,300      4,595     4,356    4,595   4,493    43,250    43,300      4,955     4,716    4,955   4,853    46,250    46,300      5,315     5,076    5,315   5,213",
+          "group": 2
+        },
+        "all_tax_literal_row": {
+          "lower": 56250,
+          "upper": 56300,
+          "tax": [
+            7295,
+            6276,
+            7295,
+            6413
+          ],
+          "source_pdf_page": 74,
+          "source_line": "50,250    50,300      5,975     5,556    5,975   5,693    53,250    53,300      6,635     5,916    6,635   6,053    56,250    56,300      7,295     6,276    7,295   6,413",
+          "group": 2
+        },
+        "zero_rate_amount": 2100,
+        "fifteen_rate_amount": 7900,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "zero-threshold-minus-one",
+      "wages": 62099,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "1000"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1000,
+        "11b": 65099,
+        "15": 49349,
+        "16": 5711,
+        "24": 5711,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 4289,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 48349,
+        "ordinary_tax_literal_row": {
+          "lower": 48300,
+          "upper": 48350,
+          "tax": [
+            5561,
+            5322,
+            5561,
+            5459
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,300    48,350      5,561     5,322    5,561   5,459    51,300    51,350      6,206     5,682    6,206   5,819    54,300    54,350      6,866     6,042    6,866   6,179",
+          "group": 0
+        },
+        "all_tax_literal_row": {
+          "lower": 49300,
+          "upper": 49350,
+          "tax": [
+            5766,
+            5442,
+            5766,
+            5579
+          ],
+          "source_pdf_page": 74,
+          "source_line": "49,300    49,350      5,766     5,442    5,766   5,579    52,300    52,350      6,426     5,802    6,426   5,939    55,300    55,350      7,086     6,162    7,086   6,299",
+          "group": 0
+        },
+        "zero_rate_amount": 1,
+        "fifteen_rate_amount": 999,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "zero-threshold-exact",
+      "wages": 62100,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "1000"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1000,
+        "11b": 65100,
+        "15": 49350,
+        "16": 5717,
+        "24": 5717,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 4283,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 48350,
+        "ordinary_tax_literal_row": {
+          "lower": 48350,
+          "upper": 48400,
+          "tax": [
+            5567,
+            5328,
+            5567,
+            5465
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,350    48,400      5,567     5,328    5,567   5,465    51,350    51,400      6,217     5,688    6,217   5,825    54,350    54,400      6,877     6,048    6,877   6,185",
+          "group": 0
+        },
+        "all_tax_literal_row": {
+          "lower": 49350,
+          "upper": 49400,
+          "tax": [
+            5777,
+            5448,
+            5777,
+            5585
+          ],
+          "source_pdf_page": 74,
+          "source_line": "49,350    49,400      5,777     5,448    5,777   5,585    52,350    52,400      6,437     5,808    6,437   5,945    55,350    55,400      7,097     6,168    7,097   6,305",
+          "group": 0
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 1000,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "zero-threshold-plus-one",
+      "wages": 62101,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "1000"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1000,
+        "11b": 65101,
+        "15": 49351,
+        "16": 5717,
+        "24": 5717,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 4283,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 48351,
+        "ordinary_tax_literal_row": {
+          "lower": 48350,
+          "upper": 48400,
+          "tax": [
+            5567,
+            5328,
+            5567,
+            5465
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,350    48,400      5,567     5,328    5,567   5,465    51,350    51,400      6,217     5,688    6,217   5,825    54,350    54,400      6,877     6,048    6,877   6,185",
+          "group": 0
+        },
+        "all_tax_literal_row": {
+          "lower": 49350,
+          "upper": 49400,
+          "tax": [
+            5777,
+            5448,
+            5777,
+            5585
+          ],
+          "source_pdf_page": 74,
+          "source_line": "49,350    49,400      5,777     5,448    5,777   5,585    52,350    52,400      6,437     5,808    6,437   5,945    55,350    55,400      7,097     6,168    7,097   6,305",
+          "group": 0
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 1000,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "ordinary-table-then-fifteen",
+      "wages": 62000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "10000"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 10000,
+        "11b": 74000,
+        "15": 58250,
+        "16": 7040,
+        "24": 7040,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 2960,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 48250,
+        "ordinary_tax_literal_row": {
+          "lower": 48250,
+          "upper": 48300,
+          "tax": [
+            5555,
+            5316,
+            5555,
+            5453
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,250    48,300      5,555     5,316    5,555   5,453    51,250    51,300      6,195     5,676    6,195   5,813    54,250    54,300      6,855     6,036    6,855   6,173",
+          "group": 0
+        },
+        "all_tax_literal_row": {
+          "lower": 58250,
+          "upper": 58300,
+          "tax": [
+            7735,
+            6516,
+            7735,
+            6653
+          ],
+          "source_pdf_page": 75,
+          "source_line": "58,250    58,300      7,735     6,516    7,735   6,653    61,250    61,300      8,395     6,876    8,395   7,013    64,250    64,300      9,055     7,236    9,055   7,373",
+          "group": 0
+        },
+        "zero_rate_amount": 100,
+        "fifteen_rate_amount": 9900,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "taxable-above100000",
+      "wages": 85000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "50000"
+      ],
+      "W2_withholding": 20000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 50000,
+        "11b": 137000,
+        "15": 121250,
+        "16": 18095,
+        "24": 18095,
+        "25d": 20000,
+        "27a": 0,
+        "33": 20000,
+        "35a": 1905,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 71250,
+        "ordinary_tax_literal_row": {
+          "lower": 71250,
+          "upper": 71300,
+          "tax": [
+            10595,
+            8076,
+            10595,
+            8856
+          ],
+          "source_pdf_page": 76,
+          "source_line": "68,250    68,300      9,935     7,716    9,935   8,196    71,250    71,300     10,595     8,076   10,595   8,856    74,250    74,300     11,255     8,436   11,255   9,516",
+          "group": 1
+        },
+        "all_tax_literal_row": {
+          "status": "single",
+          "lower": "103350",
+          "upper": "197300",
+          "lower_inclusive": false,
+          "rate_percent": "24",
+          "subtract": "7153.00",
+          "source_pdf_page": 80,
+          "source_line": "Over $103,350 but not over $197,300     $                                         \u00d7 24% (0.24)        $                      $ 7,153.00        $"
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 50000,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "ordinary-computation-plus-fifteen",
+      "wages": 125000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "60000"
+      ],
+      "W2_withholding": 30000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 60000,
+        "11b": 187000,
+        "15": 171250,
+        "16": 28547,
+        "24": 28547,
+        "25d": 30000,
+        "27a": 0,
+        "33": 30000,
+        "35a": 1453,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 111250,
+        "ordinary_tax_literal_row": {
+          "status": "single",
+          "lower": "103350",
+          "upper": "197300",
+          "lower_inclusive": false,
+          "rate_percent": "24",
+          "subtract": "7153.00",
+          "source_pdf_page": 80,
+          "source_line": "Over $103,350 but not over $197,300     $                                         \u00d7 24% (0.24)        $                      $ 7,153.00        $"
+        },
+        "all_tax_literal_row": {
+          "status": "single",
+          "lower": "103350",
+          "upper": "197300",
+          "lower_inclusive": false,
+          "rate_percent": "24",
+          "subtract": "7153.00",
+          "source_pdf_page": 80,
+          "source_line": "Over $103,350 but not over $197,300     $                                         \u00d7 24% (0.24)        $                      $ 7,153.00        $"
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 60000,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "AGI-below-NIIT-frontier",
+      "wages": 180000,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "17000"
+      ],
+      "W2_withholding": 40000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 17000,
+        "11b": 199000,
+        "15": 183250,
+        "16": 35297,
+        "24": 35297,
+        "25d": 40000,
+        "27a": 0,
+        "33": 40000,
+        "35a": 4703,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 166250,
+        "ordinary_tax_literal_row": {
+          "status": "single",
+          "lower": "103350",
+          "upper": "197300",
+          "lower_inclusive": false,
+          "rate_percent": "24",
+          "subtract": "7153.00",
+          "source_pdf_page": 80,
+          "source_line": "Over $103,350 but not over $197,300     $                                         \u00d7 24% (0.24)        $                      $ 7,153.00        $"
+        },
+        "all_tax_literal_row": {
+          "status": "single",
+          "lower": "103350",
+          "upper": "197300",
+          "lower_inclusive": false,
+          "rate_percent": "24",
+          "subtract": "7153.00",
+          "source_pdf_page": 80,
+          "source_line": "Over $103,350 but not over $197,300     $                                         \u00d7 24% (0.24)        $                      $ 7,153.00        $"
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 17000,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "two-capital-copies-cents-near-threshold",
+      "wages": 62099,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "0.49",
+        "0.49"
+      ],
+      "W2_withholding": 10000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1,
+        "11b": 64100,
+        "15": 48350,
+        "16": 5561,
+        "24": 5561,
+        "25d": 10000,
+        "27a": 0,
+        "33": 10000,
+        "35a": 4439,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 48349,
+        "ordinary_tax_literal_row": {
+          "lower": 48300,
+          "upper": 48350,
+          "tax": [
+            5561,
+            5322,
+            5561,
+            5459
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,300    48,350      5,561     5,322    5,561   5,459    51,300    51,350      6,206     5,682    6,206   5,819    54,300    54,350      6,866     6,042    6,866   6,179",
+          "group": 0
+        },
+        "all_tax_literal_row": {
+          "lower": 48350,
+          "upper": 48400,
+          "tax": [
+            5567,
+            5328,
+            5567,
+            5465
+          ],
+          "source_pdf_page": 74,
+          "source_line": "48,350    48,400      5,567     5,328    5,567   5,465    51,350    51,400      6,217     5,688    6,217   5,825    54,350    54,400      6,877     6,048    6,877   6,185",
+          "group": 0
+        },
+        "zero_rate_amount": 1,
+        "fifteen_rate_amount": 0,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "ordinary-tax-table-99999",
+      "wages": 113749,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "1"
+      ],
+      "W2_withholding": 20000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1,
+        "11b": 115750,
+        "15": 100000,
+        "16": 16909,
+        "24": 16909,
+        "25d": 20000,
+        "27a": 0,
+        "33": 20000,
+        "35a": 3091,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 99999,
+        "ordinary_tax_literal_row": {
+          "lower": 99950,
+          "upper": 100000,
+          "tax": [
+            16909,
+            11823,
+            16909,
+            15170
+          ],
+          "source_pdf_page": 79,
+          "source_line": "93,950    94,000     15,589    10,800   15,589   13,850    96,950    97,000     16,249    11,163   16,249   14,510    99,950 100,000       16,909    11,823   16,909   15,170",
+          "group": 2
+        },
+        "all_tax_literal_row": {
+          "status": "single",
+          "lower": "100000",
+          "upper": "103350",
+          "lower_inclusive": true,
+          "rate_percent": "22",
+          "subtract": "5086.00",
+          "source_pdf_page": 80,
+          "source_line": "At least $100,000 but not over $103,350 $                                         \u00d7 22% (0.22)        $                      $ 5,086.00        $"
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 1,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    },
+    {
+      "name": "ordinary-tax-computation-100000",
+      "wages": 113750,
+      "ordinary_dividends": 1000,
+      "taxable_interest": 1000,
+      "capital_distributions": [
+        "1"
+      ],
+      "W2_withholding": 20000,
+      "prior_zero_tax_exception_if_owed": false,
+      "expected": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 1,
+        "11b": 115751,
+        "15": 100001,
+        "16": 16914,
+        "24": 16914,
+        "25d": 20000,
+        "27a": 0,
+        "33": 20000,
+        "35a": 3086,
+        "37": 0
+      },
+      "IRS_basis": {
+        "ordinary_taxable": 100000,
+        "ordinary_tax_literal_row": {
+          "status": "single",
+          "lower": "100000",
+          "upper": "103350",
+          "lower_inclusive": true,
+          "rate_percent": "22",
+          "subtract": "5086.00",
+          "source_pdf_page": 80,
+          "source_line": "At least $100,000 but not over $103,350 $                                         \u00d7 22% (0.22)        $                      $ 5,086.00        $"
+        },
+        "all_tax_literal_row": {
+          "status": "single",
+          "lower": "100000",
+          "upper": "103350",
+          "lower_inclusive": true,
+          "rate_percent": "22",
+          "subtract": "5086.00",
+          "source_pdf_page": 80,
+          "source_line": "At least $100,000 but not over $103,350 $                                         \u00d7 22% (0.22)        $                      $ 5,086.00        $"
+        },
+        "zero_rate_amount": 0,
+        "fifteen_rate_amount": 1,
+        "threshold_single2025": 48350,
+        "twenty_rate_not_in_scope": true
+      }
+    }
+  ],
+  "primary_IRS_sources": [
+    "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf",
+    "https://www.irs.gov/pub/irs-pdf/p596.pdf",
+    "https://www.irs.gov/pub/irs-pdf/i2210.pdf"
+  ],
+  "scope": "Synthetic IRS2025nonzero15percent capital/ordinary tax and final refund/owed. No20percent/NIIT, capitalbasis adjustment, foreign or originalruntime claim. Owed case has explicit zero prior-year tax/full-year resident facts, so penalty0."
+}

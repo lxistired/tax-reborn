@@ -1,0 +1,7 @@
+{
+  "readonly_mount": true,
+  "payload_files_matched_tested_native_App": 346,
+  "dmg_sha256": "cd817828339d2033a4ceeeae731fdaac716e001ed502951210cbcc24ed891e45",
+  "dmg_bytes": 71256843,
+  "detached": true
+}

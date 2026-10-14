@@ -1,0 +1,28 @@
+{
+  "checked_at_utc": "2026-10-14T18:24:54.396703+00:00",
+  "version": "2026.10.15-preview.15",
+  "compiled_source_commit": "d3d4d789b1c13f7a18ea0946e7fc808f4c3c3577",
+  "source_kind": "independently authored XML and XPRF; original native XML shape",
+  "actual_Cocoa_three_file_selection": true,
+  "actual_6_box_manual_review": true,
+  "actual_row_amounts": [
+    "1200.32",
+    "300.15",
+    "1000.25",
+    "150.05",
+    "100.05",
+    "201.49"
+  ],
+  "corrected_XML_system_saved_and_read_back": true,
+  "corrected_XML_other_source_bytes_identical": true,
+  "actual_record_added_recalculated_saved": true,
+  "actual_refund": 201,
+  "AGI": 2200,
+  "can_prepare": false,
+  "normal_quit_relaunch_data_metadata_and_result_identical": true,
+  "original_attachment_system_saved_after_relaunch_byte_identical": true,
+  "previous_saved_returns_retained": 7,
+  "original_TurboTax_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "native_input_actuator_note": "First digit lost during one typing action; subset-invalid corrected export was rejected. Corrected with native paste and verified exact value before successful export."
+}

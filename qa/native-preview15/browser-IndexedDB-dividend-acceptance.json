@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-10-14T18:30:15.560596+00:00",
+  "actual_browser_worker_Pyodide": true,
+  "offline_API_mode": true,
+  "network_disconnected_test": false,
+  "host_HTTP_saved_return_count": 0,
+  "actual_three_file_selection": true,
+  "six_box_edit_confirm_add_save_reload": true,
+  "actual_refund": 201,
+  "JSON_backup_download_readback": true,
+  "original_attachment_download_after_reload_byte_identical": true,
+  "corrected_XML_outside_value_spans_identical": true,
+  "row_edit_clears_review_after_saved_reload": true,
+  "six_box_snapshot_and_source_receipt_immutable": true,
+  "original_TurboTax_executions": 0,
+  "original_saved_tax_fixtures": 0
+}

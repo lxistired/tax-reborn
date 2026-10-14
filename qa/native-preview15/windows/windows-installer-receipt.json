@@ -1,0 +1,7 @@
+{
+  "setup_installed": true,
+  "setup_exit_code": 0,
+  "synthetic_only": true,
+  "installed_executable_matches_build": true,
+  "installed_executable_sha256": "A964C7844E922A50E8BE24A809411B672138CDD62C504386C8A4718ECB138C0A"
+}

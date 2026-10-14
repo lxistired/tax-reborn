@@ -56,3 +56,5 @@ The preview.7 source batch passes 421 Python checks and 378 real Pyodide checks,
 Latest source and acceptance: [REA progress and current Windows XML](docs/rea-status-20261014T1445Z.md). Preview12 is publicly released with completed Android saved-PDF acceptance. Preview13 and preview14 packages remain separate candidates.
 
 The supported plaintext TaxML migration now includes a reviewed six-box1099-DIV record, immutable source snapshot and corrected XML export. See [the dividend migration contract](docs/TAXML_DIVIDEND_IMPORT.md). Full original .tax loading and native calculation parity remain unverified.
+
+Current evidence: [dividend migration and original final-summary dependencies](docs/rea-status-20261015-DIV-and-final-summary.md). Nativepreview15 candidate acceptance and pending platform gates are recorded separately from the verified publicpreview12 installer release.

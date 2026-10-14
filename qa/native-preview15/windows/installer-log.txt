@@ -1,0 +1,1864 @@
+﻿2026-10-14 18:52:46.803   Log opened. (Time zone: UTC+00:00)
+2026-10-14 18:52:46.803   Setup version: Inno Setup version 6.7.1
+2026-10-14 18:52:46.803   Original Setup EXE: D:\a\tax-reborn\tax-reborn\dist\windows\Tax-Reborn-2026.10.15-preview.15-Windows-x64-Setup.exe
+2026-10-14 18:52:46.803   Setup command line: /SL5="$3C005E,56454991,893952,D:\a\tax-reborn\tax-reborn\dist\windows\Tax-Reborn-2026.10.15-preview.15-Windows-x64-Setup.exe" /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR="D:\a\_temp\TaxRebornInstalledPreview" /LOG="D:\a\tax-reborn\tax-reborn/dist/windows\installer-log.txt"
+2026-10-14 18:52:46.803   Windows version: 10.0.20348
+2026-10-14 18:52:46.803   Windows architecture: x64 (64-bit)
+2026-10-14 18:52:46.803   Machine types supported by system: x86 x64
+2026-10-14 18:52:46.803   User privileges: Administrative
+2026-10-14 18:52:46.819   Administrative install mode: No
+2026-10-14 18:52:46.819   Install mode root key: HKEY_CURRENT_USER
+2026-10-14 18:52:46.819   64-bit install mode: Yes
+2026-10-14 18:52:46.819   RedirectionGuard status for current process: Enabled in enforcing mode
+2026-10-14 18:52:46.819   Created protected temporary directory: C:\Users\RUNNER~1\AppData\Local\Temp\is-Q2HZ6WV8K1.tmp
+2026-10-14 18:52:49.220   Found 61 files to register with RestartManager.
+2026-10-14 18:52:49.220   Calling RestartManager's RmGetList.
+2026-10-14 18:52:49.220   RmGetList finished successfully.
+2026-10-14 18:52:49.220   RestartManager found no applications using one of our files.
+2026-10-14 18:52:49.274   Starting the installation process.
+2026-10-14 18:52:49.274   Creating directory: D:\a\_temp\TaxRebornInstalledPreview
+2026-10-14 18:52:49.274   Directory for uninstall files: D:\a\_temp\TaxRebornInstalledPreview
+2026-10-14 18:52:49.274   Creating new uninstall log: D:\a\_temp\TaxRebornInstalledPreview\unins000.dat
+2026-10-14 18:52:49.789   -- File entry --
+2026-10-14 18:52:49.789   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\unins000.exe
+2026-10-14 18:52:49.789   Non-default bitness: 32-bit
+2026-10-14 18:52:50.368   Time stamp of our file: 2026-10-14 18:52:46.318
+2026-10-14 18:52:50.368   Installing the file.
+2026-10-14 18:52:50.399   Successfully installed the file.
+2026-10-14 18:52:50.399   -- File entry --
+2026-10-14 18:52:50.399   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\Tax Reborn.exe
+2026-10-14 18:52:50.399   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.399   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-console-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-datetime-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-debug-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-errorhandling-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-fibers-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-fibers-l1-1-1.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-file-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-file-l1-2-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-file-l2-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-handle-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-heap-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-interlocked-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-kernel32-legacy-l1-1-1.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.540   -- File entry --
+2026-10-14 18:52:50.540   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-libraryloader-l1-1-0.dll
+2026-10-14 18:52:50.540   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.540   Installing the file.
+2026-10-14 18:52:50.540   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-localization-l1-2-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-memory-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-namedpipe-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-processenvironment-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-processthreads-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-processthreads-l1-1-1.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-profile-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-rtlsupport-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-string-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-synch-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-synch-l1-2-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-sysinfo-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-sysinfo-l1-2-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-timezone-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-core-util-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-conio-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-convert-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-environment-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-filesystem-l1-1-0.dll
+2026-10-14 18:52:50.556   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.556   Installing the file.
+2026-10-14 18:52:50.556   Successfully installed the file.
+2026-10-14 18:52:50.556   -- File entry --
+2026-10-14 18:52:50.556   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-heap-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-locale-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-math-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-process-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-runtime-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-stdio-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-string-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-time-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\api-ms-win-crt-utility-l1-1-0.dll
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.571   Successfully installed the file.
+2026-10-14 18:52:50.571   -- File entry --
+2026-10-14 18:52:50.571   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\base_library.zip
+2026-10-14 18:52:50.571   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.571   Installing the file.
+2026-10-14 18:52:50.603   Successfully installed the file.
+2026-10-14 18:52:50.603   -- File entry --
+2026-10-14 18:52:50.603   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms.py
+2026-10-14 18:52:50.603   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.603   Installing the file.
+2026-10-14 18:52:50.603   Successfully installed the file.
+2026-10-14 18:52:50.603   -- File entry --
+2026-10-14 18:52:50.603   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\income_preparation.py
+2026-10-14 18:52:50.603   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.603   Installing the file.
+2026-10-14 18:52:50.603   Successfully installed the file.
+2026-10-14 18:52:50.603   -- File entry --
+2026-10-14 18:52:50.603   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\investment_metadata.py
+2026-10-14 18:52:50.603   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.603   Installing the file.
+2026-10-14 18:52:50.603   Successfully installed the file.
+2026-10-14 18:52:50.603   -- File entry --
+2026-10-14 18:52:50.603   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\libcrypto-3.dll
+2026-10-14 18:52:50.603   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.603   Installing the file.
+2026-10-14 18:52:50.775   Successfully installed the file.
+2026-10-14 18:52:50.775   -- File entry --
+2026-10-14 18:52:50.775   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\libffi-8.dll
+2026-10-14 18:52:50.775   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.775   Installing the file.
+2026-10-14 18:52:50.775   Successfully installed the file.
+2026-10-14 18:52:50.775   -- File entry --
+2026-10-14 18:52:50.775   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\libssl-3.dll
+2026-10-14 18:52:50.775   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.775   Installing the file.
+2026-10-14 18:52:50.806   Successfully installed the file.
+2026-10-14 18:52:50.806   -- File entry --
+2026-10-14 18:52:50.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\LICENSE
+2026-10-14 18:52:50.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.806   Installing the file.
+2026-10-14 18:52:50.806   Successfully installed the file.
+2026-10-14 18:52:50.806   -- File entry --
+2026-10-14 18:52:50.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\official_forms.py
+2026-10-14 18:52:50.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.806   Installing the file.
+2026-10-14 18:52:50.806   Successfully installed the file.
+2026-10-14 18:52:50.806   -- File entry --
+2026-10-14 18:52:50.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\presentation_schema.py
+2026-10-14 18:52:50.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.806   Installing the file.
+2026-10-14 18:52:50.806   Successfully installed the file.
+2026-10-14 18:52:50.806   -- File entry --
+2026-10-14 18:52:50.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\privacy_review.py
+2026-10-14 18:52:50.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.806   Installing the file.
+2026-10-14 18:52:50.806   Successfully installed the file.
+2026-10-14 18:52:50.806   -- File entry --
+2026-10-14 18:52:50.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\pyexpat.pyd
+2026-10-14 18:52:50.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.806   Installing the file.
+2026-10-14 18:52:50.821   Successfully installed the file.
+2026-10-14 18:52:50.821   -- File entry --
+2026-10-14 18:52:50.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\python313.dll
+2026-10-14 18:52:50.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:50.821   Installing the file.
+2026-10-14 18:52:51.009   Successfully installed the file.
+2026-10-14 18:52:51.009   -- File entry --
+2026-10-14 18:52:51.009   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\return_metadata.py
+2026-10-14 18:52:51.009   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.009   Installing the file.
+2026-10-14 18:52:51.009   Successfully installed the file.
+2026-10-14 18:52:51.009   -- File entry --
+2026-10-14 18:52:51.009   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\rules_2025.json
+2026-10-14 18:52:51.009   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.009   Installing the file.
+2026-10-14 18:52:51.009   Successfully installed the file.
+2026-10-14 18:52:51.009   -- File entry --
+2026-10-14 18:52:51.009   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\select.pyd
+2026-10-14 18:52:51.009   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.009   Installing the file.
+2026-10-14 18:52:51.009   Successfully installed the file.
+2026-10-14 18:52:51.009   -- File entry --
+2026-10-14 18:52:51.009   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\source_documents.py
+2026-10-14 18:52:51.009   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.009   Installing the file.
+2026-10-14 18:52:51.009   Successfully installed the file.
+2026-10-14 18:52:51.009   -- File entry --
+2026-10-14 18:52:51.009   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\sqlite3.dll
+2026-10-14 18:52:51.009   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.009   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_additional.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_child_income.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_credits.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_engine.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_extended.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_filing.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_longtail.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\tax_special_capital.py
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.071   Successfully installed the file.
+2026-10-14 18:52:51.071   -- File entry --
+2026-10-14 18:52:51.071   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\ucrtbase.dll
+2026-10-14 18:52:51.071   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.071   Installing the file.
+2026-10-14 18:52:51.118   Successfully installed the file.
+2026-10-14 18:52:51.118   -- File entry --
+2026-10-14 18:52:51.118   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\unicodedata.pyd
+2026-10-14 18:52:51.118   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.118   Installing the file.
+2026-10-14 18:52:51.150   Successfully installed the file.
+2026-10-14 18:52:51.150   -- File entry --
+2026-10-14 18:52:51.150   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\VCRUNTIME140.dll
+2026-10-14 18:52:51.150   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.150   Installing the file.
+2026-10-14 18:52:51.166   Successfully installed the file.
+2026-10-14 18:52:51.166   -- File entry --
+2026-10-14 18:52:51.166   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\VCRUNTIME140_1.dll
+2026-10-14 18:52:51.166   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.166   Installing the file.
+2026-10-14 18:52:51.166   Successfully installed the file.
+2026-10-14 18:52:51.166   -- File entry --
+2026-10-14 18:52:51.166   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\VERSION
+2026-10-14 18:52:51.166   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.166   Installing the file.
+2026-10-14 18:52:51.166   Successfully installed the file.
+2026-10-14 18:52:51.166   -- File entry --
+2026-10-14 18:52:51.166   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_asyncio.pyd
+2026-10-14 18:52:51.166   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.166   Installing the file.
+2026-10-14 18:52:51.166   Successfully installed the file.
+2026-10-14 18:52:51.166   -- File entry --
+2026-10-14 18:52:51.166   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_bz2.pyd
+2026-10-14 18:52:51.166   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.166   Installing the file.
+2026-10-14 18:52:51.166   Successfully installed the file.
+2026-10-14 18:52:51.166   -- File entry --
+2026-10-14 18:52:51.166   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_cffi_backend.cp313-win_amd64.pyd
+2026-10-14 18:52:51.166   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.166   Installing the file.
+2026-10-14 18:52:51.181   Successfully installed the file.
+2026-10-14 18:52:51.181   -- File entry --
+2026-10-14 18:52:51.181   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_ctypes.pyd
+2026-10-14 18:52:51.181   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.181   Installing the file.
+2026-10-14 18:52:51.181   Successfully installed the file.
+2026-10-14 18:52:51.181   -- File entry --
+2026-10-14 18:52:51.181   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_decimal.pyd
+2026-10-14 18:52:51.181   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.181   Installing the file.
+2026-10-14 18:52:51.196   Successfully installed the file.
+2026-10-14 18:52:51.196   -- File entry --
+2026-10-14 18:52:51.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_elementtree.pyd
+2026-10-14 18:52:51.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.196   Installing the file.
+2026-10-14 18:52:51.196   Successfully installed the file.
+2026-10-14 18:52:51.196   -- File entry --
+2026-10-14 18:52:51.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_hashlib.pyd
+2026-10-14 18:52:51.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.196   Installing the file.
+2026-10-14 18:52:51.196   Successfully installed the file.
+2026-10-14 18:52:51.196   -- File entry --
+2026-10-14 18:52:51.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_lzma.pyd
+2026-10-14 18:52:51.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.196   Installing the file.
+2026-10-14 18:52:51.196   Successfully installed the file.
+2026-10-14 18:52:51.196   -- File entry --
+2026-10-14 18:52:51.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_multiprocessing.pyd
+2026-10-14 18:52:51.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.196   Installing the file.
+2026-10-14 18:52:51.196   Successfully installed the file.
+2026-10-14 18:52:51.196   -- File entry --
+2026-10-14 18:52:51.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_overlapped.pyd
+2026-10-14 18:52:51.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.196   Installing the file.
+2026-10-14 18:52:51.212   Successfully installed the file.
+2026-10-14 18:52:51.212   -- File entry --
+2026-10-14 18:52:51.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_queue.pyd
+2026-10-14 18:52:51.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.212   Installing the file.
+2026-10-14 18:52:51.212   Successfully installed the file.
+2026-10-14 18:52:51.212   -- File entry --
+2026-10-14 18:52:51.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_socket.pyd
+2026-10-14 18:52:51.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.212   Installing the file.
+2026-10-14 18:52:51.212   Successfully installed the file.
+2026-10-14 18:52:51.212   -- File entry --
+2026-10-14 18:52:51.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_sqlite3.pyd
+2026-10-14 18:52:51.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.212   Installing the file.
+2026-10-14 18:52:51.212   Successfully installed the file.
+2026-10-14 18:52:51.212   -- File entry --
+2026-10-14 18:52:51.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_ssl.pyd
+2026-10-14 18:52:51.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.212   Installing the file.
+2026-10-14 18:52:51.228   Successfully installed the file.
+2026-10-14 18:52:51.228   -- File entry --
+2026-10-14 18:52:51.228   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_uuid.pyd
+2026-10-14 18:52:51.228   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.228   Installing the file.
+2026-10-14 18:52:51.228   Successfully installed the file.
+2026-10-14 18:52:51.228   -- File entry --
+2026-10-14 18:52:51.228   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\_wmi.pyd
+2026-10-14 18:52:51.228   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.228   Installing the file.
+2026-10-14 18:52:51.228   Successfully installed the file.
+2026-10-14 18:52:51.228   -- File entry --
+2026-10-14 18:52:51.228   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi\dlls\amd64\ClrLoader.dll
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi\dlls
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi\dlls\amd64
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi\dlls\x86\ClrLoader.dll
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\clr_loader\ffi\dlls\x86
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\additional_independent_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\credit_cases_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\disability_independent_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\independent_cases.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\longtail_cases_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\special_amt_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\special_dividend_2025.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.259   Successfully installed the file.
+2026-10-14 18:52:51.259   -- File entry --
+2026-10-14 18:52:51.259   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\special_dividend_metadata.json
+2026-10-14 18:52:51.259   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.259   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\tax_cases.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\README.md
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-blocked-w2.xml
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-caller-request.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-encoding-boundaries.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-modern-windows-request.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-modern-windows-w2.xml
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-modern-windows-w2.xprf
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-modern-windows-wire-profile.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-dividend-profile.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-dividend-request.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-dividend.xml
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-dividend.xprf
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-interest-profile.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-interest-request.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-interest.xml
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-native-interest.xprf
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-w2-plaintext.tax
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-w2.xml
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-w2.xprf
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-wire-profile.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\fixtures\taxml\synthetic-wrong-semantic-types.json
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Successfully installed the file.
+2026-10-14 18:52:51.275   -- File entry --
+2026-10-14 18:52:51.275   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040-2025.pdf
+2026-10-14 18:52:51.275   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.275   Installing the file.
+2026-10-14 18:52:51.275   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms
+2026-10-14 18:52:51.290   Successfully installed the file.
+2026-10-14 18:52:51.290   -- File entry --
+2026-10-14 18:52:51.290   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040s1-2025.pdf
+2026-10-14 18:52:51.290   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.290   Installing the file.
+2026-10-14 18:52:51.290   Successfully installed the file.
+2026-10-14 18:52:51.290   -- File entry --
+2026-10-14 18:52:51.290   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040s1a-2025.pdf
+2026-10-14 18:52:51.290   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.290   Installing the file.
+2026-10-14 18:52:51.306   Successfully installed the file.
+2026-10-14 18:52:51.306   -- File entry --
+2026-10-14 18:52:51.306   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040s2-2025.pdf
+2026-10-14 18:52:51.306   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.306   Installing the file.
+2026-10-14 18:52:51.306   Successfully installed the file.
+2026-10-14 18:52:51.306   -- File entry --
+2026-10-14 18:52:51.306   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040s3-2025.pdf
+2026-10-14 18:52:51.306   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.306   Installing the file.
+2026-10-14 18:52:51.306   Successfully installed the file.
+2026-10-14 18:52:51.306   -- File entry --
+2026-10-14 18:52:51.306   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040s8-2025.pdf
+2026-10-14 18:52:51.306   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.306   Installing the file.
+2026-10-14 18:52:51.306   Successfully installed the file.
+2026-10-14 18:52:51.306   -- File entry --
+2026-10-14 18:52:51.306   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sa-2025.pdf
+2026-10-14 18:52:51.306   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.306   Installing the file.
+2026-10-14 18:52:51.321   Successfully installed the file.
+2026-10-14 18:52:51.321   -- File entry --
+2026-10-14 18:52:51.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sb-2025.pdf
+2026-10-14 18:52:51.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.321   Installing the file.
+2026-10-14 18:52:51.321   Successfully installed the file.
+2026-10-14 18:52:51.321   -- File entry --
+2026-10-14 18:52:51.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sc-2025.pdf
+2026-10-14 18:52:51.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.321   Installing the file.
+2026-10-14 18:52:51.337   Successfully installed the file.
+2026-10-14 18:52:51.337   -- File entry --
+2026-10-14 18:52:51.337   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sd-2025.pdf
+2026-10-14 18:52:51.337   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.337   Installing the file.
+2026-10-14 18:52:51.337   Successfully installed the file.
+2026-10-14 18:52:51.337   -- File entry --
+2026-10-14 18:52:51.337   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040se-2025.pdf
+2026-10-14 18:52:51.337   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.337   Installing the file.
+2026-10-14 18:52:51.353   Successfully installed the file.
+2026-10-14 18:52:51.353   -- File entry --
+2026-10-14 18:52:51.353   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sr-2025.pdf
+2026-10-14 18:52:51.353   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.353   Installing the file.
+2026-10-14 18:52:51.353   Successfully installed the file.
+2026-10-14 18:52:51.353   -- File entry --
+2026-10-14 18:52:51.353   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1040sse-2025.pdf
+2026-10-14 18:52:51.353   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.353   Installing the file.
+2026-10-14 18:52:51.353   Successfully installed the file.
+2026-10-14 18:52:51.353   -- File entry --
+2026-10-14 18:52:51.353   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f1116-2025.pdf
+2026-10-14 18:52:51.353   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.353   Installing the file.
+2026-10-14 18:52:51.368   Successfully installed the file.
+2026-10-14 18:52:51.368   -- File entry --
+2026-10-14 18:52:51.368   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f2210-2025.pdf
+2026-10-14 18:52:51.368   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.368   Installing the file.
+2026-10-14 18:52:51.384   Successfully installed the file.
+2026-10-14 18:52:51.384   -- File entry --
+2026-10-14 18:52:51.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f2441-2025.pdf
+2026-10-14 18:52:51.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.384   Installing the file.
+2026-10-14 18:52:51.384   Successfully installed the file.
+2026-10-14 18:52:51.384   -- File entry --
+2026-10-14 18:52:51.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f4952-2025.pdf
+2026-10-14 18:52:51.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.384   Installing the file.
+2026-10-14 18:52:51.384   Successfully installed the file.
+2026-10-14 18:52:51.384   -- File entry --
+2026-10-14 18:52:51.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f5329-2025.pdf
+2026-10-14 18:52:51.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.384   Installing the file.
+2026-10-14 18:52:51.400   Successfully installed the file.
+2026-10-14 18:52:51.400   -- File entry --
+2026-10-14 18:52:51.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f5695-2025.pdf
+2026-10-14 18:52:51.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.400   Installing the file.
+2026-10-14 18:52:51.400   Successfully installed the file.
+2026-10-14 18:52:51.400   -- File entry --
+2026-10-14 18:52:51.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f6251-2025.pdf
+2026-10-14 18:52:51.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.400   Installing the file.
+2026-10-14 18:52:51.415   Successfully installed the file.
+2026-10-14 18:52:51.415   -- File entry --
+2026-10-14 18:52:51.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8582-2025.pdf
+2026-10-14 18:52:51.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.415   Installing the file.
+2026-10-14 18:52:51.415   Successfully installed the file.
+2026-10-14 18:52:51.415   -- File entry --
+2026-10-14 18:52:51.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8606-2025.pdf
+2026-10-14 18:52:51.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.415   Installing the file.
+2026-10-14 18:52:51.415   Successfully installed the file.
+2026-10-14 18:52:51.415   -- File entry --
+2026-10-14 18:52:51.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8814-2025.pdf
+2026-10-14 18:52:51.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.415   Installing the file.
+2026-10-14 18:52:51.431   Successfully installed the file.
+2026-10-14 18:52:51.431   -- File entry --
+2026-10-14 18:52:51.431   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8839-2025.pdf
+2026-10-14 18:52:51.431   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.431   Installing the file.
+2026-10-14 18:52:51.431   Successfully installed the file.
+2026-10-14 18:52:51.431   -- File entry --
+2026-10-14 18:52:51.431   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8863-2025.pdf
+2026-10-14 18:52:51.431   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.431   Installing the file.
+2026-10-14 18:52:51.431   Successfully installed the file.
+2026-10-14 18:52:51.431   -- File entry --
+2026-10-14 18:52:51.431   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8880-2025.pdf
+2026-10-14 18:52:51.431   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.431   Installing the file.
+2026-10-14 18:52:51.446   Successfully installed the file.
+2026-10-14 18:52:51.446   -- File entry --
+2026-10-14 18:52:51.446   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8889-2025.pdf
+2026-10-14 18:52:51.446   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.446   Installing the file.
+2026-10-14 18:52:51.446   Successfully installed the file.
+2026-10-14 18:52:51.446   -- File entry --
+2026-10-14 18:52:51.446   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8949-2025.pdf
+2026-10-14 18:52:51.446   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.446   Installing the file.
+2026-10-14 18:52:51.462   Successfully installed the file.
+2026-10-14 18:52:51.462   -- File entry --
+2026-10-14 18:52:51.462   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8959-2025.pdf
+2026-10-14 18:52:51.462   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.462   Installing the file.
+2026-10-14 18:52:51.462   Successfully installed the file.
+2026-10-14 18:52:51.462   -- File entry --
+2026-10-14 18:52:51.462   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8960-2025.pdf
+2026-10-14 18:52:51.462   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.462   Installing the file.
+2026-10-14 18:52:51.462   Successfully installed the file.
+2026-10-14 18:52:51.462   -- File entry --
+2026-10-14 18:52:51.462   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8962-2025.pdf
+2026-10-14 18:52:51.462   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.462   Installing the file.
+2026-10-14 18:52:51.478   Successfully installed the file.
+2026-10-14 18:52:51.478   -- File entry --
+2026-10-14 18:52:51.478   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\f8995-2025.pdf
+2026-10-14 18:52:51.478   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.478   Installing the file.
+2026-10-14 18:52:51.478   Successfully installed the file.
+2026-10-14 18:52:51.478   -- File entry --
+2026-10-14 18:52:51.478   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\official-field-map-2025.json
+2026-10-14 18:52:51.478   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.478   Installing the file.
+2026-10-14 18:52:51.493   Successfully installed the file.
+2026-10-14 18:52:51.493   -- File entry --
+2026-10-14 18:52:51.493   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\official-sources-2025.json
+2026-10-14 18:52:51.493   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.493   Installing the file.
+2026-10-14 18:52:51.493   Successfully installed the file.
+2026-10-14 18:52:51.493   -- File entry --
+2026-10-14 18:52:51.493   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\paper-fact-schema-2025.json
+2026-10-14 18:52:51.493   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.493   Installing the file.
+2026-10-14 18:52:51.493   Successfully installed the file.
+2026-10-14 18:52:51.493   -- File entry --
+2026-10-14 18:52:51.493   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\forms\source.json
+2026-10-14 18:52:51.493   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.493   Installing the file.
+2026-10-14 18:52:51.493   Successfully installed the file.
+2026-10-14 18:52:51.493   -- File entry --
+2026-10-14 18:52:51.493   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_avif.cp313-win_amd64.pyd
+2026-10-14 18:52:51.493   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.493   Installing the file.
+2026-10-14 18:52:51.493   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL
+2026-10-14 18:52:51.696   Successfully installed the file.
+2026-10-14 18:52:51.696   -- File entry --
+2026-10-14 18:52:51.696   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_imaging.cp313-win_amd64.pyd
+2026-10-14 18:52:51.696   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.696   Installing the file.
+2026-10-14 18:52:51.774   Successfully installed the file.
+2026-10-14 18:52:51.774   -- File entry --
+2026-10-14 18:52:51.774   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_imagingcms.cp313-win_amd64.pyd
+2026-10-14 18:52:51.774   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.774   Installing the file.
+2026-10-14 18:52:51.774   Successfully installed the file.
+2026-10-14 18:52:51.774   -- File entry --
+2026-10-14 18:52:51.774   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_imagingmath.cp313-win_amd64.pyd
+2026-10-14 18:52:51.774   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.774   Installing the file.
+2026-10-14 18:52:51.774   Successfully installed the file.
+2026-10-14 18:52:51.774   -- File entry --
+2026-10-14 18:52:51.774   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_imagingtk.cp313-win_amd64.pyd
+2026-10-14 18:52:51.774   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.774   Installing the file.
+2026-10-14 18:52:51.790   Successfully installed the file.
+2026-10-14 18:52:51.790   -- File entry --
+2026-10-14 18:52:51.790   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\PIL\_webp.cp313-win_amd64.pyd
+2026-10-14 18:52:51.790   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.790   Installing the file.
+2026-10-14 18:52:51.790   Successfully installed the file.
+2026-10-14 18:52:51.790   -- File entry --
+2026-10-14 18:52:51.790   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\pythonnet\runtime\Python.Runtime.deps.json
+2026-10-14 18:52:51.790   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.790   Installing the file.
+2026-10-14 18:52:51.790   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\pythonnet
+2026-10-14 18:52:51.790   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\pythonnet\runtime
+2026-10-14 18:52:51.790   Successfully installed the file.
+2026-10-14 18:52:51.790   -- File entry --
+2026-10-14 18:52:51.790   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\pythonnet\runtime\Python.Runtime.dll
+2026-10-14 18:52:51.790   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.790   Installing the file.
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\pythonnet\runtime\Python.Runtime.xml
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\setuptools\_vendor\jaraco\text\Lorem ipsum.txt
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\setuptools
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\setuptools\_vendor
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\setuptools\_vendor\jaraco
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\setuptools\_vendor\jaraco\text
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\build-environment-sbom.json
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\package-license-index.json
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\README.txt
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\altgraph-0.17.5\altgraph-0.17.5.dist-info\LICENSE
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\altgraph-0.17.5
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\altgraph-0.17.5\altgraph-0.17.5.dist-info
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\bottle-0.13.4\bottle-0.13.4.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\bottle-0.13.4
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\bottle-0.13.4\bottle-0.13.4.dist-info
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\bottle-0.13.4\bottle-0.13.4.dist-info\licenses
+2026-10-14 18:52:51.806   Successfully installed the file.
+2026-10-14 18:52:51.806   -- File entry --
+2026-10-14 18:52:51.806   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\cffi-2.1.1\cffi-2.1.1.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.806   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.806   Installing the file.
+2026-10-14 18:52:51.806   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\cffi-2.1.1
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\cffi-2.1.1\cffi-2.1.1.dist-info
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\cffi-2.1.1\cffi-2.1.1.dist-info\licenses
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\clr-loader-0.3.1\clr_loader-0.3.1.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\clr-loader-0.3.1
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\clr-loader-0.3.1\clr_loader-0.3.1.dist-info
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\clr-loader-0.3.1\clr_loader-0.3.1.dist-info\licenses
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3\packaging-26.3.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3\packaging-26.3.dist-info
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3\packaging-26.3.dist-info\licenses
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3\packaging-26.3.dist-info\licenses\LICENSE.APACHE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\packaging-26.3\packaging-26.3.dist-info\licenses\LICENSE.BSD
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pefile-2024.8.26\pefile-2024.8.26.dist-info\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pefile-2024.8.26
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pefile-2024.8.26\pefile-2024.8.26.dist-info
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pillow-12.3.0\pillow-12.3.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pillow-12.3.0
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pillow-12.3.0\pillow-12.3.0.dist-info
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pillow-12.3.0\pillow-12.3.0.dist-info\licenses
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\cachecontrol\LICENSE.txt
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\cachecontrol
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\certifi\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\certifi
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\distlib\LICENSE.txt
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\distlib
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\distro\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\distro
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\idna\LICENSE.md
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\idna
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\msgpack\COPYING
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\msgpack
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\packaging\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\packaging
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\packaging\LICENSE.APACHE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\packaging\LICENSE.BSD
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pkg_resources\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pkg_resources
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\platformdirs\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\platformdirs
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pygments\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pygments
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pyproject_hooks\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\pyproject_hooks
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\requests\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\requests
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\resolvelib\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\resolvelib
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\rich\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\rich
+2026-10-14 18:52:51.821   Successfully installed the file.
+2026-10-14 18:52:51.821   -- File entry --
+2026-10-14 18:52:51.821   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\tomli\LICENSE
+2026-10-14 18:52:51.821   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.821   Installing the file.
+2026-10-14 18:52:51.821   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\tomli
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\tomli_w\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\tomli_w
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\truststore\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\truststore
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\urllib3\LICENSE.txt
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip\_vendor\urllib3
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\AUTHORS.txt
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\LICENSE.txt
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\cachecontrol\LICENSE.txt
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\cachecontrol
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\certifi\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\certifi
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\distlib\LICENSE.txt
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\distlib
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\distro\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\distro
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\idna\LICENSE.md
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\idna
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\msgpack\COPYING
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\msgpack
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\packaging\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\packaging
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\packaging\LICENSE.APACHE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\packaging\LICENSE.BSD
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pkg_resources\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pkg_resources
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\platformdirs\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\platformdirs
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pygments\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pygments
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pyproject_hooks\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\pyproject_hooks
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\requests\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\requests
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\resolvelib\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\resolvelib
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\rich\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\rich
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\tomli\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\tomli
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\tomli_w\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\tomli_w
+2026-10-14 18:52:51.837   Successfully installed the file.
+2026-10-14 18:52:51.837   -- File entry --
+2026-10-14 18:52:51.837   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\truststore\LICENSE
+2026-10-14 18:52:51.837   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.837   Installing the file.
+2026-10-14 18:52:51.837   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\truststore
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\urllib3\LICENSE.txt
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pip-26.2.1\pip-26.2.1.dist-info\licenses\src\pip\_vendor\urllib3
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\proxy-tools-0.1.0\proxy-tools-0.1.0-upstream-LICENSE.txt
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\proxy-tools-0.1.0
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pycparser-3.11\pycparser-3.11.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pycparser-3.11
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pycparser-3.11\pycparser-3.11.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pycparser-3.11\pycparser-3.11.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-6.22.3\pyinstaller-6.22.3.dist-info\licenses\COPYING.txt
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-6.22.3
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-6.22.3\pyinstaller-6.22.3.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-6.22.3\pyinstaller-6.22.3.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-hooks-contrib-2026.8\pyinstaller_hooks_contrib-2026.8.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-hooks-contrib-2026.8
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-hooks-contrib-2026.8\pyinstaller_hooks_contrib-2026.8.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pyinstaller-hooks-contrib-2026.8\pyinstaller_hooks_contrib-2026.8.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pypdf-6.10.0\pypdf-6.10.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pypdf-6.10.0
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pypdf-6.10.0\pypdf-6.10.0.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pypdf-6.10.0\pypdf-6.10.0.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\Python-3.13.16\LICENSE.txt
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\Python-3.13.16
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pythonnet-3.2.1\pythonnet-3.2.1.dist-info\licenses\AUTHORS.md
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pythonnet-3.2.1
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pythonnet-3.2.1\pythonnet-3.2.1.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pythonnet-3.2.1\pythonnet-3.2.1.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pythonnet-3.2.1\pythonnet-3.2.1.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywebview-6.2.1\pywebview-6.2.1.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywebview-6.2.1
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywebview-6.2.1\pywebview-6.2.1.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywebview-6.2.1\pywebview-6.2.1.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywin32-ctypes-0.2.3\pywin32_ctypes-0.2.3.dist-info\LICENSE.txt
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywin32-ctypes-0.2.3
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\pywin32-ctypes-0.2.3\pywin32_ctypes-0.2.3.dist-info
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\config\NOTICE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\config
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\config\_validate_pyproject\NOTICE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\config\_validate_pyproject
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\autocommand-2.2.2.dist-info\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\autocommand-2.2.2.dist-info
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\backports.tarfile-1.2.0.dist-info\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\backports.tarfile-1.2.0.dist-info
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\importlib_metadata-8.7.1.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\importlib_metadata-8.7.1.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\importlib_metadata-8.7.1.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco.text-4.0.0.dist-info\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco.text-4.0.0.dist-info
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_context-6.1.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_context-6.1.0.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_context-6.1.0.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_functools-4.4.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_functools-4.4.0.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\jaraco_functools-4.4.0.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\more_itertools-10.8.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\more_itertools-10.8.0.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\more_itertools-10.8.0.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\packaging-26.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.853   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.853   Installing the file.
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\packaging-26.0.dist-info
+2026-10-14 18:52:51.853   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\packaging-26.0.dist-info\licenses
+2026-10-14 18:52:51.853   Successfully installed the file.
+2026-10-14 18:52:51.853   -- File entry --
+2026-10-14 18:52:51.853   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\packaging-26.0.dist-info\licenses\LICENSE.APACHE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\packaging-26.0.dist-info\licenses\LICENSE.BSD
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\platformdirs-4.4.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\platformdirs-4.4.0.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\platformdirs-4.4.0.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\tomli-2.4.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\tomli-2.4.0.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\tomli-2.4.0.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\wheel-0.46.3.dist-info\licenses\LICENSE.txt
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\wheel-0.46.3.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\wheel-0.46.3.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\zipp-3.23.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\zipp-3.23.0.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools\_vendor\zipp-3.23.0.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools-84.0.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools-84.0.0.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\setuptools-84.0.0\setuptools-84.0.0.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\typing-extensions-4.16.0\typing_extensions-4.16.0.dist-info\licenses\LICENSE
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\typing-extensions-4.16.0
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\typing-extensions-4.16.0\typing_extensions-4.16.0.dist-info
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\THIRDPARTY_NOTICES\typing-extensions-4.16.0\typing_extensions-4.16.0.dist-info\licenses
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\original-independent-code-MIT.txt
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\README.md
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Successfully installed the file.
+2026-10-14 18:52:51.868   -- File entry --
+2026-10-14 18:52:51.868   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\opentax\corresponding-source.tar.gz
+2026-10-14 18:52:51.868   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:51.868   Installing the file.
+2026-10-14 18:52:51.868   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\opentax
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\opentax\LICENSE
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\opentax\source.json
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\vendor\opentax\Zod-MIT.txt
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\app.js
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\document-import.js
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\icon-192.png
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.196   Successfully installed the file.
+2026-10-14 18:52:52.196   -- File entry --
+2026-10-14 18:52:52.196   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\icon-512.png
+2026-10-14 18:52:52.196   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.196   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\icon.svg
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\income-preparation.js
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\index.html
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\investment-corrections.js
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\local-api.js
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\manifest.webmanifest
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\native-file-bridge.js
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\ocr-worker-build.json
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.212   Successfully installed the file.
+2026-10-14 18:52:52.212   -- File entry --
+2026-10-14 18:52:52.212   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\ocr-worker.js
+2026-10-14 18:52:52.212   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.212   Installing the file.
+2026-10-14 18:52:52.321   Successfully installed the file.
+2026-10-14 18:52:52.321   -- File entry --
+2026-10-14 18:52:52.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\offline-assets.json
+2026-10-14 18:52:52.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.321   Installing the file.
+2026-10-14 18:52:52.321   Successfully installed the file.
+2026-10-14 18:52:52.321   -- File entry --
+2026-10-14 18:52:52.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\offline-readiness.js
+2026-10-14 18:52:52.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.321   Installing the file.
+2026-10-14 18:52:52.321   Successfully installed the file.
+2026-10-14 18:52:52.321   -- File entry --
+2026-10-14 18:52:52.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\reference-notes.txt
+2026-10-14 18:52:52.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.321   Installing the file.
+2026-10-14 18:52:52.321   Successfully installed the file.
+2026-10-14 18:52:52.321   -- File entry --
+2026-10-14 18:52:52.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\service-worker.js
+2026-10-14 18:52:52.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.321   Installing the file.
+2026-10-14 18:52:52.321   Successfully installed the file.
+2026-10-14 18:52:52.321   -- File entry --
+2026-10-14 18:52:52.321   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\state-worker.js
+2026-10-14 18:52:52.321   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.321   Installing the file.
+2026-10-14 18:52:52.384   Successfully installed the file.
+2026-10-14 18:52:52.384   -- File entry --
+2026-10-14 18:52:52.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\state-workspace.js
+2026-10-14 18:52:52.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.384   Installing the file.
+2026-10-14 18:52:52.384   Successfully installed the file.
+2026-10-14 18:52:52.384   -- File entry --
+2026-10-14 18:52:52.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\style.css
+2026-10-14 18:52:52.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.384   Installing the file.
+2026-10-14 18:52:52.384   Successfully installed the file.
+2026-10-14 18:52:52.384   -- File entry --
+2026-10-14 18:52:52.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\tax-worker-build.json
+2026-10-14 18:52:52.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.384   Installing the file.
+2026-10-14 18:52:52.384   Successfully installed the file.
+2026-10-14 18:52:52.384   -- File entry --
+2026-10-14 18:52:52.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\tax-worker-source.js
+2026-10-14 18:52:52.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.384   Installing the file.
+2026-10-14 18:52:52.384   Successfully installed the file.
+2026-10-14 18:52:52.384   -- File entry --
+2026-10-14 18:52:52.384   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\tax-worker.js
+2026-10-14 18:52:52.384   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.384   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\taxml-import.js
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\taxml_native.py
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\taxml_preparation.py
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\taxml_wire.py
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\taxml_xml_edit.py
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.400   -- File entry --
+2026-10-14 18:52:52.400   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\opentax-notices\AGPL-3.0.txt
+2026-10-14 18:52:52.400   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.400   Installing the file.
+2026-10-14 18:52:52.400   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor
+2026-10-14 18:52:52.400   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\opentax-notices
+2026-10-14 18:52:52.400   Successfully installed the file.
+2026-10-14 18:52:52.415   -- File entry --
+2026-10-14 18:52:52.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\opentax-notices\source.json
+2026-10-14 18:52:52.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.415   Installing the file.
+2026-10-14 18:52:52.415   Successfully installed the file.
+2026-10-14 18:52:52.415   -- File entry --
+2026-10-14 18:52:52.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\opentax-notices\Zod-MIT.txt
+2026-10-14 18:52:52.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.415   Installing the file.
+2026-10-14 18:52:52.415   Successfully installed the file.
+2026-10-14 18:52:52.415   -- File entry --
+2026-10-14 18:52:52.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\package.json
+2026-10-14 18:52:52.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.415   Installing the file.
+2026-10-14 18:52:52.415   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide
+2026-10-14 18:52:52.415   Successfully installed the file.
+2026-10-14 18:52:52.415   -- File entry --
+2026-10-14 18:52:52.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\pyodide-lock.json
+2026-10-14 18:52:52.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.415   Installing the file.
+2026-10-14 18:52:52.415   Successfully installed the file.
+2026-10-14 18:52:52.415   -- File entry --
+2026-10-14 18:52:52.415   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\pyodide.asm.js
+2026-10-14 18:52:52.415   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.415   Installing the file.
+2026-10-14 18:52:52.431   Successfully installed the file.
+2026-10-14 18:52:52.431   -- File entry --
+2026-10-14 18:52:52.431   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\pyodide.asm.wasm
+2026-10-14 18:52:52.431   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.431   Installing the file.
+2026-10-14 18:52:52.634   Successfully installed the file.
+2026-10-14 18:52:52.634   -- File entry --
+2026-10-14 18:52:52.634   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\pyodide.js
+2026-10-14 18:52:52.634   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.634   Installing the file.
+2026-10-14 18:52:52.634   Successfully installed the file.
+2026-10-14 18:52:52.634   -- File entry --
+2026-10-14 18:52:52.634   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\python_stdlib.zip
+2026-10-14 18:52:52.634   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.634   Installing the file.
+2026-10-14 18:52:52.697   Successfully installed the file.
+2026-10-14 18:52:52.697   -- File entry --
+2026-10-14 18:52:52.697   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\source-manifest.json
+2026-10-14 18:52:52.697   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.697   Installing the file.
+2026-10-14 18:52:52.697   Successfully installed the file.
+2026-10-14 18:52:52.697   -- File entry --
+2026-10-14 18:52:52.697   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\licenses\Pyodide-MPL-2.0.txt
+2026-10-14 18:52:52.697   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.697   Installing the file.
+2026-10-14 18:52:52.697   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\licenses
+2026-10-14 18:52:52.697   Successfully installed the file.
+2026-10-14 18:52:52.697   -- File entry --
+2026-10-14 18:52:52.697   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\pyodide\licenses\Python-3.13.2-PSF.txt
+2026-10-14 18:52:52.697   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.697   Installing the file.
+2026-10-14 18:52:52.697   Successfully installed the file.
+2026-10-14 18:52:52.697   -- File entry --
+2026-10-14 18:52:52.697   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\python\LICENSE
+2026-10-14 18:52:52.697   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.697   Installing the file.
+2026-10-14 18:52:52.697   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\python
+2026-10-14 18:52:52.697   Successfully installed the file.
+2026-10-14 18:52:52.697   -- File entry --
+2026-10-14 18:52:52.697   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\python\pypdf-6.10.0.whl
+2026-10-14 18:52:52.697   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.697   Installing the file.
+2026-10-14 18:52:52.712   Successfully installed the file.
+2026-10-14 18:52:52.712   -- File entry --
+2026-10-14 18:52:52.712   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\python\source-manifest.json
+2026-10-14 18:52:52.712   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.712   Installing the file.
+2026-10-14 18:52:52.712   Successfully installed the file.
+2026-10-14 18:52:52.712   -- File entry --
+2026-10-14 18:52:52.712   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\eng.traineddata.gz
+2026-10-14 18:52:52.712   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:52.712   Installing the file.
+2026-10-14 18:52:52.712   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract
+2026-10-14 18:52:53.245   Successfully installed the file.
+2026-10-14 18:52:53.260   -- File entry --
+2026-10-14 18:52:53.260   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\source-manifest.json
+2026-10-14 18:52:53.260   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.260   Installing the file.
+2026-10-14 18:52:53.260   Successfully installed the file.
+2026-10-14 18:52:53.260   -- File entry --
+2026-10-14 18:52:53.260   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tessdata-LICENSE
+2026-10-14 18:52:53.260   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.260   Installing the file.
+2026-10-14 18:52:53.260   Successfully installed the file.
+2026-10-14 18:52:53.260   -- File entry --
+2026-10-14 18:52:53.260   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-lstm.wasm
+2026-10-14 18:52:53.260   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.260   Installing the file.
+2026-10-14 18:52:53.323   Successfully installed the file.
+2026-10-14 18:52:53.323   -- File entry --
+2026-10-14 18:52:53.323   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-lstm.wasm.js
+2026-10-14 18:52:53.323   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.323   Installing the file.
+2026-10-14 18:52:53.417   Successfully installed the file.
+2026-10-14 18:52:53.417   -- File entry --
+2026-10-14 18:52:53.417   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-simd-lstm.wasm
+2026-10-14 18:52:53.417   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.417   Installing the file.
+2026-10-14 18:52:53.464   Successfully installed the file.
+2026-10-14 18:52:53.464   -- File entry --
+2026-10-14 18:52:53.464   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-simd-lstm.wasm.js
+2026-10-14 18:52:53.464   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.464   Installing the file.
+2026-10-14 18:52:53.526   Successfully installed the file.
+2026-10-14 18:52:53.526   -- File entry --
+2026-10-14 18:52:53.526   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-simd.wasm
+2026-10-14 18:52:53.526   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.526   Installing the file.
+2026-10-14 18:52:53.589   Successfully installed the file.
+2026-10-14 18:52:53.589   -- File entry --
+2026-10-14 18:52:53.589   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core-simd.wasm.js
+2026-10-14 18:52:53.589   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.589   Installing the file.
+2026-10-14 18:52:53.682   Successfully installed the file.
+2026-10-14 18:52:53.682   -- File entry --
+2026-10-14 18:52:53.682   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core.wasm
+2026-10-14 18:52:53.682   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.682   Installing the file.
+2026-10-14 18:52:53.714   Successfully installed the file.
+2026-10-14 18:52:53.714   -- File entry --
+2026-10-14 18:52:53.714   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract-core.wasm.js
+2026-10-14 18:52:53.714   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.714   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract.js-core-LICENSE
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract.min.js
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\tesseract.min.js.LICENSE.txt
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\worker.min.js
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\vendor\tesseract\worker.min.js.LICENSE.txt
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\__pycache__\taxml_native.cpython-313.pyc
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\__pycache__
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\__pycache__\taxml_preparation.cpython-313.pyc
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.807   Successfully installed the file.
+2026-10-14 18:52:53.807   -- File entry --
+2026-10-14 18:52:53.807   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\__pycache__\taxml_wire.cpython-313.pyc
+2026-10-14 18:52:53.807   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.807   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\web\__pycache__\taxml_xml_edit.cpython-313.pyc
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\py.typed
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\api.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\customize.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\finish.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\state.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\lib\dom_json.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\lib
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\js\lib\polyfill.js
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Successfully installed the file.
+2026-10-14 18:52:53.823   -- File entry --
+2026-10-14 18:52:53.823   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\Microsoft.Web.WebView2.Core.dll
+2026-10-14 18:52:53.823   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.823   Installing the file.
+2026-10-14 18:52:53.823   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\Microsoft.Web.WebView2.WinForms.dll
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\pywebview-android.jar
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\WebBrowserInterop.x64.dll
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\WebBrowserInterop.x86.dll
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-arm64\native\WebView2Loader.dll
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes
+2026-10-14 18:52:53.839   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-arm64
+2026-10-14 18:52:53.839   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-arm64\native
+2026-10-14 18:52:53.839   Successfully installed the file.
+2026-10-14 18:52:53.839   -- File entry --
+2026-10-14 18:52:53.839   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x64\native\WebView2Loader.dll
+2026-10-14 18:52:53.839   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.839   Installing the file.
+2026-10-14 18:52:53.839   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x64
+2026-10-14 18:52:53.839   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x64\native
+2026-10-14 18:52:53.854   Successfully installed the file.
+2026-10-14 18:52:53.854   -- File entry --
+2026-10-14 18:52:53.854   Dest filename: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x86\native\WebView2Loader.dll
+2026-10-14 18:52:53.854   Time stamp of our file: 2026-10-14 18:51:50.000
+2026-10-14 18:52:53.854   Installing the file.
+2026-10-14 18:52:53.854   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x86
+2026-10-14 18:52:53.854   Creating directory: D:\a\_temp\TaxRebornInstalledPreview\_internal\webview\lib\runtimes\win-x86\native
+2026-10-14 18:52:53.854   Successfully installed the file.
+2026-10-14 18:52:53.854   -- Icon entry --
+2026-10-14 18:52:53.854   Dest filename: C:\Users\runneradmin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Tax Reborn.lnk
+2026-10-14 18:52:53.854   Creating the icon.
+2026-10-14 18:52:56.685   Successfully created the icon.
+2026-10-14 18:52:56.685   Saving uninstall information.
+2026-10-14 18:52:56.685   Creating new uninstall key: HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\io.github.lxistired.taxreborn_is1
+2026-10-14 18:52:56.685   Writing uninstall key values.
+2026-10-14 18:52:56.685   Detected previous administrative 64-bit install? No
+2026-10-14 18:52:56.685   Detected previous administrative 32-bit install? No
+2026-10-14 18:52:56.685   Installation process succeeded.
+2026-10-14 18:52:56.685   Need to restart Windows? No
+2026-10-14 18:52:56.685   Deinitializing Setup.
+2026-10-14 18:52:56.700   Log closed.
