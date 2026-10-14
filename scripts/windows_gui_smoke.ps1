@@ -37,7 +37,7 @@ function Wait-Named([string]$name,[int]$seconds=90,[bool]$visible=$true) {
     $until = (Get-Date).AddSeconds($seconds)
     while ((Get-Date) -lt $until) {
         $item = Get-Named $name $visible
-        if ($null -ne $item) { return $item }
+        if ($null -ne $item -and $item.Current.IsEnabled) { return $item }
         if($visible) {
             $candidate=Get-Named $name $false
             if($candidate -and ($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit)) {
@@ -119,7 +119,9 @@ function Launch-App {
     [TaxWindow]::ShowWindow($script:process.MainWindowHandle,3) | Out-Null
     [TaxWindow]::SetForegroundWindow($script:process.MainWindowHandle) | Out-Null
     $script:root = [System.Windows.Automation.AutomationElement]::FromHandle($script:process.MainWindowHandle)
-    Wait-Named "Let's start with you." 90 | Out-Null
+    # A stable origin restores the user's previous interview page. Wait for
+    # the enabled global control instead of demanding a new blank interview.
+    Wait-Named 'My returns' 90 | Out-Null
 }
 function Close-App {
     if($script:process -and !$script:process.HasExited) {
