@@ -176,7 +176,7 @@ function Save-Native-Export([string]$target, [int]$minimumBytes=1000) {
 # These actions are not used on the user's computer or their returns.
 function Choose-Owned-Native-File([string]$label,[string]$target) {
     if(!(Test-Path $target)) { throw "Missing owned fixture: $target" }
-    Click-Observed (Wait-Named $label)
+    Click-Observed (Wait-Named ($label+': No file chosen'))
     $oldRoot=$script:root
     $pidCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
     $nameCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::NameProperty,'Open')
