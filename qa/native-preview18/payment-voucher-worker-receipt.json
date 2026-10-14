@@ -1,0 +1,76 @@
+{
+  "runtime": "actual staged worker with pinned Pyodide",
+  "synthetic_only": true,
+  "cases": 3,
+  "passed": 3,
+  "packet_count": 6,
+  "rows": [
+    {
+      "name": "fifteen-percent-owed",
+      "owed": 2435,
+      "total_tax": 3435,
+      "packets": [
+        {
+          "file": "fifteen-percent-owed-balance-worker-packet.pdf",
+          "amount": "2435.00",
+          "sha256": "df86aa5103db56ee544150ab45de0526f3c0fe78428e685d3116e36bd6bcdcc2"
+        },
+        {
+          "file": "fifteen-percent-owed-custom-worker-packet.pdf",
+          "amount": "1000.25",
+          "sha256": "d2866033627f523903103e461f62b1ed4597db2e55b56f72f45326c43f74d944"
+        }
+      ],
+      "unconfirmed_blocked": true,
+      "electronic_no_voucher_or_payment": true
+    },
+    {
+      "name": "twenty-percent-NIIT-owed",
+      "owed": 98794,
+      "total_tax": 99794,
+      "packets": [
+        {
+          "file": "twenty-percent-NIIT-owed-balance-worker-packet.pdf",
+          "amount": "98794.00",
+          "sha256": "8bace71efe34fe650c3d71ba3306fefb69fc05db00727a90272ef31fa3163163"
+        },
+        {
+          "file": "twenty-percent-NIIT-owed-custom-worker-packet.pdf",
+          "amount": "1000.25",
+          "sha256": "d6a58f6dc3a0714b00b3769b160d29f4f05ce5ea0e0200a525e6f4c6ef8053ff"
+        }
+      ],
+      "unconfirmed_blocked": true,
+      "electronic_no_voucher_or_payment": true
+    },
+    {
+      "name": "positive-AMT-NIIT-owed",
+      "owed": 221159,
+      "total_tax": 222159,
+      "packets": [
+        {
+          "file": "positive-AMT-NIIT-owed-balance-worker-packet.pdf",
+          "amount": "221159.00",
+          "sha256": "419b03803a4dcdb4324830a98d7e9814a1828e7928c4d598976bc50abdb0b7b7"
+        },
+        {
+          "file": "positive-AMT-NIIT-owed-custom-worker-packet.pdf",
+          "amount": "1000.25",
+          "sha256": "61cac83acd66df679ba6b2bbdbff0cbee91067ce0de249f5a9fd925f6ad671c3"
+        }
+      ],
+      "unconfirmed_blocked": true,
+      "electronic_no_voucher_or_payment": true
+    }
+  ],
+  "source_sha256": {
+    "tax_engine.py": "d5dd9521cdb1b8e46507d7570bff59367331488dfe09df16a30c199bb387a69d",
+    "tax_filing.py": "f633efc875756389ab506777ed023eec380651f77d8aea61d98e53a82d49f846",
+    "official_forms.py": "235b30840c1645057f94b1f703cce0d8b687615e9b3972605320915fcca6da8c",
+    "web/tax-worker-source.js": "3351b953d07a6aef921fd4ba8193759e243279907078516e706b400d0cb3c387",
+    "forms/f1040v-2025.pdf": "2426bb330ac54b765b32fbc3eceb878544aa333a3a823e1170aa8261a40fd251"
+  },
+  "storage_acceptance": false,
+  "native_UI_acceptance": false,
+  "original_native_executions": 0
+}

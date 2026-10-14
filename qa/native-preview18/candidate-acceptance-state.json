@@ -1,0 +1,93 @@
+{
+  "version": "2026.10.15-preview.18",
+  "production_source_commit": "39e58cba7ca926468940785bfe53dbeb9c14b197",
+  "checked_at_utc": "2026-10-14T22:34:34.587765+00:00",
+  "synthetic_only": true,
+  "source": {
+    "host_tests_passed": 585,
+    "real_Pyodide_tests_executed": 488,
+    "Pyodide_tests_skipped": 1,
+    "source_desktop_checks_passed": 21,
+    "actual_worker_address_packets_read_back": 2,
+    "legacy_browser_migration_cases_passed": 4
+  },
+  "Mac": {
+    "generated": true,
+    "frozen_checks_passed": 21,
+    "actual_native_GUI_and_system_PDF_readback_passed": true,
+    "legacy_cached_readiness_migration_passed": true,
+    "normal_quit_relaunch_passed": true,
+    "prior_returns_retained": 11,
+    "current_returns": 12,
+    "readonly_DMG_matches_tested_App": true,
+    "content_entries_verified": 422
+  },
+  "Windows": {
+    "generated": true,
+    "CI_run": 38646073287,
+    "CI_url": "https://github.com/lxistired/tax-reborn/actions/runs/38646073287",
+    "CI_conclusion": "success",
+    "actual_Setup_installed": true,
+    "installed_executable_matches_portable": true,
+    "frozen_checks_passed": 21,
+    "native_GUI_checks_passed": 23,
+    "legacy_country_and_PDF_new_flow_passed": true,
+    "installed_actual_worker_address_packets_read_back": 2,
+    "installed_actual_worker_payment_voucher_packets_read_back": 6
+  },
+  "Android": {
+    "generated": true,
+    "same_original_signer": true,
+    "APK_actual_assets_source_match": true,
+    "actual_APK_worker_address_cases_passed": 2,
+    "actual_APK_worker_PDFs_read_back": 2,
+    "physical_USB_devices": 0,
+    "physical_device_installed": false,
+    "physical_device_data_retention_verified": false,
+    "physical_device_native_GUI_passed": false
+  },
+  "assets": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.18-Android.apk",
+      "bytes": 49169961,
+      "sha256": "5938594125a61242f64f749db5207083affa993854b68fc10d35cede1e493d52",
+      "generated": true,
+      "public_GitHub_Release_uploaded": false,
+      "anonymous_public_download_verified": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.18-Windows-x64-Setup.exe",
+      "bytes": 57763188,
+      "sha256": "82ad680e22379ebcb854663576cb4417bc4cb6263503b6cd2fda2aed8c3ecb40",
+      "generated": true,
+      "public_GitHub_Release_uploaded": false,
+      "anonymous_public_download_verified": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.18-Windows-x64-portable.zip",
+      "bytes": 70748992,
+      "sha256": "7838f96b61071e650b0dc1c9cd73f35b07cf301135af12fc9e0392ff31c42f3b",
+      "generated": true,
+      "public_GitHub_Release_uploaded": false,
+      "anonymous_public_download_verified": false
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.18-macOS-arm64.dmg",
+      "bytes": 71356619,
+      "sha256": "3bd5b728fa693e8faf1819856e2434aea423a22450a0d5883d11c816ac7bd383",
+      "generated": true,
+      "public_GitHub_Release_uploaded": false,
+      "anonymous_public_download_verified": false
+    }
+  ],
+  "published_as_GitHub_Release": false,
+  "latest_verified_public_download": "v2026.10.14-preview.12",
+  "remaining_release_gate": [
+    "Android physical-device install, data retention and current workflow nativeUI test after USB returns",
+    "Separate release publication and anonymous package hash readback"
+  ],
+  "original_TurboTax_native_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "goal_complete": false
+}

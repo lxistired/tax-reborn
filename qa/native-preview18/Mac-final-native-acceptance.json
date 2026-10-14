@@ -1,0 +1,21 @@
+{
+  "version": "2026.10.15-preview.18",
+  "source_commit": "39e58cba7ca926468940785bfe53dbeb9c14b197",
+  "checked_at_utc": "2026-10-14T22:22:45.550014+00:00",
+  "synthetic_only": true,
+  "native_GUI_changed_flow_passed": true,
+  "legacy_foreign_record_loaded_and_recomputed": true,
+  "stale_cached_US_readiness_removed": true,
+  "actual_native_system_PDF_saved": true,
+  "actual_PDF_fields_widgets_AP_verified": 14,
+  "actual_PDF_blank_US_fields_verified": 4,
+  "actual_PDF_visual_QA_passed": true,
+  "normal_quit_relaunch_passed": true,
+  "retained_prior_returns": 11,
+  "current_returns": 12,
+  "owed_unchanged": 2435,
+  "readonly_DMG_entries_match_tested_App": 422,
+  "actual_frozen_packaged_checks": 21,
+  "original_native_executions": 0,
+  "original_saved_tax_fixtures": 0
+}

@@ -1,0 +1,65 @@
+{
+  "version": "2026.10.15-preview.18",
+  "source_commit": "39e58cba7ca926468940785bfe53dbeb9c14b197",
+  "CI_run": 38646073287,
+  "CI_conclusion": "success",
+  "real_Windows_Setup_installed": true,
+  "installed_executable_matches_portable_executable": true,
+  "frozen_checks": 21,
+  "native_GUI_checks": 23,
+  "native_legacy_address_passed": true,
+  "actual_native_and_worker_address_PDFs_read_back": [
+    {
+      "file": "windows-native-foreign-address.pdf",
+      "address_format": "foreign",
+      "country": "Germany",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    },
+    {
+      "file": "windows-native-legacy-foreign-address.pdf",
+      "address_format": "foreign",
+      "country": "Germany",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    },
+    {
+      "file": "germany-worker-packet.pdf",
+      "address_format": "foreign",
+      "country": "Germany",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    },
+    {
+      "file": "canada-worker-packet.pdf",
+      "address_format": "foreign",
+      "country": "Canada",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    }
+  ],
+  "installed_worker_voucher_PDFs_verified": 6,
+  "synthetic_only": true,
+  "original_native_executions": 0,
+  "original_saved_tax_fixtures": 0
+}

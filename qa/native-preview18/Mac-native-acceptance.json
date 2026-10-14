@@ -1,0 +1,21 @@
+{
+  "version": "2026.10.15-preview.18",
+  "checked_at_utc": "2026-10-14T21:58:43.848020+00:00",
+  "synthetic_only": true,
+  "source_commit": "6c923e5",
+  "native_GUI_changed_flow_passed": true,
+  "actual_address_choice_and_four_fields_entered": true,
+  "address_edit_invalidated_paper_payment_confirmation": true,
+  "actual_native_system_PDF_saved": true,
+  "actual_PDF_readback_fields": 14,
+  "inactive_US_PDF_fields_blank": 4,
+  "normal_quit_relaunch_passed": true,
+  "retained_prior_returns": 10,
+  "current_returns": 11,
+  "US_inputs_retained": true,
+  "owed_unchanged": 2435,
+  "native_PDF_visual_QA_passed": true,
+  "readonly_DMG_files_and_links_match_tested_App": 422,
+  "original_native_executions": 0,
+  "original_saved_tax_fixtures": 0
+}

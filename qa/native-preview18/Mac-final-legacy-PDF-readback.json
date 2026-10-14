@@ -1,0 +1,14 @@
+{
+  "address_format": "foreign",
+  "country": "Canada",
+  "canonical_and_widget_and_AP_fields": 14,
+  "blank_US_fields_verified": 4,
+  "pages": 11,
+  "page_identities_verified": true,
+  "owed": 2435,
+  "amount": "2435.00",
+  "synthetic_only": true,
+  "actual_native_system_saved": true,
+  "source_commit": "39e58cba7ca926468940785bfe53dbeb9c14b197",
+  "sha256": "e72044e4a9ca44c1c668294c0ad9034299594e522d61744cad89901efcc88cfc"
+}

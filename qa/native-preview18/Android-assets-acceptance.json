@@ -1,0 +1,13 @@
+{
+  "version": "2026.10.15-preview.18",
+  "source_commit": "39e58cba7ca926468940785bfe53dbeb9c14b197",
+  "APK_sha256": "5938594125a61242f64f749db5207083affa993854b68fc10d35cede1e493d52",
+  "assets": 120,
+  "same_original_signer": true,
+  "source_match": true,
+  "physical_device_installed": false,
+  "physical_device_GUI_tested": false,
+  "actual_APK_worker_passed": true,
+  "actual_APK_worker_packets_read_back": 2,
+  "canonical_widget_AP_fields_per_packet": 14
+}

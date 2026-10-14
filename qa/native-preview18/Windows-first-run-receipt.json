@@ -1,0 +1,10 @@
+{
+  "CI_run": 38643428699,
+  "completed_native_GUI_checks": 21,
+  "native_payment_voucher_changed_flow_passed": true,
+  "native_taxml_INT_DIV_changed_flow_passed": true,
+  "foreign_address_GUI_passed": false,
+  "error": "The UI control has no visible click target: City or town",
+  "cause": "Observed field was visible in final screenshot; UIA bounds had not refreshed after scroll before immediate click. Bounded wait added, new run required.",
+  "native_App_unexpected_exit": false
+}
