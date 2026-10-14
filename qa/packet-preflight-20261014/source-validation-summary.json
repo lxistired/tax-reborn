@@ -1,0 +1,16 @@
+{
+  "host_tests": 404,
+  "pyodide_tests": 378,
+  "new_packet_tests": 19,
+  "independent_probes": 14,
+  "successful": true,
+  "synthetic_only": true,
+  "filing_packet_ready": false,
+  "preview5_packages_unchanged": true,
+  "source_sha256": {
+    "forms.py": "3878516a141ae38cbb31027198f1b641ebf9eab28dc5d3df845f361a3e7f7215",
+    "official_forms.py": "3e9b363c04f3aadb749703b4d80193489ed4ece5cd92d5d5ed57363ae90956f0",
+    "tests/test_packet_preflight.py": "14de6ced316b68a8dd9d423c612620258cd10412deaf472e02a5e15ab6431da5",
+    "docs/PAPER_PACKET_PREFLIGHT.md": "18a1f8315214d17d3ea6c1c7d19ee4ea1aa42150f4d2cb7ebf635a0ea16b590c"
+  }
+}

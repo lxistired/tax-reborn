@@ -1,0 +1,22 @@
+{
+  "python": "3.13.2 (main, Jan 28 2026, 03:36:02) [Clang 21.0.0git (https:/github.com/llvm/llvm-project 2f05451198e2f222ec66cec489",
+  "checks": [
+    {
+      "name": "no_support_1040",
+      "pages": 3,
+      "expected_pages": 3,
+      "page_identities_verified": true,
+      "1040_fields_verified": 50,
+      "filing_packet_ready": false
+    },
+    {
+      "name": "two_copy_business",
+      "pages": 15,
+      "expected_pages": 15,
+      "page_identities_verified": true,
+      "1040_fields_verified": 50,
+      "filing_packet_ready": false
+    }
+  ],
+  "successful": true
+}

@@ -1,0 +1,29 @@
+{
+  "synthetic_only": true,
+  "checks": [
+    {
+      "case": "simple",
+      "actual_http_export": true,
+      "sqlite_return_unchanged": true,
+      "standalone_1040_pdf_pages": 29,
+      "standalone_1040_field_values_preserved": true,
+      "final_pages": 3,
+      "supporting_pages": 0,
+      "final_page_identities_verified": true,
+      "sha256": "71646829854043f18bbd58a2c00a44fd770017ed705c6dbcdf33f51ec29f64ec"
+    },
+    {
+      "case": "business",
+      "actual_http_export": true,
+      "sqlite_return_unchanged": true,
+      "standalone_1040_pdf_pages": 29,
+      "standalone_1040_field_values_preserved": true,
+      "final_pages": 13,
+      "supporting_pages": 10,
+      "final_page_identities_verified": true,
+      "sha256": "fdeeb6177202e4d6afe90ba0913cb90c17708c6f7097aa4d0dbccc1733865957"
+    }
+  ],
+  "electronic_filing": false,
+  "passed": true
+}

@@ -1,0 +1,80 @@
+{
+  "scope": "Independent synthetic serialized-PDF acceptance; no original vendor comparison or electronic filing",
+  "app_files": {
+    "forms.py": "3878516a141ae38cbb31027198f1b641ebf9eab28dc5d3df845f361a3e7f7215",
+    "official_forms.py": "3e9b363c04f3aadb749703b4d80193489ed4ece5cd92d5d5ed57363ae90956f0"
+  },
+  "checks": [
+    {
+      "name": "two_business_copy_plan_before_merge",
+      "passed": true
+    },
+    {
+      "name": "no_mutation_of_original_return",
+      "passed": true
+    },
+    {
+      "name": "whole_second_copy_missing",
+      "passed": true,
+      "rejection": "Packet PDF page count differs: expected 12, received 10"
+    },
+    {
+      "name": "count_preserving_copy_collision",
+      "passed": true,
+      "rejection": "Packet page identity differs at output page 8: expected ('f1040sc', 'taxpayer', 2, 1)"
+    },
+    {
+      "name": "missing_serialized_owner_identity",
+      "passed": true,
+      "rejection": "Packet page identity differs at output page 12: expected ('f8995', 'taxpayer', 1, 1)"
+    },
+    {
+      "name": "string_page_number_spoof",
+      "passed": true,
+      "rejection": "Packet page identity differs at output page 12: expected ('f8995', 'taxpayer', 1, 1)"
+    },
+    {
+      "name": "renderer_cannot_change_pinned_template_claim",
+      "passed": true,
+      "rejection": "Rendered packet copy does not match the pinned template plan"
+    },
+    {
+      "name": "stale_success_receipt_with_empty_second_copy",
+      "passed": true,
+      "rejection": "Required packet output is empty"
+    },
+    {
+      "name": "individual1040_roundtrip_single",
+      "passed": true
+    },
+    {
+      "name": "individual1040_roundtrip_mfj",
+      "passed": true
+    },
+    {
+      "name": "individual1040_roundtrip_mfs",
+      "passed": true
+    },
+    {
+      "name": "individual1040_roundtrip_hoh",
+      "passed": true
+    },
+    {
+      "name": "individual1040_roundtrip_qss",
+      "passed": true
+    },
+    {
+      "name": "page_tags_do_not_bypass1040_field_verification",
+      "passed": true,
+      "rejection": "Form1040 canonical field did not save: topmostSubform[0].Page2[0].f2_31[0]"
+    }
+  ],
+  "successful": true,
+  "limitations": [
+    {
+      "case": "unused_template_page_replaced_while_identity_labels_preserved",
+      "accepted_by_current_identity_and_filled_field_checks": true,
+      "meaning": "Labels detect missing/swapped copies and pages; they do not attest every unused cell or pixel against malicious relabeling."
+    }
+  ]
+}

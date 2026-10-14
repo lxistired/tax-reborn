@@ -245,6 +245,7 @@ def packet_status(record,support=None):
     import tax_engine
     data=tax_engine.normalized(record['data']);result=record['result']
     support=support if support is not None else official_forms.build_official_packet(record)
+    preflight=official_forms.verify_packet_pages(support['pdf_bytes'],support['packet_manifest'])
     readiness=tax_filing.paper_facts_readiness(data)
     missing=list(result.get('blocking_issues',[]))+list(result.get('form_readiness',{}).get('missing_identity',[]))+readiness['missing_paper_facts']+support['missing_facts']
     if result['lines'].get('27a') and any(r.get('eitc_qualifying_child') for r in data.get('dependents',[])):missing.append('Schedule EIC qualifying-child attachment is not yet generated')
@@ -252,7 +253,8 @@ def packet_status(record,support=None):
     missing=list(dict.fromkeys(missing))
     return {'tax_year':2025,'status':'needs_facts' if missing else 'ready_to_print_and_review','missing_facts':missing,
             'calculation_ready':bool(result.get('can_prepare')),'paper_preparation_complete':not missing,
-            'supporting_forms':[{'id':f['id'],'owner':f['owner'],'pages':f['verification']['pages'],'missing_facts':f['missing_facts']} for f in support['forms']],
+            'supporting_forms':[{'id':f['id'],'owner':f['owner'],'copy_index':f['copy_index'],'pages':len(f['packet_instance']['required_pages']),'missing_facts':f['missing_facts']} for f in support['forms']],
+            'supporting_packet_preflight':preflight,'supporting_packet_manifest':support['packet_manifest'],
             'requires_taxpayer_signature':True,'requires_original_withholding_attachments':bool(data.get('w2') or result['lines'].get('25b')),
             'penalty_applicability_review_required':'38' in result.get('not_computed_lines',[]),
             'electronic_filing':False,'transmitted':False,'filing_packet_ready':False}
@@ -263,6 +265,8 @@ def paper_packet_pdf(record):
     support=official_forms.build_official_packet(record);status=packet_status(record,support)
     raw,values=_official_1040(record)
     writer=PdfWriter();writer.clone_document_from_reader(PdfReader(io.BytesIO(raw)))
+    main_instance=official_forms.packet_instance('f1040','taxpayer',1,2)
+    official_forms.stamp_packet_pages(writer.pages,main_instance)
     expected=dict(values)
     if support['pdf_bytes']:
         reader=PdfReader(io.BytesIO(support['pdf_bytes']));writer.append(reader)
@@ -273,11 +277,19 @@ def paper_packet_pdf(record):
            'Filled supporting forms: '+(', '.join(f['id'] for f in support['forms']) or 'None required by these entered amounts.'),
            'Penalty applicability review: '+('required; line38 was not computed.' if status['penalty_applicability_review_required'] else 'computed from entered penalty facts.'),
            'Missing facts / blocked situations:']+(status['missing_facts'] or ['None identified within the supported paper-preparation scope.'])
+    cover_pages=[]
     for offset in range(len(lines)-1,-1,-42):
-        start=max(0,offset-41);writer.insert_page(_text_page(lines[start:offset+1],title='PAPER PREPARATION CHECKLIST'),0)
-    writer.add_metadata({'/Title':'Tax Reborn 2025 official paper-preparation draft','/Author':'lxistired','/Subject':'Filled official IRS forms; taxpayer review/signature required; not transmitted'})
+        start=max(0,offset-41);cover_pages.append(_text_page(lines[start:offset+1],title='PAPER PREPARATION CHECKLIST'))
+    cover_pages.reverse()
+    cover_instance=official_forms.packet_instance('preparation_checklist','packet',1,len(cover_pages))
+    official_forms.stamp_packet_pages(cover_pages,cover_instance)
+    for page in reversed(cover_pages):writer.insert_page(page,0)
+    manifest=official_forms.packet_manifest([cover_instance,main_instance]+support['packet_manifest']['instances'])
+    writer.add_metadata({'/Title':'Tax Reborn 2025 official paper-preparation draft','/Author':'lxistired','/Subject':'Filled official IRS forms; taxpayer review/signature required; not transmitted',
+                         '/TaxRebornPacketManifest':json.dumps(manifest,separators=(',',':'))})
     target=io.BytesIO();writer.write(target);output=target.getvalue()
     verify_fields(output,expected)
+    official_forms.verify_packet_pages(output,manifest)
     return output
 
 

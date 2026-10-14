@@ -15,13 +15,88 @@ from decimal import Decimal, ROUND_HALF_UP, ROUND_CEILING
 from datetime import date
 from pathlib import Path
 from pypdf import PdfReader, PdfWriter, PageObject
-from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject
+from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject, TextStringObject, NumberObject
 
 BASE=Path(getattr(sys,'_MEIPASS',Path(__file__).resolve().parent))
 FORMS=BASE/'forms'
 MAP=json.loads((FORMS/'official-field-map-2025.json').read_text())
 SOURCES={r['id']:r for r in json.loads((FORMS/'official-sources-2025.json').read_text())['forms'] if 'sha256' in r}
 D=Decimal
+
+_PAGE_ID_KEYS=('/TaxRebornForm','/TaxRebornOwner','/TaxRebornCopy','/TaxRebornTemplatePage')
+
+def packet_instance(form_id,owner,copy_index,page_count,template_sha256=None):
+    """Plan one output copy before rendering; this is not filing applicability.
+
+    All physical pages of our pinned public IRS templates are currently selected.
+    Distinct owners and copies must remain distinct even for the same form ID.
+    """
+    if not isinstance(form_id,str) or form_id not in SOURCES and form_id not in ('f1040','preparation_checklist'):
+        raise ValueError('Unsupported packet form identity: '+str(form_id))
+    if owner not in ('taxpayer','spouse') and not (form_id=='preparation_checklist' and owner=='packet'):
+        raise ValueError('Unsupported packet owner: '+str(owner))
+    if type(copy_index) is not int or copy_index<1:
+        raise ValueError('Packet copy index must be a positive integer')
+    if type(page_count) is not int or page_count<1:
+        raise ValueError('Packet page count must be a positive integer')
+    if template_sha256 is not None and (not isinstance(template_sha256,str) or not re.fullmatch(r'[0-9a-f]{64}',template_sha256)):
+        raise ValueError('Packet template identity requires a SHA256 digest')
+    return {'form_id':form_id,'owner':owner,'copy_index':copy_index,
+            'required_pages':list(range(1,page_count+1)),
+            'template_sha256':template_sha256}
+
+def packet_manifest(instances):
+    """Validate planned composite identities and refuse unsupported page gaps."""
+    plan=[];seen=set()
+    for instance in instances:
+        pages=instance.get('required_pages')
+        if not isinstance(pages,list) or not pages or any(type(page) is not int for page in pages):
+            raise ValueError('Packet requires an explicit nonempty page list')
+        checked=packet_instance(instance.get('form_id'),instance.get('owner'),
+                                instance.get('copy_index'),len(pages),instance.get('template_sha256'))
+        if pages!=checked['required_pages']:
+            raise ValueError('Packet page selection has an unsupported gap or duplicate')
+        identity=(checked['form_id'],checked['owner'],checked['copy_index'])
+        if identity in seen:raise ValueError('Duplicate packet copy identity: '+str(identity))
+        seen.add(identity);plan.append(checked)
+    return {'version':1,'tax_year':2025,'instances':plan,
+            'expected_pdf_pages':sum(len(item['required_pages']) for item in plan),
+            'scope':'current_supported_paper_preparation','filing_packet_ready':False}
+
+def stamp_packet_pages(pages,instance):
+    """Bind required page identity to each actual page before serialization."""
+    plan=packet_manifest([instance])['instances'][0]
+    if len(pages)!=len(plan['required_pages']):
+        raise ValueError('Packet renderer omitted or added pages: '+str((plan['form_id'],plan['owner'],plan['copy_index'])))
+    for page,number in zip(pages,plan['required_pages']):
+        page[NameObject(_PAGE_ID_KEYS[0])]=TextStringObject(plan['form_id'])
+        page[NameObject(_PAGE_ID_KEYS[1])]=TextStringObject(plan['owner'])
+        page[NameObject(_PAGE_ID_KEYS[2])]=NumberObject(plan['copy_index'])
+        page[NameObject(_PAGE_ID_KEYS[3])]=NumberObject(number)
+
+def verify_packet_pages(raw,manifest):
+    """Reconcile actual serialized pages, not a renderer's Success/count flag."""
+    if (manifest.get('version')!=1 or type(manifest.get('version')) is not int or
+            manifest.get('tax_year')!=2025 or manifest.get('filing_packet_ready') is not False or
+            manifest.get('scope')!='current_supported_paper_preparation'):
+        raise ValueError('Packet manifest has an unsupported version/year/readiness scope')
+    checked=packet_manifest(manifest['instances'])
+    if type(manifest.get('expected_pdf_pages')) is not int or manifest.get('expected_pdf_pages')!=checked['expected_pdf_pages']:
+        raise ValueError('Packet manifest count differs from its required copies/pages')
+    if not raw:
+        if checked['expected_pdf_pages']:raise ValueError('Required packet output is empty')
+        return {'expected_pages':0,'actual_pages':0,'page_identities_verified':True,'missing_pages':[]}
+    reader=PdfReader(io.BytesIO(raw))
+    expected=[(item['form_id'],item['owner'],item['copy_index'],number)
+              for item in checked['instances'] for number in item['required_pages']]
+    if len(reader.pages)!=len(expected):
+        raise ValueError('Packet PDF page count differs: expected '+str(len(expected))+', received '+str(len(reader.pages)))
+    for position,(page,identity) in enumerate(zip(reader.pages,expected),1):
+        actual=tuple(page.get(key) for key in _PAGE_ID_KEYS)
+        if actual!=identity or any(type(actual[index]) is not NumberObject for index in (2,3)):
+            raise ValueError('Packet page identity differs at output page '+str(position)+': expected '+str(identity))
+    return {'expected_pages':len(expected),'actual_pages':len(reader.pages),
+            'page_identities_verified':True,'missing_pages':[]}
 
 def whole(v):return int(D(str(v)).quantize(D('1'),rounding=ROUND_HALF_UP))
 def total(rows,key):return whole(sum((D(str(r.get(key,'0'))) for r in rows),D(0)))
@@ -82,13 +157,14 @@ def verify_official_pdf(raw,expected):
     if seen!=set(expected):raise ValueError('Missing widget for official fields: '+str(set(expected)-seen))
     return {'pages':len(reader.pages),'verified_fields':len(expected),'interactive':True,'canonical_values_verified':True,'widget_values_and_appearances_verified':True}
 
-def render_official_form(form_id,line_values=None,field_values=None,identity=None,missing_facts=None,owner='taxpayer'):
+def render_official_form(form_id,line_values=None,field_values=None,identity=None,missing_facts=None,owner='taxpayer',copy_index=1):
     """Fill one public IRS form; unsupported logical lines become explicit gaps."""
     if form_id not in SOURCES or form_id not in MAP:raise ValueError('Unsupported official form '+form_id)
     source=SOURCES[form_id];raw=(FORMS/source['path']).read_bytes()
     if hashlib.sha256(raw).hexdigest()!=source['sha256']:raise ValueError('IRS template hash changed: '+form_id)
     reader=PdfReader(io.BytesIO(raw))
     if '2025' not in reader.pages[0].extract_text():raise ValueError('IRS template tax year differs: '+form_id)
+    instance=packet_instance(form_id,owner,copy_index,len(reader.pages),source['sha256'])
     values={};missing=list(missing_facts or []);unmapped=[]
     for key,value in (line_values or {}).items():
         if value is None:continue
@@ -113,10 +189,12 @@ def render_official_form(form_id,line_values=None,field_values=None,identity=Non
         if field.get('/FT')=='/Btn':values[key]=NameObject(value)
     writer.update_page_form_field_values(None,values,auto_regenerate=False)
     for page in writer.pages:page.merge_page(_draft_footer())
+    stamp_packet_pages(writer.pages,instance)
     writer.add_metadata({'/Title':form_id+' IRS2025 Tax Reborn draft','/Subject':'Supporting form draft; not transmitted or ready to sign'})
     target=io.BytesIO();writer.write(target);pdf=target.getvalue()
     proof=verify_official_pdf(pdf,values)
-    return {'id':form_id,'owner':owner,'tax_year':2025,'source':source['url'],'template_sha256':source['sha256'],'status':'draft_incomplete' if missing else 'draft_facts_present','line_values':line_values or {},'values':{k:str(v) for k,v in values.items()},'unmapped_lines':unmapped,'missing_facts':list(dict.fromkeys(missing)),'verification':proof,'pdf_bytes':pdf}
+    proof['packet_preflight']=verify_packet_pages(pdf,packet_manifest([instance]))
+    return {'id':form_id,'owner':owner,'copy_index':copy_index,'packet_instance':instance,'tax_year':2025,'source':source['url'],'template_sha256':source['sha256'],'status':'draft_incomplete' if missing else 'draft_facts_present','line_values':line_values or {},'values':{k:str(v) for k,v in values.items()},'unmapped_lines':unmapped,'missing_facts':list(dict.fromkeys(missing)),'verification':proof,'pdf_bytes':pdf}
 
 def _checkbox(id,short,state=None,page=None):
     if page is None:page=int(re.match(r'c(\d+)_',short)[1])
@@ -560,7 +638,29 @@ def build_official_packet(record):
     on the record separately from the tax-engine input. It never changes tax math.
     Complete signatures/1040/efile are owned by the calling application.
     """
-    forms=[render_official_form(**spec) for spec in official_form_specs(record)]
+    specs=official_form_specs(record);instances=[];copy_counts={}
+    # Derive expected copies/pages from the supported tax model and pinned IRS
+    # templates before asking a renderer to produce anything.
+    for spec in specs:
+        form_id=spec['form_id'];owner=spec['owner'];source=SOURCES.get(form_id)
+        if source is None:raise ValueError('Required packet template is unavailable: '+str(form_id))
+        template=(FORMS/source['path']).read_bytes()
+        if hashlib.sha256(template).hexdigest()!=source['sha256']:
+            raise ValueError('IRS template hash changed: '+form_id)
+        pair=(form_id,owner);copy_counts[pair]=copy_counts.get(pair,0)+1
+        instances.append(packet_instance(form_id,owner,copy_counts[pair],len(PdfReader(io.BytesIO(template)).pages),source['sha256']))
+    manifest=packet_manifest(instances)
+    forms=[]
+    for spec,instance in zip(specs,instances):
+        form=render_official_form(**spec,copy_index=instance['copy_index'])
+        if (form.get('id'),form.get('owner'),form.get('copy_index'),form.get('tax_year'))!=(instance['form_id'],instance['owner'],instance['copy_index'],2025):
+            raise ValueError('Rendered packet copy does not match required form/owner/copy/year')
+        if form.get('status') not in ('draft_incomplete','draft_facts_present'):
+            raise ValueError('Required packet form did not produce a draft: '+instance['form_id'])
+        if form.get('packet_instance')!=instance or form.get('template_sha256')!=instance['template_sha256']:
+            raise ValueError('Rendered packet copy does not match the pinned template plan')
+        verify_packet_pages(form['pdf_bytes'],packet_manifest([instance]))
+        forms.append(form)
     writer=PdfWriter();expected={};missing=list(record['result'].get('blocking_issues',[]))
     for index,form in enumerate(forms):
         reader=PdfReader(io.BytesIO(form['pdf_bytes']));prefix=form['id']+'_'+str(index)
@@ -568,5 +668,7 @@ def build_official_packet(record):
         expected.update({prefix+'.'+key:value for key,value in form['values'].items()});missing+=form['missing_facts']
     raw=b'';proof={'pages':0,'verified_fields':0,'interactive':True}
     if forms:
+        writer.add_metadata({'/TaxRebornPacketManifest':json.dumps(manifest,separators=(',',':'))})
         target=io.BytesIO();writer.write(target);raw=target.getvalue();proof=verify_official_pdf(raw,expected)
-    return {'status':'draft_incomplete' if missing else 'draft_facts_present','tax_year':2025,'forms':forms,'missing_facts':list(dict.fromkeys(missing)),'pdf_bytes':raw,'verification':proof,'supporting_forms_complete':not missing,'requires_taxpayer_signature':True,'filing_packet_ready':False,'electronic_filing':False}
+    proof['packet_preflight']=verify_packet_pages(raw,manifest)
+    return {'status':'draft_incomplete' if missing else 'draft_facts_present','tax_year':2025,'forms':forms,'missing_facts':list(dict.fromkeys(missing)),'pdf_bytes':raw,'verification':proof,'packet_manifest':manifest,'supporting_forms_complete':not missing,'requires_taxpayer_signature':True,'filing_packet_ready':False,'electronic_filing':False}

@@ -1,0 +1,118 @@
+{
+  "checked_at_utc": "2026-10-14T03:07:32.130734+00:00",
+  "scope": "independent source implementation; existing preview5 packages unchanged",
+  "synthetic_case": "simple consulting business plus interest",
+  "tax_year": 2025,
+  "host_python": "3.14.5",
+  "pypdf": "6.10.0",
+  "host_tests": 404,
+  "new_packet_tests": 19,
+  "prior_official_and_paper_tests": 20,
+  "expected_manifest": {
+    "version": 1,
+    "tax_year": 2025,
+    "instances": [
+      {
+        "form_id": "preparation_checklist",
+        "owner": "packet",
+        "copy_index": 1,
+        "required_pages": [
+          1
+        ],
+        "template_sha256": null
+      },
+      {
+        "form_id": "f1040",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1,
+          2
+        ],
+        "template_sha256": null
+      },
+      {
+        "form_id": "f1040s1",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1,
+          2
+        ],
+        "template_sha256": "8dafec719f6a4716c259a2bdaca546d9bb9e262d1eabef885fe116a7327458fa"
+      },
+      {
+        "form_id": "f1040s2",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1,
+          2
+        ],
+        "template_sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8"
+      },
+      {
+        "form_id": "f1040sb",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1
+        ],
+        "template_sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2"
+      },
+      {
+        "form_id": "f1040sc",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1,
+          2
+        ],
+        "template_sha256": "ddf401dbe060467d39f90ad2abf645df1de31512821a150dc68a3882bbf19716"
+      },
+      {
+        "form_id": "f1040sse",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1,
+          2
+        ],
+        "template_sha256": "05bc2b3e1dfca65d8c6fc6d652af4fa3736e953c6575d6e9f82590484677d347"
+      },
+      {
+        "form_id": "f8995",
+        "owner": "taxpayer",
+        "copy_index": 1,
+        "required_pages": [
+          1
+        ],
+        "template_sha256": "55380ad230303e1586ce97f0f224265b8337ad18c9204f0fb7325e95a76b5cde"
+      }
+    ],
+    "expected_pdf_pages": 13,
+    "scope": "current_supported_paper_preparation",
+    "filing_packet_ready": false
+  },
+  "serialized_pdf_readback": {
+    "expected_pages": 13,
+    "actual_pages": 13,
+    "page_identities_verified": true,
+    "missing_pages": []
+  },
+  "filled_fields_readback": {
+    "pages": 13,
+    "verified_fields": 79,
+    "interactive": true
+  },
+  "pdf_sha256": "86d59b6ec0f91f8f8b542d63a0611ed97a42cdb85829ac90f9d804c9d88f48c5",
+  "pdf_bytes": 1287787,
+  "filing_packet_ready": false,
+  "electronic_filing": false,
+  "source_sha256": {
+    "official_forms.py": "3e9b363c04f3aadb749703b4d80193489ed4ece5cd92d5d5ed57363ae90956f0",
+    "forms.py": "3878516a141ae38cbb31027198f1b641ebf9eab28dc5d3df845f361a3e7f7215",
+    "tests/test_packet_preflight.py": "14de6ced316b68a8dd9d423c612620258cd10412deaf472e02a5e15ab6431da5",
+    "docs/PAPER_PACKET_PREFLIGHT.md": "e1338f56f6ea08c6ac4f48cea7d65deb672082a6eda7237b28d8d2b3557b45f2"
+  }
+}
