@@ -157,7 +157,7 @@ public final class MainActivity extends Activity {
             try {
                 byte[] bytes=Base64.decode(encoded,Base64.DEFAULT);
                 String safeName=filename==null?"tax-reborn-draft":filename.replaceAll("[^A-Za-z0-9._-]","_");
-                String safeMime=Arrays.asList("application/json","application/pdf","text/html","image/png","image/jpeg").contains(mime)?mime:"application/octet-stream";
+                String safeMime=Arrays.asList("application/json","application/pdf","text/html","image/png","image/jpeg","application/xml","text/xml").contains(mime)?mime:"application/octet-stream";
                 runOnUiThread(()->{
                     if(destroyed || pendingSaveName!=null)return;
                     try{pendingSaveName=LocalTransferStore.stageExport(getCacheDir(),bytes).getName();}

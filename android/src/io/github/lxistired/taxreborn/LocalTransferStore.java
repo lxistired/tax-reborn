@@ -51,7 +51,10 @@ public final class LocalTransferStore {
             if(type.equals(".json"))type="application/json";
             if(type.equals(".csv"))type="text/csv";
             if(type.equals(".pdf"))type="application/pdf";
-            if(type.equals("image/*") || type.equals("image/jpeg") || type.equals("image/png") || type.equals("application/pdf") || type.equals("application/json") || type.equals("text/csv"))result.add(type);
+            if(type.equals(".xml"))type="application/xml";
+            if(type.equals(".zip"))type="application/zip";
+            if(type.equals(".tax") || type.equals(".xprf"))type="application/octet-stream";
+            if(type.equals("image/*") || type.equals("image/jpeg") || type.equals("image/png") || type.equals("application/pdf") || type.equals("application/json") || type.equals("text/csv") || type.equals("application/xml") || type.equals("text/xml") || type.equals("application/zip") || type.equals("application/octet-stream"))result.add(type);
         }}
         if(result.isEmpty()){result.add("image/*");result.add("application/pdf");}
         return result.toArray(new String[0]);
