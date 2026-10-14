@@ -713,4 +713,12 @@ def demo_returns():
     distribution['filing_details']['official_form_facts']['schedule_b'].update(foreign_account_answer='no',fbar_required_answer='no',foreign_trust_answer='no',facts_confirmed=True)
     distribution['notes']='Synthetic example only. Source1099-DIV2a includes2b/2d. Not an actual taxpayer return.'
     result.append(distribution)
+    special_amt=deepcopy(distribution)
+    special_amt['name']='Synthetic 1099-DIV special AMT'
+    special_amt['eligibility']['no_amt_preferences']=False
+    special_amt['w2']=[dict(ROW_DEFAULTS['w2'],employer='Synthetic W2 payer',wages='50750',federal_withholding='30000',social_security_wages='50750',social_security_withholding='3146.50',medicare_wages='50750',medicare_withholding='735.88')]
+    special_amt['dividends']=[dict(ROW_DEFAULTS['dividends'],payer='Synthetic 1099-DIV payer',ordinary='5000',qualified='5000',capital_gain_distributions='10000',unrecaptured_1250_gain='10000',special_distribution_confirmed=True)]
+    special_amt['amt'].update(iso_adjustment='100000',eligibility_confirmed=True,special_distribution_same_basis_confirmed=True)
+    special_amt['notes']='Synthetic IRS2025-AMT-special-005 only. Includes a confirmed100000USD ISO adjustment with unchanged capital basis; not an actual taxpayer return.'
+    result.append(special_amt)
     return [{'id':'synthetic-'+str(index+1),'name':data['name'],'data':data} for index,data in enumerate(result)]

@@ -147,6 +147,22 @@ def smoke_test(report_path=None):
             status,special_checklist=request('GET',f'/api/returns/{special_id}/paper-checklist.json')
             assert status==200 and special_checklist['paper_preparation_complete'] and not special_checklist['transmitted']
             checks.append('Packaged1099-DIV2a/2b/2d save/reopen, tax16220/refund13780, actualScheduleD18/19 and full47line workpaper read back')
+            special_amt=next(row['data'] for row in tax_engine.demo_returns() if row['name']=='Synthetic 1099-DIV special AMT')
+            status,amt_saved=request('POST','/api/returns',{'data':special_amt});assert status==200
+            amt_id=amt_saved['id'];status,amt_reopened=request('GET','/api/returns/'+amt_id)
+            assert status==200 and amt_reopened['result']['can_prepare']
+            assert amt_reopened['result']['lines']['16']==5413 and amt_reopened['result']['lines']['17']==13624
+            assert amt_reopened['result']['summary']['refund']==10963
+            status,amt_packet=request('GET',f'/api/returns/{amt_id}/paper-packet.pdf');assert status==200
+            amt_reader=PdfReader(io.BytesIO(amt_packet));amt_fields=amt_reader.get_fields()
+            fixture=next(c for c in json.loads((server.BASE/'fixtures/special_amt_2025.json').read_text())['cases'] if c['id']=='IRS2025-AMT-special-005')
+            prefixes={key.split('.topmostSubform',1)[0]+'.' for key in amt_fields if key.startswith('f6251_') and '.topmostSubform' in key};assert len(prefixes)==1
+            amt_prefix=prefixes.pop()
+            for line,value in fixture['expected_partIII'].items():
+                assert str(amt_fields[amt_prefix+official_forms.MAP['f6251']['line_fields'][line]]['/V'])==str(value)
+            assert str(amt_fields['topmostSubform[0].Page2[0].f2_09[0]']['/V'])=='13624'
+            assert sum(page.get('/TaxRebornForm')=='f6251' for page in amt_reader.pages)==2
+            checks.append('Packaged special AMT13624/refund10963 survives save/reopen; actual2page6251 all29PartIII fields match independentIRS fixture and1040line17')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

@@ -248,6 +248,39 @@ try {
     if($LASTEXITCODE -ne 0) { throw 'Actual special-distribution packet fields/workpaper failed readback.' }
     Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
     $checks.Add('Actual native official packet saved and read backScheduleD18/19=10000/9000 andworksheet47=16150 USD.')
+    Click-Observed (Wait-Named 'My returns')
+    Click-Observed (Wait-Named 'Synthetic examples')
+    Click-Observed (Wait-Named 'Open AMT example')
+    Wait-Named '$10,963' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Deductions')
+    Click-Observed (Wait-Named 'Alternative Minimum Tax')
+    $iso=Wait-Edit 'Iso adjustment'
+    $iso.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('0{TAB}')
+    Wait-Named '$24,587' 120 $false | Out-Null
+    $iso.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('100000{TAB}')
+    Wait-Named '$10,963' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Save')
+    Wait-Named 'Saved on this device' | Out-Null
+    Save-Screenshot 'windows-native-AMT-edited-10963.png'
+    $checks.Add('Actual specialAMT example refund10963; ISO100000 to0 recomputed24587, restore100000 recomputed10963 andsaved.')
+    Close-App; Launch-App
+    Wait-Named '$10,963' 120 $false | Out-Null
+    Scroll-Top
+    Save-Screenshot 'windows-native-AMT-reopened-10963.png'
+    $checks.Add('Native positiveAMT inputs andrefund10963 survived normal close/relaunch.')
+    Click-Observed (Wait-Named 'Save & export')
+    Click-Observed (Wait-Named 'Download official packet')
+    $amtPdf=Join-Path $OutputDir 'windows-native-AMT-official-packet.pdf'
+    Save-Native-Export $amtPdf
+    python scripts/verify_special_amt_packet.py $amtPdf
+    if($LASTEXITCODE -ne 0) { throw 'Actual native positiveAMT packet all29PartIII fields failed independentIRS readback.' }
+    $checks.Add('Actual native officialAMT packet saved and readback verified all29PartIII fields,2page6251 and1040line17=13624.')
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
