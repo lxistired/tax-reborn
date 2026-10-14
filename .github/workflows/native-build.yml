@@ -78,6 +78,13 @@ jobs:
           node scripts/test_taxml_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Actual installed TaxML runtime checks failed' }
           Copy-Item "$env:TAX_REBORN_RUNTIME_ROOT/qa/taxml/runtime-receipt.json" 'dist/windows/installed-taxml-pyodide-receipt.json'
+      - name: Exercise high-income NIIT and AMT using the installed worker assets
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_capital_niit_amt_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Actual installed high-income worker checks failed' }
       - name: Run actual installed native GUI, calculation, edit, save and relaunch
         shell: pwsh
         run: |

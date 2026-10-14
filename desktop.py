@@ -198,6 +198,26 @@ def smoke_test(report_path=None):
             older_fields=PdfReader(io.BytesIO(older_pdf)).get_fields();pp='topmostSubform[0].Page2[0].'
             assert str(older_fields[pp+'f2_23[0]']['/V'])=='649' and str(older_fields[pp+'f2_31[0]']['/V'])=='1649' and str(older_fields[pp+'c2_5[0]']['/V'])=='/1'
             checks.append('Actualpackaged Jan1,1961 independently qualifies forEIC andage65 deductions; serialized1040 EIC/refund/seniorcheckbox verified')
+            high=server.tax_engine.default_return();high['name']='Synthetic packaged NIIT and positive AMT'
+            high['eligibility'].update(full_year_us_resident=True,filing_status_confirmed=True,all_income_reported=True,no_amt_preferences=True,capital_gains_eligible=True,eitc_not_applicable=True)
+            high['niit'].update(eligibility_confirmed=True,deductions_confirmed=True);high['amt']['eligibility_confirmed']=True
+            high['identity'].update(first_name='Synthetic',last_name='Taxpayer',ssn='123456789',address='100 Example Street',city='Example City',state='IL',zip='60000')
+            high['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes')
+            high['filing_details']['official_form_facts']['schedule_b'].update(foreign_account_answer='no',fbar_required_answer='no',foreign_trust_answer='no',facts_confirmed=True)
+            high['w2']=[{'employer':'Synthetic employer','wages':'190000','medicare_wages':'190000','federal_withholding':'250000'}]
+            high['interest']=[{'payer':'Synthetic bank','taxable':'1000'}]
+            high['dividends']=[{'payer':'Synthetic fund','ordinary':'1000','qualified':'0','capital_gain_distributions':'800000'}]
+            status,high_saved=request('POST','/api/returns',{'data':high});assert status==200 and high_saved['result']['can_prepare']
+            high_id=high_saved['id'];status,high_reopened=request('GET','/api/returns/'+high_id);assert high_reopened==high_saved
+            assert {k:high_reopened['result']['lines'][k] for k in ('16','17','23','24','35a')}=={'16':177290,'17':14773,'23':30096,'24':222159,'35a':27841}
+            status,high_pdf=request('GET',f'/api/returns/{high_id}/paper-packet.pdf');assert status==200
+            high_fields=PdfReader(io.BytesIO(high_pdf)).get_fields();high_expected={}
+            for suffix,value in [('f1_9[0]',800000),('f1_12[0]',800000),('f1_19[0]',0),('f1_27[0]',30096)]:
+                keys=[k for k in high_fields if k.startswith('f8960_') and k.endswith('.topmostSubform[0].Page1[0].'+suffix)];assert len(keys)==1;high_expected[keys[0]]=str(value)
+            for number,value in [(8,177290),(9,14773),(15,30096),(16,222159),(31,27841)]:high_expected[f'topmostSubform[0].Page2[0].f2_{number:02d}[0]']=str(value)
+            official_forms.verify_official_pdf(high_pdf,high_expected)
+            status,high_checklist=request('GET',f'/api/returns/{high_id}/paper-checklist.json');assert status==200 and high_checklist['paper_preparation_complete'] and not high_checklist['filing_packet_ready']
+            checks.append('Packaged positive AMT14773/NIIT30096/refund27841 save/reopen and complete printed8960 component rows survive actual interactive PDF export')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

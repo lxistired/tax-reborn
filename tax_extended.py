@@ -261,8 +261,18 @@ def net_investment_tax(data,context):
     tax=whole(D(min(nii,excess))*D('.038'))
     if nii and excess and not data['eligibility_confirmed']:output['blocking_issues'].append('Form8960 NIIT sources/exclusions and deductions must be confirmed; foreign/entity/disposal adjustments are not inferred.')
     if nii and excess and context['rental_prior_loss_unverified']:output['blocking_issues'].append('Rental carry-in NIIT character/pre2013 treatment requires a verified NIIT loss record.')
-    output.update(tax=tax,form_lines={'1':context['interest'],'2':context['ordinary_dividends'],'3':context['annuity'],'4c':context['rental_income'],'5d':context['capital_gain_loss'],'8':investment,'9a':context['deducted_investment_interest'],'9b':state,'11':deductions,'12':nii,'13':context['agi'],'14':threshold,'15':excess,'16':min(nii,excess),'17':tax})
-    if context.get('other_investment_income',0):output['form_lines']['7']=context['other_investment_income']
+    # Fill the printed component rows as well as their totals. The supported
+    # profile has ordinary passive rentals and capital gains/losses with no
+    # non-section1411, entity-disposal or foreign-company adjustments. Those
+    # unsupported adjustments are not inferred from a subtotal.
+    output.update(tax=tax,form_lines={
+        '1':context['interest'],'2':context['ordinary_dividends'],'3':context['annuity'],
+        '4a':context['rental_income'],'4b':0,'4c':context['rental_income'],
+        '5a':context['capital_gain_loss'],'5b':0,'5c':0,'5d':context['capital_gain_loss'],
+        '6':0,'7':context.get('other_investment_income',0),'8':investment,
+        '9a':context['deducted_investment_interest'],'9b':state,'9c':0,'9d':deductions,
+        '10':0,'11':deductions,'12':nii,'13':context['agi'],'14':threshold,
+        '15':excess,'16':min(nii,excess),'17':tax})
     return output
 
 
