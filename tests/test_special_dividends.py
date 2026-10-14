@@ -9,6 +9,8 @@ CASES=json.loads((BASE/'fixtures/special_dividend_2025.json').read_text())['case
 
 def prepared(case):
     data=engine.default_return();data['filing_status']=case['filing_status']
+    # Independent synthetic fixture fact, separate from the payer-box review.
+    data['amt']['special_distribution_same_basis_confirmed']=True
     for key in ('full_year_us_resident','filing_status_confirmed','all_income_reported','no_amt_preferences','capital_gains_eligible','qualified_dividends_eligible','eitc_not_applicable'):
         data['eligibility'][key]=True
     if case['filing_status'] in ('hoh','qss'):data['eligibility'][case['filing_status']+'_eligible']=True
@@ -35,11 +37,8 @@ class SpecialDividendTests(unittest.TestCase):
                 self.assertEqual(result['schedules']['schedule_d_tax_worksheet']['form_lines']['47'],case['expected_1040_16'])
                 self.assertEqual(result['lines']['7a'],engine.dollars(case['expected_raw_sum'][0]))
                 amt=result['schedules']['form_6251']
-                if amt['special_distribution_zero_liability_proved']:
-                    self.assertTrue(result['can_prepare'],result['blocking_issues'])
-                else:
-                    self.assertFalse(result['can_prepare'])
-                    self.assertTrue(any('PartIII' in item for item in result['blocking_issues']))
+                self.assertTrue(amt['special_distribution_full_partIII'])
+                self.assertTrue(result['can_prepare'],result['blocking_issues'])
     def test_box_components_are_not_added_twice(self):
         case=next(c for c in CASES if c['profile']=='mixed' and c['filing_status']=='single' and c['expected_1040_15']==100000)
         result=engine.calculate_return(prepared(case))

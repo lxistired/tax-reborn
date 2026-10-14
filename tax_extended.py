@@ -32,7 +32,8 @@ def default_inputs():
               'deductions_confirmed':False,'investment_interest_eligible':False,
               'investment_interest_carryover':'0','carryover_confirmed':False},
       'amt':{'eligibility_confirmed':False,'iso_adjustment':'0','private_activity_bond_interest':'0',
-             'other_adjustments':'0','capital_gain_adjustment':'0'},
+             'other_adjustments':'0','capital_gain_adjustment':'0',
+             'special_distribution_same_basis_confirmed':False},
       'rentals':[]}
 
 
@@ -64,6 +65,9 @@ def ui_schema():
             if name=='owner':descriptor.update(type='enum',options=[{'value':'taxpayer','label':'Taxpayer'},{'value':'spouse','label':'Spouse (joint return)'}])
             if name in ('other_adjustments','capital_gain_adjustment'):descriptor['signed']=True
             if group=='amt' and name.endswith('adjustment') or group=='amt' and name=='other_adjustments':descriptor['help']='Verified regular-vs-AMT difference from source records; do not enter gross exercise proceeds or an unsupported basis guess.'
+            if group=='amt' and name=='special_distribution_same_basis_confirmed':
+                descriptor.update(label='I verified the same capital basis for regular tax and AMT',
+                    help='For these1099-DIV special distributions, verify no AMT capital-basis adjustment, basis carry-in or separate AMT ScheduleD difference. A zero adjustment amount alone is not confirmation. Leave unchecked until verified.')
             if name=='depreciation':descriptor['help']='Deductible amount from the verified asset depreciation schedule; new-asset Form4562 computation is not performed here.'
             if name=='allocable_state_income_tax':descriptor['help']='Only the actual itemized income tax allocated to investment income. Property taxes and amounts excluded by the SALT limit are not included.'
             fields[path]=descriptor
@@ -239,20 +243,45 @@ def alternative_minimum_tax(data,context,rules):
     taxable=max(0,amti-exemption)
     pref=max(0,context['preferred_income']+prefs['capital_gain_adjustment'])
     if context['preferred_income']+prefs['capital_gain_adjustment']<0:output['blocking_issues'].append('AMT capital adjustment crosses gain/loss classification; a separate AMT ScheduleD loss worksheet is required.')
-    line13=pref;line16=min(taxable,pref);ordinary=max(0,taxable-line16);ordinary_tax=amt_rate(ordinary,status)
+    special=context.get('special_distribution_worksheet')
+    if special and not data['special_distribution_same_basis_confirmed']:
+        output['blocking_issues'].append('Special-rate distribution AMT requires separate confirmation that the capital basis is the same for regular tax and AMT; a zero capital_gain_adjustment alone does not establish this fact.')
+    if special and prefs['capital_gain_adjustment']:
+        output['blocking_issues'].append('Special-rate distributions with a different AMT capital basis require a separate AMT ScheduleD and are not supported.')
+    # The distribution-only profile has identical regular/AMT capital basis.
+    # Form6251 lines13/14/15 use ScheduleD worksheet13, ScheduleD19, and
+    # worksheet10. Collectibles remain in the AMT 26/28% ordinary bucket;
+    # unrecaptured1250 is separately capped at25% in lines35 through37.
+    sd=special['form_lines'] if special else None
+    line13=sd['13'] if special else pref
+    line14=special['unrecaptured_1250_gain'] if special else 0
+    line15=min(line13+line14,sd['10']) if special else line13
+    line16=min(taxable,line15);ordinary=max(0,taxable-line16);ordinary_tax=amt_rate(ordinary,status)
     zero_limit,fifteen_limit=rules['capital_rates'][status]
     # PartIII zero/15% space is determined by REGULAR ordinary taxable income,
     # while the amount of gain and ordinary tax come from the AMT worksheet.
-    regular_ordinary=context['regular_ordinary_income']
+    regular_ordinary=sd['14'] if special else context['regular_ordinary_income']
+    regular_fifteen_base=sd['21'] if special else regular_ordinary
     space_zero=max(0,zero_limit-regular_ordinary)
-    line22=min(taxable,pref);at_zero=min(space_zero,line22)
+    line22=min(taxable,line13);at_zero=min(space_zero,line22)
     remaining=line22-at_zero
-    space_fifteen=max(0,fifteen_limit-(space_zero+regular_ordinary))
+    space_fifteen=max(0,fifteen_limit-(space_zero+regular_fifteen_base))
     at_fifteen=min(remaining,space_fifteen);at_twenty=max(0,remaining-at_fifteen)
-    preferred_tax=ordinary_tax+whole(D(at_fifteen)*D('.15'))+whole(D(at_twenty)*D('.20'))
+    line32=at_zero+at_fifteen
+    line35=line36=line37=0
+    if line32!=taxable and line14:
+        line35=ordinary+line32+at_twenty
+        line36=taxable-line35
+        line37=whole(D(line36)*D('.25'))
+    preferred_tax=ordinary_tax+whole(D(at_fifteen)*D('.15'))+whole(D(at_twenty)*D('.20'))+line37
     preliminary=min(preferred_tax,amt_rate(taxable,status));tmt=preliminary
     tax=max(0,tmt-context['regular_tax'])
     # TY2025 Form6251 line5 uses the same filing-status exemption for all ages.
     # The separate Form8615 kiddie-tax computation is screened by the caller.
-    output.update(tax=tax,form_lines={'1a':line1a,'1b':line1b,'2a':context['deduction_addback'],'2g':prefs['private_activity_bond_interest'],'2i':prefs['iso_adjustment'],'2k':prefs['capital_gain_adjustment'],'3':prefs['other_adjustments'],'4':amti,'5':exemption,'6':taxable,'7':preliminary,'8':0,'9':tmt,'10':context['regular_tax'],'11':tax,'12':taxable,'13':line13,'16':line16,'17':ordinary,'18':ordinary_tax,'19':zero_limit,'20':regular_ordinary,'21':space_zero,'22':line22,'23':at_zero,'24':remaining,'25':fifteen_limit,'28':space_zero+regular_ordinary,'29':space_fifteen,'30':at_fifteen,'31':whole(D(at_fifteen)*D('.15')),'33':at_twenty,'34':whole(D(at_twenty)*D('.20')),'38':preferred_tax,'39':amt_rate(taxable,status),'40':preliminary})
+    output.update(tax=tax,form_lines={'1a':line1a,'1b':line1b,'2a':context['deduction_addback'],'2g':prefs['private_activity_bond_interest'],'2i':prefs['iso_adjustment'],'2k':prefs['capital_gain_adjustment'],'3':prefs['other_adjustments'],'4':amti,'5':exemption,'6':taxable,'7':preliminary,'8':0,'9':tmt,'10':context['regular_tax'],'11':tax,'12':taxable,'13':line13,'14':line14,'15':line15,'16':line16,'17':ordinary,'18':ordinary_tax,'19':zero_limit,'20':regular_ordinary,'21':space_zero,'22':line22,'23':at_zero,'24':remaining,'25':fifteen_limit,'26':space_zero,'27':regular_fifteen_base,'28':space_zero+regular_fifteen_base,'29':space_fifteen,'30':at_fifteen,'31':whole(D(at_fifteen)*D('.15')),'32':line32,'33':at_twenty,'34':whole(D(at_twenty)*D('.20')),'35':line35,'36':line36,'37':line37,'38':preferred_tax,'39':amt_rate(taxable,status),'40':preliminary})
+    if special:
+        output.update(special_distribution_full_partIII=True,
+            special_distribution_zero_liability_proved=tax==0,
+            special_distribution_regular_tax=context['regular_tax'],
+            special_distribution_same_capital_basis=data['special_distribution_same_basis_confirmed'] and not prefs['capital_gain_adjustment'])
     return output

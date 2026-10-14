@@ -283,7 +283,16 @@ def paper_packet_pdf(record):
                 'Source: https://www.irs.gov/pub/irs-pdf/i1040sd.pdf, pages15-16.',
                 'Retain this workpaper with the source1099-DIV statements. It supports the filled ScheduleD18/19 and Form1040line16.']
         lines+=['Worksheet line '+str(number)+': $'+format(special['form_lines'][str(number)],',') for number in range(1,48)]
-        lines+=['Special-rate distribution calculation is complete only within the stated supported profile; missing facts and blocked AMT are listed above.']
+        lines+=['Special-rate distribution calculation is complete only within the stated supported profile; missing facts and unsupported AMT basis differences are listed above.']
+    amt=record['result'].get('schedules',{}).get('form_6251',{})
+    if amt.get('special_distribution_full_partIII'):
+        lines+=['', 'TY2025 FORM6251 PARTIII - SPECIAL DISTRIBUTION AMT WORKPAPER',
+                'Source: https://www.irs.gov/pub/irs-pdf/f6251.pdf, page2.',
+                'Same regular/AMT capital basis. This workpaper supports the filled official Form6251 and Schedule2 line2.']
+        lines+=['Form6251 line '+str(number)+': $'+format(amt['form_lines'][str(number)],',') for number in range(12,41)]
+        lines+=['Tentative minimum tax: $'+format(amt['form_lines']['9'],','),
+                'Regular tax comparator: $'+format(amt['form_lines']['10'],','),
+                'AMT liability: $'+format(amt['tax'],',')]
     cover_pages=[]
     for offset in range(len(lines)-1,-1,-42):
         start=max(0,offset-41);cover_pages.append(_text_page(lines[start:offset+1],title='PAPER PREPARATION CHECKLIST'))
