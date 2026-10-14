@@ -34,7 +34,7 @@ def main():
     assets=work/'assets'
     if assets.exists():shutil.rmtree(assets)
     shutil.copytree(ROOT/'web',assets)
-    for name in ('tax_engine.py','tax_special_capital.py','rules_2025.json','forms.py','official_forms.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py'):
+    for name in ('tax_engine.py','tax_special_capital.py','tax_child_income.py','rules_2025.json','forms.py','official_forms.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py'):
         if (ROOT/name).is_file():shutil.copy2(ROOT/name,assets/name)
     shutil.copytree(ROOT/'forms',assets/'forms',dirs_exist_ok=True)
     notices=assets/'third-party-notices';notices.mkdir(exist_ok=True)

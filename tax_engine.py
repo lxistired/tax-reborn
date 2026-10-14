@@ -20,6 +20,7 @@ import tax_additional
 import tax_longtail
 import tax_filing
 import tax_special_capital
+import tax_child_income
 
 RULES = json.loads(Path(__file__).with_name('rules_2025.json').read_text(encoding='utf-8'))
 STATUSES = ('single','mfj','mfs','hoh','qss')
@@ -79,6 +80,7 @@ def default_return():
     defaults.update(tax_additional.default_inputs())
     defaults.update(tax_longtail.default_inputs())
     defaults.update(tax_filing.default_inputs())
+    defaults.update(tax_child_income.default_inputs())
     return defaults
 
 
@@ -121,6 +123,10 @@ def capabilities():
     result['implemented']+=['Form2441 dependent-care credit and employeeFSA exclusion/taxable benefits with monthlystudent/disability deemed income','Form8880 Saver credit with contribution/distribution and tax-liability limits','ScheduleR elderly/disabled credit with benefit andAGI reductions']
     result['ui_fields']['itemized.force_itemized']={'type':'boolean','label':'Elect itemized deductions even when smaller','help':'AMT can make a smaller ScheduleA deduction beneficial. Review both choices; automatic regular-tax deduction selection does not optimize the combined AMT liability.'}
     result['ui_modules']+=[{'id':key,'label':label,'step':'deductions','description':'Source-grounded IRS2025 worksheet with verified eligibility.'} for key,label in (('ira','IRA Contributions'),('hsa','Health Savings Accounts'),('education','Education Credits'),('marketplace','Marketplace Health Insurance'))]
+    child_schema=tax_child_income.ui_schema()
+    result['row_templates'].update(tax_child_income.row_templates())
+    result['ui_fields'].update(child_schema['ui_fields']);result['ui_modules']+=child_schema['ui_modules']
+    result['implemented'].append('Form8814 ordinarydomesticchildincome election withparentallocation,additional tax andseparateofficialchildforms')
     result['calculation_sources']=credit_capabilities['sources']
     longtail_schema=tax_longtail.ui_schema()
     result['row_templates'].update(tax_longtail.row_templates())
@@ -225,6 +231,7 @@ def normalized(data):
         base['identity'][key]=''.join(' ' if ord(character)<32 or ord(character)==127 else character for character in value).strip()
     tax_extended.normalize_extra(base,base['filing_status'])
     tax_longtail.normalize_extra(base)
+    tax_child_income.normalize_extra(base)
     tax_filing.validate_facts(base)
     return base
 
@@ -301,9 +308,11 @@ def _calculate(data):
     for index,row in enumerate(data['w2']):
         if money(row['wages'])>0 and money(row['medicare_wages'])==0:
             block(f'W2 {index+1}: positive ordinary wages require the actual Box5 Medicare wage amount. Zero/default Box5 cannot silently omit Form8959; Medicare-exempt/RRTA/special payroll requires an unsupported-wage review.')
+    child_election=extended_result('form_8814',tax_child_income.calculate(data['child_income_election']))
     lines['1a']=total('w2','wages');lines['2a']=total('interest','tax_exempt');lines['2b']=total('interest','taxable')
     lines['3a']=total('dividends','qualified');lines['3b']=total('dividends','ordinary')
     if lines['3a']:require(elig['qualified_dividends_eligible'],'Qualified dividends require payer qualification, holding-period/no-related-payment tests and no investment-interest election; confirm eligibility.')
+    lines['3a']+=child_election['parent_qualified_dividends'];lines['3b']+=child_election['parent_qualified_dividends']
     for row in data['dividends']:
         if money(row['qualified'])>money(row['ordinary']):raise ValueError('Qualified dividends cannot exceed ordinary dividends from the same payer.')
     special_1250=total('dividends','unrecaptured_1250_gain');special_28=total('dividends','collectibles_gain')
@@ -332,7 +341,7 @@ def _calculate(data):
     if data['capital_gains'] or total('dividends','capital_gain_distributions'):
         require(elig['capital_gains_eligible'],'Confirm ordinary securities, verified holdingperiod/basis, documentedwash-saleW only, and noQOF/options/crypto/business-property/special-rate adjustments.')
         if any(money(row['adjustment'],signed=True)!=0 and row['adjustment_code']!='W' for row in data['capital_gains']):block('Form8949 nonW basis/adjustment code workflow is not implemented; nonzero adjustment requires review.')
-    short=dollars(short-money(data['carryovers']['capital_short']));long=dollars(long-money(data['carryovers']['capital_long']))+total('dividends','capital_gain_distributions');net=short+long
+    short=dollars(short-money(data['carryovers']['capital_short']));long=dollars(long-money(data['carryovers']['capital_long']))+total('dividends','capital_gain_distributions')+child_election['parent_capital_gain'];net=short+long
     capital_limit=1500 if status=='mfs' else 3000
     lines['7a']=max(net,-capital_limit)
     preferred_gain=max(0,min(long,net))
@@ -402,7 +411,7 @@ def _calculate(data):
     common_credit_context={'filing_status':status,'taxpayer_age':person['age'],'spouse_age':spouse['age']}
     hsa_result=module_result('calculate_hsa',data['hsa'],common_credit_context);schedules['form_8889']=hsa_result
     hsa_ded=hsa_result.get('deduction',0);hsa_income=hsa_result.get('other_income',0);hsa_tax=hsa_result.get('additional_tax',0)
-    lines['8']=sum(profits.values())+n('other_income','unemployment')+n('other_income','other')+hsa_income
+    lines['8']=sum(profits.values())+n('other_income','unemployment')+n('other_income','other')+hsa_income+child_election['parent_ordinary_other_income']
     for field in ('ira_deduction','hsa_deduction'):
         if has('adjustments',field):block('Legacy manual '+field+' is not applied; use the IRA/HSA module with verified contribution and eligibility facts instead.')
     health=0
@@ -460,7 +469,7 @@ def _calculate(data):
     if has('itemized','medical'):require(data['itemized']['medical_eligible'],'Medical expenses must be qualifying unreimbursed expenses without duplicate health deductions.')
     if mortgage:require(data['itemized']['mortgage_eligible'],'Mortgage acquisition-debt, secured-residence, principal-limit and use tests must be verified before entering deductible interest.')
     if has('itemized','charity'):require(data['itemized']['charity_cash_only'],'Only substantiated qualified cash charity subject to60%-AGI limit is supported; noncash/different-limit gifts require additional forms.')
-    interest_result=extended_result('form_4952',tax_extended.investment_interest(data['niit'],{'paid':n('itemized','investment_interest'),'interest':lines['2b'],'ordinary_dividends':lines['3b'],'qualified_dividends':lines['3a'],'annuity':n('retirement','annuity_taxable'),'net_gain':net,'preferred_gain':preferred_gain}))
+    interest_result=extended_result('form_4952',tax_extended.investment_interest(data['niit'],{'paid':n('itemized','investment_interest'),'interest':lines['2b'],'other_investment_income':child_election['investment_interest_other_income'],'ordinary_dividends':lines['3b'],'qualified_dividends':lines['3a'],'annuity':n('retirement','annuity_taxable'),'net_gain':net,'preferred_gain':preferred_gain}))
     investment_interest_ded=interest_result['deduction']
     itemized=medical+salt+mortgage+charity+investment_interest_ded
     deduction_type='itemized' if data['itemized']['force_itemized'] or itemized>standard or (status=='mfs' and elig['mfs_spouse_itemizes']) else 'standard'
@@ -501,11 +510,12 @@ def _calculate(data):
     lines['14']=lines['12e']+lines['13a']+lines['13b'];lines['15']=max(0,agi-lines['14'])
     lines['16'],qualified_worksheet=qualified_tax(lines['15'],preferred,status)
     if special_requested and not data['capital_gains'] and not has('carryovers','capital_short') and not has('carryovers','capital_long'):
-        lines['16'],special_worksheet=tax_special_capital.tax(lines['15'],lines['3a'],total('dividends','capital_gain_distributions'),special_28,special_1250,status,ordinary_tax)
+        lines['16'],special_worksheet=tax_special_capital.tax(lines['15'],lines['3a'],total('dividends','capital_gain_distributions')+child_election['parent_capital_gain'],special_28,special_1250,status,ordinary_tax)
         schedules['schedule_d_tax_worksheet']=special_worksheet
         schedules['schedule_d'].update(collectibles_28_gain=special_28,unrecaptured_1250_gain=special_1250,special_distribution_only=True)
     if 'schedule_d_tax_worksheet' not in schedules:schedules['qualified_dividends_capital_gain_worksheet']=qualified_worksheet
     else:qualified_worksheet={'ordinary_income':schedules['schedule_d_tax_worksheet']['ordinary_income']}
+    lines['16']+=child_election['additional_tax']
     log('Form1040 line16 income tax',lines['16'],'i1040sd' if 'schedule_d_tax_worksheet' in schedules else 'i1040gi' if preferred else 'i1040tt')
     amt=extended_result('form_6251',tax_extended.alternative_minimum_tax(data['amt'],{'filing_status':status,'taxpayer_age':person['age'],'agi':agi,'total_deductions':lines['14'],'senior_deduction':senior_ded,'deduction_addback':salt if deduction_type=='itemized' else lines['12e'],'preferred_income':preferred,'regular_ordinary_income':qualified_worksheet['ordinary_income'],'regular_tax':lines['16'],'no_amt_preferences':elig['no_amt_preferences'],'special_distribution_worksheet':schedules.get('schedule_d_tax_worksheet')},RULES))
     lines['17']=amt['tax']
@@ -551,7 +561,7 @@ def _calculate(data):
     reservation=min(available,max(0,lines['18']-lines['20']))
     if ctc_children and (data['adoption']['enabled'] or data['energy']['enabled'] and preliminary_energy['form_lines'].get('13',0)):
         b_earned=max(0,lines['1a']+care_taxable+disability_total+sum(profits.values())-half_se)
-        b_eic=tax_extended.earned_income_credit(data['eitc'],{'filing_status':status,'taxpayer':person,'spouse':spouse,'dependents':data['dependents'],'earned_income':b_earned,'agi':agi,'investment_income':lines['2a']+lines['2b']+lines['3b']+max(0,net)+max(0,rental['income'])},RULES)['credit']
+        b_eic=tax_extended.earned_income_credit(data['eitc'],{'filing_status':status,'taxpayer':person,'spouse':spouse,'dependents':data['dependents'],'earned_income':b_earned,'agi':agi,'investment_income':lines['2a']+lines['2b']+lines['3b']+max(0,net)+child_election['eitc_other_investment_income']+max(0,rental['income'])},RULES)['credit']
         b_excess=0
         for owner in ('taxpayer','spouse'):
             records=[row for row in data['w2'] if row['owner']==owner];employers={row['employer'].strip().lower() for row in records}
@@ -583,7 +593,7 @@ def _calculate(data):
     # a credit when the EITC module has not been completed.
     nchild=sum(1 for child in data['dependents'] if child['qualifying_child'])
     eitc_limits=([19104,50434,57310,61555] if status!='mfj' else [26214,57554,64430,68675])
-    investment=lines['2a']+lines['2b']+lines['3b']+max(0,net)
+    investment=lines['2a']+lines['2b']+lines['3b']+max(0,net)+child_election['eitc_other_investment_income']
     age_eligible=nchild>0 or (25<=person['age']<65) or (status=='mfj' and 25<=spouse['age']<65)
     eitc_possible=0<earned_income<eitc_limits[min(nchild,3)] and age_eligible and not person['can_be_claimed'] and not(status=='mfj' and spouse['can_be_claimed']) and agi<eitc_limits[min(nchild,3)] and investment<=11950
     eic_investment=investment+max(0,rental['income'])
@@ -605,7 +615,7 @@ def _calculate(data):
     if med_wages>200000:
         require(all(money(row['medicare_withholding'])>0 for row in data['w2'] if money(row['medicare_wages'])>200000),'Form8959 requires actual W2 box6 Medicare withholding, not a missing/default amount.')
     if add_med or add_med_withheld:schedules['form_8959']={'medicare_wages':med_wages,'se_earnings':se_earnings,'threshold':med_threshold,'tax':add_med,'additional_medicare_withheld':add_med_withheld}
-    niit=extended_result('form_8960',tax_extended.net_investment_tax(data['niit'],{'filing_status':status,'agi':agi,'interest':lines['2b'],'ordinary_dividends':lines['3b'],'annuity':n('retirement','annuity_taxable'),'rental_income':rental['niit_income'],'capital_gain_loss':lines['7a'],'itemized_salt':salt if deduction_type=='itemized' else 0,'deducted_investment_interest':investment_interest_ded if deduction_type=='itemized' else 0,'rental_prior_loss_unverified':any(row['prior_loss'] and not row['niit_carryover_eligible'] for row in rental['properties'])}))
+    niit=extended_result('form_8960',tax_extended.net_investment_tax(data['niit'],{'filing_status':status,'agi':agi,'interest':lines['2b'],'ordinary_dividends':lines['3b'],'annuity':n('retirement','annuity_taxable'),'rental_income':rental['niit_income'],'other_investment_income':child_election['niit_other_investment_income'],'capital_gain_loss':lines['7a'],'itemized_salt':salt if deduction_type=='itemized' else 0,'deducted_investment_interest':investment_interest_ded if deduction_type=='itemized' else 0,'rental_prior_loss_unverified':any(row['prior_loss'] and not row['niit_carryover_eligible'] for row in rental['properties'])}))
     lines['23']=se_total+add_med+niit['tax']+hsa_tax;lines['24']=lines['22']+lines['23'];lines['25a']=total('w2','federal_withholding')
     lines['25b']=dollars(sum((money(row['federal_withholding']) for row in data['interest']+data['dividends']),D('0'))+money(retirement['federal_withholding'])+money(data['other_income']['federal_withholding']))
     lines['25c']=add_med_withheld;lines['25d']=lines['25a']+lines['25b']+lines['25c']
@@ -640,7 +650,7 @@ def _calculate(data):
     if lines['8'] or lines['10']:forms.append('Schedule1')
     if lines['13b']:forms.append('Schedule1A')
     if deduction_type=='itemized':forms.append('ScheduleA')
-    if lines['2b']>1500 or lines['3b']>1500:forms.append('ScheduleB')
+    if lines['2b']>1500 or lines['3b']>1500 or child_election['parent_qualified_dividends']:forms.append('ScheduleB')
     if data['capital_gains'] or net:forms.append('ScheduleD/Form8949 worksheet')
     if data['businesses']:forms+=['ScheduleC','ScheduleSE','Form8995']
     if data['dependents']:forms.append('Schedule8812')
@@ -648,6 +658,7 @@ def _calculate(data):
     if add_med or add_med_withheld:forms.append('Form8959')
     if lines['31'] or lines['20']:forms.append('Schedule3')
     if data['rentals']:forms+=['ScheduleE','Form8582']
+    if data['child_income_election']['enabled']:forms.append('Form8814')
     if data['eitc']['claim'] and any(row['eitc_qualifying_child'] for row in data['dependents']):forms.append('ScheduleEIC')
     if special_requested or amt['tax'] or any(money(data['amt'][key],signed=key in ('other_adjustments','capital_gain_adjustment')) for key in ('iso_adjustment','private_activity_bond_interest','other_adjustments','capital_gain_adjustment')):forms.append('Form6251')
     if niit['tax']:forms.append('Form8960')
@@ -721,4 +732,17 @@ def demo_returns():
     special_amt['amt'].update(iso_adjustment='100000',eligibility_confirmed=True,special_distribution_same_basis_confirmed=True)
     special_amt['notes']='Synthetic IRS2025-AMT-special-005 only. Includes a confirmed100000USD ISO adjustment with unchanged capital basis; not an actual taxpayer return.'
     result.append(special_amt)
+    child=base('Synthetic parent and child income')
+    child['eligibility']['eitc_not_applicable']=True
+    child['niit']['eligibility_confirmed']=True
+    child['w2']=[dict(ROW_DEFAULTS['w2'],employer='Synthetic W2 payer',wages='200000',federal_withholding='50000',social_security_wages='176100',social_security_withholding='10918.20',medicare_wages='200000',medicare_withholding='2900')]
+    elected=tax_child_income.row_templates()['child_income_election.children']
+    elected.update(name='Synthetic Child',ssn='111111111',birth_date='2015-07-01',taxable_interest='2000',ordinary_dividends='1000',qualified_dividends='600',capital_gain_distributions='1000',qualified_eligibility_confirmed=True,ordinary_capital_distribution_confirmed=True)
+    for fact in tax_child_income.CONFIRMATIONS:elected[fact]=True
+    child['child_income_election']={'enabled':True,'children':[elected]}
+    child['identity'].update(first_name='Synthetic',last_name='Parent',ssn='123456789',address='100 Example Street',city='Example City',state='IL',zip='60000',phone='5550100100',occupation='Accountant')
+    child['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes')
+    child['filing_details']['official_form_facts']['schedule_b'].update(foreign_account_answer='no',fbar_required_answer='no',foreign_trust_answer='no',facts_confirmed=True)
+    child['notes']='Synthetic IRS TY2025 Form 8814 election only. Child full income is 4000 USD; parent allocated income is 1300 USD and additional child tax is 135 USD. Not an actual taxpayer return.'
+    result.append(child)
     return [{'id':'synthetic-'+str(index+1),'name':data['name'],'data':data} for index,data in enumerate(result)]

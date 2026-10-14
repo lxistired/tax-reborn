@@ -240,6 +240,14 @@
       "path": "f1116-2025.pdf",
       "bytes": 120869,
       "sha256": "2575162f86c37297265c28d3d23ff1d99e06b2b1aeeadf396f5d6e798a8cffc5"
+    },
+    {
+      "id": "f8814",
+      "tax_year": 2025,
+      "url": "https://www.irs.gov/pub/irs-prior/f8814--2025.pdf",
+      "path": "f8814-2025.pdf",
+      "bytes": 76850,
+      "sha256": "d88849a33a390cee07375ec41d9e6936607a45e387e5e56b5017e9e6c5a0ba9f"
     }
   ],
   "instructions": [

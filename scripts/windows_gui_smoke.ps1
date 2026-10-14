@@ -280,6 +280,39 @@ try {
     python scripts/verify_special_amt_packet.py $amtPdf
     if($LASTEXITCODE -ne 0) { throw 'Actual native positiveAMT packet all29PartIII fields failed independentIRS readback.' }
     $checks.Add('Actual native officialAMT packet saved and readback verified all29PartIII fields,2page6251 and1040line17=13624.')
+    Click-Observed (Wait-Named 'My returns')
+    Click-Observed (Wait-Named 'Synthetic examples')
+    Click-Observed (Wait-Named 'Open child income example')
+    Wait-Named '$12,484' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Child Interest and Dividends — Form 8814')
+    $childInterest=Wait-Edit 'Child taxable interest — Form 8814 line 1a'
+    $childInterest.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('0{TAB}')
+    Wait-Named '$12,868' 120 $false | Out-Null
+    $childInterest=Wait-Edit 'Child taxable interest — Form 8814 line 1a'
+    $childInterest.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('2000{TAB}')
+    Wait-Named '$12,484' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Save')
+    Wait-Named 'Saved on this device' | Out-Null
+    Save-Screenshot 'windows-native-child-income-saved-12484.png'
+    $checks.Add('ActualForm8814 childinterest2000 to0 andback recomputedparentrefund12484 to12868 andback; normalnativefields andSave exercised.')
+    Close-App; Launch-App
+    Wait-Named '$12,484' 120 $false | Out-Null
+    Scroll-Top
+    Save-Screenshot 'windows-native-child-income-reopened-12484.png'
+    $checks.Add('Savedchildfacts/amounts andparentrefund12484 survived normalnativeclose/relaunch.')
+    Click-Observed (Wait-Named 'Save & export')
+    Click-Observed (Wait-Named 'Download official packet')
+    $childPdf=Join-Path $OutputDir 'windows-native-child-income-official-packet.pdf'
+    Save-Native-Export $childPdf
+    python scripts/verify_child_income_packet.py $childPdf | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-child-income-packet-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'ActualnativeForm8814 packet failed independentparent/childfield,appearance,ratio andtaxcheckbox checks.' }
+    $checks.Add('Actualnative12pagepacket savedto disk; separatechild8814, parent3a/3b/7a/8/16/24/35a, sourceannotations, splitratios and1040checkbox allverified.')
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

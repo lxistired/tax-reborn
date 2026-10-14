@@ -1,0 +1,15 @@
+# IRS TY2025 Form 8814 child income election
+
+The app can prepare a separate official Form 8814 for each eligible child and carry the elected amounts into the parent's actual income, credits, AMT comparison and final federal tax. The election is optional and can cost more than the child filing separately; this implementation does not choose the cheaper method.
+
+Scope: ordinary domestic interest and dividends, qualified dividends with verified holding periods, and ordinary capital gain distributions. Each child needs documented identity, age/student eligibility and explicit parent-election, income, withholding and filing confirmations. Prior saved returns default to no election. Missing confirmations block a completed return rather than entering guessed child amounts.
+
+The 2025 form uses $1,350, $2,700 and $13,500 thresholds. Source cents remain stored; completed lines use whole dollars. The allocation ratio uses three decimal places as permitted by the printed form. A negative residual caused by compounded rounding is blocked for review, not clamped. Special 25%/28%/Section 1202 distributions, nominee/Alaska/foreign/trust income and private-activity bond AMT preferences require another profile.
+
+The allocated qualified dividend amount enters both Form 1040 lines 3a and 3b. Ordinary income enters Schedule 1 line 8z. Capital distributions enter Schedule D line 13, including the required Form 8814 source annotation. The additional child tax enters line 16 before the AMT regular-tax comparison, and the actual line 16 Form 8814 checkbox is selected. The parent's NIIT, EIC investment-income limit and Form 4952 calculations receive their respective child-income characters. Child tax-exempt interest is not added to the parent's line 2a.
+
+The built-in **Synthetic parent and child income** example has $200,000 parent W-2 wages and $50,000 withholding. Child source interest/dividends/distributions total $4,000. The election allocates $195 qualified dividends, $325 capital distributions and $780 ordinary income, plus $135 additional tax. Independent IRS worksheet expectations are parent AGI $201,300, taxable income $185,550, line 16 $37,467, NIIT $49, final tax $37,516 and refund $12,484. Setting child taxable interest from $2,000 to $0 changes the refund to $12,868; restoring it returns $12,484.
+
+The ordinary example produces a 12-page paper preparation packet, with an interactive official Form 8814, Schedule 1, Schedule B, Schedule D, Form 8960 and Form 1040. Multiple children receive distinct interactive copies. Logical fields, real widget values and appearances are checked after serialization. The printed $2,700/$1,350 constants are preserved and the template's split decimal widgets are filled separately. No return is electronically transmitted.
+
+Primary sources: [IRS 2025 Form 8814](https://www.irs.gov/pub/irs-prior/f8814--2025.pdf), [2025 instructions](https://www.irs.gov/pub/irs-prior/i8814--2025.pdf), [Form 8960 instructions](https://www.irs.gov/pub/irs-prior/i8960--2025.pdf), [Publication 596](https://www.irs.gov/pub/irs-prior/p596--2025.pdf).

@@ -262,7 +262,7 @@ class Handler(BaseHTTPRequestHandler):
                         import forms
                         return self.send_data(200, forms.packet_status(record))
             if method == 'GET' and not path.startswith('/api/'):
-                if path in ('/tax_engine.py', '/tax_special_capital.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/tax_longtail.py', '/tax_filing.py', '/presentation_schema.py', '/privacy_review.py', '/rules_2025.json', '/forms.py', '/official_forms.py'):
+                if path in ('/tax_engine.py', '/tax_special_capital.py','/tax_child_income.py', '/tax_extended.py', '/tax_credits.py', '/tax_additional.py', '/tax_longtail.py', '/tax_filing.py', '/presentation_schema.py', '/privacy_review.py', '/rules_2025.json', '/forms.py', '/official_forms.py'):
                     target = BASE / path[1:]
                 elif path.startswith('/forms/'):
                     target=(BASE/path[1:]).resolve()

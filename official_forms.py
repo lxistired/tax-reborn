@@ -157,7 +157,7 @@ def verify_official_pdf(raw,expected):
     if seen!=set(expected):raise ValueError('Missing widget for official fields: '+str(set(expected)-seen))
     return {'pages':len(reader.pages),'verified_fields':len(expected),'interactive':True,'canonical_values_verified':True,'widget_values_and_appearances_verified':True}
 
-def render_official_form(form_id,line_values=None,field_values=None,identity=None,missing_facts=None,owner='taxpayer',copy_index=1):
+def render_official_form(form_id,line_values=None,field_values=None,identity=None,missing_facts=None,owner='taxpayer',copy_index=1,printed_annotations=None):
     """Fill one public IRS form; unsupported logical lines become explicit gaps."""
     if form_id not in SOURCES or form_id not in MAP:raise ValueError('Unsupported official form '+form_id)
     source=SOURCES[form_id];raw=(FORMS/source['path']).read_bytes()
@@ -168,6 +168,15 @@ def render_official_form(form_id,line_values=None,field_values=None,identity=Non
     values={};missing=list(missing_facts or []);unmapped=[]
     for key,value in (line_values or {}).items():
         if value is None:continue
+        fixed=MAP[form_id].get('fixed_lines',{})
+        if str(key) in fixed:
+            if value!=fixed[str(key)]:raise ValueError('PrintedIRS constant differs: '+form_id+' line'+str(key))
+            continue
+        split=MAP[form_id].get('split_decimal_fields',{}).get(str(key))
+        if split:
+            if not isinstance(value,str) or not re.fullmatch(r'\d+\.\d{3}',value):raise ValueError('Official ratio requires3fractiondigits: '+str(key))
+            integer,fraction=value.split('.');values[split[0]]=integer;values[split[1]]=fraction
+            continue
         field=MAP[form_id]['line_fields'].get(str(key))
         if field is None:unmapped.append(str(key));continue
         if isinstance(value,(list,dict,bool,float)):raise ValueError('Official scalar field requires integer/string: '+str(key))
@@ -188,6 +197,14 @@ def render_official_form(form_id,line_values=None,field_values=None,identity=Non
         if maximum and field.get('/FT')=='/Tx' and len(value)>maximum:raise ValueError('Official field exceeds MaxLen: '+key)
         if field.get('/FT')=='/Btn':values[key]=NameObject(value)
     writer.update_page_form_field_values(None,values,auto_regenerate=False)
+    for note in printed_annotations or []:
+        if set(note)!={'page','x','y','text'} or note['page'] not in range(1,len(writer.pages)+1):raise ValueError('UnsupportedIRS source annotation')
+        page=PageObject.create_blank_page(width=612,height=792)
+        font=DictionaryObject({NameObject('/Type'):NameObject('/Font'),NameObject('/Subtype'):NameObject('/Type1'),NameObject('/BaseFont'):NameObject('/Helvetica')})
+        page[NameObject('/Resources')]=DictionaryObject({NameObject('/Font'):DictionaryObject({NameObject('/F1'):font})})
+        literal=str(note['text']).replace('\\','\\\\').replace('(','\\(').replace(')','\\)')
+        stream=DecodedStreamObject();stream.set_data(('q 0 0 0 rg BT /F1 7 Tf '+str(note['x'])+' '+str(note['y'])+' Td ('+literal+') Tj ET Q').encode('ascii'))
+        page[NameObject('/Contents')]=stream;writer.pages[note['page']-1].merge_page(page)
     for page in writer.pages:page.merge_page(_draft_footer())
     stamp_packet_pages(writer.pages,instance)
     writer.add_metadata({'/Title':form_id+' IRS2025 Tax Reborn draft','/Subject':'Supporting form draft; not transmitted or ready to sign'})
@@ -244,15 +261,25 @@ def official_form_specs(record):
     """The plan contains only amounts backed by current inputs/results."""
     facts=_paper_facts(record.get('form_facts',record['data'].get('form_facts',record['data'].get('filing_details',{}).get('official_form_facts',{}))))
     data=_input_with_defaults(record['data']);r=record['result'];s=r.get('schedules',{});l=r['lines'];status=r['filing_status'];specs=[]
-    def add(id,lines,fields=None,gaps=None,owner='taxpayer'):
+    def add(id,lines,fields=None,gaps=None,owner='taxpayer',annotations=None):
         identity=_identity(data,owner)
         if status=='mfj' and id not in ('f1040sc','f1040sse','f8889','f8606','f5329'):
             spouse=_identity(data,'spouse');identity=(identity[0]+(' & '+spouse[0] if spouse[0] else ''),identity[1],identity[2]+[x for x in spouse[2] if 'legal name' in x])
-        specs.append({'form_id':id,'line_values':{str(k):v for k,v in lines.items() if v is not None},'field_values':fields or {},'missing_facts':gaps or [],'owner':owner,'identity':identity})
+        specs.append({'form_id':id,'line_values':{str(k):v for k,v in lines.items() if v is not None},'field_values':fields or {},'missing_facts':gaps or [],'owner':owner,'identity':identity,'printed_annotations':annotations or []})
+    child=s.get('form_8814',{})
+    child_other=child.get('parent_ordinary_other_income',0);child_qdiv=child.get('parent_qualified_dividends',0);child_capital=child.get('parent_capital_gain',0)
+    for index,row in enumerate(child.get('form_lines',{}).get('children',[])):
+        fields={_short('f8814',1,3):row['name'],_short('f8814',1,4):row['ssn'].replace('-','')}
+        if row['multiple_children']:fields.update(_checkbox('f8814','c1_1[0]'))
+        fields.update(_checkbox('f8814','c1_2[0]' if row['14']>=1350 else 'c1_2[1]'))
+        vals={k:v for k,v in row.items() if k in set(MAP['f8814']['line_fields'])|{'5','7','8','13'}}
+        add('f8814',vals,fields,[] if row['eligibility_confirmed'] else ['Form8814 child'+str(index+1)+' eligibility/income facts unresolved'])
     sc1=s.get('schedule_1',{})
     if l.get('8') or l.get('10'):
-        other=total([data.get('other_income',{})],'other')
-        add('f1040s1',{'3':sc1.get('business_income',0),'5':sc1.get('rental_income_loss',0),'7':whole(data.get('other_income',{}).get('unemployment','0')),'8f':sc1.get('hsa_other_income',0),'8z':other,'9':other+sc1.get('hsa_other_income',0),'10':l['8'],'13':sc1.get('hsa_deduction',0),'15':sc1.get('half_se_tax',0),'17':sc1.get('self_employed_health_insurance',0),'20':sc1.get('ira_deduction',0),'21':sc1.get('student_loan_interest',0),'26':l['10']}, {_short('f1040s1',1,35):facts.get('other_income_description')} if other else {},['Schedule1 line8z income type/description'] if other and not facts.get('other_income_description') else [])
+        own_other=total([data.get('other_income',{})],'other');other=own_other+child_other
+        other_description=facts.get('other_income_description','')
+        if child_other:other_description=(other_description+'; ' if other_description else '')+'Form 8814 - $'+str(child_other)
+        add('f1040s1',{'3':sc1.get('business_income',0),'5':sc1.get('rental_income_loss',0),'7':whole(data.get('other_income',{}).get('unemployment','0')),'8f':sc1.get('hsa_other_income',0),'8z':other,'9':other+sc1.get('hsa_other_income',0),'10':l['8'],'13':sc1.get('hsa_deduction',0),'15':sc1.get('half_se_tax',0),'17':sc1.get('self_employed_health_insurance',0),'20':sc1.get('ira_deduction',0),'21':sc1.get('student_loan_interest',0),'26':l['10']}, {_short('f1040s1',1,35):other_description} if other else {},['Schedule1 line8z income type/description'] if own_other and not facts.get('other_income_description') else [])
     if l.get('17') or l.get('23'):
         hsa=s.get('form_8889',{}).get('form_lines',{});excise=sum(row.get('form5329_current_excess_tax',0) for row in hsa.values());dist=sum(row.get('line17b_additional_tax',0) for row in hsa.values())
         add('f1040s2',{'1a':s.get('form_8962',{}).get('repayment',0),'1z':s.get('form_8962',{}).get('repayment',0),'2':s.get('form_6251',{}).get('tax',0),'3':l['17'],'4':sum(row.get('line_12_tax',0) for row in s.get('schedule_se',{}).values()),'8':excise,'11':s.get('form_8959',{}).get('tax',0),'12':s.get('form_8960',{}).get('tax',0),'17c':dist,'18':dist,'21':l['23']})
@@ -271,10 +298,11 @@ def official_form_specs(record):
             if f.get('mortgage_split_confirmed',False) and all(k in f for k in ('8a','8b','8c')) and sum(whole(f[k]) for k in ('8a','8b','8c'))==a['mortgage_interest']:lines.update({k:whole(f[k]) for k in ('8a','8b','8c')})
             else:gaps.append('ScheduleA mortgage Form1098/non1098/points verified split')
         add('f1040sa',lines,gaps=gaps)
-    if data.get('interest') or data.get('dividends'):
+    if data.get('interest') or data.get('dividends') or child_qdiv:
         fields={};gaps=[]
         for kind,start,capacity,key in (('interest',3,14,'taxable'),('dividends',34,15,'ordinary')):
             rows=[row for row in data.get(kind,[]) if D(row.get(key,'0'))]
+            if kind=='dividends' and child_qdiv:rows.append({'payer':'Form 8814','ordinary':str(child_qdiv)})
             if len(rows)>capacity:gaps.append('ScheduleB '+kind+' continuation list required')
             for index,row in enumerate(rows[:capacity]):
                 fields[_short('f1040sb',1,start+index*2)]=row.get('payer','');fields[_short('f1040sb',1,start+index*2+1)]=str(whole(row[key]))
@@ -314,8 +342,8 @@ def official_form_specs(record):
     for owner,row in s.get('schedule_se',{}).items():
         if not row.get('line_4a_net_earnings'):continue
         add('f1040sse',{'1a':0,'1b':0,'2':row['net_profit'],'3':row['net_profit'],'4a':row['line_4a_net_earnings'],'4b':0,'4c':row['line_4a_net_earnings'],'5a':0,'5b':0,'6':row['line_4a_net_earnings'],'8a':row['w2_ss_wages_tips'],'8b':0,'8c':0,'8d':row['w2_ss_wages_tips'],'9':max(0,176100-row['w2_ss_wages_tips']),'10':row['line_10_ss_tax'],'11':row['line_11_medicare_tax'],'12':row['line_12_tax'],'13':row['line_13_deduction']},owner=owner)
-    if data.get('capital_gains') or total(data.get('dividends',[]),'capital_gain_distributions') or any(D(data.get('carryovers',{}).get(k,'0')) for k in ('capital_short','capital_long')):
-        d=s['schedule_d'];lines={'6':whole(data['carryovers']['capital_short']),'7':d['net_short_term'],'13':total(data.get('dividends',[]),'capital_gain_distributions'),'14':whole(data['carryovers']['capital_long']),'15':d['net_long_term'],'16':d['net_gain_loss'],'18':d.get('collectibles_28_gain',0),'19':d.get('unrecaptured_1250_gain',0)};dfields={};gaps=[];groups={}
+    if data.get('capital_gains') or total(data.get('dividends',[]),'capital_gain_distributions') or child_capital or any(D(data.get('carryovers',{}).get(k,'0')) for k in ('capital_short','capital_long')):
+        d=s['schedule_d'];lines={'6':whole(data['carryovers']['capital_short']),'7':d['net_short_term'],'13':total(data.get('dividends',[]),'capital_gain_distributions')+child_capital,'14':whole(data['carryovers']['capital_long']),'15':d['net_long_term'],'16':d['net_gain_loss'],'18':d.get('collectibles_28_gain',0),'19':d.get('unrecaptured_1250_gain',0)};dfields={};gaps=[];groups={}
         if d.get('special_distribution_only') and lines['15']>0 and lines['16']>0:
             # Official TY2025 ScheduleD PartIII: both gains -> line17Yes;
             # nonzero18/19 -> line20No, ScheduleDTaxWorksheet, skip21/22.
@@ -359,7 +387,7 @@ def official_form_specs(record):
                 start={'A':7,'B':11,'C':15,'D':27,'E':31,'F':35}[category]
                 for i,value in enumerate(totals):dfields[_short('f1040sd',1,start+i)]=str(value)
         if data.get('capital_gains') and not all(category for term,category in groups):gaps.append('ScheduleD source-category totals are incomplete')
-        add('f1040sd',lines,dfields,gaps)
+        add('f1040sd',lines,dfields,gaps,annotations=[{'page':1,'x':300,'y':99,'text':'Form 8814 - $'+str(child_capital)}] if child_capital else [])
     q=s.get('form_8995',{})
     if data.get('businesses'):
         carry=whole(data.get('carryovers',{}).get('qbi_loss','0'));qbi=q.get('qbi',0);component=whole(D(max(0,qbi-carry))*D('.20'))

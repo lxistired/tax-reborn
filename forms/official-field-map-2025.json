@@ -33053,5 +33053,364 @@
         "states": []
       }
     }
+  },
+  "f8814": {
+    "tax_year": 2025,
+    "line_fields": {
+      "1a": "topmostSubform[0].Page1[0].f1_05[0]",
+      "1b": "topmostSubform[0].Page1[0].f1_06[0]",
+      "2a": "topmostSubform[0].Page1[0].f1_07[0]",
+      "2b": "topmostSubform[0].Page1[0].f1_08[0]",
+      "3": "topmostSubform[0].Page1[0].f1_09[0]",
+      "4": "topmostSubform[0].Page1[0].f1_10[0]",
+      "6": "topmostSubform[0].Page1[0].f1_12[0]",
+      "9": "topmostSubform[0].Page1[0].f1_17[0]",
+      "10": "topmostSubform[0].Page1[0].f1_18[0]",
+      "11": "topmostSubform[0].Page1[0].f1_19[0]",
+      "12": "topmostSubform[0].Page1[0].f1_20[0]",
+      "14": "topmostSubform[0].Page1[0].f1_22[0]",
+      "15": "topmostSubform[0].Page1[0].f1_23[0]"
+    },
+    "identity_fields": {
+      "name": "topmostSubform[0].Page1[0].f1_01[0]",
+      "ssn": "topmostSubform[0].Page1[0].f1_02[0]"
+    },
+    "fixed_lines": {
+      "5": 2700,
+      "13": 1350
+    },
+    "split_decimal_fields": {
+      "7": [
+        "topmostSubform[0].Page1[0].f1_13[0]",
+        "topmostSubform[0].Page1[0].f1_14[0]"
+      ],
+      "8": [
+        "topmostSubform[0].Page1[0].f1_15[0]",
+        "topmostSubform[0].Page1[0].f1_16[0]"
+      ]
+    },
+    "fields": {
+      "topmostSubform[0].Page1[0].f1_01[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          36.0,
+          683.968,
+          445.65,
+          697.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_02[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          447.4,
+          683.968,
+          576.0,
+          697.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_03[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          36.0,
+          623.967,
+          445.65,
+          637.468
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_04[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          447.4,
+          623.967,
+          576.0,
+          637.468
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].c1_1[0]": {
+        "page": 1,
+        "type": "/Btn",
+        "rect": [
+          565.6,
+          606.967,
+          575.6,
+          616.967
+        ],
+        "printed_line": "",
+        "states": [
+          "/1",
+          "/Off"
+        ]
+      },
+      "topmostSubform[0].Page1[0].f1_05[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          551.97,
+          576.0,
+          563.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_06[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          539.968,
+          481.65,
+          551.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_07[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          515.97,
+          576.0,
+          527.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_08[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          503.968,
+          481.65,
+          515.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_09[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          479.97,
+          576.0,
+          491.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_10[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          443.97,
+          576.0,
+          455.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_11[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          575.0,
+          431.968,
+          576.0,
+          443.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_12[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          419.969,
+          576.0,
+          431.968
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_13[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          371.97,
+          453.6,
+          383.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_14[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          459.6,
+          371.97,
+          482.4,
+          383.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_15[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          347.969,
+          453.6,
+          359.968
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_16[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          459.6,
+          347.969,
+          482.4,
+          359.968
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_17[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          323.968,
+          481.65,
+          335.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_18[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          410.4,
+          299.97,
+          481.65,
+          311.969
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_19[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          287.968,
+          576.0,
+          299.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_20[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          251.968,
+          576.0,
+          263.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_21[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          575.0,
+          215.968,
+          576.0,
+          227.967
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].f1_22[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          203.969,
+          576.0,
+          215.968
+        ],
+        "printed_line": "",
+        "states": []
+      },
+      "topmostSubform[0].Page1[0].Line15_ReadOrder[0].c1_2[0]": {
+        "page": 1,
+        "type": "/Btn",
+        "rect": [
+          64.8,
+          181.968,
+          72.8,
+          189.968
+        ],
+        "printed_line": "",
+        "states": [
+          "/1",
+          "/Off"
+        ]
+      },
+      "topmostSubform[0].Page1[0].Line15_ReadOrder[0].c1_2[1]": {
+        "page": 1,
+        "type": "/Btn",
+        "rect": [
+          64.8,
+          169.969,
+          72.8,
+          177.969
+        ],
+        "printed_line": "",
+        "states": [
+          "/2",
+          "/Off"
+        ]
+      },
+      "topmostSubform[0].Page1[0].f1_23[0]": {
+        "page": 1,
+        "type": "/Tx",
+        "rect": [
+          504.0,
+          179.968,
+          576.0,
+          191.967
+        ],
+        "printed_line": "",
+        "states": []
+      }
+    }
   }
 }

@@ -86,6 +86,7 @@ def filing_values(record):
         active=owner=='taxpayer' or status=='mfj'
         checked(p2,f'c2_{5+offset}[0]',active and person.get('age',0)>=65)
         checked(p2,f'c2_{6+offset}[0]',active and person.get('blind',False))
+    checked(p2,'c2_9[0]',record['result'].get('schedules',{}).get('form_8814',{}).get('elected_child_count',0)>0)
     checked(p2,'c2_1[0]',data.get('taxpayer',{}).get('can_be_claimed',False))
     checked(p2,'c2_2[0]',status in ('mfj','mfs') and data.get('spouse',{}).get('can_be_claimed',False))
     checked(p2,'c2_3[0]',status=='mfs' and data.get('eligibility',{}).get('mfs_spouse_itemizes',False))

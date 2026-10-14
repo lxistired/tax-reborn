@@ -206,14 +206,14 @@ def investment_interest(data,context):
     output=result('f4952');paid=context['paid'];carry=amount(data['investment_interest_carryover'],'niit.investment_interest_carryover')
     if (paid or carry) and not data['investment_interest_eligible']:output['blocking_issues'].append('Investment interest requires verified investment-loan allocation, no exempt-income/personal/passive interest and no preferred-gain election.')
     if carry and not data['carryover_confirmed']:output['blocking_issues'].append('Verify prior Form4952 line7 investment-interest carryover.')
-    income=max(0,context['interest']+context['ordinary_dividends']-context['qualified_dividends']+context['annuity']+max(0,context['net_gain']-context['preferred_gain']))
+    income=max(0,context['interest']+context['ordinary_dividends']-context['qualified_dividends']+context['annuity']+context.get('other_investment_income',0)+max(0,context['net_gain']-context['preferred_gain']))
     deduction=min(paid+carry,income);output.update(deduction=deduction,carryout=max(0,paid+carry-income),form_lines={'1':paid,'2':carry,'3':paid+carry,'4h':income,'6':income,'7':max(0,paid+carry-income),'8':deduction})
     return output
 
 
 def net_investment_tax(data,context):
     output=result('f8960');status=context['filing_status'];threshold=250000 if status in ('mfj','qss') else 125000 if status=='mfs' else 200000
-    investment=context['interest']+context['ordinary_dividends']+context['annuity']+context['rental_income']+context['capital_gain_loss']
+    investment=context['interest']+context['ordinary_dividends']+context['annuity']+context['rental_income']+context['capital_gain_loss']+context.get('other_investment_income',0)
     state=amount(data['allocable_state_income_tax'],'niit.allocable_state_income_tax')
     if state>context['itemized_salt']:raise ValueError('NIIT allocable income taxes cannot exceed the SALT amount actually deducted on ScheduleA.')
     if state and not data['deductions_confirmed']:output['blocking_issues'].append('NIIT income-tax allocation must be substantiated; property tax and nondeducted SALT are excluded.')
@@ -222,6 +222,7 @@ def net_investment_tax(data,context):
     if nii and excess and not data['eligibility_confirmed']:output['blocking_issues'].append('Form8960 NIIT sources/exclusions and deductions must be confirmed; foreign/entity/disposal adjustments are not inferred.')
     if nii and excess and context['rental_prior_loss_unverified']:output['blocking_issues'].append('Rental carry-in NIIT character/pre2013 treatment requires a verified NIIT loss record.')
     output.update(tax=tax,form_lines={'1':context['interest'],'2':context['ordinary_dividends'],'3':context['annuity'],'4c':context['rental_income'],'5d':context['capital_gain_loss'],'8':investment,'9a':context['deducted_investment_interest'],'9b':state,'11':deductions,'12':nii,'13':context['agi'],'14':threshold,'15':excess,'16':min(nii,excess),'17':tax})
+    if context.get('other_investment_income',0):output['form_lines']['7']=context['other_investment_income']
     return output
 
 

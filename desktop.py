@@ -87,7 +87,7 @@ def smoke_test(report_path=None):
             kind = response.getheader('Content-Type','');conn.close()
             return status,json.loads(raw) if 'json' in kind else raw
         try:
-            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_special_capital.py','/tax_extended.py','/tax_credits.py','/tax_longtail.py','/tax_filing.py','/official_forms.py','/native-file-bridge.js','/forms/paper-fact-schema-2025.json','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
+            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_special_capital.py','/tax_child_income.py','/tax_extended.py','/tax_credits.py','/tax_longtail.py','/tax_filing.py','/official_forms.py','/native-file-bridge.js','/forms/paper-fact-schema-2025.json','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
                 status,raw=request('GET',path);assert status==200 and raw
             checks.append('Bundled desktop/mobile assets and IRS2025 template load')
             status,contract=request('GET','/api/schema');assert status==200 and contract['capabilities']['tax_year']==2025
@@ -163,6 +163,19 @@ def smoke_test(report_path=None):
             assert str(amt_fields['topmostSubform[0].Page2[0].f2_09[0]']['/V'])=='13624'
             assert sum(page.get('/TaxRebornForm')=='f6251' for page in amt_reader.pages)==2
             checks.append('Packaged special AMT13624/refund10963 survives save/reopen; actual2page6251 all29PartIII fields match independentIRS fixture and1040line17')
+            child=next(row['data'] for row in tax_engine.demo_returns() if row['name']=='Synthetic parent and child income')
+            status,child_saved=request('POST','/api/returns',{'data':child});assert status==200
+            child_id=child_saved['id'];status,child_reopened=request('GET','/api/returns/'+child_id)
+            assert status==200 and child_reopened['result']['can_prepare']
+            assert child_reopened['result']['lines']['16']==37467 and child_reopened['result']['lines']['24']==37516 and child_reopened['result']['lines']['35a']==12484
+            status,child_packet=request('GET',f'/api/returns/{child_id}/paper-packet.pdf');assert status==200
+            child_reader=PdfReader(io.BytesIO(child_packet));child_fields=child_reader.get_fields()
+            cp='f8814_0.topmostSubform[0].Page1[0].'
+            for suffix,value in {'f1_04[0]':'111111111','f1_14[0]':'150','f1_16[0]':'250','f1_17[0]':'195','f1_18[0]':'325','f1_20[0]':'780','f1_23[0]':'135'}.items():assert str(child_fields[cp+suffix]['/V'])==value
+            assert str(child_fields['topmostSubform[0].Page2[0].c2_9[0]']['/V'])=='/1'
+            assert len(child_reader.pages)==12 and sum(page.get('/TaxRebornForm')=='f8814' for page in child_reader.pages)==1
+            status,child_checklist=request('GET',f'/api/returns/{child_id}/paper-checklist.json');assert status==200 and child_checklist['paper_preparation_complete'] and not child_checklist['transmitted']
+            checks.append('Packaged Form8814 allocations195/325/780 and135 extra tax persist; parenttax37516/refund12484, actual12page packet andsplitratio/1040checkbox verified')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')
