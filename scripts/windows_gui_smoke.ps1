@@ -68,6 +68,9 @@ function Click-Observed($item) {
     if ($item.TryGetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern,[ref]$pattern)) {
         ([System.Windows.Automation.InvokePattern]$pattern).Invoke(); return
     }
+    if ($item.TryGetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern,[ref]$pattern)) {
+        ([System.Windows.Automation.TogglePattern]$pattern).Toggle(); return
+    }
     $rect = $item.Current.BoundingRectangle
     if ($rect.IsEmpty -or $item.Current.IsOffscreen) {
         $scrollItem = $null
@@ -84,6 +87,18 @@ function Click-Observed($item) {
     [TaxWindow]::SetCursorPos([int]($rect.Left+$rect.Width/2),[int]($rect.Top+$rect.Height/2)) | Out-Null
     [TaxWindow]::mouse_event(2,0,0,0,[UIntPtr]::Zero)
     [TaxWindow]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
+}
+function Wait-Control([string]$type,[string]$label,[bool]$prefix=$false) {
+    $until=(Get-Date).AddSeconds(30)
+    while((Get-Date) -lt $until) {
+        $items=$script:root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
+        foreach($item in $items) {
+            if($item.Current.ControlType.ProgrammaticName -eq ('ControlType.'+$type) -and
+               (($prefix -and $item.Current.Name.StartsWith($label)) -or (!$prefix -and $item.Current.Name -eq $label))) { return $item }
+        }
+        Start-Sleep -Milliseconds 250
+    }
+    throw "Native WebView did not expose $type with label $label"
 }
 function Scroll-Top {
     $elements=$script:root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
@@ -466,14 +481,14 @@ try {
     Scroll-Top; Click-Observed (Wait-Named 'My returns'); Wait-Named 'Synthetic voucher fifteen-percent-owed' | Out-Null
     Click-Observed (Wait-Named 'Open'); Wait-Named '$2,435' 120 $false | Out-Null
     Click-Observed (Wait-Named 'Balance due & payment voucher')
-    $method=Wait-Named 'Balance-due payment method'; Click-Observed $method
-    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{ENTER}')
-    $choice=Wait-Named 'Paper voucher amount'; Click-Observed $choice
-    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{ENTER}')
+    $method=Wait-Control 'ComboBox' 'Balance-due payment method'; $method.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+    $choice=Wait-Control 'ComboBox' 'Paper voucher amount'; $choice.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
     Set-Owned-Edit 'Entered check or money-order amount' '1000.25'
-    Click-Observed (Wait-Named 'I verified the paper payment amount and method')
+    Click-Observed (Wait-Control 'CheckBox' 'I verified the paper payment amount and method' $true)
     Set-Owned-Edit 'Entered check or money-order amount' '1000.26'
-    $confirmation=Wait-Named 'I verified the paper payment amount and method'
+    $confirmation=Wait-Control 'CheckBox' 'I verified the paper payment amount and method' $true
     $toggle=$confirmation.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
     if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -ne [System.Windows.Automation.ToggleState]::Off) { throw 'Payment edit did not invalidate confirmation.' }
     Click-Observed $confirmation
@@ -485,6 +500,7 @@ try {
     if($LASTEXITCODE -ne 0) { throw 'Native system-saved payment-voucher fields failed readback.' }
     Remove-Item Env:TAX_REBORN_OWNED_VOUCHER_PDF
     Close-App; Launch-App; Wait-Named '$2,435' 120 $false | Out-Null
+    Wait-Named 'Form1040 line37 amount owed: $2,435' 120 $false | Out-Null
     $amount=Wait-Edit 'Entered check or money-order amount'; if([string]$amount.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '1000.26') { throw 'Native voucher amount did not survive relaunch.' }
     Save-Screenshot 'windows-native-payment-voucher-reopened.png'
     $checks.Add('Native payment choice/custom cents/confirmation invalidation/system1040-V PDF and normal relaunch passed;2435 balance remained unchanged by1000.26 voucher.')
