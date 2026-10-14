@@ -16,6 +16,12 @@ class ChildIncomeHTTPTests(unittest.TestCase):
             with urllib.request.urlopen(api.origin+'/tax_child_income.py') as response:
                 self.assertEqual(response.status,200)
                 self.assertIn(b'Form 8814 preparation calculation',response.read())
+            with urllib.request.urlopen(api.origin+'/offline-assets.json') as response:
+                import json
+                assets=json.load(response)['assets']
+            self.assertIn('tax_child_income.py',assets);self.assertIn('forms/f8814-2025.pdf',assets)
+            with urllib.request.urlopen(api.origin+'/forms/f8814-2025.pdf') as response:
+                self.assertEqual(response.status,200);self.assertGreater(len(response.read()),50000)
             saved=api.save(prepared());reopened=api.reopen()
             self.assertEqual(reopened['data']['child_income_election'],saved['data']['child_income_election'])
             self.assertEqual(reopened['result']['lines']['35a'],12484)
