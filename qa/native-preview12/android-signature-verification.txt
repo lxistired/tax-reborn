@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): false
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=Tax Reborn Development, O=Local Preview, C=US
+Signer #1 certificate SHA-256 digest: 2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17
+Signer #1 certificate SHA-1 digest: b8bffb4c91b0689d6bcd24a49f66fcfbd0f5734b
+Signer #1 certificate MD5 digest: cb78e4873ebb7b64e00790b14907ba4c
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 2048
+Signer #1 public key SHA-256 digest: 3c92d915d637a0078c2e68d56d57e72a3ec90c23ba84b10d506261a943e1e488
+Signer #1 public key SHA-1 digest: bb926df8df2a0c96bf3e57a31499c857527e7284
+Signer #1 public key MD5 digest: a04fbe41c24af82b18e4278d65680150

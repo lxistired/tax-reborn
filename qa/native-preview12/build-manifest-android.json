@@ -1,0 +1,15 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.14-preview.12",
+  "platform": "android",
+  "min_api": 26,
+  "target_api": 35,
+  "internet_permission": false,
+  "signing": "private local development certificate; not a store release",
+  "file": "Tax-Reborn-2026.10.14-preview.12-Android.apk",
+  "bytes": 49042585,
+  "sha256": "133153bfa0d725815638eb5a2bb3be715e5c7ef39f9a858e80be32639e03f700",
+  "real_device_tested": true,
+  "real_device_test_scope": "DOB example1649; actual DOB edit1000; Save; process restart date/result preserved. New DOB PDF filesystem export not yet accepted."
+}

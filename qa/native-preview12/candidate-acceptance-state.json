@@ -1,0 +1,44 @@
+{
+  "checked_at_utc": "2026-10-14T13:31:03.880743+00:00",
+  "version": "2026.10.14-preview.12",
+  "source_commit": "c90a64d6b7e81f21dca3972ff03b59ffe3978f3e",
+  "all_figures_synthetic": true,
+  "published": false,
+  "Windows": {
+    "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38561759814",
+    "installed_frozen_checks": 17,
+    "native_GUI_checks": 17,
+    "normal_relaunch_preserved": true,
+    "native_PDF_saved_and_read_back": true,
+    "EIC": 0,
+    "refund": 1000,
+    "form1040_line27c": "/1"
+  },
+  "Mac": {
+    "frozen_checks": 17,
+    "actual_DOB_edits": true,
+    "normal_quit_relaunch_preserved": true,
+    "native_system_PDF_saved_and_read_back": true,
+    "EIC": 0,
+    "refund": 1000,
+    "form1040_line27c": "/1"
+  },
+  "Android": {
+    "same_signer_update_installed": true,
+    "installed_APK_matches_candidate": true,
+    "actual_DOB_01_01_to_01_02": true,
+    "refund_1649_to_1000": true,
+    "saved_and_process_restarted": true,
+    "saved_DOB_2001_01_02_and_refund_1000_read_back": true,
+    "native_PDF_request_reached_system_picker": true,
+    "new_DOB_PDF_saved_file_readback": false,
+    "export_picker_cancelled_returned_to_App": true,
+    "remaining": "Complete system Save and read back exact phone-generated PDF. SDK keyboard works; CUA pointer/system-save control remains unresolved; do not count picker visibility as completed export."
+  },
+  "host_tests_passed": 482,
+  "real_Pyodide_executed_passed": 431,
+  "real_Pyodide_host_only_skipped": 1,
+  "full_original_tax_compatibility": false,
+  "original_runtime_executions": 0,
+  "validated_original_saved_tax_fixtures": 0
+}
