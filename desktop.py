@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 import http.client
+import hashlib
 import json
 import multiprocessing
 import os
@@ -20,7 +21,14 @@ VERSION = server.VERSION
 
 class LocalService:
     def __init__(self,data_dir=None):
-        self.http = server.create_server(port=0,data_dir=data_dir)
+        directory = Path(data_dir or server.default_data_dir()).expanduser().resolve()
+        # IndexedDB uses the full origin. Keep this directory's local origin
+        # stable across relaunches so document blobs and workspace state survive.
+        port = 24000 + int(hashlib.sha256(str(directory).encode()).hexdigest()[:8],16) % 20000
+        try:
+            self.http = server.create_server(port=port,data_dir=directory)
+        except OSError as error:
+            raise RuntimeError('This local workspace port is already in use. Close its other Tax Reborn window or the conflicting local service, then reopen. A different origin was not selected because it would hide saved documents.') from error
         self.thread = threading.Thread(target=self.http.serve_forever,kwargs={'poll_interval':0.05},daemon=True)
         self.lock = threading.Lock()
         self.stopped = False

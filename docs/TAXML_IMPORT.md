@@ -36,7 +36,7 @@ The selected source download matched its original SHA-256. The stage's actual
 UI receipts and screenshots are under [`qa/taxml`](../qa/taxml). Version-specific
 native receipts record checks against the final installed builds.
 
-The 419 host checks include HTTP/SQLite save, reopen, backup, immutability,
+The 421 host checks include HTTP/SQLite save, reopen, backup, immutability,
 amount/type binding and rejection cases. The existing 378 Pyodide federal/form
 checks are separate from 25 checks through the actual worker and JS metadata
 contracts. These counts do not establish original application parity.

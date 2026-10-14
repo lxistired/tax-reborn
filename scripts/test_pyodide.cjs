@@ -3,7 +3,7 @@ const root=path.resolve(__dirname,'..'),vendor=path.join(root,'web/vendor/pyodid
 const {loadPyodide}=require(path.join(vendor,'pyodide.js'));
 // HTTP/SQLite server integration requires a host socket and subprocess. Its
 // native Python checks are separate from the browser's federal/form checks.
-const excludedTests=['test_taxml_import.py','test_w2_metadata.py','test_investment_metadata.py','test_income_metadata.py'];
+const excludedTests=['test_desktop_origin.py','test_taxml_import.py','test_w2_metadata.py','test_investment_metadata.py','test_income_metadata.py'];
 (async()=>{const py=await loadPyodide({indexURL:vendor+path.sep});py.FS.mkdirTree('/app/tests');py.FS.mkdirTree('/app/fixtures');py.FS.mkdirTree('/app/forms');py.FS.mkdirTree('/app/docs');
  for(const name of ['tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','forms.py','official_forms.py','privacy_review.py','income_preparation.py','rules_2025.json',...fs.readdirSync(path.join(root,'forms')).filter(n=>/\.(pdf|json)$/.test(n)).map(n=>'forms/'+n),...fs.readdirSync(path.join(root,'tests')).filter(n=>n.endsWith('.py')&&!excludedTests.includes(n)).map(n=>'tests/'+n),...fs.readdirSync(path.join(root,'fixtures')).filter(n=>n.endsWith('.json')).map(n=>'fixtures/'+n)])py.FS.writeFile('/app/'+name,fs.readFileSync(path.join(root,name)));
  py.FS.writeFile('/app/docs/final_validation_20261013.json',fs.readFileSync(path.join(root,'docs/final_validation_20261013.json')));
