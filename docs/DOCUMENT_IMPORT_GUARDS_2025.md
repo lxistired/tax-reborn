@@ -14,6 +14,12 @@ OCR extraction and reviewed insertion retain the open return's revision. Editing
 
 Receipts and screenshots: [document import acceptance](../qa/document-import-guard-20261015/), [W-2 browser checks](../qa/w2-review-browser-tests.json), and [actual TaxML worker](../qa/taxml/runtime-receipt.json). Native package generation and platform execution are recorded separately; these source checks do not establish physical Android acceptance or original TurboTax compatibility.
 
+## Preview19 native candidates
+
+Windows Setup installed successfully, with21 frozen checks and23 actual native GUI checks. The actual installed JS/Pyodide runtime executed duplicate-source checks for all three record types; the new duplicate-refusal UI itself was separately exercised on Mac. Mac used real system file choosers to import and save a synthetic W-2, re-upload the same XML, and explicitly reject adding it again. Its saved record count remained1 and refund estimate123 USD. Normal menu quit/relaunch retained the record and accessible original source attachment, and all12 earlier synthetic returns remained present. The readonly DMG matches the tested App across422 content entries.
+
+The Android APK retains the original signing certificate. All120 extracted assets match the independently authored source and licensed dependencies, and its actual JS/Pyodide runtime passes the three record-type duplicate guards. Physical Android installation, data retention and native UI are unverified while no USB device is connected. All four candidate packages are generated; they are not published as a GitHub Release. Preview12 remains the verified public installer download. [Candidate platform acceptance](../qa/native-preview19/candidate-acceptance-state.json) keeps those states separate.
+
 ## REA evidence and independent implementation
 
 Private original-binary analysis now distinguishes display text, field-used flags, overwrite guards, conversion, a setter request and final stored presence. Selected original AutoFill code retains nonempty existing display text unless a specific drop-assigned flag or force path applies. It can also return after discarding a local setter error. The independent App reports rejected insertion rather than reproducing that silent-error behavior. Source-import identity and revision guards above are independently authored product decisions informed by this distinction; they are not recovered TurboTax algorithms.

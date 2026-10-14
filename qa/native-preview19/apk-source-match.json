@@ -1,0 +1,12 @@
+{
+  "version": "2026.10.15-preview.19",
+  "source_commit": "ceccb2985ecb26dbad16d2cbac59da93884e20cf",
+  "APK_web_assets_source_match": true,
+  "assets_checked": 120,
+  "APK_sha256": "b7e818014b297f7b26d0fcec9896133a37c6bc9f4d0b32016976926de18c8cfd",
+  "physical_device_installed": false,
+  "physical_device_GUI_tested": false,
+  "web_core_forms_and_notices_assets_source_match": true,
+  "all_actual_APK_assets_source_match": true,
+  "same_original_signer": true
+}

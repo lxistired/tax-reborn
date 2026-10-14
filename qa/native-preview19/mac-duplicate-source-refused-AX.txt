@@ -1,0 +1,191 @@
+Window: "Tax Reborn", App: Tax Reborn.
+0 standard window Tax Reborn, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Tax Reborn · 2025 Federal Return, URL: 127.0.0.1:27145/
+			3 container
+				4 button About Tax Reborn
+				5 text Synthetic Mac19 reviewed source guard Saved on this device
+				6 button My returns
+				7 button Documents
+				8 button Save
+				9 text Federal refund estimate
+				10 text $123
+				11 text 5 checks need review
+			12 container Tax preparation steps
+				13 button 1 Personal info
+				14 button 2 Wages & Income
+				15 button 3 Deductions
+				16 button 4 State taxes
+				17 button 5 Review
+				18 button 6 Forms & Export
+			19 container
+				20 text YOUR 2025 RETURN PERSONAL INFO
+				21 button You & your household
+				22 button Dependents
+				23 button Eligibility & other situations
+				24 button Personal details for forms
+				25 text WAGES & INCOME
+				26 button Your income summary
+				27 button Wages & salaries · W-2
+				28 button Interest · 1099-INT
+				29 button Dividends · 1099-DIV
+				30 button Investment sales · 1099-B
+				31 button Prior-year carryovers
+				32 button Self-employment · Schedule C
+				33 button Retirement & Social Security
+				34 button Other income
+				35 button Rental Properties
+				36 button Capital Carryovers and Wash Sales
+				37 button Child Interest and Dividends — Form 8814
+				38 text DEDUCTIONS
+				39 button Adjustments to income
+				40 button Itemized deductions
+				41 button Additional deductions · Schedule 1-A
+				42 button Estimated payments
+				43 button Earned Income Credit
+				44 button Net Investment Income Tax
+				45 button Alternative Minimum Tax
+				46 button IRA Contributions
+				47 button Health Savings Accounts
+				48 button Education Credits
+				49 button Marketplace Health Insurance
+				50 button Child and Dependent Care
+				51 button Retirement Saver Credit
+				52 button Elderly or Disabled Credit
+				53 button Adoption Credit
+				54 button Home Energy Credits
+				55 button Foreign Tax Credit
+				56 button Estimated Tax Penalty
+				57 text STATE TAXES
+				58 button State return workspace
+				59 text REVIEW
+				60 button Check your return
+				61 button How we calculated your tax
+				62 text FORMS & EXPORT
+				63 button Form 1040 worksheet
+				64 button Schedules & workpapers
+				65 button Balance due & payment voucher
+				66 button Save & export
+				67 button Advanced input JSON
+				68 button Filing details
+				69 text  Local preparation Federal worksheet · no e-file
+			70 container
+				71 text 2025 FEDERAL · WAGES & INCOME
+				72 heading Let's enter your W-2., Value: 1
+					73 text Let's enter your W-2.
+				74 text Use the amounts printed on your W-2. Every employer gets a separate W-2 record. Add documents as local attachments if you want to keep a copy.
+				75 button Import CSV
+				76 button Export CSV
+				77 button (expanded) W-2 1 Synthetic Mac19 employer Reviewed, Secondary Actions: Collapse
+				78 button Remove W-2 1
+				79 text Employer name
+				80 text field (settable) Employer name, Value: Synthetic Mac19 employer
+				81 text Whose W-2 is this?
+				82 pop up button Whose W-2 is this?, Value: Taxpayer
+				83 text Box 1 · Wages, tips, other compensation
+				84 text field (settable) Box 1 · Wages, tips, other compensation, Value: 1234.56
+				85 text Box 2 · Federal income tax withheld
+				86 text field (settable) Box 2 · Federal income tax withheld, Value: 123
+				87 text Box 3 · Social Security wages
+				88 text field (settable) Box 3 · Social Security wages, Value: 1234.56
+				89 text Box 4 · Social Security tax withheld
+				90 text field (settable) Box 4 · Social Security tax withheld, Value: 76.54
+				91 text Box 5 · Medicare wages and tips
+				92 text field (settable) Box 5 · Medicare wages and tips, Value: 1234.56
+				93 text Box 6 · Medicare tax withheld
+				94 text field (settable) Box 6 · Medicare tax withheld, Value: 17.90
+				95 text Box 7 · Social Security tips
+				96 text field (settable) Box 7 · Social Security tips, Value: 0
+				97 text Box 10 · Dependent-care benefits
+				98 text field (settable) Box 10 · Dependent-care benefits, Value: 0
+				99 text Reviewed
+				100 checkbox I checked the owner and every entered W-2 amount against the source document., Value: 1
+				101 text I checked the owner and every entered W-2 amount against the source document.
+				102 text Changing this W-2’s values or owner clears only its review. Review status does not submit or certify a tax return.
+				103 text Local TaxML source · synthetic-modern-windows-w2.xml
+				104 button View source document
+				105 button + Add another W-2
+				106 text Manual entry and reviewed local document extraction are available. Employer-network import is not provided.
+			107 container Calculation summary
+				108 heading Your federal calculation, Value: 3
+					109 text Your federal calculation
+				110 text Calculated for tax year 2025
+				111 text Adjusted gross income
+				112 text $1,235
+				113 text Taxable income
+				114 text $0
+				115 text Total federal tax
+				116 text $0
+				117 text Payments & credits
+				118 text $123
+				119 text Refund estimate
+				120 text $123
+				121 text 5 blocking issues. Review the supported scope before relying on this estimate.
+				122 button See calculation
+			123 container
+				124 button Back
+				125 text Wages & Income · Wages & salaries · W-2
+				126 button Continue →
+			127 container Review TaxML W-2 candidate
+				128 container
+					129 heading Review TaxML W-2 candidate, Value: 2
+						130 text Review TaxML W-2 candidate
+					131 button Close dialog
+				132 text Check each amount against the original 2025 W-2. This adds a separate record and keeps existing W-2s. Source flags do not establish who owns this W-2.
+				133 text Select taxpayer or spouse. For Boxes 7 and 10, a missing source value remains blank. Enter zero only after verifying that the original W-2 is blank or zero.
+				134 text Employer name
+				135 text field (settable) Employer name, Value: Synthetic Mac19 employer
+				136 text Whose W-2 is this?
+				137 pop up button Whose W-2 is this?, Value: Taxpayer
+				138 text Box 1 · Wages, tips, other compensation
+				139 container
+					140 text $
+					141 text field (settable) Box 1 · Wages, tips, other compensation, Value: 1234.56
+				142 text Wire WAGES · 1234.56 Box 2 · Federal income tax withheld
+				143 container
+					144 text $
+					145 text field (settable) Box 2 · Federal income tax withheld, Value: 123
+				146 text Wire FEDTAX · 123 Box 3 · Social Security wages
+				147 container
+					148 text $
+					149 text field (settable) Box 3 · Social Security wages, Value: 1234.56
+				150 text Wire SSWAGES · 1234.56 Box 4 · Social Security tax withheld
+				151 container
+					152 text $
+					153 text field (settable) Box 4 · Social Security tax withheld, Value: 76.54
+				154 text Wire SSTAX · 76.54 Box 5 · Medicare wages and tips
+				155 container
+					156 text $
+					157 text field (settable) Box 5 · Medicare wages and tips, Value: 1234.56
+				158 text Wire MEDWAGES · 1234.56 Box 6 · Medicare tax withheld
+				159 container
+					160 text $
+					161 text field (settable) Box 6 · Medicare tax withheld, Value: 17.90
+				162 text Wire MEDTAX · 17.90 Box 7 · Social Security tips
+				163 container
+					164 text $
+					165 text field (settable) Box 7 · Social Security tips, Value: 0
+				166 text Not established by this source · enter explicitly Box 10 · Dependent-care benefits
+				167 container
+					168 text $
+					169 text field (settable) Box 10 · Dependent-care benefits, Value: 0
+				170 text Not established by this source · enter explicitly
+				171 container
+					172 checkbox Confirm all TaxML W-2 amounts and ownership, Value: 1
+					173 text I checked tax year 2025, the owner, employer and every amount against the original W-2.
+				174 text Download corrected XML writes only Boxes 1–6 to a separate plaintext XML copy. Other source bytes are retained. Owner, employer, Boxes 7 and 10 are added to this App only. The original return is not recalculated.
+				175 text This source already supplied a W-2. Edit the existing record instead of adding it again.
+				176 button Close
+				177 button Add reviewed W-2
+				178 button Download corrected XML
+		179 scroll bar (settable, float) 0
+	180 close button
+	181 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	182 minimize button
+	183 text Tax Reborn
+184 menu bar
+	185 Tax Reborn
+	186 Edit
+	187 View
+
+The focused UI element is 2 HTML content Description: Tax Reborn · 2025 Federal Return, URL: 127.0.0.1:27145/

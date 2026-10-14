@@ -1,0 +1,17 @@
+{
+  "version": "2026.10.15-preview.19",
+  "source_commit": "ceccb2985ecb26dbad16d2cbac59da93884e20cf",
+  "actual_native_file_choosers_and_Pyodide_import": true,
+  "same_XML_reuploaded_and_reinspected": true,
+  "native_reviewed_add_succeeded": true,
+  "native_duplicate_add_explicitly_refused": true,
+  "saved_W2_count": 1,
+  "refund": 123,
+  "after_duplicate_saved_data_metadata_and_result_unchanged": true,
+  "earlier_returns_retained": 12,
+  "current_returns": 13,
+  "normal_quit_relaunch_verified": true,
+  "original_program_execution": 0,
+  "synthetic_only": true,
+  "reopened_original_source_attachment_accessible": true
+}
