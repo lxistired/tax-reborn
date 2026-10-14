@@ -216,6 +216,26 @@
       "path": "qa/native-preview7/common-component-byte-audit.json",
       "bytes": 4047,
       "sha256": "7976d40cd295185290e01108c5341ca9b8ee032a58c5dadc191c3bdb38f023c2"
+    },
+    {
+      "path": "tests/amt_2025/check_amt_2025.py",
+      "bytes": 3880,
+      "sha256": "f3d87cd908d24cc51736cdd1f3b9ca1a6dfb9954159932f25d758b4233b59e55"
+    },
+    {
+      "path": "tests/amt_2025/amt_2025_synthetic_cases.json",
+      "bytes": 402181,
+      "sha256": "146b96ab9ed2a3d772e540f886b3c8a15093c81a888feeae34b83d2dcf3fa959"
+    },
+    {
+      "path": "tests/amt_2025/README.md",
+      "bytes": 2294,
+      "sha256": "700d2eae19f690dd84f1aa7b70336520d6b6e49bd9aa8c0e0ea0691101614dc1"
+    },
+    {
+      "path": "qa/native-preview7/app-amt825-irs-crosscheck.json",
+      "bytes": 196,
+      "sha256": "bdcc4ddb547c501acb3328a6c783dc2a326d616eb7de0c563739ec4e0a7abc26"
     }
   ],
   "json_source_normalization": "UTF-8 LF; original package/executable bytes and hashes are unchanged"

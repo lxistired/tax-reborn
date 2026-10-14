@@ -31,6 +31,7 @@ The live source of truth is `/api/schema` → `capabilities.coverage` and the re
 Use Python3.12+; desktop build pins are in requirements-desktop.txt. Development server: `python server.py --port 8782`. Native window: `python desktop.py`. Open `http://127.0.0.1:8782/?offline=1` to exercise the mobile engine and on-device storage. Use synthetic examples for testing.
 
 - Federal tests: `python -m unittest discover -s tests -v`.
+- Separate IRS2025 AMT regression audit: `python tests/amt_2025/check_amt_2025.py --app-root .`. All 825 independently expected ordinary/qualified-dividend cases pass; see [inputs and limits](tests/amt_2025/README.md).
 - Packaged API test: `python desktop.py --smoke-test --smoke-report qa/api-smoke.json`.
 - Federal calculation and form tests in real WebAssembly: `node scripts/test_pyodide.cjs`. The 10 W-2, 8 investment and 8 income host HTTP/SQLite integration checks run in native Python; separate real browser checks cover on-device preparation metadata and persistence.
 - State adapter: `node scripts/test_state_bridge.cjs`. The upstream196 state tests are separate from our federal acceptance and our limited independent state examples.
