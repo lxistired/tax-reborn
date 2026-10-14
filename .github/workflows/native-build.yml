@@ -94,6 +94,15 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Actual installed payment-voucher worker checks failed' }
           python scripts/verify_payment_voucher_runtime.py dist/windows
           if ($LASTEXITCODE -ne 0) { throw 'Actual installed payment-voucher PDF readback failed' }
+      - name: Exercise foreign mailing addresses using the installed worker and PDF readback
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_foreign_address_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed foreign-address worker failed' }
+          python scripts/verify_foreign_address_runtime.py dist/windows
+          if ($LASTEXITCODE -ne 0) { throw 'Installed foreign-address PDF readback failed' }
       - name: Run actual installed native GUI, calculation, edit, save and relaunch
         shell: pwsh
         run: |

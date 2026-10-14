@@ -270,7 +270,7 @@ def official_form_specs(record):
         specs.append({'form_id':id,'line_values':{str(k):v for k,v in lines.items() if v is not None},'field_values':fields or {},'missing_facts':gaps or [],'owner':owner,'identity':identity,'printed_annotations':annotations or []})
     voucher=tax_filing.payment_voucher_plan(data,r)
     if voucher['requested']:
-        ident=data['identity'];fields={};gaps=list(voucher['missing_facts'])
+        ident=tax_filing.mailing_address(data)['values'];fields={};gaps=list(voucher['missing_facts'])
         # Form1040-V has separate name/address rows and two SSN boxes. Its
         # printed payment amount is line3, not a generic tax subtotal.
         identity_map={'ssn':1,'first_name':5,'last_name':6,'address':9,'apt':10,

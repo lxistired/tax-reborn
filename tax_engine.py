@@ -172,9 +172,9 @@ def capabilities():
 def form_readiness(data):
     """Presence-only checklist; neither an identity check nor filing approval."""
     identity=data['identity']
-    required=[('first_name','Taxpayer first name'),('last_name','Taxpayer last name'),('ssn','Taxpayer SSN'),('address','Street address'),('city','City'),('state','State'),('zip','ZIP code')]
+    required=[('first_name','Taxpayer first name'),('last_name','Taxpayer last name'),('ssn','Taxpayer SSN')]
     if data['filing_status'] in ('mfj','mfs'):required += [('spouse_first_name','Spouse first name'),('spouse_last_name','Spouse last name'),('spouse_ssn','Spouse SSN')]
-    return {'filing_packet_ready':False,'missing_identity':[label for key,label in required if not identity[key].strip()],
+    return {'filing_packet_ready':False,'missing_identity':[label for key,label in required if not identity[key].strip()]+tax_filing.mailing_address(data)['missing_facts'],
         'unsupported_packet_parts':['Supporting-form completeness is evaluated by the paper-packet checklist; taxpayer signature and original withholding document attachments are required']+([] if data['estimated_penalty']['enabled'] else ['Form 2210 estimated-tax penalty not computed']),
             'electronic_filing':False,'identity_check':'Required-field presence only; names, addresses and SSNs have not been authenticated.',**tax_filing.paper_facts_readiness(data)}
 
@@ -240,6 +240,10 @@ def normalized(data):
         if not isinstance(value,str) or len(value)>200:raise ValueError('identity.'+key+' must be text of at most200 characters.')
         if key in ('ssn','spouse_ssn') and not re.fullmatch(r'[0-9-]*',value):raise ValueError('identity.'+key+' only permits digits and hyphens, or an empty draft value.')
         base['identity'][key]=''.join(' ' if ord(character)<32 or ord(character)==127 else character for character in value).strip()
+    # Before this selector existed, a country name expressed the saved foreign
+    # address. Migrate only records that did not explicitly choose a format.
+    if 'mailing_address_type' not in data.get('filing_details',{}) and base['identity']['foreign_country']:
+        base['filing_details']['mailing_address_type']='foreign'
     tax_extended.normalize_extra(base,base['filing_status'])
     tax_longtail.normalize_extra(base)
     tax_child_income.normalize_extra(base)

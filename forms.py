@@ -27,7 +27,7 @@ PAGE2 = {'11b':1,'12e':2,'13a':3,'13b':4,'14':5,'15':6,'16':8,'17':9,'18':10,'19
 
 
 def identity_values(record):
-    identity = record['data'].get('identity', {})
+    identity = tax_filing.mailing_address(record['data'])['values']
     names = {'last_name':15,'ssn':16,'spouse_last_name':18,'spouse_ssn':19,'address':20,'apt':21,'city':22,'state':23,'zip':24,'foreign_country':25,'foreign_province':26,'foreign_postal_code':27}
     values = {}
     for key, number in names.items():

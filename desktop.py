@@ -229,6 +229,26 @@ def smoke_test(report_path=None):
             official_forms.verify_official_pdf(voucher_pdf,{keys[0]:'1000.25','topmostSubform[0].Page2[0].f2_35[0]':'221159'})
             status,voucher_status=request('GET',f'/api/returns/{voucher_id}/paper-checklist.json');assert status==200 and voucher_status['paper_preparation_complete']and not voucher_status['payment_voucher']['payment_initiated']
             checks.append('Packaged221159 USD balance and separate1000.25 paper-payment voucher save/reopen and actual official1040-V PDF preserve cents without recording payment')
+            high['name']='Synthetic packaged foreign mailing address'
+            high['filing_details']['mailing_address_type']='foreign'
+            high['identity'].update(city='Berlin',foreign_country='Germany',foreign_province='Berlin',foreign_postal_code='10115')
+            status,foreign_saved=request('POST','/api/returns',{'data':high});assert status==200
+            assert foreign_saved['result']['lines']==voucher_saved['result']['lines']
+            status,foreign_reopened=request('GET','/api/returns/'+foreign_saved['id']);assert foreign_reopened==foreign_saved
+            assert foreign_reopened['data']['identity']['state']==high['identity']['state']
+            status,foreign_pdf=request('GET',f"/api/returns/{foreign_saved['id']}/paper-packet.pdf");assert status==200
+            foreign_fields=PdfReader(io.BytesIO(foreign_pdf)).get_fields();foreign_expected={}
+            for number,value in [(22,'Berlin'),(23,''),(24,''),(25,'Germany'),(26,'Berlin'),(27,'10115')]:
+                key=f'topmostSubform[0].Page1[0].Address_ReadOrder[0].f1_{number}[0]'
+                assert str(foreign_fields[key].get('/V',''))==value
+                if value:foreign_expected[key]=value
+            for number,value in [(11,'Berlin'),(12,''),(13,''),(14,'Germany'),(15,'Berlin'),(16,'10115')]:
+                keys=[k for k in foreign_fields if k.startswith('f1040v_') and k.endswith(f'.topmostSubform[0].Page1[0].f1_{number}[0]')];assert len(keys)==1
+                assert str(foreign_fields[keys[0]].get('/V',''))==value
+                if value:foreign_expected[keys[0]]=value
+            official_forms.verify_official_pdf(foreign_pdf,foreign_expected)
+            status,foreign_status=request('GET',f"/api/returns/{foreign_saved['id']}/paper-checklist.json");assert status==200 and foreign_status['paper_preparation_complete']
+            checks.append('Packaged foreign mailing address save/reopen and actual1040/1040-V country/province/postal/AP rows verified; inactive US rows blank, inputs and tax retained')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

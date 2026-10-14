@@ -513,6 +513,37 @@ try {
     Save-Screenshot 'windows-native-payment-voucher-reopened.png'
     $checks.Add('Native payment choice/custom cents/confirmation invalidation/system1040-V PDF and normal relaunch passed;2435 balance remained unchanged by1000.26 voucher.')
     $receipt.native_payment_voucher_changed_flow_passed=$true
+    Click-Observed (Wait-Named 'Personal details for forms')
+    $format=Wait-Control 'ComboBox' 'Mailing address format'; $format.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+    Set-Owned-Edit 'City or town' 'Berlin'
+    Set-Owned-Edit 'Foreign country name' 'Germany'
+    Set-Owned-Edit 'Foreign province, state or county' 'Berlin'
+    Set-Owned-Edit 'Foreign postal code' '10115'
+    Scroll-Top; Wait-Named '$2,435' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Balance due & payment voucher')
+    $confirmation=Wait-Control 'CheckBox' 'I verified the paper payment amount and method' $true
+    $toggle=$confirmation.GetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern)
+    if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -ne [System.Windows.Automation.ToggleState]::Off) { throw 'Mailing address change did not invalidate paper-payment confirmation.' }
+    $choice=Wait-Control 'ComboBox' 'Paper voucher amount'; $choice.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{TAB}')
+    Click-Observed (Wait-Control 'CheckBox' 'I verified the paper payment amount and method' $true)
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Click-Observed (Wait-Named 'Download official packet')
+    $foreignPdf=Join-Path $OutputDir 'windows-native-foreign-address.pdf'; Save-Native-Export $foreignPdf
+    $env:TAX_REBORN_OWNED_FOREIGN_PDF=$foreignPdf
+    python -c "import os,sys;sys.path.insert(0,'tests');from pathlib import Path;import official_forms;from foreign_address_qa import CASES,verify_packet;print(verify_packet(Path(os.environ['TAX_REBORN_OWNED_FOREIGN_PDF']).read_bytes(),CASES[0],official_forms))"
+    if($LASTEXITCODE -ne 0) { throw 'Native system-saved foreign address fields failed readback.' }
+    Remove-Item Env:TAX_REBORN_OWNED_FOREIGN_PDF
+    Close-App; Launch-App; Wait-Named '$2,435' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Personal details for forms')
+    foreach($pair in @(@('Foreign country name','Germany'),@('Foreign province, state or county','Berlin'),@('Foreign postal code','10115'),@('US state','IL'),@('US ZIP code','60000'))) {
+        $field=Wait-Edit $pair[0]
+        if([string]$field.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne $pair[1]) { throw ('Reopened mailing address differs: '+$pair[0]) }
+    }
+    Save-Screenshot 'windows-native-foreign-address-reopened.png'
+    $checks.Add('Native foreign format/country/province/postal edit invalidated paper confirmation; system1040/1040-V PDF separate rows and blank US fields verified, inputs and2435 balance survived relaunch.')
+    $receipt.native_foreign_address_changed_flow_passed=$true
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

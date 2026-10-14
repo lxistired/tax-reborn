@@ -149,6 +149,7 @@ function mergeDefaults(value,defaults,path=''){
  if(defaults&&typeof defaults==='object'){
   const output=value&&typeof value==='object'&&!Array.isArray(value)?clone(value):{};
   for(const[key,entry]of Object.entries(defaults))output[key]=Object.hasOwn(output,key)?mergeDefaults(output[key],entry,path?path+'.'+key:key):clone(entry);
+  if(path===''&&typeof value?.identity?.foreign_country==='string'&&value.identity.foreign_country.trim()&&!Object.hasOwn(value?.filing_details||{},'mailing_address_type'))output.filing_details.mailing_address_type='foreign';
   return output;
  }
  return value===undefined?clone(defaults):value;
@@ -229,6 +230,7 @@ function autoArray(path,template=schemaValue(path)){
 function modulePage(id){
  const definition=moduleDefinitions.get(id),enabledPath=id+'.enabled',hasGate=supportsPath(enabledPath)&&typeof schemaValue(enabledPath)==='boolean';
  const parts=[title(definition.label,definition.description)];
+ if(id==='identity')parts.push(card('Mailing address format',autoField('filing_details.mailing_address_type'),el('div',{class:'note'},'Use the US state and ZIP fields for a US mailing address, or the full country name and separate foreign province and postal fields for a foreign mailing address. Both sets stay saved when you switch. The selected format controls the printed address; it does not change tax residency or income eligibility.')));
  if(hasGate)parts.push(card('Include this section',check(enabledPath,'Report '+definition.label.toLowerCase()+' in this return','Enable only if this section applies. Stored amounts or document records in a disabled section remain blocking until you enable it or explicitly remove them.')));
  if(hasGate&&!get(enabledPath))parts.push(el('div',{class:'note warning'},'This section is currently off. Entering amounts below does not turn it on; select the question above to calculate this section.'));
  parts.push(card('Your '+definition.label.toLowerCase()+' inputs',autoObject(id)),el('div',{class:'note'},'All figures and eligibility checks are calculated by the local engine. Confirm only statements that apply to your return; unresolved rules remain visible in Review.'));

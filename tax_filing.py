@@ -19,7 +19,8 @@ DEFAULTS = {'digital_asset_answer':'unanswered', 'main_home_us_answer':'unanswer
             'presidential_taxpayer':False, 'presidential_spouse':False,
             'signature_date':'', 'hoh_qss_non_dependent_child_name':'',
             'balance_due_payment_method':'unanswered', 'paper_payment_amount_source':'balance_due',
-            'paper_payment_amount':'', 'paper_payment_confirmed':False, 'official_form_facts':{}}
+            'paper_payment_amount':'', 'paper_payment_confirmed':False,
+            'mailing_address_type':'domestic', 'official_form_facts':{}}
 
 def fact_schema():
     path = BASE / 'forms' / 'paper-fact-schema-2025.json'
@@ -56,6 +57,13 @@ def field_metadata():
         'filing_details.paper_payment_amount_source':{'type':'enum','label':'Paper voucher amount','options':[['balance_due','Form1040 line37 amount owed'],['custom','Enter the amount of this check or money order']],'help':'Line37 excludes any separate line38 estimated-tax penalty. Enter a custom amount if your check or money order differs.'},
         'filing_details.paper_payment_amount':{'type':'money','label':'Entered check or money-order amount','help':'USD, up to two decimal places. Used only for a custom paper amount; a single check must be less than100million dollars.'},
         'filing_details.paper_payment_confirmed':{'type':'boolean','label':'I verified the paper payment amount and method','help':'Confirm the amount you will actually send with this voucher. Preparing the voucher is separate from making the payment.'},
+        'filing_details.mailing_address_type':{'type':'enum','label':'Mailing address format','options':[['domestic','US mailing address'],['foreign','Foreign mailing address']],'help':'Use your current mailing address. Tax eligibility comes from the household and income interviews.'},
+        'identity.city':{'type':'text','label':'City or town','help':'For a foreign address, enter the city only; put province and postal code in their separate fields.'},
+        'identity.state':{'type':'text','label':'US state','help':'Printed for a US mailing address. Your entered value is retained when you select a foreign address.'},
+        'identity.zip':{'type':'text','label':'US ZIP code','help':'Printed for a US mailing address.'},
+        'identity.foreign_country':{'type':'text','label':'Foreign country name','help':'For a foreign mailing address, enter the full country name.'},
+        'identity.foreign_province':{'type':'text','label':'Foreign province, state or county','help':'Complete when applicable to your foreign address.'},
+        'identity.foreign_postal_code':{'type':'text','label':'Foreign postal code','help':'Complete when applicable to your foreign address; letters and digits are retained.'},
         'dependents.*.form_first_name':{'type':'text','label':'Dependent legal first name'},
         'dependents.*.form_last_name':{'type':'text','label':'Dependent legal last name'},
         'dependents.*.form_ssn':{'type':'text','label':'Dependent SSN or ITIN'},
@@ -82,6 +90,7 @@ def validate_facts(data):
     if values['bank_type'] not in ('unanswered','checking','savings'):raise ValueError('Invalid refund account type')
     if values['balance_due_payment_method'] not in ('unanswered','check_money_order','electronic'):raise ValueError('Invalid balance-due payment method')
     if values['paper_payment_amount_source'] not in ('balance_due','custom'):raise ValueError('Invalid paper payment amount source')
+    if values['mailing_address_type'] not in ('domestic','foreign'):raise ValueError('Invalid mailing address format')
     if values['paper_payment_amount']:
         payment_decimal(values['paper_payment_amount'])
     if not re.fullmatch(r'\d{0,9}',values['bank_routing']):raise ValueError('Routing number contains only up to9digits')
@@ -141,6 +150,27 @@ def payment_voucher_plan(data,result):
         'amount':format(amount,'.2f') if amount is not None else None,'form1040_line37':owed,
         'missing_facts':missing,'tax_year':2025,'currency':'USD','payment_initiated':False,
         'source':'https://www.irs.gov/pub/irs-prior/f1040v--2025.pdf'}
+
+
+def mailing_address(data):
+    """TY2025 printed address selection; retained inputs and tax facts are unchanged."""
+    identity=deepcopy(data.get('identity',{}))
+    facts=data.get('filing_details',{})
+    mode=facts.get('mailing_address_type')
+    if mode is None:mode='foreign' if identity.get('foreign_country','').strip() else 'domestic'
+    if mode not in ('domestic','foreign'):raise ValueError('Invalid mailing address format')
+    required=[('address','Street address'),('city','City')]
+    missing=[]
+    if mode=='foreign':
+        identity.update(state='',zip='')
+        required.append(('foreign_country','Foreign country name'))
+        country=identity.get('foreign_country','').strip()
+        if country and len(country)<=2:missing.append('Full foreign country name, rather than a country code')
+    else:
+        identity.update(foreign_country='',foreign_province='',foreign_postal_code='')
+        required.extend([('state','State'),('zip','ZIP code')])
+    missing.extend(label for key,label in required if not identity.get(key,'').strip())
+    return {'mode':mode,'values':identity,'missing_facts':missing}
 
 def routing_valid(number):
     return bool(re.fullmatch(r'\d{9}',number)) and number!='000000000' and sum(int(c)*w for c,w in zip(number,[3,7,1,3,7,1,3,7,1]))%10==0
