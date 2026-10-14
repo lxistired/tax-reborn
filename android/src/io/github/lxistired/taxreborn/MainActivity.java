@@ -6,6 +6,8 @@ import android.content.ClipData;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.util.Base64;
 import android.webkit.*;
 import android.widget.Toast;
@@ -15,6 +17,8 @@ import org.json.JSONObject;
 
 /** Bundled offline tax calculation. No account, tax-server or network permission. */
 public final class MainActivity extends Activity {
+    private static final String LIFE_TAG = "TaxRebornLife";
+    private long diagnosticSerial;
     private static final String HOST = "appassets.androidplatform.net";
     private static final int FILE_CHOICE = 100;
     private static final int FILE_SAVE = 101;
@@ -30,6 +34,7 @@ public final class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
+        lifecycleEvent("create", "recreated="+(state!=null));
         transfers=getSharedPreferences("local_transfers",MODE_PRIVATE);
         restoreTransfers(state);
         view = new WebView(this);
@@ -42,6 +47,26 @@ public final class MainActivity extends Activity {
         settings.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         settings.setSafeBrowsingEnabled(true);
         view.setWebViewClient(new WebViewClient() {
+            @Override public void onPageStarted(WebView web,String url,android.graphics.Bitmap icon) {
+                lifecycleEvent("page_started","urlClass="+urlClass(url));
+            }
+            @Override public void onPageCommitVisible(WebView web,String url) {
+                lifecycleEvent("page_visible","urlClass="+urlClass(url));
+                diagnoseWebView("page_visible");
+            }
+            @Override public void onPageFinished(WebView web,String url) {
+                lifecycleEvent("page_finished","urlClass="+urlClass(url));
+                diagnoseWebView("page_finished");
+            }
+            @Override public void onReceivedError(WebView web,WebResourceRequest request,WebResourceError error) {
+                if(request.isForMainFrame())lifecycleEvent("main_frame_error","code="+error.getErrorCode());
+            }
+            @Override public boolean onRenderProcessGone(WebView web,RenderProcessGoneDetail detail) {
+                lifecycleEvent("renderer_gone","crashed="+detail.didCrash()+" priority="+detail.rendererPriorityAtExit());
+                // Diagnostic build keeps the platform's failure behavior. A
+                // broken renderer is never reused or speculatively reloaded.
+                return false;
+            }
             @Override public WebResourceResponse shouldInterceptRequest(WebView web, WebResourceRequest request) {
                 return assetResponse(request.getUrl());
             }
@@ -122,7 +147,7 @@ public final class MainActivity extends Activity {
 
     public final class ExportBridge {
         @JavascriptInterface public void workspaceReady(String returnId) {
-            runOnUiThread(()->{if(destroyed)return;activeReturnId=LocalTransferStore.validId(returnId)?returnId:null;workspaceReady=true;dispatchPendingDocument();});
+            runOnUiThread(()->{if(destroyed)return;activeReturnId=LocalTransferStore.validId(returnId)?returnId:null;workspaceReady=true;lifecycleEvent("workspace_ready","retained=true");dispatchPendingDocument();});
         }
         @JavascriptInterface public void acknowledgeDocument(String documentId) {
             runOnUiThread(()->{if(destroyed || pendingDocumentId==null || !pendingDocumentId.equals(documentId))return;clearPendingDocument(true);});
@@ -143,6 +168,7 @@ public final class MainActivity extends Activity {
                     intent.addCategory(Intent.CATEGORY_OPENABLE);
                     intent.setType(safeMime);
                     intent.putExtra(Intent.EXTRA_TITLE,safeName);
+                    lifecycleEvent("save_picker_open","pending=true");
                     try {startActivityForResult(intent,FILE_SAVE);} catch(Exception e) {clearPendingSave();Toast.makeText(MainActivity.this,"Could not open the save picker",Toast.LENGTH_LONG).show();}
                 });
             } catch(IllegalArgumentException e) {runOnUiThread(()->Toast.makeText(MainActivity.this,"Draft export data was invalid",Toast.LENGTH_LONG).show());}
@@ -151,6 +177,7 @@ public final class MainActivity extends Activity {
 
     @Override protected void onActivityResult(int request,int result,Intent data) {
         super.onActivityResult(request,result,data);
+        lifecycleEvent("activity_result","request="+request+" result="+result+" pendingSave="+(pendingSaveName!=null));
         if(request==FILE_CAMERA){
             if(chooser!=null){chooser.onReceiveValue(null);chooser=null;}
             if(result==RESULT_OK && cameraUri!=null){
@@ -178,10 +205,12 @@ public final class MainActivity extends Activity {
                 try(InputStream input=new FileInputStream(LocalTransferStore.exportFile(getCacheDir(),savedName));OutputStream out=getContentResolver().openOutputStream(data.getData())) {
                     if(out==null)throw new IOException("No save destination");
                     byte[] chunk=new byte[16384];int count;while((count=input.read(chunk))!=-1)out.write(chunk,0,count);
+                    lifecycleEvent("save_write_complete","saved=true");
                     Toast.makeText(this,"Draft saved on this device. No return was filed.",Toast.LENGTH_LONG).show();
-                } catch(IOException e) {Toast.makeText(this,"Draft export was not saved",Toast.LENGTH_LONG).show();}
+                } catch(IOException e) {lifecycleEvent("save_write_failed","saved=false");Toast.makeText(this,"Draft export was not saved",Toast.LENGTH_LONG).show();}
             }
             clearPendingSave();
+            diagnoseWebView("save_result");
         }
     }
 
@@ -233,19 +262,80 @@ public final class MainActivity extends Activity {
     }
 
     @Override protected void onSaveInstanceState(Bundle state) {
+        lifecycleEvent("save_instance","workspaceReady="+workspaceReady);
         if(cameraUri!=null)state.putString("camera_uri",cameraUri.toString());
         // SPA draft data lives in private IndexedDB; no photo/export bytes enter
         // Binder state. The small transfer journal survives Activity recreation.
         super.onSaveInstanceState(state);
     }
 
-    @Override protected void onResume(){super.onResume();if(view!=null)view.onResume();dispatchPendingDocument();}
-    @Override protected void onPause(){if(view!=null)view.onPause();super.onPause();}
+    @Override protected void onResume(){
+        super.onResume();lifecycleEvent("resume","workspaceReady="+workspaceReady);
+        if(view!=null){view.onResume();reactivateWebView("resume");}
+        dispatchPendingDocument();
+    }
+    @Override protected void onPause(){lifecycleEvent("pause","workspaceReady="+workspaceReady);if(view!=null)view.onPause();super.onPause();}
+    @Override public void onWindowFocusChanged(boolean focused){
+        super.onWindowFocusChanged(focused);lifecycleEvent("window_focus","focused="+focused);
+        if(focused && view!=null && !destroyed)reactivateWebView("focus_restored");
+    }
+
+    private void lifecycleEvent(String event,String facts){
+        // Only fixed event names, enums, counts and booleans. No URL, filename,
+        // document contents, tax values or exception text enters this log.
+        Log.i(LIFE_TAG,"t="+SystemClock.elapsedRealtime()+" event="+event+" "+facts);
+    }
+    private String urlClass(String value){
+        if(value==null || value.equals("about:blank"))return "blank";
+        try{Uri uri=Uri.parse(value);return HOST.equals(uri.getHost()) && "https".equals(uri.getScheme())?"local":"other";}catch(Exception ignored){return "other";}
+    }
+    private void reactivateWebView(String reason){
+        final WebView web=view;
+        web.post(()->{
+            if(destroyed || view!=web)return;
+            web.requestLayout();web.invalidate();
+            final long serial=++diagnosticSerial;
+            lifecycleEvent("visual_requested","serial="+serial+" reason="+reason);
+            web.postVisualStateCallback(serial,new WebView.VisualStateCallback(){
+                @Override public void onComplete(long requestId){
+                    if(!destroyed && view==web){web.invalidate();lifecycleEvent("visual_complete","serial="+requestId);}
+                }
+            });
+            diagnoseWebView(reason);
+        });
+    }
+    private void diagnoseWebView(String reason){
+        final WebView web=view;if(web==null || destroyed)return;
+        final long serial=++diagnosticSerial;
+        final boolean[] completed={false};
+        lifecycleEvent("diagnostic_requested","serial="+serial+" reason="+reason+" nativeUrlClass="+urlClass(web.getUrl())+" width="+web.getWidth()+" height="+web.getHeight());
+        final String script="(function(){var d=document,b=d.body,r=d.documentElement;return {urlClass:location.protocol==='https:'&&location.hostname==='appassets.androidplatform.net'?'local':location.href==='about:blank'?'blank':'other',readyState:d.readyState,visibility:d.visibilityState,bodyChildCount:b?b.children.length:0,bodyWidth:b?b.clientWidth:0,bodyHeight:b?b.clientHeight:0,rootWidth:r?r.clientWidth:0,rootHeight:r?r.clientHeight:0,shellPresent:!!(d.getElementById('main')&&d.getElementById('brand'))};})()";
+        web.evaluateJavascript(script,result->{
+            completed[0]=true;if(destroyed || view!=web)return;
+            try{
+                JSONObject received=new JSONObject(result),safe=new JSONObject();
+                safe.put("serial",serial);
+                for(String key:new String[]{"urlClass","readyState","visibility"}){
+                    String value=received.optString(key,"unknown");
+                    String allowed=key.equals("urlClass")?"local|blank|other":key.equals("readyState")?"loading|interactive|complete":"visible|hidden|prerender";
+                    safe.put(key,value.matches(allowed)?value:"unknown");
+                }
+                for(String key:new String[]{"bodyChildCount","bodyWidth","bodyHeight","rootWidth","rootHeight"}){
+                    int count=received.optInt(key,-1);safe.put(key,count>=0 && count<=100000?count:-1);
+                }
+                safe.put("shellPresent",received.optBoolean("shellPresent",false));
+                lifecycleEvent("diagnostic_result",safe.toString());
+            }catch(Exception invalid){lifecycleEvent("diagnostic_invalid","serial="+serial);}
+        });
+        web.postDelayed(()->{if(!destroyed && view==web && !completed[0])lifecycleEvent("diagnostic_timeout","serial="+serial);},3000);
+    }
 
     @Override public void onBackPressed() {
-        if(view.canGoBack())view.goBack();else super.onBackPressed();
+        lifecycleEvent("back","canGoBack="+(view!=null && view.canGoBack())+" nativeUrlClass="+(view==null?"blank":urlClass(view.getUrl())));
+        if(view!=null && view.canGoBack())view.goBack();else super.onBackPressed();
     }
     @Override protected void onDestroy() {
+        lifecycleEvent("destroy","finishing="+isFinishing());
         destroyed=true;workspaceReady=false;
         if(chooser!=null){chooser.onReceiveValue(null);chooser=null;}
         view.removeJavascriptInterface("TaxRebornAndroid");view.destroy();super.onDestroy();
