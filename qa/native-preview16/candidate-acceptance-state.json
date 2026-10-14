@@ -1,0 +1,97 @@
+{
+  "checked_at_utc": "2026-10-14T19:47:55.236401+00:00",
+  "version": "2026.10.15-preview.16",
+  "source_published": true,
+  "native_packages_published": false,
+  "all_platform_compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd",
+  "host_tests_passed": 569,
+  "actual_Pyodide_tests_run": 475,
+  "actual_Pyodide_tests_executed": 474,
+  "actual_Pyodide_tests_skipped": 1,
+  "independent_IRS_high_income_cases_passed": 18,
+  "actual_HTTP_SQLite_official_packets_passed": 2,
+  "Mac": {
+    "generated": true,
+    "actual_native_App_run": true,
+    "frozen_checks_passed": 18,
+    "actual_frozen_HTTP_high_income_cases_passed": 18,
+    "native_UI_open_save_system_PDF_export_passed": true,
+    "normal_quit_relaunch_passed": true,
+    "prior8_saved_returns_retained": true,
+    "native_system_saved_PDF_literal_fields_passed": 52,
+    "readonly_DMG_app_files_matched": 402,
+    "running_native_App_instances": 1,
+    "receipt": "Mac-native-NIIT-AMT-acceptance.json"
+  },
+  "Windows": {
+    "generated": true,
+    "Setup_installed": true,
+    "installed_executable_matches_build_and_portable": true,
+    "installed_frozen_checks_passed": 18,
+    "native_GUI_checks_passed": 20,
+    "native_TaxML_INT_DIV_changed_flow_passed": true,
+    "actual_installed_worker_high_income_cases_passed": 18,
+    "actual_installed_worker_PDF_packets_passed": 2,
+    "specific_NIIT_native_UI_packet_export_tested": false,
+    "NIIT_installed_native_frozen_HTTP_packet_verified": true,
+    "original_corrected_XML_actual_artifact_readback_passed": true,
+    "CI_run": 38625216830,
+    "CI_url": "https://github.com/lxistired/tax-reborn/actions/runs/38625216830",
+    "receipt": "windows/root-artifact-readback.json"
+  },
+  "Android": {
+    "generated": true,
+    "original_signer_retained": true,
+    "actual_APK_assets_checked": 119,
+    "actual_APK_worker_high_income_cases_passed": 18,
+    "actual_APK_worker_PDF_packets_passed": 2,
+    "actual_APK_TaxML_W2_INT_DIV_runtime_passed": true,
+    "installed_on_phone": false,
+    "physical_phone_UI_tested": false,
+    "USB_device_present": false,
+    "user_data_retention_on_install_verified": false,
+    "receipt": "Android-signer-assets-receipt.json"
+  },
+  "original_TurboTax_native_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "electronic_filing": false,
+  "remaining_release_gates": [
+    "Android same-signer physical-device install/data retention and actual phone new-flow UI acceptance after USB is restored.",
+    "Final publication and anonymous package download/hash readback."
+  ],
+  "candidate_artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.16-Android.apk",
+      "bytes": 49083871,
+      "sha256": "a681caefc798fb130a4f3d1d3ecd8abe7de8cbd2b24afd3662ca0055730b04ea",
+      "generated": true,
+      "published": false,
+      "compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.16-Windows-x64-Setup.exe",
+      "bytes": 57680444,
+      "sha256": "9bbd6c2b77d2ed6fc8d7d746e99e8f335f20a47b2654acafb5cf82761621c8b6",
+      "generated": true,
+      "published": false,
+      "compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.16-macOS-arm64.dmg",
+      "bytes": 71280666,
+      "sha256": "83182ad739ecce24991c45fe9cedf57703c8251cd486143b1a4f889ce54fffad",
+      "generated": true,
+      "published": false,
+      "compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.16-Windows-x64-portable.zip",
+      "bytes": 70653203,
+      "sha256": "99c4048afabb035751e00cfa6f6923758a7a52392dfaa0265d117bfbabe0af13",
+      "generated": true,
+      "published": false,
+      "compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd"
+    }
+  ]
+}

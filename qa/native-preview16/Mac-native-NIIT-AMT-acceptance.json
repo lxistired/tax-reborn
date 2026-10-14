@@ -1,0 +1,151 @@
+{
+  "synthetic_only": true,
+  "version": "2026.10.15-preview.16",
+  "compiled_source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd",
+  "test_return_creation": "actual packaged HTTP API",
+  "native_UI_open_save_and_system_PDF_export": true,
+  "native_UI_normal_quit_relaunch": true,
+  "data_and_calculation_retained_exactly": true,
+  "prior_saved_returns_retained": 8,
+  "remaining_native_instances": 1,
+  "UI_refund": 27841,
+  "PDF_sha256": "30e6d080934c29fdaa94952c130ae97aecf01f8d6c6f3b44a84e49bdd33e5748",
+  "printed_8960_component_and_parent_fields_verified": true,
+  "readback": {
+    "canonical_and_widget_fields": 52,
+    "pages": 11,
+    "page_identities_verified": true,
+    "expected_fields": {
+      "f8960_3.topmostSubform[0].Page1[0].f1_3[0]": "1000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_4[0]": "1000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_5[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_6[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_7[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_8[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_9[0]": "800000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_10[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_11[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_12[0]": "800000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_13[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_14[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_15[0]": "802000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_16[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_17[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_18[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_19[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_20[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_21[0]": "0",
+      "f8960_3.topmostSubform[0].Page1[0].f1_22[0]": "802000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_23[0]": "992000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_24[0]": "200000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_25[0]": "792000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_26[0]": "792000",
+      "f8960_3.topmostSubform[0].Page1[0].f1_27[0]": "30096",
+      "f6251_4.topmostSubform[0].Page1[0].f1_26[0]": "992000",
+      "f6251_4.topmostSubform[0].Page1[0].f1_27[0]": "0",
+      "f6251_4.topmostSubform[0].Page1[0].f1_28[0]": "992000",
+      "f6251_4.topmostSubform[0].Page1[0].f1_31[0]": "192063",
+      "f6251_4.topmostSubform[0].Page1[0].f1_32[0]": "177290",
+      "f6251_4.topmostSubform[0].Page1[0].f1_33[0]": "14773",
+      "f6251_4.topmostSubform[0].Page2[0].f2_6[0]": "192000",
+      "f6251_4.topmostSubform[0].Page2[0].f2_7[0]": "49920",
+      "f6251_4.topmostSubform[0].Page2[0].f2_12[0]": "0",
+      "f6251_4.topmostSubform[0].Page2[0].f2_19[0]": "357150",
+      "f6251_4.topmostSubform[0].Page2[0].f2_20[0]": "53573",
+      "f6251_4.topmostSubform[0].Page2[0].f2_22[0]": "442850",
+      "f6251_4.topmostSubform[0].Page2[0].f2_23[0]": "88570",
+      "f6251_4.topmostSubform[0].Page2[0].f2_27[0]": "192063",
+      "f6251_4.topmostSubform[0].Page2[0].f2_28[0]": "272978",
+      "f6251_4.topmostSubform[0].Page2[0].f2_29[0]": "192063",
+      "f1040s2_0.form1[0].Page1[0].f1_12[0]": "14773",
+      "f1040s2_0.form1[0].Page1[0].f1_23[0]": "30096",
+      "f1040s2_0.form1[0].Page2[0].f2_24[0]": "30096",
+      "topmostSubform[0].Page2[0].f2_08[0]": "177290",
+      "topmostSubform[0].Page2[0].f2_09[0]": "14773",
+      "topmostSubform[0].Page2[0].f2_15[0]": "30096",
+      "topmostSubform[0].Page2[0].f2_16[0]": "222159",
+      "topmostSubform[0].Page2[0].f2_20[0]": "250000",
+      "topmostSubform[0].Page2[0].f2_29[0]": "250000",
+      "topmostSubform[0].Page2[0].f2_31[0]": "27841",
+      "topmostSubform[0].Page2[0].f2_35[0]": "0"
+    },
+    "packet_manifest": {
+      "version": 1,
+      "tax_year": 2025,
+      "instances": [
+        {
+          "form_id": "preparation_checklist",
+          "owner": "packet",
+          "copy_index": 1,
+          "required_pages": [
+            1
+          ],
+          "template_sha256": null
+        },
+        {
+          "form_id": "f1040",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1,
+            2
+          ],
+          "template_sha256": null
+        },
+        {
+          "form_id": "f1040s2",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1,
+            2
+          ],
+          "template_sha256": "64d867b683334cfc533993e37ccb0d143449ec29428a78206be2e4de333941e8"
+        },
+        {
+          "form_id": "f1040sb",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1
+          ],
+          "template_sha256": "dd1ec3719954532bd219343d81385a2ada3c8e9573fc755a3893f1fbbecc63e2"
+        },
+        {
+          "form_id": "f1040sd",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1,
+            2
+          ],
+          "template_sha256": "90564c8b7e49280363612639b804d113ebedb516c2e87c70649f29c844da1d2e"
+        },
+        {
+          "form_id": "f8960",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1
+          ],
+          "template_sha256": "9b323b7166b5845a776f781b8c82eef94ccd998354e88fc33a1051c3b3789731"
+        },
+        {
+          "form_id": "f6251",
+          "owner": "taxpayer",
+          "copy_index": 1,
+          "required_pages": [
+            1,
+            2
+          ],
+          "template_sha256": "6995bfd29c6fe1b80fdc396c9c4796c7cef58a966070db0346721eae815fea3f"
+        }
+      ],
+      "expected_pdf_pages": 11,
+      "scope": "current_supported_paper_preparation",
+      "filing_packet_ready": false
+    }
+  },
+  "electronic_filing": false,
+  "original_native_executions": 0
+}

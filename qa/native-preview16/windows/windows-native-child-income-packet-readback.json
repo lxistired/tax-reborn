@@ -1,0 +1,29 @@
+{
+  "synthetic_only": true,
+  "tax_year": 2025,
+  "pdf_bytes": 1245093,
+  "pdf_sha256": "7d62fe362dc1213f5f6c1d36160bcae98eb0b11168f3a100542dca633d1e00ed",
+  "pages": 12,
+  "child_allocations": {
+    "qualified": 195,
+    "capital": 325,
+    "ordinary": 780,
+    "additional_tax": 135
+  },
+  "parent_tax": 37516,
+  "parent_refund": 12484,
+  "literal_supporting_field_checks": 29,
+  "supporting_verification": {
+    "pages": 12,
+    "verified_fields": 29,
+    "interactive": true,
+    "canonical_values_verified": true,
+    "widget_values_and_appearances_verified": true
+  },
+  "main_verification": {
+    "pages": 12,
+    "verified_fields": 26,
+    "interactive": true
+  },
+  "actual_saved_file_verified": true
+}

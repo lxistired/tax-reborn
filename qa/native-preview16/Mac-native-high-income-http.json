@@ -1,0 +1,526 @@
+{
+  "source_commit": "bc5e31ed429b166c205aea712b9432983bd2febd",
+  "version": "2026.10.15-preview.16",
+  "actual_frozen_HTTP_cases": 18,
+  "passed": 18,
+  "rows": [
+    {
+      "name": "twenty-first",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 600000,
+        "11b": 607000,
+        "15": 591250,
+        "16": 84328,
+        "17": 0,
+        "23": 15466,
+        "24": 99794,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 20206,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "mixed-positive-AMT",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 800000,
+        "11b": 992000,
+        "15": 976250,
+        "16": 177290,
+        "17": 14773,
+        "23": 30096,
+        "24": 222159,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 27841,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "NIIT-MAGI-199999",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 192999,
+        "11b": 199999,
+        "15": 184249,
+        "16": 20385,
+        "17": 0,
+        "23": 0,
+        "24": 20385,
+        "25d": 50000,
+        "27a": 0,
+        "33": 50000,
+        "35a": 29615,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "NIIT-MAGI-200000",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 193000,
+        "11b": 200000,
+        "15": 184250,
+        "16": 20385,
+        "17": 0,
+        "23": 0,
+        "24": 20385,
+        "25d": 50000,
+        "27a": 0,
+        "33": 50000,
+        "35a": 29615,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "NIIT-MAGI-200001",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 193001,
+        "11b": 200001,
+        "15": 184251,
+        "16": 20385,
+        "17": 0,
+        "23": 0,
+        "24": 20385,
+        "25d": 50000,
+        "27a": 0,
+        "33": 50000,
+        "35a": 29615,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "NIIT-MAGI-200013",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 193013,
+        "11b": 200013,
+        "15": 184263,
+        "16": 20387,
+        "17": 0,
+        "23": 0,
+        "24": 20387,
+        "25d": 50000,
+        "27a": 0,
+        "33": 50000,
+        "35a": 29613,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "NIIT-MAGI-200014",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 193014,
+        "11b": 200014,
+        "15": 184264,
+        "16": 20387,
+        "17": 0,
+        "23": 1,
+        "24": 20388,
+        "25d": 50000,
+        "27a": 0,
+        "33": 50000,
+        "35a": 29612,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "twenty-taxable-533399",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 542149,
+        "11b": 549149,
+        "15": 533399,
+        "16": 72757,
+        "17": 0,
+        "23": 13268,
+        "24": 86025,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 33975,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "twenty-taxable-533400",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 542150,
+        "11b": 549150,
+        "15": 533400,
+        "16": 72758,
+        "17": 0,
+        "23": 13268,
+        "24": 86026,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 33974,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "twenty-taxable-533401",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 542151,
+        "11b": 549151,
+        "15": 533401,
+        "16": 72758,
+        "17": 0,
+        "23": 13268,
+        "24": 86026,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 33974,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "twenty-taxable-533404",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 542154,
+        "11b": 549154,
+        "15": 533404,
+        "16": 72759,
+        "17": 0,
+        "23": 13268,
+        "24": 86027,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 33973,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-626349",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 619349,
+        "11b": 626349,
+        "15": 610599,
+        "16": 88198,
+        "17": 0,
+        "23": 16201,
+        "24": 104399,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 145601,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-626350",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 619350,
+        "11b": 626350,
+        "15": 610600,
+        "16": 88198,
+        "17": 0,
+        "23": 16201,
+        "24": 104399,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 145601,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-626351",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 619351,
+        "11b": 626351,
+        "15": 610601,
+        "16": 88198,
+        "17": 0,
+        "23": 16201,
+        "24": 104399,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 145601,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-978749",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 971749,
+        "11b": 978749,
+        "15": 962999,
+        "16": 158678,
+        "17": 3570,
+        "23": 29592,
+        "24": 191840,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 58160,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-978750",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 971750,
+        "11b": 978750,
+        "15": 963000,
+        "16": 158678,
+        "17": 3570,
+        "23": 29593,
+        "24": 191841,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 58159,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "AMT-exemption-978751",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 971751,
+        "11b": 978751,
+        "15": 963001,
+        "16": 158678,
+        "17": 3570,
+        "23": 29593,
+        "24": 191841,
+        "25d": 250000,
+        "27a": 0,
+        "33": 250000,
+        "35a": 58159,
+        "37": 0
+      },
+      "passed": true
+    },
+    {
+      "name": "two-copies-sum-cents",
+      "actual": {
+        "2b": 1000,
+        "3b": 1000,
+        "7a": 600000,
+        "11b": 607000,
+        "15": 591250,
+        "16": 84328,
+        "17": 0,
+        "23": 15466,
+        "24": 99794,
+        "25d": 120000,
+        "27a": 0,
+        "33": 120000,
+        "35a": 20206,
+        "37": 0
+      },
+      "passed": true
+    }
+  ],
+  "existing_saved_returns_before": {
+    "returns": [
+      {
+        "id": "eacf55c4-07bb-49a1-9300-bdb2c5fa3c9c",
+        "name": "Synthetic Mac15 native dividend migration",
+        "updated_at": "2026-10-14T18:20:16.865257+00:00",
+        "summary": {
+          "agi": 2200,
+          "taxable_income": 0,
+          "total_tax": 0,
+          "payments": 201,
+          "refund": 201,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "0.00",
+          "schedules": [
+            "Form1040",
+            "ScheduleD/Form8949 worksheet",
+            "Form6251"
+          ]
+        }
+      },
+      {
+        "id": "5b2ba4d9-800b-4b75-a3aa-d356e562ec86",
+        "name": "Synthetic Mac14 native interest migration",
+        "updated_at": "2026-10-14T17:38:29.772864+00:00",
+        "summary": {
+          "agi": 141,
+          "taxable_income": 0,
+          "total_tax": 0,
+          "payments": 24,
+          "refund": 24,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "0.00",
+          "schedules": [
+            "Form1040"
+          ]
+        }
+      },
+      {
+        "id": "60efcc47-4136-4827-86b6-845f87e47523",
+        "name": "Synthetic Mac native TaxML acceptance",
+        "updated_at": "2026-10-14T15:19:18.200979+00:00",
+        "summary": {
+          "agi": 1235,
+          "taxable_income": 0,
+          "total_tax": 0,
+          "payments": 129,
+          "refund": 129,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "0.00",
+          "schedules": [
+            "Form1040"
+          ]
+        }
+      },
+      {
+        "id": "74a5f934-97bf-45df-985c-cfa064187856",
+        "name": "Synthetic 1099-DIV special AMT",
+        "updated_at": "2026-10-14T08:47:34.413488+00:00",
+        "summary": {
+          "agi": 65750,
+          "taxable_income": 50000,
+          "total_tax": 19037,
+          "payments": 30000,
+          "refund": 10963,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "28.95",
+          "schedules": [
+            "Form1040",
+            "ScheduleB",
+            "ScheduleD/Form8949 worksheet",
+            "Form6251"
+          ]
+        }
+      },
+      {
+        "id": "5a364ce8-c46c-4d15-a8fe-6d8a19ec992b",
+        "name": "Synthetic 1099-DIV special distributions",
+        "updated_at": "2026-10-14T07:38:25.750064+00:00",
+        "summary": {
+          "agi": 115750,
+          "taxable_income": 100000,
+          "total_tax": 16150,
+          "payments": 30000,
+          "refund": 13850,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "13.95",
+          "schedules": [
+            "Form1040",
+            "ScheduleB",
+            "ScheduleD/Form8949 worksheet"
+          ]
+        }
+      },
+      {
+        "id": "ee2b9fbe-3ea4-47a2-a3bb-6b56e9359629",
+        "name": "Synthetic native income replacement",
+        "updated_at": "2026-10-13T19:13:27.289580+00:00",
+        "summary": {
+          "agi": 61550,
+          "taxable_income": 45800,
+          "total_tax": 5261,
+          "payments": 6500,
+          "refund": 1239,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "8.55",
+          "schedules": [
+            "Form1040",
+            "ScheduleB"
+          ]
+        }
+      },
+      {
+        "id": "0ee87b83-0ed8-46c1-b3bd-996bfd7c681a",
+        "name": "Synthetic native masked review",
+        "updated_at": "2026-10-13T18:13:22.636816+00:00",
+        "summary": {
+          "agi": 60000,
+          "taxable_income": 44250,
+          "total_tax": 5075,
+          "payments": 6500,
+          "refund": 1425,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "8.46",
+          "schedules": [
+            "Form1040"
+          ]
+        }
+      },
+      {
+        "id": "775c48c6-29a9-429c-be99-01199d959edf",
+        "name": "Synthetic single W2 household",
+        "updated_at": "2026-10-13T05:31:09.311708+00:00",
+        "summary": {
+          "agi": 60100,
+          "taxable_income": 44350,
+          "total_tax": 5087,
+          "payments": 7000,
+          "refund": 1913,
+          "amount_owed": 0,
+          "deduction_type": "standard",
+          "effective_rate": "8.46",
+          "schedules": [
+            "Form1040"
+          ]
+        }
+      }
+    ]
+  },
+  "new_return_id": "018519ba-4392-47bb-b033-875ff47a4e3c",
+  "original_execution_count": 0
+}
