@@ -22,12 +22,32 @@ VERSION = server.VERSION
 class LocalService:
     def __init__(self,data_dir=None):
         directory = Path(data_dir or server.default_data_dir()).expanduser().resolve()
+        self._windows_instance_file = None
         # IndexedDB uses the full origin. Keep this directory's local origin
         # stable across relaunches so document blobs and workspace state survive.
-        port = 24000 + int(hashlib.sha256(str(directory).encode()).hexdigest()[:8],16) % 20000
+        port = 24000 + int(hashlib.sha256(os.path.normcase(str(directory)).encode()).hexdigest()[:8],16) % 20000
         try:
+            if sys.platform == 'win32':
+                # Windows allows HTTPServer's SO_REUSEADDR to bind an active
+                # listener twice. Hold a workspace lock and reject an existing
+                # listener before binding; keep normal immediate reopen working.
+                import msvcrt
+                directory.mkdir(parents=True,exist_ok=True)
+                self._windows_instance_file = (directory/'.desktop-instance.lock').open('a+b')
+                if self._windows_instance_file.seek(0,2) == 0:
+                    self._windows_instance_file.write(b'\0')
+                    self._windows_instance_file.flush()
+                self._windows_instance_file.seek(0)
+                msvcrt.locking(self._windows_instance_file.fileno(),msvcrt.LK_NBLCK,1)
+                with socket.socket() as probe:
+                    probe.settimeout(1)
+                    if probe.connect_ex(('127.0.0.1',port)) == 0:
+                        raise OSError('Workspace listener is already active')
             self.http = server.create_server(port=port,data_dir=directory)
         except OSError as error:
+            if self._windows_instance_file:
+                self._windows_instance_file.close()
+                self._windows_instance_file = None
             raise RuntimeError('This local workspace port is already in use. Close its other Tax Reborn window or the conflicting local service, then reopen. A different origin was not selected because it would hide saved documents.') from error
         self.thread = threading.Thread(target=self.http.serve_forever,kwargs={'poll_interval':0.05},daemon=True)
         self.lock = threading.Lock()
@@ -45,6 +65,9 @@ class LocalService:
             if self.thread.is_alive():self.http.shutdown()
             self.http.server_close()
             self.thread.join(timeout=5)
+            if self._windows_instance_file:
+                self._windows_instance_file.close()
+                self._windows_instance_file = None
             if self.thread.is_alive():raise RuntimeError('Local tax service did not shut down')
 
 
