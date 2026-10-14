@@ -1,0 +1,13 @@
+{
+  "source_commit": "654583e2f7c86f00adb0ae6908d473e6f885e9e9",
+  "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38637460932",
+  "generated_setup_and_portable_hashes_verified": true,
+  "portable_exe_matches_actual_installed_exe": true,
+  "actual_installer_success": true,
+  "frozen_checks_passed": 19,
+  "native_GUI_checks_passed": 21,
+  "native_custom_payment_PDF_verified": true,
+  "native_original_corrected_XML_readback": true,
+  "installed_worker_six_voucher_PDFs_verified": true,
+  "original_runtime_comparison": false
+}

@@ -1,0 +1,61 @@
+{
+  "version": "2026.10.15-preview.17",
+  "source_commit": "654583e2f7c86f00adb0ae6908d473e6f885e9e9",
+  "checked_at_utc": "2026-10-14T21:19:54.027293+00:00",
+  "published_as_GitHub_release": false,
+  "latest_public_installer_release": "v2026.10.14-preview.12",
+  "Windows": {
+    "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38637460932",
+    "current_state": "passed actual Setup/native GUI and downloaded artifact hash inspection",
+    "all_changed_flow_passed": true,
+    "CI_conclusion": "success",
+    "generated": true,
+    "installed_on_CI": true,
+    "frozen_checks": 19,
+    "native_GUI_checks": 21,
+    "installed_worker_voucher_PDFs": 6,
+    "portable_matches_installed_exe": true,
+    "artifacts": [
+      {
+        "file": "Tax-Reborn-2026.10.15-preview.17-Windows-x64-portable.zip",
+        "bytes": 70745703,
+        "sha256": "cb9b2bc5400117e6fb9f12800d1ecc4a1a8c2335319b3f2649014fbaed8403d6"
+      },
+      {
+        "file": "Tax-Reborn-2026.10.15-preview.17-Windows-x64-Setup.exe",
+        "bytes": 57757482,
+        "sha256": "e0855aa84e8024c40c8fad0280af94ae1112e6ad04c34ac6426768a9a6146d78"
+      }
+    ]
+  },
+  "Mac": {
+    "generated": true,
+    "native_App_run": true,
+    "frozen_checks_passed": 19,
+    "system_PDF_save_and_readback": true,
+    "normal_quit_relaunch": true,
+    "record_mutation_invalidates_payment_confirmation": true,
+    "prior_returns_retained": 9,
+    "tested_App_matches_DMG": true,
+    "architecture": "arm64",
+    "file": "Tax-Reborn-2026.10.15-preview.17-macOS-arm64.dmg",
+    "sha256": "02317ad04b3265b21d8231c6ff8b26512118a00840b4104f6d35764a85b5d28b"
+  },
+  "Android": {
+    "generated": true,
+    "retained_original_signer": true,
+    "actual_APK_assets": 120,
+    "119_prior_tested_runtime_assets_byte_identical": true,
+    "changed_frontend_source_matches_Mac_tested_JS": true,
+    "calculation_cases_passed": 18,
+    "voucher_cases_passed": 3,
+    "voucher_PDFs_passed": 6,
+    "installed_on_phone": false,
+    "native_UI_tested": false,
+    "APK_sha256": "92064e02d6f21318e5063280564b1c47ad63b2f264f258da8a361942c23da4f4"
+  },
+  "original_native_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "goal_complete": false
+}

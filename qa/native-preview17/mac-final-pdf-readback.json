@@ -1,0 +1,24 @@
+{
+  "canonical_and_widget_fields": 9,
+  "pages": 11,
+  "voucher_pages": 2,
+  "page_identities_verified": true,
+  "expected_fields": {
+    "f1040v_0.topmostSubform[0].Page1[0].f1_1[0]": "012345678",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_3[0]": "1000.27",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_5[0]": "Synthetic A",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_6[0]": "Taxpayer",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_9[0]": "100 Example Street",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_10[0]": "2B",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_11[0]": "Example City",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_12[0]": "IL",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_13[0]": "60000"
+  },
+  "file": "mac17-final-payment-voucher.pdf",
+  "source_commit": "693a02c",
+  "sha256": "1848289ecdff77e49f647a8d983920552b065434cb87b9b2714e1ce950f5bc01",
+  "form1040_line37": 2435,
+  "actual_native_system_save": true,
+  "synthetic_only": true,
+  "original_runtime_compared": false
+}

@@ -1,0 +1,20 @@
+{
+  "canonical_and_widget_fields": 9,
+  "pages": 11,
+  "voucher_pages": 2,
+  "page_identities_verified": true,
+  "expected_fields": {
+    "f1040v_0.topmostSubform[0].Page1[0].f1_1[0]": "012345678",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_3[0]": "1000.26",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_5[0]": "Synthetic A",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_6[0]": "Taxpayer",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_9[0]": "100 Example Street",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_10[0]": "2B",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_11[0]": "Example City",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_12[0]": "IL",
+    "f1040v_0.topmostSubform[0].Page1[0].f1_13[0]": "60000"
+  },
+  "actual_native_system_save": true,
+  "source_commit": "654583e",
+  "form1040_line37": 2435
+}

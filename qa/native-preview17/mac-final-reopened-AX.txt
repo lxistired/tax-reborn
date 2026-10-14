@@ -1,0 +1,128 @@
+Window: "Tax Reborn", App: Tax Reborn.
+0 standard window Tax Reborn, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Tax Reborn · 2025 Federal Return, URL: 127.0.0.1:27145/
+			3 container
+				4 button About Tax Reborn
+				5 text Synthetic Mac17 payment voucher Saved on this device
+				6 button My returns
+				7 button Documents
+				8 button Save
+				9 text Federal amount owed
+				10 text $2,435
+				11 text Worksheet ready · not filed
+			12 container Tax preparation steps
+				13 button 1 Personal info
+				14 button 2 Wages & Income
+				15 button 3 Deductions
+				16 button 4 State taxes
+				17 button 5 Review
+				18 button 6 Forms & Export
+			19 container
+				20 text YOUR 2025 RETURN PERSONAL INFO
+				21 button You & your household
+				22 button Dependents
+				23 button Eligibility & other situations
+				24 button Personal details for forms
+				25 text WAGES & INCOME
+				26 button Your income summary
+				27 button Wages & salaries · W-2
+				28 button Interest · 1099-INT
+				29 button Dividends · 1099-DIV
+				30 button Investment sales · 1099-B
+				31 button Prior-year carryovers
+				32 button Self-employment · Schedule C
+				33 button Retirement & Social Security
+				34 button Other income
+				35 button Rental Properties
+				36 button Capital Carryovers and Wash Sales
+				37 button Child Interest and Dividends — Form 8814
+				38 text DEDUCTIONS
+				39 button Adjustments to income
+				40 button Itemized deductions
+				41 button Additional deductions · Schedule 1-A
+				42 button Estimated payments
+				43 button Earned Income Credit
+				44 button Net Investment Income Tax
+				45 button Alternative Minimum Tax
+				46 button IRA Contributions
+				47 button Health Savings Accounts
+				48 button Education Credits
+				49 button Marketplace Health Insurance
+				50 button Child and Dependent Care
+				51 button Retirement Saver Credit
+				52 button Elderly or Disabled Credit
+				53 button Adoption Credit
+				54 button Home Energy Credits
+				55 button Foreign Tax Credit
+				56 button Estimated Tax Penalty
+				57 text STATE TAXES
+				58 button State return workspace
+				59 text REVIEW
+				60 button Check your return
+				61 button How we calculated your tax
+				62 text FORMS & EXPORT
+				63 button Form 1040 worksheet
+				64 button Schedules & workpapers
+				65 button Balance due & payment voucher
+				66 button Save & export
+				67 button Advanced input JSON
+				68 button Filing details
+				69 text  Local preparation Federal worksheet · no e-file
+			70 container
+				71 text 2025 FEDERAL · FORMS & EXPORT
+				72 heading Prepare your paper payment voucher., Value: 1
+					73 text Prepare your paper payment voucher.
+				74 text For a check or money order, choose the amount you will actually send. The official2025 Form1040-V includes mailing instructions.
+				75 heading Your balance due, Value: 2
+					76 text Your balance due
+				77 text Form1040 line37 amount owed: $2,435
+				78 text This amount excludes any separate line38 estimated-tax penalty. Your voucher amount stays separate from tax payments already reported on this return.
+				79 heading Payment method and amount, Value: 2
+					80 text Payment method and amount
+				81 text Balance-due payment method
+				82 pop up button Balance-due payment method, Value: Check or money order
+				83 text Form1040-V accompanies a check or money order. Electronic payments use separate IRS payment options.
+				84 text Paper voucher amount
+				85 pop up button Paper voucher amount, Value: Enter the amount of this check or money order
+				86 text Line37 excludes any separate line38 estimated-tax penalty. Enter a custom amount if your check or money order differs.
+				87 text Entered check or money-order amount
+				88 text field (settable) Entered check or money-order amount, Value: 1000.27
+				89 text USD, up to two decimal places. Used only for a custom paper amount; a single check must be less than100million dollars.
+				90 container
+					91 checkbox Value: 1, I verified the paper payment amount and method Confirm the amount you will actually send with this voucher. Preparing the voucher is separate from making the payment.
+					92 text I verified the paper payment amount and method Confirm the amount you will actually send with this voucher. Preparing the voucher is separate from making the payment.
+				93 heading Prepare the official forms, Value: 2
+					94 text Prepare the official forms
+				95 button Review paper checklist
+				96 button Download official packet
+				97 text Review the voucher and arrange the selected payment yourself. This local preparation has not made a payment or transmitted a return.
+			98 container Calculation summary
+				99 heading Your federal calculation, Value: 3
+					100 text Your federal calculation
+				101 text Calculated for tax year 2025
+				102 text Adjusted gross income
+				103 text $87,000
+				104 text Taxable income
+				105 text $71,250
+				106 text Total federal tax
+				107 text $3,435
+				108 text Payments & credits
+				109 text $1,000
+				110 text Amount owed
+				111 text $2,435
+				112 text No blocking issues in the supported worksheet scope. This return has not been filed.
+				113 button See calculation
+			114 container
+				115 button Back
+				116 text Forms & Export · Balance due & payment voucher
+				117 button Continue →
+		118 scroll bar (settable, float) 0
+	119 close button
+	120 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	121 minimize button
+	122 text Tax Reborn
+123 menu bar
+	124 Tax Reborn
+	125 Edit
+	126 View

@@ -1,0 +1,14 @@
+{
+  "actual_APK_assets": 120,
+  "source_commit": "654583e",
+  "retained_original_signing_certificate": true,
+  "APK_sha256": "92064e02d6f21318e5063280564b1c47ad63b2f264f258da8a361942c23da4f4",
+  "byte_identical_prior_tested_runtime_assets": 119,
+  "only_changed_asset": [
+    "app.js"
+  ],
+  "reused_actual_worker_acceptance": "3 voucher cases6 PDFs,18 NIIT/AMT cases2PDF and TaxML from byte-identical packaged runtime",
+  "new_confirmation_JS_matches_Mac_UI_tested_source": true,
+  "installed_on_phone": false,
+  "real_device_UI_tested": false
+}

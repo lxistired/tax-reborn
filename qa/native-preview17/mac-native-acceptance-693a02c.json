@@ -1,0 +1,20 @@
+{
+  "version": "2026.10.15-preview.17",
+  "source_commit": "693a02c",
+  "checked_at_utc": "2026-10-14T21:01:39.190899+00:00",
+  "synthetic_only": true,
+  "native_UI_payment_choices_tested": true,
+  "native_UI_amount_edit_confirmation_invalidation": true,
+  "native_UI_system_PDF_save_and_independent_fields": true,
+  "native_UI_normal_quit_relaunch": true,
+  "native_UI_reopened_balance_label_correct": true,
+  "prior9_synthetic_returns_retained": true,
+  "paper_payment_amount": "1000.27",
+  "form1040_line37": 2435,
+  "payment_initiated": false,
+  "stable_origin": "http://127.0.0.1:27145",
+  "App_matches_DMG": true,
+  "original_runtime_comparison": false,
+  "superseded_by_source_commit": "654583e",
+  "current_candidate_accepted": false
+}
