@@ -50,10 +50,28 @@ jobs:
           $s = Get-Content dist/windows/frozen-smoke-win32-x64.json -Raw | ConvertFrom-Json
           if (!$m.windows_installer_built -or !$s.frozen -or !$s.all_passed -or $s.passed -lt 10) { throw 'Native installer/frozen checks incomplete' }
           python -m pip freeze | Set-Content dist/windows/native-dependency-versions.txt
-      - name: Run actual native GUI, calculation, edit, save and relaunch
+      - name: Install actual Setup package and check the installed executable
         shell: pwsh
         run: |
-          ./scripts/windows_gui_smoke.ps1 -Executable "$PWD/dist/windows/Tax Reborn/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+          $out = "$PWD/dist/windows"
+          $setup = Get-ChildItem "$out/*-Windows-x64-Setup.exe"
+          if (@($setup).Count -ne 1) { throw 'Exactly one Windows installer is required' }
+          $installedDir = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview'
+          $arguments = '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR="' + $installedDir + '" /LOG="' + $out + '\installer-log.txt"'
+          $installation = Start-Process -FilePath $setup.FullName -ArgumentList $arguments -PassThru -Wait
+          if ($installation.ExitCode -ne 0) { throw 'Setup installation failed' }
+          $installedExe = Join-Path $installedDir 'Tax Reborn.exe'
+          if (!(Test-Path $installedExe)) { throw 'Setup did not install the application executable' }
+          $sourceHash = (Get-FileHash "$out/Tax Reborn/Tax Reborn.exe" -Algorithm SHA256).Hash
+          $installedHash = (Get-FileHash $installedExe -Algorithm SHA256).Hash
+          if ($sourceHash -ne $installedHash) { throw 'Installed executable differs from the tested build' }
+          & $installedExe --smoke-test --smoke-report "$out/installed-frozen-smoke-win32-x64.json"
+          if ($LASTEXITCODE -ne 0) { throw 'Installed application smoke failed' }
+          @{ setup_installed=$true; setup_exit_code=$installation.ExitCode; installed_executable_sha256=$installedHash; installed_executable_matches_build=$true; synthetic_only=$true } | ConvertTo-Json | Set-Content "$out/windows-installer-receipt.json"
+      - name: Run actual installed native GUI, calculation, edit, save and relaunch
+        shell: pwsh
+        run: |
+          ./scripts/windows_gui_smoke.ps1 -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
       - name: Upload real packages and verification evidence
         if: always()
         uses: actions/upload-artifact@v7
