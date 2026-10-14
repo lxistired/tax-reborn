@@ -24,7 +24,7 @@ from collect_licenses import collect_licenses
 
 ROOT = Path(__file__).resolve().parents[1]
 PRODUCT = 'Tax Reborn'
-VERSION = '2026.10.14-preview.8'
+VERSION = (ROOT / 'VERSION').read_text(encoding='utf-8').strip()
 BUNDLE_ID = 'io.github.lxistired.taxreborn'
 
 

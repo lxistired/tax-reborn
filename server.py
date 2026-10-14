@@ -20,8 +20,8 @@ import uuid
 import tax_engine
 import return_metadata
 
-VERSION = '2026.10.14-preview.7'
 BASE = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent)).resolve()
+VERSION = (BASE / 'VERSION').read_text(encoding='utf-8').strip()
 WEB = BASE / 'web'
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 MAX_BODY = 2_000_000
