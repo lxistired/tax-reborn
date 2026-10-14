@@ -1,0 +1,28 @@
+{
+  "version": "2026.10.14-preview.11",
+  "version_code": 2026101411,
+  "build_commit": "4ace6a2dc31fb0d2b6fe2b000daa7dfa5f93b25a",
+  "physical_device": "Redmi24115RA8EC/Android15",
+  "installed_update": true,
+  "same_original_signing_identity": true,
+  "installed_apk_sha256": "f201c76bbd92858c23df55c0a977e83a2754bbecb9f66aa64b498e846d25c681",
+  "installed_apk_matches_local": true,
+  "synthetic_only": true,
+  "previous_preview10_return_preserved_refund10963": true,
+  "real_native_gui": true,
+  "checks": {
+    "builtin_child_income_example_refund12484": true,
+    "native_interest2000_to0_refund12868": true,
+    "native_restore2000_refund12484": true,
+    "save_via_app_keyboard_shortcut": true,
+    "force_stop_cold_start_same_package": true,
+    "reopened_refund12484": true,
+    "official_paper_checklist_no_missing_facts_within_scope": true,
+    "system_DocumentsUI_Save_completed": true,
+    "exported_file_bytes1241709": true,
+    "remote_local_pdf_sha256_equal": true,
+    "independent_reopened_PDFfields_widgets_appearances": true
+  },
+  "camera_OCR_revalidated_in_this_release": false,
+  "usb_mirror": "Connection dropped during some actions; refreshed mirror and completed actual saved-file readback. LargeADB transfers were truncated; 38 bounded32768byte read chunks matched the separately computed phone SHA256."
+}

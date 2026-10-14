@@ -1,0 +1,10 @@
+{
+  "remote_file_bytes": 1241709,
+  "remote_file_sha256": "94920821e4c8bf33fdf57976af53bb8841cbeb5f932a34bce5498f464c5e3c66",
+  "local_file_bytes": 1241709,
+  "local_file_sha256": "94920821e4c8bf33fdf57976af53bb8841cbeb5f932a34bce5498f464c5e3c66",
+  "exact_match": true,
+  "bounded_chunks": 38,
+  "chunk_retries": 0,
+  "scope": "Readback of the explicitly exported synthetic TaxRebornPDF only"
+}

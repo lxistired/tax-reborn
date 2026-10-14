@@ -1,0 +1,65 @@
+{
+  "version": "2026.10.14-preview.11",
+  "build_commit": "4ace6a2dc31fb0d2b6fe2b000daa7dfa5f93b25a",
+  "identical_core_modules": 11,
+  "additional_assets": 3,
+  "windows_native_run": 38549694846,
+  "files": [
+    {
+      "file": "tax_engine.py",
+      "sha256": "b2152033b0043d8a6ca1e36353dd5c3eee83f5c6fdc0547f0c692870b115fe88"
+    },
+    {
+      "file": "tax_child_income.py",
+      "sha256": "8fe8f3e570c912d37924bc73fbc52753c85d0e679e1397e7837f7cb74047315f"
+    },
+    {
+      "file": "tax_special_capital.py",
+      "sha256": "c5b7bc5a746369f70fc67eca2b783e0f951a8536f44dc5e09607fe07ae5d08a6"
+    },
+    {
+      "file": "tax_extended.py",
+      "sha256": "3962303fc1d6443b770def376136491292be0b6ecd31619fbcd2100e661e50b3"
+    },
+    {
+      "file": "tax_credits.py",
+      "sha256": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786"
+    },
+    {
+      "file": "tax_additional.py",
+      "sha256": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5"
+    },
+    {
+      "file": "tax_longtail.py",
+      "sha256": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d"
+    },
+    {
+      "file": "tax_filing.py",
+      "sha256": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50"
+    },
+    {
+      "file": "forms.py",
+      "sha256": "2e0a1757637fa87bef22f46bd234bfd59e81a0c7ccaaa88ddc82d91249825349"
+    },
+    {
+      "file": "official_forms.py",
+      "sha256": "1cc52ed717347cf64edf97c76fe71834be7cd8ccd01fb0661c5594b184d7e914"
+    },
+    {
+      "file": "presentation_schema.py",
+      "sha256": "21f16383fe626c8ef5d1007971bd90bbdec5c0436b1c3696c8f481e4110ba76c"
+    },
+    {
+      "file": "web/offline-assets.json",
+      "sha256": "31e9865c0e6a696ec4c5d0474f235d1fdda97abae52c42e05c3b37805f79104b"
+    },
+    {
+      "file": "web/tax-worker.js",
+      "sha256": "5ca5481b09e78652727b623af99a4bbc36be16d427ee2591563962270a5c5e3d"
+    },
+    {
+      "file": "forms/f8814-2025.pdf",
+      "sha256": "d88849a33a390cee07375ec41d9e6936607a45e387e5e56b5017e9e6c5a0ba9f"
+    }
+  ]
+}

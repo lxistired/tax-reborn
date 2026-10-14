@@ -1,0 +1,19 @@
+{
+  "version": "2026.10.14-preview.11",
+  "build_commit": "4ace6a2dc31fb0d2b6fe2b000daa7dfa5f93b25a",
+  "real_native_gui": true,
+  "synthetic_only": true,
+  "checks": {
+    "open_builtin_child_example_refund12484": true,
+    "native_interest2000_to0_refund12868": true,
+    "native_restore2000_refund12484": true,
+    "save_return": true,
+    "normal_quit_relaunch_same_data_dir": true,
+    "reopened_refund12484_and_interest2000": true,
+    "system_SavePanel_saved_actual12page_packet": true,
+    "independent_reopened_PDFfields_widgets_appearances": true
+  },
+  "frozen_checks": 15,
+  "numeric_bundle_version": "2026.1014.11",
+  "notarized": false
+}
