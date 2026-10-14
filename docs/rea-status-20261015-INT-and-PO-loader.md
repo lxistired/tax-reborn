@@ -19,6 +19,6 @@ Original classes, attached-factory context, wrapper ownership, unknown compressi
 - Windows actual field cache/scalar setter/load lifecycle, array links and final container ownership. New worker freezes await independent root review.
 - Nonempty capital distributions through source-owned tax/AGI/EIC/refund dependencies, selected mapping association and DIV/TEMPGD record identity. Their recent finite worker probes await root review; original engine execution remains0.
 - Proxy/factory export, native postload cleanup, deferred history and typed LastValue effects. A requested write is separate from a successful validated write.
-- New preview.14 native packages and changed-flow platform acceptance; the physical phone connection remains absent. Public verified downloads remain preview.12 until new release gates pass.
+- Preview.14 Windows/Mac/Android candidates are built; Mac's new native workflow and Windows installation/runtime/regression passed. Android's actual package assets passed, but the physical phone connection remains absent. The remaining platform and publication gates are recorded in the candidate QA. Public verified downloads remain preview.12 until new release gates pass.
 
 No original program execution or real saved-return fixture was added. Full `.tax` compatibility and a complete TurboTax replacement are not claimed. No new social outreach was performed during this continuation.

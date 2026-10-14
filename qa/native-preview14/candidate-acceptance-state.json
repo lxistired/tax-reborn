@@ -1,0 +1,65 @@
+{
+  "checked_at_utc": "2026-10-14T17:44:34.122294+00:00",
+  "version": "2026.10.15-preview.14",
+  "compiled_source_commit": "90f7762e4dd2f300b7a966e6bd9389d1c0b1bd13",
+  "source_published": true,
+  "native_packages_published": false,
+  "Mac": {
+    "built": true,
+    "frozen_checks": 17,
+    "actual_1099_INT_changed_UI_flow_passed": true,
+    "system_original_and_corrected_XML_readback_passed": true,
+    "DMG_mounted_readonly_payload_files_matched": 396,
+    "previous_saved_records_preserved": true
+  },
+  "Windows": {
+    "built": true,
+    "CI_run": 38607283543,
+    "Setup_installed": true,
+    "installed_executable_matches_build": true,
+    "frozen_checks": 17,
+    "native_GUI_regression_checks": 17,
+    "installed_actual_Pyodide_taxml_interest_passed": true,
+    "new_1099_INT_native_file_picker_UI_separately_verified": false
+  },
+  "Android": {
+    "built": true,
+    "signer_matches_existing": true,
+    "signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+    "actual_APK_asset_Pyodide_interest_passed": true,
+    "new_package_installed_on_phone": false,
+    "real_phone_new_changed_flow_passed": false,
+    "blocker": "Phone absent from USB device list; existing physical-reconnection question pending."
+  },
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.14-Windows-x64-portable.zip",
+      "bytes": 70640375,
+      "sha256": "e374fb1b7e647f219d5bbb9749f9764a23adaa1b033bf11a8ebd145f925fa33d"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.14-Windows-x64-Setup.exe",
+      "bytes": 57667922,
+      "sha256": "d47dd3f2f651fdb6f932f5c29a834547e2c9ac7d7f35a6a8c6644f383a60d151"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.14-macOS-arm64.dmg",
+      "bytes": 71271585,
+      "sha256": "6349ac66b6ef2072a9dc45e2f027a8cfec95520d6dd27420c69ee77298ce6b7c"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.14-Android.apk",
+      "bytes": 49079775,
+      "sha256": "c05499d3544dd63539fa3f9d5c74afe2c0ed760304c6397ea0bc7317ee285ad0"
+    }
+  ],
+  "remaining_release_gate": [
+    "Restore physical phone connection and complete installed Android review/add/save/relaunch/system XML export.",
+    "Separate new Windows native TaxML chooser/review UI evidence from installed-module and baseline-GUI checks.",
+    "Source/release package upload and anonymous public download/hash readback."
+  ],
+  "original_TurboTax_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "goal_complete": false
+}

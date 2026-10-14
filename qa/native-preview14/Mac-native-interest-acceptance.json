@@ -1,0 +1,21 @@
+{
+  "version": "2026.10.15-preview.14",
+  "compiled_source_commit": "90f7762e4dd2f300b7a966e6bd9389d1c0b1bd13",
+  "runtime": "Actual packaged Cocoa/WKWebView UI and SQLite",
+  "actual_native_file_selection": true,
+  "actual_review_edit_add_save_quit_relaunch": true,
+  "reviewed_four_box_snapshot_reopened": {
+    "interest_income": "100.24",
+    "treasury_interest": "40.27",
+    "tax_exempt_interest": "12.34",
+    "federal_withholding": "24.45"
+  },
+  "original_attachment_after_quit_relaunch": true,
+  "system_saved_original_byte_identical": true,
+  "system_saved_corrected_amount_spans_only": true,
+  "original_source_sha256": "a7a280b6013339dd4757ce10c9f7c92ad811d3faa57737048db29ac224ee2b2f",
+  "refund": 24,
+  "can_prepare": false,
+  "original_program_acceptance_verified": false,
+  "original_TurboTax_execution": false
+}
