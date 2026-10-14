@@ -313,6 +313,36 @@ try {
     python scripts/verify_child_income_packet.py $childPdf | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-child-income-packet-readback.json')
     if($LASTEXITCODE -ne 0) { throw 'ActualnativeForm8814 packet failed independentparent/childfield,appearance,ratio andtaxcheckbox checks.' }
     $checks.Add('Actualnative12pagepacket savedto disk; separatechild8814, parent3a/3b/7a/8/16/24/35a, sourceannotations, splitratios and1040checkbox allverified.')
+    Click-Observed (Wait-Named 'My returns')
+    Click-Observed (Wait-Named 'Synthetic examples')
+    Click-Observed (Wait-Named 'Open birthday example')
+    Wait-Named '$1,649' 120 $false | Out-Null
+    Scroll-Top
+    $dob=Wait-Edit 'Date of birth (YYYY-MM-DD)'
+    $dob.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('2001-01-02{TAB}')
+    Wait-Named '$1,000' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Save')
+    Wait-Named 'Saved on this device' | Out-Null
+    Save-Screenshot 'windows-native-birthday-edited-1000.png'
+    $checks.Add('ActualDOB2001-01-01 to2001-01-02 changed EIC/refund649/1649 to0/1000 and saved.')
+    Close-App; Launch-App
+    Wait-Named '$1,000' 120 $false | Out-Null
+    Scroll-Top
+    $dob=Wait-Edit 'Date of birth (YYYY-MM-DD)'
+    if([string]($dob.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty)) -ne '2001-01-02') { throw 'ChangedDOB did not survive native restart.' }
+    $checks.Add('ActualchangedDOB andrefund1000 survived normalnativeclose/relaunch.')
+    Click-Observed (Wait-Named 'Save & export')
+    Click-Observed (Wait-Named 'Download PDF')
+    $birthdayPdf=Join-Path $OutputDir 'windows-native-birthday-DRAFT.pdf'
+    Save-Native-Export $birthdayPdf
+    $env:TAX_REBORN_SYNTHETIC_EXPORT=$birthdayPdf
+    python -c "import os,io; from pathlib import Path; from pypdf import PdfReader; f=PdfReader(io.BytesIO(Path(os.environ['TAX_REBORN_SYNTHETIC_EXPORT']).read_bytes())).get_fields(); p='topmostSubform[0].Page2[0].'; assert str(f[p+'f2_23[0]']['/V'])=='0'; assert str(f[p+'f2_31[0]']['/V'])=='1000'"
+    if($LASTEXITCODE -ne 0) { throw 'ActualnativeDOB PDF amount readback failed.' }
+    Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
+    $checks.Add('ActualnativeDOB draft PDF saved bysystemSaveAs andEIC0/refund1000 read back.')
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

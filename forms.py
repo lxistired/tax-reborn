@@ -10,6 +10,7 @@ from pathlib import Path
 import sys
 import textwrap
 import tax_filing
+import tax_extended
 
 from pypdf import PdfReader, PdfWriter, PageObject
 from pypdf.generic import (ArrayObject, DictionaryObject, DecodedStreamObject,
@@ -84,7 +85,7 @@ def filing_values(record):
     for owner,offset in [('taxpayer',0),('spouse',2)]:
         person=data.get(owner,{})
         active=owner=='taxpayer' or status=='mfj'
-        checked(p2,f'c2_{5+offset}[0]',active and person.get('age',0)>=65)
+        checked(p2,f'c2_{5+offset}[0]',active and tax_extended.senior_age65(person))
         checked(p2,f'c2_{6+offset}[0]',active and person.get('blind',False))
     checked(p2,'c2_9[0]',record['result'].get('schedules',{}).get('form_8814',{}).get('elected_child_count',0)>0)
     checked(p2,'c2_1[0]',data.get('taxpayer',{}).get('can_be_claimed',False))

@@ -1,0 +1,15 @@
+# Date-of-birth age rules — IRS tax year2025
+
+Optional `taxpayer.birth_date` / `spouse.birth_date` use strict YYYY-MM-DD dates. The profile calculates the corresponding IRS age; old age-only drafts keep their explicit age. Valid optional `death_date` must be in2025, have a birth date and not precede birth. Invalid dates fail before a calculation or durable save. Submitted source inputs remain preserved in JSON, while `person_age_rules` records the effective date and separate age decisions.
+
+The EIC without a qualifying child uses a different upper birthday rule from senior deductions. For a living taxpayer, IRS2025 [Publication596 Rule11](https://www.irs.gov/pub/irs-pdf/p596.pdf) permits birth dates1961-01-01 through2001-01-01 inclusive. Age25 is reached the day before the birthday; age65 is reached on the birthday itself. Either spouse can meet this test on a joint return. The published death examples use age at death.
+
+[Publication501](https://www.irs.gov/publications/p501) and [2025Form1040 instructions, Schedule1A](https://www.irs.gov/pub/irs-prior/i1040gi--2025.pdf) reach senior age65 the day before the birthday, including age at death. Thus a living person born1961-01-01 can meet both the no-child EIC age test and the age65 senior-deduction test in2025. The EIC and deduction still require their separate qualification confirmations. No-child EIC discovery, actual1040 line27a, payments and refund use the same date decision as the EIC worksheet. Actual1040 senior checkboxes and supporting Schedule1A amounts use the senior decision.
+
+The built-in **Synthetic EIC birthday boundary** example has wages10000 and withholding1000. Birth2001-01-01 yields EIC649/refund1649; changing to2001-01-02 yields EIC0/refund1000. This is an IRS-table synthetic case, not original TurboTax execution or personal tax advice. Birth1961-01-01 additionally qualifies for standard deduction17750 and the6000 senior deduction when all relevant confirmations are supplied.
+
+Tests cover the published DOB range, either joint spouse, death-day lower25/upper65/senior65 boundaries, valid leap dates, invalid dates, legacy drafts, no-child discovery, actual HTTP/SQLite save/reopen/backup and rejection of invalid updates, plus serialized IRS1040 monetary fields and senior checkbox. The same tests run in real Pyodide, with host-only HTTP checks kept separate.
+
+Dates do not complete an unsupported decedent return. Surviving-spouse/executor signatures, estate income allocation and final-return filing requirements remain a blocking issue. This change does not implement Form8615, full.tax import/write, original runtime/pixel parity, or electronic filing.
+
+REA supplied a source-grounded reason to split age policies: the selected native fallback date-to-EIC graph did not establish the current effective age producer. Independently verified Win field/cache/date bytes recover review-only typed dates; native DateOfBirth/DateOfDeath→effective PersonAge tracing continues. Proprietary source bytes, resources and decompiler output remain private. The app implements IRS rules independently and does not execute or ship original calculation programs.

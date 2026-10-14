@@ -176,6 +176,26 @@ def smoke_test(report_path=None):
             assert len(child_reader.pages)==12 and sum(page.get('/TaxRebornForm')=='f8814' for page in child_reader.pages)==1
             status,child_checklist=request('GET',f'/api/returns/{child_id}/paper-checklist.json');assert status==200 and child_checklist['paper_preparation_complete'] and not child_checklist['transmitted']
             checks.append('Packaged Form8814 allocations195/325/780 and135 extra tax persist; parenttax37516/refund12484, actual12page packet andsplitratio/1040checkbox verified')
+            birthday=next(row['data'] for row in tax_engine.demo_returns() if row['name']=='Synthetic EIC birthday boundary')
+            status,birthday_saved=request('POST','/api/returns',{'data':birthday});assert status==200
+            birthday_id=birthday_saved['id'];assert birthday_saved['result']['lines']['27a']==649 and birthday_saved['result']['lines']['35a']==1649
+            birthday['taxpayer']['birth_date']='2001-01-02'
+            status,birthday_changed=request('POST','/api/returns',{'id':birthday_id,'data':birthday});assert status==200
+            status,birthday_reopened=request('GET','/api/returns/'+birthday_id)
+            assert birthday_reopened['data']['taxpayer']['birth_date']=='2001-01-02' and birthday_reopened['result']['lines']['35a']==1000
+            birthday['taxpayer']['birth_date']='2001-02-29'
+            status,_=request('POST','/api/returns',{'id':birthday_id,'data':birthday});assert status==400
+            status,birthday_unchanged=request('GET','/api/returns/'+birthday_id);assert birthday_unchanged==birthday_reopened
+            checks.append('Packaged DOB2001-01-01 to01-02 changes EIC649 to0/refund1649 to1000; saveddate/result survive reopen and invalid date cannot overwrite')
+            birthday['taxpayer']['birth_date']='1961-01-01'
+            birthday['schedule_1a']['eligibility_confirmed']=True
+            birthday['elderly_credit'].update(enabled=True,eligibility_confirmed=True,nontaxable_benefits_confirmed=True)
+            status,older=request('POST','/api/returns',{'id':birthday_id,'data':birthday});assert status==200 and older['result']['can_prepare']
+            assert older['result']['lines']['27a']==649 and older['result']['lines']['12e']==17750 and older['result']['lines']['13b']==6000
+            status,older_pdf=request('GET',f'/api/returns/{birthday_id}/form1040.pdf');assert status==200
+            older_fields=PdfReader(io.BytesIO(older_pdf)).get_fields();pp='topmostSubform[0].Page2[0].'
+            assert str(older_fields[pp+'f2_23[0]']['/V'])=='649' and str(older_fields[pp+'f2_31[0]']['/V'])=='1649' and str(older_fields[pp+'c2_5[0]']['/V'])=='/1'
+            checks.append('Actualpackaged Jan1,1961 independently qualifies forEIC andage65 deductions; serialized1040 EIC/refund/seniorcheckbox verified')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

@@ -60,8 +60,8 @@ def age(value,path):
 def default_return():
     defaults = {
         'tax_year':2025,'name':'My 2025 Federal Return','filing_status':'single',
-        'taxpayer':{'age':35,'blind':False,'can_be_claimed':False,'valid_ssn':True,'valid_tin':True},
-        'spouse':{'age':35,'blind':False,'can_be_claimed':False,'valid_ssn':True,'valid_tin':True},
+        'taxpayer':{'age':35,'birth_date':'','death_date':'','blind':False,'can_be_claimed':False,'valid_ssn':True,'valid_tin':True},
+        'spouse':{'age':35,'birth_date':'','death_date':'','blind':False,'can_be_claimed':False,'valid_ssn':True,'valid_tin':True},
         'dependents':[],'w2':[],'interest':[],'dividends':[],'capital_gains':[],'businesses':[],
         'retirement':{'ira_gross':'0','ira_taxable':'0','pension_gross':'0','pension_taxable':'0','social_security':'0','federal_withholding':'0','taxable_amounts_confirmed':False,'qualified_plan_confirmed':False,'early_distribution_exception_confirmed':False,'ira_distribution_kind':'fully_taxable','ss_lump_sum_or_repayments':False},
         'other_income':{'unemployment':'0','other':'0','federal_withholding':'0','taxable_other_confirmed':False},
@@ -162,6 +162,10 @@ def capabilities():
     result['ui_fields']['dividends.*.collectibles_gain']={'type':'money','label':'1099-DIV Box2d collectibles28% gain'}
     result['ui_fields']['dividends.*.special_distribution_confirmed']={'type':'boolean','label':'1099-DIV special distribution amounts verified','help':'Verify original2a/2b/2d and noQSBS2c, nominee/other allocation, foreign stacking or other special-gain source. This profile supports distributions only; Trades/carryovers/4952 elections, foreign stacking and Marketplace repayments are outside this profile. Special-rate AMT requires the same capital basis for regular tax and AMT.'}
     result['coverage']['income_and_tax']['special_distribution_scope']='1099-DIV2a/2b/2d distributions only, fullScheduleD25%/28% TaxWorksheet. No trades/losses/carryovers/4952 election/QSBS/foreign stacking. FullForm6251 PartIII special-rate AMT supports identical regular/AMT capital basis and confirmed quantified ISO/private-activity-bond adjustments; differentcapitalbasis remains blocked.'
+    for owner in ('taxpayer','spouse'):
+        result['ui_fields'][owner+'.birth_date']={'type':'text','label':'Date of birth (YYYY-MM-DD)','help':'Optional. When entered, dates determine the IRS age and the separate EIC/senior birthday rules.'}
+        result['ui_fields'][owner+'.death_date']={'type':'text','label':'Date of death in2025 (YYYY-MM-DD)','help':'Leave empty for a living taxpayer. Age-based worksheets use age at death; final decedent filing requirements remain outside the supported paper packet.'}
+    result['implemented'].append('Date-of-birth EIC lower25/upper65 boundaries, joint-spouse age test and separate age65 deductions')
     return result
 
 
@@ -220,10 +224,17 @@ def normalized(data):
         for field,value in base[group].items():
             path=group+'.'+field
             if field=='age':age(value,path)
+            elif group in ('taxpayer','spouse') and field in ('birth_date','death_date'):
+                continue # Strict dates and cross-field conditions below.
             elif isinstance(template[field],bool):boolean(value,path)
             elif field=='ira_distribution_kind':
                 if value not in ('fully_taxable','qualified_rollover','other'):raise ValueError(path+' is invalid.')
             else:money(value,path)
+    for owner in ('taxpayer','spouse'):
+        rules=tax_extended.person_date_rules(base[owner],owner)
+        if rules['basis']=='birth_date':
+            base[owner]['age']=rules['day_before_birthday_age']
+            age(base[owner]['age'],owner+'.age')
     if not isinstance(base['unsupported'],list) or any(not isinstance(v,str) for v in base['unsupported']):raise ValueError('unsupported must be a list of situation names.')
     for key,value in base['identity'].items():
         if not isinstance(value,str) or len(value)>200:raise ValueError('identity.'+key+' must be text of at most200 characters.')
@@ -296,6 +307,9 @@ def _calculate(data):
     def has(group,field):return money(data[group][field])!=0
     for field in ('full_year_us_resident','filing_status_confirmed','all_income_reported'):
         require(elig[field],'Confirm eligibility.'+field+' before preparing a supported return.')
+    person_dates={owner:tax_extended.person_date_rules(data[owner],owner) for owner in ('taxpayer','spouse')}
+    if person['death_date'] or status=='mfj' and spouse['death_date']:
+        block('Final decedent return filing, surviving-spouse/executor signature and income allocation require separate review; date-based age worksheets alone do not complete that return.')
     if status=='hoh':require(elig['hoh_eligible'],'Head-of-household qualifying person, unmarried status and household cost tests must be confirmed.')
     if status=='qss':require(elig['qss_eligible'],'Qualifying-surviving-spouse eligibility must be confirmed, including death-year and child/home tests.')
     if status=='mfj' and (person['can_be_claimed'] or spouse['can_be_claimed']):block('MFJ dependent-standard-deduction exception is not implemented.')
@@ -409,7 +423,8 @@ def _calculate(data):
     if retirement['ss_lump_sum_or_repayments']:block('SocialSecurity lump-sum election, benefit repayments and pre-retirement injury exclusions require Pub915 worksheets not implemented here.')
     if has('other_income','other'):require(data['other_income']['taxable_other_confirmed'],'Confirm other income is ordinary fully taxable non-SE income with no special deductions/forms.')
     common_credit_context={'filing_status':status,'taxpayer_age':person['age'],'spouse_age':spouse['age']}
-    hsa_result=module_result('calculate_hsa',data['hsa'],common_credit_context);schedules['form_8889']=hsa_result
+    calendar_credit_context=dict(common_credit_context,**{owner+'_age':person_dates[owner]['calendar_age'] for owner in ('taxpayer','spouse')})
+    hsa_result=module_result('calculate_hsa',data['hsa'],calendar_credit_context);schedules['form_8889']=hsa_result
     hsa_ded=hsa_result.get('deduction',0);hsa_income=hsa_result.get('other_income',0);hsa_tax=hsa_result.get('additional_tax',0)
     lines['8']=sum(profits.values())+n('other_income','unemployment')+n('other_income','other')+hsa_income+child_election['parent_ordinary_other_income']
     for field in ('ira_deduction','hsa_deduction'):
@@ -426,7 +441,7 @@ def _calculate(data):
     prior_adjustments=half_se+health+hsa_ded
     other_total=disability_total+care_taxable+sum(lines[key] for key in ('1a','2b','3b','4b','5b','7a','8'))
     compensation={owner:care_by_owner[owner]+dollars(sum((money(row['wages']) for row in data['w2'] if row['owner']==owner),D('0')))+max(0,profits[owner]-schedule_se[owner]['line_13_deduction']) for owner in ('taxpayer','spouse')}
-    ira_context=dict(common_credit_context,compensation_taxpayer=compensation['taxpayer'],compensation_spouse=compensation['spouse'],magi_before_ira=other_total-prior_adjustments,full_year_us_resident=elig['full_year_us_resident'],taxpayer_can_be_claimed=person['can_be_claimed'],spouse_can_be_claimed=spouse['can_be_claimed'],social_security_received=lines['6a']>0,ira_distribution_received=lines['4a']>0)
+    ira_context=dict(calendar_credit_context,compensation_taxpayer=compensation['taxpayer'],compensation_spouse=compensation['spouse'],magi_before_ira=other_total-prior_adjustments,full_year_us_resident=elig['full_year_us_resident'],taxpayer_can_be_claimed=person['can_be_claimed'],spouse_can_be_claimed=spouse['can_be_claimed'],social_security_received=lines['6a']>0,ira_distribution_received=lines['4a']>0)
     ira_result=module_result('calculate_ira',data['ira'],ira_context);schedules['ira_contributions']=ira_result
     ira_ded=ira_result.get('deduction',0);prior_adjustments+=ira_ded
     # Official SS worksheet excludes student-loan line21 from its line6.
@@ -594,7 +609,7 @@ def _calculate(data):
     nchild=sum(1 for child in data['dependents'] if child['qualifying_child'])
     eitc_limits=([19104,50434,57310,61555] if status!='mfj' else [26214,57554,64430,68675])
     investment=lines['2a']+lines['2b']+lines['3b']+max(0,net)+child_election['eitc_other_investment_income']
-    age_eligible=nchild>0 or (25<=person['age']<65) or (status=='mfj' and 25<=spouse['age']<65)
+    age_eligible=nchild>0 or tax_extended.no_child_eic_age_eligible(person) or (status=='mfj' and tax_extended.no_child_eic_age_eligible(spouse))
     eitc_possible=0<earned_income<eitc_limits[min(nchild,3)] and age_eligible and not person['can_be_claimed'] and not(status=='mfj' and spouse['can_be_claimed']) and agi<eitc_limits[min(nchild,3)] and investment<=11950
     eic_investment=investment+max(0,rental['income'])
     eic=extended_result('schedule_eic',tax_extended.earned_income_credit(data['eitc'],{'filing_status':status,'taxpayer':person,'spouse':spouse,'dependents':data['dependents'],'earned_income':earned_income,'agi':agi,'investment_income':eic_investment},RULES))
@@ -644,7 +659,8 @@ def _calculate(data):
     if penalty_result['computed']:lines['38']=penalty_result['penalty']
     if lines['37']>=1000 and not penalty_result['computed']:warnings.append('An amount owed of1000 or more may require Form2210 estimated-tax penalty review. Complete actualdatedpayments andsafeharborfacts; line38 is notcomputed.')
     schedules['schedule_d']['carryout_worksheet']=tax_longtail.capital_carryout(short,long,max(0,-lines['7a']),agi-lines['14'])
-    warnings.append('IRS age is as of December31,2025; a January1 birthday reaches the relevant age on December31. User ages must reflect that rule.')
+    if any(not data[owner]['birth_date'] for owner in (('taxpayer','spouse') if status=='mfj' else ('taxpayer',))):
+        warnings.append('Without a birth date, explicit age remains the input. Enter birth dates to resolve January1 or death-date EIC and senior boundaries; EIC reaches65 on the birthday, while senior deductions reach65 the day before.')
     if blocks:warnings.append('Blocking issues remain. Displayed amounts cover only implemented worksheets; they are not a completed return and must not be submitted as final tax liability/refund.')
     forms=['Form1040']
     if lines['8'] or lines['10']:forms.append('Schedule1')
@@ -677,6 +693,7 @@ def _calculate(data):
     if data['estimated_penalty']['enabled']:forms.append('Form2210')
     return {'tax_year':2025,'currency':'USD','filing_status':status,'name':data['name'],'lines':lines,
             'identity':deepcopy(data['identity']),
+            'person_age_rules':person_dates,
             'filing_details':deepcopy(data['filing_details']),
             'additional_lines':{'1e':care_taxable,'1h':disability_total,'1z':lines['1a']+care_taxable+disability_total},
             'form_readiness':form_readiness(data),
@@ -745,4 +762,12 @@ def demo_returns():
     child['filing_details']['official_form_facts']['schedule_b'].update(foreign_account_answer='no',fbar_required_answer='no',foreign_trust_answer='no',facts_confirmed=True)
     child['notes']='Synthetic IRS TY2025 Form 8814 election only. Child full income is 4000 USD; parent allocated income is 1300 USD and additional child tax is 135 USD. Not an actual taxpayer return.'
     result.append(child)
+    birthday=base('Synthetic EIC birthday boundary')
+    birthday['taxpayer']['birth_date']='2001-01-01'
+    birthday['w2']=[dict(ROW_DEFAULTS['w2'],employer='Synthetic W2 payer',wages='10000',federal_withholding='1000',social_security_wages='10000',social_security_withholding='620',medicare_wages='10000',medicare_withholding='145')]
+    birthday['eitc'].update(claim=True,eligibility_confirmed=True,main_home_us_half_year=True,not_qualifying_child_of_another=True,no_disallowed_claim_history=True)
+    birthday['identity'].update(first_name='Synthetic',last_name='Birthday',ssn='123456789',address='100 Example Street',city='Example City',state='IL',zip='60000',phone='5550100100',occupation='Accountant')
+    birthday['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes')
+    birthday['notes']='Synthetic IRS TY2025 EIC Rule11 birthday boundary. Birth2001-01-01 is eligible;2001-01-02 is not. Wages10000 and withholding1000 produce649 EIC/1649refund if all other qualification facts apply. Not an actual taxpayer return.'
+    result.append(birthday)
     return [{'id':'synthetic-'+str(index+1),'name':data['name'],'data':data} for index,data in enumerate(result)]

@@ -43,6 +43,8 @@ No external CDN or runtime cloud calls. Persistent saves go to private user appl
 
 ## Extensions added2026-10-13
 
+Added2026-10-14: taxpayer/spouse have optional `birth_date` and `death_date` ISO strings (empty by default). Valid birth dates determine the effective IRS age during normalization and separate EIC/senior boundaries; input age remains the legacy fallback when DOB is empty. `person_age_rules` reports both ages and eligibility decisions. The server preserves submitted input records rather than silently rewriting source facts. Final decedent filing remains blocked. See [date rules and validation](person-dates-2025.md).
+
 `default_return` now contains identity, EITC, NIIT, AMT, rentals, IRA, HSA, education, Marketplace, care, saver and elderly-credit objects. UI fields and repeat-row templates are machine-readable in capabilities. These modules flow through the same actual computation and saved return; a disabled module with monetary data is blocked.
 
 The48 original1040 numeric keys remain stable. `additional_lines` holds `1e` taxable dependent-care benefits and `1z` total wages; the latter is1a+1e. `not_computed_lines` identifies uncomputed line38. `schedules` contains actual detailed workpapers. `form_readiness` independently reports missing identity and an incomplete filing packet. `can_prepare` reports supported arithmetic eligibility, not permission to sign/mail/file.

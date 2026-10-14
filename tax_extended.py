@@ -7,10 +7,50 @@ in blocking_issues rather than silently processed as ordinary transactions.
 from bisect import bisect_right
 from copy import deepcopy
 from decimal import Decimal, ROUND_HALF_UP, ROUND_FLOOR
+from datetime import date, timedelta
 import re
 
 D=Decimal
 URL='https://www.irs.gov/pub/irs-pdf/'
+
+
+def person_date_rules(person, path='taxpayer'):
+    """TY2025 age policies, independently written from IRS p596/p501/i1040gi.
+
+    An EIC upper age65 boundary uses the birthday itself. Standard/Schedule1A
+    age65 and EIC lower age25 use the day before the birthday. Never use one
+    generic age>=65 test for both. No DOB keeps the legacy explicit-age input.
+    """
+    dates={}
+    for key in ('birth_date','death_date'):
+        value=person.get(key,'')
+        if not isinstance(value,str) or value and not re.fullmatch(r'\d{4}-\d{2}-\d{2}',value):
+            raise ValueError(path+'.'+key+' must be an ISO date YYYY-MM-DD or an empty value.')
+        try:dates[key]=date.fromisoformat(value) if value else None
+        except ValueError:raise ValueError(path+'.'+key+' is not a valid calendar date.') from None
+    dob,death=dates['birth_date'],dates['death_date'];end=date(2025,12,31)
+    if death and death.year!=2025:raise ValueError(path+'.death_date must be in tax year2025; earlier spouse deaths do not belong in this field.')
+    if death and not dob:raise ValueError(path+'.birth_date is required to evaluate age at death.')
+    if dob and not date(1905,1,1)<=dob<=end:raise ValueError(path+'.birth_date must be between1905-01-01 and2025-12-31.')
+    if dob and death and death<dob:raise ValueError(path+'.death_date cannot precede birth_date.')
+    reference=death or end
+    def years(on):return on.year-dob.year-int((on.month,on.day)<(dob.month,dob.day))
+    calendar_age=years(reference) if dob else person.get('age',0)
+    # This reproduces the published Jan1 and day-before examples, including
+    # Gregorian leap-year validation, without parsing locale-dependent dates.
+    prior_day_age=years(reference+timedelta(days=1)) if dob else person.get('age',0)
+    return {'birth_date':person.get('birth_date',''),'death_date':person.get('death_date',''),
+            'reference_date':reference.isoformat(),'basis':'birth_date' if dob else 'explicit_age',
+            'calendar_age':calendar_age,'day_before_birthday_age':prior_day_age,
+            'senior_age65':prior_day_age>=65,
+            'no_child_eic_age_eligible':prior_day_age>=25 and calendar_age<65,
+            'sources':[URL+'p596.pdf',URL+'p501.pdf',URL+'i1040gi.pdf']}
+
+
+def senior_age65(person):return person_date_rules(person)['senior_age65']
+
+
+def no_child_eic_age_eligible(person):return person_date_rules(person)['no_child_eic_age_eligible']
 
 
 def whole(value):return int(D(value).quantize(D('1'),rounding=ROUND_HALF_UP))
@@ -188,7 +228,7 @@ def earned_income_credit(data,context,rules):
     n=min(3,len(children));output['qualifying_children']=n
     if status=='mfs' and (not n or not data['mfs_qualifying_separation']):output['ineligible_reasons'].append('MFS requires a qualifying child and statutory living-apart/legal-separation exception.')
     if n==0:
-        if not (25<=persons[0]['age']<65 or status=='mfj' and 25<=persons[1]['age']<65):output['ineligible_reasons'].append('No-child EITC age25-through64 test is not met.')
+        if not (no_child_eic_age_eligible(persons[0]) or status=='mfj' and no_child_eic_age_eligible(persons[1])):output['ineligible_reasons'].append('No-child EITC age25-through64 test is not met.')
         if not data['main_home_us_half_year']:output['ineligible_reasons'].append('No-child EITC principal home must be in the US more than half the year.')
     if context['investment_income']>11950:output['ineligible_reasons'].append('2025 investment income exceeds11950.')
     family='mfj' if status=='mfj' else 'single';limit=rules['eic_limits'][family][n]

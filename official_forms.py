@@ -14,6 +14,7 @@ from copy import deepcopy
 from decimal import Decimal, ROUND_HALF_UP, ROUND_CEILING
 from datetime import date
 from pathlib import Path
+import tax_extended
 from pypdf import PdfReader, PdfWriter, PageObject
 from pypdf.generic import DictionaryObject, NameObject, DecodedStreamObject, TextStringObject, NumberObject
 
@@ -540,7 +541,7 @@ def official_form_specs(record):
             else:gaps.append('Schedule1A verified car VIN/interest allocation must reconcile entered personal interest')
         if onea['senior_deduction']:
             ceiling=150000 if status=='mfj' else 75000;extra=max(0,magi-ceiling)
-            vals.update({'31':magi,'32':ceiling,'33':extra,'34':whole(D(extra)*D('.06')),'35':onea['senior_each'],'36a':onea['senior_each'] if data['taxpayer']['age']>=65 and data['taxpayer']['valid_ssn'] else 0,'36b':onea['senior_each'] if status=='mfj' and data['spouse']['age']>=65 and data['spouse']['valid_ssn'] else 0,'37':onea['senior_deduction']})
+            vals.update({'31':magi,'32':ceiling,'33':extra,'34':whole(D(extra)*D('.06')),'35':onea['senior_each'],'36a':onea['senior_each'] if tax_extended.senior_age65(data['taxpayer']) and data['taxpayer']['valid_ssn'] else 0,'36b':onea['senior_each'] if status=='mfj' and tax_extended.senior_age65(data['spouse']) and data['spouse']['valid_ssn'] else 0,'37':onea['senior_deduction']})
         add('f1040s1a',vals,fields,gaps)
     rentals=data.get('rentals',[])
     if rentals:
