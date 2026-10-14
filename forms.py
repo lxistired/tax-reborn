@@ -277,6 +277,13 @@ def paper_packet_pdf(record):
            'Filled supporting forms: '+(', '.join(f['id'] for f in support['forms']) or 'None required by these entered amounts.'),
            'Penalty applicability review: '+('required; line38 was not computed.' if status['penalty_applicability_review_required'] else 'computed from entered penalty facts.'),
            'Missing facts / blocked situations:']+(status['missing_facts'] or ['None identified within the supported paper-preparation scope.'])
+    special=record['result'].get('schedules',{}).get('schedule_d_tax_worksheet')
+    if special:
+        lines+=['', 'TY2025 SCHEDULE D TAX WORKSHEET - INDEPENDENT CALCULATION WORKPAPER',
+                'Source: https://www.irs.gov/pub/irs-pdf/i1040sd.pdf, pages15-16.',
+                'Retain this workpaper with the source1099-DIV statements. It supports the filled ScheduleD18/19 and Form1040line16.']
+        lines+=['Worksheet line '+str(number)+': $'+format(special['form_lines'][str(number)],',') for number in range(1,48)]
+        lines+=['Special-rate distribution calculation is complete only within the stated supported profile; missing facts and blocked AMT are listed above.']
     cover_pages=[]
     for offset in range(len(lines)-1,-1,-42):
         start=max(0,offset-41);cover_pages.append(_text_page(lines[start:offset+1],title='PAPER PREPARATION CHECKLIST'))

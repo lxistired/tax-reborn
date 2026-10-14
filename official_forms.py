@@ -315,7 +315,12 @@ def official_form_specs(record):
         if not row.get('line_4a_net_earnings'):continue
         add('f1040sse',{'1a':0,'1b':0,'2':row['net_profit'],'3':row['net_profit'],'4a':row['line_4a_net_earnings'],'4b':0,'4c':row['line_4a_net_earnings'],'5a':0,'5b':0,'6':row['line_4a_net_earnings'],'8a':row['w2_ss_wages_tips'],'8b':0,'8c':0,'8d':row['w2_ss_wages_tips'],'9':max(0,176100-row['w2_ss_wages_tips']),'10':row['line_10_ss_tax'],'11':row['line_11_medicare_tax'],'12':row['line_12_tax'],'13':row['line_13_deduction']},owner=owner)
     if data.get('capital_gains') or total(data.get('dividends',[]),'capital_gain_distributions') or any(D(data.get('carryovers',{}).get(k,'0')) for k in ('capital_short','capital_long')):
-        d=s['schedule_d'];lines={'6':whole(data['carryovers']['capital_short']),'7':d['net_short_term'],'13':total(data.get('dividends',[]),'capital_gain_distributions'),'14':whole(data['carryovers']['capital_long']),'15':d['net_long_term'],'16':d['net_gain_loss'],'18':0,'19':0};dfields={};gaps=[];groups={}
+        d=s['schedule_d'];lines={'6':whole(data['carryovers']['capital_short']),'7':d['net_short_term'],'13':total(data.get('dividends',[]),'capital_gain_distributions'),'14':whole(data['carryovers']['capital_long']),'15':d['net_long_term'],'16':d['net_gain_loss'],'18':d.get('collectibles_28_gain',0),'19':d.get('unrecaptured_1250_gain',0)};dfields={};gaps=[];groups={}
+        if d.get('special_distribution_only') and lines['15']>0 and lines['16']>0:
+            # Official TY2025 ScheduleD PartIII: both gains -> line17Yes;
+            # nonzero18/19 -> line20No, ScheduleDTaxWorksheet, skip21/22.
+            dfields.update(_checkbox('f1040sd','c2_1[0]',page=2))
+            dfields.update(_checkbox('f1040sd','c2_2[1]' if lines['18'] or lines['19'] else 'c2_2[0]',page=2))
         if d['net_gain_loss']<0:lines['21']=abs(d['income_line_7a'])
         details=facts.get('capital_gains',[])
         for index,transaction in enumerate(data.get('capital_gains',[])):

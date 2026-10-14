@@ -1,0 +1,19 @@
+{
+  "synthetic_only": true,
+  "browser_actual_gui": true,
+  "before_refund": 13780,
+  "after_refund": 13850,
+  "Box2b_before": 10000,
+  "Box2b_after": 9000,
+  "review_invalidated_on_edit": true,
+  "save_and_reload_retained": true,
+  "actual_GUI_packet_export": true,
+  "ScheduleD18": 10000,
+  "ScheduleD19": 9000,
+  "worksheet47": 16150,
+  "pages": 7,
+  "pdf_sha256": "e712ee92865a3d672631e938ae052bb22d2df8e50635c19cc1513bc2e0856071",
+  "original_vendor_runtime_executions": 0,
+  "filing_packet_ready": false,
+  "transmitted": false
+}

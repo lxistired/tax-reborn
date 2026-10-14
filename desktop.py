@@ -87,7 +87,7 @@ def smoke_test(report_path=None):
             kind = response.getheader('Content-Type','');conn.close()
             return status,json.loads(raw) if 'json' in kind else raw
         try:
-            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_extended.py','/tax_credits.py','/tax_longtail.py','/tax_filing.py','/official_forms.py','/native-file-bridge.js','/forms/paper-fact-schema-2025.json','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
+            for path in ('/','/app.js','/style.css','/local-api.js','/tax-worker.js','/tax_engine.py','/tax_special_capital.py','/tax_extended.py','/tax_credits.py','/tax_longtail.py','/tax_filing.py','/official_forms.py','/native-file-bridge.js','/forms/paper-fact-schema-2025.json','/state-worker.js','/state-workspace.js','/document-import.js','/rules_2025.json','/forms/f1040-2025.pdf','/vendor/pyodide/pyodide.asm.wasm'):
                 status,raw=request('GET',path);assert status==200 and raw
             checks.append('Bundled desktop/mobile assets and IRS2025 template load')
             status,contract=request('GET','/api/schema');assert status==200 and contract['capabilities']['tax_year']==2025
@@ -133,6 +133,20 @@ def smoke_test(report_path=None):
             status,_=request('GET','/api/returns',host='foreign.example');assert status==400
             status,_=request('GET','/../server.py');assert status==404
             checks.append('Foreign Origin, DNS-rebinding Host and file traversal rejected')
+            import tax_engine
+            special=next(row['data'] for row in tax_engine.demo_returns() if row['name']=='Synthetic 1099-DIV special distributions')
+            status,special_saved=request('POST','/api/returns',{'data':special});assert status==200
+            special_id=special_saved['id'];status,special_reopened=request('GET','/api/returns/'+special_id)
+            assert status==200 and special_reopened['result']['can_prepare']
+            assert special_reopened['result']['lines']['16']==16220 and special_reopened['result']['summary']['refund']==13780
+            assert special_reopened['data']['dividends'][0]['unrecaptured_1250_gain']=='10000'
+            status,special_packet=request('GET',f'/api/returns/{special_id}/paper-packet.pdf');assert status==200
+            special_reader=PdfReader(io.BytesIO(special_packet));special_fields=special_reader.get_fields();prefix='f1040sd_1.topmostSubform[0].Page2[0].'
+            assert str(special_fields[prefix+'f2_2[0]']['/V'])=='10000' and str(special_fields[prefix+'f2_3[0]']['/V'])=='10000'
+            assert 'Worksheet line 47: $16,220' in '\n'.join(page.extract_text() for page in special_reader.pages)
+            status,special_checklist=request('GET',f'/api/returns/{special_id}/paper-checklist.json')
+            assert status==200 and special_checklist['paper_preparation_complete'] and not special_checklist['transmitted']
+            checks.append('Packaged1099-DIV2a/2b/2d save/reopen, tax16220/refund13780, actualScheduleD18/19 and full47line workpaper read back')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

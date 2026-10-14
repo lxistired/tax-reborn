@@ -1,0 +1,34 @@
+[
+  {
+    "row": {
+      "payer": "Synthetic payer",
+      "ordinary": "200"
+    },
+    "canonical": "{\"capital_gain_distributions\":\"0.00\",\"federal_withholding\":\"0.00\",\"ordinary\":\"200.00\",\"payer\":\"Synthetic payer\",\"qualified\":\"0.00\"}",
+    "fingerprint": "584a794d1a868c7c22bdaa8f94b11446be89a0635beb2664211810b75691446d"
+  },
+  {
+    "row": {
+      "payer": "Synthetic special",
+      "ordinary": "5000",
+      "qualified": "5000",
+      "capital_gain_distributions": "25000",
+      "unrecaptured_1250_gain": "10000",
+      "collectibles_gain": "10000",
+      "special_distribution_confirmed": true
+    },
+    "canonical": "{\"capital_gain_distributions\":\"25000.00\",\"collectibles_gain\":\"10000.00\",\"federal_withholding\":\"0.00\",\"ordinary\":\"5000.00\",\"payer\":\"Synthetic special\",\"qualified\":\"5000.00\",\"special_distribution_confirmed\":true,\"unrecaptured_1250_gain\":\"10000.00\"}",
+    "fingerprint": "661f8d7f85e3b69f118ac8bed2556dcc5359eb05ab04ea83d6bedeca6d065a84"
+  },
+  {
+    "row": {
+      "payer": "金额小数",
+      "capital_gain_distributions": "10000.49",
+      "unrecaptured_1250_gain": "4000.25",
+      "collectibles_gain": "2000.25",
+      "special_distribution_confirmed": false
+    },
+    "canonical": "{\"capital_gain_distributions\":\"10000.49\",\"collectibles_gain\":\"2000.25\",\"federal_withholding\":\"0.00\",\"ordinary\":\"0.00\",\"payer\":\"金额小数\",\"qualified\":\"0.00\",\"unrecaptured_1250_gain\":\"4000.25\"}",
+    "fingerprint": "cda8fb55f04ff1aa9edacebdc27a9211ec28f067d533ac0906a204208b86a055"
+  }
+]

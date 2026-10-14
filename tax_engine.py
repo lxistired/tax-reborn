@@ -19,6 +19,7 @@ import tax_credits
 import tax_additional
 import tax_longtail
 import tax_filing
+import tax_special_capital
 
 RULES = json.loads(Path(__file__).with_name('rules_2025.json').read_text(encoding='utf-8'))
 STATUSES = ('single','mfj','mfs','hoh','qss')
@@ -88,6 +89,7 @@ ROW_DEFAULTS = {
  'capital_gains':{'description':'','term':'long','proceeds':'0','cost_basis':'0','adjustment':'0','special_rate':False},
  'businesses':{'name':'','owner':'taxpayer','revenue':'0','expenses':'0','active_business':False,'expenses_eligible':False,'at_risk_confirmed':False,'qbi_eligible':False},
  'dependents':{'name':'','age':8,'qualifying_child':True,'valid_ssn':True,'valid_tin':True,'eligibility_confirmed':False}}
+ROW_DEFAULTS['dividends'].update(unrecaptured_1250_gain='0',collectibles_gain='0',special_distribution_confirmed=False)
 ROW_DEFAULTS['dependents'].update(tax_extended.DEPENDENT_FIELDS)
 ROW_DEFAULTS['rentals']=deepcopy(tax_extended.RENTAL_TEMPLATE)
 ROW_DEFAULTS['capital_gains'].update(wash_sale_disallowed='0',wash_sale_confirmed=False,adjustment_code='')
@@ -130,7 +132,7 @@ def capabilities():
     result['ui_modules'].append({'id':'filing_details','label':'Filing details','step':'forms','description':'Actual Form1040 and supporting-form facts, directdeposit/designee choices and a paper-signature checklist. No transmission or automatic signature.'})
     result['implemented']+=['Ordinarysecurities verifiedshort/long capital loss carry-in and carryout worksheet; verified8949W wash-sale disallowedloss','2025Form8839 domestic/foreign/specialneeds adoption credit and5000-perchild refundableportion, FIFOunexpirednonrefundablecarryovers','2025Form5695 cleanenergy andhomeimprovement caps/QMID/carry-in andcarry-out with8812WorksheetB creditordering','Form2210 regularinstallment penalty usingactualdatedpayments/withholding andofficial2025-2026IRS periods','PassiveFTC qualifiedpayee300/600simplifiedelection andlimitedordinarypassive1116standarddeduction allocation']
     result['unsupported']=[v for v in result['unsupported'] if v not in ('adoption/energy/foreign credits','estimated tax penalty Form2210','capital/QBI/charity carry-ins','capital carry-in/special28%/1250 gains/wash-sale/QOF/options/crypto/business property')]
-    result['unsupported']+=['Form2210 ScheduleAI/waiver/disaster/farmer/earlyfiling exception','Adoption employerbenefits8839PartIII andmissingTINstatement','ForeignFTC AMT/preferentialgain/loss/high-taxkickout/itemized/treaty/carryover/redetermination cases','Energy jointoccupant/business/condominium/multiyear enablingproperty allocations','Capital special28%/1250/QOF/options/crypto/businessproperty andautomaticcrossaccountwash-sale discovery','QBI/charity carry-ins']
+    result['unsupported']+=['Form2210 ScheduleAI/waiver/disaster/farmer/earlyfiling exception','Adoption employerbenefits8839PartIII andmissingTINstatement','ForeignFTC AMT/preferentialgain/loss/high-taxkickout/itemized/treaty/carryover/redetermination cases','Energy jointoccupant/business/condominium/multiyear enablingproperty allocations','Capital special28%/1250 trades/QOF/options/crypto/businessproperty andautomaticcrossaccountwash-sale discovery','QBI/charity carry-ins']
     result['coverage']={
       'income_and_tax':{'implemented':'W2/1099INT/1099DIV, ordinary securities gains/losses, payer-taxable retirement and SocialSecurity, exactIRS tax table and qualified-gain worksheet','sources':['i1040gi','i1040tt','i1040sd'],'limits':'No foreign/nonresident/territory returns, special capital rates, Form8615, prior capital carry-in or retirement basis conversion calculations.'},
       'service_business':{'implemented':'Active cash-service ScheduleC, per-ownerSE cap, deductiblehalfSE, eligibleSEhealth and simplified199A','sources':['i1040sc','f1040sse','f8995'],'limits':'No inventory, new depreciation4562, employees/payroll, home-office8829, farm, partnerships/K1, optionalSE or8995A above threshold.'},
@@ -140,7 +142,7 @@ def capabilities():
       'rentals':{'implemented':'Ordinarypassive US real-estate ScheduleE, verifiedexpenses/depreciation, passive netting,25000/MFS12500 allowance, MAGIphaseout and property carryout','sources':['i1040se','f8582','i8582'],'limits':'No personal-use/vacation-home/self-rental/substantial-services/real-estate-professional/disposal/at-risk computation. Verifiedexistingdepreciation required; priorlossNIIT/QBIcharacter requires extra records.'},
       'ira_hsa_education_marketplace':{'implemented':credit_capabilities['implemented'],'sources':credit_capabilities['sources'],'limits':credit_capabilities['unsupported']},
       'filing_and_states':{'implemented':'Local identity draft, presence checklist and calculatedfederalworkpapers','sources':['i1040gi'],'limits':'No state/local returns, complete signed filing packet, electronicfiling or2210 penalty. Identity presence does not authenticate identity.'}}
-    result['coverage']['income_and_tax']['limits']='No foreign/nonresident/territory returns, specialcapital rates, Form8615 orretirementbasis/conversion calculations. Verified ordinarysecurities carry-in/carryout andW adjustment supported; automaticcrossaccountlot reconstruction isnotperformed.'
+    result['coverage']['income_and_tax']['limits']='No foreign/nonresident/territory returns, special-rate capital trades, Form8615 orretirementbasis/conversion calculations. Verified1099-DIV2a/2b/2d distributions andordinarysecurities carry-in/carryout/W adjustment supported. Special-rate distribution/trade/carryover netting andautomaticcrossaccountlot reconstruction are not performed.'
     result['coverage']['family_credits']['implemented']+='; Form8839domestic/foreign/specialneeds credit withnew5000-perchildrefund andunexpiredFIFOcarryovers;8812WorksheetB ordering'
     result['coverage']['family_credits']['limits']='ExistingCare/Saver/EIC exceptions remain; adoption employerbenefits/absentTIN statement andexpense-age exceptions needseparate records.'
     result['coverage']['investment_taxes']['implemented']+='; passiveFTC qualifiedpayee300/600election andordinarypassive1116 standardallocation'
@@ -148,6 +150,12 @@ def capabilities():
     result['coverage']['energy']={'implemented':'Form5695cleanenergy30percent/fuelcellcapacity/carry-in-out andhomeimprovementcategory/annualcaps/QMID, prioritywithadoption/CTC','sources':['f5695','i5695','i1040s8'],'limits':'Nojointoccupant/business/condominiumallocation ormultiyear enablingproperty. Actualqualification/manufacturercertification andneteligiblecosts required.'}
     result['coverage']['estimated_penalty']={'implemented':'Form2210 regular-installment safeharbor,datedestimatedpayments/withholding/priorcredit/balancepayment and365day7percent periods','sources':['f2210','i2210'],'limits':'NoScheduleAI/disasterwaiver/farmer/earlyfilingexception. Line38 isseparatefromline37;payment_summary exposes balancewithpenalty.'}
     result['coverage']['filing_and_states']['limits']='Electronicfiling/automaticpaper signature notimplemented. Detailedidentity/directdeposit/designee andactualsupportingformfacts are localdraft inputs; presencechecks donot authenticateidentity. Supportingpaperpacket completion isreportedseparately bytheformbuilder.'
+    result['implemented']+=['Verified1099-DIV boxes2a/2b/2d and ScheduleD25%/28% TaxWorksheet']
+    result['ui_fields']['dividends.*.capital_gain_distributions']={'type':'money','label':'1099-DIV Box2a total capital gain distributions','help':'Includes Box2b and Box2d; do not add those components to Box2a again.'}
+    result['ui_fields']['dividends.*.unrecaptured_1250_gain']={'type':'money','label':'1099-DIV Box2b unrecaptured Section1250 gain'}
+    result['ui_fields']['dividends.*.collectibles_gain']={'type':'money','label':'1099-DIV Box2d collectibles28% gain'}
+    result['ui_fields']['dividends.*.special_distribution_confirmed']={'type':'boolean','label':'1099-DIV special distribution amounts verified','help':'Verify original2a/2b/2d and noQSBS2c, nominee/other allocation, foreign stacking or other special-gain source. This profile supports distributions only; trades/carryovers/4952 election and positive-AMT specialrate calculations remain blocked.'}
+    result['coverage']['income_and_tax']['special_distribution_scope']='1099-DIV2a/2b/2d distributions only, fullScheduleD25%/28% TaxWorksheet. No trades/losses/carryovers/4952 election/QSBS/foreign stacking. AMT can be finalized only when an independently computed ordinary-rate TMT upper bound proves zero liability.'
     return result
 
 
@@ -298,6 +306,16 @@ def _calculate(data):
     if lines['3a']:require(elig['qualified_dividends_eligible'],'Qualified dividends require payer qualification, holding-period/no-related-payment tests and no investment-interest election; confirm eligibility.')
     for row in data['dividends']:
         if money(row['qualified'])>money(row['ordinary']):raise ValueError('Qualified dividends cannot exceed ordinary dividends from the same payer.')
+    special_1250=total('dividends','unrecaptured_1250_gain');special_28=total('dividends','collectibles_gain')
+    special_requested=any(money(row['unrecaptured_1250_gain']) or money(row['collectibles_gain']) for row in data['dividends'])
+    for row in data['dividends']:
+        components=money(row['unrecaptured_1250_gain'])+money(row['collectibles_gain'])
+        if components>money(row['capital_gain_distributions']):raise ValueError('1099-DIV boxes2b+2d cannot exceed Box2a total capital gain distributions.')
+        if components:require(row['special_distribution_confirmed'],'Verify original1099-DIV boxes2a/2b/2d and confirm noQSBS/nominee/other special-gain allocations before preparing this distribution worksheet.')
+    if special_requested:
+        require(not data['capital_gains'] and not has('carryovers','capital_short') and not has('carryovers','capital_long'),'Special-rate1099-DIV distributions combined with securities trades/losses/carryovers require separate ScheduleD netting and are not supported by this profile.')
+        require(not has('itemized','investment_interest') and not has('niit','investment_interest_carryover'),'Special-rate distributions with Form4952 investment-interest deductions/election/carryover require separate allocation.')
+        require(not data['foreign_credit']['enabled'],'Special-rate distributions with foreign-tax credits/foreign income stacking require separate allocation.')
     short=D('0');long=D('0')
     for row in data['capital_gains']:
         ordinary_adjustment=money(row['adjustment'],signed=True);wash=money(row['wash_sale_disallowed'])
@@ -481,9 +499,24 @@ def _calculate(data):
     lines['13a']=qbi_ded;schedules['form_8995']={'qbi':qbi,'taxable_before_qbi':before_qbi,'net_capital_gain_plus_qualified_dividends':preferred,'income_limit':dollars(D(max(0,before_qbi-preferred))*D('.20')),'deduction':qbi_ded,'current_qbi_loss_for_future_review':max(0,-qbi)}
     lines['14']=lines['12e']+lines['13a']+lines['13b'];lines['15']=max(0,agi-lines['14'])
     lines['16'],qualified_worksheet=qualified_tax(lines['15'],preferred,status)
-    schedules['qualified_dividends_capital_gain_worksheet']=qualified_worksheet
-    log('Form1040 line16 income tax',lines['16'],'i1040gi' if preferred else 'i1040tt')
+    if special_requested and not data['capital_gains'] and not has('carryovers','capital_short') and not has('carryovers','capital_long'):
+        lines['16'],special_worksheet=tax_special_capital.tax(lines['15'],lines['3a'],total('dividends','capital_gain_distributions'),special_28,special_1250,status,ordinary_tax)
+        schedules['schedule_d_tax_worksheet']=special_worksheet
+        schedules['schedule_d'].update(collectibles_28_gain=special_28,unrecaptured_1250_gain=special_1250,special_distribution_only=True)
+    if 'schedule_d_tax_worksheet' not in schedules:schedules['qualified_dividends_capital_gain_worksheet']=qualified_worksheet
+    else:qualified_worksheet={'ordinary_income':schedules['schedule_d_tax_worksheet']['ordinary_income']}
+    log('Form1040 line16 income tax',lines['16'],'i1040sd' if 'schedule_d_tax_worksheet' in schedules else 'i1040gi' if preferred else 'i1040tt')
     amt=extended_result('form_6251',tax_extended.alternative_minimum_tax(data['amt'],{'filing_status':status,'taxpayer_age':person['age'],'agi':agi,'total_deductions':lines['14'],'senior_deduction':senior_ded,'deduction_addback':salt if deduction_type=='itemized' else lines['12e'],'preferred_income':preferred,'regular_ordinary_income':qualified_worksheet['ordinary_income'],'regular_tax':lines['16'],'no_amt_preferences':elig['no_amt_preferences']},RULES))
+    if special_requested:
+        upper_bound=tax_extended.amt_rate(amt['form_lines']['6'],status)
+        amt.update(special_distribution_ordinary_TMT_upper_bound=upper_bound,special_distribution_regular_tax=lines['16'])
+        if upper_bound<=lines['16']:
+            amt.update(tax=0,special_distribution_zero_liability_proved=True,special_distribution_AMT_TMT_not_computed=True)
+        else:
+            block('Special-rate1099-DIV distribution AMT may be positive. Form6251 special25%/28% PartIII is not yet implemented; displayed totals are incomplete and cannot be submitted as a completed return.')
+            amt.update(tax=0,special_distribution_zero_liability_proved=False,computed=False,special_distribution_AMT_TMT_not_computed=True)
+        for key in ('7','9','11','12','13','16','17','18','19','20','21','22','23','24','25','28','29','30','31','33','34','38','39','40'):amt['form_lines'].pop(key,None)
+        amt['form_lines']['11']=amt['tax']
     lines['17']=amt['tax']
     marketplace_context=dict(common_credit_context,household_agi=agi,household_ss_nontaxable=lines['6a']-lines['6b'],household_tax_exempt_interest=lines['2a'],tax_family_size=(2 if status=='mfj' else 1)+len(data['dependents']),self_employed_health_insurance=health)
     marketplace_result=module_result('calculate_marketplace',data['marketplace'],marketplace_context);schedules['form_8962']=marketplace_result
@@ -678,4 +711,14 @@ def demo_returns():
             example['eligibility'][filing_status+'_eligible']=True
             example['dependents']=[dict(ROW_DEFAULTS['dependents'],name='Synthetic qualifying child',age=8,eligibility_confirmed=True)]
         result.append(example)
+    distribution=base('Synthetic 1099-DIV special distributions')
+    distribution['eligibility'].update(capital_gains_eligible=True,qualified_dividends_eligible=True,eitc_not_applicable=True)
+    distribution['niit']['eligibility_confirmed']=True
+    distribution['w2']=[dict(ROW_DEFAULTS['w2'],employer='Synthetic W2 payer',wages='85750',federal_withholding='30000',social_security_wages='85750',social_security_withholding='5316.50',medicare_wages='85750',medicare_withholding='1243.38')]
+    distribution['dividends']=[dict(ROW_DEFAULTS['dividends'],payer='Synthetic payer 1',ordinary='5000',qualified='5000',capital_gain_distributions='25000',unrecaptured_1250_gain='10000',collectibles_gain='10000',special_distribution_confirmed=True)]
+    distribution['identity'].update(first_name='Synthetic',last_name='Taxpayer',ssn='123456789',address='100 Example Street',city='Example City',state='IL',zip='60000',phone='5550100100',occupation='Accountant')
+    distribution['filing_details'].update(digital_asset_answer='no',main_home_us_answer='yes')
+    distribution['filing_details']['official_form_facts']['schedule_b'].update(foreign_account_answer='no',fbar_required_answer='no',foreign_trust_answer='no',facts_confirmed=True)
+    distribution['notes']='Synthetic example only. Source1099-DIV2a includes2b/2d. Not an actual taxpayer return.'
+    result.append(distribution)
     return [{'id':'synthetic-'+str(index+1),'name':data['name'],'data':data} for index,data in enumerate(result)]

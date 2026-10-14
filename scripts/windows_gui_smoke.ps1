@@ -217,6 +217,37 @@ try {
     Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
     $checks.Add('Actual native Save As export saved an IRS1040 draft PDF; field readback matched the edited 1913 USD return.')
     Save-Screenshot 'windows-native-after-PDF-export.png'
+    Click-Observed (Wait-Named 'My returns')
+    Click-Observed (Wait-Named 'Synthetic examples')
+    Click-Observed (Wait-Named 'Open distribution example')
+    Wait-Named '$13,780' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Dividends · 1099-DIV')
+    $component=Wait-Edit 'Box 2b · Unrecaptured Section 1250 gain'
+    if([string]($component.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty)) -ne '10000') { throw 'Actual native1099-DIV Box2b did not retain10000 USD.' }
+    $component.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('^a')
+    [System.Windows.Forms.SendKeys]::SendWait('9000{TAB}')
+    Wait-Named '$13,850' 120 $false | Out-Null
+    Scroll-Top
+    Click-Observed (Wait-Named 'Save')
+    Wait-Named 'Saved on this device' | Out-Null
+    Save-Screenshot 'windows-native-special-edited-13850.png'
+    $checks.Add('Actual1099-DIV special distribution example calculated13780 USD, Box2b edit10000 to9000 recomputed13850 USD and saved.')
+    Close-App; Launch-App
+    Wait-Named '$13,850' 120 $false | Out-Null
+    Scroll-Top
+    Save-Screenshot 'windows-native-special-reopened-13850.png'
+    $checks.Add('Native special distribution saved amounts and13850 USD result survived normal close/relaunch.')
+    Click-Observed (Wait-Named 'Save & export')
+    Click-Observed (Wait-Named 'Download official packet')
+    $specialPdf=Join-Path $OutputDir 'windows-native-special-official-packet.pdf'
+    Save-Native-Export $specialPdf
+    $env:TAX_REBORN_SYNTHETIC_EXPORT=$specialPdf
+    python -c "import os,io; from pathlib import Path; from pypdf import PdfReader; r=PdfReader(io.BytesIO(Path(os.environ['TAX_REBORN_SYNTHETIC_EXPORT']).read_bytes())); f=r.get_fields(); p='f1040sd_1.topmostSubform[0].Page2[0].'; assert str(f[p+'f2_2[0]']['/V'])=='10000'; assert str(f[p+'f2_3[0]']['/V'])=='9000'; assert 'Worksheet line 47: '+chr(36)+'16,150' in '\n'.join(x.extract_text() for x in r.pages); print('Actual native special-rate packet readback: ScheduleD18=10000,19=9000, worksheet47=16150')"
+    if($LASTEXITCODE -ne 0) { throw 'Actual special-distribution packet fields/workpaper failed readback.' }
+    Remove-Item Env:TAX_REBORN_SYNTHETIC_EXPORT
+    $checks.Add('Actual native official packet saved and read backScheduleD18/19=10000/9000 andworksheet47=16150 USD.')
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message

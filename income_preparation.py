@@ -18,7 +18,8 @@ import uuid
 COLLECTIONS = {
     'interest': {'payer': '', 'taxable': '0', 'tax_exempt': '0', 'federal_withholding': '0'},
     'dividends': {'payer': '', 'ordinary': '0', 'qualified': '0',
-                  'capital_gain_distributions': '0', 'federal_withholding': '0'},
+                  'capital_gain_distributions': '0', 'federal_withholding': '0',
+                  'unrecaptured_1250_gain': '0','collectibles_gain': '0','special_distribution_confirmed':False},
 }
 MONEY = re.compile(r'^-?\d+(?:\.\d{1,2})?$')
 UID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
@@ -48,6 +49,9 @@ def canonical_row(collection, row):
     if not isinstance(value['payer'], str) or len(value['payer']) > 256:
         raise ValueError('Invalid payer label')
     for field in defaults.keys() - {'payer'}:
+        if isinstance(defaults[field],bool):
+            if type(value[field])is not bool:raise ValueError('Preparation confirmation must be Boolean')
+            continue
         text = str(value[field]).strip()
         if isinstance(value[field], bool) or len(text) > 64 or not MONEY.fullmatch(text):
             raise ValueError('Expected an explicit USD amount with at most two decimal places')
@@ -55,6 +59,10 @@ def canonical_row(collection, row):
         if abs(amount) > Decimal('999999999999.99'):
             raise ValueError('USD amount exceeds preparation limit')
         value[field] = '0.00' if amount == 0 else format(amount, '.2f')
+    # Preserve legacy review fingerprints when all newly added facts are defaults.
+    for field in ('unrecaptured_1250_gain','collectibles_gain'):
+        if field in value and value[field]=='0.00':value.pop(field)
+    if value.get('special_distribution_confirmed')is False:value.pop('special_distribution_confirmed')
     return value
 
 

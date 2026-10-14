@@ -1,7 +1,7 @@
 'use strict';
 // Independently authored local INT/DIV preparation contract. No vendor code or tax rules.
 (function () {
- const templates={interest:{payer:'',taxable:'0',tax_exempt:'0',federal_withholding:'0'},dividends:{payer:'',ordinary:'0',qualified:'0',capital_gain_distributions:'0',federal_withholding:'0'}};
+ const templates={interest:{payer:'',taxable:'0',tax_exempt:'0',federal_withholding:'0'},dividends:{payer:'',ordinary:'0',qualified:'0',capital_gain_distributions:'0',federal_withholding:'0',unrecaptured_1250_gain:'0',collectibles_gain:'0',special_distribution_confirmed:false}};
  const entryKeys=['record_id','row_fingerprint','reviewed','reviewed_fingerprint','reviewed_at','is_placeholder','unresolved_fields'];
  const copy=value=>JSON.parse(JSON.stringify(value));
  const sorted=value=>Array.isArray(value)?value.map(sorted):value&&typeof value==='object'?Object.fromEntries(Object.keys(value).sort().map(key=>[key,sorted(value[key])])):value;
@@ -19,7 +19,8 @@
  function canonicalObject(type,row){
   if(!Object.hasOwn(templates,type)||!object(row)||Object.keys(row).some(k=>!(k in templates[type])))throw Error('Unsupported INT/DIV row or field');
   const value={...templates[type],...row};if(typeof value.payer!=='string'||value.payer.length>256)throw Error('Invalid payer label');
-  for(const key of Object.keys(templates[type]).filter(k=>k!=='payer'))value[key]=amount(value[key]);return value;
+  for(const key of Object.keys(templates[type]).filter(k=>k!=='payer')){if(typeof templates[type][key]==='boolean'){if(typeof value[key]!=='boolean')throw Error('Preparation confirmation must be Boolean');}else value[key]=amount(value[key]);}
+  for(const key of['unrecaptured_1250_gain','collectibles_gain'])if(value[key]==='0.00')delete value[key];if(value.special_distribution_confirmed===false)delete value.special_distribution_confirmed;return value;
  }
  const canonical=(type,row)=>packed(canonicalObject(type,row));
  const fingerprint=(type,row)=>hash(canonicalObject(type,row));

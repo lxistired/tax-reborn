@@ -14,6 +14,8 @@ import subprocess
 import zipfile
 
 ROOT=Path(__file__).resolve().parents[1]
+VERSION=(ROOT/'VERSION').read_text(encoding='utf-8').strip()
+VERSION_CODE=VERSION.split('-')[0].replace('.','')+VERSION.rsplit('.',1)[1].zfill(2)
 def run(args,**kwargs):
     subprocess.run([str(x) for x in args],check=True,**kwargs)
 
@@ -32,7 +34,7 @@ def main():
     assets=work/'assets'
     if assets.exists():shutil.rmtree(assets)
     shutil.copytree(ROOT/'web',assets)
-    for name in ('tax_engine.py','rules_2025.json','forms.py','official_forms.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py'):
+    for name in ('tax_engine.py','tax_special_capital.py','rules_2025.json','forms.py','official_forms.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py'):
         if (ROOT/name).is_file():shutil.copy2(ROOT/name,assets/name)
     shutil.copytree(ROOT/'forms',assets/'forms',dirs_exist_ok=True)
     notices=assets/'third-party-notices';notices.mkdir(exist_ok=True)
@@ -40,7 +42,7 @@ def main():
     shutil.copytree(ROOT/'vendor',assets/'vendor-source',dirs_exist_ok=True)
     sources=list((ROOT/'android/src').rglob('*.java'));classes=work/'classes';classes.mkdir(exist_ok=True)
     unsigned=work/'unsigned.apk'
-    run([tool/'aapt2','link','-o',unsigned,'--manifest',ROOT/'android/AndroidManifest.xml','-I',platform,'-A',assets,'--version-code','2026101408','--version-name','2026.10.14-preview.8','--min-sdk-version','26','--target-sdk-version','35'])
+    run([tool/'aapt2','link','-o',unsigned,'--manifest',ROOT/'android/AndroidManifest.xml','-I',platform,'-A',assets,'--version-code',VERSION_CODE,'--version-name',VERSION,'--min-sdk-version','26','--target-sdk-version','35'])
     run([java/'bin/javac','--release','8','-classpath',platform,'-d',classes,*sources])
     env=os.environ.copy();env['JAVA_HOME']=str(java);env['PATH']=str(java/'bin')+os.pathsep+env.get('PATH','')
     dex=work/'dex';dex.mkdir(exist_ok=True)
@@ -52,11 +54,11 @@ def main():
     if not keystore.exists():
         run([java/'bin/keytool','-genkeypair','-keystore',keystore,'-alias','tax-reborn-development','-keyalg','RSA','-keysize','2048','-validity','3650','-storepass','android','-keypass','android','-dname','CN=Tax Reborn Development, O=Local Preview, C=US'])
         keystore.chmod(0o600)
-    apk=out/'Tax-Reborn-2026.10.14-preview.8-Android.apk'
+    apk=out/f'Tax-Reborn-{VERSION}-Android.apk'
     run([tool/'apksigner','sign','--ks',keystore,'--ks-key-alias','tax-reborn-development','--ks-pass','pass:android','--key-pass','pass:android','--out',apk,aligned],env=env)
     checked=subprocess.run([str(tool/'apksigner'),'verify','--verbose','--print-certs',str(apk)],env=env,check=True,capture_output=True,text=True)
     (out/'android-signature-verification.txt').write_text(checked.stdout)
-    manifest={'product':'Tax Reborn','project_number':'000002','version':'2026.10.14-preview.8','platform':'android','min_api':26,'target_api':35,'internet_permission':False,'signing':'private local development certificate; not a store release','file':apk.name,'bytes':apk.stat().st_size,'sha256':hashlib.file_digest(apk.open('rb'),'sha256').hexdigest(),'real_device_tested':False}
+    manifest={'product':'Tax Reborn','project_number':'000002','version':VERSION,'platform':'android','min_api':26,'target_api':35,'internet_permission':False,'signing':'private local development certificate; not a store release','file':apk.name,'bytes':apk.stat().st_size,'sha256':hashlib.file_digest(apk.open('rb'),'sha256').hexdigest(),'real_device_tested':False}
     (out/'build-manifest-android.json').write_text(json.dumps(manifest,indent=2));print(json.dumps(manifest,indent=2))
 
 if __name__=='__main__':main()

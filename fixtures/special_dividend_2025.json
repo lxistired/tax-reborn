@@ -1,0 +1,4511 @@
+{
+  "tax_year": 2025,
+  "sources": [
+    "https://www.irs.gov/pub/irs-pdf/i1099div.pdf",
+    "https://www.irs.gov/pub/irs-pdf/i1040sd.pdf",
+    "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf"
+  ],
+  "oracle": "Independently authored IRS2025 printed worksheet lines; source App output never used for expected amounts. Raw payer money summed with cents then rounded once per line.",
+  "cases": [
+    {
+      "id": "IRS2025-div-special-001",
+      "profile": "one_collectible",
+      "filing_status": "single",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5413,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-002",
+      "profile": "one_1250",
+      "filing_status": "single",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5413,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-003",
+      "profile": "mixed",
+      "filing_status": "single",
+      "wages": "35750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4813,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-004",
+      "profile": "three_payers",
+      "filing_status": "single",
+      "wages": "25750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 3013,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-005",
+      "profile": "cents_after_sum",
+      "filing_status": "single",
+      "wages": "40749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4453,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-006",
+      "profile": "absent_and_present",
+      "filing_status": "single",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4813,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-007",
+      "profile": "one_collectible",
+      "filing_status": "single",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16570,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-008",
+      "profile": "one_1250",
+      "filing_status": "single",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16570,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-009",
+      "profile": "mixed",
+      "filing_status": "single",
+      "wages": "85750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16220,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-010",
+      "profile": "three_payers",
+      "filing_status": "single",
+      "wages": "75750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 15170,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-011",
+      "profile": "cents_after_sum",
+      "filing_status": "single",
+      "wages": "90749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16010,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-012",
+      "profile": "absent_and_present",
+      "filing_status": "single",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16220,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-013",
+      "profile": "one_collectible",
+      "filing_status": "single",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-014",
+      "profile": "one_1250",
+      "filing_status": "single",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-015",
+      "profile": "mixed",
+      "filing_status": "single",
+      "wages": "183050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-016",
+      "profile": "three_payers",
+      "filing_status": "single",
+      "wages": "173050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 37949,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-017",
+      "profile": "cents_after_sum",
+      "filing_status": "single",
+      "wages": "188049",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39029,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-018",
+      "profile": "absent_and_present",
+      "filing_status": "single",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-019",
+      "profile": "one_collectible",
+      "filing_status": "single",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-020",
+      "profile": "one_1250",
+      "filing_status": "single",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-021",
+      "profile": "mixed",
+      "filing_status": "single",
+      "wages": "183051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-022",
+      "profile": "three_payers",
+      "filing_status": "single",
+      "wages": "173051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 37949,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-023",
+      "profile": "cents_after_sum",
+      "filing_status": "single",
+      "wages": "188050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39029,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-024",
+      "profile": "absent_and_present",
+      "filing_status": "single",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-025",
+      "profile": "one_collectible",
+      "filing_status": "single",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 178097,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-026",
+      "profile": "one_1250",
+      "filing_status": "single",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 177797,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-027",
+      "profile": "mixed",
+      "filing_status": "single",
+      "wages": "585750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 176347,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-028",
+      "profile": "three_payers",
+      "filing_status": "single",
+      "wages": "575750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 174477,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-029",
+      "profile": "cents_after_sum",
+      "filing_status": "single",
+      "wages": "590749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 176517,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-030",
+      "profile": "absent_and_present",
+      "filing_status": "single",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 177607,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-031",
+      "profile": "one_collectible",
+      "filing_status": "mfj",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4926,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-032",
+      "profile": "one_1250",
+      "filing_status": "mfj",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4926,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-033",
+      "profile": "mixed",
+      "filing_status": "mfj",
+      "wages": "51500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4326,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-034",
+      "profile": "three_payers",
+      "filing_status": "mfj",
+      "wages": "41500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 2526,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-035",
+      "profile": "cents_after_sum",
+      "filing_status": "mfj",
+      "wages": "56499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 3966,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-036",
+      "profile": "absent_and_present",
+      "filing_status": "mfj",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4326,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-037",
+      "profile": "one_collectible",
+      "filing_status": "mfj",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 11421,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-038",
+      "profile": "one_1250",
+      "filing_status": "mfj",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 11421,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-039",
+      "profile": "mixed",
+      "filing_status": "mfj",
+      "wages": "101500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10821,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-040",
+      "profile": "three_payers",
+      "filing_status": "mfj",
+      "wages": "91500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 9021,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-041",
+      "profile": "cents_after_sum",
+      "filing_status": "mfj",
+      "wages": "106499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10461,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-042",
+      "profile": "absent_and_present",
+      "filing_status": "mfj",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10821,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-043",
+      "profile": "one_collectible",
+      "filing_status": "mfj",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-044",
+      "profile": "one_1250",
+      "filing_status": "mfj",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-045",
+      "profile": "mixed",
+      "filing_status": "mfj",
+      "wages": "198800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-046",
+      "profile": "three_payers",
+      "filing_status": "mfj",
+      "wages": "188800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 31484,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-047",
+      "profile": "cents_after_sum",
+      "filing_status": "mfj",
+      "wages": "203799",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32324,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-048",
+      "profile": "absent_and_present",
+      "filing_status": "mfj",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-049",
+      "profile": "one_collectible",
+      "filing_status": "mfj",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-050",
+      "profile": "one_1250",
+      "filing_status": "mfj",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-051",
+      "profile": "mixed",
+      "filing_status": "mfj",
+      "wages": "198801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-052",
+      "profile": "three_payers",
+      "filing_status": "mfj",
+      "wages": "188801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 31484,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-053",
+      "profile": "cents_after_sum",
+      "filing_status": "mfj",
+      "wages": "203800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32324,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-054",
+      "profile": "absent_and_present",
+      "filing_status": "mfj",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-055",
+      "profile": "one_collectible",
+      "filing_status": "mfj",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 147395,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-056",
+      "profile": "one_1250",
+      "filing_status": "mfj",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 147095,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-057",
+      "profile": "mixed",
+      "filing_status": "mfj",
+      "wages": "601500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 145395,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-058",
+      "profile": "three_payers",
+      "filing_status": "mfj",
+      "wages": "591500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 142775,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-059",
+      "profile": "cents_after_sum",
+      "filing_status": "mfj",
+      "wages": "606499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 145414,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-060",
+      "profile": "absent_and_present",
+      "filing_status": "mfj",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 146655,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-061",
+      "profile": "one_collectible",
+      "filing_status": "mfs",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5413,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-062",
+      "profile": "one_1250",
+      "filing_status": "mfs",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5413,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-063",
+      "profile": "mixed",
+      "filing_status": "mfs",
+      "wages": "35750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4813,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-064",
+      "profile": "three_payers",
+      "filing_status": "mfs",
+      "wages": "25750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 3013,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-065",
+      "profile": "cents_after_sum",
+      "filing_status": "mfs",
+      "wages": "40749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4453,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-066",
+      "profile": "absent_and_present",
+      "filing_status": "mfs",
+      "wages": "50750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4813,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-067",
+      "profile": "one_collectible",
+      "filing_status": "mfs",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16570,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-068",
+      "profile": "one_1250",
+      "filing_status": "mfs",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16570,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-069",
+      "profile": "mixed",
+      "filing_status": "mfs",
+      "wages": "85750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16220,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-070",
+      "profile": "three_payers",
+      "filing_status": "mfs",
+      "wages": "75750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 15170,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-071",
+      "profile": "cents_after_sum",
+      "filing_status": "mfs",
+      "wages": "90749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16010,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-072",
+      "profile": "absent_and_present",
+      "filing_status": "mfs",
+      "wages": "100750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 16220,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-073",
+      "profile": "one_collectible",
+      "filing_status": "mfs",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-074",
+      "profile": "one_1250",
+      "filing_status": "mfs",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-075",
+      "profile": "mixed",
+      "filing_status": "mfs",
+      "wages": "183050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-076",
+      "profile": "three_payers",
+      "filing_status": "mfs",
+      "wages": "173050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 37949,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-077",
+      "profile": "cents_after_sum",
+      "filing_status": "mfs",
+      "wages": "188049",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39029,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-078",
+      "profile": "absent_and_present",
+      "filing_status": "mfs",
+      "wages": "198050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-079",
+      "profile": "one_collectible",
+      "filing_status": "mfs",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-080",
+      "profile": "one_1250",
+      "filing_status": "mfs",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39749,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-081",
+      "profile": "mixed",
+      "filing_status": "mfs",
+      "wages": "183051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-082",
+      "profile": "three_payers",
+      "filing_status": "mfs",
+      "wages": "173051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 37949,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-083",
+      "profile": "cents_after_sum",
+      "filing_status": "mfs",
+      "wages": "188050",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39029,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-084",
+      "profile": "absent_and_present",
+      "filing_status": "mfs",
+      "wages": "198051",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 39299,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-085",
+      "profile": "one_collectible",
+      "filing_status": "mfs",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 182281,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-086",
+      "profile": "one_1250",
+      "filing_status": "mfs",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 181981,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-087",
+      "profile": "mixed",
+      "filing_status": "mfs",
+      "wages": "585750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 180231,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-088",
+      "profile": "three_payers",
+      "filing_status": "mfs",
+      "wages": "575750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 178161,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-089",
+      "profile": "cents_after_sum",
+      "filing_status": "mfs",
+      "wages": "590749",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 180501,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-090",
+      "profile": "absent_and_present",
+      "filing_status": "mfs",
+      "wages": "600750",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 181791,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-091",
+      "profile": "one_collectible",
+      "filing_status": "hoh",
+      "wages": "58625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5063,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-092",
+      "profile": "one_1250",
+      "filing_status": "hoh",
+      "wages": "58625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 5063,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-093",
+      "profile": "mixed",
+      "filing_status": "hoh",
+      "wages": "43625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4463,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-094",
+      "profile": "three_payers",
+      "filing_status": "hoh",
+      "wages": "33625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 2663,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-095",
+      "profile": "cents_after_sum",
+      "filing_status": "hoh",
+      "wages": "48624",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4103,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-096",
+      "profile": "absent_and_present",
+      "filing_status": "hoh",
+      "wages": "58625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4463,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-097",
+      "profile": "one_collectible",
+      "filing_status": "hoh",
+      "wages": "108625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 14831,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-098",
+      "profile": "one_1250",
+      "filing_status": "hoh",
+      "wages": "108625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 14831,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-099",
+      "profile": "mixed",
+      "filing_status": "hoh",
+      "wages": "93625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 14481,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-100",
+      "profile": "three_payers",
+      "filing_status": "hoh",
+      "wages": "83625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 13431,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-101",
+      "profile": "cents_after_sum",
+      "filing_status": "hoh",
+      "wages": "98624",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 14271,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-102",
+      "profile": "absent_and_present",
+      "filing_status": "hoh",
+      "wages": "108625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 14481,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-103",
+      "profile": "one_collectible",
+      "filing_status": "hoh",
+      "wages": "205925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 38010,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-104",
+      "profile": "one_1250",
+      "filing_status": "hoh",
+      "wages": "205925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 38010,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-105",
+      "profile": "mixed",
+      "filing_status": "hoh",
+      "wages": "190925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 37560,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-106",
+      "profile": "three_payers",
+      "filing_status": "hoh",
+      "wages": "180925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 36210,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-107",
+      "profile": "cents_after_sum",
+      "filing_status": "hoh",
+      "wages": "195924",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 37290,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-108",
+      "profile": "absent_and_present",
+      "filing_status": "hoh",
+      "wages": "205925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 37560,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-109",
+      "profile": "one_collectible",
+      "filing_status": "hoh",
+      "wages": "205926",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 38010,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-110",
+      "profile": "one_1250",
+      "filing_status": "hoh",
+      "wages": "205926",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 38010,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-111",
+      "profile": "mixed",
+      "filing_status": "hoh",
+      "wages": "190926",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 37560,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-112",
+      "profile": "three_payers",
+      "filing_status": "hoh",
+      "wages": "180926",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 36210,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-113",
+      "profile": "cents_after_sum",
+      "filing_status": "hoh",
+      "wages": "195925",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 37290,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-114",
+      "profile": "absent_and_present",
+      "filing_status": "hoh",
+      "wages": "205926",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 37560,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-115",
+      "profile": "one_collectible",
+      "filing_status": "hoh",
+      "wages": "608625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 176359,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-116",
+      "profile": "one_1250",
+      "filing_status": "hoh",
+      "wages": "608625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 176059,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-117",
+      "profile": "mixed",
+      "filing_status": "hoh",
+      "wages": "593625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 174609,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-118",
+      "profile": "three_payers",
+      "filing_status": "hoh",
+      "wages": "583625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 172404,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-119",
+      "profile": "cents_after_sum",
+      "filing_status": "hoh",
+      "wages": "598624",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 174779,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-120",
+      "profile": "absent_and_present",
+      "filing_status": "hoh",
+      "wages": "608625",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 175869,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-121",
+      "profile": "one_collectible",
+      "filing_status": "qss",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4926,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-122",
+      "profile": "one_1250",
+      "filing_status": "qss",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4926,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-123",
+      "profile": "mixed",
+      "filing_status": "qss",
+      "wages": "51500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4326,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-124",
+      "profile": "three_payers",
+      "filing_status": "qss",
+      "wages": "41500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 2526,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-125",
+      "profile": "cents_after_sum",
+      "filing_status": "qss",
+      "wages": "56499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 3966,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-126",
+      "profile": "absent_and_present",
+      "filing_status": "qss",
+      "wages": "66500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 50000,
+      "expected_1040_16": 4326,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-127",
+      "profile": "one_collectible",
+      "filing_status": "qss",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 11421,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-128",
+      "profile": "one_1250",
+      "filing_status": "qss",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 11421,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-129",
+      "profile": "mixed",
+      "filing_status": "qss",
+      "wages": "101500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10821,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-130",
+      "profile": "three_payers",
+      "filing_status": "qss",
+      "wages": "91500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 9021,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-131",
+      "profile": "cents_after_sum",
+      "filing_status": "qss",
+      "wages": "106499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10461,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-132",
+      "profile": "absent_and_present",
+      "filing_status": "qss",
+      "wages": "116500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 100000,
+      "expected_1040_16": 10821,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-133",
+      "profile": "one_collectible",
+      "filing_status": "qss",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-134",
+      "profile": "one_1250",
+      "filing_status": "qss",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-135",
+      "profile": "mixed",
+      "filing_status": "qss",
+      "wages": "198800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-136",
+      "profile": "three_payers",
+      "filing_status": "qss",
+      "wages": "188800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 31484,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-137",
+      "profile": "cents_after_sum",
+      "filing_status": "qss",
+      "wages": "203799",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32324,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-138",
+      "profile": "absent_and_present",
+      "filing_status": "qss",
+      "wages": "213800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197300,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-139",
+      "profile": "one_collectible",
+      "filing_status": "qss",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-140",
+      "profile": "one_1250",
+      "filing_status": "qss",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32884,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-141",
+      "profile": "mixed",
+      "filing_status": "qss",
+      "wages": "198801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-142",
+      "profile": "three_payers",
+      "filing_status": "qss",
+      "wages": "188801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 31484,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-143",
+      "profile": "cents_after_sum",
+      "filing_status": "qss",
+      "wages": "203800",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32324,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-144",
+      "profile": "absent_and_present",
+      "filing_status": "qss",
+      "wages": "213801",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 197301,
+      "expected_1040_16": 32534,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-145",
+      "profile": "one_collectible",
+      "filing_status": "qss",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 147395,
+      "expected_raw_sum": [
+        "10000",
+        "10000",
+        "0"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-146",
+      "profile": "one_1250",
+      "filing_status": "qss",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 147095,
+      "expected_raw_sum": [
+        "10000",
+        "0",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-147",
+      "profile": "mixed",
+      "filing_status": "qss",
+      "wages": "601500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "25000",
+          "unrecaptured_1250_gain": "10000",
+          "collectibles_gain": "10000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 145395,
+      "expected_raw_sum": [
+        "25000",
+        "10000",
+        "10000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-148",
+      "profile": "three_payers",
+      "filing_status": "qss",
+      "wages": "591500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "3000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "20000",
+          "unrecaptured_1250_gain": "5000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 3",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "5000",
+          "unrecaptured_1250_gain": "2000",
+          "collectibles_gain": "1000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 142775,
+      "expected_raw_sum": [
+        "35000",
+        "6000",
+        "9000"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-149",
+      "profile": "cents_after_sum",
+      "filing_status": "qss",
+      "wages": "606499",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000.49",
+          "unrecaptured_1250_gain": "4000.25",
+          "collectibles_gain": "2000.25",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 145414,
+      "expected_raw_sum": [
+        "20000.98",
+        "4000.50",
+        "8000.50"
+      ]
+    },
+    {
+      "id": "IRS2025-div-special-150",
+      "profile": "absent_and_present",
+      "filing_status": "qss",
+      "wages": "616500",
+      "dividends": [
+        {
+          "payer": "Synthetic payer 1",
+          "ordinary": "5000",
+          "qualified": "5000",
+          "capital_gain_distributions": "0",
+          "unrecaptured_1250_gain": "0",
+          "collectibles_gain": "0",
+          "special_distribution_confirmed": true
+        },
+        {
+          "payer": "Synthetic payer 2",
+          "ordinary": "0",
+          "qualified": "0",
+          "capital_gain_distributions": "10000",
+          "unrecaptured_1250_gain": "3000",
+          "collectibles_gain": "2000",
+          "special_distribution_confirmed": true
+        }
+      ],
+      "expected_1040_15": 600000,
+      "expected_1040_16": 146655,
+      "expected_raw_sum": [
+        "10000",
+        "2000",
+        "3000"
+      ]
+    }
+  ]
+}

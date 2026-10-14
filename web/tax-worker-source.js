@@ -7,7 +7,7 @@ function ready() {
   if (!engineReady) engineReady = (async () => {
     const py = await loadPyodide({indexURL: new URL('vendor/pyodide/', self.location.href).href});
     const base = new URL('./', self.location.href);
-    const names = ['tax_engine.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','rules_2025.json','forms/paper-fact-schema-2025.json'];
+    const names = ['tax_engine.py','tax_special_capital.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','rules_2025.json','forms/paper-fact-schema-2025.json'];
     const contents = await Promise.all(names.map(async name => {
       const response = await fetch(new URL(name, base));
       if (!response.ok) throw new Error('Offline tax engine resource missing: '+name);

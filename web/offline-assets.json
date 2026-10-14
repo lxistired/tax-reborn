@@ -57,6 +57,10 @@
     "tax_extended.py",
     "tax_filing.py",
     "tax_longtail.py",
+    "tax_special_capital.py",
+    "taxml-import.js",
+    "taxml_preparation.py",
+    "taxml_wire.py",
     "vendor/opentax-notices/AGPL-3.0.txt",
     "vendor/opentax-notices/Zod-MIT.txt",
     "vendor/opentax-notices/source.json",
@@ -87,9 +91,6 @@
     "vendor/tesseract/tesseract.min.js",
     "vendor/tesseract/tesseract.min.js.LICENSE.txt",
     "vendor/tesseract/worker.min.js",
-    "vendor/tesseract/worker.min.js.LICENSE.txt",
-    "taxml-import.js",
-    "taxml_wire.py",
-    "taxml_preparation.py"
+    "vendor/tesseract/worker.min.js.LICENSE.txt"
   ]
 }
