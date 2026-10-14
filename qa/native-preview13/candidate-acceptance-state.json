@@ -1,0 +1,67 @@
+{
+  "checked_at_utc": "2026-10-14T15:29:35.031064+00:00",
+  "version": "2026.10.14-preview.13",
+  "compiled_source_commit": "1c25c5e9c6d5e9f57bb6481b57825e103be2ddf4",
+  "published": false,
+  "all_return_figures_synthetic": true,
+  "Windows": {
+    "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38586672112",
+    "generated": true,
+    "Setup_installed": true,
+    "frozen_checks": 17,
+    "native_baseline_GUI_checks": 17,
+    "installed_new_TaxML_Pyodide_runtime": true,
+    "zero_copy_guard_tested": true,
+    "actual_new_XML_native_GUI_file_selection": "not separately exercised by this run"
+  },
+  "Mac": {
+    "generated": true,
+    "frozen_checks": 17,
+    "packaged_new_TaxML_runtime": true,
+    "actual_Cocoa_XML_profile_XPRF_open": true,
+    "reviewed_W2_edited_and_added": true,
+    "actual_refund": 129,
+    "saved_and_normal_quit_relaunch": true,
+    "actual_system_XML_SaveAs_byte_readback": true,
+    "original_source_download_after_relaunch_byte_identical": true
+  },
+  "Android": {
+    "generated": true,
+    "same_signer_installed_update": true,
+    "installed_APK_sha256": "b487d0039af68502a0afc9d170af339a6a20adfd3e4ca617a6b2df78d0e2da4f",
+    "exact_APK_Pyodide_modules_tested": true,
+    "zero_copy_guard_tested": true,
+    "prior_saved_data_retained_in_UI": true,
+    "actual_new_XML_import_review_export_GUI": false
+  },
+  "remaining_release_gate": [
+    "Actual Android XML/profile/XPRF picker, review/add/save/restart and native corrected XML Save/file readback.",
+    "Separate Windows native new import/file chooser acceptance if extending this preview beyond installed-module and baseline-GUI evidence.",
+    "DMG mount payload recheck, final source/QA manifest, source package, upload and anonymous public readback."
+  ],
+  "files": [
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.13-Android.apk",
+      "bytes": 49075679,
+      "sha256": "b487d0039af68502a0afc9d170af339a6a20adfd3e4ca617a6b2df78d0e2da4f"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.13-macOS-arm64.dmg",
+      "bytes": 71221020,
+      "sha256": "19e0d513ed58e03e06717d2796fa15dfce6d9af910c6aacafaadf86d8ff050b0"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.13-Windows-x64-Setup.exe",
+      "bytes": 57660060,
+      "sha256": "60051ea52fab99f606b50e9820f3e30d3640f24b9308f4c06a594b12f593eade"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.13-Windows-x64-portable.zip",
+      "bytes": 70627476,
+      "sha256": "302bc9d23e73eb2e6782afd473c181590e953ad40d54fb097c43d16b117f8e21"
+    }
+  ],
+  "original_TurboTax_runtime_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false
+}
