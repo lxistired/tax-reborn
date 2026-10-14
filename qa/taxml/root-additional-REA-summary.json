@@ -1,0 +1,34 @@
+{
+  "root_independently_verified": true,
+  "waves": [
+    {
+      "wave": 25,
+      "new_original_function_reads": 10,
+      "physical_original_windows_including_reused_views": 10,
+      "original_instruction_checks": 20,
+      "mechanism_tests_passed": 29,
+      "frozen_files_rehashed": 13
+    },
+    {
+      "wave": 26,
+      "new_original_function_reads": 7,
+      "physical_original_windows_including_reused_views": 7,
+      "original_instruction_checks": 9,
+      "mechanism_tests_passed": 28,
+      "frozen_files_rehashed": 12
+    }
+  ],
+  "INT": {
+    "frozen_files_rehashed": 55,
+    "original_graph_frames": 1379,
+    "complete_programs": 57,
+    "actual_new_REA_receipts": 9,
+    "exact_original_field_mapping_markers": 5,
+    "independent_App_IRS_cases": 11,
+    "original_controller_target_row_creation_verified": false,
+    "replayed_cases": 11
+  },
+  "original_runtime_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "private_raw_byte_evidence_public": false
+}

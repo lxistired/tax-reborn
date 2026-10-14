@@ -17,5 +17,7 @@
   "corrected_sha256": "8f1555915bed31f933a6c4dcf453127c2fef94d864ce090fb313de553248441d",
   "all_income_reported": false,
   "full_original_return_import": false,
-  "original_program_acceptance": false
+  "original_program_acceptance": false,
+  "superseded_by_multicopy_factory_guard": true,
+  "scope": "Historical synthetic shape workflow before the newly recovered factory guard; current App requires nonzero FW2 copy until actual factory binding is verified."
 }

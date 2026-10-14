@@ -51,7 +51,7 @@ async function main(){
  const modernProfile=new File([JSON.stringify(modernRequest.profile)],'synthetic-modern-windows-wire-profile.json',{type:'application/json'});
  const modernRegistry=new File([Buffer.from(modernRequest.carriers[0].base64,'base64')],'synthetic-modern-windows-w2.xprf');
  const modern=await context.taxMLImport.inspect(modernFile,modernProfile,[modernRegistry],'plaintext_xml',true),mc=modern.candidates[0];
- assert.equal(mc.can_review,true);assert.equal(mc.source_owner.copyNum,'0');assert.equal(mc.amounts.wages,'1234.56');
+ assert.equal(mc.can_review,true);assert.equal(mc.source_owner.copyNum,'1');assert.equal(mc.amounts.wages,'1234.56');
  assert.equal(mc.employer,null);assert.deepEqual(JSON.parse(JSON.stringify(mc.requires_manual_fields)),['owner','social_security_tips','dependent_care_benefits']);
  const reviewedValues={...mc.amounts,wages:'1234.57',employer:'Synthetic Widgets',owner:'taxpayer',social_security_tips:'0',dependent_care_benefits:'0'};
  await assert.rejects(()=>context.taxMLImport.correctedSource(mc,reviewedValues,false));
@@ -72,6 +72,8 @@ async function main(){
  assert.equal(nativeResult.summary.refund,123);assert.equal(nativeData.eligibility.all_income_reported,false);
  const unsupported={...modernRequest,base64:Buffer.from(originalBytes.toString().replace('</FW2>','<UNKNOWN/></FW2>')).toString('base64')};
  assert.equal((await command('taxml_inspect',unsupported)).candidates[0].can_review,false);
+ const zeroCopy={...modernRequest,base64:Buffer.from(originalBytes.toString().replace('copyNum="1"','copyNum="0"')).toString('base64')};
+ assert.equal((await command('taxml_inspect',zeroCopy)).candidates[0].can_review,false);
  for(const specimen of JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-wrong-semantic-types.json'),'utf8'))){
   const typed=await command('taxml_inspect',specimen.request);
   assert.equal(typed.candidates[0].can_review,false);
@@ -89,6 +91,7 @@ async function main(){
  }
  const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,assertions:25,
   current_windows_native_shape_and_corrected_source_verified:true,corrected_XML_outside_value_spans_byte_identical:true,
+  zero_copy_blocked_without_actual_multicopy_factory_binding:true,
   additional_encoding_input_probes:encodingCases.length,
   federal_can_prepare:result.can_prepare,all_income_reported:data.eligibility.all_income_reported,
   no_original_tax_roundtrip_claim:true,worker_source_sha256:require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'web/tax-worker-source.js'))).digest('hex')};

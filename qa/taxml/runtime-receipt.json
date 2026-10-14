@@ -4,6 +4,7 @@
   "assertions": 25,
   "current_windows_native_shape_and_corrected_source_verified": true,
   "corrected_XML_outside_value_spans_byte_identical": true,
+  "zero_copy_blocked_without_actual_multicopy_factory_binding": true,
   "additional_encoding_input_probes": 23,
   "federal_can_prepare": false,
   "all_income_reported": false,

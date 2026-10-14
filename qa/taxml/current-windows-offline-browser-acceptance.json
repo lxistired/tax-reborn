@@ -16,5 +16,7 @@
   "source_sha256": "70e14d10d162aa4856103c655182b7788d88bdbe2126486dba7ddb404dcfe727",
   "corrected_sha256": "7484f0da53fafc68640f5fb7455be5aeb5f806a3467f2e4fe54825cf1fc305dd",
   "all_income_reported": false,
-  "original_TurboTax_acceptance": false
+  "original_TurboTax_acceptance": false,
+  "superseded_by_multicopy_factory_guard": true,
+  "scope": "Historical synthetic shape workflow before the newly recovered factory guard; current App requires nonzero FW2 copy until actual factory binding is verified."
 }

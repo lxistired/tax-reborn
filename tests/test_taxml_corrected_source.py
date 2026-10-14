@@ -19,9 +19,13 @@ from test_taxml_import import registry_bytes, request, plaintext_archive
 from test_taxml_native import document, entity_xml, form_xml, field_xml, HEADERS
 
 
+def app_document():
+    return document(entity_xml(form_xml(copy='1', filecopy='1')))
+
+
 def native_request(data=None, carrier=None):
     carrier = registry_bytes() if carrier is None else carrier
-    out = request(document() if data is None else data, carrier)
+    out = request(app_document() if data is None else data, carrier)
     out['profile'] = {'format': 'tax-reborn-taxml-native-windows-profile-v1', 'tax_year': 2025,
         'entity_name': 'USIndividualTaxReturn', 'formset_name': 'OwnedSet',
         'formset_headers': dict(HEADERS), 'template': out['profile']['templates'][0]}
@@ -35,11 +39,11 @@ def export(req, **changes):
 
 
 class CurrentWindowsWorkflow(unittest.TestCase):
-    def test_owned_registry_bytes_are_required_and_copy_zero_is_reviewable(self):
+    def test_owned_registry_bytes_are_required_and_nonzero_copy_is_reviewable(self):
         result = preparation.inspect_request(native_request())
         candidate = result['candidates'][0]
         self.assertTrue(candidate['can_review'])
-        self.assertEqual(candidate['source_owner']['copyNum'], '0')
+        self.assertEqual(candidate['source_owner']['copyNum'], '1')
         self.assertEqual(candidate['amounts']['wages'], '1234.56')
         self.assertEqual(candidate['requires_manual_fields'], ['owner', 'social_security_tips', 'dependent_care_benefits'])
         self.assertIsNone(candidate['employer'])
@@ -61,12 +65,15 @@ class CurrentWindowsWorkflow(unittest.TestCase):
             else: req['profile']['template']['formset_id'] = 'OwnedSet'
             with self.subTest(mutation=mutation), self.assertRaises(ValueError): preparation.inspect_request(req)
 
-    def test_native_and_legacy_copy_zero_have_separate_contracts(self):
+    def test_copy_zero_requires_actual_multicopy_factory_binding(self):
         req = request(); req['base64'] = base64.b64encode(base64.b64decode(req['base64']).replace(b'copyNum="1"', b'copyNum="0"')).decode()
         legacy = preparation.inspect_request(req)
         self.assertTrue(all(not c['can_review'] for c in legacy['candidates']))
         self.assertTrue(legacy['unresolved_facts'])
-        self.assertTrue(preparation.inspect_request(native_request())['candidates'][0]['can_review'])
+        modern = preparation.inspect_request(native_request(document()))
+        self.assertFalse(modern['candidates'][0]['can_review'])
+        self.assertTrue(any(x['code'] == 'unverified_multicopy_factory_binding' for x in modern['unresolved_facts']))
+        with self.assertRaises(ValueError): export(native_request(document()), wages='2000')
 
     def test_wrong_field_kind_is_not_silently_treated_as_money(self):
         req = native_request(carrier=registry_bytes(field_kinds={'WAGES': 7}))
@@ -76,15 +83,15 @@ class CurrentWindowsWorkflow(unittest.TestCase):
 
     def test_formset_headers_name_year_and_version_are_bound(self):
         for before, after in [(b'OWNED', b'OTHER'), (b'OwnedSet', b'OtherSet'), (b'taxYear="2025"', b'taxYear="2024"'), (b'9.15.0', b'9.15.1')]:
-            value = preparation.inspect_request(native_request(document().replace(before, after)))
+            value = preparation.inspect_request(native_request(app_document().replace(before, after)))
             self.assertTrue(value['unresolved_facts'])
             self.assertTrue(all(not c['can_review'] for c in value['candidates']))
 
     def test_unknown_sibling_duplicate_copy_and_true_flags_block_all(self):
-        for data in [document(entity_xml(form_xml() + form_xml())),
-                document().replace(b'</FW2>', b'<UNKNOWN><x/></UNKNOWN></FW2>'),
-                document().replace(b'<td:value >', b'<td:value computed="true">', 1),
-                document().replace(b'</OwnedSet>', b'<OTHER tpsType="form"/></OwnedSet>')]:
+        for data in [document(entity_xml(form_xml(copy='1', filecopy='1') + form_xml(copy='1', filecopy='1'))),
+                app_document().replace(b'</FW2>', b'<UNKNOWN><x/></UNKNOWN></FW2>'),
+                app_document().replace(b'<td:value >', b'<td:value computed="true">', 1),
+                app_document().replace(b'</OwnedSet>', b'<OTHER tpsType="form"/></OwnedSet>')]:
             with self.subTest(data=data):
                 result = preparation.inspect_request(native_request(data))
                 self.assertTrue(result['unresolved_facts'])
@@ -92,7 +99,7 @@ class CurrentWindowsWorkflow(unittest.TestCase):
 
     def test_unused_explicit_zero_is_blocked_but_used_zero_is_preserved(self):
         for used, expected in [('true', True), ('false', False)]:
-            data = document().replace(b'<td:value >1234.56', f'<td:value used="{used}">0'.encode(), 1)
+            data = document(entity_xml(form_xml(copy='1', filecopy='1'))).replace(b'<td:value >1234.56', f'<td:value used="{used}">0'.encode(), 1)
             result = preparation.inspect_request(native_request(data))
             self.assertEqual(result['candidates'][0]['can_review'], expected)
             if expected:
@@ -113,7 +120,7 @@ class CurrentWindowsWorkflow(unittest.TestCase):
         self.assertFalse(result['original_program_acceptance_verified'])
 
     def test_multiple_distinct_copies_edit_only_selected_owner(self):
-        req = native_request(document(entity_xml(form_xml(copy='0') + form_xml(copy='1', filecopy='1'))))
+        req = native_request(document(entity_xml(form_xml(copy='1', filecopy='1') + form_xml(copy='2', filecopy='2'))))
         result = preparation.inspect_request(req)
         self.assertEqual(len(result['candidates']), 2)
         corrected = base64.b64decode(export(req, wages='2000')['base64'])
@@ -130,7 +137,7 @@ class CurrentWindowsWorkflow(unittest.TestCase):
         self.assertEqual(corrected, data.replace(b'98231.17</td:value></WAGES>', b'98231.18</td:value></WAGES>'))
 
     def test_plaintext_archive_exports_xml_and_keeps_original_archive(self):
-        req = native_request(plaintext_archive(document())); req['container'] = 'declared_plaintext_zip'
+        req = native_request(plaintext_archive(app_document())); req['container'] = 'declared_plaintext_zip'
         before = req['base64']; result = export(req, wages='2000')
         self.assertEqual(req['base64'], before)
         self.assertEqual(result['export_container'], 'plaintext_xml')
@@ -174,7 +181,7 @@ class NativeReceiptPersistence(legacy.ReceiptPersistenceAcceptance):
     """Repeat durable HTTP/SQLite review and tamper checks for three-level paths."""
     def prepared(self):
         payload = super().prepared()
-        req = native_request(document().replace(b'>1234.56</td:value>', b'>98231.17</td:value>', 1))
+        req = native_request(document(entity_xml(form_xml(copy='1', filecopy='1'))).replace(b'>1234.56</td:value>', b'>98231.17</td:value>', 1))
         candidate = preparation.inspect_request(req)['candidates'][0]
         payload['data']['w2'][0].update(candidate['amounts'])
         metadata = legacy.return_metadata.normalize(payload['data'], None, legacy.tax_engine.ROW_DEFAULTS['w2'])

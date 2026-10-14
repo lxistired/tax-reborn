@@ -247,6 +247,11 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
         form_path = paths.get((owner['entity_uuid'], owner['copyNum'], owner['fileCopyNum'], owner['porIndex']), '')
         fields = {f.field_name: f for f in form.fields}
         problems = list(form.unresolved)
+        # The native loader separately checks its actual form factory's
+        # IsMulticopy flag. XPRF field metadata does not establish that flag.
+        # Until that factory binding is recovered, copy zero is not reviewable.
+        if owner['form_name'] == 'FW2' and owner['copyNum'] == '0':
+            problems.append('unverified_multicopy_factory_binding')
         for fact in form.fields:
             problems.extend(fact.unresolved)
             if fact.field_name not in allowed or owner['form_name'] != 'FW2':
