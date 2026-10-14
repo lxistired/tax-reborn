@@ -678,9 +678,11 @@ const documentsForReturn=id=>documentOperation('readonly',store=>store.index('re
 async function deleteDocumentsForReturn(id){const rows=await documentsForReturn(id);await documentOperation('readwrite',store=>{for(const row of rows)store.delete(row.id);});}
 async function reviewExtractedW2(row,returnId){
  if(typeof window.extractTaxDocument!=='function')throw Error('Local document extraction is not available in this build. You can enter the W-2 manually.');
+ const atRevision=revision,source={document_id:row.id,return_id:returnId,name:String(row.name||'W-2 document').replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256),method:'ocr'};
+ window.taxRecordMetadata.assertNewSource(metadata.w2_records,source,'W-2');
  notify('Reading this document locally…');
  const extracted=await window.extractTaxDocument(row.file);
- if(currentId!==returnId)throw Error('The open return changed. Reopen its document before importing.');
+ if(currentId!==returnId||revision!==atRevision)throw Error('This return changed while extracting. Reopen its document before importing.');
  const candidates=extracted.candidates||{},draft=clone(rowTemplate('w2')||recordDefinitions.w2.template),inputs={},holder=el('div');
  holder.append(el('p',{class:'intro'},'Review each candidate against the original W-2. Extraction can misread boxes or digits. Adding this record will not overwrite an existing W-2.'),
   el('div',{class:'note warning'},extracted.form_type==='w2'?'W-2 candidate · verify tax year 2025 and every amount.':'The document was not confidently identified as a W-2. Only add it if you have verified that it is a 2025 W-2.'),
@@ -700,18 +702,22 @@ async function reviewExtractedW2(row,returnId){
  if(extracted.text)holder.append(el('details',{class:'details-toggle'},el('summary',{},'Show extracted source text'),el('pre',{class:'document-source'},String(extracted.text).slice(0,6000))));
  const reviewed=el('input',{type:'checkbox'});
  holder.append(el('label',{class:'check-field'},reviewed,el('span',{},'I verified this is a 2025 W-2 and checked each imported amount against the document.')));
+ let committing=false;
  modal('Review W-2 candidates',holder,[['Add reviewed W-2',async()=>{
-  if(currentId!==returnId)throw Error('The open return changed. Reopen its document before importing.');
+  if(committing)return;committing=true;
+  try{
+  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen its document before importing.');
   if(!reviewed.checked)throw Error('Review the document and confirm the imported amounts first.');
   for(const[name,input]of Object.entries(inputs)){
    if(MONEY_KEYS.has(name)){decimalCents(input.value);draft[name]=String(input.value).trim()||'0';}else draft[name]=input.value;
   }
   if(!draft.employer.trim())throw Error('Enter the employer name from the W-2.');
-  const preparation=window.taxRecordMetadata.newRecord({document_id:row.id,return_id:returnId,name:String(row.name||'W-2 document').replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256),method:'ocr'});
+  const preparation=window.taxRecordMetadata.newRecord(source);
   const fingerprint=await window.taxRecordMetadata.fingerprint(draft);
-  if(currentId!==returnId)throw Error('The open return changed. Reopen its document before importing.');
+  if(currentId!==returnId||revision!==atRevision||!holder.isConnected)throw Error('This return or review window changed. No income record was added.');
   preparation.reviewed=true;preparation.reviewed_at=new Date().toISOString();preparation.reviewed_fingerprint=fingerprint;preparation.row_fingerprint=fingerprint;
-  ensureW2Metadata();data.w2.push(draft);metadata.w2_records.push(preparation);openRecords.add('w2:'+preparation.record_id);changed();closeDialog();navigate('w2');notify('Reviewed W-2 added. Save to keep this return.');
+  ensureW2Metadata();window.taxRecordMetadata.assertNewSource(metadata.w2_records,source,'W-2');data.eligibility.all_income_reported=false;data.w2.push(draft);metadata.w2_records.push(preparation);openRecords.add('w2:'+preparation.record_id);changed();closeDialog();navigate('w2');notify('Reviewed W-2 added. Review income completeness and save to keep this return.');
+  }finally{committing=false;}
  },'primary']]);
 }
 async function showTaxMLImport(){
@@ -776,7 +782,7 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision){
    const values=Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value]));
    const prepared=await window.taxMLImport.reviewedRecord(candidate,values,{document_id:source.id,return_id:returnId,name:String(source.name).replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256)},confirmed.checked,rowTemplate('w2'));
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No income record was added.');
-   ensureW2Metadata();data.eligibility.all_income_reported=false;data.w2.push(prepared.row);metadata.w2_records.push(prepared.metadata);openRecords.add('w2:'+prepared.metadata.record_id);changed();closeDialog();navigate('w2');notify('Reviewed TaxML W-2 added. Income completeness was not confirmed. Save to keep this draft.');
+   ensureW2Metadata();window.taxRecordMetadata.assertNewSource(metadata.w2_records,prepared.metadata.source_document,'W-2');data.eligibility.all_income_reported=false;data.w2.push(prepared.row);metadata.w2_records.push(prepared.metadata);openRecords.add('w2:'+prepared.metadata.record_id);changed();closeDialog();navigate('w2');notify('Reviewed TaxML W-2 added. Income completeness was not confirmed. Save to keep this draft.');
   }finally{committing=false;}
  },'primary'],['Download corrected XML',async()=>{
   if(committing)return;committing=true;
@@ -807,7 +813,7 @@ function reviewTaxMLInterest(source,candidate,returnId,atRevision){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen the import.');
    const prepared=await window.taxMLImport.reviewedInterest(candidate,values(),{document_id:source.id,return_id:returnId,name:String(source.name).replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256)},confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No income record was added.');
-   ensureIncomeMetadata();data.eligibility.all_income_reported=false;data.interest.push(prepared.row);metadata.income_document_records.interest.push(prepared.metadata);openRecords.add('interest:'+prepared.metadata.record_id);changed();closeDialog();navigate('interest');notify('Reviewed TaxML 1099-INT added. Save to keep the draft and original source snapshot.');
+   ensureIncomeMetadata();window.taxRecordMetadata.assertNewSource(metadata.income_document_records.interest,prepared.metadata.source_document,'1099-INT');data.eligibility.all_income_reported=false;data.interest.push(prepared.row);metadata.income_document_records.interest.push(prepared.metadata);openRecords.add('interest:'+prepared.metadata.record_id);changed();closeDialog();navigate('interest');notify('Reviewed TaxML 1099-INT added. Save to keep the draft and original source snapshot.');
   }finally{committing=false;}
  },'primary'],['Download corrected XML',async()=>{
   if(committing)return;committing=true;
@@ -835,7 +841,7 @@ function reviewTaxMLDividend(source,candidate,returnId,atRevision){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen the import.');
    const prepared=await window.taxMLImport.reviewedDividend(candidate,values(),{document_id:source.id,return_id:returnId,name:String(source.name).replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256)},confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No income record was added.');
-   ensureIncomeMetadata();data.eligibility.all_income_reported=false;data.dividends.push(prepared.row);metadata.income_document_records.dividends.push(prepared.metadata);openRecords.add('dividends:'+prepared.metadata.record_id);changed();closeDialog();navigate('dividends');notify('Reviewed TaxML 1099-DIV added. Save to keep the draft and original source snapshot.');
+   ensureIncomeMetadata();window.taxRecordMetadata.assertNewSource(metadata.income_document_records.dividends,prepared.metadata.source_document,'1099-DIV');data.eligibility.all_income_reported=false;data.dividends.push(prepared.row);metadata.income_document_records.dividends.push(prepared.metadata);openRecords.add('dividends:'+prepared.metadata.record_id);changed();closeDialog();navigate('dividends');notify('Reviewed TaxML 1099-DIV added. Save to keep the draft and original source snapshot.');
   }finally{committing=false;}
  },'primary'],['Download corrected XML',async()=>{
   if(committing)return;committing=true;

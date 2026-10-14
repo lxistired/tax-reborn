@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-13T10:45:10.244Z",
+  "date": "2026-10-14T22:51:48.390Z",
   "all_passed": true,
   "checks": [
     "Real API returns independent unreviewed W2 identities; frontend loads owner correctly",
@@ -8,11 +8,15 @@
     "Delete first W2 preserves survivor stable identity, owner and review; addition is a new unreviewed identity",
     "Actual reload checkpoint and SQLite reopen preserve IDs/review/ownership",
     "OCR candidate confirmation links only its local source and marks imported record reviewed",
+    "Reopening a saved return refuses the same OCR attachment without duplicating wages or changing existing records",
+    "An income edit during OCR extraction prevents a stale review window and preserves the edit",
+    "An edit during asynchronous OCR review commit is retained and blocks adding stale amounts",
+    "Closing OCR review while hashing prevents a late invisible addition",
     "Actual JSON export + restore as new draft retain record state without linking old attachments into new return",
     "Frontend and Python cent-normalized fingerprint agree for Unicode/leading zeros/negative zero",
     "Actual offline worker + IndexedDB API save/reopen/export retain per-W2 metadata"
   ],
-  "tests": 9,
+  "tests": 13,
   "backend": "real isolated loopback API + SQLite; real browser IndexedDB workspace",
   "ocr_scope": "Synthetic extractor stub verifies review/source UI only; no camera or OCR accuracy claim",
   "original_vendor_executed": false,

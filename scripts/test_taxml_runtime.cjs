@@ -17,6 +17,19 @@ vm.createContext(worker);
 vm.runInContext(fs.readFileSync(path.join(root,'web/tax-worker-source.js'),'utf8'),worker,{filename:'tax-worker-source.js'});
 let id=0;
 async function command(command,payload){return new Promise((resolve,reject)=>{const current=++id;worker.self.postMessage=message=>{if(message.id!==current)return;message.error?reject(Error(message.error)):resolve(message.result);};worker.self.onmessage({data:{id:current,command,payload}});});}
+function verifySourceDeduplication(prepared,label){
+ const source=prepared.metadata.source_document,prior=JSON.stringify(prepared);
+ assert.doesNotThrow(()=>context.taxRecordMetadata.assertNewSource([],source,label));
+ assert.throws(()=>context.taxRecordMetadata.assertNewSource([prepared.metadata],source,label),/already supplied/);
+ const reattached=JSON.parse(JSON.stringify(source));reattached.document_id=webcrypto.randomUUID();reattached.return_id=webcrypto.randomUUID();reattached.taxml_receipt.wire_profile_sha256='a'.repeat(64);
+ assert.throws(()=>context.taxRecordMetadata.assertNewSource([prepared.metadata],reattached,label),/already supplied/);
+ const separateForm=JSON.parse(JSON.stringify(source)),parts=separateForm.taxml_receipt.form_path.split('/');parts[parts.length-1]=parts.at(-1)==='7'?'8':'7';separateForm.taxml_receipt.form_path=parts.join('/');
+ assert.doesNotThrow(()=>context.taxRecordMetadata.assertNewSource([prepared.metadata],separateForm,label));
+ const separateMember=JSON.parse(JSON.stringify(source));separateMember.taxml_receipt.archive_member='separate-return.xml';
+ assert.doesNotThrow(()=>context.taxRecordMetadata.assertNewSource([prepared.metadata],separateMember,label));
+ assert.doesNotThrow(()=>context.taxRecordMetadata.assertNewSource([{source_document:null}],source,label));
+ assert.equal(JSON.stringify(prepared),prior);
+}
 async function main(){
  const request=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-caller-request.json'),'utf8'));
  const inspected=await command('taxml_inspect',request),candidate=inspected.candidates[0];
@@ -29,6 +42,7 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.reviewedRecord(candidate,values,source,false,schema.capabilities.row_templates.w2));
  await assert.rejects(()=>context.taxMLImport.reviewedRecord({...candidate,can_review:false},values,source,true,schema.capabilities.row_templates.w2));
  const prepared=await context.taxMLImport.reviewedRecord(candidate,values,source,true,schema.capabilities.row_templates.w2);
+ verifySourceDeduplication(prepared,'W-2');
  assert.equal(prepared.metadata.source_document.method,'taxml');assert.equal(prepared.metadata.reviewed,true);
  const data=JSON.parse(JSON.stringify(schema.default_return));data.name='Synthetic actual worker TaxML draft';data.w2.push(prepared.row);
  const metadata=context.taxRecordMetadata.empty();metadata.w2_records.push(prepared.metadata);
@@ -102,6 +116,7 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.reviewedInterest(mc,intValues,source,true));
  await assert.rejects(()=>context.taxMLImport.reviewedRecord(ic,values,source,true,schema.capabilities.row_templates.w2));
  const intPrepared=await context.taxMLImport.reviewedInterest(ic,intValues,source,true);
+ verifySourceDeduplication(intPrepared,'1099-INT');
  assert.equal(intPrepared.row.taxable,'140.50');assert.equal(intPrepared.row.tax_exempt,'12.34');assert.equal(intPrepared.row.federal_withholding,'20.45');
  assert.equal(intPrepared.metadata.taxml_interest_boxes.treasury_interest,'40.27');assert.equal(intPrepared.metadata.source_document.method,'taxml');
  const intData=JSON.parse(JSON.stringify(schema.default_return));intData.interest.push({payer:'Existing synthetic bank',taxable:'0.49',tax_exempt:'0',federal_withholding:'0'},intPrepared.row);
@@ -137,6 +152,7 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.reviewedDividend(ic,divValues,source,true));
  await assert.rejects(()=>context.taxMLImport.reviewedInterest(dc,intValues,source,true));
  const divPrepared=await context.taxMLImport.reviewedDividend(dc,divValues,source,true);
+ verifySourceDeduplication(divPrepared,'1099-DIV');
  assert.equal(divPrepared.row.special_distribution_confirmed,true);assert.equal(divPrepared.metadata.taxml_dividend_boxes.capital_gain_distributions,'1000.25');
  const divData=JSON.parse(JSON.stringify(schema.default_return));divData.interest.push({payer:'Existing synthetic bank',taxable:'1000',tax_exempt:'0',federal_withholding:'0.49'});
  divData.dividends.push({payer:'Existing synthetic fund',ordinary:'0.49',qualified:'0',capital_gain_distributions:'0',federal_withholding:'0'},divPrepared.row);
@@ -161,6 +177,7 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.correctedSource(dc,{...divValues,qualified:'1200.32'},true));
  const dividendAcceptance={worker_inspection:true,actual_QDIV_and_L2_binding:true,payer_scope_and_qualified_eligibility_required:true,subsets_not_added_to_income:true,INT_DIV_withholding_aggregated_before_rounding:true,six_box_snapshot_retained:true,source_snapshot_tamper_blocked:true,row_edit_clears_review:true,corrected_XML_reparsed:true,outside_value_spans_byte_identical:true,refund:divTax.summary.refund,can_prepare:divTax.can_prepare,original_program_acceptance_verified:false};
  const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,legacy_assertion_counter:25,
+  document_duplicate_guard:{record_types:['W-2','1099-INT','1099-DIV'],reuploaded_source_and_changed_profile_blocked:true,separate_form_and_archive_member_allowed:true,manual_same_amount_not_confused_with_source_identity:true,source_metadata_unchanged:true},
   interest_acceptance:interestAcceptance,dividend_acceptance:dividendAcceptance,
   current_windows_native_shape_and_corrected_source_verified:true,corrected_XML_outside_value_spans_byte_identical:true,
   zero_copy_blocked_without_actual_multicopy_factory_binding:true,

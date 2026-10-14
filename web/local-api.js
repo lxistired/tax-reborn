@@ -33,6 +33,18 @@
     }else if(Object.hasOwn(value,'taxml_receipt'))throw Error('TaxML source receipt requires the TaxML method');
     return output;
   }
+  function assertNewSource(records, source, label) {
+    const candidate=localSource(source);
+    if(!candidate)return;
+    for(const entry of records||[]){
+      const previous=localSource(entry.source_document);
+      if(!previous)continue;
+      const sameAttachment=previous.return_id===candidate.return_id&&previous.document_id===candidate.document_id;
+      const a=previous.taxml_receipt,b=candidate.taxml_receipt;
+      const sameTaxMLForm=a&&b&&a.source_sha256===b.source_sha256&&a.archive_member===b.archive_member&&a.form_path===b.form_path;
+      if(sameTaxMLForm||sameAttachment&&!(a&&b))throw Error('This source already supplied a '+label+'. Edit the existing record instead of adding it again.');
+    }
+  }
   async function normalizeMetadata(data,provided,previous=null,options={}) {
     const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
     const fingerprints=await Promise.all(rows.map(async row=>{try{return await w2Fingerprint(row);}catch(error){if(options.draft)return null;throw error;}}));let entries;
@@ -59,14 +71,14 @@
     for(const old of previous?.income_import_events||[]){const current=events.find(item=>item.event_id===old.event_id);if(!current||JSON.stringify(sorted(current))!==JSON.stringify(sorted(old)))throw Error('Saved income-import history cannot be removed or changed');}
     return {version:1,w2_records:records,investment_records:investments,income_document_records:income,income_import_events:events};
   }
-  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,validateSource:localSource,
+  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,validateSource:localSource,assertNewSource,
     empty:()=>({version:1,w2_records:[],income_document_records:{interest:[],dividends:[]},income_import_events:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
   const offline = new URLSearchParams(location.search).get('offline') === '1';
   let worker, sequence = 0, dbPromise;
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.15-preview.15',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.15-preview.19',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {

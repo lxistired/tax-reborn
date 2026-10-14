@@ -1,0 +1,18 @@
+{
+  "checked_at_utc": "2026-10-14T23:00:12.860Z",
+  "all_passed": true,
+  "checks": [
+    "HTTP/SQLite W-2 re-upload refused; saved record and tax totals retained after reload",
+    "HTTP/SQLite 1099-INT re-upload refused; saved record and tax totals retained after reload",
+    "HTTP/SQLite 1099-DIV re-upload refused; saved record and tax totals retained after reload",
+    "actual browser Pyodide/IndexedDB W-2 re-upload refused; saved record and tax totals retained after reload",
+    "actual browser Pyodide/IndexedDB 1099-INT re-upload refused; saved record and tax totals retained after reload",
+    "actual browser Pyodide/IndexedDB 1099-DIV re-upload refused; saved record and tax totals retained after reload"
+  ],
+  "cases": 6,
+  "actual_Pyodide_inspection": true,
+  "actual_HTTP_SQLite_and_IndexedDB_roundtrips": true,
+  "synthetic_only": true,
+  "original_vendor_runtime": 0,
+  "physical_phone_acceptance": false
+}

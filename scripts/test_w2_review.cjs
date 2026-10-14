@@ -46,6 +46,7 @@ async function test(name,f){await f();checks.push(name);console.log('PASS',name)
   const body=await page.locator('body').innerText();for(const entry of before.metadata.w2_records)assert.ok(!body.includes(entry.record_id));
  });
  await test('OCR candidate confirmation links only its local source and marks imported record reviewed',async()=>{
+  await page.evaluate(()=>{data.eligibility.all_income_reported=true;changed();});
   await page.evaluate(()=>{window.extractTaxDocument=async()=>({form_type:'w2',candidates:{employer:{value:'Synthetic D'},owner:{value:'spouse'},wages:{value:'1000'},federal_withholding:{value:'100'},social_security_wages:{value:'1000'},medicare_wages:{value:'1000'}},warnings:[],text:'Synthetic OCR fixture; not OCR accuracy evidence'});});
   await page.getByRole('button',{name:'Documents',exact:true}).click();
   await page.getByLabel('Attach local documents').setInputFiles({name:'Synthetic-D.png',mimeType:'image/png',buffer:Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=','base64')});
@@ -53,12 +54,43 @@ async function test(name,f){await f();checks.push(name);console.log('PASS',name)
   await page.getByLabel('I verified this is a 2025 W-2 and checked each imported amount against the document.').check();
   await page.getByRole('button',{name:'Add reviewed W-2',exact:true}).click();await page.waitForFunction(()=>data.w2.length===3);
   const item=await page.evaluate(()=>metadata.w2_records[2]);assert.equal(item.reviewed,true);assert.equal(item.source_document.return_id,before.id);assert.equal(item.source_document.name,'Synthetic-D.png');assert.equal(await page.evaluate(()=>data.w2[2].owner),'spouse');
-  await page.getByRole('button',{name:'View source document',exact:true}).click();await page.getByRole('dialog',{name:'Your W-2 source document'}).waitFor();assert.equal(await page.locator('[alt="Original W-2 source document"]').count(),1);await page.getByRole('button',{name:'Close',exact:true}).click();
+  assert.equal(await page.evaluate(()=>data.eligibility.all_income_reported),false);
+  await page.getByRole('button',{name:'View source document',exact:true}).click();await page.getByRole('dialog',{name:'Your source document'}).waitFor();assert.equal(await page.locator('[alt="Original source document"]').count(),1);await page.getByRole('button',{name:'Close',exact:true}).click();
+ });
+ await test('Reopening a saved return refuses the same OCR attachment without duplicating wages or changing existing records',async()=>{
+  const actual=await page.evaluate(async()=>{await saveReturn();await loadReturn(currentId);const prior=JSON.stringify({data,metadata}),photo=(await documentsForReturn(currentId)).find(row=>row.name==='Synthetic-D.png');let message;try{await reviewExtractedW2(photo,currentId);}catch(error){message=error.message;}return {message,unchanged:JSON.stringify({data,metadata})===prior,count:data.w2.length};});
+  assert.match(actual.message,/already supplied a W-2/);assert.equal(actual.unchanged,true);assert.equal(actual.count,3);
+ });
+ await test('An income edit during OCR extraction prevents a stale review window and preserves the edit',async()=>{
+  const actual=await page.evaluate(async()=>{const photo={...(await documentsForReturn(currentId))[0],id:crypto.randomUUID(),name:'Synthetic stale extraction.png'};window.extractTaxDocument=async()=>{set('w2.0.wages','25000.02');return {form_type:'w2',candidates:{employer:{value:'Stale extraction'}}};};let message;try{await reviewExtractedW2(photo,currentId);}catch(error){message=error.message;}return {message,count:data.w2.length,wages:data.w2[0].wages,reviewWindow:!!document.querySelector('[aria-label="Review W-2 candidates"]')};});
+  assert.match(actual.message,/changed while extracting/);assert.equal(actual.count,3);assert.equal(actual.wages,'25000.02');assert.equal(actual.reviewWindow,false);
+ });
+ async function openPendingOCR(){
+  await page.evaluate(async()=>{const photo={...(await documentsForReturn(currentId))[0],id:crypto.randomUUID(),name:'Synthetic pending candidate.png'};window.extractTaxDocument=async()=>({form_type:'w2',candidates:{employer:{value:'Synthetic pending'},wages:{value:'1000'}},warnings:[]});await reviewExtractedW2(photo,currentId);window.originalW2Hash=window.taxRecordMetadata.fingerprint;window.taxRecordMetadata.fingerprint=async row=>{window.pendingOCRHash=true;await new Promise(resolve=>window.finishOCRHash=resolve);return window.originalW2Hash(row);};});
+  await page.getByLabel('I verified this is a 2025 W-2 and checked each imported amount against the document.').check();
+  await page.getByRole('button',{name:'Add reviewed W-2',exact:true}).click();
+  await page.waitForFunction(()=>window.pendingOCRHash===true);
+ }
+ await test('An edit during asynchronous OCR review commit is retained and blocks adding stale amounts',async()=>{
+  await openPendingOCR();
+  await page.evaluate(()=>{set('w2.0.wages','25000.03');window.finishOCRHash();});
+  await page.locator('.dialog-error').filter({hasText:'No income record was added.'}).waitFor();
+  assert.equal(await page.evaluate(()=>data.w2.length),3);assert.equal(await page.evaluate(()=>data.w2[0].wages),'25000.03');
+  await page.evaluate(()=>{window.taxRecordMetadata.fingerprint=window.originalW2Hash;window.pendingOCRHash=false;closeDialog();});
+ });
+ await test('Closing OCR review while hashing prevents a late invisible addition',async()=>{
+  await openPendingOCR();
+  await page.getByRole('button',{name:'Close',exact:true}).click();
+  await page.evaluate(()=>window.finishOCRHash());
+  await page.waitForFunction(()=>!window.pendingOCRHash||!document.querySelector('[aria-label="Review W-2 candidates"]'));
+  // Wait for the actual digest/mutation continuation, not only the dialog removal.
+  await page.evaluate(async()=>{await window.originalW2Hash(data.w2[0]);await new Promise(resolve=>setTimeout(resolve,50));window.taxRecordMetadata.fingerprint=window.originalW2Hash;window.pendingOCRHash=false;});
+  assert.equal(await page.evaluate(()=>data.w2.length),3);
  });
  await test('Actual JSON export + restore as new draft retain record state without linking old attachments into new return',async()=>{
   const restored=await page.evaluate(async()=>{await saveReturn();const backup=await api('/api/returns/'+currentId+'/export.json'),newId=crypto.randomUUID(),parsed=parseReturnBackup(JSON.stringify(backup)),report=await restoreReturnBackup(parsed,newId);await loadReturn(report.id);navigate('w2');return {backup,report,current:currentId,metadata:clone(metadata),documents:(await documentsForReturn(currentId)).length};});
   assert.notEqual(restored.current,restored.backup.id);assert.equal(restored.documents,0);assert.deepEqual(restored.metadata,restored.backup.metadata);assert.ok((await page.locator('body').innerText()).includes('Source attachment not restored'));
-  const source=restored.metadata.w2_records[2].source_document;const message=await page.evaluate(async source=>{try{await showW2Source(source);return '';}catch(error){return error.message;}},source);assert.ok(message.includes('not restored'));
+  const source=restored.metadata.w2_records[2].source_document;const message=await page.evaluate(async source=>{try{await showLocalSource(source);return '';}catch(error){return error.message;}},source);assert.ok(message.includes('not restored'));
  });
  await test('Frontend and Python cent-normalized fingerprint agree for Unicode/leading zeros/negative zero',async()=>{
   const probes=[{employer:'Synthetic 基金𝟚',owner:'taxpayer',wages:'060000.00'},{employer:'Synthetic zero',owner:'spouse',wages:'-0.00'}];

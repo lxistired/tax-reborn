@@ -2,6 +2,17 @@
   "runtime": "actual pinned Pyodide via integrated worker source",
   "successful": true,
   "legacy_assertion_counter": 25,
+  "document_duplicate_guard": {
+    "record_types": [
+      "W-2",
+      "1099-INT",
+      "1099-DIV"
+    ],
+    "reuploaded_source_and_changed_profile_blocked": true,
+    "separate_form_and_archive_member_allowed": true,
+    "manual_same_amount_not_confused_with_source_identity": true,
+    "source_metadata_unchanged": true
+  },
   "interest_acceptance": {
     "worker_inspection": true,
     "explicit_scope_and_payer_review": true,
