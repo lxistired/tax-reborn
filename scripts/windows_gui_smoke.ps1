@@ -202,9 +202,22 @@ function Choose-Owned-Native-File([string]$label,[string]$target) {
     Wait-Named 'Inspect locally' | Out-Null
 }
 function Set-Owned-Edit([string]$label,[string]$text) {
-    $field=Wait-Edit $label; $field.SetFocus()
-    [System.Windows.Forms.SendKeys]::SendWait('^a'); [System.Windows.Forms.SendKeys]::SendWait($text+'{TAB}')
-    if([string]$field.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne $text) { throw "Edited field did not retain $label = $text" }
+    $field=Wait-Edit $label
+    # A prior Save As returns to WebView2's download/autofill surfaces. UIA
+    # focus alone did not deliver keyboard text in the captured CI failure.
+    # Use the observed editable control's native ValuePattern, then blur it.
+    [TaxWindow]::SetForegroundWindow($script:process.MainWindowHandle) | Out-Null
+    Click-Observed $field
+    $pattern=$field.GetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern)
+    ([System.Windows.Automation.ValuePattern]$pattern).SetValue($text)
+    $field.SetFocus(); [System.Windows.Forms.SendKeys]::SendWait('{TAB}')
+    $until=(Get-Date).AddSeconds(10)
+    while((Get-Date) -lt $until) {
+        $readback=Wait-Edit $label 5
+        if([string]$readback.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -eq $text) { return }
+        Start-Sleep -Milliseconds 100
+    }
+    throw "Edited field did not retain $label = $text"
 }
 function Inspect-Owned-Income([string]$fixture) {
     Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
