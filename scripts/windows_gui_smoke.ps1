@@ -253,7 +253,6 @@ try {
     Click-Observed (Wait-Named 'Open AMT example')
     Wait-Named '$10,963' 120 $false | Out-Null
     Scroll-Top
-    Click-Observed (Wait-Named 'Deductions')
     Click-Observed (Wait-Named 'Alternative Minimum Tax')
     $iso=Wait-Edit 'Iso adjustment'
     $iso.SetFocus()
