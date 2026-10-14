@@ -1,0 +1,50 @@
+{
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.14-preview.11",
+  "release_id": 412619662,
+  "published_at": "2026-10-14T11:06:37Z",
+  "public": true,
+  "source_commit": "60e6de029c1ef3963756b1863cfd4ee4a48e39e1",
+  "asset_sizes_SHA256_match_local": true,
+  "assets": [
+    {
+      "file": "build-manifest.json",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-Android.apk",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-macOS-arm64.dmg",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-QA.zip",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-source.zip",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-Windows-x64-portable.zip",
+      "anonymous_http_status": 200,
+      "available": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.14-preview.11-Windows-x64-Setup.exe",
+      "anonymous_http_status": 200,
+      "available": true
+    }
+  ]
+}
