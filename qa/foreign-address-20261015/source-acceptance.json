@@ -1,12 +1,12 @@
 {
   "synthetic_only": true,
-  "host_tests_run": 584,
-  "host_tests_passed": 584,
+  "host_tests_run": 585,
+  "host_tests_passed": 585,
   "foreign_address_HTTP_SQLite_backup_and_packet_passed": true,
   "pyodide": {
     "successful": true,
-    "tests": 488,
-    "executed": 487,
+    "tests": 489,
+    "executed": 488,
     "skipped": 1
   },
   "actual_worker_packets_read_back": 2,
@@ -15,7 +15,7 @@
   "original_saved_tax_fixtures": 0,
   "scope": "Mailing address format only. Tax residency and income eligibility scope unchanged.",
   "version": "2026.10.15-preview.18",
-  "source_desktop_checks": 20,
+  "source_desktop_checks": 21,
   "source_desktop_all_passed": true,
   "legacy_browser_migration_cases": 4,
   "actual_PDF_visual_QA": true,
@@ -26,5 +26,6 @@
   "synthetic_countries": [
     "Canada",
     "Germany"
-  ]
+  ],
+  "legacy_cached_US_readiness_does_not_block_foreign_packet": true
 }

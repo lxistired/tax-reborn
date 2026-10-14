@@ -52,4 +52,11 @@ class ForeignMailingAddress(unittest.TestCase):
         d=apply_address(return_for(engine,cases()[0]),CASES[0]);d['eligibility']['full_year_us_resident']=False
         self.assertFalse(engine.calculate_return(d)['can_prepare'])
 
+    def test_legacy_cached_US_readiness_cannot_block_current_foreign_packet(self):
+        d=apply_address(return_for(engine,cases()[0]),CASES[1]);del d['filing_details']['mailing_address_type']
+        d['identity'].update(state='',zip='');r=engine.calculate_return(d)
+        r['form_readiness']['missing_identity']=['State','ZIP code']
+        self.assertTrue(forms.packet_status({'data':d,'result':r})['paper_preparation_complete'])
+        verify_packet(forms.paper_packet_pdf({'data':d,'result':r}),CASES[1],official_forms)
+
 if __name__=='__main__':unittest.main()

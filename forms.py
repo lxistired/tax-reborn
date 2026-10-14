@@ -252,7 +252,9 @@ def packet_status(record,support=None):
     preflight=official_forms.verify_packet_pages(support['pdf_bytes'],support['packet_manifest'])
     readiness=tax_filing.paper_facts_readiness(data)
     voucher=tax_filing.payment_voucher_plan(data,result)
-    missing=list(result.get('blocking_issues',[]))+list(result.get('form_readiness',{}).get('missing_identity',[]))+readiness['missing_paper_facts']+support['missing_facts']+voucher['missing_facts']
+    # Address readiness belongs to the current input format, including old
+    # saved records whose cached result still expected state/ZIP fields.
+    missing=list(result.get('blocking_issues',[]))+tax_engine.form_readiness(data)['missing_identity']+readiness['missing_paper_facts']+support['missing_facts']+voucher['missing_facts']
     if result['lines'].get('27a') and any(r.get('eitc_qualifying_child') for r in data.get('dependents',[])):missing.append('Schedule EIC qualifying-child attachment is not yet generated')
     if len(data.get('dependents',[]))>4:missing.append('More-than-four-dependent continuation attachment is not yet generated')
     missing=list(dict.fromkeys(missing))

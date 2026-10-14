@@ -249,6 +249,16 @@ def smoke_test(report_path=None):
             official_forms.verify_official_pdf(foreign_pdf,foreign_expected)
             status,foreign_status=request('GET',f"/api/returns/{foreign_saved['id']}/paper-checklist.json");assert status==200 and foreign_status['paper_preparation_complete']
             checks.append('Packaged foreign mailing address save/reopen and actual1040/1040-V country/province/postal/AP rows verified; inactive US rows blank, inputs and tax retained')
+            high['name']='Synthetic legacy foreign mailing address'
+            del high['filing_details']['mailing_address_type'];high['identity'].update(state='',zip='')
+            status,legacy_saved=request('POST','/api/returns',{'data':high});assert status==200
+            legacy_cached=legacy_saved['result'];legacy_cached['form_readiness']['missing_identity']=['State','ZIP code']
+            with server.Store(Path(folder)/'data').connect()as connection:
+                connection.execute('UPDATE returns SET result=? WHERE id=?',(json.dumps(legacy_cached),legacy_saved['id']))
+            status,legacy_status=request('GET',f"/api/returns/{legacy_saved['id']}/paper-checklist.json");assert status==200 and legacy_status['paper_preparation_complete']
+            status,legacy_pdf=request('GET',f"/api/returns/{legacy_saved['id']}/paper-packet.pdf");assert status==200
+            official_forms.verify_official_pdf(legacy_pdf,foreign_expected)
+            checks.append('Packaged legacy foreign address without selector and stale cached US readiness still exports current foreign address packet; US tax unchanged')
             data['adjustments']['hsa_deduction']='1000';status,blocked=request('POST','/api/calculate',data)
             assert status==200 and not blocked['can_prepare'] and blocked['blocking_issues']
             checks.append('Unsupported nonzero tax situation remains visibly blocked')

@@ -552,6 +552,23 @@ try {
     Save-Screenshot 'windows-native-foreign-address-reopened.png'
     $checks.Add('Native foreign format/country/province/postal edit invalidated paper confirmation; system1040/1040-V PDF separate rows and blank US fields verified, inputs and2435 balance survived relaunch.')
     $receipt.native_foreign_address_changed_flow_passed=$true
+    $env:TAX_REBORN_OWNED_DATADIR=$DataDir
+    python -c "import os,sys,json;sys.path.insert(0,'tests');import server,tax_engine;from payment_voucher_qa import cases,return_for;from foreign_address_qa import CASES,apply_address;d=apply_address(return_for(tax_engine,cases()[0]),CASES[0]);d['name']='Synthetic legacy foreign address';del d['filing_details']['mailing_address_type'];d['identity'].update(state='',zip='');store=server.Store(os.environ['TAX_REBORN_OWNED_DATADIR']);saved=store.save({'data':d});r=saved['result'];r['form_readiness']['missing_identity']=['State','ZIP code'];conn=store.connect();c=conn.__enter__();c.execute('UPDATE returns SET result=? WHERE id=?',(json.dumps(r),saved['id']));conn.__exit__(None,None,None)"
+    if($LASTEXITCODE -ne 0) { throw 'Owned legacy address fixture failed' }
+    Remove-Item Env:TAX_REBORN_OWNED_DATADIR
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Wait-Named 'Synthetic legacy foreign address' | Out-Null
+    Click-Observed (Wait-Named 'Open'); Wait-Named '$2,435' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Personal details for forms')
+    $format=Wait-Control 'ComboBox' 'Mailing address format'
+    Scroll-Top; Save-Screenshot 'windows-native-legacy-foreign-selector.png'
+    Click-Observed (Wait-Named 'Save & export'); Click-Observed (Wait-Named 'Download official packet')
+    $legacyPdf=Join-Path $OutputDir 'windows-native-legacy-foreign-address.pdf'; Save-Native-Export $legacyPdf
+    $env:TAX_REBORN_OWNED_FOREIGN_PDF=$legacyPdf
+    python -c "import os,sys;sys.path.insert(0,'tests');from pathlib import Path;import official_forms;from foreign_address_qa import CASES,verify_packet;print(verify_packet(Path(os.environ['TAX_REBORN_OWNED_FOREIGN_PDF']).read_bytes(),CASES[0],official_forms))"
+    if($LASTEXITCODE -ne 0) { throw 'Native legacy address packet readback failed' }
+    Remove-Item Env:TAX_REBORN_OWNED_FOREIGN_PDF
+    $checks.Add('Native legacy foreign address without selector loaded with fresh readiness and system-exported1040/1040-V packet; stale cached state/ZIP gaps did not block current address.')
+    $receipt.native_legacy_foreign_address_migration_passed=$true
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
