@@ -1,0 +1,13 @@
+{
+  "runtime": "actual pinned Pyodide via integrated worker source",
+  "successful": true,
+  "assertions": 25,
+  "federal_can_prepare": false,
+  "all_income_reported": false,
+  "no_original_tax_roundtrip_claim": true,
+  "worker_source_sha256": "b127612b928b9a67c116f86339009c30c80abc8608be82586c1fcac7957d88fd",
+  "final_apk_sha256": "7a98b4147f3e49b5f7d68ac17020d989e1662e5b433ccf80fe58d08410f0b835",
+  "final_apk_assets_byte_identical_to_tested_apk": true,
+  "bundled_asset_count": 110,
+  "verification_scope": "Earlier actual packaged Pyodide/JS/Python checks are bound to the final APK by exact110 asset byte comparison. Java wrapper was separately tested on the physical phone."
+}

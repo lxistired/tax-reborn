@@ -1,0 +1,221 @@
+{
+  "version": "2026.10.14-preview.7",
+  "only_synthetic_data": true,
+  "files": [
+    {
+      "path": "qa/app-ordinary-tax-crosscheck-20261014.json",
+      "bytes": 658,
+      "sha256": "bb4e94319d4969893f910d7259bb11392d36d17213ee884f196595230f2738d2"
+    },
+    {
+      "path": "qa/pyodide-expanded-tests.json",
+      "bytes": 991,
+      "sha256": "5aefe10060a1082dcc683d88f2f0d7898a528988035c6d094f316cae5463bfc8"
+    },
+    {
+      "path": "qa/taxml/actual-ui-receipt.json",
+      "bytes": 1377,
+      "sha256": "011226d5fdc886a3288560b62b7629829a94598cc8c2eed82c3d7163ee313f39"
+    },
+    {
+      "path": "qa/taxml/runtime-receipt.json",
+      "bytes": 313,
+      "sha256": "85d4e0a1cdfcd35509af8776f3cb75ee1e1a0423d96ae78b3db590737379c709"
+    },
+    {
+      "path": "qa/taxml/ui-unreviewed-candidate.png",
+      "bytes": 80637,
+      "sha256": "d5c3752eeece721253a3973d178c095d64fc130b0e04f63b7c6724b47cf9de31"
+    },
+    {
+      "path": "qa/taxml/ui-reviewed-saved.png",
+      "bytes": 71752,
+      "sha256": "a02486eeecf30b4394f99aa23865c1ae6ca7114b4a0d9f04f3538417032bb132"
+    },
+    {
+      "path": "qa/taxml/ui-missing-box-blocked.png",
+      "bytes": 73500,
+      "sha256": "87772d7a8fc1b3bf21cb36cdb774fe0f270763a5360f9dd224e91d2755cdc6fc"
+    },
+    {
+      "path": "qa/taxml/ui-zip-appended-preserves-first.png",
+      "bytes": 69413,
+      "sha256": "610b7c3c325a20cda3ef8035812a20e7ac922f04c13f16e5b8f2c8cc620f2558"
+    },
+    {
+      "path": "qa/native-preview7/build-manifest-darwin-arm64.json",
+      "bytes": 726,
+      "sha256": "a8966dc4a5748cfa62f299d446aed1c863992bc3d7f2537720b2a45a30b0adff"
+    },
+    {
+      "path": "qa/native-preview7/build-manifest-win32-x64.json",
+      "bytes": 953,
+      "sha256": "fd907024a26aa5ffc0959644c74c72c8160d38e5a30aafdccfb1a5567f0889a4"
+    },
+    {
+      "path": "qa/native-preview7/dmg-mounted-byte-readback.json",
+      "bytes": 124,
+      "sha256": "ff8cf117e4e82f40f0d216ca9f11e15f4f9f36b3ada6a7901de8e125ede86d3b"
+    },
+    {
+      "path": "qa/native-preview7/dmg-mounted-frozen-smoke.json",
+      "bytes": 1200,
+      "sha256": "2a3e0e6717218bfe8b67b4c44ff9c301e1db5b6e6b1ac7d246a2dde68f5ee682"
+    },
+    {
+      "path": "qa/native-preview7/frozen-smoke-darwin-arm64.json",
+      "bytes": 1200,
+      "sha256": "2a3e0e6717218bfe8b67b4c44ff9c301e1db5b6e6b1ac7d246a2dde68f5ee682"
+    },
+    {
+      "path": "qa/native-preview7/frozen-smoke-win32-x64.json",
+      "bytes": 1224,
+      "sha256": "51a88da94203742264242d4de3315e50c862fb14653b19e2f65c481454945cc2"
+    },
+    {
+      "path": "qa/native-preview7/installed-frozen-smoke-win32-x64.json",
+      "bytes": 1224,
+      "sha256": "51a88da94203742264242d4de3315e50c862fb14653b19e2f65c481454945cc2"
+    },
+    {
+      "path": "qa/native-preview7/installed-taxml-pyodide-receipt.json",
+      "bytes": 313,
+      "sha256": "85d4e0a1cdfcd35509af8776f3cb75ee1e1a0423d96ae78b3db590737379c709"
+    },
+    {
+      "path": "qa/native-preview7/windows-ci-run.json",
+      "bytes": 172,
+      "sha256": "81dc49cd0677eb954bf216da012373b0a2b243c6b0b4ddb2036866f2af1c6476"
+    },
+    {
+      "path": "qa/native-preview7/windows-installer-receipt.json",
+      "bytes": 234,
+      "sha256": "39000a7eb9d733bfda5af8b4ddbd2ee17e186a6b972d53b2e6b8508ca05b8859"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-gui-smoke.json",
+      "bytes": 624,
+      "sha256": "4b13782c7a39e060650b4702f6510d25fd1f84b01a9d35b6866ad4c4b72c95ea"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-calculation-1413.png",
+      "bytes": 55477,
+      "sha256": "937c4f28475902664fcd3af6fd18ae0ee959c74db610ed22fb0345b44c93340a"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-edited-1913.png",
+      "bytes": 61276,
+      "sha256": "c4740613dee178bcf6179046ffb889fd1dd434eb295cd28e6f7243bb96965835"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-reopened-1913.png",
+      "bytes": 91492,
+      "sha256": "a1425093ab771197d2ebda7ccd6ccc29f004d2e261e2ae1cc2c740dd9e1d4736"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-after-PDF-export.png",
+      "bytes": 58555,
+      "sha256": "5a7252208c7d7c350342f4c99232c371f2f3f2d0af63c7bd9d930c7d11115926"
+    },
+    {
+      "path": "qa/native-preview7/windows-native-export-DRAFT.pdf",
+      "bytes": 625732,
+      "sha256": "d3655ebfb51e8514c2e1513d0557763c2338ec3e8c0421d1dc17cd4206284076"
+    },
+    {
+      "path": "qa/native-preview7/macos-native-gui-smoke.json",
+      "bytes": 1547,
+      "sha256": "7ad1d3e159860b31a97a23e9468348e43fdb7ad1915eb26331d17a5216e3c112"
+    },
+    {
+      "path": "qa/native-preview7/macos-packaged-taxml-runtime.json",
+      "bytes": 284,
+      "sha256": "6c7d3420418b9830c37b50457d6160a9846956a78b182b0d649200eba87c6340"
+    },
+    {
+      "path": "qa/native-preview7/macos-stable-taxml-imported-483.png",
+      "bytes": 178541,
+      "sha256": "d0cc6cdf1f6e0476b2e06b6e91de12dc2a98cea4b0edd65d557bf8b64b91060c"
+    },
+    {
+      "path": "qa/native-preview7/macos-stable-taxml-cold-reopened.png",
+      "bytes": 178517,
+      "sha256": "42b27998df29a1dd926b036d28910cd7f718a684986e26ce3d0e82267ebe0949"
+    },
+    {
+      "path": "qa/native-preview7/macos-cold-restored-source.xml",
+      "bytes": 666,
+      "sha256": "712d418dd4b45c190237fa33ea355ff78282a5ae09f84b598225f86729922b40"
+    },
+    {
+      "path": "qa/native-preview7/macos-native-preview7-taxml-paper-packet.pdf",
+      "bytes": 596196,
+      "sha256": "11c4a6f625ad0ef2c23a18f3671ccc30e83f2acc950ca4d00cb94f0db7f906a7"
+    },
+    {
+      "path": "qa/native-preview7/macos-native-preview7-taxml-paper-packet.pdf.readback.json",
+      "bytes": 105,
+      "sha256": "66a6222e974d7014e11ef0d31b855615708a6314c478e94af8d90fdd64503595"
+    },
+    {
+      "path": "qa/native-preview7/build-manifest-android.json",
+      "bytes": 773,
+      "sha256": "79cbc60369f4665e2a09e0d4d4c3122a69892c097df522d537ac55031b61b30e"
+    },
+    {
+      "path": "qa/native-preview7/android-install-receipt.json",
+      "bytes": 821,
+      "sha256": "2a0085ddbc86b6cfde2b0631e5f3cdd9abc9cb318ff72f086893af84250061f5"
+    },
+    {
+      "path": "qa/native-preview7/android-native-gui-smoke.json",
+      "bytes": 2393,
+      "sha256": "de8916e1aa5c4eaf5effe28377d05b0bc7abc38e35d30a22a847f04fc5609e3a"
+    },
+    {
+      "path": "qa/native-preview7/mac-android-package-provenance.json",
+      "bytes": 3890,
+      "sha256": "577d2e7f65f16b4411a17449e2b5d7687b5e2df2dd48119be2d776e64db6cc7e"
+    },
+    {
+      "path": "qa/native-preview7/android-packaged-pyodide-tests.json",
+      "bytes": 1364,
+      "sha256": "222c42bbe312b8dda307c154598942fea5b3406d1be785dd2722518d3c8b91a4"
+    },
+    {
+      "path": "qa/native-preview7/android-packaged-taxml-runtime.json",
+      "bytes": 686,
+      "sha256": "4c1c3ce7cb5a41bd052b6f3e33c9a2541c07ffb776675eff3f6b3807a3dba5cd"
+    },
+    {
+      "path": "qa/native-preview7/android-final-native-save-return-packet.pdf",
+      "bytes": 596072,
+      "sha256": "a08feb7ff771fcf08027c5d860d921764106de18f417bb7e9283b1860ab3e82d"
+    },
+    {
+      "path": "qa/native-preview7/android-final-native-save-return-packet.pdf.readback.json",
+      "bytes": 368,
+      "sha256": "f67a176f8ccaa982a9da934acfc3f23190f9491c9d087eb40a2a9e51a6e85682"
+    },
+    {
+      "path": "qa/native-preview7/android-final-save-return-P7.png",
+      "bytes": 86562,
+      "sha256": "1958bacfb4e3cf657a9cb4c1855a12fe62235be4634c3648cdc40532e7537f25"
+    },
+    {
+      "path": "qa/native-preview7/android-final-cancel-return-P7.png",
+      "bytes": 87656,
+      "sha256": "d846d9dc1451246a5021f274ca846fcf9201c7ed9b03e40c795fb42dacfa121b"
+    },
+    {
+      "path": "qa/native-preview7/android-final-cold-reopened-P7.png",
+      "bytes": 86942,
+      "sha256": "6b93e85f9d7f7abfe7146be033571ce30a3ea9a12cf22e86f16443c774b83310"
+    },
+    {
+      "path": "qa/native-preview7/common-component-byte-audit.json",
+      "bytes": 4047,
+      "sha256": "7976d40cd295185290e01108c5341ca9b8ee032a58c5dadc191c3bdb38f023c2"
+    }
+  ]
+}

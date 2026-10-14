@@ -1,0 +1,13 @@
+{
+  "expected_pages": 3,
+  "actual_pages": 3,
+  "page_identities_verified": true,
+  "missing_pages": [],
+  "packet_sha256": "a08feb7ff771fcf08027c5d860d921764106de18f417bb7e9283b1860ab3e82d",
+  "packet_bytes": 596072,
+  "filled_refund": 1425,
+  "filled_withholding": 6500,
+  "filing_packet_ready": false,
+  "synthetic_only": true,
+  "actual_final_native_save": true
+}

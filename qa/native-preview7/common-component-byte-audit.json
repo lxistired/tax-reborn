@@ -1,0 +1,107 @@
+{
+  "version": "2026.10.14-preview.7",
+  "mac_source_freeze": "4cd8a5942b32f108db0c3745dd252f194e065299",
+  "windows_source_freeze": "74a23ed35f9963fcd1ed7966acb1d6a93139e7e8",
+  "android_source_freeze": "85050f4238567170613a8a97377e09c283b0e3d1",
+  "scope": "Exact14 authored common component bytes compared across Mac resources, Windows portableZIP and finalAPK to current source. Does not certify complete original runtime, Android native wrapper or all package contents.",
+  "components": [
+    {
+      "path": "official_forms.py",
+      "source_sha256": "3e9b363c04f3aadb749703b4d80193489ed4ece5cd92d5d5ed57363ae90956f0",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "tax_engine.py",
+      "source_sha256": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "tax_extended.py",
+      "source_sha256": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "tax_filing.py",
+      "source_sha256": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "forms.py",
+      "source_sha256": "3878516a141ae38cbb31027198f1b641ebf9eab28dc5d3df845f361a3e7f7215",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "rules_2025.json",
+      "source_sha256": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/local-api.js",
+      "source_sha256": "102f7c10e4905b452120f71ffbf1e9a69bb75b389dc7daaffb7612d9eb518aab",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/service-worker.js",
+      "source_sha256": "44dfa909ac35e2254c2dd224f6c34b34a4c2d23fe92d7398ccebe623c6af35bb",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/app.js",
+      "source_sha256": "50a8784e59756871aee48c0f326e13e6874d0f71e3f0bede389f684fdf7c4f38",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/tax-worker.js",
+      "source_sha256": "5de08f07390dcee330c43a71a31d8da99950b7cb67ae2f8cef090ec449e3055e",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/tax-worker-source.js",
+      "source_sha256": "b127612b928b9a67c116f86339009c30c80abc8608be82586c1fcac7957d88fd",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/taxml_wire.py",
+      "source_sha256": "c7ffdf2b6ec20a097278a910d19bd81ffc61af55a1f408c580ba0649ca478b75",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/taxml_preparation.py",
+      "source_sha256": "fb3e208769c47c75efe46f3c053eed0e895cd05b7ec566c2461390325fb48623",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    },
+    {
+      "path": "web/taxml-import.js",
+      "source_sha256": "6eecff7220b0567a7ad39a83929ae70afe8e0327148a43aaf4dec691028e22be",
+      "windows_matches_source": true,
+      "mac_matches_source": true,
+      "final_android_matches_source": true
+    }
+  ]
+}

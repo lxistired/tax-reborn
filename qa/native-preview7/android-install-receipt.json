@@ -1,0 +1,13 @@
+{
+  "version": "2026.10.14-preview.7",
+  "versionCode": 2026101407,
+  "same_key_update_successful": true,
+  "data_clear_or_uninstall_performed": false,
+  "internet_permission": false,
+  "packaged_sha256": "7a98b4147f3e49b5f7d68ac17020d989e1662e5b433ccf80fe58d08410f0b835",
+  "installed_apk_sha256": "7a98b4147f3e49b5f7d68ac17020d989e1662e5b433ccf80fe58d08410f0b835",
+  "installed_apk_matches_release": true,
+  "verification_method": "Android sha256sum on exact observed Package Manager base.apk path",
+  "actual_gui_scope": "Same-key in-place update; retained synthetic P7/refund1425; actual completed and cancelled Android SAF saves returned to same App process; cold restart retained return. Native TaxML picker and camera/OCR revalidation remain open.",
+  "source_commit": "85050f4238567170613a8a97377e09c283b0e3d1"
+}
