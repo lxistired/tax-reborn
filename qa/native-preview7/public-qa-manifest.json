@@ -49,8 +49,8 @@
     },
     {
       "path": "qa/native-preview7/build-manifest-win32-x64.json",
-      "bytes": 953,
-      "sha256": "fd907024a26aa5ffc0959644c74c72c8160d38e5a30aafdccfb1a5567f0889a4"
+      "bytes": 921,
+      "sha256": "fdcd1a412d5ccae83ef3261a0568c2fc45aa987beba40a6c889a640f3d1594ac"
     },
     {
       "path": "qa/native-preview7/dmg-mounted-byte-readback.json",
@@ -69,13 +69,13 @@
     },
     {
       "path": "qa/native-preview7/frozen-smoke-win32-x64.json",
-      "bytes": 1224,
-      "sha256": "51a88da94203742264242d4de3315e50c862fb14653b19e2f65c481454945cc2"
+      "bytes": 1199,
+      "sha256": "c03d2043a945910f8031b0abbe0bd23f7e7a0f389ae1db5a6f94461f82f4d7cf"
     },
     {
       "path": "qa/native-preview7/installed-frozen-smoke-win32-x64.json",
-      "bytes": 1224,
-      "sha256": "51a88da94203742264242d4de3315e50c862fb14653b19e2f65c481454945cc2"
+      "bytes": 1199,
+      "sha256": "c03d2043a945910f8031b0abbe0bd23f7e7a0f389ae1db5a6f94461f82f4d7cf"
     },
     {
       "path": "qa/native-preview7/installed-taxml-pyodide-receipt.json",
@@ -89,13 +89,13 @@
     },
     {
       "path": "qa/native-preview7/windows-installer-receipt.json",
-      "bytes": 234,
-      "sha256": "39000a7eb9d733bfda5af8b4ddbd2ee17e186a6b972d53b2e6b8508ca05b8859"
+      "bytes": 227,
+      "sha256": "e2d9d780732b7e6cdf9285e392998e5c82963b5413a73d7e02c5bee569240a0a"
     },
     {
       "path": "qa/native-preview7/windows-native-gui-smoke.json",
-      "bytes": 624,
-      "sha256": "4b13782c7a39e060650b4702f6510d25fd1f84b01a9d35b6866ad4c4b72c95ea"
+      "bytes": 610,
+      "sha256": "34d6a30acf7f6bdfddabb058934dce17bc20bd84ed9c05cc59f98253967db5f6"
     },
     {
       "path": "qa/native-preview7/windows-native-calculation-1413.png",
@@ -217,5 +217,6 @@
       "bytes": 4047,
       "sha256": "7976d40cd295185290e01108c5341ca9b8ee032a58c5dadc191c3bdb38f023c2"
     }
-  ]
+  ],
+  "json_source_normalization": "UTF-8 LF; original package/executable bytes and hashes are unchanged"
 }
