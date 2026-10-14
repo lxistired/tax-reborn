@@ -1,0 +1,13 @@
+{
+  "exact_APK_engine_assets": true,
+  "IRS150_regular_tax_passed": 150,
+  "explicit_blocked_AMT_cases": 2,
+  "Box2b_edit_tax": 16150,
+  "refund": 13850,
+  "actual_pdf_components_readback": true,
+  "packet_pages": 7,
+  "paper_preparation_complete": true,
+  "transmitted": false,
+  "original_vendor_runtime_executions": 0,
+  "synthetic_only": true
+}

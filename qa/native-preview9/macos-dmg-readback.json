@@ -1,0 +1,7 @@
+{
+  "version": "2026.10.14-preview.9",
+  "readonly_mounted_DMG": true,
+  "exact_payload_files": 375,
+  "all_payload_hashes_matched": true,
+  "actual_frozen_smoke_passed": 13
+}

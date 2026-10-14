@@ -1,0 +1,20 @@
+{
+  "version": "2026.10.14-preview.9",
+  "native_GUI": true,
+  "new_distribution_example": true,
+  "refund_before": 13780,
+  "Box2b_changed_10000_to_9000": true,
+  "refund_after": 13850,
+  "review_invalidated": true,
+  "saved": true,
+  "normal_quit_relaunch_retained": true,
+  "actual_native_Save_panel_export": true,
+  "ScheduleD18": 10000,
+  "ScheduleD19": 9000,
+  "worksheet47": 16150,
+  "packet_pages": 7,
+  "pdf_sha256": "68d35f4d1ef60b2162ff5f860c80f0730ee771c6424db6f12546c15486ae0ef9",
+  "synthetic_only": true,
+  "original_vendor_runtime_executions": 0,
+  "transmitted": false
+}

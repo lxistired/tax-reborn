@@ -1,0 +1,203 @@
+{
+  "version": "2026.10.14-preview.9",
+  "source_build_commit": "579c6e509b454cd062a6f2dab8c0ce2604e0b9ce",
+  "synthetic_only": true,
+  "vendor_original_runtime_executions": 0,
+  "files": [
+    {
+      "file": "amt825.json",
+      "bytes": 196,
+      "sha256": "bdcc4ddb547c501acb3328a6c783dc2a326d616eb7de0c563739ec4e0a7abc26"
+    },
+    {
+      "file": "android-exact-assets-special-runtime.json",
+      "bytes": 349,
+      "sha256": "26905f6b51e8923b7d2a550c58fd7ea51b95c97fe9743f37dfdc33a360016093"
+    },
+    {
+      "file": "android-installed-receipt.json",
+      "bytes": 264,
+      "sha256": "022e458bcad1e8f9f067e6a1154558163ac63e71f1316b627ceae8ca40d9a3dc"
+    },
+    {
+      "file": "android-native-GUI-receipt.json",
+      "bytes": 775,
+      "sha256": "0c9b74f28f018fe1fd32a07af06de1e4de5cd28f65d81e4542148d531ebe6f84"
+    },
+    {
+      "file": "android-native-special-official-packet.pdf",
+      "bytes": 802661,
+      "sha256": "68d35f4d1ef60b2162ff5f860c80f0730ee771c6424db6f12546c15486ae0ef9"
+    },
+    {
+      "file": "android-special-calculation-13780.png",
+      "bytes": 205647,
+      "sha256": "c5f0aefa460432d0a302edb9b0402fc295c2b426e76f10a4def2c6952e4f7b5d"
+    },
+    {
+      "file": "android-special-cold-reopened-13850.png",
+      "bytes": 268612,
+      "sha256": "731d2e4427e72c5c5631055c40a2e73ffdb9ccdb17a85a055db5162194b0bb16"
+    },
+    {
+      "file": "android-special-edited-13850.png",
+      "bytes": 200308,
+      "sha256": "5a36819fd4d98c92707740adc31185ec69728b375585670a0242caa520c4e136"
+    },
+    {
+      "file": "browser-edited-13850.png",
+      "bytes": 318559,
+      "sha256": "e354e0227c07f010c970c97b96fcfe716a91b963d7df51fa39a26fa13808a1bd"
+    },
+    {
+      "file": "browser-reviewed-13780.png",
+      "bytes": 308958,
+      "sha256": "369125330e0dee3f7ea1c01de3703a244c9c4fd7adc71ceda760c481cc33e147"
+    },
+    {
+      "file": "browser-special-official-packet.pdf",
+      "bytes": 802657,
+      "sha256": "e712ee92865a3d672631e938ae052bb22d2df8e50635c19cc1513bc2e0856071"
+    },
+    {
+      "file": "browser-special-receipt.json",
+      "bytes": 536,
+      "sha256": "319c7fd3627f1eafae0e64fe81c44dd03daaf718f6a94f4a1923451c8d4ea6f3"
+    },
+    {
+      "file": "build-manifest-android.json",
+      "bytes": 455,
+      "sha256": "3da6d3bd50445c51555f2e2d92bd6901050eed692fb2909da400d35751af60e6"
+    },
+    {
+      "file": "build-manifest-darwin-arm64.json",
+      "bytes": 726,
+      "sha256": "88309a143eb3648ebeb337647bf6397a7b3a3cc1ab857e7c9bae78c9ba763e60"
+    },
+    {
+      "file": "build-manifest-win32-x64.json",
+      "bytes": 921,
+      "sha256": "94df3c693bb3332b3cac23e099d8658839213ce46ec2a516d19c059d656d1783"
+    },
+    {
+      "file": "frozen-smoke-darwin-arm64.json",
+      "bytes": 1323,
+      "sha256": "647346c26de3e34c6a6f60fcfc2cc127038db433add19a2384328a9e2e3ae8aa"
+    },
+    {
+      "file": "frozen-smoke-win32-x64.json",
+      "bytes": 1322,
+      "sha256": "51c257a0099ed617f22fb6ffc7159a3a42a50fa40f65a9100c6e8bd819ec388f"
+    },
+    {
+      "file": "installed-frozen-smoke-win32-x64.json",
+      "bytes": 1322,
+      "sha256": "51c257a0099ed617f22fb6ffc7159a3a42a50fa40f65a9100c6e8bd819ec388f"
+    },
+    {
+      "file": "installed-taxml-pyodide-receipt.json",
+      "bytes": 355,
+      "sha256": "cd8fa920f57728f4fcc2cded4cb73defb471dd4fbd11ae90e061cdf166cbefd0"
+    },
+    {
+      "file": "macos-dmg-readback.json",
+      "bytes": 176,
+      "sha256": "b0562eb5863b0e8380c7dc4e9d0a93aed98e3ada9c693991394985676bb126c4"
+    },
+    {
+      "file": "macos-native-GUI-receipt.json",
+      "bytes": 588,
+      "sha256": "6ebead64e460e53d952ffdfe20df375b9004f1b5e90b025614effe83c9481cfa"
+    },
+    {
+      "file": "macos-special-edited-13850.png",
+      "bytes": 446722,
+      "sha256": "e47608a3e4bdd4404114fc38f37ab19a5709c9bf96e049f8ae125c99449ba090"
+    },
+    {
+      "file": "macos-special-official-packet.pdf",
+      "bytes": 802661,
+      "sha256": "68d35f4d1ef60b2162ff5f860c80f0730ee771c6424db6f12546c15486ae0ef9"
+    },
+    {
+      "file": "macos-special-reopened-13850.png",
+      "bytes": 437414,
+      "sha256": "4be9791c075edeccd77e581ed99d21fc641d5c1df11c8bd676eb6735ee43157d"
+    },
+    {
+      "file": "pyodide-federal389.json",
+      "bytes": 1069,
+      "sha256": "205f9b76afe86e49708b8d3101ee1f68ebe78a398a94e0a14fdec131b17e5cd6"
+    },
+    {
+      "file": "source-desktop-smoke.json",
+      "bytes": 1324,
+      "sha256": "2747a72a3c37829587cbb43b49bce4c80f2aa4f4820b9f3ad6d4daffe1d9c879"
+    },
+    {
+      "file": "windows-ci-receipt.json",
+      "bytes": 189,
+      "sha256": "41bd4c4bab18539d808a86e4255510b6e0b951149a70a5dd57688d5dce8b3c3e"
+    },
+    {
+      "file": "windows-installer-receipt.json",
+      "bytes": 227,
+      "sha256": "e2aed7ba333c43418b9b702e66dfafb367ec72846e096bb1afb46337c5d705d3"
+    },
+    {
+      "file": "windows-native-PDF-save-as.png",
+      "bytes": 23143,
+      "sha256": "33c77cee6cd449de1a1a8a5e324c4440476599b2982f851ad7cf70099300e4b7"
+    },
+    {
+      "file": "windows-native-after-PDF-export.png",
+      "bytes": 54588,
+      "sha256": "840b63c75b71f019c90a7d0b60f80ddb7d9346cbe9d0ea0cd8854153545090ac"
+    },
+    {
+      "file": "windows-native-calculation-1413.png",
+      "bytes": 55499,
+      "sha256": "28556fc015134e21c07ca619f7a3ba16c347c2145b001c95ee50ab7c846808c6"
+    },
+    {
+      "file": "windows-native-edited-1913.png",
+      "bytes": 61247,
+      "sha256": "9ad777e98d4edb179266573ff735ea48bfe4d1f3dee3909ee42456ee249e6a32"
+    },
+    {
+      "file": "windows-native-export-DRAFT.pdf",
+      "bytes": 625732,
+      "sha256": "7e6e53eeb691f3aa7aedd0d65e37848ee55d501f087fb773a32e6e62d7359f58"
+    },
+    {
+      "file": "windows-native-gui-smoke.json",
+      "bytes": 945,
+      "sha256": "c9f87ffb5349ab998c63e067a2441aa006a8f61be9b9535e06307d6c24f39c13"
+    },
+    {
+      "file": "windows-native-initial.png",
+      "bytes": 52865,
+      "sha256": "92a03f76f5842f9680a1dc441957e703e2336846aa7a74a630b128e10e537cd7"
+    },
+    {
+      "file": "windows-native-reopened-1913.png",
+      "bytes": 91511,
+      "sha256": "26c8a73e6c231efeb5b27bcb74784e014f5fe68ff52cb8ad3a166455ddb90048"
+    },
+    {
+      "file": "windows-native-special-edited-13850.png",
+      "bytes": 61836,
+      "sha256": "d40192e862a8518014e039fae1fdf8272703a07ed2d70bc14465bca110b5e4c2"
+    },
+    {
+      "file": "windows-native-special-official-packet.pdf",
+      "bytes": 802661,
+      "sha256": "68d35f4d1ef60b2162ff5f860c80f0730ee771c6424db6f12546c15486ae0ef9"
+    },
+    {
+      "file": "windows-native-special-reopened-13850.png",
+      "bytes": 57541,
+      "sha256": "09115d834693f322c57de3c194f679e920fa553406c3c737327d537178693a41"
+    }
+  ]
+}

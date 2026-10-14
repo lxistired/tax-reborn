@@ -1,0 +1,25 @@
+{
+  "version": "2026.10.14-preview.9",
+  "native_GUI": true,
+  "IRS_distribution_example_refund": 13780,
+  "Box2b_edit_10000_to_9000": true,
+  "actual_refund_after": 13850,
+  "native_saved": true,
+  "system_document_save_completed": true,
+  "returned_to_App": true,
+  "export_file_bytes": 802661,
+  "export_sha256": "68d35f4d1ef60b2162ff5f860c80f0730ee771c6424db6f12546c15486ae0ef9",
+  "remote_and_local_sha256_equal": true,
+  "PDF_field_readback": {
+    "ScheduleD18": 10000,
+    "ScheduleD19": 9000,
+    "worksheet47": 16150
+  },
+  "packet_pages": 7,
+  "mouse_first_focus_required_doubleclick": true,
+  "physical_keyboard_navigation_used": true,
+  "camera_OCR_revalidation": false,
+  "synthetic_only": true,
+  "transmitted": false,
+  "cold_relaunch_retained_13850": true
+}
