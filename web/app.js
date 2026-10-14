@@ -752,7 +752,8 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision){
   fields.append(el('div',{class:'field'},el('label',{},label),type==='text'||type==='owner'?input:el('div',{class:'money-wrap'},el('span',{},'$'),input),wire?el('small',{},'Wire '+wire.field_id+' · '+wire.wire_text):name==='social_security_tips'||name==='dependent_care_benefits'?el('small',{},'Not established by this source · enter explicitly'):null));
  }
  const confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML W-2 amounts and ownership'});
- holder.append(fields,el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, the owner, employer and every amount against the original W-2.')));
+ holder.append(fields,el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, the owner, employer and every amount against the original W-2.')),
+  el('p',{class:'note'},'Download corrected XML writes only Boxes 1–6 to a separate plaintext XML copy. Other source bytes are retained. Owner, employer, Boxes 7 and 10 are added to this App only. The original return is not recalculated.'));
  let committing=false;
  modal('Review TaxML W-2 candidate',holder,[['Add reviewed W-2',async()=>{
   if(committing)return;committing=true;
@@ -763,7 +764,18 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No W-2 was added.');
    ensureW2Metadata();data.w2.push(prepared.row);metadata.w2_records.push(prepared.metadata);openRecords.add('w2:'+prepared.metadata.record_id);changed();closeDialog();navigate('w2');notify('Reviewed TaxML W-2 added. Income completeness was not confirmed. Save to keep this draft.');
   }finally{committing=false;}
- },'primary']]);
+ },'primary'],['Download corrected XML',async()=>{
+  if(committing)return;committing=true;
+  try{
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen the import.');
+   const values=Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value]));
+   const corrected=await window.taxMLImport.correctedSource(candidate,values,confirmed.checked);
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
+   const bytes=Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0));
+   await downloadBlob(new Blob([bytes],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.xml');
+   notify('Corrected XML copy downloaded. Original source retained; no full-return recalculation.');
+  }finally{committing=false;}
+ },'secondary']]);
 }
 async function showDocuments(){
  try{if(!hasSaved)await saveReturn();}catch{return;}

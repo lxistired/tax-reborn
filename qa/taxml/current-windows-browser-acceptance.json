@@ -1,0 +1,21 @@
+{
+  "successful": true,
+  "synthetic_only": true,
+  "UI_actual_file_selectors": 3,
+  "registry_byte_validation": true,
+  "current_windows_root_entity_form_shape": true,
+  "original_copy_zero_retained": true,
+  "reviewed_W2_added": true,
+  "edited_wages": "1234.57",
+  "edited_withholding": "124.00",
+  "actual_HTTP_SQLite_saved_reloaded": true,
+  "actual_refund": 124,
+  "original_source_downloaded_after_reload_byte_identical": true,
+  "corrected_source_downloaded": true,
+  "only_two_value_text_spans_changed": true,
+  "source_sha256": "70e14d10d162aa4856103c655182b7788d88bdbe2126486dba7ddb404dcfe727",
+  "corrected_sha256": "8f1555915bed31f933a6c4dcf453127c2fef94d864ce090fb313de553248441d",
+  "all_income_reported": false,
+  "full_original_return_import": false,
+  "original_program_acceptance": false
+}

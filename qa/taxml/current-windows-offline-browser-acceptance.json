@@ -1,0 +1,20 @@
+{
+  "successful": true,
+  "synthetic_only": true,
+  "mode": "actual browser Pyodide and IndexedDB",
+  "actual_file_selectors": 3,
+  "current_windows_native_shape": true,
+  "reviewed_W2_added": true,
+  "actual_saved_reloaded_and_JSON_read_back": true,
+  "actual_refund": 125,
+  "wages": "1234.58",
+  "withholding": "125.00",
+  "review_persisted": true,
+  "original_source_downloaded_after_reload_byte_identical": true,
+  "corrected_XML_downloaded": true,
+  "only_two_value_text_spans_changed": true,
+  "source_sha256": "70e14d10d162aa4856103c655182b7788d88bdbe2126486dba7ddb404dcfe727",
+  "corrected_sha256": "7484f0da53fafc68640f5fb7455be5aeb5f806a3467f2e4fe54825cf1fc305dd",
+  "all_income_reported": false,
+  "original_TurboTax_acceptance": false
+}

@@ -1,6 +1,6 @@
 # Preview12 candidate acceptance
 
-This is a candidate built from c90a64d6b7e81f21dca3972ff03b59ffe3978f3e. It is not yet a published release. All return figures, identities and PDFs here are synthetic.
+This is a candidate built from c90a64d6b7e81f21dca3972ff03b59ffe3978f3e. It is now a public release at https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.14-preview.12; all8 assets returned anonymous HTTP200 and the6 major asset digests match the local files. All return figures, identities and PDFs here are synthetic.
 
 Windows installed/frozen checks17 and native GUI checks17 passed. The native SaveAs birthday PDF has EIC0, refund1000 and the IRS Form1040 line27c checkbox checked. Mac actual edits, normal quit/relaunch and native system PDF save/readback passed with the same fields. DMG payload matches all381 App files.
 

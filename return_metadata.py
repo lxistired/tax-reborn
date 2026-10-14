@@ -49,7 +49,7 @@ def taxml_receipt(value):
             raise ValueError('Invalid TaxML source hash')
     if type(value['template_resource_id']) is not int or not 0 <= value['template_resource_id'] <= 65535:
         raise ValueError('Invalid TaxML template resource identifier')
-    if not isinstance(value['form_path'], str) or not re.fullmatch(r'\d{1,6}/\d{1,6}', value['form_path']):
+    if not isinstance(value['form_path'], str) or not re.fullmatch(r'\d{1,6}(?:/\d{1,6}){1,2}', value['form_path']):
         raise ValueError('Invalid TaxML form identity')
     member = value['archive_member']
     if member is not None and (not isinstance(member, str) or not member or len(member) > 1024 or re.search(r'[\x00-\x1f\x7f]', member)):

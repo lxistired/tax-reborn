@@ -3,7 +3,7 @@
   "version": "2026.10.14-preview.12",
   "source_commit": "c90a64d6b7e81f21dca3972ff03b59ffe3978f3e",
   "all_figures_synthetic": true,
-  "published": false,
+  "published": true,
   "Windows": {
     "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38561759814",
     "installed_frozen_checks": 17,
@@ -46,5 +46,7 @@
   "full_original_tax_compatibility": false,
   "original_runtime_executions": 0,
   "validated_original_saved_tax_fixtures": 0,
-  "three_platform_acceptance_complete": true
+  "three_platform_acceptance_complete": true,
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.14-preview.12",
+  "anonymous_release_asset_HTTP_200": 8
 }

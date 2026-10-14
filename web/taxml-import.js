@@ -1,6 +1,7 @@
 'use strict';
 (function(){
  const requiredMoney=['wages','federal_withholding','social_security_wages','social_security_withholding','medicare_wages','medicare_withholding','social_security_tips','dependent_care_benefits'];
+ const sourceContexts=new WeakMap();
  const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
  function encoded(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text);}
  async function inspect(file,profileFile,registryFiles,container,acknowledged){
@@ -12,7 +13,17 @@
   const carriers=[];
   for(const carrier of registryFiles){if(!(carrier instanceof Blob)||!carrier.size||carrier.size>32*1024*1024)throw Error('Choose registry files smaller than 32 MB each.');const bytes=new Uint8Array(await carrier.arrayBuffer());carriers.push({base64:encoded(bytes),sha256:await hash(bytes)});}
   const bytes=new Uint8Array(await file.arrayBuffer());
-  return window.taxLocalEngine('taxml_inspect',{base64:encoded(bytes),container,profile,carriers,profile_acknowledged:acknowledged});
+  const request={base64:encoded(bytes),container,profile,carriers,profile_acknowledged:acknowledged};
+  const result=await window.taxLocalEngine('taxml_inspect',request);
+  for(const candidate of result.candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256});
+  return result;
+ }
+ async function correctedSource(candidate,values,confirmed){
+  const context=sourceContexts.get(candidate);
+  if(!context||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('Reopen and inspect the source before exporting a corrected XML copy.');
+  if(confirmed!==true)throw Error('Review and confirm the six corrected W-2 box amounts first.');
+  const amounts=Object.fromEntries(requiredMoney.slice(0,6).map(name=>[name,String(values?.[name]??'').trim()]));
+  return window.taxLocalEngine('taxml_export',{inspection:context.request,expected_candidate_sha256:context.candidateHash,amounts,confirmed});
  }
  async function reviewedRecord(candidate,values,source,confirmed,defaults){
   if(!candidate||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('This candidate has unresolved source facts and cannot be added.');
@@ -27,5 +38,5 @@
   metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
   return {row,metadata};
  }
- window.taxMLImport={inspect,reviewedRecord,requiredMoney};
+ window.taxMLImport={inspect,reviewedRecord,correctedSource,requiredMoney};
 })();

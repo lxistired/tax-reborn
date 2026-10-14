@@ -8,8 +8,12 @@ import base64
 import hashlib
 import json
 import re
+from decimal import Decimal
+import uuid
 
 import taxml_wire as wire
+import taxml_native as native
+from taxml_xml_edit import patch_text_nodes
 
 BOX_KEYS = {1: 'wages', 2: 'federal_withholding', 3: 'social_security_wages',
             4: 'social_security_withholding', 5: 'medicare_wages', 6: 'medicare_withholding'}
@@ -66,12 +70,35 @@ def validate_profile(profile):
     return selected, {k: tuple(v) for k, v in namespaces.items()}
 
 
-def inspect_request(request):
+def validate_native_profile(profile):
+    keys = {'format', 'tax_year', 'entity_name', 'formset_name', 'formset_headers', 'template'}
+    if not isinstance(profile, dict) or set(profile) != keys or profile['format'] != 'tax-reborn-taxml-native-windows-profile-v1':
+        raise ValueError('Choose an explicit current Windows TaxML profile.')
+    if type(profile['tax_year']) is not int or profile['tax_year'] != 2025:
+        raise ValueError('This import requires tax year 2025.')
+    for key in ('entity_name', 'formset_name'):
+        native.qname(profile[key])
+    headers = profile['formset_headers']
+    if not isinstance(headers, dict) or any(not isinstance(k, str) or not isinstance(v, str) or len(v) > 512 for k, v in headers.items()):
+        raise ValueError('Bind exact current Windows formset headers.')
+    # Reuse strict identity validation, without confusing internal formset IDs
+    # with the independently supplied XML formset name.
+    selected, _ = validate_profile({'format': 'tax-reborn-taxml-wire-profile-v1', 'tax_year': 2025,
+        'root_qname': native.ROOT, 'namespace_profile': {k: [''] for k in ('formset', 'form', 'field')},
+        'templates': [profile['template']]})
+    return selected
+
+
+def _inspect(request):
     if not isinstance(request, dict) or set(request) != {'base64', 'container', 'profile', 'carriers', 'profile_acknowledged'}:
         raise ValueError('Invalid local TaxML inspection request.')
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected wire profile before inspection.')
-    selected, namespaces = validate_profile(request['profile'])
+    modern = isinstance(request['profile'], dict) and request['profile'].get('format') == 'tax-reborn-taxml-native-windows-profile-v1'
+    if modern:
+        selected, namespaces = validate_native_profile(request['profile']), None
+    else:
+        selected, namespaces = validate_profile(request['profile'])
     data = decode_blob(request['base64'], 10 * 1024 * 1024)
     supplied = request['carriers']
     if not isinstance(supplied, list) or not 1 <= len(supplied) <= 8:
@@ -101,6 +128,8 @@ def inspect_request(request):
         payload = archive.members[archive_member]
     else:
         raise ValueError('Select plaintext XML or explicitly declared plaintext ZIP. Encrypted or unknown containers are unsupported.')
+    if modern:
+        return _inspect_native(request, data, payload, archive_member, registry, selected)
     document = wire.read_taxml(payload, registry, profiles=selected,
         namespace_profile=namespaces, root_qname=request['profile']['root_qname'])
     unresolved = list(document.unresolved)
@@ -152,7 +181,7 @@ def inspect_request(request):
             'missing_boxes': candidate['unresolved_boxes'], 'receipt': receipt,
             'can_review': not unresolved and not candidate['unresolved_boxes'],
             'requires_manual_fields': ['owner', *optional_missing]})
-    return {'format': 'tax-reborn-taxml-candidates-v1', 'tax_year': 2025,
+    result = {'format': 'tax-reborn-taxml-candidates-v1', 'tax_year': 2025,
         'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
         'root_qname_bound': document.root_qname_bound, 'candidates': candidates,
         'unresolved_facts': unresolved, 'tax_values_imported': False,
@@ -161,3 +190,151 @@ def inspect_request(request):
             'Only supported W-2 box candidates are offered. This is not a complete .tax return import.',
             'Select the owner and enter Boxes 7 and 10 explicitly. Missing values never establish zero.',
             'Check tax year 2025 and every amount against the original W-2 before adding a record.']}
+    leaves = {value['key']: {'qname': document.elements[value['key']][0].tag,
+        'text': value['source_text']} for value in document.values}
+    return result, payload, leaves
+
+
+def _inspect_native(request, source, payload, archive_member, registry, selected):
+    profile = request['profile']
+    key, identity = next(iter(selected.items()))
+    template = registry.resolve(*key, identity)
+    bindings = []
+    for field in template.fields:
+        binding = native.FieldBinding(field.field_id, field.kind, field.format)
+        try:
+            binding.expected_headers()
+        except native.NativeWireError:
+            continue  # A present unsupported field still blocks the reader.
+        if not field.hidden and not field.is_array:
+            bindings.append(binding)
+    native_profile = native.Profile(profile['entity_name'], 2025, profile['formset_name'],
+        tuple(profile['formset_headers'].items()), key[1], tuple(bindings), identity[0]).validate()
+    document = native.read_native_taxml(payload, native_profile)
+    root = wire.xml(payload)
+    leaves, paths = {}, {}
+    for ei, entity in enumerate(root):
+        if not isinstance(entity.tag, str) or 'uuid' not in entity.attrib:
+            continue
+        try:
+            uid = str(uuid.UUID(entity.attrib['uuid']))
+        except ValueError:
+            continue
+        for si, formset in enumerate(entity):
+            for fi, form in enumerate(formset):
+                if not isinstance(form.tag, str):
+                    continue
+                try:
+                    owner = (uid, str(int(form.attrib.get('copyNum', '0'))),
+                        str(int(form.attrib.get('fileCopyNum', '0'))), str(int(form.attrib.get('porIndex', '0'))))
+                except ValueError:
+                    continue
+                form_path = f'{ei}/{si}/{fi}'
+                paths[owner] = form_path
+                for vi, field in enumerate(form):
+                    if not isinstance(field.tag, str):
+                        continue
+                    value = list(field)
+                    if len(value) == 1 and value[0].tag == '{' + native.TD + '}value':
+                        path = f'{form_path}/{vi}/0'
+                        leaves[path] = {'qname': value[0].tag, 'text': value[0].text or ''}
+    unresolved = [{'path': '', 'code': code, 'detail': 'Current Windows TaxML source context is unresolved.'} for code in document.unresolved]
+    candidates = []
+    allowed = {name for _, name in native.BOX_FIELDS} | {'NAME', 'CA', 'CA2', 'SSTIPS', 'DCB'}
+    profile_hash, source_hash = canonical_hash(profile), wire.digest(source)
+    for form in document.forms:
+        owner = dict(form.owner)
+        form_path = paths.get((owner['entity_uuid'], owner['copyNum'], owner['fileCopyNum'], owner['porIndex']), '')
+        fields = {f.field_name: f for f in form.fields}
+        problems = list(form.unresolved)
+        for fact in form.fields:
+            problems.extend(fact.unresolved)
+            if fact.field_name not in allowed or owner['form_name'] != 'FW2':
+                problems.append('unmapped_source_fact')
+            if fact.field_name in {'NAME', 'CA', 'CA2'} and fact.metadata_kind != 7:
+                problems.append('unsupported_w2_semantic_type')
+            if fact.field_name in {'SSTIPS', 'DCB'} and (fact.metadata_kind != 11 or fact.metadata_format != 0):
+                problems.append('unsupported_w2_semantic_type')
+        unresolved.extend({'path': form_path, 'code': code, 'detail': owner['form_name']} for code in dict.fromkeys(problems))
+        if owner['form_name'] != 'FW2':
+            continue
+        amounts, sources, missing, optional_missing = {}, {}, [], []
+        for box, field_id in native.BOX_FIELDS:
+            fact = fields.get(field_id)
+            if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
+                missing.append(box)
+                continue
+            name = BOX_KEYS[box]
+            amounts[name] = str(fact.parsed_decimal)
+            field_node = next((i for i, e in enumerate(root[int(form_path.split('/')[0])][int(form_path.split('/')[1])][int(form_path.split('/')[2])])
+                if isinstance(e.tag, str) and wire.qname(e.tag)[1] == field_id), None)
+            sources[name] = {'wire_text': fact.wire_text, 'field_id': field_id,
+                'key': f'{form_path}/{field_node}/0', 'value_flags': dict(fact.raw_value_attrs),
+                'specific_flags': {}, 'field_headers': dict(fact.raw_field_attrs)}
+        for name, field_id in (('social_security_tips', 'SSTIPS'), ('dependent_care_benefits', 'DCB')):
+            fact = fields.get(field_id)
+            if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
+                optional_missing.append(name)
+            else:
+                amounts[name] = str(fact.parsed_decimal)
+        employer = [fields[n].wire_text for n in ('CA', 'CA2') if n in fields and fields[n].metadata_kind == 7]
+        candidate_hash = canonical_hash({'owner': owner, 'amounts': amounts, 'sources': sources,
+            'employer': employer, 'missing_boxes': missing, 'manual': optional_missing})
+        candidates.append({'employer': ' '.join(employer) or None, 'owner': None, 'amounts': amounts,
+            'sources': sources, 'missing_boxes': missing,
+            'receipt': {'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
+                'template_carrier_sha256': identity[0], 'template_resource_id': identity[1],
+                'form_path': form_path, 'archive_member': archive_member, 'candidate_sha256': candidate_hash},
+            'source_owner': owner, 'can_review': False, 'requires_manual_fields': ['owner', *optional_missing]})
+    # An unsupported sibling blocks every candidate, not just that sibling.
+    for candidate in candidates:
+        candidate['can_review'] = not unresolved and not candidate['missing_boxes']
+    result = {'format': 'tax-reborn-taxml-candidates-v1', 'tax_year': 2025,
+        'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
+        'root_qname_bound': not document.unresolved, 'candidates': candidates, 'unresolved_facts': unresolved,
+        'tax_values_imported': False, 'full_return_imported': False,
+        'original_program_acceptance_verified': False,
+        'warnings': ['Current Windows XML names and types are inspected with your explicitly bound, byte-validated XPRF registry.',
+            'Only six supported W-2 boxes are offered for review. This is not a complete .tax return import.',
+            'Select the owner and enter missing Boxes 7 and 10 explicitly. Missing never establishes zero.',
+            'Original TurboTax loading and recalculation are unverified. Check the original W-2 before adding a record.']}
+    return result, payload, leaves
+
+
+def inspect_request(request):
+    return _inspect(request)[0]
+
+
+def export_request(request):
+    if not isinstance(request, dict) or set(request) != {'inspection', 'expected_candidate_sha256', 'amounts', 'confirmed'}:
+        raise ValueError('Invalid corrected XML export request.')
+    if request['confirmed'] is not True:
+        raise ValueError('Review and confirm the corrected W-2 amounts first.')
+    inspected, payload, leaves = _inspect(request['inspection'])
+    candidates = [c for c in inspected['candidates'] if c['receipt']['candidate_sha256'] == request['expected_candidate_sha256']]
+    if len(candidates) != 1 or not candidates[0]['can_review']:
+        raise ValueError('The reviewed candidate is missing, ambiguous or unresolved.')
+    candidate = candidates[0]
+    amounts = request['amounts']
+    if not isinstance(amounts, dict) or set(amounts) != set(BOX_KEYS.values()):
+        raise ValueError('Corrected XML requires exactly the six W-2 box amounts.')
+    edits, normalized = {}, {}
+    for name, value in amounts.items():
+        if not isinstance(value, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', value) or Decimal(value) > 1000000000:
+            raise ValueError('Enter nonnegative W-2 amounts with at most two decimal places, within the supported limit.')
+        normalized[name] = format(Decimal(value), '.2f')
+        path = candidate['sources'][name]['key']
+        if path not in leaves:
+            raise ValueError('The reviewed source field is missing.')
+        edits[path] = {**leaves[path], 'replacement': normalized[name]}
+    corrected = patch_text_nodes(payload, edits)
+    next_request = {**request['inspection'], 'base64': base64.b64encode(corrected).decode(), 'container': 'plaintext_xml'}
+    readback = inspect_request(next_request)
+    matching = [c for c in readback['candidates'] if c['receipt']['form_path'] == candidate['receipt']['form_path']]
+    if len(matching) != 1 or not matching[0]['can_review'] or any(Decimal(matching[0]['amounts'][n]) != Decimal(v) for n, v in normalized.items()):
+        raise ValueError('Corrected XML did not pass field readback.')
+    return {'format': 'tax-reborn-corrected-taxml-v1', 'base64': base64.b64encode(corrected).decode(),
+        'mime': 'application/xml', 'source_sha256': inspected['source_sha256'],
+        'output_sha256': wire.digest(corrected), 'edited_fields': list(BOX_KEYS.values()),
+        'full_return_recalculated': False, 'original_program_acceptance_verified': False,
+        'export_container': 'plaintext_xml', 'original_source_retained': True}
