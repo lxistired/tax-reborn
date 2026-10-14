@@ -1,0 +1,10 @@
+{
+  "checked_at_utc": "2026-10-14T19:10:11.632349+00:00",
+  "source_commit": "72b0e5a4eb3b8b633b6d54b62c7622849667d612",
+  "anonymous_raw_source_HTTP200_and_hash_match": [
+    "web/taxml_preparation.py",
+    "docs/TAXML_DIVIDEND_IMPORT.md",
+    "qa/native-preview15/candidate-acceptance-state.json"
+  ],
+  "native_packages_publicly_uploaded": false
+}
