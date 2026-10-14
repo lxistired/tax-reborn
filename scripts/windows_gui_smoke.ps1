@@ -40,7 +40,7 @@ function Wait-Named([string]$name,[int]$seconds=90,[bool]$visible=$true) {
         if ($null -ne $item -and $item.Current.IsEnabled) { return $item }
         if($visible) {
             $candidate=Get-Named $name $false
-            if($candidate -and ($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit)) {
+            if($candidate -and ($candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Button -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::Edit -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::CheckBox -or $candidate.Current.ControlType -eq [System.Windows.Automation.ControlType]::ComboBox)) {
                 try {
                     $scroll=$null
                     if($candidate.TryGetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern,[ref]$scroll)) { ([System.Windows.Automation.ScrollItemPattern]$scroll).ScrollIntoView() }
