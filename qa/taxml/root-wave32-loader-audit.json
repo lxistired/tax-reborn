@@ -1,0 +1,15 @@
+{
+  "checked_at_utc": "2026-10-14T17:25:17.351856+00:00",
+  "frozen_files_verified": 158,
+  "source_function_physical_windows_verified": 22,
+  "instruction_and_vtable_rows_verified": 25,
+  "original_cpp_import_bindings_verified": 2,
+  "actual_Load_catchall_LSDA_independently_decoded": true,
+  "finite_owned_mechanisms": 33,
+  "padding_lengths": 128,
+  "class_context_synthetic_cases": 8,
+  "non_destructive_frozen_rerun": true,
+  "original_native_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "App_changed": false
+}

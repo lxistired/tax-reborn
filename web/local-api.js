@@ -59,14 +59,14 @@
     for(const old of previous?.income_import_events||[]){const current=events.find(item=>item.event_id===old.event_id);if(!current||JSON.stringify(sorted(current))!==JSON.stringify(sorted(old)))throw Error('Saved income-import history cannot be removed or changed');}
     return {version:1,w2_records:records,investment_records:investments,income_document_records:income,income_import_events:events};
   }
-  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,
+  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,validateSource:localSource,
     empty:()=>({version:1,w2_records:[],income_document_records:{interest:[],dividends:[]},income_import_events:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
   const offline = new URLSearchParams(location.search).get('offline') === '1';
   let worker, sequence = 0, dbPromise;
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.11',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.15-preview.14',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {

@@ -1,0 +1,23 @@
+{
+  "runtime": "actual UI file chooser / worker Pyodide / host HTTP / durable SQLite",
+  "synthetic": true,
+  "source_sha256": "a7a280b6013339dd4757ce10c9f7c92ad811d3faa57737048db29ac224ee2b2f",
+  "corrected_sha256": "770c6577791c98d7aa564dde33d4c246cee58cb1ec8543a8b5a01c3d9328d879",
+  "original_download_byte_identical": true,
+  "corrected_outside_value_spans_byte_identical": true,
+  "explicit_scope_rejection_observed": true,
+  "original_record_preserved": true,
+  "four_box_snapshot_saved_reopened": {
+    "interest_income": "100.24",
+    "treasury_interest": "40.27",
+    "tax_exempt_interest": "12.34",
+    "federal_withholding": "22.45"
+  },
+  "reviewed": true,
+  "federal_taxable_interest": 141,
+  "exempt_interest": 12,
+  "refund": 22,
+  "can_prepare": false,
+  "original_program_acceptance_verified": false,
+  "native_TurboTax_execution": false
+}

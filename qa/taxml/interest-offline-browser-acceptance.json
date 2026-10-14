@@ -1,0 +1,22 @@
+{
+  "runtime": "Actual browser worker Pyodide / IndexedDB return and attachment persistence",
+  "offline_API_mode": true,
+  "network_disconnected_test": false,
+  "synthetic": true,
+  "four_box_inspect_review_edit_export_save_reload": true,
+  "original_attachment_link_reopened": true,
+  "imported_four_box_snapshot": {
+    "interest_income": "100.24",
+    "treasury_interest": "40.27",
+    "tax_exempt_interest": "12.34",
+    "federal_withholding": "23.45"
+  },
+  "taxable": "140.51",
+  "refund": 23,
+  "reviewed": true,
+  "can_prepare": false,
+  "source_sha256": "a7a280b6013339dd4757ce10c9f7c92ad811d3faa57737048db29ac224ee2b2f",
+  "corrected_sha256": "8dab0c9dc10c58c8e94ce18b8cee0fd4f2440b9be4cb449f5ae5458a3af6b404",
+  "corrected_outside_value_spans_byte_identical": true,
+  "original_program_acceptance_verified": false
+}

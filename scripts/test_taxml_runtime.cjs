@@ -89,7 +89,43 @@ async function main(){
    assert.equal(accepted.source_sha256,require('node:crypto').createHash('sha256').update(exact).digest('hex'));
   }
  }
+ // Source-bound four-box 1099-INT migration through the actual worker/JS contracts.
+ const intRequest=JSON.parse(fs.readFileSync(path.join(fixtureRoot,'synthetic-native-interest-request.json'),'utf8'));
+ const intFile=new File([Buffer.from(intRequest.base64,'base64')],'synthetic-native-interest.xml',{type:'application/xml'});
+ const intProfile=new File([JSON.stringify(intRequest.profile)],'synthetic-native-interest-profile.json',{type:'application/json'});
+ const intRegistry=new File([Buffer.from(intRequest.carriers[0].base64,'base64')],'synthetic-native-interest.xprf');
+ const intResult=await context.taxMLImport.inspect(intFile,intProfile,[intRegistry],'plaintext_xml',true),ic=intResult.candidates[0];
+ assert.equal(ic.can_review,true);assert.equal(ic.record_type,'interest');assert.equal(ic.amounts.interest_income,'100.23');assert.equal(ic.amounts.treasury_interest,'40.27');
+ const intValues={...ic.amounts,payer:'Synthetic Treasury bank',supported_scope:true};
+ for(const changed of [{...intValues,payer:''},{...intValues,supported_scope:false},{...intValues,treasury_interest:''},{...intValues,interest_income:'1.001'},{...intValues,federal_withholding:'-1'},{...intValues,interest_income:'1000000001'}])await assert.rejects(()=>context.taxMLImport.reviewedInterest(ic,changed,source,true));
+ await assert.rejects(()=>context.taxMLImport.reviewedInterest(ic,intValues,source,false));
+ await assert.rejects(()=>context.taxMLImport.reviewedInterest(mc,intValues,source,true));
+ await assert.rejects(()=>context.taxMLImport.reviewedRecord(ic,values,source,true,schema.capabilities.row_templates.w2));
+ const intPrepared=await context.taxMLImport.reviewedInterest(ic,intValues,source,true);
+ assert.equal(intPrepared.row.taxable,'140.50');assert.equal(intPrepared.row.tax_exempt,'12.34');assert.equal(intPrepared.row.federal_withholding,'20.45');
+ assert.equal(intPrepared.metadata.taxml_interest_boxes.treasury_interest,'40.27');assert.equal(intPrepared.metadata.source_document.method,'taxml');
+ const intData=JSON.parse(JSON.stringify(schema.default_return));intData.interest.push({payer:'Existing synthetic bank',taxable:'0.49',tax_exempt:'0',federal_withholding:'0'},intPrepared.row);
+ const intMeta=context.taxRecordMetadata.empty();intMeta.income_document_records.interest.push(context.taxIncomePreparation.newRecord(),intPrepared.metadata);
+ const intSaved=await context.taxRecordMetadata.normalize(intData,intMeta),intTax=await command('calculate',intData);
+ assert.equal(intTax.lines['2b'],141);assert.equal(intTax.lines['2a'],12);assert.equal(intTax.lines['25b'],20);assert.equal(intTax.summary.refund,20);assert.equal(intTax.can_prepare,false);
+ for(const action of ['hash','remove','boxes','missing_box']){
+  const altered=JSON.parse(JSON.stringify(intSaved)),entry=altered.income_document_records.interest[1];
+  if(action==='hash')entry.source_document.taxml_receipt.source_sha256='0'.repeat(64);
+  else if(action==='remove'){delete entry.source_document;delete entry.taxml_interest_boxes;}
+  else if(action==='boxes')entry.taxml_interest_boxes.treasury_interest='0.00';
+  else delete entry.taxml_interest_boxes.treasury_interest;
+  await assert.rejects(()=>context.taxRecordMetadata.normalize(intData,altered,intSaved));
+ }
+ const intEdited=JSON.parse(JSON.stringify(intData));intEdited.interest[1].taxable='140.52';const editMeta=await context.taxRecordMetadata.normalize(intEdited,intSaved,intSaved);
+ assert.equal(editMeta.income_document_records.interest[1].reviewed,false);assert.deepEqual(JSON.parse(JSON.stringify(editMeta.income_document_records.interest[1].taxml_interest_boxes)),JSON.parse(JSON.stringify(intSaved.income_document_records.interest[1].taxml_interest_boxes)));
+ const intCorrected=await context.taxMLImport.correctedSource(ic,{...intValues,interest_income:'100.24',federal_withholding:'22.45'},true);
+ const intBytes=Buffer.from(intCorrected.base64,'base64');assert.equal(intBytes.toString(),Buffer.from(intRequest.base64,'base64').toString().replace('>100.23</td:value>','>100.24</td:value>').replace('>20.45</td:value>','>22.45</td:value>'));
+ const intReadback=await command('taxml_inspect',{...intRequest,base64:intCorrected.base64});assert.equal(intReadback.candidates[0].amounts.federal_withholding,'22.45');
+ await assert.rejects(()=>context.taxMLImport.correctedSource({...ic},intValues,true));
+ const intUnknown={...intRequest,base64:Buffer.from(Buffer.from(intRequest.base64,'base64').toString().replace('</F1099I>','<UNKNOWN/></F1099I>')).toString('base64')};assert.equal((await command('taxml_inspect',intUnknown)).candidates[0].can_review,false);
+ const interestAcceptance={worker_inspection:true,explicit_scope_and_payer_review:true,cents_aggregated_before_rounding:true,four_box_snapshot_retained:true,source_and_snapshot_tamper_blocked:true,row_edit_clears_review:true,corrected_XML_reparsed:true,outside_value_spans_byte_identical:true,refund:intTax.summary.refund,can_prepare:intTax.can_prepare,original_program_acceptance_verified:false};
  const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,assertions:25,
+  interest_acceptance:interestAcceptance,
   current_windows_native_shape_and_corrected_source_verified:true,corrected_XML_outside_value_spans_byte_identical:true,
   zero_copy_blocked_without_actual_multicopy_factory_binding:true,
   additional_encoding_input_probes:encodingCases.length,

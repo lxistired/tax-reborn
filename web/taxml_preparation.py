@@ -2,7 +2,7 @@
 
 This adapter never decrypts a container and never writes an original .tax file.
 Registry bytes and the wire profile are supplied by the user for each inspection.
-Unknown facts stay blocking. The federal engine receives only reviewed W-2 rows.
+Unknown facts stay blocking. The federal engine receives only reviewed rows.
 """
 import base64
 import hashlib
@@ -17,6 +17,8 @@ from taxml_xml_edit import patch_text_nodes
 
 BOX_KEYS = {1: 'wages', 2: 'federal_withholding', 3: 'social_security_wages',
             4: 'social_security_withholding', 5: 'medicare_wages', 6: 'medicare_withholding'}
+INTEREST_FIELDS = ((1, 'L1', 'interest_income'), (3, 'L3', 'treasury_interest'),
+                   (8, 'EXINT', 'tax_exempt_interest'), (4, 'L4', 'federal_withholding'))
 HASH = re.compile(r'^[0-9a-f]{64}$')
 
 
@@ -240,57 +242,67 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
                         leaves[path] = {'qname': value[0].tag, 'text': value[0].text or ''}
     unresolved = [{'path': '', 'code': code, 'detail': 'Current Windows TaxML source context is unresolved.'} for code in document.unresolved]
     candidates = []
-    allowed = {name for _, name in native.BOX_FIELDS} | {'NAME', 'CA', 'CA2', 'SSTIPS', 'DCB'}
+    w2_allowed = {name for _, name in native.BOX_FIELDS} | {'NAME', 'CA', 'CA2', 'SSTIPS', 'DCB'}
     profile_hash, source_hash = canonical_hash(profile), wire.digest(source)
     for form in document.forms:
         owner = dict(form.owner)
         form_path = paths.get((owner['entity_uuid'], owner['copyNum'], owner['fileCopyNum'], owner['porIndex']), '')
         fields = {f.field_name: f for f in form.fields}
         problems = list(form.unresolved)
+        is_interest = owner['form_name'] == 'F1099I'
+        is_w2 = owner['form_name'] == 'FW2'
+        allowed = {field for _, field, _ in INTEREST_FIELDS} if is_interest else w2_allowed
         # The native loader separately checks its actual form factory's
         # IsMulticopy flag. XPRF field metadata does not establish that flag.
-        # Until that factory binding is recovered, copy zero is not reviewable.
-        if owner['form_name'] == 'FW2' and owner['copyNum'] == '0':
+        # FW2 factory multicopy is source-verified; F1099I copy-zero acceptance
+        # is not established. Keep both zero-copy cases out of the App adapter.
+        if (is_w2 or is_interest) and owner['copyNum'] == '0':
             problems.append('unverified_multicopy_factory_binding')
         for fact in form.fields:
             problems.extend(fact.unresolved)
-            if fact.field_name not in allowed or owner['form_name'] != 'FW2':
+            if fact.field_name not in allowed or not (is_w2 or is_interest):
                 problems.append('unmapped_source_fact')
-            if fact.field_name in {'NAME', 'CA', 'CA2'} and fact.metadata_kind != 7:
+            if is_w2 and fact.field_name in {'NAME', 'CA', 'CA2'} and fact.metadata_kind != 7:
                 problems.append('unsupported_w2_semantic_type')
-            if fact.field_name in {'SSTIPS', 'DCB'} and (fact.metadata_kind != 11 or fact.metadata_format != 0):
+            if is_w2 and fact.field_name in {'SSTIPS', 'DCB'} and (fact.metadata_kind != 11 or fact.metadata_format != 0):
                 problems.append('unsupported_w2_semantic_type')
+            if is_interest and fact.field_name in allowed and (fact.metadata_kind != 11 or fact.metadata_format != 0):
+                problems.append('unsupported_interest_semantic_type')
+            if is_interest and fact.parsed_decimal is not None and (fact.parsed_decimal < 0 or fact.parsed_decimal > 1000000000):
+                problems.append('unsupported_interest_amount')
         unresolved.extend({'path': form_path, 'code': code, 'detail': owner['form_name']} for code in dict.fromkeys(problems))
-        if owner['form_name'] != 'FW2':
+        if not (is_w2 or is_interest):
             continue
         amounts, sources, missing, optional_missing = {}, {}, [], []
-        for box, field_id in native.BOX_FIELDS:
+        mapped_fields = INTEREST_FIELDS if is_interest else tuple((box, field, BOX_KEYS[box]) for box, field in native.BOX_FIELDS)
+        for box, field_id, name in mapped_fields:
             fact = fields.get(field_id)
             if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
                 missing.append(box)
                 continue
-            name = BOX_KEYS[box]
             amounts[name] = str(fact.parsed_decimal)
             field_node = next((i for i, e in enumerate(root[int(form_path.split('/')[0])][int(form_path.split('/')[1])][int(form_path.split('/')[2])])
                 if isinstance(e.tag, str) and wire.qname(e.tag)[1] == field_id), None)
             sources[name] = {'wire_text': fact.wire_text, 'field_id': field_id,
                 'key': f'{form_path}/{field_node}/0', 'value_flags': dict(fact.raw_value_attrs),
                 'specific_flags': {}, 'field_headers': dict(fact.raw_field_attrs)}
-        for name, field_id in (('social_security_tips', 'SSTIPS'), ('dependent_care_benefits', 'DCB')):
+        for name, field_id in (() if is_interest else (('social_security_tips', 'SSTIPS'), ('dependent_care_benefits', 'DCB'))):
             fact = fields.get(field_id)
             if fact is None or fact.unresolved or fact.metadata_kind != 11 or fact.parsed_decimal is None:
                 optional_missing.append(name)
             else:
                 amounts[name] = str(fact.parsed_decimal)
-        employer = [fields[n].wire_text for n in ('CA', 'CA2') if n in fields and fields[n].metadata_kind == 7]
+        employer = [fields[n].wire_text for n in ('CA', 'CA2') if is_w2 and n in fields and fields[n].metadata_kind == 7]
         candidate_hash = canonical_hash({'owner': owner, 'amounts': amounts, 'sources': sources,
             'employer': employer, 'missing_boxes': missing, 'manual': optional_missing})
-        candidates.append({'employer': ' '.join(employer) or None, 'owner': None, 'amounts': amounts,
+        candidates.append({'record_type': 'interest' if is_interest else 'w2',
+            'payer': None, 'employer': ' '.join(employer) or None, 'owner': None, 'amounts': amounts,
             'sources': sources, 'missing_boxes': missing,
             'receipt': {'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
                 'template_carrier_sha256': identity[0], 'template_resource_id': identity[1],
                 'form_path': form_path, 'archive_member': archive_member, 'candidate_sha256': candidate_hash},
-            'source_owner': owner, 'can_review': False, 'requires_manual_fields': ['owner', *optional_missing]})
+            'source_owner': owner, 'can_review': False,
+            'requires_manual_fields': ['payer', 'supported_interest_scope'] if is_interest else ['owner', *optional_missing]})
     # An unsupported sibling blocks every candidate, not just that sibling.
     for candidate in candidates:
         candidate['can_review'] = not unresolved and not candidate['missing_boxes']
@@ -300,9 +312,9 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'warnings': ['Current Windows XML names and types are inspected with your explicitly bound, byte-validated XPRF registry.',
-            'Only six supported W-2 boxes are offered for review. This is not a complete .tax return import.',
-            'Select the owner and enter missing Boxes 7 and 10 explicitly. Missing never establishes zero.',
-            'Original TurboTax loading and recalculation are unverified. Check the original W-2 before adding a record.']}
+            'Only supported W-2 or 1099-INT boxes are offered for review. This is not a complete .tax return import.',
+            'Missing amounts never establish zero. Review payer or employer and the supported tax situation explicitly.',
+            'Original TurboTax loading and recalculation are unverified. Check the original document before adding a record.']}
     return result, payload, leaves
 
 
@@ -314,19 +326,20 @@ def export_request(request):
     if not isinstance(request, dict) or set(request) != {'inspection', 'expected_candidate_sha256', 'amounts', 'confirmed'}:
         raise ValueError('Invalid corrected XML export request.')
     if request['confirmed'] is not True:
-        raise ValueError('Review and confirm the corrected W-2 amounts first.')
+        raise ValueError('Review and confirm the corrected document amounts first.')
     inspected, payload, leaves = _inspect(request['inspection'])
     candidates = [c for c in inspected['candidates'] if c['receipt']['candidate_sha256'] == request['expected_candidate_sha256']]
     if len(candidates) != 1 or not candidates[0]['can_review']:
         raise ValueError('The reviewed candidate is missing, ambiguous or unresolved.')
     candidate = candidates[0]
     amounts = request['amounts']
-    if not isinstance(amounts, dict) or set(amounts) != set(BOX_KEYS.values()):
-        raise ValueError('Corrected XML requires exactly the six W-2 box amounts.')
+    names = [name for _, _, name in INTEREST_FIELDS] if candidate.get('record_type') == 'interest' else list(BOX_KEYS.values())
+    if not isinstance(amounts, dict) or set(amounts) != set(names):
+        raise ValueError('Corrected XML requires exactly the supported source box amounts.')
     edits, normalized = {}, {}
     for name, value in amounts.items():
         if not isinstance(value, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', value) or Decimal(value) > 1000000000:
-            raise ValueError('Enter nonnegative W-2 amounts with at most two decimal places, within the supported limit.')
+            raise ValueError('Enter nonnegative amounts with at most two decimal places, within the supported limit.')
         normalized[name] = format(Decimal(value), '.2f')
         path = candidate['sources'][name]['key']
         if path not in leaves:
@@ -340,6 +353,6 @@ def export_request(request):
         raise ValueError('Corrected XML did not pass field readback.')
     return {'format': 'tax-reborn-corrected-taxml-v1', 'base64': base64.b64encode(corrected).decode(),
         'mime': 'application/xml', 'source_sha256': inspected['source_sha256'],
-        'output_sha256': wire.digest(corrected), 'edited_fields': list(BOX_KEYS.values()),
+        'output_sha256': wire.digest(corrected), 'edited_fields': names,
         'full_return_recalculated': False, 'original_program_acceptance_verified': False,
         'export_container': 'plaintext_xml', 'original_source_retained': True}

@@ -9,3 +9,5 @@ In Documents → Inspect TaxML, choose the XML, declare Plaintext TaxML XML, cho
 Corrected XML keeps the original source as an attachment. It does not recalculate the source return, rebuild encrypted containers, update template checksums, or establish original-program loadability. Unknown fields, ambiguous copies and unresolved flags block candidates and export.
 
 The App example uses copyNum1/fileCopyNum1. Original field serialization can encode copyNum0, but the loader has a separate IsMulticopy guard. The App refuses copy0 until the actual factory binding is verified. Pure shape-reader tests and historical copy0 synthetic tests do not establish original acceptance.
+
+The `synthetic-native-interest-*` specimens are independently authored four-box F1099I XML/XPRF inputs. Select the matching XML, profile and carrier. Review Boxes1,3,8,4, enter the payer and explicitly confirm the supported interest situation. The local record stores taxable Box1+Box3, exempt Box8 and withheld Box4, while retaining the reviewed four boxes separately. These specimens are not original TurboTax saved returns.

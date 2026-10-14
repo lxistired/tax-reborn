@@ -1,0 +1,31 @@
+{
+  "base64": "PFRheFJldHVybnMgeG1sbnM9Imh0dHA6Ly93d3cuaW50dWl0LmNvbS9DdGcvUHRhL1R1cmJvVGF4L1RheFJldHVybnMiPjxVU0luZGl2aWR1YWxUYXhSZXR1cm4geG1sbnM9Imh0dHA6Ly93d3cuaW50dWl0LmNvbS9DdGcvUHRhL1R1cmJvVGF4L1VTSW5kaXZpZHVhbFRheFJldHVybiIgeG1sbnM6dGQ9Imh0dHA6Ly93d3cuaW50dWl0LmNvbS9DdGcvUHRhL1R1cmJvVGF4L1RheERhdGFUeXBlIiB4bWxuczpwbz0iaHR0cDovL3d3dy5pbnR1aXQuY29tL0N0Zy9QdGEvVHVyYm9UYXgvUGVyc2lzdGVudE9iamVjdHMiIHRheFllYXI9IjIwMjUiIHV1aWQ9IjAwMDAwMDAwLTAwMDAtNDAwMC04MDAwLTAwMDAwMDAwMDAwMSIgdHBzRW5naW5lVmVyc2lvbj0iOS4xNS4wIiA+PE93bmVkU2V0IHhtbG5zPSJodHRwOi8vd3d3LmludHVpdC5jb20vQ3RnL1B0YS9UdXJib1RheC9Pd25lZFNldCIgdHBzVHlwZT0iZm9ybXNldCIgdHBzU3ViVHlwZT0iT1dORUQiIGNoZWNrc3VtPSIxIiBkYXRhVmVyc2lvbj0iMjAyNSIgZm9ybXNldEF0dHJpYnV0ZT0iMCIgaW1wbGVtZW50YXRpb25WZXJzaW9uPSJvd25lZCI+PEYxMDk5SSB0cHNUeXBlPSJmb3JtIiBjb3B5TnVtPSIxIiBmaWxlQ29weU51bT0iMSIgcG9ySW5kZXg9IjAiID48TDEgdHBzVHlwZT0iY2VudCIgdHBzU3ViVHlwZT0iZGVmYXVsdCIgPjx0ZDp2YWx1ZSA+MTAwLjIzPC90ZDp2YWx1ZT48L0wxPjxMMyB0cHNUeXBlPSJjZW50IiB0cHNTdWJUeXBlPSJkZWZhdWx0IiA+PHRkOnZhbHVlID40MC4yNzwvdGQ6dmFsdWU+PC9MMz48RVhJTlQgdHBzVHlwZT0iY2VudCIgdHBzU3ViVHlwZT0iZGVmYXVsdCIgPjx0ZDp2YWx1ZSA+MTIuMzQ8L3RkOnZhbHVlPjwvRVhJTlQ+PEw0IHRwc1R5cGU9ImNlbnQiIHRwc1N1YlR5cGU9ImRlZmF1bHQiID48dGQ6dmFsdWUgPjIwLjQ1PC90ZDp2YWx1ZT48L0w0PjwvRjEwOTlJPjwvT3duZWRTZXQ+PC9VU0luZGl2aWR1YWxUYXhSZXR1cm4+PC9UYXhSZXR1cm5zPg==",
+  "container": "plaintext_xml",
+  "profile": {
+    "format": "tax-reborn-taxml-native-windows-profile-v1",
+    "tax_year": 2025,
+    "entity_name": "USIndividualTaxReturn",
+    "formset_name": "OwnedSet",
+    "formset_headers": {
+      "tpsType": "formset",
+      "tpsSubType": "OWNED",
+      "checksum": "1",
+      "dataVersion": "2025",
+      "formsetAttribute": "0",
+      "implementationVersion": "owned"
+    },
+    "template": {
+      "formset_id": "S2025US1040PER",
+      "form_id": "F1099I",
+      "carrier_sha256": "517ea3207eb6d8da9f86d7cb1f8fa72e24481bc92b42feaa7953ed160c034bdd",
+      "resource_id": 41
+    }
+  },
+  "carriers": [
+    {
+      "base64": "WFBSRgABEAwKAAAAAgAAAFBGKQAoAAAAIgAAAGwHKQBKAAAAqAAAACIAAAAYAAAAAAACAAZGMTA5OUkOUzIwMjVVUzEwNDBQRVKoAAAAngAAAAAABAD/TDEgICAgICAgICAgICAgICAgICAgICAgICAgICAgICALAIQAAAD/TDMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICALAIQAAAD/RVhJTlQgICAgICAgICAgICAgICAgICAgICAgICAgICALAIQAAAD/TDQgICAgICAgICAgICAgICAgICAgICAgICAgICAgICALAIQAAAA=",
+      "sha256": "517ea3207eb6d8da9f86d7cb1f8fa72e24481bc92b42feaa7953ed160c034bdd"
+    }
+  ],
+  "profile_acknowledged": true
+}

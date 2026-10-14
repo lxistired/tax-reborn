@@ -14,6 +14,7 @@ import hashlib
 import json
 import re
 import uuid
+from source_documents import source_document, interest_boxes
 
 COLLECTIONS = {
     'interest': {'payer': '', 'taxable': '0', 'tax_exempt': '0', 'federal_withholding': '0'},
@@ -24,7 +25,8 @@ COLLECTIONS = {
 MONEY = re.compile(r'^-?\d+(?:\.\d{1,2})?$')
 UID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
 ENTRY_FIELDS = {'record_id', 'is_placeholder', 'unresolved_fields',
-                'reviewed', 'reviewed_at', 'reviewed_fingerprint', 'row_fingerprint'}
+                'reviewed', 'reviewed_at', 'reviewed_fingerprint', 'row_fingerprint',
+                'source_document', 'taxml_interest_boxes'}
 
 
 def ident(value):
@@ -102,11 +104,21 @@ def normalize_entry(collection, row, item=None, draft=False):
         except ValueError:
             raise ValueError('Reviewed record requires a timezone-aware timestamp')
     reviewed = checked and fingerprint is not None and item.get('reviewed_fingerprint') == fingerprint and not changed
-    return {'record_id': uid, 'is_placeholder': placeholder,
+    output = {'record_id': uid, 'is_placeholder': placeholder,
             'unresolved_fields': sorted(fields),
             'row_fingerprint': fingerprint, 'reviewed': reviewed,
             'reviewed_at': item.get('reviewed_at') if reviewed else None,
             'reviewed_fingerprint': fingerprint if reviewed else None}
+    if 'source_document' in item:
+        output['source_document'] = source_document(item['source_document'])
+    source = output.get('source_document')
+    if 'taxml_interest_boxes' in item:
+        if collection != 'interest' or not source or source['method'] != 'taxml':
+            raise ValueError('TaxML interest boxes require an interest source receipt')
+        output['taxml_interest_boxes'] = interest_boxes(item['taxml_interest_boxes'])
+    elif collection == 'interest' and source and source['method'] == 'taxml':
+        raise ValueError('TaxML interest source requires its reviewed four-box snapshot')
+    return output
 
 
 def canonical(collection, row):
@@ -137,6 +149,9 @@ def normalize(rows_by_type, provided=None, previous=None, options=None):
         if value is not None and (not isinstance(value, dict) or set(value) - set(COLLECTIONS)):
             raise ValueError('Unsupported income preparation collection')
     prepared, all_ids = {}, set()
+    if previous and any(not isinstance(entries, list) or any(not isinstance(entry, dict) for entry in entries) for entries in previous.values()):
+        raise ValueError('Invalid previous income preparation collection')
+    old_sources = {entry.get('record_id'): entry for entries in (previous or {}).values() for entry in entries}
     for collection in COLLECTIONS:
         rows = rows_by_type.get(collection, [])
         if not isinstance(rows, list) or len(rows) > 1000:
@@ -165,6 +180,10 @@ def normalize(rows_by_type, provided=None, previous=None, options=None):
             if not isinstance(entry, dict):
                 raise ValueError('Invalid explicit income preparation entry')
             value = normalize_entry(collection, row, entry, draft=(options or {}).get('draft', False))
+            old = old_sources.get(value['record_id'], {})
+            if isinstance(old.get('source_document'), dict) and old['source_document'].get('method') == 'taxml':
+                if any(value.get(key) != old.get(key) for key in ('source_document', 'taxml_interest_boxes')):
+                    raise ValueError('Saved TaxML income source receipts and imported boxes cannot be removed or changed')
             if value['record_id'] in all_ids:
                 raise ValueError('Source-record identifiers must be unique across INT/DIV')
             all_ids.add(value['record_id']); prepared[collection].append(value)
