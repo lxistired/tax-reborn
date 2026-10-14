@@ -69,7 +69,18 @@ function Click-Observed($item) {
         ([System.Windows.Automation.InvokePattern]$pattern).Invoke(); return
     }
     $rect = $item.Current.BoundingRectangle
-    if ($rect.IsEmpty -or $item.Current.IsOffscreen) { throw 'The UI control has no visible click target.' }
+    if ($rect.IsEmpty -or $item.Current.IsOffscreen) {
+        $scrollItem = $null
+        if ($item.TryGetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern,[ref]$scrollItem)) {
+            ([System.Windows.Automation.ScrollItemPattern]$scrollItem).ScrollIntoView()
+        } else {
+            # WebView focus scrolls an observed input/control into its own
+            # scrolling region without guessing a desktop coordinate.
+            $item.SetFocus()
+        }
+        $rect = $item.Current.BoundingRectangle
+    }
+    if ($rect.IsEmpty -or $item.Current.IsOffscreen) { throw ('The UI control has no visible click target: '+$item.Current.Name) }
     [TaxWindow]::SetCursorPos([int]($rect.Left+$rect.Width/2),[int]($rect.Top+$rect.Height/2)) | Out-Null
     [TaxWindow]::mouse_event(2,0,0,0,[UIntPtr]::Zero)
     [TaxWindow]::mouse_event(4,0,0,0,[UIntPtr]::Zero)
@@ -481,6 +492,7 @@ try {
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
+    $receipt.script_stack=$_.ScriptStackTrace
     if($root) {
         try { Save-Screenshot 'windows-native-failure.png' $false } catch {}
         try {
