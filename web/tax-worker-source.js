@@ -2,6 +2,7 @@
 // Same independently written Python engine as desktop; no remote tax service.
 let engineReady;
 let pdfReady;
+let taxmlReady;
 function ready() {
   if (!engineReady) engineReady = (async () => {
     const py = await loadPyodide({indexURL: new URL('vendor/pyodide/', self.location.href).href});
@@ -29,6 +30,16 @@ self.onmessage = event => {
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
+      else if (command === 'taxml_inspect') {
+        if (!taxmlReady) taxmlReady = (async()=>{
+          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_preparation.py'];
+          const text=await Promise.all(names.map(async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw Error('Local TaxML inspector resource missing: '+name);return response.text();}));
+          names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,text[index]));
+          await py.runPythonAsync('import taxml_preparation');
+        })();
+        await taxmlReady;
+        code='json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)';
+      }
       else if (['pdf','packet_pdf','masked_pdf','paper_status','document_text'].includes(command)) {
         if (!pdfReady) pdfReady = (async () => {
           const base = new URL('./', self.location.href);

@@ -1,7 +1,7 @@
 'use strict';
 (function(){
- const VERSION='tax-reborn-ui-2025-preview-22';
- const SHELL=['./','index.html','style.css','app.js','local-api.js','investment-corrections.js','tax-worker.js','native-file-bridge.js','document-import.js','state-workspace.js','state-worker.js','offline-readiness.js','ocr-worker.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
+ const VERSION='tax-reborn-ui-2025-preview-23';
+ const SHELL=['./','index.html','style.css','app.js','local-api.js','investment-corrections.js','tax-worker.js','native-file-bridge.js','document-import.js','taxml-import.js','taxml_wire.py','taxml_preparation.py','state-workspace.js','state-worker.js','offline-readiness.js','ocr-worker.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
  const BOOT=['index.html','style.css','app.js','local-api.js','investment-corrections.js','tax-worker.js','offline-readiness.js'];
  const OCR_CORE=['tesseract-core','tesseract-core-lstm','tesseract-core-simd','tesseract-core-simd-lstm'].flatMap(name=>['vendor/tesseract/'+name+'.wasm.js','vendor/tesseract/'+name+'.wasm']);
  const PYODIDE=['vendor/pyodide/pyodide.js','vendor/pyodide/pyodide.asm.js','vendor/pyodide/pyodide.asm.wasm','vendor/pyodide/python_stdlib.zip','vendor/pyodide/pyodide-lock.json','vendor/pyodide/package.json'];
@@ -17,7 +17,7 @@
   const helpers=['tax_engine.py','tax_extended.py','tax_credits.py','presentation_schema.py','rules_2025.json','forms/paper-fact-schema-2025.json',...assets.filter(path=>/^tax_[^/]+\.py$/.test(path))];
   const engine=[...BOOT,...PYODIDE,...helpers];
   const image=['native-file-bridge.js','document-import.js','vendor/tesseract/tesseract.min.js','vendor/tesseract/worker.min.js','vendor/tesseract/eng.traineddata.gz',...OCR_CORE,...assets.filter(path=>path.startsWith('vendor/tesseract/')&&/\.wasm(?:\.js)?$/.test(path))];
-  return[{id:'shell',label:'Application shell',assets:SHELL},{id:'engine',label:'Federal tax engine',assets:engine},{id:'pdf',label:'PDF draft and readable-PDF text',assets:[...engine,'forms.py','official_forms.py','privacy_review.py','vendor/python/pypdf-6.10.0.whl',...assets.filter(path=>path.startsWith('forms/'))]},{id:'photo',label:'Local W-2 image extraction',assets:[...BOOT,'ocr-worker.js',...image]},{id:'state',label:'State tax workspace',assets:[...BOOT,'state-workspace.js','state-worker.js']}];
+  return[{id:'shell',label:'Application shell',assets:SHELL},{id:'engine',label:'Federal tax engine',assets:engine},{id:'pdf',label:'PDF draft and readable-PDF text',assets:[...engine,'forms.py','official_forms.py','privacy_review.py','vendor/python/pypdf-6.10.0.whl',...assets.filter(path=>path.startsWith('forms/'))]},{id:'photo',label:'Local W-2 image extraction',assets:[...BOOT,'ocr-worker.js',...image]},{id:'taxml',label:'Local plaintext TaxML inspection',assets:[...engine,'taxml-import.js','taxml_wire.py','taxml_preparation.py']},{id:'state',label:'State tax workspace',assets:[...BOOT,'state-workspace.js','state-worker.js']}];
  }
  async function inspect(){
   if(!window.caches)return{cache_version:VERSION,supported:false,error:'CacheStorage is unavailable in this browser. Packaged native assets are separate and are not verified by this browser-cache check.',groups:[]};

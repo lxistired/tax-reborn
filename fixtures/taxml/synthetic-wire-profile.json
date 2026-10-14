@@ -1,0 +1,24 @@
+{
+  "format": "tax-reborn-taxml-wire-profile-v1",
+  "tax_year": 2025,
+  "root_qname": "SyntheticReturn",
+  "namespace_profile": {
+    "formset": [
+      ""
+    ],
+    "form": [
+      ""
+    ],
+    "field": [
+      ""
+    ]
+  },
+  "templates": [
+    {
+      "formset_id": "S2025US1040PER",
+      "form_id": "FW2",
+      "carrier_sha256": "fad8b13e984fcac2875ceaf1f77966f08e8c06dbc05a17590b93414afee30659",
+      "resource_id": 41
+    }
+  ]
+}

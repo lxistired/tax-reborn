@@ -39,10 +39,28 @@ def fingerprint(row, defaults):
     return hashlib.sha256(canonical_w2(row, defaults).encode('utf-8')).hexdigest()
 
 
+def taxml_receipt(value):
+    keys = {'source_sha256', 'wire_profile_sha256', 'template_carrier_sha256',
+            'template_resource_id', 'form_path', 'archive_member', 'candidate_sha256'}
+    if not isinstance(value, dict) or set(value) != keys:
+        raise ValueError('Invalid TaxML source receipt')
+    for key in ('source_sha256', 'wire_profile_sha256', 'template_carrier_sha256', 'candidate_sha256'):
+        if not isinstance(value[key], str) or not HASH.fullmatch(value[key]):
+            raise ValueError('Invalid TaxML source hash')
+    if type(value['template_resource_id']) is not int or not 0 <= value['template_resource_id'] <= 65535:
+        raise ValueError('Invalid TaxML template resource identifier')
+    if not isinstance(value['form_path'], str) or not re.fullmatch(r'\d{1,6}/\d{1,6}', value['form_path']):
+        raise ValueError('Invalid TaxML form identity')
+    member = value['archive_member']
+    if member is not None and (not isinstance(member, str) or not member or len(member) > 1024 or re.search(r'[\x00-\x1f\x7f]', member)):
+        raise ValueError('Invalid TaxML archive member identity')
+    return dict(value)
+
+
 def source_document(value):
     if value is None:
         return None
-    if not isinstance(value, dict) or set(value) - {'document_id', 'return_id', 'name', 'method'}:
+    if not isinstance(value, dict) or set(value) - {'document_id', 'return_id', 'name', 'method', 'taxml_receipt'}:
         raise ValueError('Invalid local source-document reference')
     for key in ('document_id', 'return_id'):
         if not isinstance(value.get(key), str) or not ID.fullmatch(value[key]):
@@ -50,10 +68,15 @@ def source_document(value):
     name = value.get('name', '')
     if not isinstance(name, str) or len(name) > 256 or re.search(r'[\x00-\x1f\x7f]', name):
         raise ValueError('Invalid local source-document name')
-    if value.get('method') not in ('ocr', 'manual'):
+    if value.get('method') not in ('ocr', 'manual', 'taxml'):
         raise ValueError('Invalid local source-document method')
-    return {'document_id': value['document_id'], 'return_id': value['return_id'],
-            'name': name, 'method': value['method']}
+    output = {'document_id': value['document_id'], 'return_id': value['return_id'],
+              'name': name, 'method': value['method']}
+    if value['method'] == 'taxml':
+        output['taxml_receipt'] = taxml_receipt(value.get('taxml_receipt'))
+    elif 'taxml_receipt' in value:
+        raise ValueError('TaxML source receipt requires the TaxML method')
+    return output
 
 
 def normalize(data, provided, defaults, previous=None):
@@ -84,6 +107,8 @@ def normalize(data, provided, defaults, previous=None):
             matches = by_hash.get(current_hash, [])
             entries.append(matches[0] if len(matches) == 1 and current_hashes.count(current_hash) == 1 else {})
     output, seen = [], set()
+    previous_sources = {entry.get('record_id'): entry.get('source_document')
+        for entry in (previous or {}).get('w2_records', [])}
     for row, item in zip(rows, entries):
         if not isinstance(item, dict) or set(item) - {'record_id', 'row_fingerprint', 'reviewed',
                 'reviewed_at', 'reviewed_fingerprint', 'source_document'}:
@@ -110,10 +135,14 @@ def normalize(data, provided, defaults, previous=None):
             except ValueError:
                 raise ValueError('Invalid W-2 review time')
             reviewed = reviewed_hash == current
+        source = source_document(item.get('source_document'))
+        old_source = previous_sources.get(ident)
+        if isinstance(old_source, dict) and old_source.get('method') == 'taxml' and source != old_source:
+            raise ValueError('Saved TaxML source receipts cannot be removed or changed')
         output.append({'record_id': ident, 'row_fingerprint': current,
                        'reviewed': reviewed, 'reviewed_at': stamp if reviewed else None,
                        'reviewed_fingerprint': current if reviewed else None,
-                       'source_document': source_document(item.get('source_document'))})
+                       'source_document': source})
     investments = investment_metadata.normalize(data.get('capital_gains', []),
         provided.get('investment_records') if explicit else None,
         previous.get('investment_records', []) if isinstance(previous, dict) else None)

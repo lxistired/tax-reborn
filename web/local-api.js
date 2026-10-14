@@ -24,8 +24,14 @@
   }
   function localSource(value) {
     if(value==null)return null;
-    if(typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!['document_id','return_id','name','method'].includes(key))||!metadataId(value.document_id)||!metadataId(value.return_id)||!['ocr','manual'].includes(value.method)||typeof(value.name??'')!=='string'||(value.name||'').length>256||/[\u0000-\u001f\u007f]/.test(value.name||''))throw Error('Invalid local source-document reference');
-    return {document_id:value.document_id,return_id:value.return_id,name:value.name||'',method:value.method};
+    if(typeof value!=='object'||Array.isArray(value)||Object.keys(value).some(key=>!['document_id','return_id','name','method','taxml_receipt'].includes(key))||!metadataId(value.document_id)||!metadataId(value.return_id)||!['ocr','manual','taxml'].includes(value.method)||typeof(value.name??'')!=='string'||(value.name||'').length>256||/[\u0000-\u001f\u007f]/.test(value.name||''))throw Error('Invalid local source-document reference');
+    const output={document_id:value.document_id,return_id:value.return_id,name:value.name||'',method:value.method};
+    if(value.method==='taxml'){
+      const receipt=value.taxml_receipt,keys=['source_sha256','wire_profile_sha256','template_carrier_sha256','template_resource_id','form_path','archive_member','candidate_sha256'];
+      if(!receipt||typeof receipt!=='object'||Array.isArray(receipt)||Object.keys(receipt).length!==keys.length||keys.some(key=>!Object.hasOwn(receipt,key))||['source_sha256','wire_profile_sha256','template_carrier_sha256','candidate_sha256'].some(key=>typeof receipt[key]!=='string'||!/^[0-9a-f]{64}$/.test(receipt[key]))||!Number.isInteger(receipt.template_resource_id)||receipt.template_resource_id<0||receipt.template_resource_id>65535||typeof receipt.form_path!=='string'||!/^\d{1,6}\/\d{1,6}$/.test(receipt.form_path)||receipt.archive_member!==null&&(typeof receipt.archive_member!=='string'||!receipt.archive_member||receipt.archive_member.length>1024||/[\u0000-\u001f\u007f]/.test(receipt.archive_member)))throw Error('Invalid TaxML source receipt');
+      output.taxml_receipt=JSON.parse(JSON.stringify(receipt));
+    }else if(Object.hasOwn(value,'taxml_receipt'))throw Error('TaxML source receipt requires the TaxML method');
+    return output;
   }
   async function normalizeMetadata(data,provided,previous=null,options={}) {
     const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
@@ -43,7 +49,9 @@
       const checked=!!item.reviewed;
       if(checked&&(!/^[0-9a-f]{64}$/.test(item.reviewed_fingerprint||'')||typeof item.reviewed_at!=='string'||item.reviewed_at.length>40||!/(?:Z|[+-]\d\d:\d\d)$/.test(item.reviewed_at)||!Number.isFinite(Date.parse(item.reviewed_at))))throw Error('Reviewed W-2 requires its checked values and valid review time');
       const reviewed=checked&&item.reviewed_fingerprint===fingerprints[index];
-      return {record_id:id,row_fingerprint:fingerprints[index],reviewed,reviewed_at:reviewed?item.reviewed_at:null,reviewed_fingerprint:reviewed?fingerprints[index]:null,source_document:localSource(item.source_document)};
+      const source=localSource(item.source_document),oldSource=previous?.w2_records?.find(entry=>entry.record_id===id)?.source_document;
+      if(oldSource?.method==='taxml'&&JSON.stringify(sorted(source))!==JSON.stringify(sorted(oldSource)))throw Error('Saved TaxML source receipts cannot be removed or changed');
+      return {record_id:id,row_fingerprint:fingerprints[index],reviewed,reviewed_at:reviewed?item.reviewed_at:null,reviewed_fingerprint:reviewed?fingerprints[index]:null,source_document:source};
     });
     const investments=await window.taxInvestmentCorrections.normalize(data.capital_gains||[],provided?.investment_records,previous?.investment_records,options);
     const income=await window.taxIncomePreparation.normalize(data,provided?.income_document_records,previous?.income_document_records,options);
@@ -58,7 +66,7 @@
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.6',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.14-preview.7',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {

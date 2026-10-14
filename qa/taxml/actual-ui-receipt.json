@@ -1,0 +1,44 @@
+{
+  "mode": "actual in-app-browser UI with private loopback SQLite + dedicated Pyodide worker",
+  "successful": true,
+  "source_selection": "actual XML and declared plaintext ZIP file pickers with caller profile/XPRF",
+  "source_sha256": "712d418dd4b45c190237fa33ea355ff78282a5ae09f84b598225f86729922b40",
+  "downloaded_source_sha256": "712d418dd4b45c190237fa33ea355ff78282a5ae09f84b598225f86729922b40",
+  "saved_return_id": "1e61e99a-beb4-427a-a60a-39dd61721c7e",
+  "w2_count": 2,
+  "preserved_first_employer": "Synthetic Widgets LLC",
+  "appended_second_employer": "Synthetic ZIP employer",
+  "saved_wages": [
+    "98231.17",
+    "98231.17"
+  ],
+  "reviewed": [
+    true,
+    true
+  ],
+  "source_methods": [
+    "taxml",
+    "taxml"
+  ],
+  "archive_members": [
+    null,
+    "return.xml"
+  ],
+  "all_income_reported": false,
+  "can_prepare": false,
+  "before_import_refund": 0,
+  "after_first_import_refund": 483,
+  "after_second_import_amount_owed": 7872,
+  "missing_owner_rejected": true,
+  "blank_box7_box10_rejected": true,
+  "missing_box2_review_disabled": true,
+  "save_reopen_source_and_review_preserved": true,
+  "original_vendor_fixtures_used": false,
+  "original_program_acceptance_verified": false,
+  "screenshots": [
+    "ui-unreviewed-candidate.png",
+    "ui-reviewed-saved.png",
+    "ui-missing-box-blocked.png",
+    "ui-zip-appended-preserves-first.png"
+  ]
+}

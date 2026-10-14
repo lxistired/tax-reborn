@@ -1,0 +1,9 @@
+{
+  "runtime": "actual pinned Pyodide via integrated worker source",
+  "successful": true,
+  "assertions": 25,
+  "federal_can_prepare": false,
+  "all_income_reported": false,
+  "no_original_tax_roundtrip_claim": true,
+  "worker_source_sha256": "b127612b928b9a67c116f86339009c30c80abc8608be82586c1fcac7957d88fd"
+}

@@ -1,0 +1,11 @@
+{
+  "app_ordinary_tax_checks": 12472,
+  "passed": 12472,
+  "failed": 0,
+  "failures": [],
+  "original_program_runtime_executions": 0,
+  "method": "Compare independently written App ordinary_tax to primary IRS literals and independently interpreted original compiled selected caller path. Original executable not running.",
+  "source_receipt_sha256": "75c5de17da7c7ffa624f2691cc23890af1d260194473eaef475b64407e9ca18a",
+  "scope": "2025 ordinary federal income tax; valid five filing statuses, zero foreign-income offset. No AMT, preferential capital gains, credit or scheduler parity.",
+  "primary_irs_source": "https://www.irs.gov/pub/irs-pdf/i1040gi.pdf"
+}

@@ -337,7 +337,7 @@ async function showW2Source(source){
  const row=await documentOperation('readonly',store=>store.get(source.document_id));
  if(currentId!==id)return;
  if(!row||row.returnId!==id)throw Error('The source attachment is no longer available in this local return.');
- const url=URL.createObjectURL(row.file),holder=el('div',{},el('p',{},row.name),row.type.startsWith('image/')?el('img',{src:url,alt:'Original W-2 source document',style:'max-width:100%;height:auto'}):el('p',{},'Download this local PDF to compare its W-2 amounts.'));
+ const url=URL.createObjectURL(row.file),holder=el('div',{},el('p',{},row.name),row.type.startsWith('image/')?el('img',{src:url,alt:'Original W-2 source document',style:'max-width:100%;height:auto'}):el('p',{},'Download this local source to compare its W-2 amounts.'));
  modal('Your W-2 source document',holder,[['Download source',()=>downloadBlob(row.file,row.name),'secondary']]);documentURLs.push(url);
 }
 function w2ReviewPanel(index){
@@ -347,7 +347,7 @@ function w2ReviewPanel(index){
   try{await markW2Reviewed(ident,input.checked);}catch(error){input.checked=false;notify(error.message,true);}finally{input.disabled=false;refreshW2Review(ident);}
  }});
  const holder=el('div',{class:'note'},el('strong',{'data-w2-review-state':ident},entry.reviewed?'Reviewed':'Needs review'),el('label',{class:'check-field'},control,el('span',{},'I checked the owner and every entered W-2 amount against the source document.')),el('small',{},'Changing this W-2’s values or owner clears only its review. Review status does not submit or certify a tax return.'));
- if(source){const restored=source.return_id!==currentId;holder.append(el('p',{},restored?'Source attachment not restored · '+source.name:'Local source · '+source.name));if(!restored)holder.append(button('View source document',()=>showW2Source(source),'secondary',{class:'button secondary small'}));}
+ if(source){const restored=source.return_id!==currentId;holder.append(el('p',{},restored?'Source attachment not restored · '+source.name:'Local '+(source.method==='taxml'?'TaxML':'document')+' source · '+source.name));if(!restored)holder.append(button('View source document',()=>showW2Source(source),'secondary',{class:'button secondary small'}));}
  return holder;
 }
 function repeatRecords(key){
@@ -686,17 +686,82 @@ async function reviewExtractedW2(row,returnId){
   ensureW2Metadata();data.w2.push(draft);metadata.w2_records.push(preparation);openRecords.add('w2:'+preparation.record_id);changed();closeDialog();navigate('w2');notify('Reviewed W-2 added. Save to keep this return.');
  },'primary']]);
 }
+async function showTaxMLImport(){
+ if(!hasSaved)await saveReturn();
+ const id=currentId,openedRevision=revision,holder=el('div');
+ const source=el('input',{type:'file',accept:'.xml,.tax,.zip,application/xml,text/xml,application/zip','aria-label':'Choose plaintext TaxML or .tax container'});
+ const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose explicit TaxML wire profile'});
+ const carriers=el('input',{type:'file',multiple:true,accept:'.xprf,application/octet-stream','aria-label':'Choose caller-owned XPRF registries'});
+ const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Explicitly declared plaintext ZIP'));
+ const acknowledged=el('input',{type:'checkbox','aria-label':'Acknowledge the selected unverified wire profile'});
+ holder.append(el('p',{class:'intro'},'Inspect your local plaintext TaxML with your own registry files and an explicit wire-profile JSON. This can offer reviewed W-2 candidates. It does not restore a complete .tax return or decrypt a protected file.'),
+  el('div',{class:'note warning'},'The selected wire profile is supplied by you. Original TurboTax loading and calculation are unverified. Unknown fields and source facts block adding a candidate.'),
+  el('div',{class:'field'},el('label',{},'Source TaxML / plaintext .tax'),source),
+  el('div',{class:'field'},el('label',{},'Known file format'),container),
+  el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
+  el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
+  el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')));
+ const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
+  if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
+  if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
+  const file=source.files[0],profileFile=profile.files[0],registryFiles=[...carriers.files];
+  const inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container.value,acknowledged.checked);
+  if(currentId!==id||revision!==openedRevision||!dialog.body.isConnected)throw Error('This return or import window changed. No W-2 was added.');
+  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type||'application/octet-stream',size:file.size,created:new Date().toISOString()};
+  await documentOperation('readwrite',store=>store.put(row));
+  if(currentId!==id||revision!==openedRevision)throw Error('This return changed. The original source remains attached, but no W-2 was added.');
+  showTaxMLCandidates(row,inspected,id,openedRevision);
+ },'primary']]);
+}
+function showTaxMLCandidates(row,inspected,returnId,atRevision){
+ const holder=el('div',{},el('p',{class:'intro'},'The original source is retained as a local attachment. No tax values have been added.'),
+  ...(inspected.warnings||[]).map(warning=>el('div',{class:'note warning'},warning)),
+  el('small',{},'Source SHA-256 · '+inspected.source_sha256));
+ if(inspected.unresolved_facts?.length)holder.append(el('div',{class:'note warning'},'Adding is blocked by '+inspected.unresolved_facts.length+' unresolved source facts.'),el('details',{},el('summary',{},'Show unresolved source facts'),el('ul',{},inspected.unresolved_facts.map(item=>el('li',{},item.path+' · '+item.code+(item.detail?' · '+item.detail:''))))));
+ if(!inspected.candidates?.length)holder.append(el('div',{class:'empty-state'},'No supported W-2 candidates were found. The source was not imported as a return.'));
+ for(const candidate of inspected.candidates||[]){
+  const caption=candidate.employer||'Employer name requires review';
+  holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},caption),el('small',{},'W-2 source form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Candidate needs explicit review':'Blocked by missing or unresolved facts'))),button('Review W-2 candidate',()=>reviewTaxMLW2(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small',disabled:!candidate.can_review})));
+ }
+ modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
+}
+function reviewTaxMLW2(source,candidate,returnId,atRevision){
+ const holder=el('div'),inputs={};
+ holder.append(el('p',{class:'intro'},'Check each amount against the original 2025 W-2. This adds a separate record and keeps existing W-2s. Source flags do not establish who owns this W-2.'),
+  el('div',{class:'note warning'},'Select taxpayer or spouse. For Boxes 7 and 10, a missing source value remains blank. Enter zero only after verifying that the original W-2 is blank or zero.'));
+ const fields=grid();
+ for(const[name,label,type]of recordDefinitions.w2.fields){
+  const value=name==='employer'?(candidate.employer||''):candidate.amounts[name]??'';let input;
+  if(type==='owner')input=el('select',{'aria-label':label},el('option',{value:''},'Select the W-2 owner'),...ownerChoices.map(([key,text])=>el('option',{value:key},text)));
+  else input=el('input',{type:'text',inputmode:type==='text'?null:'decimal',class:type==='text'?'':'money',value,'aria-label':label});
+  inputs[name]=input;const wire=candidate.sources[name];
+  fields.append(el('div',{class:'field'},el('label',{},label),type==='text'||type==='owner'?input:el('div',{class:'money-wrap'},el('span',{},'$'),input),wire?el('small',{},'Wire '+wire.field_id+' · '+wire.wire_text):name==='social_security_tips'||name==='dependent_care_benefits'?el('small',{},'Not established by this source · enter explicitly'):null));
+ }
+ const confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML W-2 amounts and ownership'});
+ holder.append(fields,el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, the owner, employer and every amount against the original W-2.')));
+ let committing=false;
+ modal('Review TaxML W-2 candidate',holder,[['Add reviewed W-2',async()=>{
+  if(committing)return;committing=true;
+  try{
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. Reopen the import.');
+   const values=Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value]));
+   const prepared=await window.taxMLImport.reviewedRecord(candidate,values,{document_id:source.id,return_id:returnId,name:String(source.name).replace(/[\u0000-\u001f\u007f]/g,'').slice(0,256)},confirmed.checked,rowTemplate('w2'));
+   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during review. No W-2 was added.');
+   ensureW2Metadata();data.w2.push(prepared.row);metadata.w2_records.push(prepared.metadata);openRecords.add('w2:'+prepared.metadata.record_id);changed();closeDialog();navigate('w2');notify('Reviewed TaxML W-2 added. Income completeness was not confirmed. Save to keep this draft.');
+  }finally{committing=false;}
+ },'primary']]);
+}
 async function showDocuments(){
  try{if(!hasSaved)await saveReturn();}catch{return;}
  const id=currentId,holder=el('div'),files=el('input',{type:'file',accept:'image/*,application/pdf',multiple:true,'aria-label':'Attach local documents'}),camera=el('input',{type:'file',accept:'image/*',capture:'environment','aria-label':'Capture a document photo'}),list=el('div',{class:'doc-list'}),extractReady=typeof window.extractTaxDocument==='function';
- holder.append(el('p',{class:'intro'},'Photo and PDF copies stay in this browser/device. Attachments are separate from your return JSON backup.'),el('div',{class:'capture-controls'},el('label',{},'Choose files',files),el('label',{},'Camera photo',camera)),el('div',{class:'note'},extractReady?'Local extraction offers editable W-2 candidates. Compare the amounts with the document and confirm them before adding a record. No cloud upload is performed.':'Enter document amounts manually. Local extraction is not available in this build; no cloud upload is performed.'),list);
+ holder.append(el('p',{class:'intro'},'Photo, PDF and inspected TaxML copies stay in this browser/device. Attachments are separate from your return JSON backup.'),el('div',{class:'capture-controls'},el('label',{},'Choose files',files),el('label',{},'Camera photo',camera)),el('div',{class:'inline-actions'},button('Inspect TaxML / plaintext .tax',showTaxMLImport,'secondary',{disabled:!window.taxMLImport})),el('div',{class:'note'},extractReady?'Local extraction offers editable W-2 candidates. Compare the amounts with the document and confirm them before adding a record. No cloud upload is performed.':'Enter document amounts manually. Local extraction is not available in this build; no cloud upload is performed.'),list);
  modal('Your local documents',holder);
  async function refresh(){
   for(const url of documentURLs)URL.revokeObjectURL(url);documentURLs=[];
   const rows=await documentsForReturn(id);list.replaceChildren();
   if(!rows.length){list.append(el('div',{class:'empty-state'},'No local documents attached.'));return;}
   for(const row of rows){const url=URL.createObjectURL(row.file);documentURLs.push(url);
-   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):'PDF'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady}),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
+   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):row.type==='application/pdf'?'PDF':'TaxML'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady||!(/^(image\/|application\/pdf$)/.test(row.type))}),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
   }
  }
  async function attach(input){
