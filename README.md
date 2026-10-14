@@ -6,7 +6,7 @@ This is independent source code. The current REA checkpoint retains 4,464 distin
 
 **Status: functional development preview; a complete TurboTax substitute and filing packet have not been established.** Supported arithmetic, complete paperwork and submission are separate checks. Unsupported situations are reported in the return instead of silently marked complete. Electronic filing, tax payment, expert representation and IRS acceptance are unavailable. The calculation year is2025, not2026.
 
-Preview.7 adds [REA-backed TaxML W-2 inspection and reviewed import](docs/TAXML_IMPORT.md), with retained source attachments across desktop cold restarts. [Wave 7](docs/REA_WAVE7_20261014.md) records the selected file and calculation reconstruction, original-runtime limits and ongoing work. [Preview.7 platform receipts](qa/native-preview7/) distinguish executed native workflows from checks still open.
+[Preview.8](https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.14-preview.8) hardens the UTF8 import boundary; [wave8](docs/REA_WAVE8_20261014.md) records ongoing loader/graph/scheduler work. Preview.7 adds [REA-backed TaxML W-2 inspection and reviewed import](docs/TAXML_IMPORT.md), with retained source attachments across desktop cold restarts. [Wave 7](docs/REA_WAVE7_20261014.md) records the selected file and calculation reconstruction, original-runtime limits and ongoing work. [Preview.7 platform receipts](qa/native-preview7/) distinguish executed native workflows from checks still open.
 
 ## Working workflows
 

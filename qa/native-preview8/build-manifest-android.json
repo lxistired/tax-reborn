@@ -1,0 +1,16 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.14-preview.8",
+  "platform": "android",
+  "min_api": 26,
+  "target_api": 35,
+  "internet_permission": false,
+  "signing": "private local development certificate; not a store release",
+  "file": "Tax-Reborn-2026.10.14-preview.8-Android.apk",
+  "bytes": 48997498,
+  "sha256": "64988de60e8a6c9854da7da0f06c3f1aa003e2d04b1160aee59bc91d871b3c2e",
+  "real_device_tested": true,
+  "source_commit": "4d3fb8c7b3528787f21b4215835639e0922193cc",
+  "real_device_scope": "Same-key in-place update; exact installed APK hash verified; cold process restart displayed retained synthetic P7/refund1425. This update changes UTF8 parsing and release metadata; Java native wrapper is byte-identical to the acceptedpreview7 wrapper. Native document picker input and camera/OCR were not revalidated inpreview8."
+}

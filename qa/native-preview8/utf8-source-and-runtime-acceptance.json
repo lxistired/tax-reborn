@@ -1,0 +1,12 @@
+{
+  "version": "2026.10.14-preview.8",
+  "host_tests": 425,
+  "host_passed": true,
+  "pyodide_existing_taxml_contracts": 25,
+  "additional_encoding_input_probes": 23,
+  "UTF16_without_BOM_entity_guard_regression_fixed": true,
+  "valid_UTF8_BOM_and_declaration_exact_source_preservation_passed": true,
+  "wire_source_sha256": "9708023a10c0c3dffce07c6065fccf3aaef86878cfa8765550bac800698f4582",
+  "original_runtime_executions": 0,
+  "whole_tax_compatibility": false
+}

@@ -2,6 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),vm=require('node:vm'),assert=require('node:assert/strict');
 const {webcrypto}=require('node:crypto');
 const root=process.env.TAX_REBORN_RUNTIME_ROOT||path.resolve(__dirname,'..');
+const reportRoot=process.env.TAX_REBORN_QA_ROOT||root;
 const fixtureRoot=process.env.TAX_REBORN_FIXTURE_ROOT||path.join(root,'fixtures/taxml');
 const {loadPyodide}=require(path.join(root,'web/vendor/pyodide/pyodide.js'));
 const context={console,URL,URLSearchParams,TextEncoder,crypto:webcrypto,Response,Blob,File,Uint8Array,ArrayBuffer,
@@ -63,6 +64,6 @@ async function main(){
   additional_encoding_input_probes:encodingCases.length,
   federal_can_prepare:result.can_prepare,all_income_reported:data.eligibility.all_income_reported,
   no_original_tax_roundtrip_claim:true,worker_source_sha256:require('node:crypto').createHash('sha256').update(fs.readFileSync(path.join(root,'web/tax-worker-source.js'))).digest('hex')};
- fs.mkdirSync(path.join(root,'qa/taxml'),{recursive:true});fs.writeFileSync(path.join(root,'qa/taxml/runtime-receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
+ fs.mkdirSync(path.join(reportRoot,'qa/taxml'),{recursive:true});fs.writeFileSync(path.join(reportRoot,'qa/taxml/runtime-receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
 }
 main().catch(error=>{console.error(error);process.exitCode=1;});

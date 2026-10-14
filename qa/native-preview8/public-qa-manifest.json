@@ -1,0 +1,112 @@
+{
+  "version": "2026.10.14-preview.8",
+  "synthetic_data_only": true,
+  "files": [
+    {
+      "path": "qa/native-preview8/android-install-cold-reopen-receipt.json",
+      "bytes": 1002,
+      "sha256": "0f16f7f32f35022892f5bd1f39951ace91b713614a83898720130bb93687617d"
+    },
+    {
+      "path": "qa/native-preview8/android-packaged-taxml-runtime.json",
+      "bytes": 355,
+      "sha256": "4c223fff161c3069525131b794e77faf66f5316a0a3d3f7bb329cfa0b2c88c17"
+    },
+    {
+      "path": "qa/native-preview8/android-updated-cold-reopened-P7.png",
+      "bytes": 86951,
+      "sha256": "dc510837c713c704a687a29f2d41c43c9d6e01495438252e252e729d80ebf069"
+    },
+    {
+      "path": "qa/native-preview8/build-manifest-android.json",
+      "bytes": 872,
+      "sha256": "b4f8d2b73d3da340cd5a6a920567b1c37dd70152fbca24f34dd3be36f09bca62"
+    },
+    {
+      "path": "qa/native-preview8/build-manifest-darwin-arm64.json",
+      "bytes": 726,
+      "sha256": "034c03f5fe03a29eb29f92e9882438870944a275ae0b060644c2575a285e408b"
+    },
+    {
+      "path": "qa/native-preview8/build-manifest-win32-x64.json",
+      "bytes": 921,
+      "sha256": "fdb18c337d0575334f79d1fec49bf261b75f3a2f695a9fee05fdbebd451b23e6"
+    },
+    {
+      "path": "qa/native-preview8/dmg-mounted-byte-readback.json",
+      "bytes": 76,
+      "sha256": "109b7fd1ca87268004943c236189a73a794b13735cf6949204abf187ec4bb350"
+    },
+    {
+      "path": "qa/native-preview8/frozen-smoke-darwin-arm64.json",
+      "bytes": 1200,
+      "sha256": "82aa5c0add5eba68a9cb10d1ce285eac25bb31d987783cc3b305cc30bcf68523"
+    },
+    {
+      "path": "qa/native-preview8/frozen-smoke-win32-x64.json",
+      "bytes": 1199,
+      "sha256": "678cb6056e58425d28ca19968af5fcee78d52f9e73d21a83784dee785410130e"
+    },
+    {
+      "path": "qa/native-preview8/installed-frozen-smoke-win32-x64.json",
+      "bytes": 1199,
+      "sha256": "678cb6056e58425d28ca19968af5fcee78d52f9e73d21a83784dee785410130e"
+    },
+    {
+      "path": "qa/native-preview8/installed-taxml-pyodide-receipt.json",
+      "bytes": 355,
+      "sha256": "4c223fff161c3069525131b794e77faf66f5316a0a3d3f7bb329cfa0b2c88c17"
+    },
+    {
+      "path": "qa/native-preview8/macos-packaged-taxml-runtime.json",
+      "bytes": 355,
+      "sha256": "4c223fff161c3069525131b794e77faf66f5316a0a3d3f7bb329cfa0b2c88c17"
+    },
+    {
+      "path": "qa/native-preview8/utf8-source-and-runtime-acceptance.json",
+      "bytes": 466,
+      "sha256": "f43d51f33f5f4e5d8ee2e33c7321a42080397bf9c50730c4332d5e28d273c1e3"
+    },
+    {
+      "path": "qa/native-preview8/windows-ci-run.json",
+      "bytes": 165,
+      "sha256": "d419f51bd358ed349182362e69ae927a3c0c18ba422153dd938668f55eae73bc"
+    },
+    {
+      "path": "qa/native-preview8/windows-installer-receipt.json",
+      "bytes": 227,
+      "sha256": "b2e574d4c2e3cc7e45059c458f34b18bfb6912e5be84ee2346951198bca4a0eb"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-after-PDF-export.png",
+      "bytes": 58614,
+      "sha256": "f1364693c9a430359e4680a0b81987fd9fa9bf728c2628ca3a40e7947b8090a6"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-calculation-1413.png",
+      "bytes": 55489,
+      "sha256": "51e03c4e7403fea67cdb2f28034fbb336f05fea17651f60d11b861c17fba4c90"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-edited-1913.png",
+      "bytes": 61281,
+      "sha256": "bb2fba24d41ed318c03d46294e24c37f3a5d73d8aa16b8369b31bd5e52f2dc44"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-export-DRAFT.pdf",
+      "bytes": 625732,
+      "sha256": "093f956b3c82c3835e780d9d8d6237ef92b1e8ec2870dd164ca841d220b7d6a9"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-gui-smoke.json",
+      "bytes": 610,
+      "sha256": "111bc790a86629d2d15721634d32c09cf4b273d9036b477d4d2ac71c6056015c"
+    },
+    {
+      "path": "qa/native-preview8/windows-native-reopened-1913.png",
+      "bytes": 91499,
+      "sha256": "33f78aeacc1eedcd4a7ce8963a1d93babba77d054a67bffd8ffbad0285e1e852"
+    }
+  ],
+  "privacy_scope": "Only own App screenshot, synthetic draftPDFs and bounded package/test receipts; no system pickers, actual taxpayers, private messages or vendor raw code/keys."
+}

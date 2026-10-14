@@ -1,0 +1,15 @@
+{
+  "version": "2026.10.14-preview.8",
+  "same_key_update_successful": true,
+  "uninstall_or_data_clear": false,
+  "installed_apk_sha256": "64988de60e8a6c9854da7da0f06c3f1aa003e2d04b1160aee59bc91d871b3c2e",
+  "packaged_apk_sha256": "64988de60e8a6c9854da7da0f06c3f1aa003e2d04b1160aee59bc91d871b3c2e",
+  "installed_hash_matches_package": true,
+  "java_classes_dex_byte_identical_to_preview7": true,
+  "actual_cold_reopen_retains_synthetic_return": true,
+  "return_name": "P7",
+  "refund": 1425,
+  "actual_preview8_saved_document_picker_revalidation": false,
+  "earlier_native_save_cancel_return_acceptance": "qa/native-preview7/android-native-gui-smoke.json",
+  "scope": "Same-key in-place update; exact installed APK hash verified; cold process restart displayed retained synthetic P7/refund1425. This update changes UTF8 parsing and release metadata; Java native wrapper is byte-identical to the acceptedpreview7 wrapper. Native document picker input and camera/OCR were not revalidated inpreview8."
+}

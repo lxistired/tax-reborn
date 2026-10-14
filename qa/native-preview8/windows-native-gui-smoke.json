@@ -1,0 +1,14 @@
+{
+  "platform": "windows",
+  "all_passed": true,
+  "checks": [
+    "Packaged Windows WebView2 native window loaded the real interview.",
+    "Real synthetic W2 example calculated federal refund 1413 USD.",
+    "Actual withholding input changed 6500 to 7000 USD; refund became 1913 USD and was saved.",
+    "Normal close/relaunch/reopen preserved the edited return and calculation.",
+    "Actual native Save As export saved an IRS1040 draft PDF; field readback matched the edited 1913 USD return."
+  ],
+  "native_gui_tested": true,
+  "checked_at_utc": "2026-10-14T06:21:42.9650900Z",
+  "synthetic_only": true
+}
