@@ -1,0 +1,8 @@
+{
+  "source": "Native Mac preview6 build tree",
+  "package": "Actual readonly mounted preview6 DMG",
+  "compared_files": 360,
+  "differences": [],
+  "dmg_checksum_verified": true,
+  "all_passed": true
+}

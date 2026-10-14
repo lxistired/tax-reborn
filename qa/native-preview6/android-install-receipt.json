@@ -1,0 +1,15 @@
+{
+  "version": "2026.10.14-preview.6",
+  "versionCode": 2026101406,
+  "same_key_update_successful": true,
+  "data_clear_or_uninstall_performed": false,
+  "internet_permission": false,
+  "packaged_sha256": "cacf90248c9ed296212caac534307ad251f4d8b0b411a1b4dc7387067dd508c1",
+  "installed_apk_pull_success": false,
+  "installed_version_verified": true,
+  "gui_checks_pending": false,
+  "installed_apk_sha256": "cacf90248c9ed296212caac534307ad251f4d8b0b411a1b4dc7387067dd508c1",
+  "installed_apk_matches_release": true,
+  "verification_method": "Android sha256sum on exact observed Package Manager base.apk path; transfer pull was unavailable",
+  "actual_gui_scope": "Preserved synthetic return, keyboard edit/save, official PDF packet export through SAF, process cold restart and restore. Mouse input remains unreliable; phone camera/OCR not revalidated."
+}

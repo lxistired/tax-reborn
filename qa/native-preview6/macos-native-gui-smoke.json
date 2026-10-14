@@ -1,0 +1,28 @@
+{
+  "version": "2026.10.14-preview.6",
+  "actual_frozen_native_gui": true,
+  "original_refund": 1413,
+  "interest_before": 100,
+  "interest_after": 200,
+  "refund_after": 1401,
+  "actual_native_save_dialog": true,
+  "actual_gui_packet_export": "macos-native-preview6-paper-packet.pdf",
+  "packet_bytes": 685663,
+  "packet_sha256": "91e0a5a332a300d3605e8c3eb6bac48bf636990528e5face8e8f416d14f20c60",
+  "packet_pages": 4,
+  "preflight": {
+    "expected_pages": 4,
+    "actual_pages": 4,
+    "page_identities_verified": true,
+    "missing_pages": []
+  },
+  "filing_packet_ready": false,
+  "synthetic_only": true,
+  "saved_return_readback_matches_gui": true,
+  "relaunch_pending": false,
+  "scope": "Real Mac GUI edit, recalculation, save and official draft packet export with required serialized page and copy identities; not original TurboTax execution or filing.",
+  "actual_cold_restart_and_gui_reopen_passed": true,
+  "reopened_refund": 1401,
+  "restart_new_loopback_port": true,
+  "all_passed": true
+}

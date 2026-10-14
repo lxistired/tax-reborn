@@ -1,0 +1,31 @@
+{
+  "version": "2026.10.14-preview.6",
+  "actual_installed_android_gui": true,
+  "same_signer_in_place_update": true,
+  "data_wipe_performed": false,
+  "saved_refund_before_update": 1425,
+  "saved_refund_after_update": 1425,
+  "actual_keyboard_edit_and_save": true,
+  "edited_return_name": "P6",
+  "actual_native_android_document_save_picker": true,
+  "actual_gui_packet_export": "android-native-preview6-paper-packet.pdf",
+  "packet_bytes": 596072,
+  "packet_sha256": "92a2398f4118c16ab6da7f668a13ed667d10d8660708b0ca20274052ab2823a5",
+  "packet_pages": 3,
+  "preflight": {
+    "expected_pages": 3,
+    "actual_pages": 3,
+    "page_identities_verified": true,
+    "missing_pages": []
+  },
+  "filing_packet_ready": false,
+  "synthetic_only": true,
+  "cold_restart_pending": false,
+  "usb_disconnects_observed": true,
+  "mouse_click_reliability_not_verified": true,
+  "scope": "Real installed preview6 retains prior synthetic return, allows keyboard edit/save and exports the actual bundled Pyodide official draft packet through Android SAF. USB mirror transient disconnects occurred; no camera/OCR revalidation or original TurboTax parity implied.",
+  "actual_process_cold_restart_restored_saved_return": true,
+  "reopened_return_name": "P6",
+  "reopened_refund": 1425,
+  "all_checked_scope_passed": true
+}

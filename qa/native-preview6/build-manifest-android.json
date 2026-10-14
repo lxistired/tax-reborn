@@ -1,0 +1,16 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.14-preview.6",
+  "platform": "android",
+  "min_api": 26,
+  "target_api": 35,
+  "internet_permission": false,
+  "signing": "private local development certificate; not a store release",
+  "file": "Tax-Reborn-2026.10.14-preview.6-Android.apk",
+  "bytes": 48914993,
+  "sha256": "cacf90248c9ed296212caac534307ad251f4d8b0b411a1b4dc7387067dd508c1",
+  "real_device_tested": true,
+  "real_device_scope": "Synthetic saved return preservation, keyboard GUI edit/save, actual packet PDF export through native SAF, process restart and restore; no current camera/OCR test.",
+  "real_device_receipt": "android-native-gui-smoke.json"
+}

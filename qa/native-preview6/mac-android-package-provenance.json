@@ -1,0 +1,70 @@
+{
+  "source_commit": "00a32f1832744b30111f001ffaa17e9f6bded1b1",
+  "tracked_source_differences": [],
+  "artifacts_verify_against_source": [
+    {
+      "path": "official_forms.py",
+      "source_sha256": "3e9b363c04f3aadb749703b4d80193489ed4ece5cd92d5d5ed57363ae90956f0",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "tax_engine.py",
+      "source_sha256": "30e0b0943bfdf5db4ba702e3dcef53978b92972a8e9e82b07445b2176a842b25",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "tax_extended.py",
+      "source_sha256": "63b060088c2ad98c860e6d463a9b9bf33f080bf47e76cd18e962efc1a28daeb0",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "tax_filing.py",
+      "source_sha256": "980e381b595958d6b1e8cac33fbae00258870fd31ef80a1cef9c50563950ff50",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "forms.py",
+      "source_sha256": "3878516a141ae38cbb31027198f1b641ebf9eab28dc5d3df845f361a3e7f7215",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "rules_2025.json",
+      "source_sha256": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "web/local-api.js",
+      "source_sha256": "3c43b3b44cafb599b6ffecc6239bc5066ef70844b16568fc0a1027a71d78ea92",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "web/service-worker.js",
+      "source_sha256": "1efec6c1dc2cddb527ca71347fcb28701067735147da83f1744a31a6aba306b6",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "web/app.js",
+      "source_sha256": "4f465c97aa1e98fd265a6a8779cf2b231718e9a6505a6890f119e04d80fdd263",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    },
+    {
+      "path": "web/tax-worker.js",
+      "source_sha256": "dc5e7b679ecda550dc1e5ce499f390796078fd990fe0703b29f61e79b6df03d3",
+      "android_matches_source": true,
+      "mac_matches_source": true
+    }
+  ],
+  "mac_bundle_version": "2026.1014.6",
+  "signer_matches_prior_preview": true,
+  "android_signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "scope": "Build provenance and byte equality for critical packaged calculation, UI and packet sources; no original TurboTax parity implied."
+}
