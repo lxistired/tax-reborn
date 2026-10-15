@@ -1,5 +1,5 @@
 {
-  "runtime_root": "/Users/aez/Documents/Codex/2026-10-12/re/work/turbotax-re/github-tax-reborn-20261013",
+  "runtime_root": "source checkout",
   "actual_packaged_assets": false,
   "real_pyodide": true,
   "three_reviewed_binary_income_forms": true,
@@ -28,6 +28,21 @@
     "after": 2946,
     "presence_and_current_format_retained": true,
     "immutable_history_normalized": true
+  },
+  "derived_value_table": {
+    "explicit_factory": true,
+    "source_boundary_retained": true,
+    "indexed_present_zero_and_unused_payload_retained": true,
+    "scalar_correction_full_readback": true,
+    "unknown_present_array_blocks_income_import": true,
+    "row_insertion_deletion_supported": false
+  },
+  "ordered_effective_registry": {
+    "two_file_picker_order_reversed_and_profile_restored": true,
+    "visible_and_hidden_sources_independently_bound": true,
+    "three_reviewed_forms_actual_refund": 344,
+    "source_metadata_normalized": true,
+    "nested_edit_full_readback": true
   },
   "original_tax_fixture": false,
   "original_engine_executed": false,

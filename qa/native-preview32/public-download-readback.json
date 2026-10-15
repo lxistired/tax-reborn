@@ -1,0 +1,130 @@
+{
+  "format": "tax-reborn-independent-public-download-verification-v1",
+  "all_passed": true,
+  "checked_at_utc": "2026-10-15T19:58:54.480740+00:00",
+  "repository": "lxistired/tax-reborn",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.32",
+  "release_id": 414216318,
+  "tag": "v2026.10.16-preview.32",
+  "published_at_utc": "2026-10-15T19:57:16Z",
+  "draft": false,
+  "prerelease": true,
+  "tag_resolved_source_commit": "3ed32490796b766422b5f1b0ba72d0cea1d61357",
+  "anonymous_release_API_GET": true,
+  "anonymous_tag_ref_GET": true,
+  "authenticated_requests": 0,
+  "authorization_headers": 0,
+  "cookie_handlers": 0,
+  "complete_asset_GET_count": 9,
+  "total_complete_asset_bytes": 393678157,
+  "all_complete_downloads_byte_identical_to_approved_release_files": true,
+  "all_SHA256_digests_match_local_and_public_API": true,
+  "downloaded_source_ZIP_all_CRC_and_2135_Git_blobs_exact": true,
+  "assets": [
+    {
+      "name": "SHA256SUMS.txt",
+      "asset_id": 645001467,
+      "http_status": 200,
+      "bytes": 870,
+      "sha256": "e9d6e80805e4d7f9ce712569f494d122e2565b9bb0166737778a604591ac3227",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.32-Android.apk",
+      "asset_id": 644999543,
+      "http_status": 200,
+      "bytes": 50150390,
+      "sha256": "0c09444ad4c44a67fb361ea81dccf6d0ccb08d511919d58687a7cb1ffde3c0f2",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.32-Source.zip",
+      "asset_id": 644999540,
+      "http_status": 200,
+      "bytes": 140553110,
+      "sha256": "3db67aec876cb4a0a0c3a6a8903c29adf65ee464379cb1f3a3d16fa9381e8370",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.32-Windows-x64-Setup.exe",
+      "asset_id": 644999541,
+      "http_status": 200,
+      "bytes": 58108019,
+      "sha256": "6e5b67a3f14c7c89067f8bac4310d5d53b684e7043fde4ccc733e9f659d41191",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.32-Windows-x64-portable.zip",
+      "asset_id": 644999536,
+      "http_status": 200,
+      "bytes": 71984943,
+      "sha256": "3c78c82be7537a1aec7dbfd6247c7e3a0ebb67c71ba9516f4d7d614909873b4b",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.32-macOS-arm64.dmg",
+      "asset_id": 644999545,
+      "http_status": 200,
+      "bytes": 72878685,
+      "sha256": "c45f3c59bff647d6a58dc1e2821900cf2dd6a1576bdc70590f597d6f674cd125",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "build-manifest-android.json",
+      "asset_id": 645001342,
+      "http_status": 200,
+      "bytes": 456,
+      "sha256": "101f68005f6bd17f4f0837d3da7cf244c15486c64d4c53aa820000e77ff61326",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "build-manifest-darwin-arm64.json",
+      "asset_id": 645001381,
+      "http_status": 200,
+      "bytes": 728,
+      "sha256": "bd4a3b6bcad52c56f8468fe6f3f4c21beeb2c7d5f4267b8235fa91ccb79926fc",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "build-manifest-win32-x64.json",
+      "asset_id": 645001427,
+      "http_status": 200,
+      "bytes": 956,
+      "sha256": "435969703b50e321ebecbe9e68d66d6c1c1868be44aada96882f37d9ff22da7a",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    }
+  ],
+  "privacy_review": {
+    "source_marker_scan_clear": false,
+    "historical_QA_build_directory_metadata_files": 2,
+    "fields": [
+      "qa/binary-tax/binary-runtime-receipt.json:runtime_root",
+      "qa/basis-correction-acceptance-20261013.json:reproduction.private_browser_scripts[0]",
+      "qa/basis-correction-acceptance-20261013.json:reproduction.private_browser_scripts[1]"
+    ],
+    "unchanged_from_preview31": true,
+    "vendor_resource_or_private_audit_payload_in_these_fields": false,
+    "credentials_or_personal_tax_record_in_these_fields": false,
+    "new_runtime_change": false,
+    "tag_or_assets_modified": false
+  },
+  "functional_package_evidence_manifest_sha256": "ee73de170548ceb3ea8c37778584f4b80102b2f46eb85511c40bc6717eb1e9b0",
+  "scope": "Public delivery integrity PASS. The separate privacy review records historical build-directory references in two source QA receipts. Native functional acceptance is recorded separately; this step does not execute the downloaded native programs or claim final tax/native TPS parity.",
+  "independent_summary_sha256": "dcf3b1b7486ac6c8e14f9bff43b2d3d38790b25e338752c98a70196b5757127d",
+  "historical_metadata_followup_in_current_main": {
+    "unnecessary_build_path_and_external_harness_paths_redacted": true,
+    "binary_runtime_test_producer_now_records_scope_instead_of_absolute_directory": true,
+    "real_Pyodide_source_readback_regression_passed": true,
+    "original_tag_and_nine_assets_preserved": true,
+    "new_runtime_assets_unchanged": true
+  }
+}

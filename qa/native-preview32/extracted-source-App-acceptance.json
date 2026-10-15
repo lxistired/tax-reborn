@@ -1,0 +1,29 @@
+{
+  "version": "2026.10.16-preview.32",
+  "archive_name": "Tax-Reborn-2026.10.16-preview.32-Source.zip",
+  "archive_bytes": 140553110,
+  "archive_sha256": "3db67aec876cb4a0a0c3a6a8903c29adf65ee464379cb1f3a3d16fa9381e8370",
+  "git_commit": "3ed32490796b766422b5f1b0ba72d0cea1d61357",
+  "all_2135_Git_blob_bytes_and_CRC_exact": true,
+  "actual_extracted_App": true,
+  "modes": [
+    "HTTP-SQLite",
+    "390px Pyodide-IndexedDB"
+  ],
+  "behavior_groups_per_mode": 5,
+  "separate_capacity_observation_rows": 2,
+  "source_profile_7_carriers_2_local_resources": true,
+  "new_adjustment_projection_L4": "1810.34",
+  "new_adjustment_projection_L8A": "1810",
+  "baseline_displayed_separately": true,
+  "Used_ADJUST_zero_refused": true,
+  "L8A_Override_retained": true,
+  "complete_new_audits_byte_equal_native_packages": true,
+  "old_audit_1036476_bytes_unchanged": true,
+  "complete_current_return_and_result_and_persistence_reload_unchanged": true,
+  "private_test_inputs_not_in_archive": true,
+  "original_runtime": 0,
+  "original_taxpayer_fixture": 0,
+  "full_original_compatibility": false,
+  "checked_at_utc": "2026-10-15T19:55:16.028Z"
+}

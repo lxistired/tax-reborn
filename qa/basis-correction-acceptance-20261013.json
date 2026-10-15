@@ -128,9 +128,10 @@
     "host_command": "python3 -m unittest discover -s tests -p test_investment_metadata.py -v",
     "all_python_command": "python3 -m unittest discover -s tests -v",
     "private_browser_scripts": [
-      "work/turbotax-re/rea-wave3-20261013/workflows/test_basis_browser.cjs",
-      "work/turbotax-re/rea-wave3-20261013/workflows/test_basis_facts_ui.cjs"
+      "test_basis_browser.cjs",
+      "test_basis_facts_ui.cjs"
     ],
-    "note": "Run host commands from outputs/tax-reborn. Browser scripts run from the repository workspace with Playwright installed and TAX_REBORN_TEST_PYTHON pointing to a Python runtime that supports the server and PDF dependencies."
+    "note": "Run the host commands from the source checkout. The named external browser harnesses were used for the historical acceptance but are not distributed in this repository; private workspace paths have been removed.",
+    "private_browser_scripts_distributed": false
   }
 }
