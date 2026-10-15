@@ -1,0 +1,12 @@
+{
+  "at_utc": "2026-10-15T14:30:18.136703+00:00",
+  "all_existing_SQLite_return_state_and_preparation_rows_exact": true,
+  "saved_returns": 17,
+  "complete_current_input_sha256": "a9ee318a9c40906f4e78e99e67b5fc9ba41f513e97999de172d0b0b8048e62ef",
+  "independent_complete_IRS_result_equal_saved": true,
+  "saved_refund_USD": 344,
+  "actual_native_complete_source_system_save_passed": true,
+  "normal_quit_passed": true,
+  "normal_relaunch_pending": false,
+  "normal_relaunch_saved344_passed": true
+}

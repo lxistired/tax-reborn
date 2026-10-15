@@ -1,0 +1,15 @@
+{
+  "version": "2026.10.15-preview.29",
+  "Mac_Android_runtime_commit": "b9c5105de1d15f314669a20d1257689a23c5be83",
+  "Windows_commit": "b7350ef",
+  "Windows_commit_changes_only_acceptance_selector": true,
+  "all_web_files_byte_equal_three_native_packages": 164,
+  "total_web_bytes": 64035141,
+  "three_actual_native_complete_source_exports_byte_equal": true,
+  "native_source_bytes": 1590,
+  "native_source_SHA256": "93c85dcbe28a57703ccd2bc25e939f05780e21eae17cfeef172ba534e071b7cf",
+  "untouched_local_records": 4,
+  "manifest_unchanged": true,
+  "Windows_focused_GUI_checks": 15,
+  "Windows_installed_frozen_checks": 21
+}

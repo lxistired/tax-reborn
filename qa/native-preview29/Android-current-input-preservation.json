@@ -1,0 +1,13 @@
+{
+  "at_utc": "2026-10-15T14:49:28.362629+00:00",
+  "version": "2026.10.15-preview.29",
+  "actual_system_complete_JSON_backup_read": true,
+  "current_complete_input_matches_previous28": true,
+  "current_complete_input_SHA256": "7288b95981e71290d499743da75dc6efc09e28334c4daae9eb8af712b6d5d8d5",
+  "independent_IRS_result_equals_saved": true,
+  "saved_refund_USD": 344,
+  "backup_bytes": 33114,
+  "backup_SHA256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+  "source_editor_did_not_change_current_input": true,
+  "manual_force_stop_separately_repeated": false
+}

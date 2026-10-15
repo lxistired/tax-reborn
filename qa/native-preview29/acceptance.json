@@ -1,0 +1,70 @@
+{
+  "version": "2026.10.15-preview.29",
+  "Mac_Android_runtime_commit": "b9c5105de1d15f314669a20d1257689a23c5be83",
+  "Windows_commit": "b7350ef",
+  "host_tests": 727,
+  "actual_Pyodide_tests": {
+    "total": 618,
+    "executed": 616,
+    "skipped": 2
+  },
+  "independent_review": "independent-review.json",
+  "actual_browser": {
+    "desktop_HTTP_SQLite": true,
+    "mobile390_Pyodide_IndexedDB": true,
+    "three_income_reviews_saved_reloaded_344": true,
+    "complete_source_export_and_unknown_manifest_refusal": true
+  },
+  "Windows": {
+    "installer_built": true,
+    "installer_actually_installed": true,
+    "installed_frozen_checks": 21,
+    "focused_native_GUI_checks": 15,
+    "actual_new_source_UI_system_save_and_normal_relaunch": true,
+    "CI": "https://github.com/lxistired/tax-reborn/actions/runs/38754290967",
+    "prior_driver_failure": "Original orphan refusal test selected option index3 after cleartext option was inserted. Test-only fix chooses final explicit binary format; runtime unchanged."
+  },
+  "Mac_ARM64": {
+    "DMG_built": true,
+    "frozen_checks": 21,
+    "actual_new_source_UI_system_save_and_normal_relaunch": true,
+    "complete_existing_SQLite_input_and_saved344_unchanged": true,
+    "readonly_DMG_all619_paths_equal_tested_App": true
+  },
+  "Android": {
+    "APK_built": true,
+    "original_signer_upgrade_actually_installed": true,
+    "installed_APK_pulled_and_exact_bytes": true,
+    "original_install_time_retained": true,
+    "actual_new_source_UI_system_save": true,
+    "actual_fresh_complete_JSON_backup_and_IRS_readback": true,
+    "current_complete_input_SHA_matches_previous28": true,
+    "manual_force_stop_separately_repeated": false
+  },
+  "three_native_complete_source_exports": {
+    "complete_stdlib_ZIP_CRC_passed": true,
+    "members": 5,
+    "untouched_local_records_exact": 4,
+    "manifest_bytes_unchanged": true,
+    "other_form_XML_bytes_unchanged": true,
+    "source_bytes": 1585,
+    "output_bytes": 1590,
+    "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+    "output_sha256": "93c85dcbe28a57703ccd2bc25e939f05780e21eae17cfeef172ba534e071b7cf",
+    "edited_field": "wages",
+    "edited_amount": "1234.57",
+    "original_program_execution": 0,
+    "whole_original_tax_compatibility": false
+  },
+  "all164_web_assets_byte_equal_three_native_packages": true,
+  "current_saved_IRS_refund_USD": 344,
+  "original_native_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "native_default_encrypted_file_supported": false,
+  "full_original_tax_compatibility": false,
+  "original_full_recalculation_executed": false,
+  "publication_and_anonymous_package_readback": {
+    "public": false,
+    "pending": true
+  }
+}

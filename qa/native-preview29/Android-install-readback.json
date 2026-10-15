@@ -1,0 +1,13 @@
+{
+  "actual_upgrade_installed": true,
+  "version_name": "2026.10.15-preview.29",
+  "first_install_time_retained": true,
+  "first_install_time": "2026-10-13 13:31:14",
+  "pulled_installed_APK_exact_tested_build": true,
+  "APK_sha256": "0e65f7c54fb502ec90b0e5457a8cc58fb3580368a0b907a97f616c82dee5fa53",
+  "original_signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "phone_original_wireless_TLS_reused": true,
+  "temporary_5555_not_opened": true,
+  "real_UI_new_flow_pending": false,
+  "original_signer_actual_verification_passed": true
+}

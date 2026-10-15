@@ -1,0 +1,129 @@
+{
+  "checked_at_utc": "2026-10-15T14:25:13.426673+00:00",
+  "production_baseline": "2afcaa32ebcddc3f91364670f44b5775acbc1e29",
+  "release_gate": "PASS for selected explicitly cleartext finite source workflow",
+  "blocking_findings": [],
+  "resolved_findings": [
+    {
+      "issue": "Unmodeled manifest metadata previously allowed payload correction",
+      "fix": "App adapter finite manifest authorization; inspection read-only, every candidate false, export guard repeated independently",
+      "native_attribute_meaning_not_claimed": true
+    }
+  ],
+  "independent_host": {
+    "outer_and_binding_inputs": 30,
+    "outer_and_binding_refused": 24,
+    "full_archive_exports": 3,
+    "export_refusals": 9,
+    "manifest_inputs": 22,
+    "manifest_readonly_cases": 20,
+    "positive_manifest_cases": 2,
+    "direct_helper_metadata_refusals": 20,
+    "legacy_inspection_entire_JSON_equal": 24,
+    "legacy_export_entire_JSON_equal": 6,
+    "copied_tests": 7
+  },
+  "real_worker": {
+    "real_Pyodide_worker": true,
+    "inspections": 30,
+    "accepted": 6,
+    "refused": 24,
+    "exports": 3,
+    "export_refusals": 9,
+    "entire_legacy_JSON_same": 24,
+    "actual_UI_wrapper_three_exports": true,
+    "manifest_policy_cases": 22,
+    "manifest_readonly_refusals": 20,
+    "legacy_exports_identical": 6,
+    "v6_reversed_file_inputs_reordered_by_profile": true,
+    "narrow_worker_paths_verified": true,
+    "native_original_executed": false
+  },
+  "real_browser": {
+    "checked_at_utc": "2026-10-15T14:24:06.144Z",
+    "all_passed": true,
+    "feature": "complete explicit cleartext container source workflow",
+    "checks": [
+      {
+        "mode": "HTTP-SQLite",
+        "complete_container_report_rendered": true,
+        "real_UI_file_inputs": true,
+        "three_form_types_reviewed_from_one_attachment": true,
+        "copy_1_kept_distinct": true,
+        "prior_record_retained": true,
+        "reload_and_JSON_restore_passed": true,
+        "duplicate_rejected": true,
+        "selected_complete_container_system_download": true,
+        "full_readback": {
+          "complete_stdlib_ZIP_CRC_passed": true,
+          "members": 5,
+          "untouched_local_records_exact": 4,
+          "manifest_bytes_unchanged": true,
+          "other_form_XML_bytes_unchanged": true,
+          "source_bytes": 1585,
+          "output_bytes": 1584,
+          "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+          "output_sha256": "b1bf57a27f3485cb7d51b0259a4b0e459b94d2e1e27a97da4097516d554d838d",
+          "edited_field": "interest_income",
+          "edited_amount": "101.24",
+          "original_program_execution": 0,
+          "whole_original_tax_compatibility": false
+        },
+        "other_forms_byte_identical": true,
+        "refund": 344,
+        "original_runtime": 0,
+        "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+      },
+      {
+        "mode": "Pyodide-IndexedDB",
+        "complete_container_report_rendered": true,
+        "real_UI_file_inputs": true,
+        "three_form_types_reviewed_from_one_attachment": true,
+        "copy_1_kept_distinct": true,
+        "prior_record_retained": true,
+        "reload_and_JSON_restore_passed": true,
+        "duplicate_rejected": true,
+        "selected_complete_container_system_download": true,
+        "full_readback": {
+          "complete_stdlib_ZIP_CRC_passed": true,
+          "members": 5,
+          "untouched_local_records_exact": 4,
+          "manifest_bytes_unchanged": true,
+          "other_form_XML_bytes_unchanged": true,
+          "source_bytes": 1585,
+          "output_bytes": 1584,
+          "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+          "output_sha256": "b1bf57a27f3485cb7d51b0259a4b0e459b94d2e1e27a97da4097516d554d838d",
+          "edited_field": "interest_income",
+          "edited_amount": "101.24",
+          "original_program_execution": 0,
+          "whole_original_tax_compatibility": false
+        },
+        "other_forms_byte_identical": true,
+        "refund": 344,
+        "original_runtime": 0,
+        "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+      }
+    ],
+    "synthetic_only": true,
+    "full_original_tax_compatibility": false,
+    "physical_phone_acceptance": false
+  },
+  "bindings_verified": 131,
+  "root_candidate_writes": 0,
+  "canonical_writes": 0,
+  "native_original_executions": 0,
+  "taxpayer_fixtures": 0,
+  "default_vendor_encrypted_support": false,
+  "unknown_manifest_semantics_grant_edit": false,
+  "known_existing_unselected_members_raw_preserved": true,
+  "limits": [
+    "Selected cleartext encryption=false profile only; native default encryption=true is unsupported",
+    "Source-bound owned Windows TaxML shape; Mac original TaxML factory acceptance unverified",
+    "Other stored/unreferenced member semantics remain unexamined and are not active tax values",
+    "Existing supported field-text correction only; no original-program loading/recalculation/tax parity",
+    "Unknown manifest contexts are stored read-only; opaque ZIP extras still block unsupported relocation"
+  ],
+  "immutable_review_manifest_SHA256": "bb1e62980e8c7e84d120064a443be6bdfacea1b959d3a0779bbefcd70aafa8ac",
+  "root_all145_manifest_files_and131_runtime_bindings_verified": true
+}

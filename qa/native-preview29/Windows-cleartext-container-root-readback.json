@@ -1,0 +1,15 @@
+{
+  "complete_stdlib_ZIP_CRC_passed": true,
+  "members": 5,
+  "untouched_local_records_exact": 4,
+  "manifest_bytes_unchanged": true,
+  "other_form_XML_bytes_unchanged": true,
+  "source_bytes": 1585,
+  "output_bytes": 1590,
+  "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+  "output_sha256": "93c85dcbe28a57703ccd2bc25e939f05780e21eae17cfeef172ba534e071b7cf",
+  "edited_field": "wages",
+  "edited_amount": "1234.57",
+  "original_program_execution": 0,
+  "whole_original_tax_compatibility": false
+}

@@ -1,6 +1,6 @@
 {
   "version": "2026.10.15-preview.29",
-  "stage": "source/browser validated; native generation/install/UI/publication pending",
+  "stage": "three real native changed flows/system exports passed; source ZIP/public release gates pending",
   "host_tests": 727,
   "actual_Pyodide": {
     "executed": 616,
@@ -10,10 +10,10 @@
   "actual_HTTP_SQLite_and_390px_Pyodide_IndexedDB": true,
   "actual_dedicated_worker_complete_source": true,
   "actual_separate_comparison_worker_regression": true,
-  "native_packages_generated": false,
-  "Windows_new_UI_passed": false,
-  "Mac_new_UI_passed": false,
-  "Android_same_signer_installed_and_new_UI_passed": false,
+  "native_packages_generated": true,
+  "Windows_new_UI_passed": true,
+  "Mac_new_UI_passed": true,
+  "Android_same_signer_installed_and_new_UI_passed": true,
   "published": false,
   "original_runtime": 0,
   "original_taxpayer_fixture": 0,
