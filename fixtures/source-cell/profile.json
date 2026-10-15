@@ -1,0 +1,101 @@
+{
+  "entity_factory": "value_entity",
+  "form_factories": [
+    {
+      "form_id": "FW2",
+      "form_kind": "value_form",
+      "formset_id": "OWNEDCELL2025",
+      "table_kind": "value_table"
+    },
+    {
+      "form_id": "F1099I",
+      "form_kind": "value_form",
+      "formset_id": "OWNEDCELL2025",
+      "table_kind": "value_table"
+    },
+    {
+      "form_id": "F1099D",
+      "form_kind": "value_form",
+      "formset_id": "OWNEDCELL2025",
+      "table_kind": "value_table"
+    },
+    {
+      "form_id": "FW2",
+      "form_kind": "value_form",
+      "formset_id": "OWNED2025SECOND",
+      "table_kind": "value_table"
+    },
+    {
+      "form_id": "F1099I",
+      "form_kind": "value_form",
+      "formset_id": "OWNED2025SECOND",
+      "table_kind": "value_table"
+    },
+    {
+      "form_id": "F1099D",
+      "form_kind": "value_form",
+      "formset_id": "OWNED2025SECOND",
+      "table_kind": "value_table"
+    }
+  ],
+  "format": "tax-reborn-binary-entity-profile-v6",
+  "formset_factories": [
+    {
+      "formset_id": "OWNEDCELL2025",
+      "formset_kind": "value_formset"
+    },
+    {
+      "formset_id": "OWNED2025SECOND",
+      "formset_kind": "value_formset"
+    }
+  ],
+  "registry_order": [
+    "1f5362d64c3920182336551ff670959f68eb53099e9ed1bef2f6276eaf07c08a",
+    "9d6a99e04548a3cfdc97462c5005dd25dee669de520c63ec32fc1c82790f837e",
+    "9f70199d9b4752369ea1cc3191e10deba978464c118a36282029c8c4c22cf20c",
+    "cb1c9876d31640be75e521bdc108b89a45820222b947250222701b65e6de6f0c"
+  ],
+  "tax_year": 2025,
+  "template_versions": {
+    "OWNED2025SECOND": 2025,
+    "OWNEDCELL2025": 2025
+  },
+  "templates": [
+    {
+      "carrier_sha256": "9d6a99e04548a3cfdc97462c5005dd25dee669de520c63ec32fc1c82790f837e",
+      "form_id": "FW2",
+      "formset_id": "OWNEDCELL2025",
+      "resource_id": 1
+    },
+    {
+      "carrier_sha256": "1f5362d64c3920182336551ff670959f68eb53099e9ed1bef2f6276eaf07c08a",
+      "form_id": "F1099I",
+      "formset_id": "OWNEDCELL2025",
+      "resource_id": 2
+    },
+    {
+      "carrier_sha256": "1f5362d64c3920182336551ff670959f68eb53099e9ed1bef2f6276eaf07c08a",
+      "form_id": "F1099D",
+      "formset_id": "OWNEDCELL2025",
+      "resource_id": 3
+    },
+    {
+      "carrier_sha256": "cb1c9876d31640be75e521bdc108b89a45820222b947250222701b65e6de6f0c",
+      "form_id": "FW2",
+      "formset_id": "OWNED2025SECOND",
+      "resource_id": 1
+    },
+    {
+      "carrier_sha256": "9f70199d9b4752369ea1cc3191e10deba978464c118a36282029c8c4c22cf20c",
+      "form_id": "F1099I",
+      "formset_id": "OWNED2025SECOND",
+      "resource_id": 2
+    },
+    {
+      "carrier_sha256": "9f70199d9b4752369ea1cc3191e10deba978464c118a36282029c8c4c22cf20c",
+      "form_id": "F1099D",
+      "formset_id": "OWNED2025SECOND",
+      "resource_id": 3
+    }
+  ]
+}

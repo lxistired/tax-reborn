@@ -1,0 +1,25 @@
+{
+  "independently_generated": true,
+  "original_resource_payload": false,
+  "original_taxpayer_fixture": false,
+  "policy_kind": "independent_synthetic",
+  "source_sha256": "4025e24fe7ac3d7d35e3bbed2cdb4f5292a26a7c7f0e8b04018b7ae783f625d0",
+  "outputs": [
+    {
+      "element": 1,
+      "value": "1234.57",
+      "filename": "source-stored-cell-element1-corrected.taxbin",
+      "bytes": 8458,
+      "sha256": "4d2abb06f88a75264de6c8ffd84ce5398e30bf773599baf6076074bbc440f2cc"
+    },
+    {
+      "element": 3,
+      "value": "12.34",
+      "filename": "source-stored-cell-element3-corrected.taxbin",
+      "bytes": 8460,
+      "sha256": "13922dffeae4e0d026d7f59ebabad85ba6f7d4683f68d53e2f4ef44276e1a77d"
+    }
+  ],
+  "native_propagation": false,
+  "tax_recalculated": false
+}

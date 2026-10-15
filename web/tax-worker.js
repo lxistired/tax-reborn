@@ -86,9 +86,9 @@ self.onmessage = event => {
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
-      else if (['taxml_inspect','taxml_export','binary_tax_edit'].includes(command)) {
+      else if (['taxml_inspect','taxml_export','binary_tax_edit','source_stored_cell_correct'].includes(command)) {
         if (!taxmlReady) taxmlReady = (async()=>{
-          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py'];
+          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py'];
           const response=await fetch(new URL('binary-runtime.json',base));
           if(!response.ok)throw Error('Local binary tax-data manifest missing');
           const manifest=await response.json();
@@ -97,10 +97,10 @@ self.onmessage = event => {
           const text=await Promise.all(names.map(async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw Error('Local TaxML inspector resource missing: '+name);return response.text();}));
           py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');py.FS.mkdirTree('/home/pyodide/interop/container');
           names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,text[index]));
-          await py.runPythonAsync('import taxml_preparation, binary_tax');
+          await py.runPythonAsync('import taxml_preparation, binary_tax, source_stored_cell');
         })();
         await taxmlReady;
-        code=command==='taxml_inspect'?'json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':command==='binary_tax_edit'?'json.dumps(binary_tax.edit_request(json.loads(_tax_input_json)), allow_nan=False)':'json.dumps(taxml_preparation.export_request(json.loads(_tax_input_json)), allow_nan=False)';
+        code=command==='taxml_inspect'?'json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':command==='binary_tax_edit'?'json.dumps(binary_tax.edit_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_stored_cell_correct'?'json.dumps(source_stored_cell.correct_request(json.loads(_tax_input_json)), allow_nan=False)':'json.dumps(taxml_preparation.export_request(json.loads(_tax_input_json)), allow_nan=False)';
       }
       else if (['pdf','packet_pdf','masked_pdf','paper_status','document_text'].includes(command)) {
         if (!pdfReady) pdfReady = (async () => {

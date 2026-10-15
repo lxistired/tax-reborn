@@ -8,6 +8,7 @@ RUNTIME_FILES=sorted(set(RUNTIME_FILES+['interop/form_core/instance_map_formset_
 RUNTIME_FILES=sorted(set(RUNTIME_FILES+['interop/derived_form/metadata_entity_body_reference.py','interop/derived_form/entity_objects_reference.py','interop/derived_form/formset_attributes_reference.py','interop/derived_form/legacy_entity_uuid_body_reference.py','interop/form_core/metadata_formset_body_reference.py']))
 RUNTIME_FILES=sorted(set(RUNTIME_FILES+['taxml_container.py','interop/container/__init__.py','interop/container/raw_zip_reference.py','interop/container/clear_container_reference.py']))
 RUNTIME_FILES=sorted(set(RUNTIME_FILES+['interop/form_core/instance_map_entity_body_reference.py','interop/form_core/legacy_instance_map_entity_body_reference.py','interop/form_core/entity_stored_instance_map_reference.py']))
+RUNTIME_FILES=sorted(set(RUNTIME_FILES+['source_stored_cell.py']))
 IRS_SOURCES=['rules_2025.json', 'tax_additional.py', 'tax_child_income.py', 'tax_credits.py', 'tax_engine.py', 'tax_extended.py', 'tax_filing.py', 'tax_longtail.py', 'tax_special_capital.py']
 for name in IRS_SOURCES:shutil.copyfile(ROOT/name,web/name)
 rows=[]

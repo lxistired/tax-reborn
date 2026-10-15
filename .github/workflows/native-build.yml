@@ -152,6 +152,17 @@ jobs:
             python scripts/verify_entity_instance_map_native.py "dist/windows/entity-instance-map-v$version-corrected.taxbin" --version $version --output "dist/windows/installed-Entity-map-v$version-readback.json"
             if ($LASTEXITCODE -ne 0) { throw 'Installed Entity map complete source readback failed' }
           }
+      - name: Exercise complete stored-cell corrections using the installed worker
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_source_stored_cell_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed stored-cell actual Worker checks failed' }
+          python scripts/verify_source_stored_cell_native.py dist/windows/source-stored-cell-element1-corrected.taxbin --element 1 --value 1234.57 --output dist/windows/installed-source-stored-cell-1-readback.json
+          if ($LASTEXITCODE -ne 0) { throw 'Installed stored-cell1 independent complete readback failed' }
+          python scripts/verify_source_stored_cell_native.py dist/windows/source-stored-cell-element3-corrected.taxbin --element 3 --value 12.34 --output dist/windows/installed-source-stored-cell-3-readback.json
+          if ($LASTEXITCODE -ne 0) { throw 'Installed stored Used-zero cell3 independent complete readback failed' }
       - name: Exercise complete cleartext containers using the installed worker
         shell: pwsh
         run: |

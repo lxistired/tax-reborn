@@ -27,6 +27,7 @@
   for(const candidate of result.candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256});
   for(const field of result.scalar_fields||[])sourceContexts.set(field,{request,scalarHash:field.receipt.field_sha256});
   for(const field of result.date_fields||[])sourceContexts.set(field,{request,dateHash:field.receipt.field_sha256});
+  for(const cell of result.source_stored_amount_cells||[])sourceContexts.set(cell,{request:JSON.parse(JSON.stringify(request)),cellHash:cell.receipt.cell_sha256,sourceHash:result.source_sha256,path:[...cell.path],field_id:cell.field_id,element:cell.element});
   for(const candidate of result.setup_candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256,filingStatus:candidate.filing_status,receipt:JSON.parse(JSON.stringify(candidate.receipt))});
   return result;
  }
@@ -55,6 +56,12 @@
   if(!inspection||inspection.container!=='binary_entity')throw Error('Reopen and inspect the binary source before editing.');
   if(confirmed!==true)throw Error('Check and confirm all source corrections first.');
   return window.taxLocalEngine('binary_tax_edit',{inspection,expected_source_sha256:inspected.source_sha256,changes,confirmed});
+ }
+ async function correctedStoredCell(cell,value,confirmed){
+  const context=sourceContexts.get(cell);
+  if(!context?.cellHash||cell.can_correct_source!==true)throw Error('Reopen and inspect a supported stored amount cell.');
+  if(confirmed!==true)throw Error('Check and confirm this stored source correction first.');
+  return window.taxLocalEngine('source_stored_cell_correct',{inspection:context.request,expected_source_sha256:context.sourceHash,expected_cell_sha256:context.cellHash,path:context.path,field_id:context.field_id,element:context.element,value:String(value),confirmed});
  }
  async function reviewedFilingStatus(candidate,source,previous,confirmed){
   const context=sourceContexts.get(candidate);
@@ -104,5 +111,5 @@
   return{row,metadata};
  }
  function sourceRequest(inspected){const request=documentContexts.get(inspected);if(!request||request.container!=='binary_entity')throw Error('Reopen and inspect the binary source first.');return JSON.parse(JSON.stringify(request));}
- window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,editBinary,requiredMoney,interestMoney,dividendMoney};
+ window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,correctedStoredCell,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

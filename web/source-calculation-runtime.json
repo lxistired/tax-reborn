@@ -8,8 +8,8 @@
     },
     {
       "path": "binary_tax.py",
-      "bytes": 33177,
-      "sha256": "44caf3b042815ef12d13c6a7681e5a70e9f102f65d097c188fd23c3d4c9c0de9"
+      "bytes": 33407,
+      "sha256": "0f78b7f9a563358e68c06b907adcacff2d1ab30fde233efb85b4e5354c9f1748"
     },
     {
       "path": "call_protocol_reference.py",
@@ -355,6 +355,11 @@
       "path": "source_node_binding_reference.py",
       "bytes": 4076,
       "sha256": "ad97170e37df56586bdf88682702118d3cfc3320ef2b94abf478c63ce1ba2dc0"
+    },
+    {
+      "path": "source_stored_cell.py",
+      "bytes": 12796,
+      "sha256": "5f505ea80dd14d8a12d9889f9fb64c5bdf3b2b9f38229870100491dd22ce4156"
     },
     {
       "path": "table_reference.py",

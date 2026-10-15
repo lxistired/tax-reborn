@@ -8,6 +8,8 @@ import base64
 from dataclasses import fields, is_dataclass, replace
 from decimal import Decimal
 import re
+import sys
+import source_stored_cell
 
 import taxml_wire as wire
 import taxml_preparation as prep
@@ -402,6 +404,8 @@ def _inspect(request):
             'Explicitly bound income records and filing-status setup require separate review before entering this App.',
             'Corrected binary copies do not run the original tax engine or update its derived totals.',
             'This supported stream profile has not been verified against an original saved .tax return.']}
+    cells=source_stored_cell.inspect_cells(request,(document,buffers,context,registry,selected,source),binary_api=sys.modules[__name__])
+    if cells:result['source_stored_amount_cells']=cells
     return result, document, buffers, context
 
 

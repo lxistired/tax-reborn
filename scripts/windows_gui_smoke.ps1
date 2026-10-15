@@ -800,6 +800,34 @@ try {
         $receipt.native_Entity_stored_instance_map_sources_passed=$true
         $checks.Add('Actual native Entity map v1/v2/v3 source edits saved3complete binaries; independently reopened all8forms/2FormSets/nonemptytables/children/8links and every same-owner raw persistent body. Version3 is a no-payload marker, not verified native empty state. Existing344return retained after3normal relaunches.')
     }
+    if($InstanceMaps) {
+        foreach($storedElement in @(1,3)) {
+            Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+            Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load independent stored-cell example')
+            Click-Observed (Wait-Named 'Source stored cell correction')
+            if($storedElement -eq 3) {
+                $cellSelection=Wait-Control 'ComboBox' 'Stored amount cell'; $cellSelection.SetFocus()
+                [System.Windows.Forms.SendKeys]::SendWait('{END}{TAB}')
+                Wait-Named 'Independent synthetic example · Stored amount 0.00 · element 3' 90 $false | Out-Null
+                $cellAmount='12.34'
+            } else {
+                Wait-Named 'Independent synthetic example · Stored amount 25.00 · element 1' 90 $false | Out-Null
+                $cellAmount='1234.57'
+            }
+            Set-Owned-Edit 'Stored cell amount' $cellAmount
+            Click-Observed (Wait-Control 'CheckBox' 'Confirm stored cell correction' $true)
+            Save-Screenshot ('windows-native-source-stored-cell-'+$storedElement+'-review.png')
+            Click-Observed (Wait-Named 'Download complete corrected source')
+            $cellCopy=Join-Path $OutputDir ('windows-native-source-stored-cell-'+$storedElement+'-corrected.taxbin'); Save-Native-Export $cellCopy 100
+            Click-Observed (Wait-Named 'Close dialog'); Close-App
+            python scripts/verify_source_stored_cell_native.py $cellCopy --element $storedElement --value $cellAmount --output (Join-Path $OutputDir ('windows-native-source-stored-cell-'+$storedElement+'-readback.json'))
+            if($LASTEXITCODE -ne 0) { throw ('Complete stored-cell source failed independent inverse-raw readback for element '+$storedElement) }
+            Launch-App; Wait-Named '$344' 120 $false | Out-Null
+            $checks.Add(('Native independently authored stored-cell element '+$storedElement+' full system save/readback restores only its raw64 to recover the complete prior2FS/8forms/2tables/2children/8links/all persistent objects; saved344return retained. Native propagation and tax recalculation not run.'))
+        }
+        $receipt.native_source_stored_cell_complete_two_exports_passed=$true
+        $receipt.native_source_stored_cell_original_resources_used=$false
+    }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
         Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load plaintext container sample')

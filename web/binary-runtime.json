@@ -123,5 +123,57 @@
     "interop/form_core/taxml_money_reference.py": "d111c287d30c731129481263eb162aea7022ade8de3d695f53a833d0722a3312",
     "interop/form_core/value_hash_wire_reference.py": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462",
     "interop/form_core/value_table_header_reference.py": "211cd339a7bc94608dd80da54fa8edc509f71a33f4e77f866d4fa98cfd522bad"
-  }
+  },
+  "application_sources": [
+    {
+      "path": "taxml_wire.py",
+      "bytes": 34022,
+      "sha256": "4c5205712b22fc93ff8d8f390002c6f7e3c8a2e1f1ded42958895b15a0e520fc"
+    },
+    {
+      "path": "taxml_native.py",
+      "bytes": 14913,
+      "sha256": "81bb2a21c76cd9f09443134634dd2edd9a97265bd82d25f2cf006df8d38831fd"
+    },
+    {
+      "path": "taxml_mac.py",
+      "bytes": 32655,
+      "sha256": "13103e78583270dd149d2a75487a94883e333036e8d5167d9ea945a1ea418d91"
+    },
+    {
+      "path": "taxml_xml_edit.py",
+      "bytes": 3999,
+      "sha256": "ad667267e96fbf820d148addeb3713d7c1b1c431e8613372144a43df69ec1d8e"
+    },
+    {
+      "path": "taxml_preparation.py",
+      "bytes": 29086,
+      "sha256": "6e08a6e42cf457cb6dac87fae41aa719c0f9336d7fd2dfa88422f95ba77aa5f4"
+    },
+    {
+      "path": "taxml_container.py",
+      "bytes": 4945,
+      "sha256": "235ede6ca8c0aa3bdc8f5483ff45f5971fc1f21fea7cefa84e5569095ed16be8"
+    },
+    {
+      "path": "binary_tax.py",
+      "bytes": 33407,
+      "sha256": "0f78b7f9a563358e68c06b907adcacff2d1ab30fde233efb85b4e5354c9f1748"
+    },
+    {
+      "path": "binary_derived.py",
+      "bytes": 15450,
+      "sha256": "b7e8a8c4979acd7a4b249103997fce3a901c96018ca29719f44785e002b3421a"
+    },
+    {
+      "path": "source_integer.py",
+      "bytes": 2662,
+      "sha256": "6c7b5d8fd45ea6d86a1ad1b00add509e02739168d55cc5210eea3c5a92ad679e"
+    },
+    {
+      "path": "source_stored_cell.py",
+      "bytes": 12796,
+      "sha256": "5f505ea80dd14d8a12d9889f9fb64c5bdf3b2b9f38229870100491dd22ce4156"
+    }
+  ]
 }

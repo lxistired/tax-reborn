@@ -25,12 +25,15 @@ for name in ('income-request.json','nested-request.json','filing-status-request.
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)
+shutil.copy2(ROOT/'fixtures/source-cell/request.json',samples/'source-cell-request.json');sample_assets.append('samples/binary-tax/source-cell-request.json')
+application_modules=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py']
 (web/'binary-runtime.json').write_text(json.dumps({'format':'tax-reborn-binary-runtime-v1',
- 'modules':binary_modules,'sha256':{name:hashlib.sha256((web/name).read_bytes()).hexdigest() for name in binary_modules}},indent=2)+'\n')
+ 'modules':binary_modules,'sha256':{name:hashlib.sha256((web/name).read_bytes()).hexdigest() for name in binary_modules},
+ 'application_sources':[{'path':name,'bytes':(web/name).stat().st_size,'sha256':hashlib.sha256((web/name).read_bytes()).hexdigest()}for name in application_modules]},indent=2)+'\n')
 manifest=web/'offline-assets.json'
 if manifest.exists():
  data=json.loads(manifest.read_text());assets=data if isinstance(data,list) else data['assets']
- assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary_derived.py','source_integer.py','binary-runtime.json']))
+ assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','binary-runtime.json']))
  manifest.write_text(json.dumps(data,indent=2)+'\n')
 prefix=r'''// Generated from pinned local runtime plus independently written worker source.
 // A dedicated worker may not inherit its parent ServiceWorker's request handler.
