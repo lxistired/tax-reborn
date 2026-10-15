@@ -1,0 +1,10 @@
+{
+  "Windows_CI": "38815033255",
+  "runtime_head": "55954b1ea19b6722d3b5a0a5810d0b3aa01b9dce",
+  "actual_Setup_installed": true,
+  "actual_installed_frozen_checks": 21,
+  "actual_native_GUI_checks": 20,
+  "new3versions_native_GUI_and_system_saves": true,
+  "all336assets_byte_equal_Mac_Android": true,
+  "all3full_outputs_equal_native_Mac_and_two_browsers": true
+}

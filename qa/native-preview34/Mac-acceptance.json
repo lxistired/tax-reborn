@@ -1,0 +1,29 @@
+{
+  "at_utc": "2026-10-15T22:19:38.500288+00:00",
+  "version": "2026.10.16-preview.34",
+  "runtime_commit": "55954b1ea19b6722d3b5a0a5810d0b3aa01b9dce",
+  "actual_native_UI": true,
+  "three_Entity_source_versions": [
+    1,
+    2,
+    3
+  ],
+  "actual_system_saved_complete_bytes": [
+    8475,
+    8460,
+    8401
+  ],
+  "full_file_reopened_and_checked": true,
+  "source_owner_labels_no_undefined": true,
+  "v3_no_payload_distinct_from_native_empty": true,
+  "dedicated85module_wage_comparison_actual_native_UI_and_system_audit": true,
+  "wage_audit_bytes": 124641,
+  "all17returns16metadata0states_exact_before_after": true,
+  "normal_close_and_relaunch_retained": true,
+  "saved_refund_retained": 344,
+  "original_runtime": 0,
+  "original_taxpayer_fixture": 0,
+  "full_original_compatibility": false,
+  "readonly_DMG_full807paths_equal": true,
+  "all336_web_assets_equal": true
+}

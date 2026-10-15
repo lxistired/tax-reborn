@@ -1,0 +1,40 @@
+{
+  "at_utc": "2026-10-15T22:43:34.138941+00:00",
+  "version": "2026.10.16-preview.34",
+  "runtime_commit": "55954b1ea19b6722d3b5a0a5810d0b3aa01b9dce",
+  "actual_device_installed_and_UI": true,
+  "installed_APK_bytes": 50192511,
+  "installed_APK_SHA256": "eee8961b061bc81cbdf289acc2d0ced54abc032f5988cf3c742d1e4572a7365b",
+  "original_signer_SHA256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "original_appId_10173_firstInstall_retained": true,
+  "all336_web_assets_match_source_Mac_Windows": true,
+  "actual_native_GUI_Entity_map_versions": [
+    1
+  ],
+  "actual_system_saved_whole_v1_bytes": 8475,
+  "actual_system_saved_whole_v1_SHA256": "dbfa1b3b4553d9a0787e4c9af0cfd188494f88450758d4325f8052ccb4ba4094",
+  "actual_v1_complete_output_byte_equal_Mac_Windows_two_browser_modes": true,
+  "v2_v3_actual_installed_APK_Pyodide_worker_passed": true,
+  "v2_v3_native_phone_GUI_claimed": false,
+  "dedicated85module_wage_comparison_native_UI_system_save_full_readback": true,
+  "wage_audit_bytes": 124641,
+  "wage_audit_SHA256": "f5b6d66dfe38601e51ca8316efdc15b022f1be5496f2aae674d3c84e152097b9",
+  "complete_before_after_and_normal_exit_reopen_backup_identical": true,
+  "all7_backup_sections": [
+    "format",
+    "id",
+    "data",
+    "result",
+    "metadata",
+    "states",
+    "updated_at"
+  ],
+  "backup_bytes": 33114,
+  "backup_SHA256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+  "saved_refund_retained": 344,
+  "temporary_network_listener_opened": false,
+  "existing_wireless_settings_changed": false,
+  "native_original_runtime": 0,
+  "real_original_taxpayer_fixtures": 0,
+  "full_original_compatibility": false
+}

@@ -1,0 +1,16 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.16-preview.34",
+  "platform": "android",
+  "min_api": 26,
+  "target_api": 35,
+  "internet_permission": false,
+  "signing": "private local development certificate; not a store release",
+  "file": "Tax-Reborn-2026.10.16-preview.34-Android.apk",
+  "bytes": 50192511,
+  "sha256": "eee8961b061bc81cbdf289acc2d0ced54abc032f5988cf3c742d1e4572a7365b",
+  "real_device_tested": true,
+  "native_acceptance": "qa/native-preview34/Android-acceptance.json",
+  "original_signer_and_existing_data_preserved": true
+}
