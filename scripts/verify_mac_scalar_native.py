@@ -13,12 +13,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'web'), str(ROOT / 'scripts')]
 import taxml_mac as mac
 import taxml_preparation as prep
-from create_mac_scalar_fixture import request
 from interop.container.raw_zip_reference import load_archive
 
 
 def verify(path):
-    req = request(); before = prep.inspect_request(req)
+    # Verify the exact source loaded by the installed UI, including its ZIP
+    # creator metadata. Regenerating ZipInfo on another OS changes those bytes.
+    req = json.loads((ROOT / 'fixtures/mac-scalar-taxml/request.json').read_text())
+    before = prep.inspect_request(req)
     selected = before['scalar_fields'][0]
     expected = prep.export_request({'inspection': req,
         'expected_scalar_sha256': selected['receipt']['field_sha256'],
