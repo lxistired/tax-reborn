@@ -15,7 +15,7 @@ shutil.copytree(ROOT/'interop',generated,ignore=shutil.ignore_patterns('__pycach
 binary_modules=sorted(p.relative_to(web).as_posix() for p in generated.rglob('*.py'))
 samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
 sample_assets=[]
-for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json'):
+for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)
@@ -55,3 +55,7 @@ bridge="\nconst taxOCRCoreFactory=self.TesseractCore; self.TesseractCore=(option
 (web/'ocr-worker.js').write_text(prefix+'\n'+(web/core).read_text()+'\n'+bridge+(web/worker).read_text()+'\n')
 (web/'ocr-worker-build.json').write_text(json.dumps({'builder':'scripts/build_worker.py','ocr_engine':'Tesseract6.0.0 non-SIMD LSTM OEM1','sources':[{'file':name,'sha256':hashlib.sha256((web/name).read_bytes()).hexdigest()}for name in (core,worker)],'worker_sha256':hashlib.sha256((web/'ocr-worker.js').read_bytes()).hexdigest()},indent=2)+'\n')
 print('OCR bundle:',(web/'ocr-worker.js').stat().st_size,'bytes')
+
+# The read-only comparison uses its own pinned worker and byte manifest.
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/'scripts/build_source_comparison.py')],check=True)

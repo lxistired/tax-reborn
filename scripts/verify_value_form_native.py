@@ -13,6 +13,7 @@ sys.path[:0]=[str(ROOT),str(ROOT/'web'),str(ROOT/'scripts')]
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--corrected-binary')
+    parser.add_argument('--auto-arrays',action='store_true')
     parser.add_argument('--make-orphan-fixture')
     parser.add_argument('--output',required=True)
     args=parser.parse_args()
@@ -32,7 +33,7 @@ def main():
         Path(args.output).write_text(json.dumps({'owned_malformed_fixture_created':True,'source_hash_rejected':True,'carrier_count':len(request['carriers'])},indent=2)+'\n')
         return
     if not args.corrected_binary:parser.error('--corrected-binary is required for readback')
-    request=json.loads((ROOT/'fixtures/binary-tax/derived-income-request.json').read_text())
+    request=json.loads((ROOT/'fixtures/binary-tax'/('auto-array-income-request.json' if args.auto_arrays else 'derived-income-request.json')).read_text())
     before=binary_tax.inspect_request(request)
     expected=binary_tax.edit_request({'inspection':request,'expected_source_sha256':before['source_sha256'],
         'changes':[{'path':[0,0],'field_id':'WAGES','element':0,'value':'1234.57'}],'confirmed':True})
@@ -67,6 +68,16 @@ def main():
         'other_parsed_facts_preserved':True,'full_file_readback':True,
         'original_engine_executed':False,'native_field_remap_executed':False,
         'whole_original_tax_compatibility':False,'synthetic_only':True}
+    if args.auto_arrays:
+        assert 'compiled_arrays' not in request['profile']
+        assert before['registry_binding']==after['registry_binding']
+        arrays=next(t for t in before['registry_binding']['selected_array_templates'] if t['form_id']=='FW2')
+        assert [b['resource_id'] for b in arrays['blocks']]==[1,3]
+        assert [b['records'][0]['byte27'] for b in arrays['blocks']]==[2,1]
+        assert len({b['carrier_sha256'] for b in arrays['blocks']})==2
+        receipt.update(automatic_arrays_from_same_registry=True,manual_array_lists=False,
+            original_array_source_report_preserved=True,selected_array_sources=arrays,
+            selected_source_profile_sha256=before['wire_profile_sha256'])
     Path(args.output).write_text(json.dumps(receipt,indent=2)+'\n')
     print(json.dumps(receipt))
 

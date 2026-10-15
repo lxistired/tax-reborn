@@ -1,0 +1,182 @@
+{
+  "all_D2_object_bytes_preserved": true,
+  "array_report_unchanged_on_export": true,
+  "array_source_report": [
+    {
+      "blocks": [
+        {
+          "attribute_type": 2000,
+          "carrier_sha256": "14d690017e6b63935e1501a2a11e0f9f8e59567f0d2931b07cc0d9b0bf85e7b6",
+          "consumed": 43,
+          "metadata_type": 18000,
+          "payload_bytes": 43,
+          "payload_sha256": "e0aaec97a47f73dcde8c56425cc173610afea716bba96c7fb5ea8dc02fbb7fe0",
+          "present": true,
+          "records": [
+            {
+              "byte27": 2,
+              "element_limit": 10,
+              "encoded_id_hex": "ff4f574e45445f524f575320202020202020202020202020202020202020202020",
+              "first_field": 12,
+              "flags": 49,
+              "global_index": 1,
+              "identifier_hex": "4f574e45445f524f575320202020202020202020202020202020202020202020",
+              "last_field": 12,
+              "source_metadata_hex": "0c000c000a003102"
+            }
+          ],
+          "resource_id": 1
+        },
+        {
+          "attribute_type": 2001,
+          "carrier_sha256": "228e1ea894116f473d44b9d8a7969780052e88f4840aa114398cfd0da967789f",
+          "consumed": 17,
+          "metadata_type": 18000,
+          "payload_bytes": 17,
+          "payload_sha256": "3029c4ed650bd8be0cae18662d112575c6bba238ca9b60f1f3c7e7b1b0e5f88f",
+          "present": true,
+          "records": [
+            {
+              "byte27": 1,
+              "element_limit": 25,
+              "encoded_id_hex": "0648494444454e",
+              "first_field": 12,
+              "flags": 97,
+              "global_index": 2,
+              "identifier_hex": "48494444454e2020202020202020202020202020202020202020202020202020",
+              "last_field": 12,
+              "source_metadata_hex": "0c000c0019006101"
+            }
+          ],
+          "resource_id": 3
+        }
+      ],
+      "form_id": "FW2",
+      "formset_id": "OWNED2025MERGED"
+    },
+    {
+      "blocks": [
+        {
+          "attribute_type": 2000,
+          "carrier_key_hex": null,
+          "carrier_sha256": null,
+          "consumed": 0,
+          "metadata_type": null,
+          "payload_bytes": null,
+          "payload_sha256": null,
+          "present": false,
+          "records": [],
+          "resource_id": null
+        },
+        {
+          "attribute_type": 2001,
+          "carrier_key_hex": null,
+          "carrier_sha256": null,
+          "consumed": 0,
+          "metadata_type": null,
+          "payload_bytes": null,
+          "payload_sha256": null,
+          "present": false,
+          "records": [],
+          "resource_id": null
+        }
+      ],
+      "form_id": "F1099I",
+      "formset_id": "OWNED2025MERGED"
+    },
+    {
+      "blocks": [
+        {
+          "attribute_type": 2000,
+          "carrier_key_hex": null,
+          "carrier_sha256": null,
+          "consumed": 0,
+          "metadata_type": null,
+          "payload_bytes": null,
+          "payload_sha256": null,
+          "present": false,
+          "records": [],
+          "resource_id": null
+        },
+        {
+          "attribute_type": 2001,
+          "carrier_key_hex": null,
+          "carrier_sha256": null,
+          "consumed": 0,
+          "metadata_type": null,
+          "payload_bytes": null,
+          "payload_sha256": null,
+          "present": false,
+          "records": [],
+          "resource_id": null
+        }
+      ],
+      "form_id": "F1099D",
+      "formset_id": "OWNED2025MERGED"
+    }
+  ],
+  "child": true,
+  "current_ordinal": 4,
+  "edit": {
+    "element": 0,
+    "field_id": "WAGES",
+    "path": [
+      0,
+      0
+    ],
+    "value": "1234.57"
+  },
+  "form_paths": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ]
+  ],
+  "format": "tax-reborn-owned-auto-array-native-contract-v1",
+  "input_bytes": 2904,
+  "input_sha256": "f37e00fce34dab082697800b70acda964ae67e2106e750f478f67b7c5f41c5f5",
+  "inspection_summary": "Automatic table definitions \u00b7 2",
+  "manual_compiled_arrays_present": false,
+  "nonempty_table": true,
+  "ordered_carrier_sha256": [
+    "14d690017e6b63935e1501a2a11e0f9f8e59567f0d2931b07cc0d9b0bf85e7b6",
+    "228e1ea894116f473d44b9d8a7969780052e88f4840aa114398cfd0da967789f"
+  ],
+  "original_engine_executed": false,
+  "output_bytes": 2906,
+  "output_filename": "synthetic-auto-array-income-corrected.taxbin",
+  "output_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "profile": "tax-reborn-binary-entity-profile-v5",
+  "profile_sha256": "5ea55eeb0df0bebf2c7770e06f4ef42ce2641cb0ea8651756e83e8f641758d6f",
+  "request_file": "fixtures/binary-tax/auto-array-income-request.json",
+  "sample_button": "Load automatic table sample",
+  "source_filename": "synthetic-auto-array-income.taxbin",
+  "source_ordinal": 104,
+  "tail_positions_after": [
+    1316,
+    1038,
+    2085,
+    2593
+  ],
+  "tail_positions_before": [
+    1314,
+    1036,
+    2083,
+    2591
+  ],
+  "total_links": 4,
+  "whole_tax_compatibility": false
+}

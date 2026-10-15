@@ -12,6 +12,8 @@ from interop.derived_form.value_hash_wire_reference import find_value
 from interop.derived_form.persistent_uuid_body_reference import NAME,load_form_uuid_body
 
 PROFILE='tax-reborn-binary-entity-profile-v4'
+AUTO_ARRAY_PROFILE='tax-reborn-binary-entity-profile-v5'
+PROFILES=(PROFILE,AUTO_ARRAY_PROFILE)
 
 def _key(entry):
     if type(entry.get('formset_id')) is not str or type(entry.get('form_id')) is not str:
@@ -32,36 +34,42 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
         factories[key]=entry['form_kind'];tables[key]=entry['table_kind']
     if set(factories)!=set(selected) or 'value_form' not in factories.values():
         raise ValueError('Bind all selected factories and at least one ValueForm.')
-    arrays={}
-    if type(profile['compiled_arrays']) is not list:
-        raise ValueError('Supply complete prepared array lists for every ValueForm.')
-    for entry in profile['compiled_arrays']:
-        if type(entry) is not dict or set(entry)!={'formset_id','form_id','visible','hidden'}:
-            raise ValueError('Invalid complete compiled array declaration.')
-        key=_key(entry)
-        if factories.get(key)!='value_form' or key in arrays:
-            raise ValueError('Array lists must uniquely bind a selected ValueForm.')
-        lists=[]
-        for name in ('visible','hidden'):
-            if type(entry[name]) is not list or len(entry[name])>65535:
-                raise ValueError('Explicit ordered array lists required.')
-            values=[]
-            for value in entry[name]:
-                if type(value) is not dict or set(value)!={'identifier','first_field','last_field','element_limit','flags'}:
-                    raise ValueError('Invalid prepared array descriptor.')
-                ident=value['identifier']
-                if type(ident) is not str or not ident or len(ident)>32 or any(ord(c)<33 or ord(c)>126 for c in ident):
-                    raise ValueError('Explicit ASCII array ID required.')
-                for item in ('first_field','last_field','element_limit'):
-                    if type(value[item]) is not int or not 0<=value[item]<=65535:
-                        raise ValueError('Array ranges and limits require explicit U16 values.')
-                if type(value['flags']) is not int or not 0<=value['flags']<=255:
-                    raise ValueError('Explicit array flag byte required.')
-                values.append(CompiledArray(ident.encode(),value['first_field'],value['last_field'],value['element_limit'],value['flags']))
-            lists.append(tuple(values))
-        arrays[key]=tuple(lists)
-    if set(arrays)!={key for key,kind in factories.items() if kind=='value_form'}:
-        raise ValueError('Do not infer missing current array lists from the source file.')
+    if profile['format']==AUTO_ARRAY_PROFILE:
+        supplied=getattr(registry,'array_payloads',None)
+        if type(supplied) is not dict or set(supplied)!=set(selected):
+            raise ValueError('Bind actual arrays from the same complete effective registry.')
+        arrays={key:supplied[key].construct(CompiledArray) for key,kind in factories.items() if kind=='value_form'}
+    else:
+        arrays={}
+        if type(profile['compiled_arrays']) is not list:
+            raise ValueError('Supply complete prepared array lists for every ValueForm.')
+        for entry in profile['compiled_arrays']:
+            if type(entry) is not dict or set(entry)!={'formset_id','form_id','visible','hidden'}:
+                raise ValueError('Invalid complete compiled array declaration.')
+            key=_key(entry)
+            if factories.get(key)!='value_form' or key in arrays:
+                raise ValueError('Array lists must uniquely bind a selected ValueForm.')
+            lists=[]
+            for name in ('visible','hidden'):
+                if type(entry[name]) is not list or len(entry[name])>65535:
+                    raise ValueError('Explicit ordered array lists required.')
+                values=[]
+                for value in entry[name]:
+                    if type(value) is not dict or set(value)!={'identifier','first_field','last_field','element_limit','flags'}:
+                        raise ValueError('Invalid prepared array descriptor.')
+                    ident=value['identifier']
+                    if type(ident) is not str or not ident or len(ident)>32 or any(ord(c)<33 or ord(c)>126 for c in ident):
+                        raise ValueError('Explicit ASCII array ID required.')
+                    for item in ('first_field','last_field','element_limit'):
+                        if type(value[item]) is not int or not 0<=value[item]<=65535:
+                            raise ValueError('Array ranges and limits require explicit U16 values.')
+                    if type(value['flags']) is not int or not 0<=value['flags']<=255:
+                        raise ValueError('Explicit array flag byte required.')
+                    values.append(CompiledArray(ident.encode(),value['first_field'],value['last_field'],value['element_limit'],value['flags']))
+                lists.append(tuple(values))
+            arrays[key]=tuple(lists)
+        if set(arrays)!={key for key,kind in factories.items() if kind=='value_form'}:
+            raise ValueError('Do not infer missing current array lists from the source file.')
     encoded=lambda mapping:{(fs.encode(),form.encode()):value for (fs,form),value in mapping.items()}
     current={key:current_fields_from_template(registry.resolve(*key,identity))
              for key,identity in selected.items() if factories[key]=='value_form'}
@@ -70,8 +78,12 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
     context=TemplateContext(template_versions={key.encode():v for key,v in profile['template_versions'].items()},
         field_ids=ids,current_table_ids=table_ids,preserve_unresolved_links=True,
         form_factories=encoded(factories),table_factories=encoded(tables))
-    return load_source_bound_document_bytes(source,buffers,template_context=context,
+    bound=load_source_bound_document_bytes(source,buffers,template_context=context,
         current_fields=encoded(current),arrays=encoded(arrays))
+    if profile['format']==AUTO_ARRAY_PROFILE and any(value.native_action=='requires_array_shape_recovery'
+            for values in bound.bindings.values() for value in values):
+        raise ValueError('Source array shape requires unsupported native recovery against actual definitions.')
+    return bound
 
 def binding(bound,path,node):
     return next((value for value in bound.bindings.get(path,())

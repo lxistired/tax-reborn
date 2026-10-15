@@ -62,18 +62,19 @@ def _context(request):
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected data profile.')
     profile = request['profile']
-    effective = isinstance(profile, dict) and profile.get('format') in (EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, derived.PROFILE)
+    effective = isinstance(profile, dict) and profile.get('format') in (EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, *derived.PROFILES)
     value_tables = isinstance(profile, dict) and profile.get('format') == VALUE_TABLE_PROFILE
-    derived_forms = isinstance(profile,dict) and profile.get('format') == derived.PROFILE
+    derived_forms = isinstance(profile,dict) and profile.get('format') in derived.PROFILES
     keys = {'format', 'tax_year', 'templates', 'template_versions'}
     if effective:
         keys.add('registry_order')
     if value_tables:
         keys.add('table_factories')
     if derived_forms:
-        keys.update(('form_factories','compiled_arrays'))
+        keys.add('form_factories')
+        if profile['format']==derived.PROFILE:keys.add('compiled_arrays')
     if (not isinstance(profile, dict) or set(profile) != keys
-            or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, derived.PROFILE)
+            or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, *derived.PROFILES)
             or type(profile['tax_year']) is not int or profile['tax_year'] != 2025):
         raise ValueError('Choose an explicit supported 2025 binary data profile.')
     selected, _ = prep.validate_profile({
@@ -88,7 +89,7 @@ def _context(request):
     if any(type(v) is not int or not 0 <= v <= 0xffffffff for v in versions.values()):
         raise ValueError('Invalid explicit template version.')
     supplied = request['carriers']
-    if not isinstance(supplied, list) or not 1 <= len(supplied) <= 8:
+    if not isinstance(supplied, list) or not 1 <= len(supplied) <= 9:
         raise ValueError('Choose the caller-owned registry files for this profile.')
     carriers, seen = [], set()
     for item in supplied:
@@ -107,7 +108,7 @@ def _context(request):
             raise ValueError('Bind the exact ordered registry files in the v2 profile.')
         if not {identity[0] for identity in selected.values()} <= seen:
             raise ValueError('A selected primary template registry is missing.')
-        registry = wire.Registry.from_effective_xprf(carriers, selected)
+        registry = wire.Registry.from_effective_xprf(carriers, selected, load_array_payloads=profile['format']==derived.AUTO_ARRAY_PROFILE)
     else:
         if seen != {identity[0] for identity in selected.values()}:
             raise ValueError('Selected templates must exactly match the registry files.')
@@ -512,7 +513,7 @@ def export_request(request):
         if not isinstance(text, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', text) or Decimal(text) > 1000000000:
             raise ValueError('Enter explicit nonnegative source amounts within the supported range.')
         fact = candidate['sources'][name]
-        address={'field_id':fact['field_id']} if request['inspection']['profile']['format']==derived.PROFILE else {'ordinal':fact['ordinal']}
+        address={'field_id':fact['field_id']} if request['inspection']['profile']['format'] in derived.PROFILES else {'ordinal':fact['ordinal']}
         changes.append({'path':fact['binary_path'],**address,'element':fact['element'],'value':text})
     output = _rewrite(request['inspection'], result['source_sha256'], changes, request['confirmed'])
     reread = inspect_request({**request['inspection'], 'base64': output['base64']})

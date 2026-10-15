@@ -1,0 +1,23 @@
+{
+  "current_arrays": "actual owned2000/2001 resources through same effective registry",
+  "entries": {
+    "auto-array-income": {
+      "bytes": 2904,
+      "request_sha256": "f834e199be116d5a0ceed1b42d6c269d22ad2704d8a27db789274b48b1ec69eb",
+      "sha256": "f37e00fce34dab082697800b70acda964ae67e2106e750f478f67b7c5f41c5f5"
+    },
+    "auto-array-opaque": {
+      "bytes": 3081,
+      "request_sha256": "6a89ba5ac5f4082d4f8ed3e29837d7a49edbbe9e234f505576f792336c50b3fd",
+      "sha256": "bff452e78df247fd588183d35296208a54e0ed75c9549f950ffc552769a4376d"
+    },
+    "auto-array-used": {
+      "bytes": 2903,
+      "request_sha256": "e5e68290f2ab0c7492f35fa2a1265d84fca0ac4496084404b90ba29235d43cab",
+      "sha256": "aeeddd8fa89db5b32531565a6aeff3bbc01182d4d4c9650b3991e34516f3a1c7"
+    }
+  },
+  "manually_enumerated_profile_arrays": false,
+  "original_runtime_executions": 0,
+  "vendor_resources_included": false
+}

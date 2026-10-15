@@ -217,19 +217,28 @@ class Registry:
         return cls(templates)
 
     @classmethod
-    def from_effective_xprf(cls, carriers, selected):
+    def from_effective_xprf(cls, carriers, selected, *, load_array_payloads=False):
         """Explicit ordered modern registration; a supplied checksum stays external.
 
         Complete caller-owned carrier bytes are verified here, before the
         independent selector sees any resource. Selected identities must match
         real effective ID primaries. Legacy single-RID selection is separate.
         """
-        from interop.form_core.effective_wire_bridge_reference import build_effective_templates
+        if type(load_array_payloads) is not bool:
+            raise WireError('explicit_array_loader_profile')
         complete = [(sha, read_xprf_resources(data, sha)) for data, sha in carriers]
-        templates, report = build_effective_templates(complete, selected,
-            field_factory=Field, template_factory=Template)
+        if load_array_payloads:
+            from interop.form_core.effective_array_bridge_reference import build_effective_templates_and_arrays
+            templates, report, arrays = build_effective_templates_and_arrays(complete, selected,
+                field_factory=Field, template_factory=Template)
+        else:
+            from interop.form_core.effective_wire_bridge_reference import build_effective_templates
+            templates, report = build_effective_templates(complete, selected,
+                field_factory=Field, template_factory=Template)
+            arrays = None
         result = cls(templates)
         result.binding_report = report
+        result.array_payloads = arrays
         return result
 
 

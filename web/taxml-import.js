@@ -10,12 +10,12 @@
  async function inspect(file,profileFile,registryFiles,container,acknowledged){
   if(!(file instanceof Blob)||!file.size||file.size>10*1024*1024)throw Error('Choose a nonempty tax-data file smaller than 10 MB.');
   if(!(profileFile instanceof Blob)||profileFile.size>1024*1024)throw Error('Choose a wire-profile JSON file smaller than 1 MB.');
-  if(!Array.isArray(registryFiles)||!registryFiles.length||registryFiles.length>8)throw Error('Choose 1 to 8 caller-owned XPRF registry files.');
+  if(!Array.isArray(registryFiles)||!registryFiles.length||registryFiles.length>9)throw Error('Choose 1 to 9 caller-owned XPRF registry files.');
   if(acknowledged!==true)throw Error('Review and acknowledge the selected wire profile before inspection.');
   let profile;try{profile=JSON.parse(await profileFile.text());}catch{throw Error('The selected wire profile is not valid JSON.');}
   let carriers=[];
   for(const carrier of registryFiles){if(!(carrier instanceof Blob)||!carrier.size||carrier.size>32*1024*1024)throw Error('Choose registry files smaller than 32 MB each.');const bytes=new Uint8Array(await carrier.arrayBuffer());carriers.push({base64:encoded(bytes),sha256:await hash(bytes)});}
-  if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3','tax-reborn-binary-entity-profile-v4'].includes(profile.format)){
+  if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3','tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5'].includes(profile.format)){
    const order=profile.registry_order,byHash=new Map(carriers.map(item=>[item.sha256,item]));
    if(!Array.isArray(order)||order.length!==carriers.length||new Set(order).size!==order.length||byHash.size!==carriers.length||order.some(identity=>typeof identity!=='string'||!byHash.has(identity)))throw Error('The profile must bind every selected registry exactly once, in its explicit order.');
    carriers=order.map(identity=>byHash.get(identity));
@@ -89,5 +89,6 @@
   metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
   return{row,metadata};
  }
- window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
+ function sourceRequest(inspected){const request=documentContexts.get(inspected);if(!request||request.container!=='binary_entity')throw Error('Reopen and inspect the binary source first.');return JSON.parse(JSON.stringify(request));}
+ window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

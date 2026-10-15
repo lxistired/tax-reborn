@@ -1,0 +1,65 @@
+[
+  {
+    "id": "private-reviewed-ordinary-normal-wage-nine-carrier-v1",
+    "label": "Local 2025 normal wage comparison",
+    "scope": "reviewed-original-resource-profile",
+    "files": [
+      {
+        "name": "fdif01.3pe",
+        "sha256": "e94b97bbcbe5fe316cb423d9012a91c4d7069cd71016fb567e8ca63a761a2126",
+        "bytes": 2483539
+      },
+      {
+        "name": "fdif04.3pe",
+        "sha256": "6d6dbfd253ca494e9b107b71a1e0405e216bf3980a5fef7cc9328ea1c1282091",
+        "bytes": 2240740
+      },
+      {
+        "name": "fdif05.3pe",
+        "sha256": "d5882e3f0bbc9c72b2715e7d8965ba5d6f058415c3a5107946a287ca49971955",
+        "bytes": 2761473
+      },
+      {
+        "name": "fdif14.3pe",
+        "sha256": "2e11b74f347f9749fabf3afd0eb2ee6cf0440d18efc5ad35f00e1bc74e2fc526",
+        "bytes": 1335790
+      },
+      {
+        "name": "fdif15.3pe",
+        "sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+        "bytes": 4521010
+      },
+      {
+        "name": "fdif16.3pe",
+        "sha256": "2bcbe18c0f8abe00925b4af44a9729ad1f2087dd28ca467b875741d9f5136a70",
+        "bytes": 3942371
+      },
+      {
+        "name": "fdif17.3pe",
+        "sha256": "e5266a2f78979eee126e3214a94e5fd86dd7e73b057af8376bd621a282871c38",
+        "bytes": 2764741
+      },
+      {
+        "name": "fdif18.3pe",
+        "sha256": "b2ebed0c2eeddad03c2256ef8d42725e2d6ed959bcd5d4c2c0ed64df65513269",
+        "bytes": 2174387
+      },
+      {
+        "name": "fdif19.3pe",
+        "sha256": "6572ed031ff2b1af3b439a61039badadbe06d26195755ee5c90fc670b3754dc1",
+        "bytes": 2407125
+      }
+    ]
+  },
+  {
+    "id": "independent-app-normal-wage-toy",
+    "label": "Independent demonstration resources",
+    "scope": "caller-owned-synthetic-test",
+    "files": [
+      {
+        "name": "independent-normal-wage.xprf",
+        "sha256": "a92cb61cbb67e0bcdd3f5b347f3c6059445e9f15182a136ca6bef4c46fb7d5ba"
+      }
+    ]
+  }
+]

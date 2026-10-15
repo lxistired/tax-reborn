@@ -4,7 +4,9 @@ param(
     [Parameter(Mandatory=$true)][string]$DataDir,
     [switch]$MixedOnly,
     [switch]$EffectiveRegistry,
-    [switch]$CompleteValueForm
+    [switch]$CompleteValueForm,
+    [switch]$AutomaticArrays,
+    [switch]$SourceComparison
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -680,6 +682,48 @@ try {
         Click-Observed (Wait-Named 'Close dialog')
         $receipt.native_unreachable_binary_source_refused=$true
         $checks.Add('Actual native file pickers supplied a complete owned file with orphan hash nodes; import stopped before income review or source editing, leaving the344 USD return unchanged.')
+    }
+
+    if($AutomaticArrays) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load automatic table sample')
+        Click-Observed (Wait-Named 'Automatic table definitions · 2')
+        $contract=Get-Content 'docs/BINARY_AUTO_ARRAY_FIXTURE_CONTRACT.json' -Raw | ConvertFrom-Json
+        Wait-Named ('Visible definitions · 1 · '+$contract.ordered_carrier_sha256[0].Substring(0,12)+' · resource 1') 90 $false | Out-Null
+        Wait-Named ('Hidden definitions · 1 · '+$contract.ordered_carrier_sha256[1].Substring(0,12)+' · resource 3') 90 $false | Out-Null
+        Save-Screenshot 'windows-native-automatic-table-sources.png'
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        $autoCopy=Join-Path $OutputDir 'windows-native-automatic-table-corrected.taxbin'; Save-Native-Export $autoCopy 100
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_value_form_native.py --auto-arrays --corrected-binary $autoCopy --output (Join-Path $OutputDir 'windows-native-automatic-table-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Automatic array source/profile and complete system export failed readback.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_automatic_arrays_passed=$true
+        $checks.Add('Native source inspection selected visible/hidden table definitions from distinct files/RIDs1/3; actual system correction retained both source reports, byte27 flags2/1 and all2906 bytes after close/reopen.')
+    }
+    if($SourceComparison) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')
+        Click-Observed (Wait-Named 'Inspect source and resources')
+        Wait-Named 'Loaded values and confirmed context' 120 $false | Out-Null
+        Click-Observed (Wait-Named 'Run local source comparison')
+        Wait-Named 'Confirm the listed context and absent forms first.' 90 $false | Out-Null
+        Click-Observed (Wait-Control 'CheckBox' 'I confirm the listed context' $true)
+        Click-Observed (Wait-Named 'Run local source comparison')
+        Wait-Named 'Confirm the source/current App return pair and context differences first.' 90 $false | Out-Null
+        Click-Observed (Wait-Control 'CheckBox' 'I confirm this source and the current App return' $true)
+        Click-Observed (Wait-Named 'Run local source comparison')
+        Wait-Named 'Results alongside the current App calculation' 120 $false | Out-Null
+        Save-Screenshot 'windows-native-local-source-comparison.png'
+        Click-Observed (Wait-Named 'Download comparison audit')
+        $comparisonCopy=Join-Path $OutputDir 'windows-native-source-comparison-audit.json'; Save-Native-Export $comparisonCopy 100
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_source_comparison_native.py --data-dir $DataDir --name 'Synthetic Windows binary income migration' --audit $comparisonCopy --output (Join-Path $OutputDir 'windows-native-source-comparison-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Actual native comparison audit differs from the saved complete return and independently recalculated IRS values.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_source_comparison_passed=$true
+        $checks.Add('Actual native dedicated comparison Worker required separate context/pair confirmation; current complete saved344 refund return rechecked by SHA and IRS core; downloaded audit compared tax/payments/signed balance without writes.')
     }
 
     Remove-Item Env:TAX_REBORN_OWNED_DATADIR
