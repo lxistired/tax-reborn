@@ -9,9 +9,15 @@ import unittest
 from unittest.mock import patch
 from desktop_export import DesktopExport
 
+class FakeFunc:
+    def __class_getitem__(cls,item):return lambda callback:callback
+
 class FakeWindow:
     def __init__(self,path,url='http://127.0.0.1:27145/'):
         self.path=path;self.url=url;self.dialog_calls=[]
+        self.uid='owned-window'
+        owner=SimpleNamespace(InvokeRequired=False)
+        self.gui=SimpleNamespace(BrowserView=SimpleNamespace(instances={self.uid:owner}))
     def get_current_url(self):return self.url
     def create_file_dialog(self,kind,**kwargs):
         self.dialog_calls.append((kind,kwargs));return self.path
@@ -19,7 +25,7 @@ class FakeWindow:
 class DurableDesktopExport(unittest.TestCase):
     def run_export(self,window,content=b'independent binary export\0\xff'):
         export=DesktopExport('http://127.0.0.1:27145/');export._window=window
-        with patch.dict(sys.modules,{'webview':SimpleNamespace(SAVE_DIALOG='save')}):
+        with patch.dict(sys.modules,{'webview':SimpleNamespace(SAVE_DIALOG='save'),'System':SimpleNamespace(Func=FakeFunc,Object=object)}):
             return export.save_file('synthetic.taxbin','application/octet-stream',base64.b64encode(content).decode())
 
     def test_real_bytes_survive_bridge_and_separate_process_readback(self):
