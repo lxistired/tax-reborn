@@ -4,7 +4,7 @@ Windows x64 Setup/portable, Mac ARM64 DMG, Android APK and corresponding source 
 
 From Documents, open **TaxML / binary .tax** and expand the independent binary samples. The income sample contains W-2, 1099-INT and 1099-DIV records. Review every record before adding it: the actual application recalculates a $344 refund, saves the return and keeps the original source. This is an income-migration workflow in the working tax App.
 
-The nested sample includes a nonempty table header, a child form and four forward/back links. **Inspect / edit binary fields** can write a supported numeric correction into a separate binary copy. The writer reloads the complete document and compares every parsed field and supported structure. Windows and Mac changed WAGES 1234.56 to 1234.57 through the actual GUI and system save dialog; their complete 1,545-byte exports have the same SHA-256. Unchanged fields and structures are retained.
+The nested sample includes a nonempty table header, a child form and four forward/back links. **Inspect / edit binary fields** can write a supported numeric correction into a separate binary copy. The writer reloads the complete document and compares every parsed field and supported structure. Windows, Mac and the actual Android phone changed WAGES 1234.56 to 1234.57 through the GUI and system save dialog; their complete 1,545-byte exports have the same SHA-256. Unchanged fields and structures are retained.
 
 ## Executed platform checks
 
@@ -12,7 +12,7 @@ The nested sample includes a nonempty table header, a child form and four forwar
 | --- | --- | --- |
 | Windows x64 | Setup installation, 21 frozen checks, 27 GUI checks, income import/recalculation/save/relaunch, full binary edit and system-save/readback | No original TurboTax execution or original saved-file comparison |
 | Mac ARM64 | Native income import/recalculation/save/cold restart, retained source bindings, full binary edit/system-save/readback; all 379 DMG App files match the tested App | Intel Mac not built or physically tested |
-| Android | Same-signer update, old return retained, actual three-income review/import/recalculation/save ($344), nested structure inspection and editor opened; actual APK worker edit/readback passes | New system binary export and genuine cold restart remain unverified because the mirror's mouse coordinates were inconsistent |
+| Android | Same-signer update, old return retained, actual three-income review/import/recalculation/save ($344), full nested binary edit/system-save/readback (1,545 bytes identical to Windows/Mac); actual APK worker edit/readback passes | Genuine cold restart remains unverified |
 
 Host validation passes 616 tests; real Pyodide executes 519 passing tests with one skip. [Machine-readable acceptance](../qa/native-preview21/acceptance.json) separates generated, installed and UI-tested results.
 

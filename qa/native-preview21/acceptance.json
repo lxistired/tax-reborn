@@ -1,6 +1,6 @@
 {
   "version": "2026.10.15-preview.21",
-  "updated_at_utc": "2026-10-15T04:04:42.558178+00:00",
+  "updated_at_utc": "2026-10-15T04:19:52.947052+00:00",
   "app_source_commit": "78d40acfe02ef3abacf08c273c26ca7616341fe3",
   "Windows_test_only_followup_commit": "7f8918e",
   "host_tests_passed": 616,
@@ -44,9 +44,16 @@
     "source_attachment_visible_after_system_task_switch": true,
     "nested_binary_inspection_and_field_editor_opened": true,
     "packaged_worker_binary_edit_and_full_readback": true,
-    "actual_device_system_binary_export": false,
+    "actual_device_system_binary_export": true,
     "actual_device_cold_restart": false,
-    "remaining_UI_gate": "The native mirror sent some mouse-button events at coordinates different from the requested point. New binary system-save/readback and a genuine cold restart were not completed. Do not infer them from the extracted APK worker checks."
+    "remaining_UI_gate": "A genuine Android cold restart remains unverified. System binary export was completed through the actual Android save dialog and independently pulled/read back.",
+    "nested_export_bytes": 1545,
+    "nested_export_sha256": "fd9836ea3539cf5bb72c4c1dd389b006f18c00338439e98866184893126c339d",
+    "full_expected_binary_byte_exact": true,
+    "forms": 4,
+    "nonempty_table_records": 1,
+    "child_forms": 1,
+    "links": 4
   },
   "scope": {
     "independently_generated_fixtures": true,
