@@ -8,6 +8,10 @@ on:
         type: choice
         default: all
         options: [all, windows, ios]
+      focused:
+        description: Recheck changed native import flow when the Python core is unchanged
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -40,6 +44,7 @@ jobs:
           $compiler = Get-Command ISCC.exe -ErrorAction SilentlyContinue
           if (!$compiler -and !(Test-Path 'C:\Program Files (x86)\Inno Setup 6\ISCC.exe') -and !(Test-Path 'C:\Program Files\Inno Setup 6\ISCC.exe')) { throw 'The standard runner lacks its documented Inno Setup compiler' }
       - name: Independent Python tax checks
+        if: ${{ !inputs.focused }}
         run: python -m unittest discover -s tests -v
       - name: Build actual Windows executable and installer; frozen smoke
         run: python scripts/build_desktop.py --output-dir dist/windows --work-dir build/windows
@@ -120,7 +125,9 @@ jobs:
       - name: Run actual installed native GUI, calculation, edit, save and relaunch
         shell: pwsh
         run: |
-          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+          $options=@{}
+          if ('${{ inputs.focused }}' -eq 'true') { $options.MixedOnly=$true }
+          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
       - name: Upload real packages and verification evidence
         if: always()
         uses: actions/upload-artifact@v7

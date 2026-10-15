@@ -6,8 +6,9 @@ let taxmlReady;
 function taxWorkerError(error) {
   const message=String(error?.message||error);
   if(error?.name!=='PythonError')return message;
-  const type=String(error.type||''),last=message.trimEnd().split('\n').pop()||'',prefix=type+': ';
-  if(['ValueError','UnsupportedProfile'].includes(type.split('.').pop())&&last.startsWith(prefix)&&last.length>prefix.length)return last.slice(prefix.length);
+  const type=String(error.type||'').split('.').pop(),last=message.trimEnd().split('\n').pop()||'';
+  const expected=last.match(/^(?:[A-Za-z_]\w*\.)*(ValueError|UnsupportedProfile): (.+)$/);
+  if(expected&&expected[1]===type)return expected[2];
   console.error('Local engine exception',message);
   return 'Local processing could not complete. Keep the source file and try again.';
 }
