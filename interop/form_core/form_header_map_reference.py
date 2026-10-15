@@ -139,7 +139,7 @@ def append_position(m,position,*,initial_error=0):
 def store_map(m,position,*,initial_error=0):
  if initial_error:return MapResult(m,initial_error)
  u32(position);u16(m.capacity);u16(m.used)
- if m.capacity>64 or len(m.offsets)!=m.capacity:raise UnsupportedProfile('Independent boundedoffsetarray64')
+ if m.capacity>65535 or len(m.offsets)!=m.capacity:raise UnsupportedProfile('Nativeu16 boundedoffsetarray')
  updated=replace(m,base=position)
  wire=bytes([m.marker])+struct.pack('>2H',m.capacity,m.used)+struct.pack('<'+'I'*m.capacity,*m.offsets)
  return MapResult(updated,0,wire=wire,position=(position+len(wire))&0xffffffff)
@@ -153,7 +153,7 @@ def load_map(wire,marker,position=0,*,swap=False,initial_error=0):
  if len(wire)<5:raise UnsupportedProfile('Finitecomplete map scalarheader')
  cap,used=struct.unpack_from('>2H',wire,1)
  if cap==0:return MapResult(Map(marker,0,65535,(),u32(position)),0,consumed=5)
- if cap>64 or len(wire)<5+cap*4:raise UnsupportedProfile('Independent capacity64/complete array')
+ if cap>65535 or len(wire)<5+cap*4:raise UnsupportedProfile('Nativeu16capacity/complete array')
  offsets=list(struct.unpack_from('<'+'I'*cap,wire,5))
  if swap:
   for i in range(min(cap,used)):offsets[i]=int.from_bytes(offsets[i].to_bytes(4,'little'),'big')

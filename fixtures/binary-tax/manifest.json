@@ -1,0 +1,35 @@
+{
+  "entries": {
+    "income": {
+      "binary": "income.taxbin",
+      "binary_sha256": "8c5c1ce618bdae851a23a27aede0184d851be2e1ccfae747dbba978e479c403f",
+      "bytes": 1194,
+      "forms": 3,
+      "request": "income-request.json",
+      "request_sha256": "e38ed338dde0374910458904626ca5e13e0616ce8b694f8ffb9a22a23ad1d10e"
+    },
+    "nested": {
+      "binary": "nested.taxbin",
+      "binary_sha256": "07131f3de04f824922f793d9ffa51b26282af7c4959d0e837616e42582e1b091",
+      "bytes": 1544,
+      "forms": 4,
+      "request": "nested-request.json",
+      "request_sha256": "ce79f087fc8cb4311410f6e8ce9ad65902b1c8d465491767525350b31b1500d4"
+    },
+    "unused-zero": {
+      "binary": "unused-zero.taxbin",
+      "binary_sha256": "7ef8f683072ee0e90b2a91b8d10550eaf74bd07cdd6563c5f4a05a22417d9379",
+      "bytes": 1196,
+      "forms": 3,
+      "request": "unused-zero-request.json",
+      "request_sha256": "490c58512a16a2ce62ad4704f21bace1598ddc90ea888bd22ff9818b00333b01"
+    }
+  },
+  "expected_income_app_refund": 344,
+  "format": "tax-reborn-independent-binary-fixtures-v1",
+  "original_program_acceptance_verified": false,
+  "original_runtime_executions": 0,
+  "original_saved_return": false,
+  "provenance": "Independently constructed values, packed nodes, strings and graph; caller-owned synthetic registries only.",
+  "vendor_resources_included": false
+}

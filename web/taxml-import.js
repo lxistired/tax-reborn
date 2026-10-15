@@ -4,10 +4,11 @@
  const interestMoney=['interest_income','treasury_interest','tax_exempt_interest','federal_withholding'];
  const dividendMoney=['ordinary','qualified','capital_gain_distributions','unrecaptured_1250_gain','collectibles_gain','federal_withholding'];
  const sourceContexts=new WeakMap();
+ const documentContexts=new WeakMap();
  const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
  function encoded(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text);}
  async function inspect(file,profileFile,registryFiles,container,acknowledged){
-  if(!(file instanceof Blob)||!file.size||file.size>10*1024*1024)throw Error('Choose a nonempty TaxML file smaller than 10 MB.');
+  if(!(file instanceof Blob)||!file.size||file.size>10*1024*1024)throw Error('Choose a nonempty tax-data file smaller than 10 MB.');
   if(!(profileFile instanceof Blob)||profileFile.size>1024*1024)throw Error('Choose a wire-profile JSON file smaller than 1 MB.');
   if(!Array.isArray(registryFiles)||!registryFiles.length||registryFiles.length>8)throw Error('Choose 1 to 8 caller-owned XPRF registry files.');
   if(acknowledged!==true)throw Error('Review and acknowledge the selected wire profile before inspection.');
@@ -17,16 +18,23 @@
   const bytes=new Uint8Array(await file.arrayBuffer());
   const request={base64:encoded(bytes),container,profile,carriers,profile_acknowledged:acknowledged};
   const result=await window.taxLocalEngine('taxml_inspect',request);
+  documentContexts.set(result,request);
   for(const candidate of result.candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256});
   return result;
  }
  async function correctedSource(candidate,values,confirmed){
   const context=sourceContexts.get(candidate);
-  if(!context||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('Reopen and inspect the source before exporting a corrected XML copy.');
+  if(!context||!(candidate.can_review===true||candidate.can_edit_source===true)||candidate.missing_boxes?.length)throw Error('Reopen and inspect the source before exporting a corrected copy.');
   if(confirmed!==true)throw Error('Review and confirm the corrected source box amounts first.');
   const names=candidate.record_type==='dividends'?dividendMoney:candidate.record_type==='interest'?interestMoney:requiredMoney.slice(0,6);
   const amounts=Object.fromEntries(names.map(name=>[name,String(values?.[name]??'').trim()]));
   return window.taxLocalEngine('taxml_export',{inspection:context.request,expected_candidate_sha256:context.candidateHash,amounts,confirmed});
+ }
+ async function editBinary(inspected,changes,confirmed){
+  const inspection=documentContexts.get(inspected);
+  if(!inspection||inspection.container!=='binary_entity')throw Error('Reopen and inspect the binary source before editing.');
+  if(confirmed!==true)throw Error('Check and confirm all source corrections first.');
+  return window.taxLocalEngine('binary_tax_edit',{inspection,expected_source_sha256:inspected.source_sha256,changes,confirmed});
  }
  async function reviewedRecord(candidate,values,source,confirmed,defaults){
   if(!candidate||candidate.record_type&&candidate.record_type!=='w2'||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('This W-2 candidate has unresolved source facts and cannot be added.');
@@ -68,5 +76,5 @@
   metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
   return{row,metadata};
  }
- window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,correctedSource,requiredMoney,interestMoney,dividendMoney};
+ window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

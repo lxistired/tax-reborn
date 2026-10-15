@@ -1,8 +1,8 @@
-"""Independent modern>=18 wide-index/noncompact ValueHash/BufferMap writer.
+"""Independent modern>=18 wide/noncompact ValueHash/BufferMap bytes.
 
-Explicit binaryBEscalars/nativeLEpackednodes/swapfalse, one finitebuffer64nodes,
-<=128buckets. Prepared memory values, Trim successful allocator, no native
-execution. Uses prior actualsource4/5/7 and current3leaves. No wholeform/.tax.
+BEscalar/nativeLE/swapfalse. Actual1..16000 buckets, <=255 runtimebuffers
+with<=2700 nodes. Loader redistributes wire blocks into runtime buffers;
+source allocator success remains prepared. Legacy/swaptrue are refused.
 """
 from dataclasses import dataclass,replace
 import struct
@@ -46,11 +46,11 @@ def validate_size(size):
  return 0 if 1<=size<=16000 else 6
 
 def validate(h):
- if not isinstance(h,Hash) or type(h.heads) is not tuple or not 0<=len(h.heads)<=128 or type(h.buffers) is not tuple or len(h.buffers)>1 or h.wide is not True:
-  raise UnsupportedProfile('Independent onebuffer64nodes/buckets1..128/modernwide profile')
+ if not isinstance(h,Hash) or type(h.heads) is not tuple or not 0<=len(h.heads)<=16000 or type(h.buffers) is not tuple or len(h.buffers)>255 or h.wide is not True:
+  raise UnsupportedProfile('Modernwide Hash:<=16000 buckets/255 buffers')
  if any(type(v) is not int or not 0<=v<=NULL for v in h.heads):raise UnsupportedProfile('Nativeu32indices supplied')
  for b in h.buffers:
-  if not isinstance(b,Buffer) or type(b.nodes) is not tuple or not 0<=len(b.nodes)<=b.capacity<=64:raise UnsupportedProfile('Explicit finiteused/capacity')
+  if not isinstance(b,Buffer) or type(b.nodes) is not tuple or not 0<=len(b.nodes)<=b.capacity<=2700:raise UnsupportedProfile('Native2700-node runtime buffer / explicit used/capacity')
 
 def trim(h,*,successful_resize=True):
  validate(h);out=[]
@@ -98,7 +98,7 @@ def load_hash(wire,old,buffers,*,version=18,stream_mode=6,swap=False):
  count=struct.unpack_from('>H',wire)[0];p=2
  updated=replace(old,wide=True)
  if validate_size(count):return HashResult(updated,6,consumed=p,phases=('wideflag1','ValidateHashSize failure'))
- if count>128:raise UnsupportedProfile('Independentfinitebucket128 versusnative1..16000')
+
  updated=replace(updated,heads=(NULL,)*count)
  def fail(code,*,clear_buffers=False,limitation=None):
   state=replace(updated,heads=(NULL,)*count,buffers=() if clear_buffers else updated.buffers)
@@ -115,17 +115,23 @@ def load_hash(wire,old,buffers,*,version=18,stream_mode=6,swap=False):
  if mark!=0xd8:return fail(0x1fb,clear_buffers=True)
  if p>=len(wire):raise UnsupportedProfile('CompleteBufferMap count')
  chunks=wire[p];p+=1
- if chunks>1:raise UnsupportedProfile('Finiteonebuffer profile; actualLoad redistributesblocks into2700nodebuffers')
- nodes=[];newbufs=[]
- for _ in range(chunks):
+ nodes=[];newbufs=[];current=[];remaining_capacity=0
+ for block_index in range(chunks):
   if p+2>len(wire):raise UnsupportedProfile('CompleteBufferMap nodecount')
   nodecount=struct.unpack_from('>H',wire,p)[0];p+=2
-  if nodecount>64:raise UnsupportedProfile('Independentfinite64nodes')
   d=block(nodecount*23)
   if d.code!=0:return fail(d.code,clear_buffers=True,limitation=d.limitation)
-  nodes=[unpack_node(d.data[j:j+23]) for j in range(0,len(d.data),23)]
-  # Nativeonezero-nodeblock doesnotcreatebuffer; count becomes0.
-  if nodes:newbufs.append(Buffer(tuple(nodes),len(nodes)))
+  decoded=[unpack_node(d.data[j:j+23]) for j in range(0,len(d.data),23)]
+  offset=0
+  while offset<len(decoded):
+   if not remaining_capacity:
+    remaining_capacity=2700
+    if block_index==chunks-1:remaining_capacity=min(2700,len(decoded)-offset)
+    current=[];newbufs.append([current,remaining_capacity])
+    if len(newbufs)>255:raise UnsupportedProfile('Native255 runtime-buffer slots; overflow refused')
+   take=min(remaining_capacity,len(decoded)-offset);current.extend(decoded[offset:offset+take]);offset+=take;remaining_capacity-=take
+ newbufs=[Buffer(tuple(nodes),capacity) for nodes,capacity in newbufs]
+
  updated=replace(updated,buffers=tuple(newbufs))
  if p>=len(wire):raise UnsupportedProfile('Completecaret5E')
  terminal=wire[p];p+=1
@@ -136,18 +142,23 @@ def find_value(h,field,element):
  validate(h)
  if any(type(v) is not int or not 0<=v<=65535 for v in (field,element)):raise UnsupportedProfile('Preparedu16field/element')
  if not h.heads:raise UnsupportedProfile('Nativezero-bucketlookup dividesbyzero; finiteguard')
- bucket=(field*3+element*5)%len(h.heads);index=h.heads[bucket];seen=set();nodes=tuple(n for b in h.buffers for n in b.nodes)
+ bucket=(field*3+element*5)%len(h.heads);index=h.heads[bucket];seen=set()
  while index!=NULL:
-  if index in seen:raise UnsupportedProfile('Independentcycleguard; nativeunboundedchain notassignedinventederror')
-  seen.add(index)
-  if index>=len(nodes):return None
-  n=nodes[index]
+  if index in seen:raise UnsupportedProfile('Independent cycle guard; native unbounded chain refused')
+  seen.add(index);base=0;n=None
+  for b in h.buffers:
+   if base<=index<base+b.capacity:
+    local=index-base
+    if local<len(b.nodes):n=b.nodes[local]
+    break
+   base+=b.capacity
+  if n is None:return None
   if n.field_index==field and n.element_index==element:return n
   index=n.next_index
  return None
 
 def hash_for_nodes(nodes,*,bucket_count=127,capacity=None):
- if type(nodes) is not tuple or not 1<=bucket_count<=128:raise UnsupportedProfile('Finitepreparednodeconstruction')
+ if type(nodes) is not tuple or not 1<=bucket_count<=16000 or len(nodes)>255*2700:raise UnsupportedProfile('Modern prepared node construction bounds')
  heads=[NULL]*bucket_count;out=list(nodes);tails={}
  for index,n in enumerate(nodes):
   if n.next_index!=NULL:raise UnsupportedProfile('Preparedunlinkednodeinput')
@@ -155,7 +166,10 @@ def hash_for_nodes(nodes,*,bucket_count=127,capacity=None):
   if bucket in tails:out[tails[bucket]]=replace(out[tails[bucket]],next_index=index)
   else:heads[bucket]=index
   tails[bucket]=index
- return Hash(tuple(heads),() if not nodes else (Buffer(tuple(out),len(out) if capacity is None else capacity),))
+ if capacity is not None and len(nodes)>2700:raise UnsupportedProfile('Explicit spare capacity only for one buffer')
+ chunks=tuple(Buffer(tuple(out[p:p+2700]),min(2700,len(out)-p)) for p in range(0,len(out),2700))
+ if capacity is not None and chunks:chunks=(replace(chunks[0],capacity=capacity),)
+ return Hash(tuple(heads),chunks)
 
 @dataclass(frozen=True)
 class FormCore:

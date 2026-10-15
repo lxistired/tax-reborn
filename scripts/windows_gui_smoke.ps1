@@ -268,7 +268,7 @@ function Set-Owned-Edit([string]$label,[string]$text) {
     throw "Edited field did not retain $label = $text"
 }
 function Inspect-Owned-Income([string]$fixture) {
-    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
     $folder=Join-Path (Split-Path $Executable) '_internal/fixtures/taxml'
     Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder ($fixture+'.xml'))
     Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder ($fixture+'-profile.json'))
@@ -501,7 +501,7 @@ try {
     Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
     Set-Owned-Edit 'Return name' 'Synthetic Windows mixed income migration'
     Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
-    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
     $folder=Join-Path (Split-Path $Executable) '_internal/fixtures/taxml'
     Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder 'synthetic-mixed-income.xml')
     Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder 'synthetic-mixed-income-profile.json')
@@ -542,7 +542,7 @@ try {
     python scripts/verify_windows_mixed_native.py --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-mixed-readback.json')
     if($LASTEXITCODE -ne 0) { throw 'Native saved mixed-form metadata, ownership, amounts or344 USD calculation failed independent readback' }
     $checks.Add('Normal close/relaunch preserved all three reviewed forms, shared attachment and distinct source paths; independent SQLite readback verified344 USD and actual saved line amounts.')
-    Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
     Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder 'synthetic-mixed-income.xml')
     Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder 'synthetic-mixed-income-profile.json')
     Choose-Owned-Native-File 'Choose caller-owned XPRF registries' $registries
@@ -568,6 +568,51 @@ try {
     Launch-App; Wait-Named '$344' 120 $false | Out-Null
     $checks.Add('Native repeated-source add was refused; system Save As exported only selected interest correction and independent readback after normal App close proved W2/DIV bytes plus saved records unchanged.')
     $receipt.native_mixed_taxml_changed_flow_passed=$true
+    # The shipped independent binary samples use the exact file decoder and
+    # reviewed-record pipeline; no injected JS, source XML or seeded return.
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
+    Set-Owned-Edit 'Return name' 'Synthetic Windows binary income migration'
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+    Click-Observed (Wait-Named 'Try independently generated binary samples')
+    Click-Observed (Wait-Named 'Load binary income sample')
+    foreach($label in @('W-2','1099-INT','1099-DIV')) {
+        Click-Observed (Wait-Named ('Review '+$label+' candidate'))
+        if($label -eq 'W-2') {
+            Set-Owned-Edit 'Employer name' 'Synthetic Windows binary employer'
+            $owner=Wait-Control 'ComboBox' 'Whose W-2 is this?'; $owner.SetFocus()
+            [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+            Set-Owned-Edit 'Box 7 · Social Security tips' '0'
+            Set-Owned-Edit 'Box 10 · Dependent-care benefits' '0'
+            Click-Observed (Wait-Named 'Confirm all TaxML W-2 amounts and ownership')
+        } else {
+            Set-Owned-Edit ($label+' payer name') ('Synthetic Windows binary '+$label+' payer')
+            Click-Observed (Wait-Named ('Confirm supported '+$label+' situation'))
+            if($label -eq '1099-DIV') { Click-Observed (Wait-Named 'Confirm qualified dividend eligibility') }
+            Click-Observed (Wait-Named ('Confirm all TaxML '+$label+' amounts and household'))
+        }
+        Click-Observed (Wait-Named ('Add reviewed '+$label)); Wait-Named 'TaxML inspection results' | Out-Null
+    }
+    Click-Observed (Wait-Named 'Close dialog'); Wait-Named '$344' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Close-App; Launch-App; Wait-Named '$344' 120 $false | Out-Null
+    Save-Screenshot 'windows-native-binary-income-reopened-344.png'
+    python scripts/verify_binary_native.py --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-binary-income-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'Saved binary income and source receipts failed readback' }
+    Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+    Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load nested binary sample')
+    Click-Observed (Wait-Named 'Inspect / edit binary fields')
+    Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+    Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+    $binaryCopy=Join-Path $OutputDir 'windows-native-nested-corrected.taxbin'; Save-Native-Export $binaryCopy 100
+    Save-Screenshot 'windows-native-binary-structures-exported.png'
+    Click-Observed (Wait-Named 'Close dialog'); Close-App
+    python scripts/verify_binary_native.py --data-dir $DataDir --corrected-binary $binaryCopy --output (Join-Path $OutputDir 'windows-native-binary-final-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'System-saved full binary correction failed independent structure readback' }
+    Launch-App; Wait-Named '$344' 120 $false | Out-Null
+    $receipt.native_binary_income_and_recursive_source_passed=$true
+    $checks.Add('Binary income decoded, three forms reviewed, real344 USD recalculated and saved/relaunched; system-saved nested binary edit retained child/table/link/other facts by independent readback.')
+
     Remove-Item Env:TAX_REBORN_OWNED_DATADIR
     if(!$MixedOnly) {
     # Create a separate owned synthetic return in the same real SQLite

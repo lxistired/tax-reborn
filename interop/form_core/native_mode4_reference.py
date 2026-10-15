@@ -1,6 +1,6 @@
 """Independent selected native fast0/0 mode4 match policy and finite composition.
 
-Only method4, initialized65300/36864 successful buffers, input<=8192 and
+Only method4, initialized65300/36864 successful buffers, input<=65000 and
 prepared binaryBE/swapfalse ordinaryStringTable. Exact native compressor bytes
 are proven only for one private originalresource3161B->403B. Other input tests
 prove independent grammar/readback, not native runtime or universal exactness.
@@ -25,8 +25,8 @@ class Candidate:
 
 
 def encode_selected(data):
- if type(data) is not bytes or len(data)>8192:
-  raise UnsupportedProfile('Independent finite input<=8192; native dispatcher65000 separate')
+ if type(data) is not bytes or len(data)>65000:
+  raise UnsupportedProfile('Independent finite input<=65000; native dispatcher65000 separate')
  if len(data)<2:return Candidate(len(data),b'',(),False)
  # Native fast0 selector uses4013 hash buckets. Scratch36864 minus2048pair
  # bytes gives34816; floor(34816/(4013*2))=4, minusone yieldsringdepth3.
@@ -85,7 +85,7 @@ def dispatch_profile(method,*,input_length,output_capacity,scratch_size):
 
 
 def emit_selected_block(data,buffers,*,byte_order='>'):
- if type(data) is not bytes or len(data)>8192 or byte_order not in ('<','>'):
+ if type(data) is not bytes or len(data)>65000 or byte_order not in ('<','>'):
   raise UnsupportedProfile('Finite block and explicit scalar endian')
  if not initialized(buffers) or buffers.method==0:return raw_block(data) if byte_order=='>' else b'\x0f'+struct.pack('<I',len(data))+data
  if buffers.method!=4:raise UnsupportedProfile('Selected method4 only')
@@ -95,24 +95,24 @@ def emit_selected_block(data,buffers,*,byte_order='>'):
 
 
 def rewrite_selected_table(wire,buffers,*,encode):
- if len(wire)<24:raise UnsupportedProfile('Complete finite tableheader')
+ if len(wire)<24:raise UnsupportedProfile('Complete StringTable header')
  version,*cfg,free,slots,chunks=struct.unpack_from('>H4I3H',wire)
- if version!=2 or tuple(cfg)!=DEFAULTS or slots not in (0,64) or chunks not in (0,1):
-  raise UnsupportedProfile('Accepted60finite v2/default/onechunk64slots')
+ if version!=2 or chunks>32767:raise UnsupportedProfile('Modernv2 / signedpositive Store chunk count<=32767')
  p=24;out=bytearray(wire[:24]);blocks=[]
- for i in range(chunks+(1 if slots else 0)):
-  if i<chunks:
-   if p+12>len(wire):raise UnsupportedProfile('Complete chunkheader')
-   header=wire[p:p+12];p+=12;used,cap,holes=struct.unpack('>3I',header)
-   if cap<used or cap<holes:raise NativeError(0x78)
-   if cap!=512:raise UnsupportedProfile('Selected capacity512')
-   expected=used;out.extend(header)
-  else:expected=slots*4
+ def block(expected):
+  nonlocal p
   d=decode_block(wire[p:],expected,buffers)
   if d.code is None:raise UnsupportedProfile(d.limitation)
   if d.code:raise NativeError(d.code)
-  block=emit_selected_block(d.data,buffers) if encode else raw_block(d.data)
-  blocks.append((wire[p],block[0],len(d.data)));out.extend(block);p+=d.consumed
+  framed=emit_selected_block(d.data,buffers) if encode else raw_block(d.data)
+  blocks.append((wire[p],framed[0],len(d.data)));out.extend(framed);p+=d.consumed
+ for i in range(chunks):
+  if p+12>len(wire):raise UnsupportedProfile('Complete chunk header')
+  header=wire[p:p+12];p+=12;used,cap,holes=struct.unpack('>3I',header)
+  if cap<used or cap<holes:raise NativeError(0x78)
+  if not cap:raise UnsupportedProfile('Zero-capacity chunk Store/Load asymmetry refused')
+  out.extend(header);block(used)
+ for at in range(0,slots,16250):block(min(slots-at,16250)*4)
  return bytes(out),p,tuple(blocks)
 
 

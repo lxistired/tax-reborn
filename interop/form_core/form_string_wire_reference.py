@@ -15,14 +15,16 @@ from .string_registry_reference import Registry,add_table,remove_table
 def pack(table):
  validate(table)
  if not table.chunks:return table
- c=table.chunks[0];out=bytearray(c.data);slots=bytearray(table.slots);p=0
- # Native Pack walks records in-order; deleted recordFFFF skipped.
- for offset,(handle,text,size) in records(c).items():
-  if handle==FFFF:continue
-  rec=struct.pack('<H',handle)+text+b'\0';out[p:p+len(rec)]=rec
-  # Native updates only slot second word; chunk first word stays1.
-  struct.pack_into('<H',slots,handle*4+2,p+2);p+=len(rec)
- return replace(table,slots=bytes(slots),chunks=(Chunk(bytes(out),p,0),))
+ slots=bytearray(table.slots);chunks=[]
+ # ActualPack compacts each chunk in-place, retaining chunk IDs andcapacities.
+ for c in table.chunks:
+  out=bytearray(c.data);p=0
+  for offset,(handle,text,size) in records(c).items():
+   if handle==FFFF:continue
+   rec=struct.pack('<H',handle)+text+b'\0';out[p:p+len(rec)]=rec
+   struct.pack_into('<H',slots,handle*4+2,p+2);p+=len(rec)
+  chunks.append(Chunk(bytes(out),p,0))
+ return replace(table,slots=bytes(slots),chunks=tuple(chunks))
 
 def share_status(*,runtime_enabled,template_flags):
  if type(runtime_enabled) is not bool or type(template_flags) is not int or not 0<=template_flags<1<<32:raise UnsupportedProfile('Explicit runtime flag and source template flags')

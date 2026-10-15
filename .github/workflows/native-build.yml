@@ -85,6 +85,13 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_capital_niit_amt_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Actual installed high-income worker checks failed' }
+      - name: Exercise binary income and recursive source edits using installed assets
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_binary_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed binary tax-data workflow failed' }
       - name: Exercise payment vouchers using the installed worker and read back actual PDFs
         shell: pwsh
         run: |
@@ -120,6 +127,7 @@ jobs:
             dist/windows/*.txt
             dist/windows/*.pdf
             dist/windows/*.xml
+            dist/windows/*.taxbin
           if-no-files-found: error
           retention-days: 30
 

@@ -1,13 +1,9 @@
-"""Independently authored bounded StringTable version2/raw-block codec.
+"""Independent modern v2 StringTable, multiple chunks and handle blocks.
 
-It writes real bytes, not prepared compressed-frame placeholders. Selected
-concrete zccProcessStream has explicit enabled=False; underlying stream is
-binary with big-endian scalar primitives and little-endian native payload.
-Only zero or one512-byte chunk,0 or64 slots, defaults512/512/64/64, balanced
-unlocked state, successful prepared allocations and unavailable compression
-buffers. No heap, v1 conversion, compressedF0, general.tax or native execution.
-Store is a selected synthetic wrapper with explicit successful BeginAccess\ncontext and balanced EndAccess; higher native serializer caller unbound.\nAdditional consistency refusals below are independent-model eligibility
-guards, not assertions that native Load checks them.
+BEscalar/nativeLE/swapfalse. Actualu16 handle count,16250slots/65000B frame,
+positive signedchunkcount<=32767; variableconfig/capacity and byte strings.
+Allocator success is prepared; independent64MiB arena budget is explicit.
+V1/swaptrue/nativeexecution remain outside this implementation.
 """
 from dataclasses import dataclass,replace
 import struct
@@ -50,57 +46,56 @@ def clear(table):
  # Existing native Clear resets storage/head/slotcount/livecounter, not config.
  return replace(table,free_head=FFFF,slots=b'',chunks=(),counter=0)
 
+MAX_STORAGE=64*1024*1024 # Independent allocation budget, not native wire limit.
+SLOTS_PER_BLOCK=16250   # Actual native 65000-byte compression block /4.
 def records(chunk):
- if type(chunk.data) is not bytes or len(chunk.data)!=512 or not 0<=chunk.used<=512:
-  raise UnsupportedProfile('Explicit successful512-byte storage')
+ if not isinstance(chunk,Chunk) or type(chunk.data) is not bytes or not 0<len(chunk.data)<=MAX_STORAGE or not 0<=chunk.used<=min(len(chunk.data),65000):
+  raise UnsupportedProfile('Explicit nonzero chunk capacity / used<=65000 / independent64MiB storage budget')
  p=0;out={}
  while p<chunk.used:
   if p+2>=chunk.used:raise UnsupportedProfile('Incomplete physical CString record')
-  h=struct.unpack_from('<H',chunk.data,p)[0]
-  q=chunk.data.find(b'\0',p+2,chunk.used)
+  h=struct.unpack_from('<H',chunk.data,p)[0];q=chunk.data.find(b'\0',p+2,chunk.used)
   if q<0:raise UnsupportedProfile('Missing CString NUL')
-  text=chunk.data[p+2:q]
-  if any(c>127 for c in text):raise UnsupportedProfile('ASCII finite payload')
-  out[p+2]=(h,text,q+1-p);p=q+1
+  text=chunk.data[p+2:q];out[p+2]=(h,text,q+1-p);p=q+1
  return out
 
 def validate(table):
  idle(table)
- if table.config!=DEFAULTS:raise UnsupportedProfile('Actual fresh selected ctor defaults only')
- if not table.chunks:
-  if table.slots or table.free_head!=FFFF:raise UnsupportedProfile('Zero-chunk/zero-slot profile')
-  return
- if len(table.chunks)!=1 or len(table.slots)!=256:
-  raise UnsupportedProfile('One chunk and64 physical4-byte slots only')
- c=table.chunks[0];rs=records(c)
- if not 0<=c.holes<=512:raise UnsupportedProfile('Bounded holes')
+ if type(table.config) is not tuple or len(table.config)!=4 or any(type(v) is not int or not 0<=v<=0xffffffff for v in table.config):raise UnsupportedProfile('Native4 configu32 fields')
+ if type(table.chunks) is not tuple or len(table.chunks)>32767 or type(table.slots) is not bytes or len(table.slots)%4 or len(table.slots)//4>65535:
+  raise UnsupportedProfile('Modernv2 signedpositivechunkcount /u16slotcount')
+ if sum(len(c.data) for c in table.chunks)+len(table.slots)>MAX_STORAGE:raise UnsupportedProfile('Independent64MiB total arena budget')
+ if type(table.free_head) is not int or not 0<=table.free_head<=FFFF:raise UnsupportedProfile('Nativeu16freehead')
+ count=len(table.slots)//4;rs=[]
+ for c in table.chunks:
+  values=records(c)
+  if not 0<=c.holes<=len(c.data):raise UnsupportedProfile('Bounded chunk holes')
+  if sum(size for h,_,size in values.values() if h==FFFF)!=c.holes:raise UnsupportedProfile('Deleted record hole-byte count')
+  rs.append(values)
  seen=set();free=table.free_head
  while free!=FFFF:
-  if not 0<=free<64 or free in seen:raise UnsupportedProfile('Acyclic bounded free chain')
+  if not 0<=free<count or free in seen:raise UnsupportedProfile('Acyclic bounded free chain')
   seen.add(free);block,nxt=struct.unpack_from('<HH',table.slots,free*4)
   if block!=0:raise UnsupportedProfile('Free-chain entry must be unused')
   free=nxt
  allocated=set()
- for h in range(64):
+ for h in range(count):
   block,off=struct.unpack_from('<HH',table.slots,h*4)
   if block==0:
    if h not in seen:raise UnsupportedProfile('All unused entries accounted by free chain')
-  elif block==1:
-   if off not in rs or rs[off][0]!=h:raise UnsupportedProfile('Selected handle-to-record bijection')
+  else:
+   if not 1<=block<=len(rs) or off not in rs[block-1] or rs[block-1][off][0]!=h:raise UnsupportedProfile('Handle-to-physical-record bijection')
    allocated.add(h)
-  else:raise UnsupportedProfile('Only chunk1 finite profile')
- if {h for h,_,_ in rs.values() if h!=FFFF}!=allocated:
-  raise UnsupportedProfile('No unresolved live/duplicate physical record')
- if sum(size for h,_,size in rs.values() if h==FFFF)!=c.holes:
-  raise UnsupportedProfile('Finite deleted-record holes profile')
- # counter is intentionally not matched to slot population: Load leaves it0.
+ live=[h for values in rs for h,_,_ in values.values() if h!=FFFF]
+ if len(set(live))!=len(live) or set(live)!=allocated:raise UnsupportedProfile('No unresolved or duplicate live physical record')
+ # Native Load leaves counter0; it does not denote absence.
 
 def read(table,handle):
  validate(table)
- if type(handle) is not int or not 0<=handle<64:raise UnsupportedProfile('Finite existing handle')
+ if type(handle) is not int or not 0<=handle<len(table.slots)//4:raise UnsupportedProfile('Existing handle index')
  block,off=struct.unpack_from('<HH',table.slots,handle*4)
- if block!=1:raise UnsupportedProfile('Removed/unallocated handle')
- return records(table.chunks[0])[off][1]
+ if not block:raise UnsupportedProfile('Removed/unallocated handle')
+ return records(table.chunks[block-1])[off][1]
 
 def raw_block(data):
  if type(data) is not bytes:raise UnsupportedProfile('Bytes required')
@@ -116,7 +111,7 @@ def store(table,*,compression_buffers_unavailable=True,successful_begin_access=T
  for c in table.chunks:
   out.extend(struct.pack('>3I',c.used,len(c.data),c.holes))
   out.extend(raw_block(c.data[:c.used]))
- if table.slots:out.extend(raw_block(table.slots))
+ for p in range(0,len(table.slots),SLOTS_PER_BLOCK*4):out.extend(raw_block(table.slots[p:p+SLOTS_PER_BLOCK*4]))
  return bytes(out)
 
 class Reader:
@@ -171,18 +166,20 @@ def load(data,old,*,allocation_image=b'.'*512,compression_buffers_unavailable=Tr
     cfg[i]=v;state=replace(state,config=tuple(cfg))
    r.scalar('I','config'+str(i),commit)
   free=r.scalar('H','free_head');count=r.scalar('H','slots');chunks=r.scalar('H','chunks')
-  if tuple(cfg)!=DEFAULTS or count not in (0,64) or chunks not in (0,1):
-   raise UnsupportedProfile('Bounded defaults/one-chunk/64slots scope')
+  if chunks>32767:raise UnsupportedProfile('Native Store signedchunkcount limits roundtripeligiblechunks to32767')
+
   result=[]
   for i in range(chunks):
    used=r.scalar('I','chunk'+str(i)+'.used')
    cap=r.scalar('I','chunk'+str(i)+'.capacity')
    holes=r.scalar('I','chunk'+str(i)+'.holes')
    if cap<used or cap<holes:raise NativeError(0x78)
-   if cap!=512:raise UnsupportedProfile('Successful selected capacity512 only')
+   if not cap or cap>MAX_STORAGE or used>65000 or sum(len(c.data) for c in result)+cap>MAX_STORAGE:raise UnsupportedProfile('Nonzero capacity / native used65000 / independent64MiB budget')
    payload=r.block(used,'chunk'+str(i))
-   result.append(Chunk(payload+allocation_image[len(payload):],used,holes))
-  slots=r.block(count*4,'slots') if count else b''
+   # Trailing arena bytes are prepared allocator image, not serialized data.
+   padding=(allocation_image*((cap-len(payload)+len(allocation_image)-1)//len(allocation_image)))[:cap-len(payload)]
+   result.append(Chunk(payload+padding,used,holes))
+  slots=b''.join(r.block(min(count-p,SLOTS_PER_BLOCK)*4,'slots' if p==0 else 'slots'+str(p//SLOTS_PER_BLOCK)) for p in range(0,count,SLOTS_PER_BLOCK))
   state=replace(state,free_head=free,slots=slots,chunks=tuple(result))
   validate(state)
   return LoadOutcome(state,0,r.p,tuple(r.trace))

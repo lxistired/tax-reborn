@@ -5,8 +5,27 @@ No eval/blob scripts or external URLs. Original vendor files/notices remain
 unmodified. Worker static fetch can read app-only CacheStorage if offline.
 """
 from pathlib import Path
-import hashlib,json
+import hashlib,json,shutil
 ROOT=Path(__file__).resolve().parents[1];web=ROOT/'web'
+# The packaged worker uses the same independent codec as host acceptance.
+# This is generated from our source, never from private binary evidence.
+generated=web/'interop'
+if generated.exists():shutil.rmtree(generated)
+shutil.copytree(ROOT/'interop',generated,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
+binary_modules=sorted(p.relative_to(web).as_posix() for p in generated.rglob('*.py'))
+samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
+sample_assets=[]
+for name in ('income-request.json','nested-request.json'):
+ source=ROOT/'fixtures/binary-tax'/name
+ if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
+ shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)
+(web/'binary-runtime.json').write_text(json.dumps({'format':'tax-reborn-binary-runtime-v1',
+ 'modules':binary_modules,'sha256':{name:hashlib.sha256((web/name).read_bytes()).hexdigest() for name in binary_modules}},indent=2)+'\n')
+manifest=web/'offline-assets.json'
+if manifest.exists():
+ data=json.loads(manifest.read_text());assets=data if isinstance(data,list) else data['assets']
+ assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary-runtime.json']))
+ manifest.write_text(json.dumps(data,indent=2)+'\n')
 prefix=r'''// Generated from pinned local runtime plus independently written worker source.
 // A dedicated worker may not inherit its parent ServiceWorker's request handler.
 const taxNativeFetch=self.fetch.bind(self);

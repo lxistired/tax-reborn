@@ -1,0 +1,29 @@
+{
+  "runtime_root": "/Users/aez/Documents/Codex/2026-10-12/re/work/turbotax-re/github-tax-reborn-20261013",
+  "actual_packaged_assets": false,
+  "real_pyodide": true,
+  "three_reviewed_binary_income_forms": true,
+  "actual_calculation": {
+    "agi": 3576,
+    "taxable_income": 0,
+    "total_tax": 0,
+    "payments": 344,
+    "refund": 344,
+    "amount_owed": 0,
+    "deduction_type": "standard",
+    "effective_rate": "0.00",
+    "schedules": [
+      "Form1040",
+      "ScheduleD/Form8949 worksheet",
+      "Form6251"
+    ]
+  },
+  "unconfirmed_income_still_blocks_completion": true,
+  "normalized_source_records": 3,
+  "nonempty_tables_children_links": true,
+  "whole_document_edit_readback": true,
+  "other_parsed_facts_preserved": true,
+  "original_tax_fixture": false,
+  "original_engine_executed": false,
+  "whole_tax_compatibility": false
+}

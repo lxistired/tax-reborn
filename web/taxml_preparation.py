@@ -100,6 +100,9 @@ def validate_native_profile(profile):
 
 
 def _inspect(request):
+    if isinstance(request, dict) and request.get('container') == 'binary_entity':
+        import binary_tax
+        return binary_tax.inspect_request(request), None, {}
     if not isinstance(request, dict) or set(request) != {'base64', 'container', 'profile', 'carriers', 'profile_acknowledged'}:
         raise ValueError('Invalid local TaxML inspection request.')
     if request['profile_acknowledged'] is not True:
@@ -338,6 +341,9 @@ def inspect_request(request):
 
 
 def export_request(request):
+    if isinstance(request, dict) and isinstance(request.get('inspection'), dict) and request['inspection'].get('container') == 'binary_entity':
+        import binary_tax
+        return binary_tax.export_request(request)
     if not isinstance(request, dict) or set(request) != {'inspection', 'expected_candidate_sha256', 'amounts', 'confirmed'}:
         raise ValueError('Invalid corrected XML export request.')
     if request['confirmed'] is not True:
