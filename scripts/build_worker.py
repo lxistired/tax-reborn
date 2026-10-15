@@ -15,7 +15,7 @@ shutil.copytree(ROOT/'interop',generated,ignore=shutil.ignore_patterns('__pycach
 binary_modules=sorted(p.relative_to(web).as_posix() for p in generated.rglob('*.py'))
 samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
 sample_assets=[]
-for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json'):
+for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)
@@ -24,7 +24,7 @@ for name in ('income-request.json','nested-request.json','filing-status-request.
 manifest=web/'offline-assets.json'
 if manifest.exists():
  data=json.loads(manifest.read_text());assets=data if isinstance(data,list) else data['assets']
- assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary-runtime.json']))
+ assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary_derived.py','binary-runtime.json']))
  manifest.write_text(json.dumps(data,indent=2)+'\n')
 prefix=r'''// Generated from pinned local runtime plus independently written worker source.
 // A dedicated worker may not inherit its parent ServiceWorker's request handler.

@@ -1,0 +1,24 @@
+{
+  "vendor_resources_included": false,
+  "original_runtime_executions": 0,
+  "original_tax_fixture": false,
+  "source_ordinals": "current ordinal+100",
+  "source_checksum": "explicit owned U32, not year validation",
+  "entries": {
+    "derived-income": {
+      "bytes": 2904,
+      "sha256": "f37e00fce34dab082697800b70acda964ae67e2106e750f478f67b7c5f41c5f5",
+      "request_sha256": "7551695a54440873fd77c980f855dd398a55b3922db7aa08892e8b94dc4b062e"
+    },
+    "derived-array": {
+      "bytes": 2903,
+      "sha256": "aeeddd8fa89db5b32531565a6aeff3bbc01182d4d4c9650b3991e34516f3a1c7",
+      "request_sha256": "3232a7fe6896b42f2535e2e244a1ec9e67279d3f663b21e653a196ff1613ed99"
+    },
+    "derived-opaque": {
+      "bytes": 3081,
+      "sha256": "bff452e78df247fd588183d35296208a54e0ed75c9549f950ffc552769a4376d",
+      "request_sha256": "105119468a2a057a82996687b85f85c13470845fc722bdd58b63ed755a77589c"
+    }
+  }
+}

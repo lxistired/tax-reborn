@@ -1,0 +1,272 @@
+{
+  "format": "tax-reborn-owned-derived-native-contract-v1",
+  "sample_button": "Load complete saved-form sample",
+  "source_filename": "synthetic-derived-income.taxbin",
+  "output_filename": "synthetic-derived-income-corrected.taxbin",
+  "request_file": "fixtures/binary-tax/derived-income-request.json",
+  "input_sha256": "f37e00fce34dab082697800b70acda964ae67e2106e750f478f67b7c5f41c5f5",
+  "input_bytes": 2904,
+  "output_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "output_bytes": 2906,
+  "edit": {
+    "path": [
+      0,
+      0
+    ],
+    "field_id": "WAGES",
+    "element": 0,
+    "old_value": "1234.56",
+    "value": "1234.57",
+    "source_ordinal": 104,
+    "current_ordinal": 4
+  },
+  "form_paths": [
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ]
+  ],
+  "forms": [
+    {
+      "path": [
+        0,
+        0
+      ],
+      "form_id": "FW2",
+      "file_copy": 1,
+      "field_count": 14,
+      "field_map_count": 12,
+      "source_position_before": 1314,
+      "source_position_after": 1316,
+      "derived_wire_sha256": "7091f409bb72573f31215d1d47d754842e5d25d43f0d23c8ad786d9845b4049f",
+      "object_groups": [
+        {
+          "kind": "form",
+          "count": 1,
+          "objects": [
+            {
+              "class_name": "zccPersistentFormUUID",
+              "first_index": null,
+              "second_index": null,
+              "attachment_id": null,
+              "body_bytes": 37,
+              "body_sha256": "19acfce005cb8b62c1dd84115aa3a4837799afe5a87314da9df38f97577d057e",
+              "typed_form_uuid": true,
+              "uuid": "00000000-0000-0000-0000-000000000001"
+            }
+          ]
+        },
+        {
+          "kind": "record",
+          "count": 0,
+          "objects": []
+        },
+        {
+          "kind": "value",
+          "count": 0,
+          "objects": []
+        }
+      ],
+      "table_headers": [
+        {
+          "identifier": "OWNED_ROWS",
+          "table_kind": "value_table",
+          "first_field_ordinal": 112,
+          "last_field_ordinal": 112,
+          "saved_last_used_record_index": 3
+        }
+      ],
+      "children": 1,
+      "links": [
+        {
+          "form_id": "F1099D",
+          "file_copy": 3,
+          "field_id": "QDIV",
+          "element": 0,
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "path": [
+        0,
+        0,
+        0
+      ],
+      "form_id": "F1099I",
+      "file_copy": 4,
+      "field_count": 4,
+      "field_map_count": 4,
+      "source_position_before": 1036,
+      "source_position_after": 1038,
+      "derived_wire_sha256": "c080f4644aad573e25416cef85141b68e7390d8358f37f038005a7ab1c5e2791",
+      "object_groups": [
+        {
+          "kind": "form",
+          "count": 1,
+          "objects": [
+            {
+              "class_name": "zccPersistentFormUUID",
+              "first_index": null,
+              "second_index": null,
+              "attachment_id": null,
+              "body_bytes": 37,
+              "body_sha256": "c82c77c2438ce4f7d2e99604265ea9a121bbeb3aa45b5e047806ebc7ba6b7318",
+              "typed_form_uuid": true,
+              "uuid": "00000000-0000-0000-0000-000000000004"
+            }
+          ]
+        },
+        {
+          "kind": "record",
+          "count": 0,
+          "objects": []
+        },
+        {
+          "kind": "value",
+          "count": 0,
+          "objects": []
+        }
+      ],
+      "table_headers": [],
+      "children": 0,
+      "links": [
+        {
+          "form_id": "FW2",
+          "file_copy": 1,
+          "field_id": "WAGES",
+          "element": 0,
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "path": [
+        0,
+        1
+      ],
+      "form_id": "F1099I",
+      "file_copy": 2,
+      "field_count": 4,
+      "field_map_count": 4,
+      "source_position_before": 2083,
+      "source_position_after": 2085,
+      "derived_wire_sha256": "61265ec5bce7ad0c9c6c3384773ea09dfa2e451717edeb3803caaf630e604913",
+      "object_groups": [
+        {
+          "kind": "form",
+          "count": 1,
+          "objects": [
+            {
+              "class_name": "zccPersistentFormUUID",
+              "first_index": null,
+              "second_index": null,
+              "attachment_id": null,
+              "body_bytes": 37,
+              "body_sha256": "45eb8d5a60d8c74b3006052b3a209dd003ee1674ef916145c1b97e2d4b1778d5",
+              "typed_form_uuid": true,
+              "uuid": "00000000-0000-0000-0000-000000000002"
+            }
+          ]
+        },
+        {
+          "kind": "record",
+          "count": 0,
+          "objects": []
+        },
+        {
+          "kind": "value",
+          "count": 0,
+          "objects": []
+        }
+      ],
+      "table_headers": [],
+      "children": 0,
+      "links": [
+        {
+          "form_id": "F1099I",
+          "file_copy": 4,
+          "field_id": "L1",
+          "element": 0,
+          "resolved": true
+        }
+      ]
+    },
+    {
+      "path": [
+        0,
+        2
+      ],
+      "form_id": "F1099D",
+      "file_copy": 3,
+      "field_count": 6,
+      "field_map_count": 6,
+      "source_position_before": 2591,
+      "source_position_after": 2593,
+      "derived_wire_sha256": "60d95dbf1d71c1eb88fba41ec0cb7139b4628a90e1d29d5881941643a8d22949",
+      "object_groups": [
+        {
+          "kind": "form",
+          "count": 1,
+          "objects": [
+            {
+              "class_name": "zccPersistentFormUUID",
+              "first_index": null,
+              "second_index": null,
+              "attachment_id": null,
+              "body_bytes": 37,
+              "body_sha256": "44b60a48a64d29349cc51779f7db265950be3c41fcef9ab259eeae2cb69d8bbb",
+              "typed_form_uuid": true,
+              "uuid": "00000000-0000-0000-0000-000000000003"
+            }
+          ]
+        },
+        {
+          "kind": "record",
+          "count": 0,
+          "objects": []
+        },
+        {
+          "kind": "value",
+          "count": 0,
+          "objects": []
+        }
+      ],
+      "table_headers": [],
+      "children": 0,
+      "links": [
+        {
+          "form_id": "F1099I",
+          "file_copy": 2,
+          "field_id": "L3",
+          "element": 0,
+          "resolved": true
+        }
+      ]
+    }
+  ],
+  "all_D2_and_object_bytes_unchanged": true,
+  "all_other_parsed_facts_preserved": true,
+  "binary_roundtrip_verified": true,
+  "source_ordinals_preserved": true,
+  "all_hash_chains_validated": true,
+  "source_checksum": "explicit caller U32 expected checksum; legacytemplate_versions is not a taxyear",
+  "native_SetValue_or_Fixup_executed": false,
+  "full_return_recalculated": false,
+  "original_tax_fixture": false,
+  "original_engine_executed": false,
+  "whole_tax_compatibility": false
+}

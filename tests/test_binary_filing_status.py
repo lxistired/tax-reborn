@@ -12,8 +12,6 @@ import uuid
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT), str(ROOT/'web'), str(ROOT/'scripts')]
 import binary_tax
-import return_metadata
-import server
 import tax_engine
 from interop.form_core.native_document_reference import replace_form, store_document_bytes
 
@@ -81,7 +79,10 @@ class BinaryFilingStatus(unittest.TestCase):
             candidate,=binary_tax.inspect_request(changed_request(mutate))['setup_candidates']
             self.assertFalse(candidate['can_review']);self.assertIsNone(candidate['filing_status'])
 
+    @unittest.skipIf(sys.platform == 'emscripten', 'Native SQLite persistence is verified by the host suite.')
     def test_actual_calculation_and_sqlite_reopen_preserve_receipt(self):
+        import return_metadata
+        import server
         candidate,=binary_tax.inspect_request(request())['setup_candidates']
         data=tax_engine.default_return()
         data['name']='Fictional filing-status migration'

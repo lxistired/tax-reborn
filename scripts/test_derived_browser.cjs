@@ -1,0 +1,24 @@
+// Private headless App UI: local assets, actual worker, inspected download bytes.
+const fs=require('node:fs'),path=require('node:path'),os=require('node:os'),assert=require('node:assert/strict'),crypto=require('node:crypto'),{spawn}=require('node:child_process');
+const {chromium}=require(process.env.TAX_REBORN_PLAYWRIGHT||'playwright');
+const root=path.resolve(__dirname,'..'),out=path.join(root,'qa/binary-derived'),scratch=fs.mkdtempSync(path.join(os.tmpdir(),'tax-derived-ui-'));fs.mkdirSync(out,{recursive:true});
+const env={...process.env,PYTHONPATH:[path.join(root,'web/vendor/python/pypdf-6.10.0.whl'),process.env.PYTHONPATH||''].join(path.delimiter)};
+const server=spawn('python3',['-u','-c',`import sys,json;sys.path.insert(0,${JSON.stringify(root)});from http.server import ThreadingHTTPServer;import server;http=ThreadingHTTPServer(('127.0.0.1',0),server.Handler);http.store=server.Store(${JSON.stringify(scratch)});print(json.dumps({'port':http.server_port}),flush=True);http.serve_forever()`],{env,stdio:['ignore','pipe','pipe']});
+let browser;const errors=[];
+async function sample(page,name){await page.evaluate(()=>showTaxMLImport());await page.getByText('Try independently generated binary samples',{exact:true}).click();await page.getByRole('button',{name,exact:true}).click();await page.getByRole('button',{name:'Inspect / edit binary fields',exact:true}).waitFor({timeout:120000});await page.getByRole('button',{name:'Inspect / edit binary fields',exact:true}).click();}
+async function expand(page){for(const label of ['Saved field identities','Preserved form objects','Preserved record objects','Preserved value objects'])await page.locator('summary').filter({hasText:label}).click();}
+(async()=>{
+ const ready=await new Promise((resolve,reject)=>{let text='';server.stdout.on('data',data=>{text+=data;try{resolve(JSON.parse(text.split('\n')[0]));}catch{}});server.on('exit',code=>reject(Error('Private server stopped '+code)));});
+ const origin='http://127.0.0.1:'+ready.port;browser=await chromium.launch({headless:true,...(process.env.TAX_REBORN_BROWSER?{executablePath:process.env.TAX_REBORN_BROWSER}:{})});
+ const context=await browser.newContext({viewport:{width:1280,height:1000},acceptDownloads:true});await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
+ const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));await page.goto(origin+'/?offline=1');await page.waitForFunction(()=>!document.querySelector('#save-button').disabled,{timeout:120000});
+ await page.evaluate(async()=>{newReturn();data.name='Owned complete ValueForm UI';await calculate();});
+ await sample(page,'Load complete saved-form sample');await expand(page);await page.screenshot({path:path.join(out,'derived-source-identities-and-objects.png'),fullPage:true});
+ await page.getByLabel('Binary WAGES [0]',{exact:true}).fill('1234.57');await page.getByLabel('Confirm binary source corrections',{exact:true}).check();
+ const pending=page.waitForEvent('download');await page.getByRole('button',{name:'Download corrected binary',exact:true}).click();const download=await pending;const saved=path.join(out,'browser-derived-corrected.taxbin');await download.saveAs(saved);
+ const digest=crypto.createHash('sha256').update(fs.readFileSync(saved)).digest('hex');assert.equal(digest,'179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25');
+ await page.screenshot({path:path.join(out,'derived-corrected-download.png'),fullPage:true});
+ await sample(page,'Load preserved-object sample');await expand(page);await page.screenshot({path:path.join(out,'derived-three-nonempty-groups.png'),fullPage:true});
+ await page.getByLabel('Binary WAGES [0]',{exact:true}).fill('1234.57');await page.getByLabel('Confirm binary source corrections',{exact:true}).check();await page.getByRole('button',{name:'Download corrected binary',exact:true}).click();await page.locator('.dialog-error').filter({hasText:'Opaque object relocation'}).waitFor();
+ assert.deepEqual(errors,[]);const receipt={real_headless_UI:true,real_Pyodide_worker:true,local_assets_only:true,sample_button:'Load complete saved-form sample',D2_identity_details_rendered:true,three_object_groups_rendered:true,unknown_three_group_bodies_refused_on_move:true,full_ID_scalar_edit:true,download_filename:download.suggestedFilename(),download_bytes:fs.statSync(saved).size,download_sha256:digest,original_engine_executed:false,whole_tax_compatibility:false};fs.writeFileSync(path.join(out,'derived-browser-receipt.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
+})().catch(error=>{console.error(error);process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();server.kill('SIGTERM');fs.rmSync(scratch,{recursive:true,force:true});});

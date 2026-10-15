@@ -3,7 +3,8 @@ param(
     [Parameter(Mandatory=$true)][string]$OutputDir,
     [Parameter(Mandatory=$true)][string]$DataDir,
     [switch]$MixedOnly,
-    [switch]$EffectiveRegistry
+    [switch]$EffectiveRegistry,
+    [switch]$CompleteValueForm
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -640,6 +641,46 @@ try {
         $checks.Add('Ordered two-carrier field selection preserved visible/hidden sources; reviewed income344 saved and cold-reopened; actual system binary export retained nested tables/child/links with complete readback.')
     }
     $checks.Add('Binary income decoded, three forms reviewed, real344 USD recalculated and saved/relaunched; system-saved nested binary edit retained child/table/link/other facts by independent readback.')
+
+    if($CompleteValueForm) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples')
+        Click-Observed (Wait-Named 'Load complete saved-form sample')
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Wait-Named 'Saved field identities · 12' 90 $false | Out-Null
+        Wait-Named 'Preserved form objects · 1' 90 $false | Out-Null
+        Wait-Named 'Preserved record objects · 0' 90 $false | Out-Null
+        Wait-Named 'Preserved value objects · 0' 90 $false | Out-Null
+        Wait-Named 'Stored kind 11 · attributes 3 · saved/current field numbers 104/4' 90 $false | Out-Null
+        Save-Screenshot 'windows-native-complete-ValueForm-source.png'
+        Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        $completeCopy=Join-Path $OutputDir 'windows-native-complete-ValueForm-corrected.taxbin'; Save-Native-Export $completeCopy 100
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_value_form_native.py --corrected-binary $completeCopy --output (Join-Path $OutputDir 'windows-native-complete-ValueForm-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Complete ValueForm system export failed independent readback after normal App close.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_complete_value_form_preservation_passed=$true
+        $checks.Add('Native full-ID scalar correction kept source/current numbers104/4, D2 maps/all3object groups, four moved UUID tails and the complete2906B file after normal close; other values/table/child/fourlinks verified.')
+
+        $orphanFolder=Join-Path $OutputDir 'owned-orphan-binary-fixture'
+        python scripts/verify_value_form_native.py --make-orphan-fixture $orphanFolder --output (Join-Path $OutputDir 'windows-owned-orphan-source-receipt.json')
+        if($LASTEXITCODE -ne 0) { throw 'Owned invalid source fixture was not constructed and independently refused.' }
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $orphanFolder 'orphan.taxbin')
+        Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $orphanFolder 'profile.json')
+        $registries=@(Get-ChildItem $orphanFolder -Filter 'registry-*.xprf' | Sort-Object Name | ForEach-Object { $_.FullName })
+        Choose-Owned-Native-File 'Choose caller-owned XPRF registries' $registries
+        $format=Wait-Named 'TaxML container declaration'; $format.SetFocus()
+        [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{DOWN}{DOWN}{TAB}')
+        Click-Observed (Wait-Named 'Acknowledge the selected unverified wire profile'); Click-Observed (Wait-Named 'Inspect locally')
+        Wait-Named 'Source hash has unreachable allocated storage; current values and corrections are blocked.' 90 $false | Out-Null
+        if(Get-Named 'TaxML inspection results' $false) { throw 'Invalid binary source unexpectedly produced income candidates.' }
+        Save-Screenshot 'windows-native-orphan-source-refused.png'
+        Click-Observed (Wait-Named 'Close dialog')
+        $receipt.native_unreachable_binary_source_refused=$true
+        $checks.Add('Actual native file pickers supplied a complete owned file with orphan hash nodes; import stopped before income review or source editing, leaving the344 USD return unchanged.')
+    }
 
     Remove-Item Env:TAX_REBORN_OWNED_DATADIR
     if(!$MixedOnly) {

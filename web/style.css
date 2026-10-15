@@ -8,3 +8,5 @@
 .schedule-table>tbody>tr>td:first-child{width:42%;color:#657b8d}.schedule-table .details-toggle{margin:0}.schedule-table .details-toggle summary{padding:0}.schedule-table .table-scroll{margin-top:10px}.schedule-table .data-table{font-size:10px}
 
 .field-grid>.auto-section{grid-column:1/-1}
+
+.binary-raw-id{display:block;white-space:normal;overflow-wrap:anywhere;font-size:.75rem;line-height:1.35;margin:.2rem 0 .6rem}

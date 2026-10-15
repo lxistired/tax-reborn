@@ -32,14 +32,14 @@ self.onmessage = event => {
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
       else if (['taxml_inspect','taxml_export','binary_tax_edit'].includes(command)) {
         if (!taxmlReady) taxmlReady = (async()=>{
-          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_xml_edit.py','taxml_preparation.py','binary_tax.py'];
+          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_xml_edit.py','taxml_preparation.py','binary_tax.py','binary_derived.py'];
           const response=await fetch(new URL('binary-runtime.json',base));
           if(!response.ok)throw Error('Local binary tax-data manifest missing');
           const manifest=await response.json();
-          if(manifest.format!=='tax-reborn-binary-runtime-v1'||!Array.isArray(manifest.modules)||!manifest.modules.length||manifest.modules.length>32||manifest.modules.some(name=>typeof name!=='string'||!/^interop\/(?:__init__|form_core\/[a-z_0-9]+)\.py$/.test(name)))throw Error('Invalid local binary tax-data manifest');
+          if(manifest.format!=='tax-reborn-binary-runtime-v1'||!Array.isArray(manifest.modules)||!manifest.modules.length||manifest.modules.length>64||manifest.modules.some(name=>typeof name!=='string'||!/^interop\/(?:__init__|(?:form_core|derived_form)\/[a-z_0-9]+)\.py$/.test(name)))throw Error('Invalid local binary tax-data manifest');
           names.push(...manifest.modules);
           const text=await Promise.all(names.map(async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw Error('Local TaxML inspector resource missing: '+name);return response.text();}));
-          py.FS.mkdirTree('/home/pyodide/interop/form_core');
+          py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');
           names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,text[index]));
           await py.runPythonAsync('import taxml_preparation, binary_tax');
         })();

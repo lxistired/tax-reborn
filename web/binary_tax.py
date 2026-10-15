@@ -11,14 +11,26 @@ import re
 
 import taxml_wire as wire
 import taxml_preparation as prep
+import binary_derived as derived
+from interop.derived_form.document_semantics_reference import document_semantic_snapshot as derived_snapshot
 from interop.form_core.cx_string_wire_reference import Buffers, initialize
 from interop.form_core.native_amount import decode_amount
+from interop.form_core.hash_structure_reference import validate_document_hashes
+from interop.form_core.value_hash_wire_reference import find_value as base_find_value
 from interop.form_core.document_semantics_reference import document_semantic_snapshot
 from interop.form_core.native_document_reference import (
     TemplateContext, load_document_bytes, store_document_bytes,
-    walk_forms, replace_form,
+    walk_forms as base_walk_forms, replace_form as base_replace_form,
 )
 from interop.form_core.string_wire_reference import read as read_string
+
+def walk_forms(doc):
+    return derived.walk_forms(doc) if isinstance(doc,derived.Document) else base_walk_forms(doc)
+
+
+def replace_form(doc,path,form):
+    return derived.replace_form(doc,path,form) if isinstance(doc,derived.Document) else base_replace_form(doc,path,form)
+
 
 PROFILE = 'tax-reborn-binary-entity-profile-v1'
 EFFECTIVE_PROFILE = 'tax-reborn-binary-entity-profile-v2'
@@ -50,15 +62,18 @@ def _context(request):
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected data profile.')
     profile = request['profile']
-    effective = isinstance(profile, dict) and profile.get('format') in (EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE)
+    effective = isinstance(profile, dict) and profile.get('format') in (EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, derived.PROFILE)
     value_tables = isinstance(profile, dict) and profile.get('format') == VALUE_TABLE_PROFILE
+    derived_forms = isinstance(profile,dict) and profile.get('format') == derived.PROFILE
     keys = {'format', 'tax_year', 'templates', 'template_versions'}
     if effective:
         keys.add('registry_order')
     if value_tables:
         keys.add('table_factories')
+    if derived_forms:
+        keys.update(('form_factories','compiled_arrays'))
     if (not isinstance(profile, dict) or set(profile) != keys
-            or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE)
+            or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, derived.PROFILE)
             or type(profile['tax_year']) is not int or profile['tax_year'] != 2025):
         raise ValueError('Choose an explicit supported 2025 binary data profile.')
     selected, _ = prep.validate_profile({
@@ -118,6 +133,12 @@ def _context(request):
             if key not in selected or key in factories:
                 raise ValueError('Table factories must uniquely bind selected form templates.')
             factories[key] = entry['table_kind']
+    if derived_forms:
+        source = prep.decode_blob(request['base64'], MAX_BYTES)
+        buffers = _buffers()
+        bound = derived.load_context(profile,registry,selected,source,buffers,OwnedTableIDs())
+        bound.document.metadata['hash_structure_validation']=validate_document_hashes(bound.document)
+        return bound.document,buffers,bound,registry,selected,source
     context = TemplateContext(
         template_versions={key.encode('ascii'): val for key, val in versions.items()},
         field_ids=ids, current_table_ids=OwnedTableIDs(),
@@ -128,6 +149,7 @@ def _context(request):
     source = prep.decode_blob(request['base64'], MAX_BYTES)
     buffers = _buffers()
     document = load_document_bytes(source, buffers, template_context=context)
+    document.metadata['hash_structure_validation']=validate_document_hashes(document)
     return document, buffers, context, registry, selected, source
 
 
@@ -143,13 +165,18 @@ def _template(document, path, form, registry, selected):
     return fsid, registry.resolve(*key, selected[key]), selected[key]
 
 
-def _field_fact(form, node, spec):
+def _field_fact(form, node, spec, *, derived_form=False):
     fact = {'ordinal': node.field_index, 'element': node.element_index,
             'kind': node.kind_byte, 'raw64': str(node.raw),
             'value_header': node.header, 'specific_attributes': node.specific_attributes,
             'exponent_byte': node.exponent_byte, 'field_id': spec.field_id if spec else None,
             'declared_array': spec.is_array if spec else None,
             'text': None, 'status': 'unbound_metadata', 'editable': False}
+    reached=(derived.find_value if derived_form else base_find_value)(form.hash_state,node.field_index,node.element_index)
+    fact['hash_reachable']=reached is node
+    if reached is not node:
+        fact.update(status='unreachable_hash_node')
+        return fact
     if spec is None or spec.kind != node.kind_byte:
         return fact
     if spec.is_array or node.element_index != 0 or spec.format != 0:
@@ -169,7 +196,7 @@ def _field_fact(form, node, spec):
         elif node.raw & 65535 != form.table_id:
             fact['status'] = 'unresolved_string_table'
         else:
-            fact.update(status='text', text=_text(read_string(form.string_table, (node.raw >> 16) & 65535)))
+            fact.update(status='text', text=_text((derived.read_string if derived_form else read_string)(form.string_table, (node.raw >> 16) & 65535)))
     else:
         fact['status'] = 'raw_type_preserved'
     return fact
@@ -202,7 +229,10 @@ def _filing_status_setup(form, template, identity, form_path, path, source_hash,
             elif len(nodes) != 1:
                 problems.append(field_id + ': repeated scalar checkbox')
             else:
-                node = nodes[0]
+                node = base_find_value(form.hash_state,spec.ordinal,0)
+                if node is not nodes[0]:
+                    problems.append(field_id + ': source storage is not a current hash value')
+                    fact['status']='unreachable_hash_node';facts.append(fact);continue
                 fact.update(raw64=str(node.raw), current_format=node.flag10,
                     specific_attributes=node.specific_attributes,
                     format_ignored_by_box_conversion=True)
@@ -245,21 +275,35 @@ def _inspect(request):
         per_set[path[0]] = ordinal + 1
         form_path = f'0/{path[0]}/{ordinal}'
         specs = {field.ordinal: field for field in template.fields} if template else {}
-        setup = _filing_status_setup(form, template, identity, form_path, path, source_hash, profile_hash)
+        derived_form = isinstance(context,derived.BoundDocument)
+        setup = None if derived_form else _filing_status_setup(form, template, identity, form_path, path, source_hash, profile_hash)
         if setup:
             setup_candidates.append(setup)
-        facts = [_field_fact(form, node, specs.get(node.field_index))
-                 for buffer in form.hash_state.buffers for node in buffer.nodes]
+        facts = []
+        for buffer in form.hash_state.buffers:
+            for node in buffer.nodes:
+                value=derived.binding(context,path,node) if derived_form else None
+                spec=specs.get(value.current_field_index if value else node.field_index)
+                fact=_field_fact(form,node,spec,derived_form=derived_form)
+                facts.append(derived.decorate_fact(fact,form,node,value) if derived_form else fact)
         archive_forms.append({'path': list(path), 'form_path': form_path,
             'formset_id': fsid, 'form_id': _text(form.header.identifier),
             'file_copy': form.header.file_copy, 'fields': facts,
             'tables': len(form.tables), 'children': len(form.children),
-            'table_headers': [{'identifier': _text(t.identifier), 'table_kind': t.table_kind,
+            'table_headers': [{'identifier': _text(t.identifier), 'table_kind': t.metadata.get('declared_table_kind') if derived_form else t.table_kind,
                 'first_field_ordinal': t.word28, 'last_field_ordinal': t.word2a,
                 'saved_last_used_record_index': t.last_used_record_index} for t in form.tables],
             'links': [{'form_id': _text(link.form_id), 'file_copy': link.file_copy,
                        'field_id': _text(link.field_id), 'element': link.element_index,
-                       'resolved': link.resolved} for link in form.links]})
+                       'resolved': link.resolved} for link in form.links],
+            **({'derived':derived.tail_report(form)} if derived_form else {})})
+        if derived_form:
+            unresolved.extend({'path':form_path,'code':'unreachable_hash_node','detail':fact['field_id'] or str(fact['ordinal'])}
+                for fact in facts if not fact['hash_reachable'])
+            report=derived.tail_report(form)
+            for group in report['groups'] if report else ():
+                unresolved.extend({'path':form_path,'code':'untyped_persistent_object','detail':obj['class_name']}
+                    for obj in group['objects'] if not obj['typed_form_uuid'])
         # Unknown values stay preserved in the source editor and block claims of
         # importing a complete return. They never silently become ordinary tax.
         unknown = [fact for fact in facts if fact['specific_attributes'] & 1 and
@@ -340,6 +384,7 @@ def _inspect(request):
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'binary_archive': {'forms': archive_forms, 'formsets': len(document.formsets),
+                           'hash_structure_validation':document.metadata['hash_structure_validation'],
                            'all_source_bytes_retained': True},
         'warnings': ['Binary source fields and nonempty supported structures are retained locally.',
             'Explicitly bound income records and filing-status setup require separate review before entering this App.',
@@ -382,16 +427,24 @@ def _rewrite(inspection, expected_source, changes, confirmed):
     forms = {tuple(path): form for path, form in walk_forms(document)}
     facts = {(tuple(form['path']), field['ordinal'], field['element']): field
              for form in result['binary_archive']['forms'] for field in form['fields']}
+    derived_form = isinstance(context,derived.BoundDocument)
     seen = set()
     for change in changes:
-        if not isinstance(change, dict) or set(change) != {'path', 'ordinal', 'element', 'value'}:
+        address_key = 'field_id' if derived_form else 'ordinal'
+        if not isinstance(change, dict) or set(change) != {'path', address_key, 'element', 'value'}:
             raise ValueError('Invalid source correction.')
         if not isinstance(change['path'], list) or not change['path'] or any(type(v) is not int for v in change['path']):
             raise ValueError('Invalid binary form path.')
-        if any(type(change[key]) is not int or not 0 <= change[key] <= 65535 for key in ('ordinal', 'element')):
+        if any(type(change[key]) is not int or not 0 <= change[key] <= 65535 for key in (('element',) if derived_form else ('ordinal','element'))):
             raise ValueError('Invalid binary field address.')
-        key = tuple(change['path']), change['ordinal'], change['element']
-        fact = facts.get(key)
+        if derived_form:
+            if type(change['field_id']) is not str:raise ValueError('Exact full field ID required.')
+            matches=[fact for (path,ordinal,element),fact in facts.items() if path==tuple(change['path']) and element==change['element'] and fact['field_id']==change['field_id']]
+            if len(matches)!=1:raise ValueError('Full field ID is missing or ambiguous.')
+            fact=matches[0];key=tuple(change['path']),fact['ordinal'],change['element']
+        else:
+            key=tuple(change['path']),change['ordinal'],change['element']
+            fact=facts.get(key)
         if key in seen or not fact or not fact['editable']:
             raise ValueError('The source field is duplicate, unused or unsupported.')
         seen.add(key)
@@ -419,10 +472,13 @@ def _rewrite(inspection, expected_source, changes, confirmed):
                 for node in buffer.nodes)) for buffer in form.hash_state.buffers)))
         forms[key[0]] = updated
         document = replace_form(document, key[0], updated)
-    expected = document_semantic_snapshot(document)
-    corrected = store_document_bytes(document, buffers, template_context=context)
-    reread = load_document_bytes(corrected, buffers, template_context=context)
-    if document_semantic_snapshot(reread) != expected:
+    snapshot=derived_snapshot if derived_form else document_semantic_snapshot
+    expected = snapshot(document)
+    if derived_form:corrected,reread=derived.store_and_read(document,buffers,context)
+    else:
+        corrected=store_document_bytes(document,buffers,template_context=context)
+        reread=load_document_bytes(corrected,buffers,template_context=context)
+    if snapshot(reread) != expected:
         raise ValueError('Corrected copy failed full structure and value readback; no copy was exported.')
     return {'format': 'tax-reborn-corrected-binary-v1', 'base64': base64.b64encode(corrected).decode(),
         'mime': 'application/octet-stream', 'source_sha256': expected_source,
@@ -456,8 +512,8 @@ def export_request(request):
         if not isinstance(text, str) or not re.fullmatch(r'[0-9]{1,13}(?:\.[0-9]{1,2})?', text) or Decimal(text) > 1000000000:
             raise ValueError('Enter explicit nonnegative source amounts within the supported range.')
         fact = candidate['sources'][name]
-        changes.append({'path': fact['binary_path'], 'ordinal': fact['ordinal'],
-                        'element': fact['element'], 'value': text})
+        address={'field_id':fact['field_id']} if request['inspection']['profile']['format']==derived.PROFILE else {'ordinal':fact['ordinal']}
+        changes.append({'path':fact['binary_path'],**address,'element':fact['element'],'value':text})
     output = _rewrite(request['inspection'], result['source_sha256'], changes, request['confirmed'])
     reread = inspect_request({**request['inspection'], 'base64': output['base64']})
     matches = [item for item in reread['candidates'] if item['receipt']['form_path'] == candidate['receipt']['form_path']]
