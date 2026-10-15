@@ -1,0 +1,229 @@
+{
+  "checked_at_utc": "2026-10-15T21:37:32.976559+00:00",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.33",
+  "tag": "v2026.10.16-preview.33",
+  "target_commit": "d29f1479b46268235315251b56707d14bd0485ec",
+  "runtime_commit": "251d2e24e16fb668ae309d510acdd159fa2f88be",
+  "published_at": "2026-10-15T21:35:41Z",
+  "draft": false,
+  "prerelease": true,
+  "anonymous": true,
+  "auth_header_sent": false,
+  "complete_asset_downloads": 9,
+  "total_bytes": 394317892,
+  "all_asset_sizes_and_SHA256_match_local_release": true,
+  "API_asset_digests_and_SHA256SUMS_verified": true,
+  "archives": [
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Source.zip",
+      "CRC_passed": true,
+      "duplicate_entry_names": false,
+      "entries": 2334
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Android.apk",
+      "CRC_passed": true,
+      "duplicate_entry_names": false,
+      "entries": 384
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Windows-x64-portable.zip",
+      "CRC_passed": true,
+      "duplicate_entry_names": false,
+      "entries": 700
+    }
+  ],
+  "files": [
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Windows-x64-Setup.exe",
+      "bytes": 58122745,
+      "sha256": "ec152f8fcd79f3bb5dbcf6482d681481f1d8ef8058bf7f60e3f98a7c67c68e1d",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:12.195433+00:00",
+        "finished_at_utc": "2026-10-15T21:37:18.492817+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:12 GMT",
+          "Thu, 15 Oct 2026 21:37:13 GMT"
+        ],
+        "header_sha256": "daa03e38d83ee62e5e1cf06bd98c1de55e3bf8717a3de91374f953fa7e745910"
+      }
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Windows-x64-portable.zip",
+      "bytes": 72040362,
+      "sha256": "8f0a492558a286848a31e5ce9c6d5311ba29274435475a04ff40fdaf58ec637c",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:12.197269+00:00",
+        "finished_at_utc": "2026-10-15T21:37:19.235751+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:12 GMT",
+          "Thu, 15 Oct 2026 21:37:13 GMT"
+        ],
+        "header_sha256": "35f8f9416010416c6bd067278568ae2113bf225478052a25d9543c198ef5772a"
+      }
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-macOS-arm64.dmg",
+      "bytes": 72892200,
+      "sha256": "5a46810c51ee2df386756f2b7268dff53497cb4409adff6addbc45091331cf9b",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:12.197547+00:00",
+        "finished_at_utc": "2026-10-15T21:37:21.327806+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:12 GMT",
+          "Thu, 15 Oct 2026 21:37:13 GMT"
+        ],
+        "header_sha256": "618f613f5aa64427862538e4267ff16b75d3c4216d9ae51521709a188975d056"
+      }
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Android.apk",
+      "bytes": 50171356,
+      "sha256": "bd2432b7e8b97faede20b87374a9cb5eecea7c800c6e63f1aeb0f621c0084216",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:18.516970+00:00",
+        "finished_at_utc": "2026-10-15T21:37:24.489808+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:19 GMT",
+          "Thu, 15 Oct 2026 21:37:19 GMT"
+        ],
+        "header_sha256": "79014e9ae40851da963b2ea9cd306e68ee78edeb34abd09dea45f5685eb5507c"
+      }
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.33-Source.zip",
+      "bytes": 141088219,
+      "sha256": "f5da6772ca1d536b3c3800ca399766c53d1132a2975160b0b144eb6fb2d18090",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:19.265203+00:00",
+        "finished_at_utc": "2026-10-15T21:37:32.401156+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:19 GMT",
+          "Thu, 15 Oct 2026 21:37:20 GMT"
+        ],
+        "header_sha256": "50dfa4f9213641ef56774125c2c3738ad5764093e9219ec845875a5a0573a807"
+      }
+    },
+    {
+      "name": "build-manifest-android.json",
+      "bytes": 456,
+      "sha256": "2df8d798d90bb76e4a52396b1d6ba96e4fcdc93f8de484296b3060a3c89159bd",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:21.362054+00:00",
+        "finished_at_utc": "2026-10-15T21:37:22.739799+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:22 GMT",
+          "Thu, 15 Oct 2026 21:37:22 GMT"
+        ],
+        "header_sha256": "15fb2b563011e3ec7a8e12ce56343346feedc802ee6952684811e6742ee5862f"
+      }
+    },
+    {
+      "name": "build-manifest-darwin-arm64.json",
+      "bytes": 728,
+      "sha256": "cda021265d12f9c285ef7d33530096b430f334f1e32009e8fbd768efae87f430",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:22.740328+00:00",
+        "finished_at_utc": "2026-10-15T21:37:23.836987+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:23 GMT",
+          "Thu, 15 Oct 2026 21:37:23 GMT"
+        ],
+        "header_sha256": "4faae7ac2431540407c8b6f7fbf711abc5a8718ac37d7bf19508f5dae484d4ff"
+      }
+    },
+    {
+      "name": "build-manifest-win32-x64.json",
+      "bytes": 956,
+      "sha256": "7d4dd36f956cdc2c3bdafdde49ff0e2bddd417b87765c1ec7f6df1e41b61fa96",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:23.837330+00:00",
+        "finished_at_utc": "2026-10-15T21:37:25.111954+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:24 GMT",
+          "Thu, 15 Oct 2026 21:37:25 GMT"
+        ],
+        "header_sha256": "bbee102f116435e3be1ebf50f89126ae4f15131b4e0ad074b86f11ad9fbfc5ab"
+      }
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 870,
+      "sha256": "24a8f78b7f5e8a51ad2a7110f217dd9a8d0746540d133c0b5f0af6915eb18067",
+      "anonymous_GET_status": 200,
+      "complete_download": true,
+      "http": {
+        "status": 200,
+        "redirects": 1,
+        "effective_host": "release-assets.githubusercontent.com",
+        "started_at_utc": "2026-10-15T21:37:24.512767+00:00",
+        "finished_at_utc": "2026-10-15T21:37:25.826241+00:00",
+        "response_dates": [
+          "Thu, 15 Oct 2026 21:37:25 GMT",
+          "Thu, 15 Oct 2026 21:37:25 GMT"
+        ],
+        "header_sha256": "04f020f2642d16ea290583199d3fb5d2c44105e0188466845befcc025af8ac74"
+      }
+    }
+  ],
+  "scope": "Independent public delivery integrity; native package and bounded feature evidence are separate. No original-engine or whole-archive parity claim.",
+  "all9_downloads_direct_bytes_equal_local_tested_release_files": true,
+  "source_archive": {
+    "all_passed": true,
+    "source_commit": "d29f1479b46268235315251b56707d14bd0485ec",
+    "files": 2182,
+    "all_zip_entries_CRC_valid": true,
+    "all_files_exact_Git_blobs": true,
+    "all_files_equal_previously_tested_extraction": true,
+    "reviewer_source_App_reexecuted": false,
+    "source_zip_bytes": 141088219,
+    "source_zip_sha256": "f5da6772ca1d536b3c3800ca399766c53d1132a2975160b0b144eb6fb2d18090"
+  },
+  "new_source_privacy_check": {
+    "new_or_modified_files_since_previous_release": 71,
+    "actual_local_user_or_private_evidence_path_hits": 0,
+    "private_decompile_filename_hits": 0,
+    "scope": "Changed source text only, plus previously independently verified package web assets; no universal PII/origin claim"
+  },
+  "no_second_download_performed": true
+}
