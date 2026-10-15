@@ -17,7 +17,9 @@ from interop.derived_form.persistent_value_bodies_reference import (
 
 PROFILE='tax-reborn-binary-entity-profile-v4'
 AUTO_ARRAY_PROFILE='tax-reborn-binary-entity-profile-v5'
-PROFILES=(PROFILE,AUTO_ARRAY_PROFILE)
+PERSISTENT_PROFILE='tax-reborn-binary-entity-profile-v6'
+AUTOMATIC_PROFILES=(AUTO_ARRAY_PROFILE,PERSISTENT_PROFILE)
+PROFILES=(PROFILE,*AUTOMATIC_PROFILES)
 
 def _key(entry):
     if type(entry.get('formset_id')) is not str or type(entry.get('form_id')) is not str:
@@ -38,7 +40,7 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
         factories[key]=entry['form_kind'];tables[key]=entry['table_kind']
     if set(factories)!=set(selected) or 'value_form' not in factories.values():
         raise ValueError('Bind all selected factories and at least one ValueForm.')
-    if profile['format']==AUTO_ARRAY_PROFILE:
+    if profile['format'] in AUTOMATIC_PROFILES:
         supplied=getattr(registry,'array_payloads',None)
         if type(supplied) is not dict or set(supplied)!=set(selected):
             raise ValueError('Bind actual arrays from the same complete effective registry.')
@@ -79,9 +81,26 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
              for key,identity in selected.items() if factories[key]=='value_form'}
     ids={(fs.encode(),form.encode()):{f.ordinal:f.field_id.encode() for f in registry.resolve(fs,form,identity).fields}
          for (fs,form),identity in selected.items()}
+    persistent={}
+    if profile['format']==PERSISTENT_PROFILE:
+        if profile['entity_factory']!='value_entity' or type(profile['formset_factories']) is not list:
+            raise ValueError('Declare the Entity and every FormSet persistent-object factory.')
+        expected={key[0] for key in selected}
+        for entry in profile['formset_factories']:
+            if (type(entry) is not dict or set(entry)!={'formset_id','formset_kind'}
+                    or type(entry['formset_id']) is not str or entry['formset_id'] not in expected
+                    or entry['formset_id'] in persistent
+                    or entry['formset_kind'] not in ('base_formset','value_formset')):
+                raise ValueError('Unique explicit supported factory per selected FormSet required.')
+            persistent[entry['formset_id']]=entry['formset_kind']
+        if set(persistent)!=expected:
+            raise ValueError('Do not infer missing FormSet factories from source tails.')
     context=TemplateContext(template_versions={key.encode():v for key,v in profile['template_versions'].items()},
         field_ids=ids,current_table_ids=table_ids,preserve_unresolved_links=True,
-        form_factories=encoded(factories),table_factories=encoded(tables))
+        form_factories=encoded(factories),table_factories=encoded(tables),
+        formset_factories={key.encode():value for key,value in persistent.items()},
+        default_formset_factory=None if profile['format']==PERSISTENT_PROFILE else 'base_formset',
+        entity_factory=profile.get('entity_factory','base_entity'))
     bound=load_source_bound_document_bytes(source,buffers,template_context=context,
         current_fields=encoded(current),arrays=encoded(arrays))
     # A shared loader guard validates every instance before any caller can
@@ -91,10 +110,42 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
         if form.derived_tail is not None:
             try:proven_value_relocation_classes(form.derived_tail)
             except UnsupportedBodyProfile as error:raise ValueError(str(error)) from error
-    if profile['format']==AUTO_ARRAY_PROFILE and any(value.native_action=='requires_array_shape_recovery'
+    if profile['format'] in AUTOMATIC_PROFILES and any(value.native_action=='requires_array_shape_recovery'
             for values in bound.bindings.values() for value in values):
         raise ValueError('Source array shape requires unsupported native recovery against actual definitions.')
     return bound
+
+def persistent_report(document):
+    """Saved raw objects only; these never supply active native metadata."""
+    if document.persistent_objects is None and all(fs.persistent_attributes is None for fs in document.formsets):
+        return None
+    from interop.derived_form.formset_attributes_reference import typed_body as formset_body
+    from interop.derived_form.entity_objects_reference import typed_body as entity_body
+    from interop.form_core.metadata_formset_body_reference import NAME as METADATA_NAME
+    from interop.derived_form.metadata_entity_body_reference import NAME as ENTITY_METADATA_NAME
+    def report(value,scope):
+        if value is None:return None
+        rows=[]
+        for obj in value.objects:
+            typed=(formset_body if scope=='formset' else entity_body)(obj.class_name,obj.body)
+            row=dict(class_name=obj.class_name.decode('ascii',errors='backslashreplace'),
+                body_bytes=len(obj.body),body_sha256=hashlib.sha256(obj.body).hexdigest(),
+                source_position=obj.source_record_position,relocatable=typed is not None,
+                original_bytes_retained=True,active_native_value=False)
+            if typed is not None and ((scope=='formset' and obj.class_name==METADATA_NAME)
+                    or (scope=='entity' and obj.class_name==ENTITY_METADATA_NAME)):
+                row.update(kind='stored_metadata',version=typed.version,
+                    rows=[dict(path_hex=r.path.hex(),text_hex=r.text.hex()) for r in typed.rows],
+                    skipped_line_count=len(typed.skipped_lines),native_set_value_executed=False)
+            else:row['kind']='stored_identifier' if typed is not None else 'opaque'
+            rows.append(row)
+        return dict(capacity=value.capacity,used=value.used,relative_offsets=list(value.offsets),
+            source_position=value.source_base_position,bytes=len(value.source_wire),
+            sha256=hashlib.sha256(value.source_wire).hexdigest(),objects=rows,
+            active_native_metadata_verified=False)
+    return dict(entity=report(document.persistent_objects,'entity'),
+        formsets=[dict(index=i,formset_id=fs.header.identifier.rstrip(b' ').decode('ascii',errors='backslashreplace'),
+            persistent_attributes=report(fs.persistent_attributes,'formset')) for i,fs in enumerate(document.formsets)])
 
 def binding(bound,path,node):
     return next((value for value in bound.bindings.get(path,())

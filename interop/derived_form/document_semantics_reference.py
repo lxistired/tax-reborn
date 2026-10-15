@@ -11,6 +11,16 @@ from .form_header_map_reference import store_header
 from .value_hash_wire_reference import pack_node,validate as validate_hash
 from .string_wire_reference import records,validate as validate_table
 from .source_bound_value_document_reference import Document,UnsupportedProfile
+from .entity_objects_reference import persistent_objects_snapshot
+from .formset_attributes_reference import preserve_attributes
+
+def attributes_snapshot(value):
+ if value is None:return None
+ preserve_attributes(value)
+ return {'capacity':value.capacity,'used':value.used,'relative_offsets':list(value.offsets),
+         'wire_hex':value.source_wire.hex(),
+         'objects':[{'class_name_hex':obj.class_name.hex(),'body_hex':obj.body.hex(),
+                     'record_wire_hex':obj.source_wire.hex()} for obj in value.objects]}
 
 def _plain(value):
  if type(value) is bytes:return value.hex()
@@ -70,4 +80,6 @@ def document_semantic_snapshot(doc):
    'children':[form(ch) for ch in f.children],'links':[_link(l) for l in f.links],
    'derived_tail':f.derived_tail.source_wire.hex() if f.derived_tail else None}
  return {'entity_header':_plain(doc.entity_header),
-  'formsets':[{'header':_plain(fs.header),'forms':[form(f) for f in fs.forms]} for fs in doc.formsets]}
+  'persistent_objects':persistent_objects_snapshot(doc.persistent_objects),
+  'formsets':[{'header':_plain(fs.header),'persistent_attributes':attributes_snapshot(fs.persistent_attributes),
+              'forms':[form(f) for f in fs.forms]} for fs in doc.formsets]}

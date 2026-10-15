@@ -1,0 +1,58 @@
+{
+  "verdict": "PASS, core proceeds to separate native platform acceptance",
+  "host_independent_inputs": 48,
+  "real_Pyodide_independent_inputs": 48,
+  "copied_App_tests": 9,
+  "previous_profiles_full_JSON_baselines_exact": 11,
+  "original_runtime_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "whole_original_compatibility": false,
+  "review_manifest_sha256": "8a9f5c9b44b677c8e19e83feaf607b3ee931a7775268dd40606586420ba4ce96",
+  "source_core_reviewed": [
+    {
+      "path": "web/binary_tax.py",
+      "sha256": "44caf3b042815ef12d13c6a7681e5a70e9f102f65d097c188fd23c3d4c9c0de9",
+      "bytes": 33177
+    },
+    {
+      "path": "web/binary_derived.py",
+      "sha256": "c0616a8585d0c9edf8c6f3b51b27537d2590aa238ee3da93b8353ac787ca5d7f",
+      "bytes": 14032
+    },
+    {
+      "path": "interop/derived_form/source_bound_value_document_reference.py",
+      "sha256": "41d874e8b77e974caf57ebcfc1a9690a52106a95900681559ec52e646c26d0e1",
+      "bytes": 27259
+    },
+    {
+      "path": "interop/derived_form/document_semantics_reference.py",
+      "sha256": "fa2f3a3dd09f5d749be1ddd16a100d0cfa16a1c3b43c8c532ea75506f9c65e90",
+      "bytes": 4620
+    },
+    {
+      "path": "interop/derived_form/entity_objects_reference.py",
+      "sha256": "146085f061950af9db7a2c8a5ca013fba3350e5537d118749d175bdf70e40eb3",
+      "bytes": 6396
+    },
+    {
+      "path": "interop/derived_form/formset_attributes_reference.py",
+      "sha256": "7e24e4d7684a09ed592356e65e65f7b3b6289ed209ee4f29ecab750fff0b48cb",
+      "bytes": 5511
+    },
+    {
+      "path": "interop/derived_form/legacy_entity_uuid_body_reference.py",
+      "sha256": "7b2992936cd296b979d33b3b673fe2f8011a40fbdc8a4b14f53ee1a9edb854ee",
+      "bytes": 1924
+    },
+    {
+      "path": "interop/derived_form/metadata_entity_body_reference.py",
+      "sha256": "18dac5997b8afd7cdaec19813d67781f62ad12cb55f068eb3b850eef475982c0",
+      "bytes": 4258
+    },
+    {
+      "path": "interop/form_core/metadata_formset_body_reference.py",
+      "sha256": "024d95af007f9322c0b5097aeeece613c1d34fb30192a2a3f244fd655c6cfe97",
+      "bytes": 7317
+    }
+  ]
+}

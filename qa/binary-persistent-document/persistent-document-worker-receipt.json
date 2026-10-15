@@ -1,0 +1,15 @@
+{
+  "real_pyodide_worker": true,
+  "malformed_refusals": 6,
+  "unknown_scope_relocation_refusals": 2,
+  "unmodeled_14B_original_version_refused_on_move": true,
+  "formsets": 2,
+  "forms": 8,
+  "whole_document_bytes": 8110,
+  "sha256": "c5bdc13fb5bdd8cb435e4e2eaad2fdb21077b5024a28e89e8b1bbcbc0e30ba26",
+  "all_eight_tails_and_Entity_FormSet_bodies_retained": true,
+  "all_layers_moved_by": 2,
+  "active_metadata_executed": false,
+  "original_engine_executed": false,
+  "whole_original_tax_compatibility": false
+}

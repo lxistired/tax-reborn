@@ -13,7 +13,7 @@ def source_node(form, spec, path, *, profile_format, bound):
         raise ValueError('Exact complete approved field ID required')
     audit = {'current_ordinal': spec.ordinal, 'full_field_id_hex': full.hex(), 'element_index': 0,
              'native_fixup_performed': False}
-    if profile_format not in ('tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5'):
+    if profile_format not in ('tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5','tax-reborn-binary-entity-profile-v6'):
         node = find_base(form.hash_state, spec.ordinal, 0)
         audit.update(source_ordinal=spec.ordinal, source_address_kind='base_current_ordinal')
         return node, audit

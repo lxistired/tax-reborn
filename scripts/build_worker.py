@@ -15,7 +15,7 @@ shutil.copytree(ROOT/'interop',generated,ignore=shutil.ignore_patterns('__pycach
 binary_modules=sorted(p.relative_to(web).as_posix() for p in generated.rglob('*.py'))
 samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
 sample_assets=[]
-for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json'):
+for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)

@@ -1,0 +1,37 @@
+{
+  "actual_UI_review_and_add": true,
+  "actual_saved_reload": true,
+  "synthetic_only": true,
+  "counts": [
+    1,
+    2,
+    1
+  ],
+  "refund": 344,
+  "reviewed": [
+    {
+      "reviewed": true,
+      "source_sha256": "0eae561c6a1056cf6dcbdbf008d433b5ac9eb8a9f977381689d2c9a31c80ea03",
+      "profile_sha256": "be0f8ecfecd3ffda4c8f657179440086797ac8a80bf60c588587919f7e8fedd2",
+      "form_path": "0/0/0"
+    },
+    {
+      "reviewed": true,
+      "source_sha256": "0eae561c6a1056cf6dcbdbf008d433b5ac9eb8a9f977381689d2c9a31c80ea03",
+      "profile_sha256": "be0f8ecfecd3ffda4c8f657179440086797ac8a80bf60c588587919f7e8fedd2",
+      "form_path": "0/0/1"
+    },
+    {
+      "reviewed": true,
+      "source_sha256": "0eae561c6a1056cf6dcbdbf008d433b5ac9eb8a9f977381689d2c9a31c80ea03",
+      "profile_sha256": "be0f8ecfecd3ffda4c8f657179440086797ac8a80bf60c588587919f7e8fedd2",
+      "form_path": "0/0/2"
+    },
+    {
+      "reviewed": true,
+      "source_sha256": "0eae561c6a1056cf6dcbdbf008d433b5ac9eb8a9f977381689d2c9a31c80ea03",
+      "profile_sha256": "be0f8ecfecd3ffda4c8f657179440086797ac8a80bf60c588587919f7e8fedd2",
+      "form_path": "0/0/3"
+    }
+  ]
+}

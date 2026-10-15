@@ -8,7 +8,8 @@ param(
     [switch]$AutomaticArrays,
     [switch]$SourceComparison,
     [switch]$TypedValues,
-    [switch]$WholeNumbers
+    [switch]$WholeNumbers,
+    [switch]$PersistentObjects
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -734,6 +735,26 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_whole_number_source_passed=$true
         $checks.Add('Actual native whole-number range1..12/refused13; complete3831B system save7 to8 retained saved/current113/13, nonempty tables/child/fourlinks/all moved typed bodies and current344 return after normal close/reopen.')
+    }
+    if($PersistentObjects) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load saved document objects')
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Click-Observed (Wait-Named 'Saved Entity objects · 3')
+        Click-Observed (Wait-Named 'Saved FormSet OWNED2025MERGED objects · 2')
+        Wait-Named 'MetaDataKeyValuePersistentObject' 90 $false | Out-Null
+        Wait-Named 'MetaDataKeyValueFormSetPO' 90 $false | Out-Null
+        Save-Screenshot 'windows-native-Entity-FormSet-objects.png'
+        Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        $objectsCopy=Join-Path $OutputDir 'windows-native-persistent-document-corrected.taxbin'; Save-Native-Export $objectsCopy 100
+        Save-Screenshot 'windows-native-persistent-document-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_persistent_document_native.py --corrected-binary $objectsCopy --output (Join-Path $OutputDir 'windows-native-persistent-document-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Whole Entity/FormSet persistent source system export failed raw body/CRC/readback.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_Entity_FormSet_persistent_document_passed=$true
+        $checks.Add('Actual system8110B full source export retained2FormSets/8forms/nonemptytables/children/8links, all eight value tails plus Entity14B146147/bothFS148151 original raw objects after movement; saved344 return survived normal close/reopen.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

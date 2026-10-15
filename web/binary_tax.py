@@ -74,6 +74,7 @@ def _context(request):
     if derived_forms:
         keys.add('form_factories')
         if profile['format']==derived.PROFILE:keys.add('compiled_arrays')
+        if profile['format']==derived.PERSISTENT_PROFILE:keys.update(('entity_factory','formset_factories'))
     if (not isinstance(profile, dict) or set(profile) != keys
             or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE, *derived.PROFILES)
             or type(profile['tax_year']) is not int or profile['tax_year'] != 2025):
@@ -109,7 +110,7 @@ def _context(request):
             raise ValueError('Bind the exact ordered registry files in the v2 profile.')
         if not {identity[0] for identity in selected.values()} <= seen:
             raise ValueError('A selected primary template registry is missing.')
-        registry = wire.Registry.from_effective_xprf(carriers, selected, load_array_payloads=profile['format']==derived.AUTO_ARRAY_PROFILE)
+        registry = wire.Registry.from_effective_xprf(carriers, selected, load_array_payloads=profile['format'] in derived.AUTOMATIC_PROFILES)
     else:
         if seen != {identity[0] for identity in selected.values()}:
             raise ValueError('Selected templates must exactly match the registry files.')
@@ -272,6 +273,12 @@ def _inspect(request):
     document, buffers, context, registry, selected, source = _context(request)
     source_hash, profile_hash = wire.digest(source), prep.canonical_hash(request['profile'])
     candidates, unresolved, archive_forms, setup_candidates = [], [], [], []
+    persistent=derived.persistent_report(document) if isinstance(context,derived.BoundDocument) else None
+    if persistent:
+        for scope,group in [('entity',persistent['entity']),*((f'formset/{fs["index"]}',fs['persistent_attributes']) for fs in persistent['formsets'])]:
+            if group:
+                unresolved.extend(dict(path=scope,code='untyped_persistent_object',detail=obj['class_name'])
+                    for obj in group['objects'] if not obj['relocatable'])
     per_set = {}
     for path, form in walk_forms(document):
         fsid, template, identity = _template(document, path, form, registry, selected)
@@ -388,6 +395,7 @@ def _inspect(request):
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'binary_archive': {'forms': archive_forms, 'formsets': len(document.formsets),
+                           **({'persistent_objects':persistent} if persistent else {}),
                            'hash_structure_validation':document.metadata['hash_structure_validation'],
                            'all_source_bytes_retained': True},
         'warnings': ['Binary source fields and nonempty supported structures are retained locally.',

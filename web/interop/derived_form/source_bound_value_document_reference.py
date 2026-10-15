@@ -20,6 +20,8 @@ from .value_form_tail_reference import (ValueFormTail, load_value_form_tail_byte
  store_preserved_value_form_tail, UnsupportedTailProfile)
 from .cx_string_wire_reference import decode_block
 from .persistent_uuid_body_reference import proven_relocatable_classes,has_untyped_objects
+from .formset_attributes_reference import AttributeList,load_attributes_bytes,preserve_attributes
+from .entity_objects_reference import PersistentObjects,load_objects_bytes,preserve_objects
 
 @dataclass(frozen=True)
 class TableRecord:
@@ -53,12 +55,14 @@ class FormSetNode:
  header:FormSetHeader
  forms:tuple=()
  metadata:dict=field(default_factory=dict,compare=False)
+ persistent_attributes:object=None
 @dataclass(frozen=True)
 class Document:
  entity_header:EntityHeader
  formsets:tuple=()
  metadata:dict=field(default_factory=dict,compare=False)
  source_bytes:object=field(default=None,compare=False,repr=False)
+ persistent_objects:object=None
  @property
  def header(self):return self.entity_header
 @dataclass(frozen=True)
@@ -76,6 +80,9 @@ class TemplateContext:
  table_factories:dict=field(default_factory=dict)
  relocatable_classes:dict=field(default_factory=dict)
  preserve_source_ordinals:bool=False
+ formset_factories:dict=field(default_factory=dict)
+ default_formset_factory:object='base_formset'
+ entity_factory:str='base_entity'
 
 STRING_KINDS=frozenset((4,5,6,7,8,9,21,24))
 def is_string_kind(kind):
@@ -108,6 +115,13 @@ def _context(c):
  if any(type(v) is not int or v<0 for v in (c.max_formsets,c.max_forms,c.max_depth)) or c.max_formsets>65534 or c.max_forms>1000000 or c.max_depth>64:
   raise UnsupportedProfile('Finite context limits: FormSets<=65534/forms<=1000000/depth<=64')
  if type(c.preserve_unresolved_links) is not bool:raise UnsupportedProfile('Explicit unresolved-link policy')
+ if c.entity_factory not in ('base_entity','value_entity'):raise UnsupportedProfile('Explicit supported Entity factory; no tail-based guessing')
+
+def _formset_factory(c,identifier):
+ if type(c.formset_factories)is not dict:raise UnsupportedProfile('Explicit per-FormSet factory map')
+ kind=c.formset_factories.get(identifier,c.default_formset_factory)
+ if kind not in ('base_formset','value_formset'):raise UnsupportedProfile('Explicit supported FormSet class; no tail-based factory guessing')
+ return kind
 
 def _entity(h):
  if not isinstance(h,EntityHeader) or h.kind!=0x45 or h.platform!=7 or h.schema!=18 or not 95<=h.release<=100:
@@ -194,7 +208,7 @@ def _scope(f):
  return (f.header,f.string_table,tuple(f.hash_state.heads),tuple((n.next_index,n.header,n.kind_byte,n.element_index,n.field_index,n.flag10,n.flag11,n.specific_attributes) for b in f.hash_state.buffers for n in b.nodes),f.tables,tuple((ch.header.identifier,ch.header.file_copy) for ch in f.children),tuple(_link_description(l) for l in f.links))
 
 def _document_scope(doc):
- return (doc.entity_header,tuple((fs.header,tuple((path,_scope(f)) for path,f in _walk(fs.forms))) for fs in doc.formsets))
+ return (doc.entity_header,doc.persistent_objects,tuple((fs.header,fs.persistent_attributes,tuple((path,_scope(f)) for path,f in _walk(fs.forms))) for fs in doc.formsets))
 
 def _walk(forms,prefix=()):
  for i,f in enumerate(forms):
@@ -267,7 +281,13 @@ def load_document_bytes(wire,buffers,*,template_context):
  _entity(eh.header)
  if wire[:eh.consumed]!=store_entity_header(eh.header):raise UnsupportedProfile('Unrepresented Entity header metadata')
  ranges,end=_read_index(wire,eh.consumed,0xc7,len(wire))
- if end!=len(wire) or len(ranges)>c.max_formsets:raise UnsupportedProfile('Exact Entity bounds / explicit FormSet limit')
+ if len(ranges)>c.max_formsets:raise UnsupportedProfile('Explicit FormSet limit')
+ entity_objects=None
+ if c.entity_factory=='value_entity':
+  loaded_objects=load_objects_bytes(wire,end);entity_objects=loaded_objects.objects_list
+  tail_end=end+loaded_objects.consumed
+  if wire[tail_end:]!=b'\xc1\xc1':raise UnsupportedProfile('Exact StoreEntity C1 C1 terminators and no trailing bytes')
+ elif end!=len(wire):raise UnsupportedProfile('Exact base Entity bounds; undeclared persistent objects refused')
  formsets=[];seen_fs=set();total=0;used_ids=set()
  def load_form(start,end,fsid,registry,depth,path):
   nonlocal total
@@ -317,18 +337,23 @@ def load_document_bytes(wire,buffers,*,template_context):
   if fh.marker!=0xdc or wire[start:start+fh.consumed]!=store_formset_header(fs):raise UnsupportedProfile('Unrepresented or noncanonical FormSet metadata')
   if formset_swap_after(current_swap=not matches_platform(eh.header.platform),entity_schema=eh.header.schema,formset_endian_flag=fs.endian_flag):raise UnsupportedProfile('Actual swaptrue branch requires another codec')
   franges,fend=_read_index(wire,start+fh.consumed,0xc8,end)
-  if fend!=end:raise UnsupportedProfile('Exact FormSet form-index end')
+  attributes=None
+  if _formset_factory(c,fs.identifier)=='value_formset':
+   loaded_attributes=load_attributes_bytes(wire,fend)
+   attributes=loaded_attributes.attributes
+   if fend+loaded_attributes.consumed!=end:raise UnsupportedProfile('Exact derived FormSet attributes end')
+  elif fend!=end:raise UnsupportedProfile('Exact base FormSet form-index end; undeclared derived tail refused')
   registry={};forms=tuple(load_form(a,b,fs.identifier,registry,0,(fi,i)) for i,(a,b) in enumerate(franges))
   def links_resolved(f):
    links=tuple(replace(l,resolved=_resolve(l,fs.identifier,registry,c)) for l in f.links)
    if not c.preserve_unresolved_links and any(not l.resolved for l in links):raise UnsupportedProfile('Unresolved link forbidden by explicit context')
    return replace(f,children=tuple(links_resolved(ch) for ch in f.children),links=links)
-  formsets.append(FormSetNode(fs,tuple(links_resolved(f) for f in forms),{'source_range':(start,end),'template_version_verified':True}))
+  formsets.append(FormSetNode(fs,tuple(links_resolved(f) for f in forms),{'source_range':(start,end),'template_version_verified':True,'native_FormSet_attribute_factories_executed':False,'native_LocalUUID_refresh_executed':False},attributes))
  result=Document(eh.header,tuple(formsets),
   {'source_profile':'platform7/schema18/ordinary/BEscalar/rawLE/swapfalse',
    'entire_selected_entity_consumed':True,'whole_tax_compatibility':False,
-   'native_execution_count':0,'original_taxpayer_fixture_count':0,'form_count':total},wire)
- if any(f.derived_tail is not None for fs in result.formsets for _,f in _walk(fs.forms)):
+   'native_execution_count':0,'original_taxpayer_fixture_count':0,'form_count':total,'native_Entity_object_factories_executed':False,'native_Entity_load_events_executed':False},wire,entity_objects)
+ if entity_objects is not None or any(fs.persistent_attributes is not None for fs in result.formsets) or any(f.derived_tail is not None for fs in result.formsets for _,f in _walk(fs.forms)):
   result.metadata['source_value_document_scope']=_document_scope(result)
  return result
 
@@ -338,12 +363,15 @@ def store_document_bytes(doc,buffers,*,template_context):
  if not isinstance(doc,Document) or type(doc.formsets) is not tuple:raise UnsupportedProfile('Explicit Document with tuple FormSets')
  if 'source_value_document_scope' in doc.metadata and doc.metadata['source_value_document_scope']!=_document_scope(doc):raise UnsupportedProfile('Source-derived document permits scalar correction only; all represented headers/keys/graphs must remain unchanged')
  _entity(doc.entity_header)
+ if (c.entity_factory=='value_entity')!=isinstance(doc.persistent_objects,PersistentObjects):raise UnsupportedProfile('Entity persistent objects must match explicit base/derived factory')
  if len(doc.formsets)>c.max_formsets:raise UnsupportedProfile('Explicit FormSet limit')
  total=0;used_ids=set();seen_fs=set()
  # Validate complete identity/reference graph before producing any bytes.
  registries={}
  for fs in doc.formsets:
   _formset(fs.header,c);fsid=fs.header.identifier
+  fs_kind=_formset_factory(c,fsid)
+  if (fs_kind=='value_formset')!=isinstance(fs.persistent_attributes,AttributeList):raise UnsupportedProfile('FormSet source attributes must match explicit base/derived factory')
   if fsid in seen_fs:raise UnsupportedProfile('Unique FormSet identifiers')
   seen_fs.add(fsid);registry={}
   def prepare(forms,parents,depth):
@@ -397,8 +425,12 @@ def store_document_bytes(doc,buffers,*,template_context):
   fh=store_formset_header(fs.header);fb=fsbase+len(fh);at=fb+5+4*(len(fs.forms)+1);forms=[]
   for f in fs.forms:
    w=store_form(f,at,fs.header.identifier);forms.append(w);at+=len(w)
-  part=fh+_write_index(0xc8,fb,tuple(forms));out.append(part);fsbase+=len(part)
- return eh+_write_index(0xc7,base,tuple(out))
+  part=fh+_write_index(0xc8,fb,tuple(forms))
+  if _formset_factory(c,fs.header.identifier)=='value_formset':part+=preserve_attributes(fs.persistent_attributes,base_position=fsbase+len(part))
+  out.append(part);fsbase+=len(part)
+ data=eh+_write_index(0xc7,base,tuple(out))
+ if c.entity_factory=='value_entity':data+=preserve_objects(doc.persistent_objects,base_position=len(data))+b'\xc1\xc1'
+ return data
 
 
 _load_document_implementation=load_document_bytes

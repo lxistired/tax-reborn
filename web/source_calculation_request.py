@@ -43,7 +43,7 @@ def calculate_request(request, *, approved_profiles, binary_loader, amount_decod
     keys = {'source', 'expected_source_sha256', 'source_profile_id', 'calculation_carriers', 'reviewed_context'}
     if type(request) is not dict or set(request) != keys: raise ValueError('Complete explicit source calculation request required')
     if (type(request['source']) is not dict or type(request['source'].get('profile')) is not dict
-            or request['source']['profile'].get('format') not in ('tax-reborn-binary-entity-profile-v1', 'tax-reborn-binary-entity-profile-v2', 'tax-reborn-binary-entity-profile-v3', 'tax-reborn-binary-entity-profile-v4', 'tax-reborn-binary-entity-profile-v5')):
+            or request['source']['profile'].get('format') not in ('tax-reborn-binary-entity-profile-v1', 'tax-reborn-binary-entity-profile-v2', 'tax-reborn-binary-entity-profile-v3', 'tax-reborn-binary-entity-profile-v4', 'tax-reborn-binary-entity-profile-v5', 'tax-reborn-binary-entity-profile-v6')):
         raise ValueError('Selected source adapter requires explicit reviewed binary profilesv1..v5')
     source_format = request['source']['profile']['format']
     profile_id = request['source_profile_id']

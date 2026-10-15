@@ -1,0 +1,22 @@
+{
+  "actual_system_file_readback": true,
+  "bytes": 8110,
+  "sha256": "c5bdc13fb5bdd8cb435e4e2eaad2fdb21077b5024a28e89e8b1bbcbc0e30ba26",
+  "formsets": 2,
+  "forms": 8,
+  "links": 8,
+  "nonempty_tables_and_children_preserved": true,
+  "all_eight_form_tails_preserved": true,
+  "Entity_14B_146_147_and_both_FormSet_148_151_original_wire_retained": true,
+  "all_three_persistent_layers_moved_by": 2,
+  "ordered_duplicate_metadata_rows_preserved": true,
+  "unknown_classes_relocation_not_allowed": true,
+  "source_current_ordinals": [
+    104,
+    4
+  ],
+  "original_engine_executed": false,
+  "active_native_metadata": false,
+  "whole_original_tax_compatibility": false,
+  "synthetic_only": true
+}

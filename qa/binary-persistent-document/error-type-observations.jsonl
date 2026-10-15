@@ -1,0 +1,9 @@
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Declared derived Entity requires actual CD paired map"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Declared derived FormSet requires actual CF paired map"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Complete type146 declared U8 payload"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.string_wire_reference.UnsupportedProfile: Native Load accepts versions1/2; other version clears loaded flag, not a native call error"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Do not infer missing FormSet factories from source tails."}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Declare the Entity and every FormSet persistent-object factory."}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Unknown Entity persistent-object relocation is not authorized"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Unknown FormSet persistent-object relocation is not authorized"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: Unknown Entity persistent-object relocation is not authorized"}
