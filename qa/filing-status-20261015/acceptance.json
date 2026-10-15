@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-15T05:23:31.308641+00:00",
+  "checked_at_utc": "2026-10-15T05:28:21.303217+00:00",
   "candidate_version": "2026.10.15-preview.22",
   "source_feature": "reviewed binary filing-status migration to current return and calculation",
   "inputs": "independently authored binary stream and XPRF; no original saved return",
@@ -62,8 +62,8 @@
   "Mac_new_package_built": true,
   "Android_new_package_built": true,
   "three_platform_new_native_acceptance": true,
-  "published_new_installers": false,
-  "last_published_installer_version": "2026.10.15-preview.21",
+  "published_new_installers": true,
+  "last_published_installer_version": "2026.10.15-preview.22",
   "original_runtime_execution": 0,
   "original_saved_return_fixtures": 0,
   "whole_tax_compatibility": false,
@@ -83,5 +83,7 @@
   "Mac_DMG_all_files_match_tested_App": true,
   "Mac_DMG_regular_files": 385,
   "Mac_DMG_symlinks": 73,
-  "publication_note": "Pre-publication native acceptance snapshot. See the separate public-download-readback.json receipt after release publication."
+  "publication_note": "All9 assets fully downloaded without authentication and matched by byte count and SHA256. Generated build manifests retain their build-time state; this is the later installation, native test and public-download receipt.",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.22",
+  "anonymous_full_downloads_verified": 9
 }

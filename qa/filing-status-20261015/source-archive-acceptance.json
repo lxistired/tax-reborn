@@ -1,0 +1,13 @@
+{
+  "checked_at_utc": "2026-10-15T05:24:50.609116+00:00",
+  "version": "2026.10.15-preview.22",
+  "source_zip_sha256": "244f2ba896e515a4a59df207b76c64d373ffd36e11fe2c1be98dd7a02ba3b4c5",
+  "source_zip_bytes": 121636331,
+  "manifest_entries_verified": 1313,
+  "all_root_Python_modules_included": true,
+  "source_documents_validator_included": true,
+  "private_build_paths_keys_and_vendor_executables_absent": true,
+  "actual_extracted_source_HTTP_schema_version": "2026.10.15-preview.22",
+  "actual_extracted_source_HTTP_tax_calculation_USD": 5075,
+  "initial_probe_error": "Probe initially used app_version at the schema root; corrected to capabilities.version. Source server itself started normally."
+}
