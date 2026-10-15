@@ -20,6 +20,7 @@
   const result=await window.taxLocalEngine('taxml_inspect',request);
   documentContexts.set(result,request);
   for(const candidate of result.candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256});
+  for(const candidate of result.setup_candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256,filingStatus:candidate.filing_status,receipt:JSON.parse(JSON.stringify(candidate.receipt))});
   return result;
  }
  async function correctedSource(candidate,values,confirmed){
@@ -35,6 +36,13 @@
   if(!inspection||inspection.container!=='binary_entity')throw Error('Reopen and inspect the binary source before editing.');
   if(confirmed!==true)throw Error('Check and confirm all source corrections first.');
   return window.taxLocalEngine('binary_tax_edit',{inspection,expected_source_sha256:inspected.source_sha256,changes,confirmed});
+ }
+ async function reviewedFilingStatus(candidate,source,previous,confirmed){
+  const context=sourceContexts.get(candidate);
+  if(!context||candidate.record_type!=='filing_status'||candidate.can_review!==true||candidate.problems?.length||context.candidateHash!==candidate.receipt.candidate_sha256||context.filingStatus!==candidate.filing_status)throw Error('Reopen a supported filing-status source before reviewing it.');
+  if(confirmed!==true)throw Error('Check all five source checkboxes and confirm the replacement first.');
+  const event={event_id:crypto.randomUUID(),source_document:window.taxRecordMetadata.validateSource({...source,method:'taxml',taxml_receipt:context.receipt}),filing_status:context.filingStatus,previous_filing_status:previous,reviewed_at:new Date().toISOString()};
+  return window.taxRecordMetadata.normalizeSetupEvents([event])[0];
  }
  async function reviewedRecord(candidate,values,source,confirmed,defaults){
   if(!candidate||candidate.record_type&&candidate.record_type!=='w2'||candidate.can_review!==true||candidate.missing_boxes?.length)throw Error('This W-2 candidate has unresolved source facts and cannot be added.');
@@ -76,5 +84,5 @@
   metadata.reviewed=true;metadata.reviewed_at=new Date().toISOString();metadata.reviewed_fingerprint=fingerprint;metadata.row_fingerprint=fingerprint;
   return{row,metadata};
  }
- window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
+ window.taxMLImport={inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

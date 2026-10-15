@@ -1,0 +1,7 @@
+Browser tab: 1, Title: "Tax Reborn · 2025 Federal Return", URL: "http://127.0.0.1:8793/?offline=1".
+The following is a diff from the previous accessibility tree with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+~			116 button (expanded) Reviewed filing-status source history, Secondary Actions: Collapse
++			157 text Single → Married filing jointly · 2026-10-15T04:43:33.932Z
++			158 text Source synthetic-filing-status.taxbin · 2cb431f3122d96e6d0a4d3a5ab2393971260b1c265b4f6388392391713e15205
++			159 button View setup source
+The focused UI element is 116 button (expanded) Reviewed filing-status source history, Secondary Actions: Collapse

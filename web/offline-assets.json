@@ -64,6 +64,7 @@
     "presentation_schema.py",
     "privacy_review.py",
     "rules_2025.json",
+    "samples/binary-tax/filing-status-request.json",
     "samples/binary-tax/income-request.json",
     "samples/binary-tax/nested-request.json",
     "state-worker.js",

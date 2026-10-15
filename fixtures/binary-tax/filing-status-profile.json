@@ -1,0 +1,15 @@
+{
+  "format": "tax-reborn-binary-entity-profile-v1",
+  "tax_year": 2025,
+  "template_versions": {
+    "OWNED2025SETUP": 2025
+  },
+  "templates": [
+    {
+      "carrier_sha256": "4abcb38dcac8614a86819c1125f51139af92b68889bf64c51b9fe2c3e703f530",
+      "form_id": "FINFOWKS",
+      "formset_id": "OWNED2025SETUP",
+      "resource_id": 73
+    }
+  ]
+}

@@ -45,11 +45,25 @@
       if(sameTaxMLForm||sameAttachment&&!(a&&b))throw Error('This source already supplied a '+label+'. Edit the existing record instead of adding it again.');
     }
   }
+  function normalizeSetupEvents(events,previous=[]) {
+    const statuses=['single','mfj','mfs','hoh','qss'],seen=new Set(),sources=new Set();
+    if(!Array.isArray(events)||events.length>1000)throw Error('Invalid return-setup import history');
+    const output=events.map(event=>{
+      const keys=['event_id','source_document','filing_status','previous_filing_status','reviewed_at'];
+      if(!event||typeof event!=='object'||Array.isArray(event)||Object.keys(event).length!==keys.length||keys.some(key=>!Object.hasOwn(event,key))||!metadataId(event.event_id)||seen.has(event.event_id)||!statuses.includes(event.filing_status)||!statuses.includes(event.previous_filing_status)||typeof event.reviewed_at!=='string'||event.reviewed_at.length>40||!/(?:Z|[+-]\d\d:\d\d)$/.test(event.reviewed_at)||!Number.isFinite(Date.parse(event.reviewed_at)))throw Error('Invalid return-setup import receipt');
+      const source=localSource(event.source_document);if(!source||source.method!=='taxml')throw Error('A verified tax-data source receipt is required');
+      const r=source.taxml_receipt,key=JSON.stringify([r.source_sha256,r.form_path,r.archive_member]);
+      if(sources.has(key))throw Error('This source already supplied return setup');
+      seen.add(event.event_id);sources.add(key);return {...event,source_document:source};
+    });
+    for(const old of previous){const current=output.find(event=>event.event_id===old.event_id);if(JSON.stringify(sorted(current))!==JSON.stringify(sorted(old)))throw Error('Saved return-setup import history cannot be removed or changed');}
+    return output;
+  }
   async function normalizeMetadata(data,provided,previous=null,options={}) {
     const rows=data.w2||[];if(!Array.isArray(rows)||rows.length>1000)throw Error('Invalid W-2 preparation record collection');
     const fingerprints=await Promise.all(rows.map(async row=>{try{return await w2Fingerprint(row);}catch(error){if(options.draft)return null;throw error;}}));let entries;
     if(provided!=null){
-      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records','investment_records','income_document_records','income_import_events'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
+      if(typeof provided!=='object'||Array.isArray(provided)||provided.version!==1||Object.keys(provided).some(key=>!['version','w2_records','investment_records','income_document_records','income_import_events','setup_import_events'].includes(key))||!Array.isArray(provided.w2_records)||provided.w2_records.length!==rows.length)throw Error('W-2 preparation records must match the W-2 collection');
       entries=provided.w2_records;
     }else{
       entries=fingerprints.map(hash=>{const old=(previous?.w2_records||[]).filter(item=>item.row_fingerprint===hash);return hash&&old.length===1&&fingerprints.filter(value=>value===hash).length===1?old[0]:{};});
@@ -69,16 +83,17 @@
     const income=await window.taxIncomePreparation.normalize(data,provided?.income_document_records,previous?.income_document_records,options);
     const events=await window.taxIncomePreparation.normalizeEvents(Object.hasOwn(provided||{},'income_import_events')?provided.income_import_events:previous?.income_import_events||[]);
     for(const old of previous?.income_import_events||[]){const current=events.find(item=>item.event_id===old.event_id);if(!current||JSON.stringify(sorted(current))!==JSON.stringify(sorted(old)))throw Error('Saved income-import history cannot be removed or changed');}
-    return {version:1,w2_records:records,investment_records:investments,income_document_records:income,income_import_events:events};
+    const setup=normalizeSetupEvents(Object.hasOwn(provided||{},'setup_import_events')?provided.setup_import_events:previous?.setup_import_events||[],previous?.setup_import_events||[]);
+    return {version:1,w2_records:records,investment_records:investments,income_document_records:income,income_import_events:events,setup_import_events:setup};
   }
-  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,validateSource:localSource,assertNewSource,
-    empty:()=>({version:1,w2_records:[],income_document_records:{interest:[],dividends:[]},income_import_events:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
+  window.taxRecordMetadata={setDefaults:value=>{w2Defaults={...value};},fingerprint:w2Fingerprint,canonicalW2,normalize:normalizeMetadata,validateSource:localSource,assertNewSource,normalizeSetupEvents,
+    empty:()=>({version:1,w2_records:[],income_document_records:{interest:[],dividends:[]},income_import_events:[],setup_import_events:[]}),newRecord:source=>({record_id:crypto.randomUUID(),row_fingerprint:null,reviewed:false,reviewed_at:null,reviewed_fingerprint:null,source_document:localSource(source)})};
   const offline = new URLSearchParams(location.search).get('offline') === '1';
   let worker, sequence = 0, dbPromise;
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.15-preview.19',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.15-preview.22',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {

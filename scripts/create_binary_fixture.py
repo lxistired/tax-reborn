@@ -192,7 +192,47 @@ def build_fixtures(destination):
     # platform text newline translation, as for the request JSON above.
     (destination / 'manifest.json').write_bytes(
         (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode('utf-8'))
+    build_setup_fixture(destination)
     return manifest
+
+
+def build_setup_fixture(destination):
+    """Author a small registry and box values; no original file is an input."""
+    destination = Path(destination)
+    formset, name, resource = 'OWNED2025SETUP', 'FINFOWKS', 73
+    names = [f'FS{i}' for i in range(1, 6)]
+    strings = [name.encode(), formset.encode()]
+    body = struct.pack('<H', len(strings)) + b''.join(bytes([len(s)]) + s for s in strings)
+    fields = struct.pack('<H', 5) + b''.join(b'\xff'+field.encode().ljust(32,b' ')+struct.pack('<BBI',3,0,0) for field in names)
+    records = [(18000, body), (1900, fields)]
+    header = b'XPRF\0\1\x10\x0c\x0a\0\0\0'+struct.pack('<I',len(records))
+    offset = 16 + 12*len(records)
+    entries, payloads = [], []
+    for kind, data in records:
+        payload = struct.pack('<IIH',len(data)+10,len(data),0)+data
+        entries.append(struct.pack('<HHII',kind,resource,offset,len(payload)))
+        payloads.append(payload); offset += len(payload)
+    carrier = header + b''.join(entries) + b''.join(payloads)
+    context = TemplateContext(template_versions={formset.encode():2025},
+        field_ids={(formset.encode(),name.encode()):{i:field.encode() for i,field in enumerate(names,1)}},
+        current_table_ids={},preserve_unresolved_links=True)
+    # Used0 with a retained nonzero payload remains unused. Current format255
+    # on a box is independent of template format0 and is ignored by this path.
+    nodes = tuple(Node(kind_byte=3,raw=1 if i in (2,5) else 0,field_index=i,
+        specific_attributes=2 if i==5 else 3,flag10=255,flag11=64) for i in range(1,6))
+    form_node = FormNode(Header(name.encode(),7),hash_for_nodes(nodes),Table(),11)
+    doc = Document(EntityHeader(serial=20251015,producer=b'Independently authored filing-status review'),
+        (FormSetNode(FormSetHeader(formset.encode(),template_version=2025),(form_node,)),))
+    blob = store_document_bytes(doc,buffers(),template_context=context)
+    profile = dict(format=PROFILE,tax_year=2025,templates=[dict(formset_id=formset,form_id=name,
+        carrier_sha256=digest(carrier),resource_id=resource)],template_versions={formset:2025})
+    request = dict(base64=base64.b64encode(blob).decode(),container='binary_entity',
+        profile=profile,carriers=[dict(base64=base64.b64encode(carrier).decode(),sha256=digest(carrier))],
+        profile_acknowledged=True)
+    for filename, data in [('filing-status.xprf',carrier),('filing-status.taxbin',blob),
+            ('filing-status-profile.json',(json.dumps(profile,indent=2,sort_keys=True)+'\n').encode()),
+            ('filing-status-request.json',(json.dumps(request,indent=2,sort_keys=True)+'\n').encode())]:
+        (destination/filename).write_bytes(data)
 
 
 def main():

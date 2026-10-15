@@ -23,6 +23,12 @@
   "nonempty_tables_children_links": true,
   "whole_document_edit_readback": true,
   "other_parsed_facts_preserved": true,
+  "filing_status_binary_review_and_recalculation": {
+    "before": 5075,
+    "after": 2946,
+    "presence_and_current_format_retained": true,
+    "immutable_history_normalized": true
+  },
   "original_tax_fixture": false,
   "original_engine_executed": false,
   "whole_tax_compatibility": false

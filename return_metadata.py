@@ -13,6 +13,7 @@ import re
 import uuid
 import investment_metadata
 import income_preparation
+import setup_preparation
 from source_documents import source_document, taxml_receipt
 
 ID = re.compile(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$')
@@ -52,7 +53,7 @@ def normalize(data, provided, defaults, previous=None):
         raise ValueError('Invalid W-2 preparation record collection')
     explicit = provided is not None
     if explicit:
-        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records', 'investment_records', 'income_document_records', 'income_import_events'} or provided.get('version') != 1:
+        if not isinstance(provided, dict) or set(provided) - {'version', 'w2_records', 'investment_records', 'income_document_records', 'income_import_events', 'setup_import_events'} or provided.get('version') != 1:
             raise ValueError('Unsupported local preparation metadata')
         entries = provided.get('w2_records')
         if not isinstance(entries, list) or len(entries) != len(rows):
@@ -122,6 +123,10 @@ def normalize(data, provided, defaults, previous=None):
     for event in old_events:
         if current_events.get(event['event_id']) != event:
             raise ValueError('Saved income-import history cannot be removed or changed')
+    setup_events = setup_preparation.normalize_events(
+        provided.get('setup_import_events', previous.get('setup_import_events', [])) if explicit else previous.get('setup_import_events', []),
+        previous.get('setup_import_events', []))
     return {'version': 1, 'w2_records': output, 'investment_records': investments,
             'income_document_records': checked['preparation_metadata']['income_document_records'],
-            'income_import_events': checked['preparation_metadata']['income_import_events']}
+            'income_import_events': checked['preparation_metadata']['income_import_events'],
+            'setup_import_events': setup_events}

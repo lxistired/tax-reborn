@@ -47,7 +47,7 @@ def icon_for_platform(work):
 def write_spec(work,icon,notices):
     hidden = ['webview.platforms.cocoa'] if sys.platform=='darwin' else ['webview.platforms.winforms','webview.platforms.edgechromium']
     data = [(str(ROOT/'web'),'web'),(str(ROOT/'fixtures'),'fixtures'),(str(ROOT/'forms'),'forms'),(str(ROOT/'vendor'),'vendor'),(str(notices),'THIRDPARTY_NOTICES')]
-    data += [(str(ROOT/name),'.') for name in ('VERSION','LICENSE','return_metadata.py','source_documents.py','investment_metadata.py','income_preparation.py','rules_2025.json','tax_engine.py','tax_special_capital.py','tax_child_income.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py','forms.py','official_forms.py') if (ROOT/name).is_file()]
+    data += [(str(ROOT/name),'.') for name in ('VERSION','LICENSE','return_metadata.py','setup_preparation.py','source_documents.py','investment_metadata.py','income_preparation.py','rules_2025.json','tax_engine.py','tax_special_capital.py','tax_child_income.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py','forms.py','official_forms.py') if (ROOT/name).is_file()]
     architecture = platform.machine()
     spec = work/'Tax Reborn.spec'
     text = f'''# Generated reproducible build recipe; no private reference data.

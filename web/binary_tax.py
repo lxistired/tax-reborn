@@ -139,10 +139,69 @@ def _field_fact(form, node, spec):
     return fact
 
 
+def _filing_status_setup(form, template, identity, form_path, path, source_hash, profile_hash):
+    """Five bound scalar checkboxes, independently reviewed as return setup.
+
+    A TPS coordinate's MCT name does not prove a saved FormSet identifier.
+    The caller-selected, hash-checked registry supplies this form's binding.
+    Current flag10 and template format are distinct; this box conversion does
+    not use flag10. No other form values or eligibility facts are imported.
+    """
+    if not template or template.form_id != 'FINFOWKS':
+        return None
+    mapping = {'FS1': 'single', 'FS2': 'mfj', 'FS3': 'mfs', 'FS4': 'hoh', 'FS5': 'qss'}
+    specs = {field.field_id: field for field in template.fields}
+    facts, problems, checked = [], [], []
+    for field_id, status in mapping.items():
+        spec = specs.get(field_id)
+        fact = {'field_id': field_id, 'filing_status': status, 'status': 'unbound_metadata',
+                'checked': False, 'ordinal': spec.ordinal if spec else None}
+        if not spec or spec.kind != 3 or spec.format != 0 or spec.is_array:
+            problems.append(field_id + ': unsupported checkbox metadata')
+        else:
+            nodes = [node for buffer in form.hash_state.buffers for node in buffer.nodes
+                     if node.field_index == spec.ordinal]
+            if not nodes:
+                fact['status'] = 'absent'
+            elif len(nodes) != 1:
+                problems.append(field_id + ': repeated scalar checkbox')
+            else:
+                node = nodes[0]
+                fact.update(raw64=str(node.raw), current_format=node.flag10,
+                    specific_attributes=node.specific_attributes,
+                    format_ignored_by_box_conversion=True)
+                if (node.kind_byte != 3 or node.element_index != 0 or node.header != 0
+                        or node.exponent_byte != 0 or node.specific_attributes not in (0, 1, 2, 3, 8, 9, 10, 11)):
+                    problems.append(field_id + ': unsupported checkbox value')
+                    fact['status'] = 'unsupported_value'
+                elif not node.specific_attributes & 1:
+                    fact['status'] = 'unused'
+                elif node.raw not in (0, 1):
+                    problems.append(field_id + ': noncanonical checkbox value')
+                    fact['status'] = 'unsupported_value'
+                else:
+                    fact.update(status='checked' if node.raw else 'unchecked', checked=bool(node.raw))
+                    if node.raw:
+                        checked.append(status)
+        facts.append(fact)
+    if len(checked) != 1:
+        problems.append('Exactly one filing-status checkbox must be selected.')
+    owner = {'formset_id': template.formset_id, 'form_name': template.form_id,
+             'fileCopyNum': str(form.header.file_copy), 'binary_path': list(path)}
+    payload = {'source_owner': owner, 'fields': facts, 'problems': problems}
+    return {'record_type': 'filing_status', 'source_format': 'binary_entity',
+        'filing_status': checked[0] if len(checked) == 1 and not problems else None,
+        'fields': facts, 'problems': problems, 'can_review': not problems,
+        'source_owner': owner, 'receipt': {'source_sha256': source_hash,
+            'wire_profile_sha256': profile_hash, 'template_carrier_sha256': identity[0],
+            'template_resource_id': identity[1], 'form_path': form_path,
+            'archive_member': None, 'candidate_sha256': prep.canonical_hash(payload)}}
+
+
 def _inspect(request):
     document, buffers, context, registry, selected, source = _context(request)
     source_hash, profile_hash = wire.digest(source), prep.canonical_hash(request['profile'])
-    candidates, unresolved, archive_forms = [], [], []
+    candidates, unresolved, archive_forms, setup_candidates = [], [], [], []
     per_set = {}
     for path, form in walk_forms(document):
         fsid, template, identity = _template(document, path, form, registry, selected)
@@ -150,6 +209,9 @@ def _inspect(request):
         per_set[path[0]] = ordinal + 1
         form_path = f'0/{path[0]}/{ordinal}'
         specs = {field.ordinal: field for field in template.fields} if template else {}
+        setup = _filing_status_setup(form, template, identity, form_path, path, source_hash, profile_hash)
+        if setup:
+            setup_candidates.append(setup)
         facts = [_field_fact(form, node, specs.get(node.field_index))
                  for buffer in form.hash_state.buffers for node in buffer.nodes]
         archive_forms.append({'path': list(path), 'form_path': form_path,
@@ -230,12 +292,13 @@ def _inspect(request):
     result = {'format': 'tax-reborn-taxml-candidates-v1', 'source_format': 'binary_entity',
         'tax_year': 2025, 'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
         'root_qname_bound': True, 'candidates': candidates, 'unresolved_facts': unresolved,
+        'setup_candidates': setup_candidates,
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'binary_archive': {'forms': archive_forms, 'formsets': len(document.formsets),
                            'all_source_bytes_retained': True},
         'warnings': ['Binary source fields and nonempty supported structures are retained locally.',
-            'Only explicitly bound supported income records can enter this App after review.',
+            'Explicitly bound income records and filing-status setup require separate review before entering this App.',
             'Corrected binary copies do not run the original tax engine or update its derived totals.',
             'This supported stream profile has not been verified against an original saved .tax return.']}
     return result, document, buffers, context

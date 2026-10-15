@@ -1,0 +1,46 @@
+{
+  "checked_at_utc": "2026-10-15T04:47:02.283383+00:00",
+  "candidate_version": "2026.10.15-preview.22",
+  "source_feature": "reviewed binary filing-status migration to current return and calculation",
+  "inputs": "independently authored binary stream and XPRF; no original saved return",
+  "source_sha256": "2cb431f3122d96e6d0a4d3a5ab2393971260b1c265b4f6388392391713e15205",
+  "host_tests": {
+    "passed": 621,
+    "failed": 0
+  },
+  "real_Pyodide": true,
+  "actual_SQLite_save_and_reopen": true,
+  "offline_browser_UI": {
+    "actual_WebAssembly": true,
+    "actual_IndexedDB_save_and_reload": true,
+    "confirmation_required_and_tested": true,
+    "retained_raw_nonzero_unused_checkbox_not_selected": true,
+    "source_current_format255_template_format0_preserved": true,
+    "filing_status_replaced": "single -> mfj",
+    "fictional_wages_USD": 60000,
+    "federal_tax_before_USD": 5075,
+    "federal_tax_after_USD": 2946,
+    "review_history_after_reload": true,
+    "source_file_and_registry_reopened_after_reload": true,
+    "duplicate_import_refused_in_UI": true
+  },
+  "screenshots": [
+    {
+      "path": "offline-saved-history.png",
+      "sha256": "6747877d12f8f76992c46545ead831a6472051f9c4af47b2885502c87da8907f"
+    }
+  ],
+  "AX_readback": {
+    "path": "offline-saved-history.ax.txt",
+    "sha256": "265cc66bbd835fc919fd097fdccb7159cd0820d111ce17f3cc573f374aa4e36a"
+  },
+  "Windows_new_package_built": false,
+  "Mac_new_package_built": false,
+  "Android_new_package_built": false,
+  "three_platform_new_native_acceptance": false,
+  "published_new_installers": false,
+  "last_published_installer_version": "2026.10.15-preview.21",
+  "original_runtime_execution": 0,
+  "original_saved_return_fixtures": 0,
+  "whole_tax_compatibility": false
+}
