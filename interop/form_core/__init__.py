@@ -7,3 +7,6 @@ from .value_hash_wire_reference import (
     Node, Buffer, Hash, Header, FormCore, CoreLoad, hash_for_nodes, find_value,
     store_form_core, load_form_core_bytes, UnsupportedProfile,
 )
+from .selected_form_record_reference import (
+    store_selected_form_record, load_selected_form_record,
+)

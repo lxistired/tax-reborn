@@ -32,7 +32,7 @@ json.dumps({'successful': result.wasSuccessful(), 'tests': result.testsRun,
   const receipt = {
     ...result,
     checked_at_utc: new Date().toISOString(),
-    runtime: 'real Pyodide WASM Python; seven independent modules',
+    runtime: 'real Pyodide WASM Python; eight independent modules',
     input: 'authored single-form core byte buffers, without writer sidecars',
     original_runtime_executions: 0,
     original_saved_tax_fixtures: 0,

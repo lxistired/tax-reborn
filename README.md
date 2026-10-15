@@ -1,6 +1,6 @@
 # Tax Reborn · Project #000002
 
-The current REA reconstruction adds an independent [binary form-core reader and writer](docs/BINARY_FORM_CORE.md). It parses real header/index/value/string bytes, preserves other fields through edit/save/readback and passes native Python and actual Pyodide checks. This bounded component is separate from the app's supported TaxML workflow; full original `.tax` import and original engine parity remain unverified.
+The current REA reconstruction adds an independent [binary form-core reader and writer](docs/BINARY_FORM_CORE.md). It parses real header/index/value/string bytes and complete selected records with empty subtables/children/links, preserves other fields through edit/save/readback and passes native Python and actual Pyodide checks. This bounded component is separate from the app's supported TaxML workflow; full original `.tax` import and original engine parity remain unverified.
 
 Current preview.20 source adds [mixed income TaxML migration](docs/MIXED_TAXML_INCOME.md): one explicitly bound plaintext source can contain W-2, 1099-INT and 1099-DIV forms, reviewed separately with retained source ownership. Matching copy numbers on different form types stay distinct. Saving/reloading, JSON restoration, duplicate refusal and selected corrected XML export pass actual HTTP/SQLite and browser Pyodide/IndexedDB checks. Native candidate package acceptance and public downloads are separate from this source result.
 

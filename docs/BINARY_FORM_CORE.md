@@ -6,6 +6,12 @@ field-value hash and compressed string table. The reader obtains the saved
 table ID and section positions from the bytes. It does not require the writer's
 object or a separate header/index sidecar.
 
+The selected-record layer also reads and writes the actual E0, C8 and D7 tail
+maps when subtables, child forms and links are all empty. This completes an
+entire record within that explicit profile. Nonempty structures are refused
+instead of being discarded. Entity/FormSet containers and whole `.tax` files
+are still outside this component.
+
 This is a bounded interoperability component for the ongoing reconstruction.
 The supported application workflow remains reviewed plaintext TaxML import.
 The component is not exposed as a complete `.tax` importer, is not included in
@@ -18,6 +24,7 @@ the current installers, and does not run the original calculation engine.
 | Header and sections | C4/CB header, saved table ID and relative C9 offsets are parsed from one byte buffer. | Prepared current table ID, parent lookup and selected stream profile. |
 | Field values | Real hash buckets, linked indices and 23-byte wide, noncompact node records are written and read. Numeric payloads and value attributes survive a string edit and another save/load. | At most one buffer with 64 nodes and 128 buckets. Unknown kinds remain raw records. |
 | Strings | Raw and F0/mode4 blocks, CRC, table storage and string-handle repair are implemented independently. | One 512-byte string chunk and 64 handles. Only exact kind 7 is interpreted as a string. |
+| Selected complete record | Core plus three actual nine-byte empty tail maps can be read, edited, written and read again. | Empty subtables/children/links only. This does not establish universal form compatibility. |
 | Compressor | One installed original resource decodes to 3,161 bytes; independent re-encoding reproduces its 403-byte compressed payload exactly. | One resource/profile. Other authored roundtrips do not establish universal native encoder parity. Original payloads stay private. |
 | Error handling | Corrupt string CRC returns the source-bound error; truncated or unsupported profiles are refused. Unparsed tail bytes are reported by the consumed length. | Some bounds are deliberately stronger than the native parser. They are component eligibility checks, not invented native error codes. |
 
@@ -26,10 +33,13 @@ big-endian scalar stream fields, little-endian packed nodes and index arrays,
 and processor swap disabled. Successful buffer allocation is modeled; the
 component neither allocates vendor memory nor calls a vendor binary.
 
-Subtables, child forms, links and the higher Entity/FormSet container remain
-separate work. A successful core read does not mean the remaining record or
-whole `.tax` file was parsed. `consumed` identifies the end of the parsed core;
-`whole_form_proven` remains false.
+Nonempty subtables, child forms, links and the higher Entity/FormSet container
+remain separate work. A successful core read does not mean the remaining record
+or whole `.tax` file was parsed. The core's `consumed` identifies its end and
+`whole_form_proven` remains false. The selected-record API separately reports
+`entire_selected_form_record_consumed`; this is true only when it consumed the
+exact record within the stated empty-tail profile. Whole `.tax` compatibility
+always remains false.
 
 ## Reproduce the independent I/O checks
 
@@ -40,14 +50,15 @@ python3 -m unittest discover -s tests -p test_binary_form_core.py -v
 node scripts/verify_binary_form_core.cjs
 ```
 
-The nine acceptance cases use only authored data. They cover byte-only reading,
+The thirteen acceptance cases use only authored data. They cover byte-only reading,
 an edit/write/reload cycle that preserves another numeric field, field
 attributes, nonzero stream positions, a compressed 509-byte string, CRC
-corruption, truncation, unknown value kinds and an explicitly unparsed tail.
+corruption, truncation, unknown value kinds, an explicitly unparsed tail,
+complete selected-record editing and refusal of nonempty child records.
 The same cases pass in native Python and real Pyodide WASM Python. The Pyodide
 receipt is [saved here](../qa/binary-form-core-pyodide-20261015.json).
 
-The runtime comprises seven independently authored standard-library modules.
+The runtime comprises eight independently authored standard-library modules.
 Original executables, resources, decompiler output, keys and taxpayer files are
 not dependencies. The private REA evidence was independently checked against
 original instruction bytes, import bindings and relevant exception metadata;

@@ -6,6 +6,7 @@ from dataclasses import replace
 from interop.form_core import (
     Header, Node, UnsupportedProfile, find_value, hash_for_nodes,
     load_form_core_bytes, store_form_core,
+    load_selected_form_record, store_selected_form_record,
 )
 from interop.form_core.cx_string_wire_reference import Buffers, initialize
 from interop.form_core.string_wire_reference import Chunk, Table
@@ -120,6 +121,52 @@ class BinaryFormCoreAcceptance(unittest.TestCase):
         loaded = load_form_core_bytes(saved.prefix.wire_prefix, prepared_buffers())
         self.assertIsNone(loaded.name)
         self.assertEqual(find_value(loaded.hash_state, 23, 0), node)
+
+    def selected_record(self):
+        core = authored_core()
+        return store_selected_form_record(Header(b"OWNED-FORM", 17),
+            core.hash_result.state, authored_table(b"SYNTHETIC PERSON"),
+            prepared_buffers())
+
+    def test_entire_selected_record_reads_actual_empty_tail_bytes(self):
+        saved = self.selected_record()
+        expected_tail = b"".join(bytes([mark]) + b"\0\1\0\1\x09\0\0\0"
+                                  for mark in (0xE0, 0xC8, 0xD7))
+        self.assertEqual(saved.wire[-27:], expected_tail)
+        loaded = load_selected_form_record(saved.wire, prepared_buffers())
+        self.assertEqual(loaded.code, 0)
+        self.assertEqual(loaded.consumed, len(saved.wire))
+        self.assertTrue(loaded.entire_selected_form_record_consumed)
+        self.assertFalse(loaded.whole_tax_compatibility)
+        self.assertEqual(loaded.core.name, b"SYNTHETIC PERSON")
+
+    def test_selected_record_edit_write_read(self):
+        loaded = load_selected_form_record(self.selected_record().wire,
+                                            prepared_buffers())
+        edited = store_selected_form_record(loaded.core.header,
+            loaded.core.hash_state, authored_table(b"EDITED OWNER"),
+            prepared_buffers(), table_id=3)
+        result = load_selected_form_record(edited.wire, prepared_buffers(),
+                                           current_table_id=4)
+        self.assertEqual(result.core.name, b"EDITED OWNER")
+        self.assertEqual(find_value(result.core.hash_state, 27, 0),
+                         find_value(loaded.core.hash_state, 27, 0))
+
+    def test_nonempty_children_are_refused_without_silent_data_loss(self):
+        core = authored_core()
+        with self.assertRaises(UnsupportedProfile):
+            store_selected_form_record(Header(b"OWNED-FORM", 1),
+                core.hash_result.state, authored_table(b"OWNED"),
+                prepared_buffers(), children=(object(),))
+
+    def test_selected_record_extra_tail_requires_explicit_policy(self):
+        wire = self.selected_record().wire
+        with self.assertRaises(UnsupportedProfile):
+            load_selected_form_record(wire + b"UNPARSED", prepared_buffers())
+        loaded = load_selected_form_record(wire + b"UNPARSED", prepared_buffers(),
+                                            allow_trailing=True)
+        self.assertEqual(loaded.consumed, len(wire))
+        self.assertFalse(loaded.entire_selected_form_record_consumed)
 
 
 if __name__ == "__main__":
