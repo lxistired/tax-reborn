@@ -129,7 +129,12 @@ def smoke_test(report_path=None):
             status,export=request('GET',f'/api/returns/{ident}/export.json');assert status==200 and export['data']==data
             status,worksheet=request('GET',f'/api/returns/{ident}/worksheet.html');assert status==200 and b'Not computed' in worksheet
             checks.append('JSON backup and printable worksheet export, without fabricated filing or penalty status')
-            status,_=request('POST','/api/returns',{'id':ident,'data':data},origin='https://foreign.example');assert status==400
+            # Origin is rejected before reading a body. Sending an unread
+            # large body can make Windows reset the connection before the
+            # client observes that rejection; verify the policy without it.
+            status,_=request('POST','/api/returns',origin='https://foreign.example');assert status==400
+            status,unchanged=request('GET','/api/returns/'+ident)
+            assert status==200 and unchanged==reopened
             status,_=request('GET','/api/returns',host='foreign.example');assert status==400
             status,_=request('GET','/../server.py');assert status==404
             checks.append('Foreign Origin, DNS-rebinding Host and file traversal rejected')
