@@ -1,0 +1,8 @@
+{
+  "setup_installed": true,
+  "setup_sha256": "ef5841d8965613f4f13a5be751404fdaf825f59f4222098b09543bcf831f7df0",
+  "rebuilt": false,
+  "existing_build_run": "38779485198",
+  "synthetic_only": true,
+  "installed_executable_sha256": "D91677157B2E440C1642C096F918A02F693474A0992BA3E20698D75595984FC4"
+}

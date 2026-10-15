@@ -46,7 +46,7 @@
     "original_resource_inputs_bundled": false,
     "mobile_memory_validation": false
   },
-  "native31_status": "packages under validation; release not yet published",
+  "native31_status": "All three changed decimal system-save flows passed; detailed native and raw-resource boundaries in acceptance.json",
   "original_runtime": 0,
   "original_taxpayer_fixtures": 0,
   "whole_original_compatibility": false
