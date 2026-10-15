@@ -53,6 +53,18 @@ class NativeShapeTests(unittest.TestCase):
         p=replace(PROFILE,fields=(FieldBinding('OWNEDWHOLE',12),))
         fact=read(document(entity_xml(form_xml(field_xml('OWNEDWHOLE',12,text='1000.25')))),p).forms[0].fields[0]
         self.assertIn('fractional_dollar_kind_requires_review',fact.unresolved);self.assertEqual(fact.wire_text,'1000.25')
+    def test_ordinary_native_whole_dollar_dot_is_kind_specific(self):
+        for text in ('1000.', '-1000.', '0.', '-0.'):
+            profile=replace(PROFILE,fields=(FieldBinding('OWNEDWHOLE',12),))
+            book=read(document(entity_xml(form_xml(field_xml('OWNEDWHOLE',12,text=text)))),profile)
+            fact=book.forms[0].fields[0]
+            self.assertEqual(fact.wire_text,text)
+            self.assertEqual(fact.parsed_decimal,Decimal(text))
+            self.assertFalse(fact.unresolved)
+            self.assertEqual(candidates(book),())
+        cent=read(document(entity_xml(form_xml(field_xml('WAGES',11,text='1000.'))))).forms[0].fields[0]
+        self.assertIsNone(cent.parsed_decimal)
+        self.assertTrue(cent.unresolved)
     def test_native_iso_date_and_dob_subtype(self):
         p=replace(PROFILE,form_name='FINFOWKS',fields=(FieldBinding('TDOB',4,14),))
         form=form_xml(field_xml('TDOB',4,14,text='1960-02-29')).replace('FW2','FINFOWKS')

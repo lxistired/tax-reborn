@@ -101,6 +101,9 @@ def validate_native_profile(profile):
 
 
 def _inspect(request):
+    import taxml_mac
+    if taxml_mac.is_request(request):
+        return taxml_mac.inspect_context(request)
     if isinstance(request, dict) and request.get('container') == 'binary_entity':
         import binary_tax
         return binary_tax.inspect_request(request), None, {}
@@ -363,6 +366,9 @@ def inspect_request(request):
 
 
 def export_request(request):
+    import taxml_mac
+    if isinstance(request, dict) and taxml_mac.is_request(request.get('inspection')):
+        return taxml_mac.export_request(request)
     if isinstance(request, dict) and isinstance(request.get('inspection'), dict) and request['inspection'].get('container') == 'binary_entity':
         import binary_tax
         return binary_tax.export_request(request)

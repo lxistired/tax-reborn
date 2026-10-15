@@ -1,0 +1,50 @@
+{
+  "carrier_resources": 15,
+  "entities": 2,
+  "expected_headers": {
+    "checksum": "owned-checksum-2025-v1",
+    "dataVersion": "2025.1",
+    "formsetAttribute": "7",
+    "implementationVersion": "owned-1",
+    "sharedForAllDataVersion": "owned-all-1",
+    "sharedForFSDataVersion": "owned-fs-1",
+    "showSmartWorksheets": "false"
+  },
+  "fileCopyNum_U32_70000_is_not_copyNum_U16_1": true,
+  "files": {
+    "blocked-request.json": {
+      "bytes": 7082,
+      "sha256": "1ea01c3c572c86fed87fd85c074a40901f7d8273f48fedf373cf88ad3a09587f"
+    },
+    "owned-mac-blocked.zip": {
+      "bytes": 2198,
+      "sha256": "166eafac00ad5b8cbb7a507389582fda7e81d267abc863cab27a69212f4fd877"
+    },
+    "owned-mac-income.xml": {
+      "bytes": 8108,
+      "sha256": "fa7647246ae4e9c2959d5f8c4addc21b999a0f62936f5f7f83d1cdccfbfc9d67"
+    },
+    "owned-mac-income.xprf": {
+      "bytes": 2367,
+      "sha256": "7399763e58eb4fdd427e94ce1260607a4adf94bf9d343b1ca5f7dd5f1aade671"
+    },
+    "owned-mac-income.zip": {
+      "bytes": 2150,
+      "sha256": "23306c725ed4c94d5cb041828e0e08019374703b5f4588296de0b909231db009"
+    },
+    "plaintext-request.json": {
+      "bytes": 14944,
+      "sha256": "8e50bbdb0e78c59cf4d0b7c06b6c2d91a95587a5429787b3daf2e939982c2f1d"
+    },
+    "request.json": {
+      "bytes": 7018,
+      "sha256": "05c042d24bc4efbfe5cea613c6f2fe61c57b3cbaa88ee8ba22a1e893386aec8c"
+    }
+  },
+  "form_copies": 7,
+  "format": "tax-reborn-wholly-owned-mac-taxml-fixture-v1",
+  "original_runtime_executions": 0,
+  "original_saved_return": false,
+  "provenance": "All resource, XML and owner values independently generated; existing owned ZIP guard envelope reused.",
+  "vendor_bytes_included": false
+}

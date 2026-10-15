@@ -1,0 +1,20 @@
+{
+  "at_utc": "2026-10-15T16:29:12.387158+00:00",
+  "pinned_host_suite": {
+    "passed": 738,
+    "errors": 0,
+    "failures": 0
+  },
+  "real_Pyodide_suite": {
+    "executed": 627,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  "extra_kind12_trailing_dot_regression_host": true,
+  "API_independent_review_cases": 48,
+  "stale_confirmation_refusals": 3,
+  "original_licensed_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "native_package_acceptance": "pending"
+}

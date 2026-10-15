@@ -14,7 +14,9 @@ if generated.exists():shutil.rmtree(generated)
 shutil.copytree(ROOT/'interop',generated,ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
 binary_modules=sorted(p.relative_to(web).as_posix() for p in generated.rglob('*.py'))
 samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
-sample_assets=['samples/plaintext-container-request.json','samples/plaintext-container-blocked-request.json']
+sample_assets=['samples/plaintext-container-request.json','samples/plaintext-container-blocked-request.json','samples/mac-taxml-request.json','samples/mac-taxml-blocked-request.json']
+for source_name,target_name in [('request.json','mac-taxml-request.json'),('blocked-request.json','mac-taxml-blocked-request.json')]:
+ shutil.copy2(ROOT/'fixtures/mac-taxml'/source_name,web/'samples'/target_name)
 for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))

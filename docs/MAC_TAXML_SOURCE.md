@@ -1,0 +1,15 @@
+# Mac monetary TaxML source review
+
+The separate `tax-reborn-taxml-native-mac-profile-v1` profile reads explicitly cleartext 2025 monetary XML. It derives FormSet names and prefixes, full field IDs, current metadata ordinals, types and CID attributes from one ordered registration of complete caller-owned XPRF files. It does not substitute saved field ordinals for current metadata identities. Existing Windows source profiles keep their own rules.
+
+Use Documents → Open TaxML / binary .tax to select the source, its independently selected profile and the complete registry files. The profile separately binds expected FormSet headers, including its checksum. The source XML does not establish that those headers match an original installed program. The built-in **Load Mac monetary container sample** uses independently authored data: two entities and seven W-2, 1099-INT and 1099-DIV copies. File-copy number 70000 remains separate from copy number 1.
+
+Each stored entity and form copy stays separate. Review a supported candidate, enter its owner and employer or payer, and confirm its amounts before adding a local income record. The normal IRS calculation, local save, reopening and JSON backup workflows apply to that reviewed record. Other candidates are not automatically added to the current household. A missing amount never means zero. A stored `used="false"` amount cannot be used as a current income amount or corrected by this profile.
+
+To correct a supported source, review its box amounts and choose **Download corrected container**. This changes only the selected existing monetary text and reads back the complete XML and archive. The original manifest and all unselected local ZIP records remain byte-identical. Unknown manifest metadata that could describe integrity or versions makes the source read-only. XML-only sources produce corrected XML. The original attachment is retained; exporting a source does not change the current IRS return.
+
+Unsupported objects, namespaces, types, flags, compiled field attributes, itemization, links, nonmonetary fields and processing instructions block the finite operation. This is an ordinary monetary profile. A source produced with other native filter options may contain additional attributes and be refused. No defaults or absent form copies are manufactured. Stored UUIDs and copy headers remain source facts, not proof of a live original instance or original factory acceptance.
+
+The default encrypted original container is unsupported. Original licensed execution and real original saved-return comparison have not been performed. Complete `.tax` compatibility, original recalculation, state return migration and original program acceptance are not established. The independent IRS engine continues to report its existing supported-situation limits.
+
+Reproducible checks: `scripts/create_mac_taxml_fixture.py`, `tests/test_mac_taxml.py`, `scripts/test_mac_taxml_runtime.cjs`, `scripts/test_mac_taxml_browser.cjs`, and `scripts/verify_mac_taxml_native.py`. Test resources are independently generated. Vendor binaries, resources, taxpayer data and decompiler output are excluded from this repository.

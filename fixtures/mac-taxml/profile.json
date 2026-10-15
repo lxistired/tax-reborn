@@ -1,0 +1,27 @@
+{
+  "entity_name": "USIndividualTaxReturn",
+  "format": "tax-reborn-taxml-native-mac-profile-v1",
+  "formsets": [
+    {
+      "expected_headers": {
+        "checksum": "owned-checksum-2025-v1",
+        "dataVersion": "2025.1",
+        "formsetAttribute": "7",
+        "implementationVersion": "owned-1",
+        "sharedForAllDataVersion": "owned-all-1",
+        "sharedForFSDataVersion": "owned-fs-1",
+        "showSmartWorksheets": "false"
+      },
+      "forms": [
+        "FW2",
+        "F1099I",
+        "F1099D"
+      ],
+      "formset_id": "OWNEDMAC2025"
+    }
+  ],
+  "registry_order": [
+    "7399763e58eb4fdd427e94ce1260607a4adf94bf9d343b1ca5f7dd5f1aade671"
+  ],
+  "tax_year": 2025
+}

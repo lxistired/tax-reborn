@@ -45,10 +45,13 @@
     "interop/form_core/metadata_formset_body_reference.py",
     "interop/form_core/native_amount.py",
     "interop/form_core/native_document_reference.py",
+    "interop/form_core/native_mac_taxml_money_reference.py",
     "interop/form_core/native_mode4_reference.py",
+    "interop/form_core/native_taxml_names_reference.py",
     "interop/form_core/selected_form_record_reference.py",
     "interop/form_core/string_registry_reference.py",
     "interop/form_core/string_wire_reference.py",
+    "interop/form_core/taxml_money_reference.py",
     "interop/form_core/value_hash_wire_reference.py",
     "interop/form_core/value_table_header_reference.py"
   ],
@@ -97,10 +100,13 @@
     "interop/form_core/metadata_formset_body_reference.py": "024d95af007f9322c0b5097aeeece613c1d34fb30192a2a3f244fd655c6cfe97",
     "interop/form_core/native_amount.py": "f14768515c093bf46f282dd826dd87aa5b5e69bd18b586d9d0925bfdc363debe",
     "interop/form_core/native_document_reference.py": "647e8337d6fbcd88fc8b3dd5b81a73fafcdefe871a9cabba72e1c4abb52170e1",
+    "interop/form_core/native_mac_taxml_money_reference.py": "b8fe34d8711c7d365c76e3ff10b798002002672c9ed4f55e5cb38efb556798d8",
     "interop/form_core/native_mode4_reference.py": "3b05436814e31a97a1562e36f4254e2022fa590c2b96ab433ac234b10d693905",
+    "interop/form_core/native_taxml_names_reference.py": "d7e7efb82a4501eef350445eb31a2d33063979d5aaa9e6cfb602e16ca1517e32",
     "interop/form_core/selected_form_record_reference.py": "ce3102f521a65539823ec74148aa1403a4c1c408ad94a1a57210863fd68e5855",
     "interop/form_core/string_registry_reference.py": "7728b2b0dbb6dffbff08694a14b60e63d43d0c8bfaeb91f9dddec8339f189aae",
     "interop/form_core/string_wire_reference.py": "a878c53c72fdfc9133dceb52516d6baca90e2c899cd51417a697e6c14210c774",
+    "interop/form_core/taxml_money_reference.py": "d111c287d30c731129481263eb162aea7022ade8de3d695f53a833d0722a3312",
     "interop/form_core/value_hash_wire_reference.py": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462",
     "interop/form_core/value_table_header_reference.py": "211cd339a7bc94608dd80da54fa8edc509f71a33f4e77f866d4fa98cfd522bad"
   }

@@ -10,7 +10,8 @@ param(
     [switch]$TypedValues,
     [switch]$WholeNumbers,
     [switch]$PersistentObjects,
-    [switch]$CleartextContainer
+    [switch]$CleartextContainer,
+    [switch]$MacTaxML
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -775,6 +776,24 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_cleartext_container_passed=$true
         $checks.Add('Actual native cleartext container5members/3documents loaded; W2correction1234.56to1234.57 system-saved wholeZIP; originalmanifest,4otherlocalrecords,INT/DIV XML preserved; saved344current return retained after normal close/reopen. Default encrypted original files remain unsupported.')
+    }
+    if($MacTaxML) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load Mac monetary container sample')
+        Wait-Named 'Complete cleartext container' 120 $false | Out-Null
+        Save-Screenshot 'windows-native-Mac-TaxML-seven-copies.png'
+        Click-Observed (Wait-Named 'Review W-2 candidate')
+        Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '1234.57'
+        Click-Observed (Wait-Named 'Confirm all TaxML W-2 amounts and ownership'); Click-Observed (Wait-Named 'Download corrected container')
+        $macCopy=Join-Path $OutputDir 'windows-native-Mac-TaxML-corrected.zip'; Save-Native-Export $macCopy 100
+        Save-Screenshot 'windows-native-Mac-TaxML-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        $macReadback=python scripts/verify_mac_taxml_native.py $macCopy
+        if($LASTEXITCODE -ne 0) { throw 'Mac TaxML source failed complete ZIP and exact selected-text readback.' }
+        $macReadback | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-Mac-TaxML-readback.json')
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_Mac_TaxML_source_passed=$true
+        $checks.Add('Mac monetary source2entities/7storedcopies loaded; U32fileCopy70000 retained separately fromcopyNum1; actual system fullZIP saved afterWAGES1234.56to1234.57. Manifest4otherlocalrecords and all XML except selected text exact; normal restart kept existing344return.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

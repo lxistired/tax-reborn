@@ -88,7 +88,7 @@ self.onmessage = event => {
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
       else if (['taxml_inspect','taxml_export','binary_tax_edit'].includes(command)) {
         if (!taxmlReady) taxmlReady = (async()=>{
-          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py'];
+          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py'];
           const response=await fetch(new URL('binary-runtime.json',base));
           if(!response.ok)throw Error('Local binary tax-data manifest missing');
           const manifest=await response.json();

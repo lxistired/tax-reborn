@@ -161,7 +161,10 @@ def _read_field(e,binding,namespace):
         # this bounded subset offers a complete six-box candidate.
         if any(val=='true' and key!='used' for key,val in value_attrs.items()):problems.append('nondefault_value_flags_require_review')
         if binding.metadata_kind in (11,12):
-            if MONEY.fullmatch(text):
+            # Source-bound flavor3/subtype1 whole-dollar rendering ends in a dot.
+            # Keep cent syntax and fractional-dollar review rules unchanged.
+            native_whole_dot = binding.metadata_kind == 12 and re.fullmatch(r'-?(?:0|[1-9][0-9]{0,12})\.', text) is not None
+            if MONEY.fullmatch(text) or native_whole_dot:
                 try:
                     decimal=Decimal(text)
                     if binding.metadata_kind==12 and decimal!=decimal.to_integral_value():problems.append('fractional_dollar_kind_requires_review')

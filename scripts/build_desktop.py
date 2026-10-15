@@ -46,7 +46,13 @@ def icon_for_platform(work):
 
 def write_spec(work,icon,notices):
     hidden = ['webview.platforms.cocoa'] if sys.platform=='darwin' else ['webview.platforms.winforms','webview.platforms.edgechromium']
-    data = [(str(ROOT/'web'),'web'),(str(ROOT/'fixtures'),'fixtures'),(str(ROOT/'forms'),'forms'),(str(ROOT/'vendor'),'vendor'),(str(notices),'THIRDPARTY_NOTICES')]
+    # Python subprocess checks can create caches with private co_filename
+    # paths. Ship the independent source assets, not local interpreter caches.
+    packaged_web = work/'web-assets'
+    if packaged_web.exists():
+        shutil.rmtree(packaged_web)
+    shutil.copytree(ROOT/'web',packaged_web,ignore=shutil.ignore_patterns('__pycache__','*.pyc','*.pyo'))
+    data = [(str(packaged_web),'web'),(str(ROOT/'fixtures'),'fixtures'),(str(ROOT/'forms'),'forms'),(str(ROOT/'vendor'),'vendor'),(str(notices),'THIRDPARTY_NOTICES')]
     data += [(str(ROOT/name),'.') for name in ('VERSION','LICENSE','return_metadata.py','setup_preparation.py','source_documents.py','investment_metadata.py','income_preparation.py','rules_2025.json','tax_engine.py','tax_special_capital.py','tax_child_income.py','tax_extended.py','tax_credits.py','tax_additional.py','tax_longtail.py','tax_filing.py','presentation_schema.py','privacy_review.py','forms.py','official_forms.py') if (ROOT/name).is_file()]
     architecture = platform.machine()
     spec = work/'Tax Reborn.spec'

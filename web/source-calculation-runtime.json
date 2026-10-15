@@ -388,13 +388,13 @@
     },
     {
       "path": "taxml_native.py",
-      "bytes": 14609,
-      "sha256": "8a63de82c63fb4eb60b068c1198ad0a1a08413b57d5415707bc1a889d75e5ade"
+      "bytes": 14913,
+      "sha256": "81bb2a21c76cd9f09443134634dd2edd9a97265bd82d25f2cf006df8d38831fd"
     },
     {
       "path": "taxml_preparation.py",
-      "bytes": 28821,
-      "sha256": "0c7dc2d43291fba93322ddda52462554af4b120ecbd7df9256153948d9494364"
+      "bytes": 29086,
+      "sha256": "6e08a6e42cf457cb6dac87fae41aa719c0f9336d7fd2dfa88422f95ba77aa5f4"
     },
     {
       "path": "taxml_wire.py",
