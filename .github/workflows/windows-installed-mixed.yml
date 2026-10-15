@@ -1,0 +1,67 @@
+name: Existing Windows package mixed-income GUI acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Successful native-build run that produced the existing candidate
+        required: true
+        default: '38658225018'
+      setup_sha256:
+        description: Independently verified existing Setup SHA256
+        required: true
+        default: 'e9412b950bfc199c6516a61d0c1567edcc4b94a470c141dc21f133aa3c880975'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  mixed:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    env:
+      PYTHONUTF8: '1'
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Install readback dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-desktop.txt
+      - name: Download and install the existing independently hashed candidate
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNED_BUILD_RUN: ${{ inputs.build_run_id }}
+          OWNED_SETUP_SHA: ${{ inputs.setup_sha256 }}
+        run: |
+          gh run download $env:OWNED_BUILD_RUN --repo $env:GITHUB_REPOSITORY --name Tax-Reborn-Windows-native --dir "$env:RUNNER_TEMP/TaxRebornExistingCandidate"
+          if ($LASTEXITCODE -ne 0) { throw 'Existing candidate artifact download failed' }
+          $setup = Get-ChildItem "$env:RUNNER_TEMP/TaxRebornExistingCandidate/*-Windows-x64-Setup.exe"
+          if (@($setup).Count -ne 1) { throw 'Exactly one existing Setup artifact required' }
+          $actual = (Get-FileHash $setup.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $env:OWNED_SETUP_SHA.ToLowerInvariant()) { throw 'Candidate Setup differs from the independently verified hash' }
+          New-Item -ItemType Directory -Force -Path dist/windows-mixed | Out-Null
+          $installedDir = Join-Path $env:RUNNER_TEMP 'TaxRebornExistingInstalled'
+          $arguments = '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR="' + $installedDir + '" /LOG="' + $PWD + '\dist\windows-mixed\installer-log.txt"'
+          $installation = Start-Process -FilePath $setup.FullName -ArgumentList $arguments -PassThru -Wait
+          if ($installation.ExitCode -ne 0) { throw 'Existing Setup installation failed' }
+          $installedExe = Join-Path $installedDir 'Tax Reborn.exe'
+          if (!(Test-Path $installedExe)) { throw 'Setup did not install the actual executable' }
+          @{ existing_build_run=$env:OWNED_BUILD_RUN; setup_sha256=$actual; installed_executable_sha256=(Get-FileHash $installedExe -Algorithm SHA256).Hash; rebuilt=$false; setup_installed=$true; synthetic_only=$true } | ConvertTo-Json | Set-Content dist/windows-mixed/existing-package-receipt.json
+      - name: Operate installed native file pickers, reviews, save, restart and selected XML export
+        shell: pwsh
+        run: |
+          ./scripts/windows_gui_smoke.ps1 -MixedOnly -Executable "$env:RUNNER_TEMP/TaxRebornExistingInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-mixed" -DataDir "$env:RUNNER_TEMP/TaxRebornMixedSyntheticGUI"
+      - name: Upload actual verification evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Tax-Reborn-Windows-mixed-acceptance
+          path: dist/windows-mixed/*
+          if-no-files-found: error
+          retention-days: 30

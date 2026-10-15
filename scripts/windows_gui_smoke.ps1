@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory=$true)][string]$Executable,
     [Parameter(Mandatory=$true)][string]$OutputDir,
-    [Parameter(Mandatory=$true)][string]$DataDir
+    [Parameter(Mandatory=$true)][string]$DataDir,
+    [switch]$MixedOnly
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -208,8 +209,9 @@ function Save-Native-Export([string]$target, [int]$minimumBytes=1000) {
 }
 # Owned native TaxML migration on the isolated GitHub Actions Windows desktop.
 # These actions are not used on the user's computer or their returns.
-function Choose-Owned-Native-File([string]$label,[string]$target) {
-    if(!(Test-Path $target)) { throw "Missing owned fixture: $target" }
+function Choose-Owned-Native-File([string]$label,[string[]]$target) {
+    foreach($file in $target) { if(!(Test-Path $file)) { throw "Missing owned fixture: $file" } }
+    $selection=($target | ForEach-Object { '"'+$_+'"' }) -join ' '
     Click-Observed (Wait-Named ($label+': No file chosen'))
     $oldRoot=$script:root
     $pidCondition=[System.Windows.Automation.PropertyCondition]::new([System.Windows.Automation.AutomationElement]::ProcessIdProperty,$script:process.Id)
@@ -230,7 +232,7 @@ function Choose-Owned-Native-File([string]$label,[string]$target) {
         $script:root=$dialog; Wait-Named 'File name:' 10 | Out-Null
         [TaxWindow]::SetForegroundWindow([IntPtr]::new($dialog.Current.NativeWindowHandle)) | Out-Null
         [System.Windows.Forms.SendKeys]::SendWait('%n'); [System.Windows.Forms.SendKeys]::SendWait('^a')
-        [System.Windows.Forms.SendKeys]::SendWait($target)
+        [System.Windows.Forms.SendKeys]::SendWait($selection)
         Click-Observed (Wait-Named 'Open' 10)
     } finally { $script:root=$oldRoot }
     Wait-Named 'Inspect locally' | Out-Null
@@ -268,6 +270,7 @@ try {
     Launch-App
     $checks.Add('Packaged Windows WebView2 native window loaded the real interview.')
     Save-Screenshot 'windows-native-initial.png'
+    if(!$MixedOnly) {
     Click-Observed (Wait-Named 'My returns')
     Click-Observed (Wait-Named 'Synthetic examples')
     Click-Observed (Wait-Named 'Open example')
@@ -480,6 +483,77 @@ try {
     Save-Screenshot 'windows-native-taxml-reopened-source.png'
     $receipt.native_taxml_INT_DIV_changed_flow_passed=$true
     Click-Observed (Wait-Named 'Close dialog')
+    }
+    # New mixed-source flow uses one native Open picker selecting three XPRF
+    # files. No JS injection or database seeding supplies the imported values.
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
+    Set-Owned-Edit 'Return name' 'Synthetic Windows mixed income migration'
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    $folder=Join-Path (Split-Path $Executable) '_internal/fixtures/taxml'
+    Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder 'synthetic-mixed-income.xml')
+    Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder 'synthetic-mixed-income-profile.json')
+    $registries=@('synthetic-modern-windows-w2.xprf','synthetic-native-interest.xprf','synthetic-native-dividend.xprf') | ForEach-Object { Join-Path $folder $_ }
+    Choose-Owned-Native-File 'Choose caller-owned XPRF registries' $registries
+    $format=Wait-Named 'TaxML container declaration'; $format.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+    Click-Observed (Wait-Named 'Acknowledge the selected unverified wire profile')
+    Click-Observed (Wait-Named 'Inspect locally')
+    foreach($label in @('W-2','1099-INT','1099-DIV')) {
+        Click-Observed (Wait-Named ('Review '+$label+' candidate'))
+        if($label -eq 'W-2') {
+            Set-Owned-Edit 'Employer name' 'Synthetic Windows mixed employer'
+            $owner=Wait-Control 'ComboBox' 'Whose W-2 is this?'; $owner.SetFocus()
+            [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+            Set-Owned-Edit 'Box 7 · Social Security tips' '0'
+            Set-Owned-Edit 'Box 10 · Dependent-care benefits' '0'
+            Click-Observed (Wait-Named 'Confirm all TaxML W-2 amounts and ownership')
+        } else {
+            Set-Owned-Edit ($label+' payer name') ('Synthetic Windows mixed '+$label+' payer')
+            Click-Observed (Wait-Named ('Confirm supported '+$label+' situation'))
+            if($label -eq '1099-DIV') { Click-Observed (Wait-Named 'Confirm qualified dividend eligibility') }
+            Click-Observed (Wait-Named ('Confirm all TaxML '+$label+' amounts and household'))
+        }
+        Click-Observed (Wait-Named ('Add reviewed '+$label))
+        Wait-Named 'TaxML inspection results' | Out-Null
+        $added=Get-Named ('Review '+$label+' candidate') $false
+        if(!$added -or $added.Current.IsEnabled) { throw ('Added source form was not disabled in continued review: '+$label) }
+    }
+    Save-Screenshot 'windows-native-mixed-three-forms-added.png'
+    Click-Observed (Wait-Named 'Close dialog')
+    Wait-Named '$344' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    $checks.Add('Native multi-file Open picker supplied three owned XPRF registries; three income types independently reviewed from one XML and each added form disabled.')
+    Close-App; Launch-App; Wait-Named '$344' 120 $false | Out-Null
+    Save-Screenshot 'windows-native-mixed-reopened-344.png'
+    $env:TAX_REBORN_OWNED_DATADIR=$DataDir
+    python scripts/verify_windows_mixed_native.py --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-mixed-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'Native saved mixed-form metadata, ownership, amounts or344 USD calculation failed independent readback' }
+    $checks.Add('Normal close/relaunch preserved all three reviewed forms, shared attachment and distinct source paths; independent SQLite readback verified344 USD and actual saved line amounts.')
+    Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Inspect TaxML / plaintext .tax')
+    Choose-Owned-Native-File 'Choose plaintext TaxML or .tax container' (Join-Path $folder 'synthetic-mixed-income.xml')
+    Choose-Owned-Native-File 'Choose explicit TaxML wire profile' (Join-Path $folder 'synthetic-mixed-income-profile.json')
+    Choose-Owned-Native-File 'Choose caller-owned XPRF registries' $registries
+    $format=Wait-Named 'TaxML container declaration'; $format.SetFocus()
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{TAB}')
+    Click-Observed (Wait-Named 'Acknowledge the selected unverified wire profile'); Click-Observed (Wait-Named 'Inspect locally')
+    Click-Observed (Wait-Named 'Review 1099-INT candidate')
+    Set-Owned-Edit '1099-INT payer name' 'Synthetic Windows mixed 1099-INT payer'
+    Click-Observed (Wait-Named 'Confirm supported 1099-INT situation')
+    Click-Observed (Wait-Named 'Confirm all TaxML 1099-INT amounts and household')
+    Click-Observed (Wait-Named 'Add reviewed 1099-INT')
+    Wait-Named 'This source already supplied a 1099-INT. Edit the existing record instead of adding it again.' | Out-Null
+    Set-Owned-Edit 'Box 1 · Interest income' '101.24'
+    Click-Observed (Wait-Named 'Download corrected XML')
+    $mixedXml=Join-Path $OutputDir 'windows-native-mixed-selected-corrected.xml'; Save-Native-Export $mixedXml 100
+    python scripts/verify_windows_mixed_native.py --data-dir $DataDir --corrected-xml $mixedXml --output (Join-Path $OutputDir 'windows-native-mixed-final-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'Native corrected selected XML or duplicate refusal failed saved record/readback' }
+    Save-Screenshot 'windows-native-mixed-duplicate-corrected.png'
+    Click-Observed (Wait-Named 'Close dialog')
+    $checks.Add('Native repeated-source add was refused; system Save As exported only selected interest correction and independent readback proved W2/DIV bytes plus saved records unchanged.')
+    $receipt.native_mixed_taxml_changed_flow_passed=$true
+    Remove-Item Env:TAX_REBORN_OWNED_DATADIR
+    if(!$MixedOnly) {
     # Create a separate owned synthetic return in the same real SQLite
     # workspace, then operate its new interview and system export through UIA.
     $env:TAX_REBORN_OWNED_DATADIR=$DataDir
@@ -569,6 +643,7 @@ try {
     Remove-Item Env:TAX_REBORN_OWNED_FOREIGN_PDF
     $checks.Add('Native legacy foreign address without selector loaded with fresh readiness and system-exported1040/1040-V packet; stale cached state/ZIP gaps did not block current address.')
     $receipt.native_legacy_foreign_address_migration_passed=$true
+    }
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
