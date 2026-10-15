@@ -1,0 +1,91 @@
+{
+  "checked_at_utc": "2026-10-15T04:24:25.295593+00:00",
+  "version": "2026.10.15-preview.21",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.21",
+  "public_not_draft": true,
+  "prerelease": true,
+  "all_9_assets_anonymous_full_download_hash_verified": true,
+  "assets": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.21-Android.apk",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/Tax-Reborn-2026.10.15-preview.21-Android.apk",
+      "HTTP_status": 200,
+      "bytes": 49241334,
+      "sha256": "430e0b2d704312c8f8978c8d4ed7426e204a0f8a7d4e970d839ac343eea4a2f9",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.21-Windows-x64-Setup.exe",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/Tax-Reborn-2026.10.15-preview.21-Windows-x64-Setup.exe",
+      "HTTP_status": 200,
+      "bytes": 57814916,
+      "sha256": "543f25ec05467d9860e8b586abc52950b2bbfedac1e593f64950caa6479d2d2a",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.21-Windows-x64-portable.zip",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/Tax-Reborn-2026.10.15-preview.21-Windows-x64-portable.zip",
+      "HTTP_status": 200,
+      "bytes": 70831834,
+      "sha256": "b1e06ab44bb0d3ad8a44821f2476cd5f2c66679d4ede7b77d130e115b3b857c6",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.21-macOS-arm64.dmg",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/Tax-Reborn-2026.10.15-preview.21-macOS-arm64.dmg",
+      "HTTP_status": 200,
+      "bytes": 71495716,
+      "sha256": "227d1cd21b521a52b07cbb55db09efabb6adf2443a7f3df661962f8a60a5d0a2",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.21-source.zip",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/Tax-Reborn-2026.10.15-preview.21-source.zip",
+      "HTTP_status": 200,
+      "bytes": 121032561,
+      "sha256": "34c5a39e178fa8a232184ebe00acf2e8517723cd9bb58e36cf612b14e2b7fe16",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "source-manifest.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/source-manifest.json",
+      "HTTP_status": 200,
+      "bytes": 235680,
+      "sha256": "253b58120e617b3aeef220765ef31f88fa536dd2a5fd6ffedb2a87ac9dbfdfe3",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "platform-acceptance.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/platform-acceptance.json",
+      "HTTP_status": 200,
+      "bytes": 2908,
+      "sha256": "f1f876f554828d2e380c9b6f001d5b42597c1e7bbea18f0f40c3080811293d81",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "preview21-artifacts.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/preview21-artifacts.json",
+      "HTTP_status": 200,
+      "bytes": 1568,
+      "sha256": "90dea73867d699e7ecde2ade56f5ffeac5faa515e6b95ed83777522c5397afa5",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.21/SHA256SUMS.txt",
+      "HTTP_status": 200,
+      "bytes": 850,
+      "sha256": "11f92010f1956140dd97ca2038b529506e20cbdb982c22a910461e42762393ed",
+      "anonymous": true,
+      "full_download_hash_matches": true
+    }
+  ]
+}

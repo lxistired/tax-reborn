@@ -1,0 +1,22 @@
+{
+  "checked_at_utc": "2026-10-15T04:18:51.355973+00:00",
+  "actual_phone_system_save": true,
+  "device_saved_file": "Download/TaxReborn13Synthetic/synthetic-nested-corrected.taxbin",
+  "bytes": 1545,
+  "sha256": "fd9836ea3539cf5bb72c4c1dd389b006f18c00338439e98866184893126c339d",
+  "full_expected_binary_byte_exact": true,
+  "matches_verified_Mac_and_Windows_export": true,
+  "forms": 4,
+  "nonempty_table_records": 1,
+  "child_forms": 1,
+  "links": 4,
+  "changed_WAGES": "1234.57",
+  "other_fields_and_structure_preserved": true,
+  "income_review_recalculate_and_save_observed_UI": true,
+  "refund_USD": 344,
+  "actual_private_database_readback": false,
+  "genuine_cold_restart_verified": false,
+  "original_TurboTax_runtime": 0,
+  "original_saved_tax_fixture": 0,
+  "full_original_tax_compatibility": false
+}
