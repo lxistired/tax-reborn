@@ -12,6 +12,6 @@
   "unknown_records_block_movement": true,
   "native_runtime_executed": false,
   "whole_tax_compatibility": false,
-  "worker_source_sha256": "e062ef2ac591e4448ce86f49f96b3038887d54297c2b264fecd17e3e3dbaa1fd",
-  "runtime_manifest_sha256": "5f6d989a829816a53f474b548dc9decde0f2d1ac2751179aa8a815f38acc5493"
+  "worker_source_sha256": "dfd5f73a7d8fda0d2f7aff5fd41f3770f94f5ac8778f062e2cd3b08397d903d9",
+  "runtime_manifest_sha256": "027bb23531e662d81e1d0853444b92cbd7e2a2ea5a006e98a7de7dbad86c2d88"
 }

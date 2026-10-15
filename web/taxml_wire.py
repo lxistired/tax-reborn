@@ -239,6 +239,8 @@ class Registry:
         result = cls(templates)
         result.binding_report = report
         result.array_payloads = arrays
+        from interop.form_core.effective_field_limits_bridge_reference import selected_field_limits
+        result.field_limits = selected_field_limits(report, complete, templates)
         return result
 
 

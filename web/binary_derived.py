@@ -105,7 +105,7 @@ def decorate_fact(fact,form,node,value):
         address_kind='field_id',binding_action=value.native_action if value else 'missing_source_binding')
     # Existing source-proven amount codec admits11/12. Frozen83's generic raw
     # helper intentionally admits13 only; this App extension is explicit here.
-    compatible=value and value.native_action=='requires_additional_scalar_codec' and node.kind_byte in (11,12)
+    compatible=value and ((value.native_action=='requires_additional_scalar_codec' and node.kind_byte in (11,12)) or (node.kind_byte==13 and value.can_correct_source_scalar))
     fact['editable']=bool(fact['editable'] and compatible and not node.specific_attributes&8)
     reached=find_value(form.hash_state,node.field_index,node.element_index)
     fact['hash_reachable']=reached is node

@@ -1,0 +1,28 @@
+{
+  "format": "tax-reborn-owned-whole-number-fixture-v1",
+  "synthetic_only": true,
+  "input_bytes": 3830,
+  "input_sha256": "9967de3e908fb10a5581eac9482f7810d7e0e76eb17d60e76f5a0273f12943a2",
+  "field_id": "OWNED_UNITS",
+  "source_ordinal": 113,
+  "current_ordinal": 13,
+  "initial": 7,
+  "corrected": 8,
+  "minimum": 1,
+  "maximum": 12,
+  "bounds_source": "same effective registry, nonprimary DataHome",
+  "output_bytes": 3831,
+  "output_sha256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f",
+  "tail_movement_bytes": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "forms": 4,
+  "links": 4,
+  "child_forms": 1,
+  "source_only": true,
+  "original_runtime": 0,
+  "whole_original_compatibility": false
+}

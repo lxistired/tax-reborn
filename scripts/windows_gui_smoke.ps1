@@ -7,7 +7,8 @@ param(
     [switch]$CompleteValueForm,
     [switch]$AutomaticArrays,
     [switch]$SourceComparison,
-    [switch]$TypedValues
+    [switch]$TypedValues,
+    [switch]$WholeNumbers
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -713,6 +714,26 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_typed_values_passed=$true
         $checks.Add('Actual native saved value-note and destination bodies loaded; full-ID correction/system Save retained both bodies on all four forms, all3787 bytes and saved344 return after close/reopen.')
+    }
+    if($WholeNumbers) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load whole-number sample')
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Wait-Named 'Whole number · saved template range 1 to 12 · saved/current field numbers 113/13' 90 $false | Out-Null
+        Set-Owned-Edit 'Binary OWNED_UNITS [0]' '13'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        Wait-Named 'Whole number is outside the saved template range.' 90 $false | Out-Null
+        Save-Screenshot 'windows-native-whole-number-invalid-range.png'
+        Set-Owned-Edit 'Binary OWNED_UNITS [0]' '8'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        $integerCopy=Join-Path $OutputDir 'windows-native-whole-number-corrected.taxbin'; Save-Native-Export $integerCopy 100
+        Save-Screenshot 'windows-native-whole-number-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_value_form_native.py --whole-numbers --corrected-binary $integerCopy --output (Join-Path $OutputDir 'windows-native-whole-number-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Whole-number full system export failed source/limits/body readback.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_whole_number_source_passed=$true
+        $checks.Add('Actual native whole-number range1..12/refused13; complete3831B system save7 to8 retained saved/current113/13, nonempty tables/child/fourlinks/all moved typed bodies and current344 return after normal close/reopen.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

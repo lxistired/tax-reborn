@@ -1,8 +1,8 @@
 {
   "real_headless_UI": true,
-  "worker_sha256": "8463e47ebd2b371e4d5384e44aed4b661261063f2ffe6a1b1798f65b73546f67",
-  "UI_source_sha256": "adb4f2090c2822bb12053aba6f067df17292bea56b4bb9ef23b981777122cb9d",
-  "runtime_manifest_sha256": "5f6d989a829816a53f474b548dc9decde0f2d1ac2751179aa8a815f38acc5493",
+  "worker_sha256": "f4e99b248883e87d578712aab36e372b287e51ef45ccea10675770e06adf8ffa",
+  "UI_source_sha256": "166d7c046f4d9314c964a088e254a951ae7d968f778e8e4630b1a9d60a22b32a",
+  "runtime_manifest_sha256": "027bb23531e662d81e1d0853444b92cbd7e2a2ea5a006e98a7de7dbad86c2d88",
   "real_Pyodide_worker": true,
   "local_assets_only": true,
   "sample_button": "Load saved value-note sample",

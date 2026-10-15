@@ -118,6 +118,13 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_typed_value_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Installed typed value body and complete source runtime checks failed' }
+      - name: Exercise whole-number source bounds using the actual installed worker
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_whole_number_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed whole-number source bounds and complete export checks failed' }
       - name: Exercise payment vouchers using the installed worker and read back actual PDFs
         shell: pwsh
         run: |
@@ -141,7 +148,7 @@ jobs:
         run: |
           $options=@{}
           if ('${{ inputs.focused }}' -eq 'true') { $options.MixedOnly=$true }
-          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -WholeNumbers -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
       - name: Upload real packages and verification evidence
         if: always()
         uses: actions/upload-artifact@v7

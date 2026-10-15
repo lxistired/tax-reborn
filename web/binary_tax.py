@@ -12,6 +12,7 @@ import re
 import taxml_wire as wire
 import taxml_preparation as prep
 import binary_derived as derived
+import source_integer
 from interop.derived_form.document_semantics_reference import document_semantic_snapshot as derived_snapshot
 from interop.form_core.cx_string_wire_reference import Buffers, initialize
 from interop.form_core.native_amount import decode_amount
@@ -166,7 +167,7 @@ def _template(document, path, form, registry, selected):
     return fsid, registry.resolve(*key, selected[key]), selected[key]
 
 
-def _field_fact(form, node, spec, *, derived_form=False):
+def _field_fact(form, node, spec, *, derived_form=False, limits=None):
     fact = {'ordinal': node.field_index, 'element': node.element_index,
             'kind': node.kind_byte, 'raw64': str(node.raw),
             'value_header': node.header, 'specific_attributes': node.specific_attributes,
@@ -189,6 +190,8 @@ def _field_fact(form, node, spec, *, derived_form=False):
             value_header=node.header)
         fact.update(status=value.status, text=None if value.value is None else format(value.value, 'f'),
                     editable=value.status == 'value')
+    elif node.kind_byte == 13 and derived_form:
+        fact.update(source_integer.describe_integer(form,node,spec,limits))
     elif node.kind_byte == 7:
         if not node.specific_attributes & 1:
             fact['status'] = 'unused'
@@ -285,7 +288,7 @@ def _inspect(request):
             for node in buffer.nodes:
                 value=derived.binding(context,path,node) if derived_form else None
                 spec=specs.get(value.current_field_index if value else node.field_index)
-                fact=_field_fact(form,node,spec,derived_form=derived_form)
+                fact=_field_fact(form,node,spec,derived_form=derived_form,limits=getattr(registry,'field_limits',{}).get((fsid,_text(form.header.identifier))))
                 facts.append(derived.decorate_fact(fact,form,node,value) if derived_form else fact)
         archive_forms.append({'path': list(path), 'form_path': form_path,
             'formset_id': fsid, 'form_id': _text(form.header.identifier),
@@ -425,6 +428,7 @@ def _rewrite(inspection, expected_source, changes, confirmed):
         raise ValueError('The binary source changed; inspect it again.')
     if not isinstance(changes, list) or not 1 <= len(changes) <= 1024:
         raise ValueError('Choose one or more supported amount corrections.')
+    _,_,_,registry,_,_= _context(inspection)
     forms = {tuple(path): form for path, form in walk_forms(document)}
     facts = {(tuple(form['path']), field['ordinal'], field['element']): field
              for form in result['binary_archive']['forms'] for field in form['fields']}
@@ -453,15 +457,26 @@ def _rewrite(inspection, expected_source, changes, confirmed):
         if not isinstance(text, str) or not re.fullmatch(r'-?[0-9]{1,13}(?:\.[0-9]{1,2})?', text):
             raise ValueError('Enter a supported amount with at most two decimal places.')
         number = Decimal(text)
+        if fact['kind']==13:
+            # Public whole-number correction is stricter than native SetValue.
+            # Preserve all presence/error/override flags and the existing key.
+            form=forms[key[0]]
+            node=derived.find_value(form.hash_state,key[1],key[2])
+            fsid=_text(document.formsets[key[0][0]].header.identifier)
+            limits=getattr(registry,'field_limits',{}).get((fsid,_text(form.header.identifier)))
+            from dataclasses import replace as node_replace
+            current_node=node_replace(node,field_index=fact['current_ordinal'])
+            bits=source_integer.corrected_integer_bits(text,current_node,limits)
         scale = 2 if fact['kind'] == 11 else 0
         scaled = number.scaleb(scale)
         if scaled != scaled.to_integral_value() or not -(1 << 63) < scaled < (1 << 63) - 1:
             raise ValueError('Amount exceeds this field’s precision or range.')
         bits = int(scaled) & ((1 << 64) - 1)
-        check = decode_amount(kind_byte=fact['kind'], raw64=bits, exponent_byte=fact['exponent_byte'],
-            fv_attributes=fact['specific_attributes'], value_header=fact['value_header'])
-        if check.status != 'value':
-            raise ValueError('The corrected value is reserved, unused or outside the supported range.')
+        if fact['kind']!=13:
+            check = decode_amount(kind_byte=fact['kind'], raw64=bits, exponent_byte=fact['exponent_byte'],
+                fv_attributes=fact['specific_attributes'], value_header=fact['value_header'])
+            if check.status != 'value':
+                raise ValueError('The corrected value is reserved, unused or outside the supported range.')
         form = forms[key[0]]
         hits = sum(node.field_index == key[1] and node.element_index == key[2]
                    for buffer in form.hash_state.buffers for node in buffer.nodes)

@@ -13,8 +13,8 @@
     },
     {
       "file": "tax-worker-source.js",
-      "sha256": "e062ef2ac591e4448ce86f49f96b3038887d54297c2b264fecd17e3e3dbaa1fd"
+      "sha256": "dfd5f73a7d8fda0d2f7aff5fd41f3770f94f5ac8778f062e2cd3b08397d903d9"
     }
   ],
-  "worker_sha256": "8463e47ebd2b371e4d5384e44aed4b661261063f2ffe6a1b1798f65b73546f67"
+  "worker_sha256": "f4e99b248883e87d578712aab36e372b287e51ef45ccea10675770e06adf8ffa"
 }

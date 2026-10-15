@@ -1,0 +1,19 @@
+{
+  "actual_headless_App_UI": true,
+  "actual_local_Pyodide_worker": true,
+  "actual_HTTP_SQLite_saved_reload": true,
+  "local_assets_only": true,
+  "range_and_saved_current_identity_rendered": true,
+  "invalid_13_refused_without_download": true,
+  "change_resets_confirmation": true,
+  "whole_number7_to8": true,
+  "complete_source_bytes": 3831,
+  "complete_source_sha256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f",
+  "all_tails_child_tables_links_and_bodies_preserved_by_worker_readback": true,
+  "separate_current_return_unchanged": true,
+  "persisted_IRS_refund": 1425,
+  "App_UI_sha256": "c631a73a45b22d10488015b8347453265bf86e38a213f416baa1295741badade",
+  "worker_sha256": "f4e99b248883e87d578712aab36e372b287e51ef45ccea10675770e06adf8ffa",
+  "original_engine_executed": false,
+  "whole_original_compatibility": false
+}
