@@ -1,0 +1,17 @@
+{
+  "version": "2026.10.15-preview.26",
+  "source_archive_commit": "9a4e889d2555915964b3b5c372f9896014fad551",
+  "tracked_files_packaged": 1633,
+  "every_archive_file_matches_exact_Git_blob": true,
+  "ZIP_CRC_passed": true,
+  "source_zip_sha256": "3fe5bd5f2cc24446303a518f48a70bcfa619d11f472d50329e2ed949cc8d4152",
+  "source_zip_bytes": 129926426,
+  "isolated_runtime_probe": "passed",
+  "validated_at_utc": "2026-10-15T10:29:32.967663+00:00",
+  "actual_extracted_HTTP_and_SQLite_save_reopen": true,
+  "actual_extracted_whole3787_byte_export_replay": true,
+  "actual_extracted_comparison_full_current_input_IRS_replay": true,
+  "synthetic_fixtures_only": true,
+  "original_native_executions": 0,
+  "whole_original_tax_compatibility": false
+}

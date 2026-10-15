@@ -1,0 +1,2 @@
+{"source_HTTP_schema_version": "2026.10.15-preview.26", "actual_calculation_tax_USD": 5075, "actual_calculation_refund_USD": 1425, "SQLite_save_and_reopen": true, "actual_extracted_source_modules": true}
+{"actual_extracted_source_comparison": true, "source_tax_USD": 1279, "current_refund_USD": 344, "comparison_delta_USD": 1523, "full_current_input_independently_recalculated": true, "writeback": false, "original_runtime_execution": 0}
