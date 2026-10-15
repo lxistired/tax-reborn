@@ -1,0 +1,93 @@
+{
+  "version": "2026.10.15-preview.23",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.23",
+  "release_page_anonymous_HTTP": 200,
+  "asset_count": 9,
+  "authorization_headers_or_authenticated_session_used": false,
+  "assets": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.23-Android.apk",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/Tax-Reborn-2026.10.15-preview.23-Android.apk",
+      "HTTP_status": 200,
+      "bytes": 49270803,
+      "sha256": "4a3dbbbb5d94120e038f7bff84be3814fe6627f8a0a07169bd2ee4f612c51c2e",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.23-Windows-x64-Setup.exe",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/Tax-Reborn-2026.10.15-preview.23-Windows-x64-Setup.exe",
+      "HTTP_status": 200,
+      "bytes": 57839648,
+      "sha256": "c9b92f224f347ffd3cf3f211c6dd146f7986ec6068e752dbb31b2b741a47c38a",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.23-Windows-x64-portable.zip",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/Tax-Reborn-2026.10.15-preview.23-Windows-x64-portable.zip",
+      "HTTP_status": 200,
+      "bytes": 70880552,
+      "sha256": "4d5f831fd82e3fee87ebb7ee6bba71a067eb0fa070fdeb00d143f73dc312536a",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.23-macOS-arm64.dmg",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/Tax-Reborn-2026.10.15-preview.23-macOS-arm64.dmg",
+      "HTTP_status": 200,
+      "bytes": 71491056,
+      "sha256": "e251cd619bdd7b77be23e4fdb0a0fa5a3bb86ea8bb7a68d69b18b24401cf0338",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.23-source.zip",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/Tax-Reborn-2026.10.15-preview.23-source.zip",
+      "HTTP_status": 200,
+      "bytes": 122651507,
+      "sha256": "7c93278d831f6f54aa8ca2e70be3a88e3ca9b04451e4d3326bc54d95bc07cde8",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "source-manifest.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/source-manifest.json",
+      "HTTP_status": 200,
+      "bytes": 251993,
+      "sha256": "109c52ebe99bc548a9c1d88d24d9c6e2cda8dabee0b76be206aedfe49438ccb9",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "platform-acceptance.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/platform-acceptance.json",
+      "HTTP_status": 200,
+      "bytes": 6076,
+      "sha256": "4fb6237cfc97a534925b4a99457cf533eda6ae3a5d2064cf9fc11e2788de06b8",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "preview23-artifacts.json",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/preview23-artifacts.json",
+      "HTTP_status": 200,
+      "bytes": 1800,
+      "sha256": "50bf8c7c0e26211b411ea02946509bc6717c614a343467c007ae30779ce1bb6d",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.15-preview.23/SHA256SUMS.txt",
+      "HTTP_status": 200,
+      "bytes": 850,
+      "sha256": "7e14220887ae603be630fca0637c128b4bd3c3843ad294467924a05bb04200c5",
+      "complete_anonymous_download": true,
+      "matches_published_candidate": true
+    }
+  ],
+  "all_complete_downloads_match": true,
+  "total_asset_bytes": 372394285,
+  "checked_at_utc": "2026-10-15T07:22:51.040436+00:00"
+}

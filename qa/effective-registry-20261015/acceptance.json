@@ -71,12 +71,20 @@
   "original_engine_parity": false,
   "native_row_rebuild_supported": false,
   "derived_ValueForm_persistent_tail_App_integrated": false,
-  "published_installers": false,
+  "published_installers": true,
   "checked_at_utc": "2026-10-15T07:14:00.479958+00:00",
   "Windows_actual_Setup_installed": true,
   "Windows_actual_native_GUI_all_passed": true,
   "Windows_actual_native_GUI_checks": 29,
   "Windows_installed_frozen_checks": 21,
   "Windows_durable_XML_survives_normal_App_close": true,
-  "Windows_system_saved_binary_byte_exact_with_Mac_and_initial23_Android": true
+  "Windows_system_saved_binary_byte_exact_with_Mac_and_initial23_Android": true,
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.23",
+  "anonymous_complete_downloads_verified": 9,
+  "subsequent_adversarial_issue": {
+    "scope": "v1-v3 binary source inspector",
+    "reproduced": "Allocated unreachable node can be treated as current input. Synthetic normal-flow29GUI acceptance does not cover this extra failure.",
+    "current_status": "Publicly documented; shared all-profile validator and completeValueForm candidate under independent acceptance for24.",
+    "real_tax_data_migration_recommended": false
+  }
 }
