@@ -62,5 +62,19 @@
   "full_original_tax_compatibility": false,
   "active_native_metadata_executed": false,
   "original_full_recalculation_executed": false,
-  "publication_and_anonymous_package_readback": "pending, separate from completed native acceptance"
+  "publication_and_anonymous_package_readback": {
+    "public": true,
+    "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.28",
+    "complete_anonymous_assets": 9,
+    "complete_bytes": 387100598,
+    "every_complete_download_byte_equal_to_tested_artifact": true,
+    "receipt": "public-download-readback.json"
+  },
+  "source_archive": {
+    "source_commit": "86dff9dc96a4cc31152af8f15c5e20d141915161",
+    "all1811_files_exact_Git_blobs_and_CRC": true,
+    "extracted_actual_Chrome_WASM_full_export_and_saved344": true,
+    "structural_receipt": "source-archive-structural-acceptance.json",
+    "actual_browser_receipt": "source-archive-actual-browser-receipt.json"
+  }
 }

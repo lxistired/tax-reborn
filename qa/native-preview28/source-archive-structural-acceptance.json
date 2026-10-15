@@ -1,0 +1,10 @@
+{
+  "source_commit": "86dff9dc96a4cc31152af8f15c5e20d141915161",
+  "archive_bytes": 134933235,
+  "archive_SHA256": "4ed3c38947ec9d13866f44f68939e3d59a5c9238a5bbf1cc4bf142b1b108940a",
+  "all_archive_files_exact_Git_blobs": 1811,
+  "zip_CRC_passed": true,
+  "no_private_work_SQLite_real_return_or_signing_key": true,
+  "extracted_runtime_acceptance_pending": false,
+  "extracted_actual_HTTP_Chrome_WASM_full_export_and_saved344_passed": true
+}
