@@ -231,10 +231,22 @@ function Choose-Owned-Native-File([string]$label,[string[]]$target) {
         if(!$dialog) { throw 'No actual application-owned Open picker appeared.' }
         $script:root=$dialog; Wait-Named 'File name:' 10 | Out-Null
         [TaxWindow]::SetForegroundWindow([IntPtr]::new($dialog.Current.NativeWindowHandle)) | Out-Null
+        if($target.Count -gt 1) {
+            $folder=Split-Path $target[0]
+            foreach($file in $target) { if((Split-Path $file) -ne $folder) { throw 'Owned multi-selection requires one actual fixture folder.' } }
+            # The failed native readback exposed2 files instead of3. Navigate
+            # the real dialog to the common folder and enter short quoted
+            # basenames instead of one long list of fully qualified paths.
+            [System.Windows.Forms.SendKeys]::SendWait('%d')
+            [System.Windows.Forms.SendKeys]::SendWait($folder+'{ENTER}')
+            Start-Sleep -Milliseconds 500
+            $selection=($target | ForEach-Object { '"'+(Split-Path $_ -Leaf)+'"' }) -join ' '
+        }
         [System.Windows.Forms.SendKeys]::SendWait('%n'); [System.Windows.Forms.SendKeys]::SendWait('^a')
         [System.Windows.Forms.SendKeys]::SendWait($selection)
         Click-Observed (Wait-Named 'Open' 10)
     } finally { $script:root=$oldRoot }
+    if($target.Count -gt 1) { Wait-Named ($label+': '+$target.Count+' files') 15 | Out-Null }
     Wait-Named 'Inspect locally' | Out-Null
 }
 function Set-Owned-Edit([string]$label,[string]$text) {
