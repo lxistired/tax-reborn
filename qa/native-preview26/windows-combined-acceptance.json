@@ -1,0 +1,14 @@
+{
+  "version": "2026.10.15-preview.26",
+  "Windows_build_commit": "a313d16",
+  "Windows_full_run": "https://github.com/lxistired/tax-reborn/actions/runs/38717845079",
+  "Windows_GUI_checks": 34,
+  "Windows_installed_frozen_checks": 21,
+  "all_passed": true,
+  "all_three_actual_native_complete_exports_byte_identical": true,
+  "full_export_bytes": 3787,
+  "full_export_sha256": "5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21",
+  "original_runtime_executions": 0,
+  "real_original_saved_return_fixtures": 0,
+  "full_original_tax_compatibility": false
+}

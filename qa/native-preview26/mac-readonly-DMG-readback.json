@@ -1,0 +1,8 @@
+{
+  "readonly_DMG_matches_actual_tested_App": true,
+  "regular_files": 520,
+  "symlinks": 73,
+  "Mac_Android_production_commit": "b9ad417adad60df91ecd95db276cd6a730074702",
+  "subsequent_Windows_source_changes_only_tests_and_fixture_generator": true,
+  "DMG_sha256": "b991c35bf0157530f3098a11945751b9c0a03e4b27431e41243b23aa38a3b74a"
+}

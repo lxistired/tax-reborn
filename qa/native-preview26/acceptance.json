@@ -1,0 +1,119 @@
+{
+  "version": "2026.10.15-preview.26",
+  "status": "All three final native changed workflows passed; upload and public download recorded separately",
+  "Mac_Android_production_commit": "b9ad417adad60df91ecd95db276cd6a730074702",
+  "Windows_checkout_commit": "a313d16caa49f798eae335b2f45f6b6219acd45c",
+  "bundled_product_runtime_sources_identical_between_commits": true,
+  "Windows_checkout_differences": [
+    "LF-only source fixture generator manifest",
+    "Bodyless native-save capability test to avoid Windows early-rejection TCP race"
+  ],
+  "Windows_initial_two_failed_runs": [
+    38715811454,
+    38716949105
+  ],
+  "Windows_successful_full_run": 38717845079,
+  "Windows_successful_full_run_URL": "https://github.com/lxistired/tax-reborn/actions/runs/38717845079",
+  "Windows_actual_GUI_checks": 34,
+  "Windows_installed_frozen_checks": 21,
+  "host_tests_passed": 702,
+  "real_Pyodide": {
+    "total": 593,
+    "executed": 591,
+    "skipped": 2,
+    "failures": 0
+  },
+  "actual_main_App_four_income_reviews_save_and_reload_refund_USD": 344,
+  "fixture_origin": "independently authored complete source streams and registries",
+  "all_three_actual_system_saved_full_sources_byte_identical": true,
+  "full_source_export_bytes": 3787,
+  "full_source_export_SHA256": "5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21",
+  "supported_value_bodies_per_form": 2,
+  "supported_body_kinds": [
+    "value_note",
+    "destination_reference"
+  ],
+  "all_four_form_complete_derived_tails_preserved": true,
+  "all_four_tail_offsets_move_bytes": 2,
+  "saved_and_current_field_numbers": [
+    104,
+    4
+  ],
+  "full_ID_addressed_change": true,
+  "nonempty_tables_child_forms_four_links_and_typed_UUIDs_preserved": true,
+  "unknown_record_and_value_body_movement_still_refused": true,
+  "empty_explicit_four_byte_note_preserved": true,
+  "native_empty_note_writer_parity_asserted": false,
+  "record_source_6AB_admitted": false,
+  "source_new_field_or_row_lifecycle_admitted": false,
+  "Mac_native_system_binary_and_audit_save_readback": true,
+  "Mac_native_full_input_SHA_and_IRS_recomputation_matches": true,
+  "Mac_normal_quit_reopen_344_and_sources_retained": true,
+  "Mac_readonly_DMG_exactly_matches_tested_App": true,
+  "Mac_actual_packaged_Pyodide_worker_checks_passed": true,
+  "Android_original_signer_and_first_install_time_preserved": true,
+  "Android_installed_APK_bytes_match_built": true,
+  "Android_existing_saved_344_return_and_sources_retained": true,
+  "Android_native_system_binary_and_audit_save_readback": true,
+  "Android_actual_new_full_return_JSON_system_save_readback": true,
+  "Android_full_input_SHA_and_independent_IRS_recomputation_matches": true,
+  "Android_separate_26_manual_force_stop_test": false,
+  "all_three_native_source_comparison_regression_passed": true,
+  "comparison_demo_inputs_differ_from_current_App_return": true,
+  "comparison_only_no_writeback": true,
+  "comparison_current_refund_USD": 344,
+  "comparison_demo_total_tax_USD": 1279,
+  "comparison_demo_payments_USD": 100,
+  "comparison_signed_balance_delta_USD": 1523,
+  "original_runtime_executions": 0,
+  "real_original_taxpayer_saved_files": 0,
+  "whole_original_tax_compatibility": false,
+  "original_engine_parity": false,
+  "electronic_filing_available": false,
+  "screenshots": [
+    {
+      "file": "android-actual-WAGES-1234.57.png",
+      "sha256": "4be209fa05aca1348273af15790d09f9f63ac88bf1c84e5e224a950fc59aceb6"
+    },
+    {
+      "file": "android-after-native-exports-344.png",
+      "sha256": "b30ec34dbe0f4005025d6cb2140eec604f2bdbe90c7c4418bf363517c9811afb"
+    },
+    {
+      "file": "android-confirmed-full-source-edit.png",
+      "sha256": "98e611d62d69a78c3b25648d13fc59f44bff4ad89627302571aebcc9c3f7508c"
+    },
+    {
+      "file": "android-saved-destination-body.png",
+      "sha256": "38dfb35cd0de0d6085734169f711a51376cda765c55e8d6475c3fd0c832c3218"
+    },
+    {
+      "file": "android-source-comparison-result.png",
+      "sha256": "155e228aa8d651d0cfbb0ac8b8e91c1a33601335d556134ffe909c11f1d9aaf3"
+    },
+    {
+      "file": "android-upgrade-retained-344.png",
+      "sha256": "88132632239853197e667935169f747e7f45b34320c98632887b183b4f6fd161"
+    },
+    {
+      "file": "mac-reopened-retained-344.png",
+      "sha256": "f373e6b258e838725373f32b1a20860ad15057f750a4f4bcd8aa059f565bf424"
+    },
+    {
+      "file": "mac-saved-value-bodies.png",
+      "sha256": "ed9b64329e620608b6199bec90a254793bdd2d0806d05c2dc7bc3eae581ac99c"
+    },
+    {
+      "file": "mac-source-comparison-result.png",
+      "sha256": "fe706656263001ca690085891234cc534c84483eaabd3eb5cda18032981fc28d"
+    },
+    {
+      "file": "windows-native-local-source-comparison.png",
+      "sha256": "e041da8242536ecce2574626ff43e27762d20a31b3367d6705f1a5108e4e1ead"
+    },
+    {
+      "file": "windows-native-saved-value-bodies.png",
+      "sha256": "6d30367a9abbe40c748e8c9d7e4d7e5d5f07ba8f89ac6b52f6339fedcba46d87"
+    }
+  ]
+}

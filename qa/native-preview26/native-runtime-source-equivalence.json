@@ -1,0 +1,10 @@
+{
+  "Mac_Android_production_commit": "b9ad417adad60df91ecd95db276cd6a730074702",
+  "Windows_checkout_commit": "a313d16caa49f798eae335b2f45f6b6219acd45c",
+  "only_changed_paths": [
+    "scripts/create_typed_value_fixture.py",
+    "tests/test_native_save_http.py"
+  ],
+  "all_bundled_product_source_files_byte_identical_between_commits": true,
+  "Mac_Android_packages_not_rebuilt_for_test_only_changes": true
+}

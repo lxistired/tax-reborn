@@ -1,0 +1,17 @@
+{
+  "real_pyodide_worker": true,
+  "shared_loader_malformed_refusals": 7,
+  "typed_value_bodies_per_form": 2,
+  "forms": 4,
+  "source_ordinal": 104,
+  "current_ordinal": 4,
+  "whole_document_verified": true,
+  "all_tails_moved_by": 2,
+  "body_raw_bytes_preserved": true,
+  "empty_four_bytes_preserved": true,
+  "unknown_records_block_movement": true,
+  "native_runtime_executed": false,
+  "whole_tax_compatibility": false,
+  "worker_source_sha256": "e062ef2ac591e4448ce86f49f96b3038887d54297c2b264fecd17e3e3dbaa1fd",
+  "runtime_manifest_sha256": "5f6d989a829816a53f474b548dc9decde0f2d1ac2751179aa8a815f38acc5493"
+}
