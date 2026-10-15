@@ -1,0 +1,40 @@
+{
+  "runtime": "actual staged worker with pinned Pyodide",
+  "synthetic_only": true,
+  "passed": 2,
+  "rows": [
+    {
+      "name": "germany",
+      "city": "Berlin",
+      "country": "Germany",
+      "province": "Berlin",
+      "postal": "10115",
+      "file": "germany-worker-packet.pdf",
+      "sha256": "3b0b68b9c3b38ed8cb91e634117dc08fde40d9b2ac82c81583a032fafcb3bf00",
+      "owed": 2435
+    },
+    {
+      "name": "canada",
+      "city": "Ottawa",
+      "country": "Canada",
+      "province": "Ontario",
+      "postal": "K1A 0B1",
+      "file": "canada-worker-packet.pdf",
+      "sha256": "4b9ff7cfc5dfb590084f1164c2028efd2c837eff900bed2dcbb0adba2af3a1a9",
+      "owed": 2435
+    }
+  ],
+  "incomplete_country_blocks_paper": true,
+  "tax_eligibility_not_expanded": true,
+  "source_sha256": {
+    "tax_engine.py": "d5dd9521cdb1b8e46507d7570bff59367331488dfe09df16a30c199bb387a69d",
+    "tax_filing.py": "f633efc875756389ab506777ed023eec380651f77d8aea61d98e53a82d49f846",
+    "forms.py": "2d5175518046e7117d7617a7c3c63a61b171236d5edd221a20ba958c566b9826",
+    "official_forms.py": "235b30840c1645057f94b1f703cce0d8b687615e9b3972605320915fcca6da8c",
+    "web/app.js": "c631a73a45b22d10488015b8347453265bf86e38a213f416baa1295741badade",
+    "web/tax-worker-source.js": "dfd5f73a7d8fda0d2f7aff5fd41f3770f94f5ac8778f062e2cd3b08397d903d9"
+  },
+  "storage_acceptance": false,
+  "native_UI_acceptance": false,
+  "original_native_executions": 0
+}

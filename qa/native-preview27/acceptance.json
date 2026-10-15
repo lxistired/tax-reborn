@@ -1,0 +1,58 @@
+{
+  "version": "2026.10.15-preview.27",
+  "production_source_commit": "51adb6a31657ca7804ac4d50dd909f4314c39608",
+  "host_tests": 710,
+  "real_Pyodide_total": 601,
+  "real_Pyodide_executed": 599,
+  "real_Pyodide_skipped": 2,
+  "independent_host_cases": 56,
+  "independent_actual_Pyodide_cases": 56,
+  "independent_source_freeze_SHA256": "bbcb0e92836530b80df04937b59b559047d7d73e71031fe335236bca42b17717",
+  "actual_Chrome_full_source_edit_and_separate_current_return_reload": true,
+  "Windows": {
+    "CI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38732886655",
+    "actual_Setup_installed": true,
+    "installed_frozen_checks": 21,
+    "actual_native_GUI_checks": 13,
+    "actual_new_whole_number_UI": true,
+    "actual_system_source_save_full_readback": true,
+    "normal_reopen_344": true,
+    "focused_changed_flow": true
+  },
+  "Mac": {
+    "actual_new_native_UI": true,
+    "out_of_range13_refused": true,
+    "actual_system_source_save_full_readback": true,
+    "normal_quit_reopen_344": true,
+    "complete_current_input_matches_previous26_and_IRS": true,
+    "readonly_DMG_full_App_600_paths_match": true
+  },
+  "Android": {
+    "original_signer": true,
+    "actual_installed_APK_equals_built": true,
+    "first_install_time_preserved": "2026-10-13 13:31:14",
+    "old_current_return_and_attachments_retained": true,
+    "actual_new_native_UI": true,
+    "out_of_range13_refused": true,
+    "actual_system_source_save_full_readback": true,
+    "actual_system_complete_JSON_backup_readback_and_IRS_344": true,
+    "complete_current_input_matches_previous26": true,
+    "separate_manual_force_stop": false,
+    "original_wireless_TLS_preserved": true,
+    "temporary5555_not_opened": true
+  },
+  "three_actual_native_source_exports": {
+    "bytes": 3831,
+    "SHA256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f",
+    "byte_identical": true
+  },
+  "preserved_nonempty_tables_child_four_links_all_four_tails": true,
+  "source_only": true,
+  "original_SetValue_executed": false,
+  "original_runtime_executions": 0,
+  "real_original_taxpayer_fixtures": 0,
+  "whole_original_tax_compatibility": false,
+  "recorded_at_utc": "2026-10-15T12:27:53.074764+00:00",
+  "native_acceptance_complete": true,
+  "publication_verification": "Separate public-download-readback.json is recorded after actual release upload."
+}

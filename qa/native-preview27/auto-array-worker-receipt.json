@@ -1,0 +1,32 @@
+{
+  "real_pyodide_worker": true,
+  "worker_source_sha256": "dfd5f73a7d8fda0d2f7aff5fd41f3770f94f5ac8778f062e2cd3b08397d903d9",
+  "runtime_manifest_sha256": "027bb23531e662d81e1d0853444b92cbd7e2a2ea5a006e98a7de7dbad86c2d88",
+  "automatic_arrays_from_same_effective_registry": true,
+  "manual_array_profile": false,
+  "cross_carrier_array_sources": true,
+  "array_resource_ids": [
+    1,
+    3
+  ],
+  "raw_byte27_preserved": [
+    2,
+    1
+  ],
+  "source_report_preserved_on_export": true,
+  "malformed_source_worker_refusals": 4,
+  "source_ordinal": 104,
+  "current_ordinal": 4,
+  "three_income_types_reviewed": true,
+  "actual_refund": 344,
+  "complete_derived_forms": 4,
+  "nonempty_table_child_links": true,
+  "D2_and_three_groups_inspected": true,
+  "four_typed_UUID_tails_moved": true,
+  "unknown_opaque_movement_refused": true,
+  "unknown_arrays_block_income": true,
+  "complete_export_readback": true,
+  "source_receipts_retained": 4,
+  "original_engine_executed": false,
+  "whole_tax_compatibility": false
+}

@@ -1,0 +1,12 @@
+{
+  "synthetic_only": true,
+  "native_SQLite_readback": true,
+  "filing_status": "mfj",
+  "wages_USD": "60000",
+  "federal_tax_USD": 2946,
+  "source_sha256": "2cb431f3122d96e6d0a4d3a5ab2393971260b1c265b4f6388392391713e15205",
+  "immutable_source_history_retained": true,
+  "eligibility_not_asserted": true,
+  "original_engine_executed": false,
+  "whole_tax_compatibility": false
+}

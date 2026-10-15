@@ -1,0 +1,526 @@
+{
+  "data": {
+    "tax_year": 2025,
+    "name": "My 2025 Federal Return",
+    "filing_status": "single",
+    "taxpayer": {
+      "age": 35,
+      "birth_date": "",
+      "death_date": "",
+      "blind": false,
+      "can_be_claimed": false,
+      "valid_ssn": true,
+      "valid_tin": true
+    },
+    "spouse": {
+      "age": 35,
+      "birth_date": "",
+      "death_date": "",
+      "blind": false,
+      "can_be_claimed": false,
+      "valid_ssn": true,
+      "valid_tin": true
+    },
+    "dependents": [],
+    "w2": [
+      {
+        "employer": "Synthetic Two Registry Employer",
+        "owner": "taxpayer",
+        "wages": "1234.56",
+        "dependent_care_benefits": "0",
+        "federal_withholding": "123.00",
+        "social_security_wages": "1234.56",
+        "social_security_tips": "0",
+        "medicare_wages": "1234.56",
+        "social_security_withholding": "76.54",
+        "medicare_withholding": "17.90"
+      }
+    ],
+    "interest": [
+      {
+        "payer": "Synthetic Two Registry Bank",
+        "taxable": "140.50",
+        "tax_exempt": "12.34",
+        "federal_withholding": "20.45"
+      }
+    ],
+    "dividends": [
+      {
+        "payer": "Synthetic Two Registry Fund",
+        "ordinary": "1200.31",
+        "qualified": "300.15",
+        "capital_gain_distributions": "1000.25",
+        "unrecaptured_1250_gain": "150.05",
+        "collectibles_gain": "100.05",
+        "federal_withholding": "200.49",
+        "special_distribution_confirmed": true
+      }
+    ],
+    "capital_gains": [],
+    "businesses": [],
+    "retirement": {
+      "ira_gross": "0",
+      "ira_taxable": "0",
+      "pension_gross": "0",
+      "pension_taxable": "0",
+      "social_security": "0",
+      "federal_withholding": "0",
+      "taxable_amounts_confirmed": false,
+      "qualified_plan_confirmed": false,
+      "early_distribution_exception_confirmed": false,
+      "ira_distribution_kind": "fully_taxable",
+      "ss_lump_sum_or_repayments": false,
+      "annuity_gross": "0",
+      "annuity_taxable": "0",
+      "annuity_taxable_amounts_confirmed": false,
+      "disability_taxpayer_gross": "0",
+      "disability_taxpayer_taxable": "0",
+      "disability_spouse_gross": "0",
+      "disability_spouse_taxable": "0",
+      "disability_before_minimum_retirement_age_confirmed": false,
+      "disability_amounts_confirmed": false
+    },
+    "other_income": {
+      "unemployment": "0",
+      "other": "0",
+      "federal_withholding": "0",
+      "taxable_other_confirmed": false
+    },
+    "adjustments": {
+      "student_loan_interest": "0",
+      "ira_deduction": "0",
+      "hsa_deduction": "0",
+      "self_employed_health_insurance": "0"
+    },
+    "itemized": {
+      "medical": "0",
+      "state_local_tax": "0",
+      "mortgage_interest": "0",
+      "charity": "0",
+      "investment_interest": "0",
+      "charity_cash_only": false,
+      "mortgage_eligible": false,
+      "medical_eligible": false,
+      "force_itemized": false
+    },
+    "schedule_1a": {
+      "qualified_tips": "0",
+      "qualified_overtime": "0",
+      "qualified_car_loan_interest": "0",
+      "eligibility_confirmed": false,
+      "tips_occupation_eligible": false,
+      "tips_not_sstb": false,
+      "overtime_flsa_eligible": false,
+      "car_loan_eligible": false
+    },
+    "payments": {
+      "estimated": "0",
+      "prior_year_credit": "0"
+    },
+    "eligibility": {
+      "full_year_us_resident": false,
+      "filing_status_confirmed": false,
+      "all_income_reported": false,
+      "eitc_not_applicable": false,
+      "hoh_eligible": false,
+      "qss_eligible": false,
+      "mfs_spouse_itemizes": false,
+      "mfs_lived_with_spouse": false,
+      "student_loan_eligible": false,
+      "itemized_eligible": false,
+      "self_employed_health_insurance_eligible": false,
+      "capital_gains_eligible": false,
+      "qualified_dividends_eligible": false,
+      "no_amt_preferences": false
+    },
+    "carryovers": {
+      "capital_short": "0",
+      "capital_long": "0",
+      "qbi_loss": "0",
+      "charity": "0"
+    },
+    "unsupported": [],
+    "notes": "",
+    "identity": {
+      "first_name": "",
+      "middle_initial": "",
+      "last_name": "",
+      "ssn": "",
+      "spouse_first_name": "",
+      "spouse_middle_initial": "",
+      "spouse_last_name": "",
+      "spouse_ssn": "",
+      "address": "",
+      "apt": "",
+      "city": "",
+      "state": "",
+      "zip": "",
+      "foreign_country": "",
+      "foreign_province": "",
+      "foreign_postal_code": "",
+      "phone": "",
+      "email": "",
+      "occupation": "",
+      "spouse_occupation": ""
+    },
+    "eitc": {
+      "claim": false,
+      "eligibility_confirmed": false,
+      "main_home_us_half_year": false,
+      "not_qualifying_child_of_another": false,
+      "no_disallowed_claim_history": false,
+      "mfs_qualifying_separation": false
+    },
+    "niit": {
+      "eligibility_confirmed": false,
+      "allocable_state_income_tax": "0",
+      "deductions_confirmed": false,
+      "investment_interest_eligible": false,
+      "investment_interest_carryover": "0",
+      "carryover_confirmed": false
+    },
+    "amt": {
+      "eligibility_confirmed": false,
+      "iso_adjustment": "0",
+      "private_activity_bond_interest": "0",
+      "other_adjustments": "0",
+      "capital_gain_adjustment": "0",
+      "special_distribution_same_basis_confirmed": false
+    },
+    "rentals": [],
+    "ira": {
+      "enabled": false,
+      "traditional_taxpayer": "0",
+      "traditional_spouse": "0",
+      "roth_taxpayer": "0",
+      "roth_spouse": "0",
+      "prior_basis_taxpayer": "0",
+      "prior_basis_spouse": "0",
+      "taxpayer_covered_by_employer_plan": false,
+      "spouse_covered_by_employer_plan": false,
+      "contributions_and_coverage_confirmed": false,
+      "compensation_and_magi_confirmed": false,
+      "no_rollovers_recharacterizations_or_prior_excess": false,
+      "mfs_living_arrangement_confirmed": false,
+      "mfs_lived_apart_entire_year": false
+    },
+    "hsa": {
+      "enabled": false,
+      "accounts": [],
+      "family_allocation_taxpayer_percent": "50",
+      "family_allocation_confirmed": false,
+      "spouse_coverage": [
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none",
+        "none"
+      ],
+      "spouse_coverage_confirmed": false
+    },
+    "education": {
+      "enabled": false,
+      "students": [],
+      "claim_eligibility_confirmed": false,
+      "claimed_on_another_return": false,
+      "no_foreign_magi_or_prior_credit_recapture": false,
+      "claimant_full_time_student": false,
+      "claimant_earned_income": "0",
+      "claimant_support": "0",
+      "claimant_parent_alive": true,
+      "claimant_refundability_facts_confirmed": false
+    },
+    "marketplace": {
+      "enabled": false,
+      "region": "contiguous",
+      "months": [],
+      "dependents_magi": "0",
+      "foreign_excluded_income": "0",
+      "tax_family_and_household_income_confirmed": false,
+      "coverage_and_slcsp_inputs_confirmed": false,
+      "no_qsehra_or_ichra": false,
+      "lawful_presence_confirmed": false,
+      "no_shared_policy_or_marriage_allocation": false,
+      "mfs_no_abuse_or_abandonment_exception": false,
+      "below_poverty_exception": "none",
+      "below_poverty_exception_confirmed": false,
+      "annual_calculation": false,
+      "annual_calculation_eligible_confirmed": false
+    },
+    "care": {
+      "enabled": false,
+      "beneficiaries": [],
+      "providers": [],
+      "work_related_expenses_confirmed": false,
+      "provider_information_confirmed": false,
+      "no_double_benefit_confirmed": false,
+      "mfs_qualifying_separation": false,
+      "benefits_carry_in": "0",
+      "benefits_forfeited_or_carried_out": "0",
+      "benefits_expenses_incurred": "0",
+      "benefits_plan_limit": "5000",
+      "benefits_qualification_confirmed": false,
+      "self_employed_benefits": "0",
+      "prior_year_expenses_paid": "0",
+      "deemed_income_months": [],
+      "deemed_income_eligibility_confirmed": false
+    },
+    "saver": {
+      "enabled": false,
+      "taxpayer_full_time_student": false,
+      "spouse_full_time_student": false,
+      "taxpayer_employer_contributions": "0",
+      "spouse_employer_contributions": "0",
+      "taxpayer_able_contributions": "0",
+      "spouse_able_contributions": "0",
+      "taxpayer_distributions": "0",
+      "spouse_distributions": "0",
+      "current_year_excluded_distributions": "0",
+      "contributions_eligibility_confirmed": false,
+      "distribution_window_and_exclusions_confirmed": false,
+      "all_distribution_years_joint": true
+    },
+    "elderly_credit": {
+      "enabled": false,
+      "eligibility_confirmed": false,
+      "mfs_lived_apart_entire_year": false,
+      "taxpayer_after_minimum_retirement_age_confirmed": false,
+      "spouse_after_minimum_retirement_age_confirmed": false,
+      "taxpayer_permanently_disabled": false,
+      "spouse_permanently_disabled": false,
+      "taxpayer_taxable_disability_income": "0",
+      "spouse_taxable_disability_income": "0",
+      "disability_income_in_return_confirmed": false,
+      "physician_statement_confirmed": false,
+      "other_nontaxable_pensions": "0",
+      "nontaxable_benefits_confirmed": false
+    },
+    "capital_records": {
+      "carry_in_confirmed": false,
+      "wash_sale_all_accounts_reviewed": false
+    },
+    "adoption": {
+      "enabled": false,
+      "eligibility_confirmed": false,
+      "no_reimbursement_or_double_benefit_confirmed": false,
+      "mfs_qualifying_separation": false,
+      "children": [],
+      "carryforwards": [],
+      "employer_benefits": "0"
+    },
+    "energy": {
+      "enabled": false,
+      "address": "",
+      "qualification_and_costs_confirmed": false,
+      "placed_in_service_2025_confirmed": false,
+      "home_ownership_use_confirmed": false,
+      "no_joint_occupancy_or_business_allocation": false,
+      "improvements_existing_main_home_confirmed": false,
+      "residential_property_original_use_confirmed": false,
+      "clean_carry_in": "0",
+      "carry_in_confirmed": false,
+      "items": []
+    },
+    "foreign_credit": {
+      "enabled": false,
+      "method": "simplified_election",
+      "all_foreign_income_passive_confirmed": false,
+      "income_in_return_confirmed": false,
+      "qualified_payee_statements_confirmed": false,
+      "creditability_and_source_confirmed": false,
+      "no_excluded_income_or_treaty_resourcing": false,
+      "no_redeterminations_losses_or_carryovers": false,
+      "carry_in": "0",
+      "taxes_deducted_elsewhere": "0",
+      "countries": []
+    },
+    "estimated_penalty": {
+      "enabled": false,
+      "prior_year_tax": "0",
+      "prior_year_agi": "0",
+      "prior_year_full_12_months": false,
+      "prior_year_tax_verified": false,
+      "no_prior_year_tax_full_year_resident_confirmed": false,
+      "actual_payment_records_confirmed": false,
+      "withholding_method": "equal_installments",
+      "prior_year_credit_date": "2025-04-15",
+      "payments": [],
+      "withholding_records": [],
+      "balance_due_payment": "0",
+      "payment_date": "2026-04-15",
+      "annualized_income_requested": false,
+      "waiver_disaster_farmer_or_special_rule": false,
+      "early_filing_exception_requested": false
+    },
+    "filing_details": {
+      "digital_asset_answer": "unanswered",
+      "main_home_us_answer": "unanswered",
+      "refund_delivery": "check",
+      "bank_routing": "",
+      "bank_account": "",
+      "bank_type": "unanswered",
+      "designee_yes": false,
+      "designee_name": "",
+      "designee_phone": "",
+      "designee_pin": "",
+      "presidential_taxpayer": false,
+      "presidential_spouse": false,
+      "signature_date": "",
+      "hoh_qss_non_dependent_child_name": "",
+      "balance_due_payment_method": "unanswered",
+      "paper_payment_amount_source": "balance_due",
+      "paper_payment_amount": "",
+      "paper_payment_confirmed": false,
+      "mailing_address_type": "domestic",
+      "official_form_facts": {
+        "other_income_description": "",
+        "schedule_a": {
+          "salt_income_tax": "0",
+          "salt_real_estate_tax": "0",
+          "salt_personal_property_tax": "0",
+          "mortgage_form1098": "0",
+          "mortgage_non1098": "0",
+          "mortgage_points": "0",
+          "salt_split_confirmed": false,
+          "mortgage_split_confirmed": false
+        },
+        "schedule_b": {
+          "foreign_account_answer": "unanswered",
+          "fbar_required_answer": "unanswered",
+          "foreign_trust_answer": "unanswered",
+          "foreign_countries": "",
+          "facts_confirmed": false
+        },
+        "businesses": [],
+        "capital_gains": [],
+        "rentals": [],
+        "qbi_businesses": [],
+        "education": {
+          "students": []
+        },
+        "care": {
+          "beneficiaries": []
+        },
+        "adoption": {
+          "children": []
+        },
+        "foreign_credit": {
+          "resident_country": "",
+          "countries": []
+        },
+        "energy": {
+          "joint_occupancy_answer": "unanswered"
+        }
+      }
+    },
+    "child_income_election": {
+      "enabled": false,
+      "children": []
+    }
+  },
+  "metadata": {
+    "version": 1,
+    "w2_records": [
+      {
+        "record_id": "f0fb3b57-851d-4324-9633-4f9e3efc858e",
+        "row_fingerprint": "776d9b38d410dda7e696fc3c638df51cc517ae42ffbe582d83d8c9e90e4303b9",
+        "reviewed": true,
+        "reviewed_at": "2026-10-15T12:15:58.439Z",
+        "reviewed_fingerprint": "776d9b38d410dda7e696fc3c638df51cc517ae42ffbe582d83d8c9e90e4303b9",
+        "source_document": {
+          "document_id": "32ed158a-9654-40a3-8b40-acf6a1475294",
+          "return_id": "c7a7516d-b7cc-4ab9-a7a1-35918fb0b835",
+          "name": "synthetic-merged.taxbin",
+          "method": "taxml",
+          "taxml_receipt": {
+            "source_sha256": "a6783d222341fdd2cd83cd5a9efadffc928458f36637c865e6402e17a3a029b7",
+            "wire_profile_sha256": "3ffa56cbbde5a93332b8aabf1ce4b855404b92e1f1bf1d512248d7527d90fbfb",
+            "template_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+            "template_resource_id": 1,
+            "form_path": "0/0/0",
+            "archive_member": null,
+            "candidate_sha256": "08ba8459f33d545778d9c691173e72d88af361c56f27e1fb6ace258d4b7f4636"
+          }
+        }
+      }
+    ],
+    "investment_records": [],
+    "income_document_records": {
+      "interest": [
+        {
+          "record_id": "38c6100e-2faf-4690-aed1-8927655c5541",
+          "row_fingerprint": "a7dd2edc9e27a4b55b4cb94ef542f7eba6746bb254e5324f039ef6a9e3b56fa9",
+          "reviewed": true,
+          "reviewed_fingerprint": "a7dd2edc9e27a4b55b4cb94ef542f7eba6746bb254e5324f039ef6a9e3b56fa9",
+          "reviewed_at": "2026-10-15T12:15:58.440Z",
+          "is_placeholder": false,
+          "unresolved_fields": [],
+          "source_document": {
+            "document_id": "035ae68f-bda2-49b9-b218-63a9801be6e5",
+            "return_id": "eb4a16d2-c785-4476-85ef-41e110f02ebd",
+            "name": "synthetic-merged.taxbin",
+            "method": "taxml",
+            "taxml_receipt": {
+              "source_sha256": "a6783d222341fdd2cd83cd5a9efadffc928458f36637c865e6402e17a3a029b7",
+              "wire_profile_sha256": "3ffa56cbbde5a93332b8aabf1ce4b855404b92e1f1bf1d512248d7527d90fbfb",
+              "template_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+              "template_resource_id": 2,
+              "form_path": "0/0/1",
+              "archive_member": null,
+              "candidate_sha256": "d700fd6af4ae610fec58d76de4a75b9abd0da872eeb6c4f5e0397e839c49b8c0"
+            }
+          },
+          "taxml_interest_boxes": {
+            "interest_income": "100.23",
+            "treasury_interest": "40.27",
+            "tax_exempt_interest": "12.34",
+            "federal_withholding": "20.45"
+          }
+        }
+      ],
+      "dividends": [
+        {
+          "record_id": "4e47f486-dca7-44cc-9817-ad9826efd4cf",
+          "row_fingerprint": "0b2eebcdb7eb9bdee8a2fa7efa8e6284a2c81145ba8238e69afcbb54cfc78caa",
+          "reviewed": true,
+          "reviewed_fingerprint": "0b2eebcdb7eb9bdee8a2fa7efa8e6284a2c81145ba8238e69afcbb54cfc78caa",
+          "reviewed_at": "2026-10-15T12:15:58.440Z",
+          "is_placeholder": false,
+          "unresolved_fields": [],
+          "source_document": {
+            "document_id": "9419273b-3ab8-4610-aba6-e09699a57f1e",
+            "return_id": "43eb2a96-a80e-4840-8c29-51299188e25f",
+            "name": "synthetic-merged.taxbin",
+            "method": "taxml",
+            "taxml_receipt": {
+              "source_sha256": "a6783d222341fdd2cd83cd5a9efadffc928458f36637c865e6402e17a3a029b7",
+              "wire_profile_sha256": "3ffa56cbbde5a93332b8aabf1ce4b855404b92e1f1bf1d512248d7527d90fbfb",
+              "template_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+              "template_resource_id": 3,
+              "form_path": "0/0/2",
+              "archive_member": null,
+              "candidate_sha256": "2bdd323a8f8b10d9a57bfd0c71ee711727a867cc2374f6d3c3133646b89be516"
+            }
+          },
+          "taxml_dividend_boxes": {
+            "ordinary": "1200.31",
+            "qualified": "300.15",
+            "capital_gain_distributions": "1000.25",
+            "unrecaptured_1250_gain": "150.05",
+            "collectibles_gain": "100.05",
+            "federal_withholding": "200.49"
+          }
+        }
+      ]
+    },
+    "income_import_events": [],
+    "setup_import_events": []
+  }
+}

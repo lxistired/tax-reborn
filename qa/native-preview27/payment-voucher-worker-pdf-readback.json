@@ -1,0 +1,50 @@
+{
+  "synthetic_only": true,
+  "actual_worker_packets_read_back": 6,
+  "rows": [
+    {
+      "file": "fifteen-percent-owed-balance-worker-packet.pdf",
+      "owed": 2435,
+      "amount": "2435.00",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    },
+    {
+      "file": "fifteen-percent-owed-custom-worker-packet.pdf",
+      "owed": 2435,
+      "amount": "1000.25",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    },
+    {
+      "file": "twenty-percent-NIIT-owed-balance-worker-packet.pdf",
+      "owed": 98794,
+      "amount": "98794.00",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    },
+    {
+      "file": "twenty-percent-NIIT-owed-custom-worker-packet.pdf",
+      "owed": 98794,
+      "amount": "1000.25",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    },
+    {
+      "file": "positive-AMT-NIIT-owed-balance-worker-packet.pdf",
+      "owed": 221159,
+      "amount": "221159.00",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    },
+    {
+      "file": "positive-AMT-NIIT-owed-custom-worker-packet.pdf",
+      "owed": 221159,
+      "amount": "1000.25",
+      "canonical_and_widget_fields": 9,
+      "voucher_pages": 2
+    }
+  ],
+  "original_runtime_comparison": false,
+  "native_UI_acceptance": false
+}

@@ -1,0 +1,22 @@
+{
+  "system_saved_complete_ValueForm_bytes": 2906,
+  "system_saved_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "source_full_ID": "WAGES",
+  "source_ordinal": 104,
+  "current_ordinal": 4,
+  "saved_field_maps_and_all_three_object_groups_retained": true,
+  "typed_UUID_bodies_retained": true,
+  "all_four_tails_moved_bytes": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "nonempty_table_child_and_four_links_retained": true,
+  "other_parsed_facts_preserved": true,
+  "full_file_readback": true,
+  "original_engine_executed": false,
+  "native_field_remap_executed": false,
+  "whole_original_tax_compatibility": false,
+  "synthetic_only": true
+}

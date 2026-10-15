@@ -1,0 +1,32 @@
+{
+  "synthetic_only": true,
+  "actual_worker_packets_read_back": 2,
+  "rows": [
+    {
+      "file": "germany-worker-packet.pdf",
+      "address_format": "foreign",
+      "country": "Germany",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    },
+    {
+      "file": "canada-worker-packet.pdf",
+      "address_format": "foreign",
+      "country": "Canada",
+      "canonical_and_widget_and_AP_fields": 14,
+      "blank_US_fields_verified": 4,
+      "pages": 11,
+      "page_identities_verified": true,
+      "owed": 2435,
+      "amount": "2435.00",
+      "synthetic_only": true
+    }
+  ],
+  "original_runtime_comparison": false,
+  "native_UI_acceptance": false
+}

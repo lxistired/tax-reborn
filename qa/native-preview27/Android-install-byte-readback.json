@@ -1,0 +1,18 @@
+{
+  "version": "2026.10.15-preview.27",
+  "production_source_commit": "51adb6a31657ca7804ac4d50dd909f4314c39608",
+  "installed_bytes": 49958421,
+  "installed_sha256": "53466d5bc74b4bb7bb7e514aa21266993c813bd17c686818384317be8914c76e",
+  "actual_installed_APK_byte_equal_built": true,
+  "original_signer": true,
+  "first_install_time_preserved": "2026-10-13 13:31:14",
+  "post_upgrade_actual_saved_refund_USD": 344,
+  "native_changed_flow_pending": false,
+  "actual_native_UI_passed": true,
+  "actual_native_whole_number_export_bytes": 3831,
+  "actual_native_whole_number_export_SHA256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f",
+  "actual_system_full_backup_readback_and_independent_IRS_recalc": true,
+  "separate_manual_force_stop": false,
+  "existing_TLS_preserved": true,
+  "temporary5555_not_opened": true
+}

@@ -1,0 +1,16 @@
+{
+  "real_Pyodide_worker": true,
+  "saved_ordinal": 113,
+  "current_ordinal": 13,
+  "whole_number7_to8": true,
+  "limits_minimum": 1,
+  "limits_maximum": 12,
+  "invalid_values_refused": 5,
+  "complete_source_bytes": 3831,
+  "complete_source_SHA256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f",
+  "all_four_derived_tails_unchanged": true,
+  "nonempty_tables_child_and_four_links_preserved": true,
+  "source_current_identity_and_unknown_body_guards_preserved": true,
+  "original_engine_executed": false,
+  "whole_original_compatibility": false
+}
