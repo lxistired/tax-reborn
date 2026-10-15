@@ -1,0 +1,133 @@
+Window: "Tax Reborn", App: Tax Reborn.
+0 standard window Tax Reborn, Secondary Actions: Raise
+	1 scroll area
+		2 HTML content Description: Tax Reborn · 2025 Federal Return, URL: 127.0.0.1:27145/
+			3 container
+				4 button About Tax Reborn
+				5 text Synthetic Mac20 mixed income migration Saved on this device
+				6 button My returns
+				7 button Documents
+				8 button Save
+				9 text Federal refund estimate
+				10 text $344
+				11 text 8 checks need review
+			12 container Tax preparation steps
+				13 button 1 Personal info
+				14 button 2 Wages & Income
+				15 button 3 Deductions
+				16 button 4 State taxes
+				17 button 5 Review
+				18 button 6 Forms & Export
+			19 container
+				20 text YOUR 2025 RETURN PERSONAL INFO
+				21 button You & your household
+				22 button Dependents
+				23 button Eligibility & other situations
+				24 button Personal details for forms
+				25 text WAGES & INCOME
+				26 button Your income summary
+				27 button Wages & salaries · W-2
+				28 button Interest · 1099-INT
+				29 button Dividends · 1099-DIV
+				30 button Investment sales · 1099-B
+				31 button Prior-year carryovers
+				32 button Self-employment · Schedule C
+				33 button Retirement & Social Security
+				34 button Other income
+				35 button Rental Properties
+				36 button Capital Carryovers and Wash Sales
+				37 button Child Interest and Dividends — Form 8814
+				38 text DEDUCTIONS
+				39 button Adjustments to income
+				40 button Itemized deductions
+				41 button Additional deductions · Schedule 1-A
+				42 button Estimated payments
+				43 button Earned Income Credit
+				44 button Net Investment Income Tax
+				45 button Alternative Minimum Tax
+				46 button IRA Contributions
+				47 button Health Savings Accounts
+				48 button Education Credits
+				49 button Marketplace Health Insurance
+				50 button Child and Dependent Care
+				51 button Retirement Saver Credit
+				52 button Elderly or Disabled Credit
+				53 button Adoption Credit
+				54 button Home Energy Credits
+				55 button Foreign Tax Credit
+				56 button Estimated Tax Penalty
+				57 text STATE TAXES
+				58 button State return workspace
+				59 text REVIEW
+				60 button Check your return
+				61 button How we calculated your tax
+				62 text FORMS & EXPORT
+				63 button Form 1040 worksheet
+				64 button Schedules & workpapers
+				65 button Balance due & payment voucher
+				66 button Save & export
+				67 button Advanced input JSON
+				68 button Filing details
+				69 text  Local preparation Federal worksheet · no e-file
+			70 container
+				71 text 2025 FEDERAL · WAGES & INCOME
+				72 heading Let's get your income entered., Value: 1
+					73 text Let's get your income entered.
+				74 text Choose a category to add or update your documents. Entered amounts are source-document totals; tax results come from the calculation engine.
+				75 text Wages & salaries
+				76 text W-2 · 1 records
+				77 text $1,234.56
+				78 button Update
+				79 text Interest
+				80 text 1099-INT · 1 records
+				81 text $140.50
+				82 button Update
+				83 text Dividends
+				84 text 1099-DIV · 1 records
+				85 text $1,200.31
+				86 button Update
+				87 text Investment sales
+				88 text 1099-B / brokerage lots · 0 records
+				89 text $0.00
+				90 button Start
+				91 text Self-employment
+				92 text Schedule C / 1099-NEC revenue · 0 records
+				93 text $0.00
+				94 button Start
+				95 text ▥
+				96 text Retirement & Social Security
+				97 text 1099-R / SSA-1099
+				98 button Update
+				99 text ⋯
+				100 text Other income
+				101 text Unemployment and other taxable income
+				102 button Update
+			103 container Calculation summary
+				104 heading Your federal calculation, Value: 3
+					105 text Your federal calculation
+				106 text Calculated for tax year 2025
+				107 text Adjusted gross income
+				108 text $3,576
+				109 text Taxable income
+				110 text $0
+				111 text Total federal tax
+				112 text $0
+				113 text Payments & credits
+				114 text $344
+				115 text Refund estimate
+				116 text $344
+				117 text 8 blocking issues. Review the supported scope before relying on this estimate.
+				118 button See calculation
+			119 container
+				120 button Back
+				121 text Wages & Income · Your income summary
+				122 button Continue →
+		123 scroll bar (settable, float) 0
+	124 close button
+	125 full screen button Help: this button also has an action to zoom the window, Secondary Actions: zoom the window
+	126 minimize button
+	127 text Tax Reborn
+128 menu bar
+	129 Tax Reborn
+	130 Edit
+	131 View

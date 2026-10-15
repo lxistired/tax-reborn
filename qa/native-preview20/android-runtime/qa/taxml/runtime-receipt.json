@@ -1,0 +1,61 @@
+{
+  "runtime": "actual pinned Pyodide via integrated worker source",
+  "successful": true,
+  "legacy_assertion_counter": 25,
+  "document_duplicate_guard": {
+    "record_types": [
+      "W-2",
+      "1099-INT",
+      "1099-DIV"
+    ],
+    "reuploaded_source_and_changed_profile_blocked": true,
+    "separate_form_and_archive_member_allowed": true,
+    "manual_same_amount_not_confused_with_source_identity": true,
+    "source_metadata_unchanged": true
+  },
+  "interest_acceptance": {
+    "worker_inspection": true,
+    "explicit_scope_and_payer_review": true,
+    "cents_aggregated_before_rounding": true,
+    "four_box_snapshot_retained": true,
+    "source_and_snapshot_tamper_blocked": true,
+    "row_edit_clears_review": true,
+    "corrected_XML_reparsed": true,
+    "outside_value_spans_byte_identical": true,
+    "refund": 20,
+    "can_prepare": false,
+    "original_program_acceptance_verified": false
+  },
+  "dividend_acceptance": {
+    "worker_inspection": true,
+    "actual_QDIV_and_L2_binding": true,
+    "payer_scope_and_qualified_eligibility_required": true,
+    "subsets_not_added_to_income": true,
+    "INT_DIV_withholding_aggregated_before_rounding": true,
+    "six_box_snapshot_retained": true,
+    "source_snapshot_tamper_blocked": true,
+    "row_edit_clears_review": true,
+    "corrected_XML_reparsed": true,
+    "outside_value_spans_byte_identical": true,
+    "refund": 201,
+    "can_prepare": false,
+    "original_program_acceptance_verified": false
+  },
+  "mixed_income_acceptance": {
+    "three_types_one_source": true,
+    "distinct_same_copy_owners": true,
+    "explicit_carrier_per_form": true,
+    "reviewed_rows_and_source_snapshots": true,
+    "actual_calculation_refund": 344,
+    "selected_corrected_XML_preserves_other_forms": true,
+    "original_runtime": 0
+  },
+  "current_windows_native_shape_and_corrected_source_verified": true,
+  "corrected_XML_outside_value_spans_byte_identical": true,
+  "zero_copy_blocked_without_actual_multicopy_factory_binding": true,
+  "additional_encoding_input_probes": 23,
+  "federal_can_prepare": false,
+  "all_income_reported": false,
+  "no_original_tax_roundtrip_claim": true,
+  "worker_source_sha256": "3351b953d07a6aef921fd4ba8193759e243279907078516e706b400d0cb3c387"
+}

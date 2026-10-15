@@ -1,0 +1,56 @@
+{
+  "checked_at_utc": "2026-10-15T00:20:19.676899+00:00",
+  "version": "2026.10.15-preview.20",
+  "production_source_commit": "aba516074eee9ff4501832a2747da8692e8a995f",
+  "source_host_tests_passed": 592,
+  "real_Pyodide_executed_tests_passed": 495,
+  "real_Pyodide_skipped_tests": 1,
+  "source_actual_browser_mixed_income_modes": 2,
+  "deferred_modal_focus_regression_passed": true,
+  "Mac": {
+    "generated": true,
+    "frozen_checks_passed": 21,
+    "actual_changed_GUI_passed": true,
+    "normal_relaunch_passed": true,
+    "prior13_returns_unchanged": true,
+    "current_returns": 14,
+    "DMG_readonly_424_entries_match_tested_App": true,
+    "actual_packaged_JS_Pyodide_mixed_income_passed": true
+  },
+  "Windows": {
+    "CI_run": 38658225018,
+    "CI_conclusion": "success",
+    "generated_in_CI": true,
+    "local_artifact_readback_pending": false,
+    "actual_mixed_form_GUI_separately_verified": false,
+    "installed_Setup_verified": true,
+    "frozen_checks_passed": 21,
+    "native_GUI_checks_passed": 23,
+    "actual_installed_JS_Pyodide_mixed_income_passed": true,
+    "portable_executable_matches_installed": true,
+    "artifact_hashes_verified": true
+  },
+  "Android": {
+    "generated": true,
+    "same_original_certificate": true,
+    "signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+    "actual_APK_assets_verified": 120,
+    "actual_packaged_JS_Pyodide_mixed_import_passed": true,
+    "actual_physical_installation": false,
+    "physical_data_retention_and_GUI_verified": false,
+    "ADB_device_entries": 0
+  },
+  "GitHub_Release": {
+    "published": false,
+    "latest_verified_public_installer": "v2026.10.14-preview.12"
+  },
+  "original_TurboTax_runtime": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "goal_complete": false,
+  "remaining": [
+    "Android physical install/data retention/native GUI after USB returns",
+    "Final release publication and anonymous package hash readback",
+    "Full original tax read/write and coupled original scheduling/runtime acceptance"
+  ]
+}

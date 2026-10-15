@@ -1,0 +1,15 @@
+{
+  "version": "2026.10.15-preview.20",
+  "actual_UI_system_file_picker": true,
+  "three_form_types_reviewed": true,
+  "one_source_attachment_three_form_paths": true,
+  "saved_record_id": "f018bd0d-1533-4f9c-9be7-0818ec9a949f",
+  "refund_USD": 344,
+  "normal_Quit_and_relaunch_passed": true,
+  "prior_13_return_entries_and_timestamps_unchanged": true,
+  "current_returns": 14,
+  "DMG_matches_tested_App_entries": 424,
+  "actual_changed_Mac_GUI_passed": true,
+  "synthetic_only": true,
+  "original_runtime": 0
+}

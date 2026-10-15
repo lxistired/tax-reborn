@@ -45,11 +45,24 @@ interest record, save/reload and restore JSON into a new return. Their synthetic
 expected refund is344 USD. Source receipts keep three distinct form paths and
 one attachment identity. Re-upload refusal and a real corrected XML download
 preserve the other two forms and the saved draft's amounts.
-Six prior duplicate-import browser cases also pass.
+Six prior duplicate-import browser cases also pass. A delayed automatic-focus
+regression confirms that a modal does not move focus away from an input the user
+has already selected.
 
 See [source browser acceptance](../qa/mixed-income-20261015/browser-acceptance.json).
-Native installers, physical-phone acceptance and public package availability
-must be recorded separately. This document does not establish those states.
+The actual Mac Preview20 app also passes the system-file-picker mixed import,
+saving and normal quit/relaunch. Its prior13 synthetic returns remain unchanged,
+and the readonly DMG matches424 entries in the tested app. Windows installer
+and installed-runtime results, Android packaged-worker results, physical-phone
+acceptance and public downloads are recorded separately in
+[candidate20 acceptance](../qa/native-preview20/candidate-acceptance-state.json).
+Windows Setup installation,21 frozen checks and23 existing native GUI checks
+pass. Its actual installed JS/Pyodide worker passes the new mixed-income flow;
+the Windows mixed-form GUI has not been separately exercised. Android retains
+the original signer and its120 extracted assets and actual JS/Pyodide mixed flow
+pass. Its physical installation, data retention and GUI remain pending while
+USB is absent. All four candidate packages are generated and hash-verified;
+they are not a published GitHub Release. Preview12 remains the public installer.
 
 ## Original reconstruction boundary
 
