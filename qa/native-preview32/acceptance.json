@@ -1,0 +1,89 @@
+{
+  "version": "2026.10.16-preview.32",
+  "runtime_source_commit": "7fae44709a3caf0fef0a611f75e0ca350b97024b",
+  "checked_at_utc": "2026-10-15T19:49:24.015915+00:00",
+  "scope": "Finite source-derived interest adjustments and Android file delivery; independent IRS return retained",
+  "source_checks": {
+    "host_passed": 754,
+    "actual_Pyodide_executed": 643,
+    "explicit_skips": 2,
+    "owned_runtime_files": 146,
+    "native_web_assets_byte_identical": 325,
+    "same_source_document_context_calls": {
+      "inspection": 1,
+      "calculation": 1
+    }
+  },
+  "new_projection": {
+    "owned_source_case": true,
+    "source_bytes": 34763,
+    "source_sha256": "2fcdce08e2a7fe759eb21a8fcbfbf11fa844cf58cb782f54d7754140d61332fb",
+    "accrued_interest": "12.34",
+    "baseline_L4": "1822.68",
+    "baseline_L8A": "1823",
+    "proposed_L4": "1810.34",
+    "proposed_L8A": "1810",
+    "loaded_fields_displayed_separately": true,
+    "Used_ADJUST_zero_refused": true,
+    "current_L8A_Override_retained": true,
+    "complete_audit_bytes": 693329,
+    "complete_audit_sha256": "22439b5c6b2a5b5b8e43269f2955ec33b1d1b2ff95a7ab12b75a6169956984f9",
+    "complete_audit_equal_HTTP_Pyodide_Mac_Android": true,
+    "private_audit_not_published": true
+  },
+  "Windows_x64": {
+    "build_run": "https://github.com/lxistired/tax-reborn/actions/runs/38793372016",
+    "run_result": "success",
+    "actual_Setup_installed": true,
+    "installed_executable_matches_build": true,
+    "installed_smoke_checks": 21,
+    "actual_native_GUI_behaviors": 17,
+    "installed_Pyodide_runtime_files": 146,
+    "owned_invalid_resource_and_recovery_cases": 8,
+    "new_original_resource_positive_GUI_tested": false,
+    "new_raw_positive_scope": "Not supplied to Windows CI; module/resource/session guards tested with owned invalid bytes"
+  },
+  "Mac_ARM64": {
+    "actual_source7registries2resources_and_system_save": true,
+    "new_projection_GUI_passed": true,
+    "native_system_save_complete_audit_bytes": 693329,
+    "normal_Quit_and_relaunch_passed": true,
+    "all_saved_return_rows_unchanged": 17,
+    "all_preparation_metadata_rows_unchanged": 16,
+    "all_state_rows_unchanged": 0
+  },
+  "Android": {
+    "actual_source7registries2resources_and_system_save": true,
+    "new_projection_GUI_passed": true,
+    "native_system_save_complete_audit_bytes": 693329,
+    "installed_APK_complete_bytes_match": true,
+    "original_signer_retained": true,
+    "original_install_identity_retained": true,
+    "full_backup_sections_equal": 7,
+    "full_backup_bytes": 33114,
+    "full_backup_sha256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+    "existing_refund_retained": 344,
+    "network_permission": false,
+    "native_ClipData7_legacy_parser0_new_helper7": true,
+    "binary_resource_MIME_filter_fixed": true
+  },
+  "independent_review": {
+    "old137_runtime_files_byte_identical": true,
+    "real_Worker_cases_authored_by_reviewer": 19,
+    "real_main_pending_reply_cases_authored_by_reviewer": 2,
+    "widget_freshness_cases": 11,
+    "old_full_audit_bytes": 1036476,
+    "old_full_audit_sha256": "f029e51f3aa6ffc67ab1ddaf8801b48f76213bbda4da48ae9efb84d018bc6da4",
+    "old_mode_full_audit_unchanged": true
+  },
+  "remaining": {
+    "original_licensed_runtime_executions": 0,
+    "original_taxpayer_fixtures": 0,
+    "full_original_tax_compatibility": false,
+    "native_TPS_write_reload": false,
+    "complete_dependency_queue": false,
+    "full_F1040_R2": false,
+    "electronic_filing": false,
+    "new_iOS_package_tested": false
+  }
+}

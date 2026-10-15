@@ -70,8 +70,12 @@ The observed WebAssembly allocation is about 406 MiB; this is not total memory
 use or a phone memory guarantee. A fresh offline browser reload also completed
 source inspection, the default interest comparison and the complete report
 download from cached application assets. Original resources still came from
-local file selection. Native package and real-phone acceptance must be recorded
-separately.
+local file selection. Native acceptance is recorded separately in [Preview32 validation](RELEASE_PREVIEW32.md).
+Mac ARM64 and a real Android device completed the proposed $12.34 adjustment
+case and saved the entire identical 693,329-byte audit. Windows installed-module
+and native GUI checks passed, but that new positive original-resource case was
+not supplied to Windows CI. One successful phone case is not a general memory
+guarantee for all devices.
 
 The main Tax Reborn return continues to use the independently written IRS
 calculation and reviewed document-import workflow. No electronic filing or
