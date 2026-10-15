@@ -1,0 +1,27 @@
+{
+  "version": "2026.10.15-preview.24",
+  "source_commit": "36a6dff5915694b1cfcebb7729da3233659f5ded",
+  "running_HTTP_schema_version": "2026.10.15-preview.24",
+  "actual_native_UI_complete_source_edit": true,
+  "source_saved_field_number": 104,
+  "current_template_field_number": 4,
+  "correction_USD": [
+    "1234.56",
+    "1234.57"
+  ],
+  "actual_system_save_file": "Tax-Reborn-preview24-release-Mac-complete-corrected.taxbin",
+  "normal_menu_quit_performed": true,
+  "after_quit_full_file_readback": true,
+  "complete_corrected_bytes": 2906,
+  "complete_corrected_SHA256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "saved_return_reopened": "Synthetic Mac23 effective registry",
+  "saved_refund_USD": 344,
+  "readonly_DMG_full_comparison": {
+    "regular_files": 445,
+    "symlinks": 73,
+    "all_equal": true
+  },
+  "only_one_Tax_Reborn_Mac_app_left_open": true,
+  "synthetic_only": true,
+  "original_runtime_executed": false
+}

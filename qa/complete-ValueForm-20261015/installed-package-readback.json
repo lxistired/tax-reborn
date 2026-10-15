@@ -1,0 +1,9 @@
+{
+  "commit": "36a6dff5915694b1cfcebb7729da3233659f5ded",
+  "Android_installed_APK_equals_built_package": true,
+  "APK_SHA256": "20f01799a3ba46dd33745e3d889f35b378b4e1a74e07108bf2ebfca69d51bea9",
+  "Mac_readonly_DMG_matches_tested_app": {
+    "regular": 445,
+    "symlink": 73
+  }
+}

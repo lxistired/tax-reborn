@@ -1,0 +1,114 @@
+{
+  "version": "2026.10.15-preview.24",
+  "status": "all final native acceptance passed; uploaded/public download tracked separately",
+  "host_tests_passed": 674,
+  "fixture_origin": "independently authored complete Entity and registry files only",
+  "Mac_Android_production_commit": "36a6dff5915694b1cfcebb7729da3233659f5ded",
+  "Windows_build_commit": "36a6dff5915694b1cfcebb7729da3233659f5ded",
+  "Windows_vs_Mac_Android": "All three final packages share the same production source commit.",
+  "Windows_build_url": "https://github.com/lxistired/tax-reborn/actions/runs/38704715380",
+  "Mac_native_complete_source_edit_system_save_normal_quit_and_full_readback": true,
+  "Mac_reopened_saved_return_refund_USD": 344,
+  "Android_installed_same_signer": true,
+  "Android_first_install_preserved": "2026-10-13 13:31:14",
+  "Android_versionName": "2026.10.15-preview.24",
+  "Android_process_after_upgrade": "1103",
+  "Android_existing_return_and_two_source_documents_retained": true,
+  "Android_actual_complete_source_edit_system_save_and_full_readback": true,
+  "Android_24_separate_manual_force_stop_test": false,
+  "Mac_Android_actual_system_export_bytes": 2906,
+  "system_export_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "saved_and_current_field_numbers": [
+    104,
+    4
+  ],
+  "full_ID_addressed_change": true,
+  "all_four_tail_offsets_move_by_bytes": 2,
+  "nonempty_table_child_and_four_links_preserved": true,
+  "source_derived_D2_and_three_object_maps_preserved": true,
+  "shared_full_bucket_chain_guard_all_binary_profiles": true,
+  "independent_real_worker_malicious_checks": 140,
+  "independent_real_DOM_malicious_file_picker_checks": 10,
+  "original_runtime_executions": 0,
+  "validated_original_saved_return_fixtures": 0,
+  "original_engine_executed": false,
+  "native_field_remapping_executed": false,
+  "whole_original_tax_compatibility": false,
+  "release_uploaded": false,
+  "public_download_verified": false,
+  "screenshots": [
+    {
+      "path": "android-after-complete-export-344.png",
+      "sha256": "8a97452280cf49d4bf19dd88c9ba8742fffae4a524cea473feffa81b12e58d56"
+    },
+    {
+      "path": "android-complete-saved-structures.png",
+      "sha256": "a3b9ceb16b5a945417e84560b855c33b39928b2f0f80fe69b7e07ab916b70803"
+    },
+    {
+      "path": "android-release-actual-WAGES-1234.57.png",
+      "sha256": "056b3c829005dd7012b3b5daf6e4201a806d4a1171c636357bb38fb1098543fa"
+    },
+    {
+      "path": "android-release-complete-structures.png",
+      "sha256": "0e8b1ea7c66bcad88200886c6bbf69081a4b3c2dd7af90e21cb022fd3bf9c047"
+    },
+    {
+      "path": "android-release-reopened-344.png",
+      "sha256": "46f1c6f130516c3e847acc7a770fd97c61419f884cc5c1a5dda81b6a35c0ee2d"
+    },
+    {
+      "path": "android-release-retained-documents.png",
+      "sha256": "59fc037648afd055ec7e3c534c60f8fb7f3b05c2cb394125aefb1181d1d24b30"
+    },
+    {
+      "path": "android-retained-source-documents.png",
+      "sha256": "191ca6225b0d5f80f6541fca76b81c8905cfdbbbb0ba598a7e43e190d08aa9af"
+    },
+    {
+      "path": "android-upgraded-retained-344.png",
+      "sha256": "977ea889d81aba8c31b50c9172f0a1a3db39bd4f3148fa82d7e2f07d786198c5"
+    },
+    {
+      "path": "mac-complete-ValueForm-edit.png",
+      "sha256": "c5775aa0b34c08424987fc2037cd3568418db0042b66bf923fcb0dbe6b02a45b"
+    },
+    {
+      "path": "mac-release-complete-edit.png",
+      "sha256": "91c1f6da072a988bae17e2a2fbf133f4cc04b7fe7a5c02c07ed275cd81dfadc5"
+    },
+    {
+      "path": "mac-release-reopened-retained-344.png",
+      "sha256": "9e15991cf78b9d5c75b1fbcf63cfd5a9afc7c35b331fa7e7ada193e224a89d0b"
+    },
+    {
+      "path": "mac-reopened-retained-344.png",
+      "sha256": "9e15991cf78b9d5c75b1fbcf63cfd5a9afc7c35b331fa7e7ada193e224a89d0b"
+    },
+    {
+      "path": "windows-native-binary-income-reopened-344.png",
+      "sha256": "995f45cc75e07cc73347b8dfcf8c5c4338803a32773bbae6ab8fa9a290828d93"
+    },
+    {
+      "path": "windows-native-complete-ValueForm-source.png",
+      "sha256": "7a2ebeb3917de6eacd97c3cbc77b04a1adacf5bd5a5ad1b7f7cf824aa28f4a9c"
+    },
+    {
+      "path": "windows-native-orphan-source-refused.png",
+      "sha256": "a96912e7ad6e0a9841d24a1be5846641b3172d61d2a23d95cb97e1a58d83bbcc"
+    }
+  ],
+  "additional_parent_header_preservation_replay": {
+    "v1_v2_v3_v4_actual_App_edit": true,
+    "source_parent_word999_retained_while_resolved_parent_is_distinct": true,
+    "product_change_needed": false
+  },
+  "host_core_test_scope": "674 Mac and Windows host checks passed before the JS-only validation-message change; all Python source and fixtures remained identical.",
+  "Windows_prior_full_GUI_scope": "Initial24 passed financial worksheet/PDF cases and complete2906B source export; only expected invalid-source text lookup failed because old worker showed tracebacks.",
+  "Windows_final_focused_native_changed_flow_passed": true,
+  "validation_errors_shown_without_tracebacks": true,
+  "Windows_final_changed_flow_GUI_checks": 9,
+  "Windows_installed_frozen_checks": 21,
+  "three_final_native_system_exports_identical": true,
+  "Windows_unreachable_source_refused_before_income_review": true
+}

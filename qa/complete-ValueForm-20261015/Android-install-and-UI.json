@@ -1,0 +1,22 @@
+{
+  "same_original_signer_SHA256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "installed_package_bytes_equals_built": true,
+  "versionName": "2026.10.15-preview.24",
+  "first_install_time_before_and_after": "2026-10-13 13:31:14",
+  "saved_return_UI_after_upgrade": "Tax23Android",
+  "saved_refund_USD": 344,
+  "two_existing_source_documents_retained": true,
+  "actual_new_complete_source_edit_and_system_export": true,
+  "complete_export_bytes": 2906,
+  "complete_export_SHA256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "new_process_PID_after_upgrade": 1103,
+  "separate_manual_force_stop_in24": false,
+  "TLS_debugging_was_already_enabled": true,
+  "temporary_ADB5555_enabled_this_turn": false,
+  "mirror_closed_after_test": true,
+  "synthetic_only": true,
+  "source_commit": "36a6dff5915694b1cfcebb7729da3233659f5ded",
+  "installed_APK_SHA256": "20f01799a3ba46dd33745e3d889f35b378b4e1a74e07108bf2ebfca69d51bea9",
+  "actual_system_export_name": "2026101524",
+  "last_update_time": "2026-10-15 16:19:27"
+}
