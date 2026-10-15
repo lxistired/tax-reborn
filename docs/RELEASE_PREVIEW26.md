@@ -1,0 +1,9 @@
+# Preview.26 candidate — saved value bodies through the working App
+
+This candidate adds two source-verified saved value bodies to binary v4/v5 inspection, income review and selected scalar correction: saved value notes and saved destination references. Both remain value attachments. Every instance must match its exact class, group, full field attachment and complete body before the source becomes editable. Unknown record/value bodies retain their movement refusal.
+
+The actual main App demonstrates a four-form independently authored source containing nonempty tables, child forms, four links, saved/current field mappings, form UUID bodies and both new value-body types. Editing WAGES1234.56 to1234.57 preserves the entire derived tails and produces3787 bytes, SHA2565aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21. Four reviewed incomes save and reload with a344-dollar refund under the independent IRS engine. The local calculation-comparison worker includes the new shared loader and all68 bundled module hashes are verified.
+
+The explicit4-byte empty value-note read form is retained unchanged. The native empty Store writes a shorter form; this release does not guess a repair or claim native empty writer parity. Import-context record bodies, original row creation/delete/move lifecycle, native field initialization and the complete original scheduler are not admitted by this feature.
+
+702host tests and591real Pyodide checks pass, with2skips out of593. Source acceptance is separate from generation, installation, actual native system save/readback, upload and public visibility. Native package acceptance remains pending until its version-specific receipts are added. Original licensed runtime executions and original taxpayer fixtures remain zero; whole original `.tax` compatibility and calculation parity are not established. No original resources, vendor binary, artwork or decompiled code is distributed.

@@ -5,6 +5,8 @@ attachment callback or native validation fallback is simulated.
 """
 import re
 from .value_form_tail_reference import PersistentObject,UnsupportedTailProfile
+from .persistent_value_bodies_reference import (proven_value_relocation_classes,
+ UnsupportedBodyProfile)
 NAME=b'zccPersistentFormUUID'
 CANONICAL=re.compile(rb'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z')
 
@@ -27,7 +29,9 @@ def proven_relocatable_classes(tail):
   for obj in group:
    if obj.class_name==NAME:
     load_form_uuid_body(obj);found=True
- return frozenset((NAME,)) if found else frozenset()
+ try:value_names=proven_value_relocation_classes(tail)
+ except UnsupportedBodyProfile as error:raise UnsupportedTailProfile(str(error)) from error
+ return (frozenset((NAME,)) if found else frozenset())|value_names
 
 def has_untyped_objects(tail):
  names=proven_relocatable_classes(tail)

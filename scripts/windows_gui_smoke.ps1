@@ -6,7 +6,8 @@ param(
     [switch]$EffectiveRegistry,
     [switch]$CompleteValueForm,
     [switch]$AutomaticArrays,
-    [switch]$SourceComparison
+    [switch]$SourceComparison,
+    [switch]$TypedValues
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -695,6 +696,23 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_automatic_arrays_passed=$true
         $checks.Add('Native source inspection selected visible/hidden table definitions from distinct files/RIDs1/3; actual system correction retained both source reports, byte27 flags2/1 and all2906 bytes after close/reopen.')
+    }
+    if($TypedValues) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load saved value-note sample')
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Click-Observed (Wait-Named 'Preserved value objects · 2')
+        Wait-Named 'Saved destination reference · OWNED · index 12 · element 4' 90 $false | Out-Null
+        Save-Screenshot 'windows-native-saved-value-bodies.png'
+        Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+        Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
+        $typedCopy=Join-Path $OutputDir 'windows-native-typed-value-corrected.taxbin'; Save-Native-Export $typedCopy 100
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_value_form_native.py --typed-values --corrected-binary $typedCopy --output (Join-Path $OutputDir 'windows-native-typed-value-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Typed value bodies and full system export failed independent readback.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_typed_values_passed=$true
+        $checks.Add('Actual native saved value-note and destination bodies loaded; full-ID correction/system Save retained both bodies on all four forms, all3787 bytes and saved344 return after close/reopen.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

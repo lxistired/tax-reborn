@@ -37,7 +37,8 @@ def tail(template,copy,*,opaque=False):
   out+=bytes([(0xd1,0xde,0xdf)[group]])+struct.pack('>HH',capacity,len(items)*2)+struct.pack('<'+'I'*capacity,*positions)+body
  return load_value_form_tail(out)
 
-def fixture(*,used_array=False,opaque=False,hash_mode=None,hash_mutator=None):
+def fixture(*,used_array=False,opaque=False,hash_mode=None,hash_mutator=None,tail_factory=None):
+ tail_factory=tail if tail_factory is None else tail_factory
  fsid,templates,_,profile,carriers,_=old.value_table_inputs()
  baseline=old.value_table_document(templates,fsid)
  ids={};counter=[0]
@@ -71,7 +72,7 @@ def fixture(*,used_array=False,opaque=False,hash_mode=None,hash_mutator=None):
    state=replace(state,heads=tuple(heads))
   if hash_mutator is not None:state=hash_mutator(state)
   return FormNode(header,state,strings,table_id,tables=tables,
-      children=children,links=links,derived_tail=tail(template,form.header.file_copy,opaque=opaque and name=='FW2'))
+      children=children,links=links,derived_tail=tail_factory(template,form.header.file_copy,opaque=opaque and name=='FW2'))
  forms=tuple(convert(f) for f in baseline.formsets[0].forms)
  doc=Document(copy_as(EntityHeader,baseline.entity_header),
      (FormSetNode(copy_as(FormSetHeader,baseline.formsets[0].header),forms),))

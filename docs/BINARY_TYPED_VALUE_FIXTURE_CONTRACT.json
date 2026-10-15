@@ -1,0 +1,118 @@
+{
+  "format": "tax-reborn-owned-typed-value-fixture-contract-v1",
+  "production_baseline": "240dae12e5659ead7224da31c0c389d988d2db98",
+  "inherited_test_harness_commit": "c8b436f0975fd02adec210a6acdae887a1051696",
+  "cases": {
+    "typed-value-income": {
+      "sample_button": "Load saved value-note sample",
+      "input_bytes": 3785,
+      "input_sha256": "1e5344fc5bd42764d0015ef7d299fb42ead09cdfe34944b413f3e178fd50fb95",
+      "output_bytes": 3787,
+      "output_sha256": "5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21",
+      "output_filename": "synthetic-typed-value-income-corrected.taxbin",
+      "wages_before": "1234.56",
+      "wages_after": "1234.57",
+      "source_ordinal": 104,
+      "current_ordinal": 4,
+      "all_form_groups": [
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ]
+      ],
+      "tail_positions_before": [
+        1535,
+        1036,
+        2522,
+        3251
+      ],
+      "tail_positions_after": [
+        1537,
+        1038,
+        2524,
+        3253
+      ],
+      "entire_tails_unchanged": true,
+      "form_count": 4,
+      "nonempty_table_child_links": true,
+      "source_hashes_and_current_registry_retained": true
+    },
+    "typed-value-empty": {
+      "sample_button": null,
+      "input_bytes": 3672,
+      "input_sha256": "4c294b49445709c3f3b9b8808a5b5b4e672a7fbbd3fd52a354f3c99a7091fba9",
+      "output_bytes": 3674,
+      "output_sha256": "2111ad4d99eb6d48a06bfc02b819ca775fad1f8b45816f58787017dbb42e008d",
+      "output_filename": "synthetic-typed-value-empty-corrected.taxbin",
+      "wages_before": "1234.56",
+      "wages_after": "1234.57",
+      "source_ordinal": 104,
+      "current_ordinal": 4,
+      "all_form_groups": [
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ]
+      ],
+      "tail_positions_before": [
+        1506,
+        1036,
+        2467,
+        3167
+      ],
+      "tail_positions_after": [
+        1508,
+        1038,
+        2469,
+        3169
+      ],
+      "entire_tails_unchanged": true,
+      "form_count": 4,
+      "nonempty_table_child_links": true,
+      "source_hashes_and_current_registry_retained": true
+    }
+  },
+  "known_value_types": [
+    "ztbPersistentValueTag",
+    "zcvPersistentRecordOrder"
+  ],
+  "group": 2,
+  "source_correction_only": true,
+  "original_runtime_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "whole_tax_compatibility": false,
+  "unknown_record_classes_accepted_for_movement": false,
+  "source_6AB_import_context_payload_support": false
+}

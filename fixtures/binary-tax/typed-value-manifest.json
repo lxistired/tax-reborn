@@ -1,0 +1,23 @@
+{
+  "empty_value_note": "explicit4-byte source preserved; native2-byte empty Store not emitted",
+  "entries": {
+    "typed-value-empty": {
+      "bytes": 3672,
+      "request_sha256": "5ae495745c74b36f4ee2ddf6ca9d5de537a4a1b6e7bb2a16f0b8695bafe1db60",
+      "sha256": "4c294b49445709c3f3b9b8808a5b5b4e672a7fbbd3fd52a354f3c99a7091fba9"
+    },
+    "typed-value-income": {
+      "bytes": 3785,
+      "request_sha256": "bca3773ee0ff72465648af97dcff867532faa656e2b11038d014bfdff16d85a5",
+      "sha256": "1e5344fc5bd42764d0015ef7d299fb42ead09cdfe34944b413f3e178fd50fb95"
+    },
+    "typed-value-opaque": {
+      "bytes": 3966,
+      "request_sha256": "ce152c684b7698a51b12ee17ff5618bd82e42c7f28221d4975bd273009436226",
+      "sha256": "2ab2a922b87514586eb5946b99153e60146ae4d66348ff7481152ab39ccf2158"
+    }
+  },
+  "original_runtime_executions": 0,
+  "record_order_attachment": "value/group2; not record-row data",
+  "vendor_resources_included": false
+}

@@ -3,13 +3,13 @@
   "files": [
     {
       "path": "binary_derived.py",
-      "bytes": 8539,
-      "sha256": "345f9d8776fee5ff46c240af62987fb9345c9a5cadaa76d3427f5c0d8f5f4292"
+      "bytes": 10269,
+      "sha256": "78c536f488bc4fd153997e764f1c0de7ad358fd96bc06516fea94a70fcdc7cc6"
     },
     {
       "path": "binary_tax.py",
-      "bytes": 31453,
-      "sha256": "3807c14131d153a1d8000f86ed307a8fbec1dd93712b0607fbfb9761f1a8ca60"
+      "bytes": 31486,
+      "sha256": "2a5d79728ec103ac7f3dff9a2942bfc0efdc7681adefc8905c6ef1e5ff558968"
     },
     {
       "path": "call_protocol_reference.py",
@@ -83,8 +83,13 @@
     },
     {
       "path": "interop/derived_form/persistent_uuid_body_reference.py",
-      "bytes": 1437,
-      "sha256": "6e9c66c61eeb9399b897a186b99e7c30d07963ee610604ef18e74dcbbdbf14e4"
+      "bytes": 1704,
+      "sha256": "80518fd409ff6b6bcd0ca31adb75f0357951601278286056200eb5c8169c6875"
+    },
+    {
+      "path": "interop/derived_form/persistent_value_bodies_reference.py",
+      "bytes": 7256,
+      "sha256": "13af194c96f72e6948a01ad4a0e7aab6542132b5be449d07d697f7b4b797d545"
     },
     {
       "path": "interop/derived_form/selected_form_record_reference.py",

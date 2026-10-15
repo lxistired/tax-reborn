@@ -1,0 +1,8 @@
+{"name":"PythonError","type":"ValueError","last":"ValueError: Only source-proven value-tag version1 supported"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Only source-proven value-tag version1 supported"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Value-tag length must consume the exact body"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Value-tag embedded NUL needs separate native normalization handling"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Native field attachment requires a nonzero field index"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.derived_form.string_wire_reference.UnsupportedProfile: Object tag must match its declared paired-map group"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Record-order marker16 and complete fixed15-byte FormSetID required"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.derived_form.string_wire_reference.UnsupportedProfile: Opaque object relocation requires class-specific source evidence or same base"}

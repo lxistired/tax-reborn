@@ -304,7 +304,7 @@ def _inspect(request):
             report=derived.tail_report(form)
             for group in report['groups'] if report else ():
                 unresolved.extend({'path':form_path,'code':'untyped_persistent_object','detail':obj['class_name']}
-                    for obj in group['objects'] if not obj['typed_form_uuid'])
+                    for obj in group['objects'] if not (obj['typed_form_uuid'] or obj.get('typed_value_body')))
         # Unknown values stay preserved in the source editor and block claims of
         # importing a complete return. They never silently become ordinary tax.
         unknown = [fact for fact in facts if fact['specific_attributes'] & 1 and

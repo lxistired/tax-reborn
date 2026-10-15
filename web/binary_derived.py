@@ -11,6 +11,10 @@ from interop.derived_form.string_wire_reference import read as read_string
 from interop.derived_form.value_hash_wire_reference import find_value
 from interop.derived_form.persistent_uuid_body_reference import NAME,load_form_uuid_body
 
+from interop.derived_form.persistent_value_bodies_reference import (
+    VALUE_TAG,RECORD_ORDER,load_value_tag_body,load_record_order_body,
+    proven_value_relocation_classes,UnsupportedBodyProfile)
+
 PROFILE='tax-reborn-binary-entity-profile-v4'
 AUTO_ARRAY_PROFILE='tax-reborn-binary-entity-profile-v5'
 PROFILES=(PROFILE,AUTO_ARRAY_PROFILE)
@@ -80,6 +84,13 @@ def load_context(profile,registry,selected,source,buffers,table_ids):
         form_factories=encoded(factories),table_factories=encoded(tables))
     bound=load_source_bound_document_bytes(source,buffers,template_context=context,
         current_fields=encoded(current),arrays=encoded(arrays))
+    # A shared loader guard validates every instance before any caller can
+    # treat this class as a typed raw-copy body. Malformed same-name objects
+    # cannot bypass validation by invoking _context without the inspector.
+    for _,form in walk_forms(bound.document):
+        if form.derived_tail is not None:
+            try:proven_value_relocation_classes(form.derived_tail)
+            except UnsupportedBodyProfile as error:raise ValueError(str(error)) from error
     if profile['format']==AUTO_ARRAY_PROFILE and any(value.native_action=='requires_array_shape_recovery'
             for values in bound.bindings.values() for value in values):
         raise ValueError('Source array shape requires unsupported native recovery against actual definitions.')
@@ -114,10 +125,25 @@ def tail_report(form):
             if obj.class_name==NAME and obj.group==0:
                 try:uuid=load_form_uuid_body(obj).decode();typed=True
                 except ValueError:pass
-            rows.append(dict(class_name=text(obj.class_name),first_index=obj.first_index,
+            row=dict(class_name=text(obj.class_name),first_index=obj.first_index,
                 second_index=obj.second_index,attachment_id=text(obj.attachment_id),
                 body_bytes=len(obj.opaque_payload),body_sha256=hashlib.sha256(obj.opaque_payload).hexdigest(),
-                typed_form_uuid=typed,uuid=uuid))
+                typed_form_uuid=typed,uuid=uuid)
+            if obj.class_name==VALUE_TAG:
+                value=load_value_tag_body(obj)
+                row['typed_value_body']=dict(kind='value_note',version=1,
+                    text_bytes=len(value.text_bytes),text_hex=value.text_bytes.hex(),
+                    native_store_length_written=value.native_store_length_written,
+                    exact_source_body_preserved=True,relocatable=True)
+            elif obj.class_name==RECORD_ORDER:
+                value=load_record_order_body(obj)
+                row['typed_value_body']=dict(kind='destination_reference',
+                    destination_formset=text(value.destination_formset_text),
+                    destination_formset_raw15_hex=value.destination_formset_raw15.hex(),
+                    destination_id=text(value.destination_id),full_destination_id_hex=value.destination_id.hex(),
+                    destination_index=value.destination_index,destination_element=value.destination_element,
+                    exact_source_body_preserved=True,relocatable=True)
+            rows.append(row)
         groups.append(dict(group=index,kind=('form','record','value')[index],objects=rows))
     return dict(source_position=tail.source_base_position,bytes=len(tail.source_wire),
         sha256=hashlib.sha256(tail.source_wire).hexdigest(),

@@ -13,7 +13,9 @@ sys.path[:0]=[str(ROOT),str(ROOT/'web'),str(ROOT/'scripts')]
 def main():
     parser=argparse.ArgumentParser()
     parser.add_argument('--corrected-binary')
-    parser.add_argument('--auto-arrays',action='store_true')
+    profile=parser.add_mutually_exclusive_group()
+    profile.add_argument('--auto-arrays',action='store_true')
+    profile.add_argument('--typed-values',action='store_true')
     parser.add_argument('--make-orphan-fixture')
     parser.add_argument('--output',required=True)
     args=parser.parse_args()
@@ -33,15 +35,16 @@ def main():
         Path(args.output).write_text(json.dumps({'owned_malformed_fixture_created':True,'source_hash_rejected':True,'carrier_count':len(request['carriers'])},indent=2)+'\n')
         return
     if not args.corrected_binary:parser.error('--corrected-binary is required for readback')
-    request=json.loads((ROOT/'fixtures/binary-tax'/('auto-array-income-request.json' if args.auto_arrays else 'derived-income-request.json')).read_text())
+    fixture_name='typed-value-income' if args.typed_values else 'auto-array-income' if args.auto_arrays else 'derived-income'
+    request=json.loads((ROOT/'fixtures/binary-tax'/(fixture_name+'-request.json')).read_text())
     before=binary_tax.inspect_request(request)
     expected=binary_tax.edit_request({'inspection':request,'expected_source_sha256':before['source_sha256'],
         'changes':[{'path':[0,0],'field_id':'WAGES','element':0,'value':'1234.57'}],'confirmed':True})
     actual=Path(args.corrected_binary).read_bytes()
     assert actual==base64.b64decode(expected['base64']),'Actual selected file differs from complete source correction'
-    assert len(actual)==2906
+    assert len(actual)==(3787 if args.typed_values else 2906)
     digest=hashlib.sha256(actual).hexdigest()
-    assert digest=='179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25'
+    assert digest==('5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21' if args.typed_values else '179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25')
     after=binary_tax.inspect_request({**request,'base64':base64.b64encode(actual).decode()})
     old=before['binary_archive']['forms'];new=after['binary_archive']['forms']
     assert len(old)==len(new)==4
@@ -68,7 +71,7 @@ def main():
         'other_parsed_facts_preserved':True,'full_file_readback':True,
         'original_engine_executed':False,'native_field_remap_executed':False,
         'whole_original_tax_compatibility':False,'synthetic_only':True}
-    if args.auto_arrays:
+    if args.auto_arrays or args.typed_values:
         assert 'compiled_arrays' not in request['profile']
         assert before['registry_binding']==after['registry_binding']
         arrays=next(t for t in before['registry_binding']['selected_array_templates'] if t['form_id']=='FW2')
@@ -78,6 +81,16 @@ def main():
         receipt.update(automatic_arrays_from_same_registry=True,manual_array_lists=False,
             original_array_source_report_preserved=True,selected_array_sources=arrays,
             selected_source_profile_sha256=before['wire_profile_sha256'])
+    if args.typed_values:
+        for a,b in zip(old,new):
+            assert [len(g['objects']) for g in b['derived']['groups']]==[1,0,2]
+            objects=b['derived']['groups'][2]['objects']
+            assert [o['typed_value_body']['kind'] for o in objects]==['value_note','destination_reference']
+            assert all(o['typed_value_body']['exact_source_body_preserved'] and o['typed_value_body']['relocatable'] for o in objects)
+            assert a['derived']['groups']==b['derived']['groups']
+        receipt.update(known_value_bodies_per_form=2,typed_value_note_and_destination_preserved=True,
+            all_four_form_entire_derived_tails_preserved=True,source_record_class_6AB_not_admitted=True,
+            native_row_lifecycle_executed=False)
     Path(args.output).write_text(json.dumps(receipt,indent=2)+'\n')
     print(json.dumps(receipt))
 

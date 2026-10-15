@@ -1,0 +1,21 @@
+{
+  "real_headless_UI": true,
+  "worker_sha256": "8463e47ebd2b371e4d5384e44aed4b661261063f2ffe6a1b1798f65b73546f67",
+  "UI_source_sha256": "adb4f2090c2822bb12053aba6f067df17292bea56b4bb9ef23b981777122cb9d",
+  "runtime_manifest_sha256": "5f6d989a829816a53f474b548dc9decde0f2d1ac2751179aa8a815f38acc5493",
+  "real_Pyodide_worker": true,
+  "local_assets_only": true,
+  "sample_button": "Load saved value-note sample",
+  "automatic_array_sources_rendered": true,
+  "D2_identity_details_rendered": true,
+  "three_object_groups_rendered": true,
+  "unknown_three_group_bodies_refused_on_move": true,
+  "full_ID_scalar_edit": true,
+  "actual_four_income_reviews_saved_and_reloaded": true,
+  "actual_refund": 344,
+  "download_filename": "synthetic-typed-value-income-corrected.taxbin",
+  "download_bytes": 3787,
+  "download_sha256": "5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21",
+  "original_engine_executed": false,
+  "whole_tax_compatibility": false
+}
