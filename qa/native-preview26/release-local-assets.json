@@ -1,0 +1,56 @@
+{
+  "version": "2026.10.15-preview.26",
+  "prepared_at_utc": "2026-10-15T10:30:23.163694+00:00",
+  "tag": "v2026.10.15-preview.26",
+  "target_commit": "9a4e889d2555915964b3b5c372f9896014fad551",
+  "assets": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Android.apk",
+      "bytes": 49949735,
+      "sha256": "a87ee8bae4676379243a466995ca26c20f573600372c1160e15172260d4d3472"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Windows-x64-Setup.exe",
+      "bytes": 58079800,
+      "sha256": "0af9c05e882e0912d25253ccbd3048b78a7cebcb092a754a2e9811cb00f6b10f"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Windows-x64-portable.zip",
+      "bytes": 71546246,
+      "sha256": "776c231ce8833a62b62fd277dd6ba45c2163b3ecfa2e9e5990c21388a89cf790"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-macOS-arm64.dmg",
+      "bytes": 72496442,
+      "sha256": "b991c35bf0157530f3098a11945751b9c0a03e4b27431e41243b23aa38a3b74a"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-source.zip",
+      "bytes": 129926426,
+      "sha256": "3fe5bd5f2cc24446303a518f48a70bcfa619d11f472d50329e2ed949cc8d4152"
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 300594,
+      "sha256": "a761a57187e011fef6febf1a3b8e4ef156eb5d67d2e0e643e478d0eacc059639"
+    },
+    {
+      "file": "platform-acceptance.json",
+      "bytes": 5425,
+      "sha256": "958590ce53abda1987e79abe3f591a35d83bd10e8a870895666a02ba738effba"
+    },
+    {
+      "file": "preview26-artifacts.json",
+      "bytes": 2008,
+      "sha256": "55c4f1ef417eb462924f3a289925c4adcb67b121288b5ca78601e7d9f07f398d"
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "bytes": 850,
+      "sha256": "e4ebe79db69f4526c14888178b5da796e1efdf4743a513d15248401b3117f2de"
+    }
+  ],
+  "published": true,
+  "public_release_URL": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.26",
+  "anonymous_all9_full_downloads_byte_verified": true
+}

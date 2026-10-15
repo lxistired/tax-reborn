@@ -1,0 +1,48 @@
+{
+  "version": "2026.10.15-preview.26",
+  "QA_and_source_archive_commit": "9a4e889d2555915964b3b5c372f9896014fad551",
+  "production_commits": {
+    "Windows": "a313d16caa49f798eae335b2f45f6b6219acd45c",
+    "Mac": "b9ad417adad60df91ecd95db276cd6a730074702",
+    "Android": "b9ad417adad60df91ecd95db276cd6a730074702"
+  },
+  "Windows_checkout_differences_are_test_tooling_only": true,
+  "bundled_product_source_bytes_identical_between_commits": true,
+  "files": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Android.apk",
+      "bytes": 49949735,
+      "sha256": "a87ee8bae4676379243a466995ca26c20f573600372c1160e15172260d4d3472"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Windows-x64-Setup.exe",
+      "bytes": 58079800,
+      "sha256": "0af9c05e882e0912d25253ccbd3048b78a7cebcb092a754a2e9811cb00f6b10f"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-Windows-x64-portable.zip",
+      "bytes": 71546246,
+      "sha256": "776c231ce8833a62b62fd277dd6ba45c2163b3ecfa2e9e5990c21388a89cf790"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-macOS-arm64.dmg",
+      "bytes": 72496442,
+      "sha256": "b991c35bf0157530f3098a11945751b9c0a03e4b27431e41243b23aa38a3b74a"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.26-source.zip",
+      "bytes": 129926426,
+      "sha256": "3fe5bd5f2cc24446303a518f48a70bcfa619d11f472d50329e2ed949cc8d4152"
+    }
+  ],
+  "three_platform_native_changed_flows_passed": true,
+  "all_three_actual_system_saved_complete_sources_byte_identical": true,
+  "complete_source_export_bytes": 3787,
+  "complete_source_export_sha256": "5aa0b7e116870a3213a0d308c361230ff901c543aa0dac03aa9feec1ab6eab21",
+  "all_three_native_source_comparison_system_audit_full_current_input_readback": true,
+  "Android_same_signer_and_saved_data_retained": true,
+  "source_archive_extracted_HTTP_SQLite_binary_and_comparison_replay": true,
+  "original_native_execution": 0,
+  "original_saved_fixture": 0,
+  "whole_original_tax_compatibility": false
+}
