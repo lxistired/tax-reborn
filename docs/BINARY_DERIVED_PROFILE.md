@@ -37,12 +37,22 @@ bound to their loaded scope. Used/raw0 is distinct from unused/raw!=0. Unknown
 used arrays and untyped persistent objects block income review. Array insertion,
 deletion, field creation and graph edits remain unsupported.
 
-Only the previously source-proven canonical zccPersistentFormUUID body receives
-automatic movement/StringTable-ID permission. Unknown object movement remains
-blocked and v4 exposes no class allowlist. Opaque bytes remain inspectable; they
-do not establish a native current object. Whole-document readback includes each
-tail's exact source bytes and every represented header/node/reference. Runtime
-tail positions may change only where the typed body contract permits it.
+The source-proven canonical zccPersistentFormUUID body receives its separately
+validated movement/StringTable-ID permission. Preview.26 also admits the two
+strictly typed value attachments described in [saved value bodies](BINARY_TYPED_VALUE_BODIES.md):
+saved value notes and destination references. Every instance must match its exact
+class, group, nonzero full-field attachment and complete body before relocation.
+These are value attachments, not record-list or row lifecycle support. The explicit
+four-byte empty note read form is preserved unchanged; native empty writer parity
+is not asserted.
+
+Unknown object movement remains blocked and v4 exposes no caller-granted class
+allowlist. Opaque bytes remain inspectable; they do not establish a native current
+object. Whole-document readback includes each tail's exact source bytes and every
+represented header/node/reference. Runtime tail positions may change only where
+the typed body contract permits it. [Preview.26 native acceptance](../qa/native-preview26/acceptance.json)
+records the three actual system-saved exports; original taxpayer-file roundtrip
+and original-engine execution remain unverified.
 
 The independent generic83 raw-kind13 helper's optional exponent edit had used
 the wrong dataclass field name. This candidate changes `exponent` to
