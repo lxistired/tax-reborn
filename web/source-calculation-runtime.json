@@ -3,8 +3,8 @@
   "files": [
     {
       "path": "binary_derived.py",
-      "bytes": 14567,
-      "sha256": "05f46a31e14dec6d4b6e7324cc02f8600219d2b7b5469b2de52f8fff30efa911"
+      "bytes": 15450,
+      "sha256": "b7e8a8c4979acd7a4b249103997fce3a901c96018ca29719f44785e002b3421a"
     },
     {
       "path": "binary_tax.py",
@@ -83,8 +83,8 @@
     },
     {
       "path": "interop/derived_form/entity_objects_reference.py",
-      "bytes": 6396,
-      "sha256": "146085f061950af9db7a2c8a5ca013fba3350e5537d118749d175bdf70e40eb3"
+      "bytes": 6618,
+      "sha256": "e221e43182494ea6b5d37fbd6e87a047cbebb5a4d269d621a2c378d3ca2b7387"
     },
     {
       "path": "interop/derived_form/form_header_map_reference.py",
@@ -222,6 +222,11 @@
       "sha256": "38c957f7a5d6426cc90cd461ed0413c74fd08d3568d2b89c9f4371ea3b7c93b8"
     },
     {
+      "path": "interop/form_core/entity_stored_instance_map_reference.py",
+      "bytes": 3389,
+      "sha256": "7effe0501df549f90536a39aac0c8f30b108ef7d9ba79adbef11d40c6a0ef383"
+    },
+    {
       "path": "interop/form_core/field_limits_body_reference.py",
       "bytes": 1717,
       "sha256": "367ee888358464152a6fd9d5b55bc21ebeed3b6d2dde64d9c66343ab38c6faeb"
@@ -247,9 +252,19 @@
       "sha256": "a17f50fed8034544de3efe10e574f6fa16580e04deabf472b7f0f7ef43b57357"
     },
     {
+      "path": "interop/form_core/instance_map_entity_body_reference.py",
+      "bytes": 4295,
+      "sha256": "562a28d47cc79e439cbccaac50224031de01e584e1a038e0fed355280c412c51"
+    },
+    {
       "path": "interop/form_core/instance_map_formset_body_reference.py",
       "bytes": 7549,
       "sha256": "3ad6cf72a5ced4e7e12376c7d4d70bbf86b8696df398b0d3b00378e6484dfc1c"
+    },
+    {
+      "path": "interop/form_core/legacy_instance_map_entity_body_reference.py",
+      "bytes": 4943,
+      "sha256": "bff7b52db8dca4bbe8e73095aa4527560da386675ab5028e52f7ac7a7e686aea"
     },
     {
       "path": "interop/form_core/metadata_formset_body_reference.py",

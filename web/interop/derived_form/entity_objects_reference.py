@@ -1,6 +1,7 @@
 """Actual CD paired map / CC Entity persistent-object envelope, raw body I/O.
 
-Only source-bound147 canonical UUID and146 exact U8-length raw bodies and14B version3/4 framed metadata can move.
+Only source-bound147/146 identifiers,14B framed metadata and finite14D stored
+instance-map bodies can move within their original source Entity owner.
 All other Entity body classes remain opaque and require unchanged stream positions.
 No native factory, event, UUID refresh or metadata set_value/fixup is executed.
 """
@@ -9,6 +10,7 @@ import struct,re
 from ..form_core.field_template_reference import UnsupportedProfile
 from .legacy_entity_uuid_body_reference import NAME as LEGACY_UUID_NAME,load_legacy_uuid_body
 from .metadata_entity_body_reference import NAME as ENTITY_METADATA_NAME,load_metadata_entity_body
+from ..form_core.entity_stored_instance_map_reference import NAME as INSTANCE_MAP_NAME,typed_entity_body_or_none
 
 UUID_NAME=b'zccPersistentEntityUUID'
 UUID_PATTERN=re.compile(rb'[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\Z')
@@ -39,6 +41,7 @@ def _u32(value):
  return value
 
 def typed_body(class_name,body):
+ if class_name==INSTANCE_MAP_NAME:return typed_entity_body_or_none(body)
  if class_name==ENTITY_METADATA_NAME:
   # Unmodeled native original1/2 and unknown versions stay opaque, never movable.
   if len(body)>=2 and struct.unpack_from('>H',body)[0]not in(3,4):return None

@@ -1,0 +1,11 @@
+# Preserving stored Entity instance maps
+
+Tax Reborn can inspect and preserve the stored `TpsInstanceToMefInstanceMapPO` body in a supported source Entity while exporting a separate scalar-corrected source copy. The Documents screen includes three independently generated complete examples. Each contains two FormSets, eight forms, nonempty tables and child forms, eight links, both stored FormSet maps and all existing persistent bodies.
+
+The supported source bodies are version 1 with bounded length-framed strings, version 2 with a nonempty fully consumed compressed pair sequence, and version 3 with exactly the two-byte no-payload marker. Version 3 does not establish that an active native map is empty. The UI says so explicitly. Stored pair bytes are read only; they do not supply active field identities, a native UUID inventory or permission to change owners.
+
+Source corrections keep the same original Entity, FormSet and form graph. Every recognized object is validated. Unknown versions and version-2 zero counts remain opaque and block movement and reviewed income addition. Malformed recognized bodies are rejected, including a malformed later object. A FormSet, record or value object cannot acquire Entity permissions through a matching class name. Original-program loading, cache cleanup, migration and recalculation are not performed by this preservation path.
+
+For a reproducible workflow, open Documents → Open TaxML / binary .tax → Try independently generated binary samples. Load an Entity map sample, inspect the binary fields, change the first W-2 WAGES value from `1234.56` to `1234.57`, confirm the correction, and save the separate binary copy. The current return and its calculation stay unchanged. `scripts/verify_entity_instance_map_native.py FILE --version 1|2|3` reopens the entire saved file and checks all fields, tables, children, links, owners and original persistent bodies. An explicit `--output` saves the readback receipt.
+
+These examples and their acceptance results use independently owned synthetic data. They do not establish complete TurboTax `.tax` compatibility or original-engine equivalence. Native installer and physical-device acceptance are recorded separately from source and browser checks.

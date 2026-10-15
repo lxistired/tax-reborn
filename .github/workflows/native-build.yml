@@ -141,6 +141,17 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Installed stored instance-map source workflow failed' }
           python scripts/verify_instance_map_native.py dist/windows/instance-map-corrected.taxbin --output dist/windows/installed-instance-map-readback.json
           if ($LASTEXITCODE -ne 0) { throw 'Installed stored instance-map full document readback failed' }
+      - name: Exercise Entity stored map versions using installed assets
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_entity_instance_map_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed Entity map source workflow failed' }
+          foreach ($version in @(1,2,3)) {
+            python scripts/verify_entity_instance_map_native.py "dist/windows/entity-instance-map-v$version-corrected.taxbin" --version $version --output "dist/windows/installed-Entity-map-v$version-readback.json"
+            if ($LASTEXITCODE -ne 0) { throw 'Installed Entity map complete source readback failed' }
+          }
       - name: Exercise complete cleartext containers using the installed worker
         shell: pwsh
         run: |

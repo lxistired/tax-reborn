@@ -777,6 +777,28 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_stored_instance_map_source_passed=$true
         $checks.Add('Actual system8360B binary source read/edit/export retains both complete0F/F0 stored maps/6pairs,2FormSets/8forms/tables/children/8links and every original object body after2byte movement; current344return survives normal relaunch. Native cache cleanup/migration not executed.')
+        foreach($mapVersion in @(1,2,3)) {
+            Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+            Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named ('Load Entity map v'+$mapVersion+' sample'))
+            Click-Observed (Wait-Named 'Inspect / edit binary fields'); Click-Observed (Wait-Named 'Saved Entity objects · 4')
+            if($mapVersion -eq 3) {
+                Wait-Named 'Stored map marker · version 3 has no payload. Active contents are unverified.' 90 $false | Out-Null
+            } else {
+                $pairs=if($mapVersion -eq 1) { 2 } else { 3 }
+                Wait-Named ('Stored instance-address map · '+$pairs+' byte pairs. Active cache and original cleanup have not run.') 90 $false | Out-Null
+            }
+            Save-Screenshot ('windows-native-Entity-map-v'+$mapVersion+'-stored.png')
+            Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+            Click-Observed (Wait-Control 'CheckBox' 'Confirm binary source corrections' $true); Click-Observed (Wait-Named 'Download corrected binary')
+            $entityMapCopy=Join-Path $OutputDir ('windows-native-Entity-map-v'+$mapVersion+'-corrected.taxbin'); Save-Native-Export $entityMapCopy 100
+            Save-Screenshot ('windows-native-Entity-map-v'+$mapVersion+'-corrected.png')
+            Click-Observed (Wait-Named 'Close dialog'); Close-App
+            python scripts/verify_entity_instance_map_native.py $entityMapCopy --version $mapVersion --output (Join-Path $OutputDir ('windows-native-Entity-map-v'+$mapVersion+'-readback.json'))
+            if($LASTEXITCODE -ne 0) { throw ('Entity map v'+$mapVersion+' failed complete system file readback.') }
+            Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        }
+        $receipt.native_Entity_stored_instance_map_sources_passed=$true
+        $checks.Add('Actual native Entity map v1/v2/v3 source edits saved3complete binaries; independently reopened all8forms/2FormSets/nonemptytables/children/8links and every same-owner raw persistent body. Version3 is a no-payload marker, not verified native empty state. Existing344return retained after3normal relaunches.')
     }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')

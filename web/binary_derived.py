@@ -124,6 +124,7 @@ def persistent_report(document):
     from interop.form_core.metadata_formset_body_reference import NAME as METADATA_NAME
     from interop.derived_form.metadata_entity_body_reference import NAME as ENTITY_METADATA_NAME
     from interop.form_core.instance_map_formset_body_reference import NAME as INSTANCE_MAP_NAME
+    from interop.form_core.entity_stored_instance_map_reference import NAME as ENTITY_INSTANCE_MAP_NAME
     def report(value,scope):
         if value is None:return None
         rows=[]
@@ -138,6 +139,15 @@ def persistent_report(document):
                     rows=[dict(tps_address_hex=pair.tps_address.hex(),mef_xpath_hex=pair.mef_xpath.hex()) for pair in typed.rows],
                     native_cleanup_executed=False,native_14D_transfer_executed=False,
                     native_current_cache_verified=False)
+            elif typed is not None and scope=='entity' and obj.class_name==ENTITY_INSTANCE_MAP_NAME:
+                row.update(kind='stored_instance_map',class_id=0x14d,
+                    version=typed.version,source_format=typed.source_format,
+                    stored_no_payload=typed.version==3,active_native_cache_empty_verified=False,
+                    rows=[dict(tps_address_hex=pair.tps_address.hex(),mef_xpath_hex=pair.mef_xpath.hex()) for pair in typed.rows],
+                    native_Load_executed=False,native_SetValue_executed=False,
+                    native_cleanup_executed=False,native_14F_transfer_executed=False,
+                    native_current_cache_verified=False,native_inventory_verified=False,
+                    row_editing_supported=False)
             elif typed is not None and ((scope=='formset' and obj.class_name==METADATA_NAME)
                     or (scope=='entity' and obj.class_name==ENTITY_METADATA_NAME)):
                 row.update(kind='stored_metadata',version=typed.version,
