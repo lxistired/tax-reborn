@@ -1,0 +1,206 @@
+{
+  "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+  "resource_id": 42,
+  "records": {
+    "18000": "c151f883fbac68e3826a26fb8dbec30a3baec55131223922a2cdd2c56bb238df",
+    "1900": "0a5ba9f22af94e22d8ce5f300b8561a67f64ee96925c904ce6e743a26067ae01",
+    "1901": "e210eaf81b00679c24e62357f6a0f6e3db23fe353362f97d9a9474658be19ef3",
+    "2000": "8355bd7fce1222f037111d26a5a14a9085260207a02d177800d3d4c88bafa68e",
+    "2001": "d6e0fcea322eee8a1963be3c9a15aa0122841045618443d3f12781db20f9d000",
+    "2700": "9245bb0f67f521877b7d6d8e81dc754ad8adb38e12618c7c2c01ed3a804c1451",
+    "2800": "701172b4d0a8fbfef36819f3ac5f0b27e55fc4de7669c7dcb3a9c7918f423527",
+    "3000": "cc9196cf6eaeef09345f2a77a8c3ec0526a7bf7c2fd51bf9199cbafc0dd50b39",
+    "13036": "5555fa3b3d95a0f4d071488e289d58a71d7b989b6191be5cab30d3caa29758e5"
+  },
+  "fields": [
+    {
+      "field_id": "PAY",
+      "ordinal": 23,
+      "kind": 7,
+      "format": 0,
+      "attributes": 1092
+    },
+    {
+      "field_id": "AMT",
+      "ordinal": 24,
+      "kind": 11,
+      "format": 0,
+      "attributes": 3652
+    },
+    {
+      "field_id": "L1CD",
+      "ordinal": 27,
+      "kind": 7,
+      "format": 0,
+      "attributes": 1092
+    },
+    {
+      "field_id": "L1C",
+      "ordinal": 28,
+      "kind": 11,
+      "format": 0,
+      "attributes": 3652
+    },
+    {
+      "field_id": "TEMPUAA",
+      "ordinal": 172,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPUB",
+      "ordinal": 173,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPUO",
+      "ordinal": 174,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPUN",
+      "ordinal": 175,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPUA",
+      "ordinal": 176,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPA",
+      "ordinal": 181,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPB",
+      "ordinal": 182,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPO",
+      "ordinal": 183,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    },
+    {
+      "field_id": "TEMPN",
+      "ordinal": 187,
+      "kind": 11,
+      "format": 0,
+      "attributes": 0
+    }
+  ],
+  "arrays": [
+    {
+      "attribute_type": 2000,
+      "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+      "resource_id": 42,
+      "payload_sha256": "53ec3cc1b55755f5ccc87f0bee5d24eee2e40e98c4b924f65d4ccd36a0c40028",
+      "records": [
+        {
+          "identifier": "BINT",
+          "first_field": 4,
+          "last_field": 11,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "BOID",
+          "first_field": 12,
+          "last_field": 20,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "INT",
+          "first_field": 23,
+          "last_field": 24,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "ADJUST",
+          "first_field": 27,
+          "last_field": 28,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "BDIV",
+          "first_field": 32,
+          "last_field": 40,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "DIV",
+          "first_field": 41,
+          "last_field": 42,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "TABLE7B",
+          "first_field": 57,
+          "last_field": 58,
+          "element_limit": 25,
+          "flags": 49,
+          "byte27": 0
+        }
+      ]
+    },
+    {
+      "attribute_type": 2001,
+      "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+      "resource_id": 42,
+      "payload_sha256": "a49e2f1045d9884348072a1d87cba032691818814d20f6bac1657a4cfa41bf58",
+      "records": [
+        {
+          "identifier": "ALL_STATE_W_2_W_H",
+          "first_field": 75,
+          "last_field": 75,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "HLYEX2",
+          "first_field": 77,
+          "last_field": 77,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        },
+        {
+          "identifier": "TEMPGD",
+          "first_field": 96,
+          "last_field": 96,
+          "element_limit": 65520,
+          "flags": 49,
+          "byte27": 0
+        }
+      ]
+    }
+  ]
+}

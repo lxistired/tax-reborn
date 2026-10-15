@@ -15,6 +15,12 @@ async function inspect(page,blocked=false){
  await page.getByRole('button',{name:'Inspect / edit decimal fields',exact:true}).waitFor({timeout:120000});
  await page.getByText('Complete cleartext container',{exact:true}).waitFor();
 }
+async function openDocuments(page){
+ const header=page.getByRole('button',{name:'Documents',exact:true});
+ if(await header.isVisible())await header.click();
+ else{await page.getByRole('button',{name:'Open tax navigator',exact:true}).click();await page.getByRole('button',{name:'Save & export',exact:true}).click();await page.getByRole('button',{name:'Attach documents',exact:true}).click();}
+ await page.getByRole('heading',{name:'Your local documents',exact:true}).waitFor();
+}
 async function snapshot(page){return page.evaluate(()=>({id:currentId,data:clone(data),metadata:clone(metadata),result:clone(result),revision,calculatedRevision}));}
 (async()=>{
  const ready=await new Promise((resolve,reject)=>{let text='';child.stdout.on('data',b=>{text+=b;try{resolve(JSON.parse(text.split('\n')[0]));}catch{}});child.on('exit',code=>reject(Error('Synthetic API exited '+code)));});
@@ -48,7 +54,19 @@ async function snapshot(page){return page.evaluate(()=>({id:currentId,data:clone
   assert.deepEqual(await snapshot(page),before);
   await page.evaluate(()=>closeDialog());await page.reload();await page.waitForFunction(()=>!document.querySelector('#save-button').disabled,{timeout:120000});await page.waitForFunction(()=>result&&calculatedRevision===revision&&!calculationError,null,{timeout:120000});
   const reloaded=await snapshot(page);assert.deepEqual(reloaded.data,before.data);assert.deepEqual(reloaded.metadata,before.metadata);assert.deepEqual(reloaded.result,before.result);
-  checks.push({mode,real_file_inputs:true,explicit_controller_profile:true,selection_across_entities_copies:true,invalid_two_fractional_digits_refused:true,retry_error_cleared:true,complete_container_system_download:true,readback,entire_current_return_and_result_unchanged:true,persisted_return_unchanged:true,reload_unchanged:true,unknown_manifest_readonly:true,builtin_sample:true,native_runtime:0});console.log('PASS',mode);await context.close();
+  await openDocuments(page);
+  const savedSource=page.locator('.document-card').filter({has:page.getByText('owned-mac-scalar.zip',{exact:true})});
+  await savedSource.waitFor();assert.equal(await savedSource.count(),1);await savedSource.getByRole('button',{name:'Open source',exact:true}).click();
+  await page.getByRole('button',{name:'Inspect / correct source',exact:true}).click();
+  await page.getByRole('button',{name:'Inspect / edit decimal fields',exact:true}).click();
+  assert.equal(await page.getByLabel('Decimal source value',{exact:true}).inputValue(),'0.7');
+  const reopened=await snapshot(page);assert.deepEqual(reopened,reloaded);
+  await page.evaluate(()=>closeDialog());await openDocuments(page);
+  await page.getByLabel('Attach local documents',{exact:true}).setInputFiles(path.join(root,'web/icon-192.png'));
+  const ordinary=page.locator('.document-card').filter({has:page.getByText('icon-192.png',{exact:true})});
+  await ordinary.waitFor();assert.equal(await ordinary.getByRole('button',{name:'Open source',exact:true}).count(),0);
+  assert.deepEqual(await snapshot(page),reloaded);await page.evaluate(()=>closeDialog());
+  checks.push({mode,real_file_inputs:true,explicit_controller_profile:true,selection_across_entities_copies:true,invalid_two_fractional_digits_refused:true,retry_error_cleared:true,complete_container_system_download:true,readback,entire_current_return_and_result_unchanged:true,persisted_return_unchanged:true,reload_unchanged:true,saved_bound_source_reopened_after_reload:true,original_source_value_retained:true,ordinary_attachment_has_no_source_action:true,unknown_manifest_readonly:true,builtin_sample:true,native_runtime:0});console.log('PASS',mode);await context.close();
  }
  assert.deepEqual(errors,[]);const receipt={checked_at_utc:new Date().toISOString(),all_passed:true,checks,synthetic_only:true,all_inputs_UI:true,foreground_windows:0,whole_original_tax_compatibility:false};fs.writeFileSync(path.join(out,'browser-acceptance.json'),JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt));
 })().catch(e=>{console.error(e);process.exitCode=1;}).finally(async()=>{if(browser)await browser.close();child.kill('SIGTERM');fs.rmSync(scratch,{recursive:true,force:true});});

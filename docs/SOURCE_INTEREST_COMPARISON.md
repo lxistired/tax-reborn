@@ -14,6 +14,28 @@ the source file or the current Tax Reborn return.
 3. Inspect the current values and any overrides, confirm the scope, then run
    the comparison. You can save the complete comparison report locally.
 
+The inspected source also offers **Compare proposed interest adjustments**.
+This separate mode evaluates nine supported source temporary fields and their
+bounded adjustment path before L4 and L8A. It displays loaded field values,
+a calculated baseline using saved ADJUST, and the proposed amounts separately.
+For an owned source with $12.34 of accrued-interest adjustment, the calculated
+baseline is $1,822.68/$1,823 and the proposed L4/L8A pair is
+$1,810.34/$1,810. A current L8A override remains in effect.
+
+The proposed mode refuses any existing Used ADJUST amount, including Used
+zero. It also refuses cases requiring unsupported native blank deletion or
+temporary Override handling. Retained source temporary operands stay labelled
+as retained. The complete local audit includes each operand's provenance.
+No temporary amount, prepared program or Boolean result can be supplied as a
+substitute for source calculation. This mode does not execute native output
+admission, TPS writes/reload, the dependency queue or the complete tax sequence.
+The original saved-adjustment mode remains available separately.
+
+Inspected source attachments in **Documents** have an **Open source** action.
+It reuses the saved source, explicit profile and bound registry files, so the
+source can be inspected again after reopening the App. A JSON return backup
+does not include these separate attachments.
+
 No original resources, decoded programs, taxpayer records or working source
 fixture for this comparison are included in the repository or installers.
 The existing independent wage example remains available without those files.
@@ -33,6 +55,10 @@ also uses saved adjustments. The EE case is limited to the qualified married
 filing separately normal-return invariant. Native inventory, row UUID mapping,
 the dependency queue, TPS writeback and the remaining Form 1040 sequence are
 not implemented by this comparison.
+
+That paragraph describes the original saved-adjustment mode. The proposed
+mode computes the supported temporary-to-adjustment consequence subject to
+the stricter refusals above; it still retains INPUT10770 and the EE condition.
 
 Actual desktop Chrome acceptance covers file selection, source inspection,
 calculation, override and absent-storage behavior, stale-result rejection and

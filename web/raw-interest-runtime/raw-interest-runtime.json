@@ -685,6 +685,51 @@
       "path": "raw_interest_workflow.py",
       "bytes": 8010,
       "sha256": "efd069d8b7f2c9fcb2f9219ce51f0604dad3892e3dd3d034840042be5d9d47c1"
+    },
+    {
+      "path": "ADJUST_CS37_program_reference.py",
+      "bytes": 2010,
+      "sha256": "ba3e797445d7367c6e0bf366b0e83cdc0954316f301369f22eb9782f5b9671f6"
+    },
+    {
+      "path": "function3_fixed_bridge_reference_private.py",
+      "bytes": 5362,
+      "sha256": "30b2bfb734835e403b5cc5e6466b2f6986562c1d2739b8b7803e035985f91efb"
+    },
+    {
+      "path": "current_ADJUST_CS37_reference.py",
+      "bytes": 17595,
+      "sha256": "8b4490a1b773bc40f0cf9bf7063f142d8219e8bf3260bdadacf3af86a94750bb"
+    },
+    {
+      "path": "CS24_declarations_reference.py",
+      "bytes": 2248,
+      "sha256": "42024ca8062635a616f565bdf20542d9bb491bbdde2d94c5079f42cb4a267468"
+    },
+    {
+      "path": "native_tax_function_reference_private.py",
+      "bytes": 17615,
+      "sha256": "f2634e39fad24dfe2929920e1cb214b24ad06655fca35babd1bb8de7b1a55760"
+    },
+    {
+      "path": "raw_CS24_CS37_request.py",
+      "bytes": 8992,
+      "sha256": "dd01f833e6baf90dbeeec63f99b1ea53d8af683a08e4b9318227bda7373a6279"
+    },
+    {
+      "path": "raw_CS24_CS37_workflow.py",
+      "bytes": 2726,
+      "sha256": "78a5ff09c294266f4fa964143f83adb3a14f3c17b720c285462639ca871e447b"
+    },
+    {
+      "path": "CS24-runtime-authority.json",
+      "bytes": 2008,
+      "sha256": "c9eda8ab0efd6e09ee6183ee920cae81467d3c3d5a57e52c28666362b50f1684"
+    },
+    {
+      "path": "CS37-resource-authority.json",
+      "bytes": 4929,
+      "sha256": "bd4c14edeca7429e335204b24f502880dbe57dd42f220fa3304020a11b365f7f"
     }
   ]
 }

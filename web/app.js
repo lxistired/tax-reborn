@@ -821,7 +821,7 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set
   holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},'Filing-status source setup'),el('small',{},'Form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Review the five source checkboxes':'Source selection is unresolved'))),button('Review filing-status setup',()=>reviewBinaryFilingStatus(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small'})));
  }
  if(inspected.scalar_fields?.length)holder.append(button('Inspect / edit decimal fields',()=>showMacDecimalFields(row,inspected,returnId,atRevision),'secondary'));
- if(inspected.binary_archive)holder.append(button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'));
+ if(inspected.binary_archive)holder.append(button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'),button('Compare proposed interest adjustments',()=>showRawInterestCalculation(inspected,returnId,true),'secondary'));
  modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
 }
 function showMacDecimalFields(source,inspected,returnId,atRevision){
@@ -859,16 +859,16 @@ async function showSourceCalculation(inspected,returnId=currentId,demo=null){
   widget.setSource(request,demo?{profileId:demo.source_profile_id,calculationCarriers:demo.calculation_carriers,reviewDefaults:demo.reviewed_context}:{});
  }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
 }
-async function showRawInterestCalculation(inspected,returnId=currentId){
+async function showRawInterestCalculation(inspected,returnId=currentId,prospectiveAdjustments=false){
  const request=window.taxMLImport.sourceRequest(inspected);
  if(currentId!==returnId)throw Error('Reopen the source from the intended return.');
- const container=el('div'),dialog=modal('Source interest L4 / L8A comparison',container);
+ const container=el('div'),dialog=modal(prospectiveAdjustments?'Proposed source interest adjustments':'Source interest L4 / L8A comparison',container);
  let closed=false,transport=null,widget=null;
  const cleanup=()=>{closed=true;if(activeSourceComparison===widget)activeSourceComparison=null;widget?.destroy();transport?.close();};dialogCleanup=cleanup;
  try{
   const module=await import('./raw-interest-flow.js');if(closed)return;
   transport=module.createRawInterestWorker();
-  widget=await module.mountRawInterest(container,{execute:transport.run,saveAudit:downloadBlob,getCurrentSource:()=>{if(currentId!==returnId)throw Error('The current return changed. Reopen the source comparison.');return clone(request);}});
+  widget=await module.mountRawInterest(container,{execute:transport.run,saveAudit:downloadBlob,prospectiveAdjustments,getCurrentSource:()=>{if(currentId!==returnId)throw Error('The current return changed. Reopen the source comparison.');return clone(request);}});
   if(closed){widget.destroy();transport.close();return;}
   activeSourceComparison=widget;widget.setSource();
  }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
@@ -1058,7 +1058,7 @@ async function showDocuments(){
   const rows=await documentsForReturn(id);list.replaceChildren();
   if(!rows.length){list.append(el('div',{class:'empty-state'},'No local documents attached.'));return;}
   for(const row of rows){const url=URL.createObjectURL(row.file);documentURLs.push(url);
-   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):row.type==='application/pdf'?'PDF':'TaxML'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady||!(/^(image\/|application\/pdf$)/.test(row.type))}),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
+   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):row.type==='application/pdf'?'PDF':'TaxML'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady||!(/^(image\/|application\/pdf$)/.test(row.type))}),...(row.binding_files?[button('Open source',()=>showLocalSource({return_id:id,document_id:row.id}),'secondary',{class:'button secondary small'})]:[]),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
   }
  }
  async function attach(input){

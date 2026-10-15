@@ -220,7 +220,9 @@ public final class MainActivity extends Activity {
             }else clearCamera(true);
         }
         if(request==FILE_CHOICE){
-            Uri[] selected=WebChromeClient.FileChooserParams.parseResult(result,data);
+            Uri[] legacySelected=WebChromeClient.FileChooserParams.parseResult(result,data);
+            Uri[] selected=selectedFileUris(result,data);
+            lifecycleEvent("file_choice_result","clip_count="+(data!=null && data.getClipData()!=null?data.getClipData().getItemCount():0)+" legacy_count="+(legacySelected==null?0:legacySelected.length)+" selected_count="+(selected==null?0:selected.length));
             if(chooser!=null){chooser.onReceiveValue(selected);chooser=null;}
             else if(selected!=null && selected.length==1 && pickerForDocuments){
                 Uri chosen=selected[0];String mime=getContentResolver().getType(chosen);
@@ -244,6 +246,22 @@ public final class MainActivity extends Activity {
             clearPendingSave();
             diagnoseWebView("save_result");
         }
+    }
+
+    private static Uri[] selectedFileUris(int result,Intent data) {
+        if(result!=RESULT_OK || data==null)return null;
+        ClipData clips=data.getClipData();
+        if(clips!=null && clips.getItemCount()>0){
+            Uri[] selected=new Uri[clips.getItemCount()];
+            for(int index=0;index<selected.length;index++){
+                Uri uri=clips.getItemAt(index).getUri();
+                if(uri==null)return null;
+                selected[index]=uri;
+            }
+            return selected;
+        }
+        Uri single=data.getData();
+        return single==null?null:new Uri[]{single};
     }
 
     private void restoreTransfers(Bundle state) {

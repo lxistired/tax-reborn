@@ -20,7 +20,8 @@ def outputs():
     paths = [row['path'] for row in manifest['files']]
     assert len(paths) == len(set(paths)) <= 256
     actual = {p.relative_to(RUNTIME).as_posix() for p in RUNTIME.rglob('*.py')}
-    actual.add('raw-interest-authority.json')
+    actual.update({'raw-interest-authority.json', 'CS24-runtime-authority.json',
+                   'CS37-resource-authority.json'})
     assert set(paths) == actual, 'Runtime manifest must cover every owned module'
     for row in manifest['files']:
         path = Path(row['path'])

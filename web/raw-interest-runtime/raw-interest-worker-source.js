@@ -13,7 +13,7 @@ function ready(){
    const bytes=new Uint8Array(await response.arrayBuffer());if(await digest(bytes)!==row.sha256)throw Error('Raw calculation runtime hash mismatch.');
    const destination='/home/pyodide/'+row.path;py.FS.mkdirTree(destination.slice(0,destination.lastIndexOf('/')));py.FS.writeFile(destination,bytes);
   }
-  await py.runPythonAsync('import sys,json,gc\nsys.path.insert(0,"/home/pyodide")\nimport raw_interest_request,raw_interest_workflow');
+  await py.runPythonAsync('import sys,json,gc\nsys.path.insert(0,"/home/pyodide")\nimport raw_interest_request,raw_interest_workflow,raw_CS24_CS37_workflow');
   return py;
  })();
  return runtime;
@@ -21,10 +21,11 @@ function ready(){
 let queue=Promise.resolve();
 self.onmessage=event=>{const{id,command,payload}=event.data;queue=queue.catch(()=>{}).then(async()=>{
  try{
-  if(!['raw_interest_calculate','raw_interest_inspect','raw_interest_compare'].includes(command))throw Error('Unsupported private raw calculation command.');
+  if(!['raw_interest_calculate','raw_interest_inspect','raw_interest_compare','raw_interest_inspect_cs24','raw_interest_compare_cs24'].includes(command))throw Error('Unsupported private raw calculation command.');
   const t=performance.now(),py=await ready(),before=py._module.HEAPU8?.buffer?.byteLength??null;
   py.globals.set('_raw_interest_request_json',JSON.stringify(payload));
-  const target=command==='raw_interest_inspect'?'raw_interest_workflow.inspect_request':command==='raw_interest_compare'?'raw_interest_workflow.calculate_request':'raw_interest_request.calculate_request';
+  const targets={raw_interest_inspect:'raw_interest_workflow.inspect_request',raw_interest_compare:'raw_interest_workflow.calculate_request',raw_interest_calculate:'raw_interest_request.calculate_request',raw_interest_inspect_cs24:'raw_CS24_CS37_workflow.inspect_request',raw_interest_compare_cs24:'raw_CS24_CS37_workflow.calculate_request'};
+  const target=targets[command];
   const result=JSON.parse(await py.runPythonAsync('json.dumps('+target+'(json.loads(_raw_interest_request_json)),allow_nan=False)'));
   await py.runPythonAsync('del _raw_interest_request_json\ngc.collect()');
   self.postMessage({id,result,runtime:{elapsed_ms:performance.now()-t,wasm_linear_allocated_before:before,wasm_linear_allocated_after:py._module.HEAPU8?.buffer?.byteLength??null,native_engine_execution:0,public_binary_context_unmodified:true}});

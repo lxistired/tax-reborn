@@ -30,6 +30,16 @@ async function command(command,payload){return new Promise((resolve,reject)=>{
  pair.local_resource.sha256=authority.resource.carrier_sha256;
  result=await command('raw_interest_inspect',pair);
  assert.equal(result.error,'Caller-local resource content differs from approved identity');
+ // The proposed-adjustment path has its own inspection session. No supplied
+ // confirmation or amount can replace that inspection, even after a refusal.
+ result=await command('raw_interest_inspect_cs24',pair);
+ assert.equal(result.error,'Caller-local resource content differs from approved identity');
+ result=await command('raw_interest_compare_cs24',{pair,inspection_token:'uninspected',confirmed:true});
+ assert.equal(result.error,'Source or resources changed; inspect and confirm them again');
+ result=await command('raw_interest_compare_cs24',{pair,inspection_token:'uninspected',confirmed:true,temporary_amounts:{TEMPA:'12.34'}});
+ assert.equal(result.error,'Confirm the current same-source inspection before comparison');
+ result=await command('raw_interest_inspect_cs24',pair);
+ assert.equal(result.error,'Caller-local resource content differs from approved identity');
  result=await command('owned_unsupported_command',{});
  assert.equal(result.error,'Private raw calculation failed.');
  assert.equal(result.debug_type,'Error');
@@ -43,6 +53,8 @@ async function command(command,payload){return new Promise((resolve,reject)=>{
    complete_owned_module_manifest_loaded_and_hash_verified:true,owned_runtime_files:manifest.files.length,
    original_resources_installed:false,owned_invalid_resources_only:true,
    claimed_digest_cannot_replace_actual_resource_bytes:true,same_worker_recovers_after_refusal:true,
+   proposed_adjustments_require_separate_same_source_inspection:true,
+   supplied_temporary_amounts_refused:true,
    errors_returned:observed.length,original_engine_execution:0,
    original_resource_calculation_tested:false,native_GUI_tested:false,full_original_compatibility:false};
  fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'raw-interest-runtime-receipt.json'),JSON.stringify(receipt,null,2)+'\n');
