@@ -19,7 +19,12 @@
     let binary = '';
     for (let start = 0; start < bytes.length; start += 16384) binary += String.fromCharCode(...bytes.subarray(start, start + 16384));
     const encoded = btoa(binary), mime = blob.type || 'application/octet-stream';
-    if (window.pywebview?.api?.save_file) return await window.pywebview.api.save_file(name, mime, encoded);
+    if (new URLSearchParams(location.search).get('desktop') === '1') {
+      const response=await fetch('/api/native-save',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({filename:name,mime,base64:encoded})});
+      const result=await response.json();
+      if(!response.ok)throw Error(result.error||'The desktop export could not be saved.');
+      return result;
+    }
     if (window.TaxRebornIOS?.saveFile) return await window.TaxRebornIOS.saveFile(name, mime, encoded);
     if (window.TaxRebornAndroid?.saveFile) {
       window.TaxRebornAndroid.saveFile(name, mime, encoded);

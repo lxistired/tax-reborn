@@ -207,12 +207,12 @@ class Handler(BaseHTTPRequestHandler):
         if mutation and not (self.headers.get('Content-Type', '').split(';')[0] == 'application/json' and origin):
             raise ValueError('Same-origin JSON required for saves and deletion')
 
-    def read_json(self):
+    def read_json(self,maximum_bytes=MAX_BODY):
         try:
             size = int(self.headers.get('Content-Length', '0'))
         except ValueError:
             raise ValueError('Invalid request length')
-        if not 0 < size <= MAX_BODY:
+        if not 0 < size <= maximum_bytes:
             raise ValueError('Return exceeds the permitted size')
         return json.loads(self.rfile.read(size), parse_constant=lambda value: (_ for _ in ()).throw(ValueError('Non-finite JSON number')))
 
@@ -224,6 +224,13 @@ class Handler(BaseHTTPRequestHandler):
                 return self.send_data(200, capabilities())
             if method == 'GET' and path == '/api/schema':
                 return self.send_data(200, schema())
+            if method == 'POST' and path == '/api/native-save':
+                callback=getattr(self.server,'desktop_export',None)
+                if not callable(callback):raise FileNotFoundError('Native save is unavailable')
+                payload=self.read_json(20_002_000)
+                if not isinstance(payload,dict) or set(payload)!={'filename','mime','base64'}:
+                    raise ValueError('Invalid native save request')
+                return self.send_data(200,callback(payload['filename'],payload['mime'],payload['base64']))
             if method == 'POST' and path == '/api/calculate':
                 return self.send_data(200, tax_engine.calculate_return(self.read_json()))
             if path == '/api/returns':
