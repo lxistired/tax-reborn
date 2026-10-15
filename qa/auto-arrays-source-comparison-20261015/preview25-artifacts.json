@@ -1,0 +1,46 @@
+{
+  "version": "2026.10.15-preview.25",
+  "QA_and_source_archive_commit": "aa8ff9c14552d4ee1ef39def8ea355136c1da819",
+  "production_commits": {
+    "Windows": "240dae12e5659ead7224da31c0c389d988d2db98",
+    "Mac": "240dae12e5659ead7224da31c0c389d988d2db98",
+    "Android": "240dae12e5659ead7224da31c0c389d988d2db98"
+  },
+  "files": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.25-Android.apk",
+      "bytes": 49937029,
+      "sha256": "27e7dc14c05c6cb35d0a5509ffbaf866abde87ffface648d9fe14c37b75b4727"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.25-Windows-x64-Setup.exe",
+      "bytes": 58076926,
+      "sha256": "a2775a59646ba3c8a21a2660eaa3e02d8587d5467cc1f66e87d810b3d1ab0d88"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.25-Windows-x64-portable.zip",
+      "bytes": 71518040,
+      "sha256": "fc1a6a37512a091e88d52bb2b14c193a1c9a00e5901f3fe437e19426ba1b705b"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.25-macOS-arm64.dmg",
+      "bytes": 72451027,
+      "sha256": "082dde544e5b3d91b791549b0914edc7fa27c04ecd7ee36a8ec0d58cbe826b00"
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.25-source.zip",
+      "bytes": 127433165,
+      "sha256": "ba219e51440cce3d2e35d331d6aa8837bf938a8e802f3a2e13665b780f8ab9db"
+    }
+  ],
+  "three_platform_native_changed_flows_passed": true,
+  "all_three_actual_system_saved_complete_sources_byte_identical": true,
+  "complete_source_export_bytes": 2906,
+  "complete_source_export_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "all_three_native_source_comparison_system_audit_full_current_input_readback": true,
+  "Android_same_signer_and_saved_data_retained": true,
+  "source_archive_extracted_HTTP_SQLite_binary_and_comparison_replay": true,
+  "original_native_execution": 0,
+  "original_saved_fixture": 0,
+  "whole_original_tax_compatibility": false
+}

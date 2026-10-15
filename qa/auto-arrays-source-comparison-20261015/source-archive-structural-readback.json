@@ -1,0 +1,10 @@
+{
+  "version": "2026.10.15-preview.25",
+  "source_archive_commit": "aa8ff9c14552d4ee1ef39def8ea355136c1da819",
+  "files": 1564,
+  "ZIP_CRC_all_passed": true,
+  "every_entry_bytes_SHA_and_exact_Git_blob_verified": true,
+  "private_builds_keys_and_user_returns_excluded": true,
+  "sha256": "ba219e51440cce3d2e35d331d6aa8837bf938a8e802f3a2e13665b780f8ab9db",
+  "bytes": 127433165
+}
