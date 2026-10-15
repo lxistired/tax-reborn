@@ -101,6 +101,6 @@ def build(destination):
   entries[name]=dict(bytes=len(source),sha256=old.digest(source),request_sha256=old.digest(request_bytes))
  manifest=dict(vendor_resources_included=False,original_runtime_executions=0,original_tax_fixture=False,
      source_ordinals='current ordinal+100',source_checksum='explicit owned U32, not year validation',entries=entries)
- (destination/'derived-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n');return manifest
+ (destination/'derived-manifest.json').write_bytes((json.dumps(manifest,indent=2)+'\n').encode('utf-8'));return manifest
 
 if __name__=='__main__':print(json.dumps(build(ROOT/'fixtures/binary-tax'),indent=2))
