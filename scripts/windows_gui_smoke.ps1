@@ -671,7 +671,8 @@ try {
         $registries=@(Get-ChildItem $orphanFolder -Filter 'registry-*.xprf' | Sort-Object Name | ForEach-Object { $_.FullName })
         Choose-Owned-Native-File 'Choose caller-owned XPRF registries' $registries
         $format=Wait-Named 'TaxML container declaration'; $format.SetFocus()
-        [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{DOWN}{DOWN}{TAB}')
+        # Binary source remains the final explicit format after adding the cleartext-container option.
+        [System.Windows.Forms.SendKeys]::SendWait('{END}{TAB}')
         Click-Observed (Wait-Named 'Acknowledge the selected unverified wire profile'); Click-Observed (Wait-Named 'Inspect locally')
         Wait-Named 'Source hash has unreachable allocated storage; current values and corrections are blocked.' 90 $false | Out-Null
         if(Get-Named 'TaxML inspection results' $false) { throw 'Invalid binary source unexpectedly produced income candidates.' }
