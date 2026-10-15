@@ -54,5 +54,12 @@
   "whole_original_tax_compatibility": false,
   "recorded_at_utc": "2026-10-15T12:27:53.074764+00:00",
   "native_acceptance_complete": true,
-  "publication_verification": "Separate public-download-readback.json is recorded after actual release upload."
+  "publication_verification": "Separate public-download-readback.json is recorded after actual release upload.",
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.27",
+  "all9_full_anonymous_downloads_verified": true,
+  "all_three_native_web_assets_byte_equal": {
+    "files": 152,
+    "bytes": 63940811
+  },
+  "source_archive_extracted_actual_HTTP_SQLite_Chrome_and_WASM_passed": true
 }

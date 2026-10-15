@@ -1,0 +1,769 @@
+{
+  "version": "2026.10.15-preview.27",
+  "production_source_commit": "51adb6a31657ca7804ac4d50dd909f4314c39608",
+  "all_source_web_assets_match_actual_APK_Mac_App_Windows_portable": true,
+  "files": 152,
+  "bytes": 63940811,
+  "assets": [
+    {
+      "path": "app.js",
+      "bytes": 171794,
+      "SHA256": "c631a73a45b22d10488015b8347453265bf86e38a213f416baa1295741badade"
+    },
+    {
+      "path": "binary-runtime.json",
+      "bytes": 7626,
+      "SHA256": "027bb23531e662d81e1d0853444b92cbd7e2a2ea5a006e98a7de7dbad86c2d88"
+    },
+    {
+      "path": "binary_derived.py",
+      "bytes": 10333,
+      "SHA256": "7874b3221c2624971a03f7c00d2922e28158a5c7c3381d1b45889ff6715a8178"
+    },
+    {
+      "path": "binary_tax.py",
+      "bytes": 32494,
+      "SHA256": "942580281c41a9be7b6ccfd1b14b1cd2408ceef16746c03e90eb114eda54995b"
+    },
+    {
+      "path": "call_protocol_reference.py",
+      "bytes": 6385,
+      "SHA256": "831d20bfc58d4e5844775be83205f9b0f6b1864d6d914068f0678d61373b3f5f"
+    },
+    {
+      "path": "document-import.js",
+      "bytes": 9618,
+      "SHA256": "a7790dd3ac2c7d49caefbd5d8d4cebb4a5702b950814a8afeec4898bd2ab1788"
+    },
+    {
+      "path": "effective_registry_fields_reference.py",
+      "bytes": 7227,
+      "SHA256": "8a06131b4c59b9baf5ec5585dd0cf917d71b0b58a0f52b6390418811d5887a5e"
+    },
+    {
+      "path": "field_template_reference.py",
+      "bytes": 4534,
+      "SHA256": "8062d453ed9867660150b332afced0b05bb99f7487382a6bd779d2abd91efbe9"
+    },
+    {
+      "path": "finite_function_reference.py",
+      "bytes": 18113,
+      "SHA256": "c68eb97b97c8eec0962f39b8dae9db4aee7c2a03032efc91bf2f5d4f67070f1b"
+    },
+    {
+      "path": "fixed_bridge_reference.py",
+      "bytes": 5362,
+      "SHA256": "30b2bfb734835e403b5cc5e6466b2f6986562c1d2739b8b7803e035985f91efb"
+    },
+    {
+      "path": "hash_structure_reference.py",
+      "bytes": 2889,
+      "SHA256": "a17f50fed8034544de3efe10e574f6fa16580e04deabf472b7f0f7ef43b57357"
+    },
+    {
+      "path": "icon-192.png",
+      "bytes": 7011,
+      "SHA256": "60c14bfb5dd94dec1491dcb82f56f4d4b58b578cb0ea06254e211cadb3370893"
+    },
+    {
+      "path": "icon-512.png",
+      "bytes": 3698,
+      "SHA256": "6e400bb79356085dfeb4814b97399eb87536810c1e29c6beba0d7c5e709e57fa"
+    },
+    {
+      "path": "icon.svg",
+      "bytes": 423,
+      "SHA256": "f09349da6fccd46d5d9776e2a036032754230d9b6668f660267cc8f9df1b4218"
+    },
+    {
+      "path": "income-preparation.js",
+      "bytes": 17664,
+      "SHA256": "48215a4a8d230aa5139625d5484aaf0116c320684416a12dffc43ffabe68e9c6"
+    },
+    {
+      "path": "index.html",
+      "bytes": 3269,
+      "SHA256": "cfa5241a81b78ba4a65cab7bfcde31080a5a9885d661930f93c4fe8330af23a1"
+    },
+    {
+      "path": "interop/__init__.py",
+      "bytes": 56,
+      "SHA256": "dcf34f5f8f82a02aee6d8b801cb22e93a976e49f64aca9e98d3019b68e5624b7"
+    },
+    {
+      "path": "interop/derived_form/__init__.py",
+      "bytes": 72,
+      "SHA256": "88dbe6fc2d54e51512e8337acf9b4ffc9afa5beb40331435c0fbcd936e174a03"
+    },
+    {
+      "path": "interop/derived_form/cx_string_wire_reference.py",
+      "bytes": 10242,
+      "SHA256": "e01d803d508097c6ecabbc598f34a68c0d9331b54c36f31d8e4c8ff9d7fcd283"
+    },
+    {
+      "path": "interop/derived_form/document_semantics_reference.py",
+      "bytes": 3927,
+      "SHA256": "46fac1ddf2dcefbb945d21bbec16a2a537bbbc35532add55827851cb02552665"
+    },
+    {
+      "path": "interop/derived_form/entity_formset_reference.py",
+      "bytes": 9637,
+      "SHA256": "38c957f7a5d6426cc90cd461ed0413c74fd08d3568d2b89c9f4371ea3b7c93b8"
+    },
+    {
+      "path": "interop/derived_form/form_header_map_reference.py",
+      "bytes": 10513,
+      "SHA256": "0d1683694987d668508bff665e7b8d8ee052bb65c2ef926c90d522d16cb0e240"
+    },
+    {
+      "path": "interop/derived_form/form_string_wire_reference.py",
+      "bytes": 7076,
+      "SHA256": "e528a1de52b8ebdbe9f98d75d8c8305190dd7010001c1f97f3d2748a21123623"
+    },
+    {
+      "path": "interop/derived_form/native_mode4_reference.py",
+      "bytes": 6468,
+      "SHA256": "3b05436814e31a97a1562e36f4254e2022fa590c2b96ab433ac234b10d693905"
+    },
+    {
+      "path": "interop/derived_form/persistent_uuid_body_reference.py",
+      "bytes": 1704,
+      "SHA256": "80518fd409ff6b6bcd0ca31adb75f0357951601278286056200eb5c8169c6875"
+    },
+    {
+      "path": "interop/derived_form/persistent_value_bodies_reference.py",
+      "bytes": 7256,
+      "SHA256": "13af194c96f72e6948a01ad4a0e7aab6542132b5be449d07d697f7b4b797d545"
+    },
+    {
+      "path": "interop/derived_form/selected_form_record_reference.py",
+      "bytes": 3306,
+      "SHA256": "ce3102f521a65539823ec74148aa1403a4c1c408ad94a1a57210863fd68e5855"
+    },
+    {
+      "path": "interop/derived_form/source_bound_document_reference.py",
+      "bytes": 4481,
+      "SHA256": "4381840b074884fa2e75089c2f3ad02fe8aeaa45b466f0c6be39ad166dce4bcc"
+    },
+    {
+      "path": "interop/derived_form/source_bound_value_document_reference.py",
+      "bytes": 24621,
+      "SHA256": "b57166a6666aacbf7cd0eedd88354374fb8dc3b6f355a84e587c87c9311e1112"
+    },
+    {
+      "path": "interop/derived_form/source_field_binding_reference.py",
+      "bytes": 7753,
+      "SHA256": "a4e5ff4694304681f7f980ca32fe059c0dac2ce2bbab5d7a190ca3e267e7f8ff"
+    },
+    {
+      "path": "interop/derived_form/string_registry_reference.py",
+      "bytes": 4091,
+      "SHA256": "7728b2b0dbb6dffbff08694a14b60e63d43d0c8bfaeb91f9dddec8339f189aae"
+    },
+    {
+      "path": "interop/derived_form/string_wire_reference.py",
+      "bytes": 10024,
+      "SHA256": "a878c53c72fdfc9133dceb52516d6baca90e2c899cd51417a697e6c14210c774"
+    },
+    {
+      "path": "interop/derived_form/value_form_tail_reference.py",
+      "bytes": 11616,
+      "SHA256": "ef5a592b2530e67973a4cc1eb6e3411d51d242e7e129b5cf4f8f8f0d65e81de7"
+    },
+    {
+      "path": "interop/derived_form/value_hash_wire_reference.py",
+      "bytes": 14294,
+      "SHA256": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462"
+    },
+    {
+      "path": "interop/derived_form/value_table_header_reference.py",
+      "bytes": 4373,
+      "SHA256": "211cd339a7bc94608dd80da54fa8edc509f71a33f4e77f866d4fa98cfd522bad"
+    },
+    {
+      "path": "interop/form_core/__init__.py",
+      "bytes": 517,
+      "SHA256": "754fb9f647b675a801619af1c057604503c4b8b8d89889f5f5d2566b1fdc9af5"
+    },
+    {
+      "path": "interop/form_core/cx_string_wire_reference.py",
+      "bytes": 10242,
+      "SHA256": "e01d803d508097c6ecabbc598f34a68c0d9331b54c36f31d8e4c8ff9d7fcd283"
+    },
+    {
+      "path": "interop/form_core/document_semantics_reference.py",
+      "bytes": 3810,
+      "SHA256": "1d9d5c9ea526b4a51fa7c378dfd8d1e0ff6776d1ee153fa305dbc2d3ac558df8"
+    },
+    {
+      "path": "interop/form_core/effective_array_bridge_reference.py",
+      "bytes": 2506,
+      "SHA256": "08161ca3f396212ab1842cd78e2569762c9b868002e54cab73a541c3d607d6f1"
+    },
+    {
+      "path": "interop/form_core/effective_array_payload_reference.py",
+      "bytes": 5636,
+      "SHA256": "a860a06195d5450308192a8d357e35cf1221ae4d07950a6ee4ba0328a4594639"
+    },
+    {
+      "path": "interop/form_core/effective_field_limits_bridge_reference.py",
+      "bytes": 1736,
+      "SHA256": "b6b7e456e5c8b80e801f4d88103379823222dcc6bdab7d15e0bec6796e0b2282"
+    },
+    {
+      "path": "interop/form_core/effective_field_limits_reference.py",
+      "bytes": 9822,
+      "SHA256": "dc2f1b676baf353f682470dc8cb52c028795acd558a946084473eeb039c8298c"
+    },
+    {
+      "path": "interop/form_core/effective_registry_fields_reference.py",
+      "bytes": 7229,
+      "SHA256": "3a949d17bb38e346998a5ffe344efec8fe98ebbc13c10950fe4a640bda4fd2c5"
+    },
+    {
+      "path": "interop/form_core/effective_wire_bridge_reference.py",
+      "bytes": 7846,
+      "SHA256": "7b9ee43b3036cc8a021b361bf359f52bafead8052c9fd7c851d1c90cdad856c4"
+    },
+    {
+      "path": "interop/form_core/entity_formset_reference.py",
+      "bytes": 9637,
+      "SHA256": "38c957f7a5d6426cc90cd461ed0413c74fd08d3568d2b89c9f4371ea3b7c93b8"
+    },
+    {
+      "path": "interop/form_core/field_limits_body_reference.py",
+      "bytes": 1717,
+      "SHA256": "367ee888358464152a6fd9d5b55bc21ebeed3b6d2dde64d9c66343ab38c6faeb"
+    },
+    {
+      "path": "interop/form_core/field_template_reference.py",
+      "bytes": 4534,
+      "SHA256": "8062d453ed9867660150b332afced0b05bb99f7487382a6bd779d2abd91efbe9"
+    },
+    {
+      "path": "interop/form_core/form_header_map_reference.py",
+      "bytes": 10513,
+      "SHA256": "0d1683694987d668508bff665e7b8d8ee052bb65c2ef926c90d522d16cb0e240"
+    },
+    {
+      "path": "interop/form_core/form_string_wire_reference.py",
+      "bytes": 7076,
+      "SHA256": "e528a1de52b8ebdbe9f98d75d8c8305190dd7010001c1f97f3d2748a21123623"
+    },
+    {
+      "path": "interop/form_core/hash_structure_reference.py",
+      "bytes": 2889,
+      "SHA256": "a17f50fed8034544de3efe10e574f6fa16580e04deabf472b7f0f7ef43b57357"
+    },
+    {
+      "path": "interop/form_core/native_amount.py",
+      "bytes": 3501,
+      "SHA256": "f14768515c093bf46f282dd826dd87aa5b5e69bd18b586d9d0925bfdc363debe"
+    },
+    {
+      "path": "interop/form_core/native_document_reference.py",
+      "bytes": 20428,
+      "SHA256": "647e8337d6fbcd88fc8b3dd5b81a73fafcdefe871a9cabba72e1c4abb52170e1"
+    },
+    {
+      "path": "interop/form_core/native_mode4_reference.py",
+      "bytes": 6468,
+      "SHA256": "3b05436814e31a97a1562e36f4254e2022fa590c2b96ab433ac234b10d693905"
+    },
+    {
+      "path": "interop/form_core/selected_form_record_reference.py",
+      "bytes": 3306,
+      "SHA256": "ce3102f521a65539823ec74148aa1403a4c1c408ad94a1a57210863fd68e5855"
+    },
+    {
+      "path": "interop/form_core/string_registry_reference.py",
+      "bytes": 4091,
+      "SHA256": "7728b2b0dbb6dffbff08694a14b60e63d43d0c8bfaeb91f9dddec8339f189aae"
+    },
+    {
+      "path": "interop/form_core/string_wire_reference.py",
+      "bytes": 10024,
+      "SHA256": "a878c53c72fdfc9133dceb52516d6baca90e2c899cd51417a697e6c14210c774"
+    },
+    {
+      "path": "interop/form_core/value_hash_wire_reference.py",
+      "bytes": 14294,
+      "SHA256": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462"
+    },
+    {
+      "path": "interop/form_core/value_table_header_reference.py",
+      "bytes": 4373,
+      "SHA256": "211cd339a7bc94608dd80da54fa8edc509f71a33f4e77f866d4fa98cfd522bad"
+    },
+    {
+      "path": "investment-corrections.js",
+      "bytes": 7556,
+      "SHA256": "fd2b97126137cc8232bf4902585c7d8a23f09177151e23d063f71d36577a8edf"
+    },
+    {
+      "path": "local-api.js",
+      "bytes": 18881,
+      "SHA256": "6fa5b96c4290d85ec82835829e69294101b67b268cf36a69c1b95ef205a8df81"
+    },
+    {
+      "path": "manifest.webmanifest",
+      "bytes": 722,
+      "SHA256": "0510612b8c0e13d0fae6a53547dc03600737a506d0cc0f89cc774d99c94e9fc8"
+    },
+    {
+      "path": "midpoint_reference.py",
+      "bytes": 5092,
+      "SHA256": "09dfa67aea04526bb5487940bd6e12b04c89d9a226d5f707818d43e9954a2e08"
+    },
+    {
+      "path": "native-file-bridge.js",
+      "bytes": 2889,
+      "SHA256": "856b828a70970aa2f8536b2f0674c7cf1021d3d85758493c4feb83b8038a2a5c"
+    },
+    {
+      "path": "normal_wage_projection_reference.py",
+      "bytes": 12051,
+      "SHA256": "58193bb43c23c5e47ecf265fabedcf88032be83e51816bb3a535d399ebb270b1"
+    },
+    {
+      "path": "ocr-worker-build.json",
+      "bytes": 504,
+      "SHA256": "dbdc8f7b5ab22a862a377567fd40c80647e00ab2e3487097019c706fbbb147dc"
+    },
+    {
+      "path": "ocr-worker.js",
+      "bytes": 4066558,
+      "SHA256": "8e73a53711a141cd446218998bc08bcee5ec0cc2b2bdd1f100a773679a0661fd"
+    },
+    {
+      "path": "offline-assets.json",
+      "bytes": 7274,
+      "SHA256": "2fb3a2a9a90901550a19248664255a952133bfda41cc43cea7907d6ebce66618"
+    },
+    {
+      "path": "offline-readiness.js",
+      "bytes": 11204,
+      "SHA256": "abb210392cf66b12d0f31b9acc5ed68cf8ff56aa7cbeb369cfa5a6126c1c7b9e"
+    },
+    {
+      "path": "reference-notes.txt",
+      "bytes": 8556,
+      "SHA256": "05e809e8f4d5c25c35e3d9f097544742fa31215717286949bb773ce0fa30fe53"
+    },
+    {
+      "path": "rules_2025.json",
+      "bytes": 140329,
+      "SHA256": "796652f6627aecc912775fa1712dbaa1a6725363593da19ebd896b558233c7ac"
+    },
+    {
+      "path": "samples/binary-tax/auto-array-income-request.json",
+      "bytes": 7884,
+      "SHA256": "f834e199be116d5a0ceed1b42d6c269d22ad2704d8a27db789274b48b1ec69eb"
+    },
+    {
+      "path": "samples/binary-tax/auto-array-opaque-request.json",
+      "bytes": 8120,
+      "SHA256": "6a89ba5ac5f4082d4f8ed3e29837d7a49edbbe9e234f505576f792336c50b3fd"
+    },
+    {
+      "path": "samples/binary-tax/auto-array-used-request.json",
+      "bytes": 7884,
+      "SHA256": "e5e68290f2ab0c7492f35fa2a1265d84fca0ac4496084404b90ba29235d43cab"
+    },
+    {
+      "path": "samples/binary-tax/derived-array-request.json",
+      "bytes": 8295,
+      "SHA256": "3232a7fe6896b42f2535e2e244a1ec9e67279d3f663b21e653a196ff1613ed99"
+    },
+    {
+      "path": "samples/binary-tax/derived-income-request.json",
+      "bytes": 8295,
+      "SHA256": "7551695a54440873fd77c980f855dd398a55b3922db7aa08892e8b94dc4b062e"
+    },
+    {
+      "path": "samples/binary-tax/derived-opaque-request.json",
+      "bytes": 8531,
+      "SHA256": "105119468a2a057a82996687b85f85c13470845fc722bdd58b63ed755a77589c"
+    },
+    {
+      "path": "samples/binary-tax/filing-status-request.json",
+      "bytes": 1501,
+      "SHA256": "5e545f50d455c9771249c015df7748c1b3743c6be99354215a6ad40ceb1064f1"
+    },
+    {
+      "path": "samples/binary-tax/income-request.json",
+      "bytes": 4276,
+      "SHA256": "e38ed338dde0374910458904626ca5e13e0616ce8b694f8ffb9a22a23ad1d10e"
+    },
+    {
+      "path": "samples/binary-tax/merged-nested-request.json",
+      "bytes": 5319,
+      "SHA256": "44487e96bb4abcbe6d8827ebbb882eccca735fafae6074a77c1d1be5b60ed775"
+    },
+    {
+      "path": "samples/binary-tax/merged-request.json",
+      "bytes": 4855,
+      "SHA256": "6512a14fffb7253a9465c6df6b810368443f5125b0fe6f55402b1b76f9c4468d"
+    },
+    {
+      "path": "samples/binary-tax/nested-request.json",
+      "bytes": 4744,
+      "SHA256": "ce79f087fc8cb4311410f6e8ce9ad65902b1c8d465491767525350b31b1500d4"
+    },
+    {
+      "path": "samples/binary-tax/typed-value-empty-request.json",
+      "bytes": 8908,
+      "SHA256": "5ae495745c74b36f4ee2ddf6ca9d5de537a4a1b6e7bb2a16f0b8695bafe1db60"
+    },
+    {
+      "path": "samples/binary-tax/typed-value-income-request.json",
+      "bytes": 9060,
+      "SHA256": "bca3773ee0ff72465648af97dcff867532faa656e2b11038d014bfdff16d85a5"
+    },
+    {
+      "path": "samples/binary-tax/typed-value-opaque-request.json",
+      "bytes": 9300,
+      "SHA256": "ce152c684b7698a51b12ee17ff5618bd82e42c7f28221d4975bd273009436226"
+    },
+    {
+      "path": "samples/binary-tax/value-table-request.json",
+      "bytes": 5574,
+      "SHA256": "aaf61ba390d1d837e7c6c9ba16508ef3a17f0f544204a4d98c5a1ded26a49a4c"
+    },
+    {
+      "path": "samples/binary-tax/whole-number-income-request.json",
+      "bytes": 9224,
+      "SHA256": "c6c2652662ba832d4848b093f33a8b7ec18b0291b27801676d8b3d74ad9923bd"
+    },
+    {
+      "path": "samples/current-App-demo-return.json",
+      "bytes": 12351,
+      "SHA256": "ab12850f62abb538ef2c92576eb8956832a0cc10ae3feb955e598a746b362efe"
+    },
+    {
+      "path": "samples/source-calculation-demo-request.json",
+      "bytes": 20611,
+      "SHA256": "c33a6fd054c02d832651b8ed73937b90b0f1e9aa363b8b1f4669697d33e9f2d7"
+    },
+    {
+      "path": "service-worker.js",
+      "bytes": 5491,
+      "SHA256": "8f08653283811b5cc25717a01b4a3815e5dc819c299ecd776b7265010de614bb"
+    },
+    {
+      "path": "source-calculation-authority.json",
+      "bytes": 23122,
+      "SHA256": "7e3d5b66d6c351e792dd0bff9fccfb8daeece19e1cd23cbbf1b11c81c1ff444e"
+    },
+    {
+      "path": "source-calculation-profiles.json",
+      "bytes": 1941,
+      "SHA256": "594b7ec339f7b0b461927dcbaa39067d6622b3c828d62d87d7f8c1e5add3a7f8"
+    },
+    {
+      "path": "source-calculation-runtime.json",
+      "bytes": 12477,
+      "SHA256": "ed444560fb76282bef0d24e5ece6a8b0af7e6ed62720f83d96cd3d3db0bfb290"
+    },
+    {
+      "path": "source-calculation-worker-source.js",
+      "bytes": 3160,
+      "SHA256": "3166b4ecfe7a96a7d4ef00e1d219db45ae1bcbf71ad43a36d21c6695fccdb3b3"
+    },
+    {
+      "path": "source-calculation-worker.js",
+      "bytes": 1097110,
+      "SHA256": "203265ad3f00a28a97fd4568787ecc8232d9354f86f7c3980e9d3c7f9b13bdda"
+    },
+    {
+      "path": "source-calculation.css",
+      "bytes": 2798,
+      "SHA256": "b47363be5b12b0702a7ddc4e6d0939b9532c5d2217468b0df74be889b5000a91"
+    },
+    {
+      "path": "source-calculation.js",
+      "bytes": 22732,
+      "SHA256": "fd457c39b12c0c6f45249efe2390a2a34fa27e5d6d46eb139e8518ef1b9147c6"
+    },
+    {
+      "path": "source_calculation_command.py",
+      "bytes": 11205,
+      "SHA256": "4e10ad9a71c7640757fe28be3a915cb8ecab21406716d3285ef771f8387b20b6"
+    },
+    {
+      "path": "source_calculation_reference.py",
+      "bytes": 23530,
+      "SHA256": "034e79120c9a28f05307ae1ee3d243f8bc2b631495191d468f137ecdf4db0f4a"
+    },
+    {
+      "path": "source_calculation_request.py",
+      "bytes": 19402,
+      "SHA256": "ccdf2d3a902aef8e315a8e9a04324f064039a3310f871b6abe889f103cee509a"
+    },
+    {
+      "path": "source_integer.py",
+      "bytes": 2662,
+      "SHA256": "6c7b5d8fd45ea6d86a1ad1b00add509e02739168d55cc5210eea3c5a92ad679e"
+    },
+    {
+      "path": "source_node_binding_reference.py",
+      "bytes": 4038,
+      "SHA256": "6d7218e70915c28a87d58e08986cc7bad3fa79b8fc6dfe6a28b01bca700eb84e"
+    },
+    {
+      "path": "state-worker.js",
+      "bytes": 2283932,
+      "SHA256": "c21b148a5b4611c1fc864a53efb656d36483d3a56f601d16afbc878afc2eca1d"
+    },
+    {
+      "path": "state-workspace.js",
+      "bytes": 9935,
+      "SHA256": "4f364fdce51b18a6daf27ec7caf57fa00d1e93084ee7f247f47023b152421661"
+    },
+    {
+      "path": "style.css",
+      "bytes": 20507,
+      "SHA256": "04bc4a67bf812f60794c1edd86015e6fd1cbc34ec7e95be023c006deb4fd546e"
+    },
+    {
+      "path": "table_reference.py",
+      "bytes": 5164,
+      "SHA256": "f913c04a950d60c081900756673b55e5f5a5aed06f5318b4d8f92fab2ea136e5"
+    },
+    {
+      "path": "tax-worker-build.json",
+      "bytes": 619,
+      "SHA256": "c9e29990e5de42e96922b741fbf07778761bd747999762e4b50da6df5196e24f"
+    },
+    {
+      "path": "tax-worker-source.js",
+      "bytes": 7242,
+      "SHA256": "dfd5f73a7d8fda0d2f7aff5fd41f3770f94f5ac8778f062e2cd3b08397d903d9"
+    },
+    {
+      "path": "tax-worker.js",
+      "bytes": 1101306,
+      "SHA256": "f4e99b248883e87d578712aab36e372b287e51ef45ccea10675770e06adf8ffa"
+    },
+    {
+      "path": "tax_additional.py",
+      "bytes": 22304,
+      "SHA256": "6b9d2e36964163bb4e0868387286136d09d82ff64b897733e6e24fa7bedbe8c5"
+    },
+    {
+      "path": "tax_child_income.py",
+      "bytes": 13899,
+      "SHA256": "8fe8f3e570c912d37924bc73fbc52753c85d0e679e1397e7837f7cb74047315f"
+    },
+    {
+      "path": "tax_credits.py",
+      "bytes": 46927,
+      "SHA256": "a57cad57ff2b30848cd538e73bd4c9ee8e22e1b106bbb3f93e077ca8b73a3786"
+    },
+    {
+      "path": "tax_engine.py",
+      "bytes": 91785,
+      "SHA256": "d5dd9521cdb1b8e46507d7570bff59367331488dfe09df16a30c199bb387a69d"
+    },
+    {
+      "path": "tax_extended.py",
+      "bytes": 26604,
+      "SHA256": "5957fbf032c44e3d8d99cc9ae614985f216be1e7585eafac3221ffa3bea7f9eb"
+    },
+    {
+      "path": "tax_filing.py",
+      "bytes": 16545,
+      "SHA256": "f633efc875756389ab506777ed023eec380651f77d8aea61d98e53a82d49f846"
+    },
+    {
+      "path": "tax_longtail.py",
+      "bytes": 35039,
+      "SHA256": "17a9eaac1dd43c5b1cd752e24c79d750401d6cf47871c9d0171c6c94422dd32d"
+    },
+    {
+      "path": "tax_special_capital.py",
+      "bytes": 4116,
+      "SHA256": "c5b7bc5a746369f70fc67eca2b783e0f951a8536f44dc5e09607fe07ae5d08a6"
+    },
+    {
+      "path": "taxml-import.js",
+      "bytes": 9967,
+      "SHA256": "52a61dfe3f8dcba3cbe6a2c3bff4eb3cc709055ceccdfac525df1b7f87e905f5"
+    },
+    {
+      "path": "taxml_native.py",
+      "bytes": 14609,
+      "SHA256": "8a63de82c63fb4eb60b068c1198ad0a1a08413b57d5415707bc1a889d75e5ade"
+    },
+    {
+      "path": "taxml_preparation.py",
+      "bytes": 25753,
+      "SHA256": "c17056300008ceb93b4f6721b245df607411c42b7ccd16337b64843642c0a258"
+    },
+    {
+      "path": "taxml_wire.py",
+      "bytes": 34022,
+      "SHA256": "4c5205712b22fc93ff8d8f390002c6f7e3c8a2e1f1ded42958895b15a0e520fc"
+    },
+    {
+      "path": "taxml_xml_edit.py",
+      "bytes": 3999,
+      "SHA256": "ad667267e96fbf820d148addeb3713d7c1b1c431e8613372144a43df69ec1d8e"
+    },
+    {
+      "path": "vendor/opentax-notices/AGPL-3.0.txt",
+      "bytes": 34523,
+      "SHA256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0"
+    },
+    {
+      "path": "vendor/opentax-notices/Zod-MIT.txt",
+      "bytes": 1072,
+      "SHA256": "3f1189b28e3866e0d979968d466b78f813f76827cfdca1fbb124cc0a5c8841f8"
+    },
+    {
+      "path": "vendor/opentax-notices/source.json",
+      "bytes": 427,
+      "SHA256": "106ef75ec86c7c80115052e772d57eac7c21f68bd81780619e39e472c5a4643c"
+    },
+    {
+      "path": "vendor/pyodide/licenses/Pyodide-MPL-2.0.txt",
+      "bytes": 16725,
+      "SHA256": "1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5"
+    },
+    {
+      "path": "vendor/pyodide/licenses/Python-3.13.2-PSF.txt",
+      "bytes": 13809,
+      "SHA256": "78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb"
+    },
+    {
+      "path": "vendor/pyodide/package.json",
+      "bytes": 3010,
+      "SHA256": "81f7cf8ee62633854d610a040efe15d3f9e80cfc78fbc32426860419b8712924"
+    },
+    {
+      "path": "vendor/pyodide/pyodide-lock.json",
+      "bytes": 120010,
+      "SHA256": "3256ffc76388de0e37f4b34d42ab484268d1afc675179ff97b2a5bb14f84ccac"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.asm.js",
+      "bytes": 1074322,
+      "SHA256": "1263f02b5b26099b96112378156f242dd98b39a8201ba7765e5fe3d455c5ce91"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.asm.wasm",
+      "bytes": 8647684,
+      "SHA256": "e2f4ee75b325e35eb31bfb8c613d4dd5098f5502c156a97847686875b5025480"
+    },
+    {
+      "path": "vendor/pyodide/pyodide.js",
+      "bytes": 18597,
+      "SHA256": "718d40f1c015dd25ec724cc8fc4e2325d6a45a92ae225121ff6953f224a16f72"
+    },
+    {
+      "path": "vendor/pyodide/python_stdlib.zip",
+      "bytes": 2423989,
+      "SHA256": "4298b6ee445cb724c3973437da47789752b9e6ff4e26619026b283ec801fc46b"
+    },
+    {
+      "path": "vendor/pyodide/source-manifest.json",
+      "bytes": 1290,
+      "SHA256": "deb7a0ac43613f365521f283ea94503387bcab7d7fb0ead15344c9995f85d8aa"
+    },
+    {
+      "path": "vendor/python/LICENSE",
+      "bytes": 1605,
+      "SHA256": "a97ac230e5f33ef10a5367a850eb01f91f1a0b064e34742c7794d2294557f524"
+    },
+    {
+      "path": "vendor/python/pypdf-6.10.0.whl",
+      "bytes": 334459,
+      "SHA256": "90005e959e1596c6e6c84c8b0ad383285b3e17011751cedd17f2ce8fcdfc86de"
+    },
+    {
+      "path": "vendor/python/source-manifest.json",
+      "bytes": 451,
+      "SHA256": "de7f1cae5858cf8604b48b7e024a47089bc69dbf8cf6e843c61832eda74c71f7"
+    },
+    {
+      "path": "vendor/tesseract/eng.traineddata.gz",
+      "bytes": 10923060,
+      "SHA256": "ed350f3752f81ee8f38769edc14d92d997dababe23b565c59879372cc46a2468"
+    },
+    {
+      "path": "vendor/tesseract/source-manifest.json",
+      "bytes": 4813,
+      "SHA256": "f889ee9a4d74da29424d302ddcb0b6195a441ffa49cc2c70dc52e9ebc9520ac3"
+    },
+    {
+      "path": "vendor/tesseract/tessdata-LICENSE",
+      "bytes": 11358,
+      "SHA256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-lstm.wasm",
+      "bytes": 2871085,
+      "SHA256": "220e2e87551edccb85519796a170469f8ab2a8055216789e3b8b1ada18b7bc2b"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-lstm.wasm.js",
+      "bytes": 3954181,
+      "SHA256": "775a35df6f2ae100e02609443e6bd5cafcd07983dd6175454ca4a432a7730687"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-simd-lstm.wasm",
+      "bytes": 2871377,
+      "SHA256": "187d76742dfc0d8929f0b49a619f145bb6370730776c7bd0d3e20c6b2098808d"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-simd-lstm.wasm.js",
+      "bytes": 3954569,
+      "SHA256": "9d7c43fb206dc9f48475228b46bf35f888fa9e6259da2e67d5a75c77049f2dc7"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-simd.wasm",
+      "bytes": 3469078,
+      "SHA256": "ca11ee92a02023e4f5083eefd0966fb83b297416da54e997b9f6ce445f719c9b"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core-simd.wasm.js",
+      "bytes": 4751193,
+      "SHA256": "3b0678c47a8dea6abb931b214171c08b742a5b9a9fcbbb1a028a08d5de6e9d4c"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core.wasm",
+      "bytes": 3468788,
+      "SHA256": "740f7e466a2f026e1f1e54a2e0d9957e386d8166110d1290224abd3d08986106"
+    },
+    {
+      "path": "vendor/tesseract/tesseract-core.wasm.js",
+      "bytes": 4750805,
+      "SHA256": "e66872f6a76f5ad414d73d21512245df0de3060ad4871a97c47efceaab27b955"
+    },
+    {
+      "path": "vendor/tesseract/tesseract.js-core-LICENSE",
+      "bytes": 11358,
+      "SHA256": "c6596eb7be8581c18be736c846fb9173b69eccf6ef94c5135893ec56bd92ba08"
+    },
+    {
+      "path": "vendor/tesseract/tesseract.min.js",
+      "bytes": 62961,
+      "SHA256": "10fff78484067759c43028a02a72d76d0b90eb17302bb23b58a9ec5410bc928b"
+    },
+    {
+      "path": "vendor/tesseract/tesseract.min.js.LICENSE.txt",
+      "bytes": 149,
+      "SHA256": "cdf963ced7d25a0f98901a547647b4d6e2dbe0197fd78c87a059a87b0e542fe2"
+    },
+    {
+      "path": "vendor/tesseract/worker.min.js",
+      "bytes": 111162,
+      "SHA256": "38645599043239c0eb6db08a6504a92dcdc292200535f3e9339cd77c4443b842"
+    },
+    {
+      "path": "vendor/tesseract/worker.min.js.LICENSE.txt",
+      "bytes": 466,
+      "SHA256": "45f54171aeaa1d10c0c1a66f374b7bba1f02472b1487fbe892eec04f840002ac"
+    }
+  ]
+}

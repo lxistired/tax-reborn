@@ -1,0 +1,12 @@
+{
+  "version": "2026.10.15-preview.27",
+  "source_commit": "644d75df0fe5214398d4113370e9e3ac02f580e9",
+  "archive_bytes": 132548419,
+  "archive_sha256": "6a0c8b7c458c9de8a5e7e87c61f1bcb7e17d56608323d7513b0f208539959762",
+  "files": 1741,
+  "all_source_files_exact_Git_blob_bytes": true,
+  "source_archive_CRC_and_manifest_verified": true,
+  "real_runtime_replay_pending": false,
+  "actual_extracted_source_HTTP_SQLite_Chrome_real_Pyodide_passed": true,
+  "actual_extracted_source_full_export_SHA256": "3772cb75235635e81d47d61ff526db44b40c8a1f4a372956a0307b979428cd7f"
+}

@@ -1,0 +1,80 @@
+{
+  "version": "2026.10.15-preview.27",
+  "verified_at_utc": "2026-10-15T12:34:36.881106+00:00",
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.27",
+  "draft": false,
+  "assets": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.27-Android.apk",
+      "bytes": 49958421,
+      "sha256": "53466d5bc74b4bb7bb7e514aa21266993c813bd17c686818384317be8914c76e",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.27-Windows-x64-Setup.exe",
+      "bytes": 57950474,
+      "sha256": "53b7f64ddca626185f9efb2143f108d9502911ad3e9896f5e6e1796b76ce0bd4",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.27-Windows-x64-portable.zip",
+      "bytes": 71375662,
+      "sha256": "372909170622ba24317bb97e2e36894546fac105a484ad450787b97efe36275c",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.27-macOS-arm64.dmg",
+      "bytes": 72518119,
+      "sha256": "f87cdf9e2a2a4aa0895ef87a38556a5e9c9062a23f9893bb5878a2bdc92dce8d",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.27-source.zip",
+      "bytes": 132548419,
+      "sha256": "6a0c8b7c458c9de8a5e7e87c61f1bcb7e17d56608323d7513b0f208539959762",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "source-manifest.json",
+      "bytes": 320962,
+      "sha256": "2e1b0ac580cc7510b371166bd6cf87e0613bad24dabf93a629d28e990ab9c384",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "platform-acceptance.json",
+      "bytes": 3060,
+      "sha256": "a3be730054f860b07f8391f95c42ac503bd1aaaf59a6da915e0a6fd080b974e5",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "preview27-artifacts.json",
+      "bytes": 1582,
+      "sha256": "b4862603262cb5711d4adb8387aa0f6e6b296c62b38997ba4079da762fb95796",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    },
+    {
+      "file": "SHA256SUMS.txt",
+      "bytes": 850,
+      "sha256": "a9f9e34a39e13b6046077e18552666de3f23ef69bb491363b140a61b2a34c147",
+      "actual_complete_anonymous_download": true,
+      "byte_equal_tested_local_artifact": true
+    }
+  ],
+  "complete_assets": 9,
+  "total_bytes": 384677549,
+  "no_authentication_cookie_or_token_used": true,
+  "all_complete_public_downloads_byte_equal": true,
+  "source_archive_commit": "644d75df0fe5214398d4113370e9e3ac02f580e9",
+  "native_production_commit": "51adb6a31657ca7804ac4d50dd909f4314c39608",
+  "original_runtime_executions": 0,
+  "real_original_taxpayer_fixtures": 0,
+  "whole_original_tax_compatibility": false
+}
