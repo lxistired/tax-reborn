@@ -3,7 +3,7 @@
 Synthetic fixtures only. This checker does not seed or mutate the native return.
 """
 from pathlib import Path
-import argparse, hashlib, json, sys
+import argparse, base64, hashlib, json, sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 def verify(record, corrected_xml=None):
@@ -29,6 +29,7 @@ def verify(record, corrected_xml=None):
     paths = [row['taxml_receipt']['form_path'] for row in sources]
     assert paths == ['0/0/0', '0/0/1', '0/0/2']
     correction = False
+    exported = {}
     if corrected_xml:
         original = (Path(__file__).resolve().parents[1] / 'fixtures/taxml/synthetic-mixed-income.xml').read_bytes()
         actual = Path(corrected_xml).read_bytes()
@@ -39,9 +40,10 @@ def verify(record, corrected_xml=None):
         expected = original[:start] + before.replace(b'>100.23</td:value>', b'>101.24</td:value>') + original[end:]
         assert actual == expected, 'The system-saved XML differs outside the reviewed interest correction'
         correction = True
+        exported = {'selected_corrected_XML_sha256': hashlib.sha256(actual).hexdigest(), 'selected_corrected_XML_base64': base64.b64encode(actual).decode('ascii'), 'selected_corrected_XML_file_attributes': getattr(Path(corrected_xml).stat(), 'st_file_attributes', None)}
     return dict(saved_record_counts=[1,1,1], refund=344, saved_interest_unchanged='140.50', one_attachment_three_distinct_paths=paths,
                 selected_corrected_XML_byte_exact=correction, all_passed=True, synthetic_only=True, original_runtime=0,
-                full_original_tax_compatibility=False)
+                full_original_tax_compatibility=False, **exported)
 
 if __name__ == '__main__':
     p = argparse.ArgumentParser()

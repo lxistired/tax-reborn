@@ -562,7 +562,11 @@ try {
     if($LASTEXITCODE -ne 0) { throw 'Native corrected selected XML or duplicate refusal failed saved record/readback' }
     Save-Screenshot 'windows-native-mixed-duplicate-corrected.png'
     Click-Observed (Wait-Named 'Close dialog')
-    $checks.Add('Native repeated-source add was refused; system Save As exported only selected interest correction and independent readback proved W2/DIV bytes plus saved records unchanged.')
+    Close-App
+    python scripts/verify_windows_mixed_native.py --data-dir $DataDir --corrected-xml $mixedXml --output (Join-Path $OutputDir 'windows-native-mixed-durable-export-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'System-saved corrected XML did not survive normal application close.' }
+    Launch-App; Wait-Named '$344' 120 $false | Out-Null
+    $checks.Add('Native repeated-source add was refused; system Save As exported only selected interest correction and independent readback after normal App close proved W2/DIV bytes plus saved records unchanged.')
     $receipt.native_mixed_taxml_changed_flow_passed=$true
     Remove-Item Env:TAX_REBORN_OWNED_DATADIR
     if(!$MixedOnly) {
