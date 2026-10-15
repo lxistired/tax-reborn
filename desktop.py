@@ -289,7 +289,10 @@ def main():
         import webview
         webview.settings['OPEN_EXTERNAL_LINKS_IN_BROWSER']=True
         webview.settings['ALLOW_DOWNLOADS']=True
-        window=webview.create_window(PRODUCT_NAME,service.url,width=1360,height=900,min_size=(860,640),text_select=True,background_color='#f6f8fa')
+        from desktop_export import DesktopExport
+        exports=DesktopExport(service.url)
+        window=webview.create_window(PRODUCT_NAME,service.url+'?desktop=1',width=1360,height=900,min_size=(860,640),text_select=True,background_color='#f6f8fa',js_api=exports)
+        exports._window=window
         window.events.closed+=service.stop
         webview.start(gui='cocoa' if sys.platform=='darwin' else 'edgechromium' if sys.platform=='win32' else None,
                       private_mode=False,storage_path=str(service.http.data_dir/'webview'))

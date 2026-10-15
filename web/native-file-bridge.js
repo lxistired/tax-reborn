@@ -19,6 +19,7 @@
     let binary = '';
     for (let start = 0; start < bytes.length; start += 16384) binary += String.fromCharCode(...bytes.subarray(start, start + 16384));
     const encoded = btoa(binary), mime = blob.type || 'application/octet-stream';
+    if (window.pywebview?.api?.save_file) return await window.pywebview.api.save_file(name, mime, encoded);
     if (window.TaxRebornIOS?.saveFile) return await window.TaxRebornIOS.saveFile(name, mime, encoded);
     if (window.TaxRebornAndroid?.saveFile) {
       window.TaxRebornAndroid.saveFile(name, mime, encoded);

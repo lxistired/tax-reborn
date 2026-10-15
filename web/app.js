@@ -674,10 +674,11 @@ function showDemos(){const list=el('div',{},el('div',{class:'note warning'},'Eve
 function confirmDelete(item){modal('Delete this local return?',el('p',{class:'intro'},'Delete “'+(item.name||'Untitled return')+'” and its attachments stored in this browser. Export a backup first if you want to keep it.'),[['Delete return',async()=>{await api('/api/returns/'+encodeURIComponent(item.id),{method:'DELETE'});await deleteDocumentsForReturn(item.id).catch(()=>{});if(currentId===item.id)newReturn();await showReturns();notify('Return deleted.');},'danger']]);}
 function bytesToBase64(bytes){let binary='';const size=16384;for(let start=0;start<bytes.length;start+=size)binary+=String.fromCharCode(...bytes.subarray(start,start+size));return btoa(binary);}
 async function downloadBlob(blob,name){
- if(window.TaxRebornIOS?.saveFile||window.TaxRebornAndroid?.saveFile){const saved=await window.taxNativeSaveFile(blob,name);if(saved.cancelled){notify('Save canceled. Your local draft is kept.');return false;}notify(saved.saved?'Local file saved.':'Choose where to save this local file.');return true;}
- const url=URL.createObjectURL(blob),link=el('a',{href:url,download:name});document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ if(new URLSearchParams(location.search).get('desktop')==='1'&&!window.pywebview?.api?.save_file)throw Error('The desktop save window is still starting. Please try again.');
+ if(window.pywebview?.api?.save_file||window.TaxRebornIOS?.saveFile||window.TaxRebornAndroid?.saveFile){const saved=await window.taxNativeSaveFile(blob,name);if(saved.cancelled){notify('Save canceled. Your local draft is kept.');return false;}notify(saved.saved?'Local file saved.':'Choose where to save this local file.');return true;}
+ const url=URL.createObjectURL(blob),link=el('a',{href:url,download:name});document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);return true;
 }
-async function exportReturn(kind){try{if(dirty||!hasSaved)await saveReturn();const response=await rawApi('/api/returns/'+encodeURIComponent(currentId)+'/'+kind),blob=await response.blob(),name='tax-reborn-2025-'+currentId.slice(0,8)+'-'+kind.replaceAll('/','-');await downloadBlob(blob,name);if(!window.TaxRebornAndroid?.saveFile&&!window.TaxRebornIOS?.saveFile)notify('Draft export downloaded. No tax return was filed.');}catch(error){notify(error.message,true);}}
+async function exportReturn(kind){try{if(dirty||!hasSaved)await saveReturn();const response=await rawApi('/api/returns/'+encodeURIComponent(currentId)+'/'+kind),blob=await response.blob(),name='tax-reborn-2025-'+currentId.slice(0,8)+'-'+kind.replaceAll('/','-');await downloadBlob(blob,name);if(!window.pywebview?.api?.save_file&&!window.TaxRebornAndroid?.saveFile&&!window.TaxRebornIOS?.saveFile)notify('Draft export downloaded. No tax return was filed.');}catch(error){notify(error.message,true);}}
 
 function openDocumentDB(){return new Promise((resolve,reject)=>{if(!window.indexedDB){reject(Error('Local document storage is unavailable in this browser.'));return;}const request=indexedDB.open('tax-reborn-local-documents',2);request.onupgradeneeded=()=>{if(!request.result.objectStoreNames.contains('documents'))request.result.createObjectStore('documents',{keyPath:'id'}).createIndex('returnId','returnId');if(!request.result.objectStoreNames.contains('workspace'))request.result.createObjectStore('workspace',{keyPath:'id'});};request.onerror=()=>reject(request.error);request.onsuccess=()=>resolve(request.result);});}
 async function documentOperation(mode,operation,storeName='documents'){const database=await openDocumentDB();return new Promise((resolve,reject)=>{const transaction=database.transaction(storeName,mode),store=transaction.objectStore(storeName);let value;try{const request=operation(store);if(request){request.onsuccess=()=>value=request.result;request.onerror=()=>reject(request.error);}}catch(error){database.close();reject(error);return;}transaction.oncomplete=()=>{database.close();resolve(value);};transaction.onerror=transaction.onabort=()=>{database.close();reject(transaction.error||Error('The local storage transaction was interrupted.'));};});}
@@ -842,8 +843,8 @@ function showBinaryFields(source,inspected,returnId,atRevision){
   if(!changes.size)throw Error('Change at least one supported numeric value.');
   const output=await window.taxMLImport.editBinary(inspected,[...changes.values()],confirmed.checked);
   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the source.');
-  await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.taxbin');
-  notify('Corrected binary saved. Complete structure readback passed; original source retained.');
+  if(!await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.taxbin'))return;
+  notify('Corrected binary checked. Complete structure readback passed; original source retained.');
  },'primary']]);
 }
 function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
@@ -880,8 +881,8 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
    const corrected=await window.taxMLImport.correctedSource(candidate,values,confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const bytes=Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0));
-   await downloadBlob(new Blob([bytes],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension);
-   notify(binary?'Corrected binary copy saved. Complete structure readback passed; derived source values were not recalculated.':'Corrected XML copy downloaded. Original source retained; no full-return recalculation.');
+   if(!await downloadBlob(new Blob([bytes],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;
+   notify(binary?'Corrected binary copy checked. Complete structure readback passed; derived source values were not recalculated.':'Corrected XML copy downloaded. Original source retained; no full-return recalculation.');
   }finally{committing=false;}
  },'secondary']]);
 }
@@ -910,7 +911,7 @@ function reviewTaxMLInterest(source,candidate,returnId,atRevision,onAdded=null){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
-   await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension);notify(binary?'Corrected 1099-INT binary saved. Structure readback passed.':'Corrected 1099-INT XML downloaded. Original source retained.');
+   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-INT binary checked. Structure readback passed.':'Corrected 1099-INT XML downloaded. Original source retained.');
   }finally{committing=false;}
  },'secondary']]);
 }
@@ -939,7 +940,7 @@ function reviewTaxMLDividend(source,candidate,returnId,atRevision,onAdded=null){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
-   await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension);notify(binary?'Corrected 1099-DIV binary saved. Structure readback passed.':'Corrected 1099-DIV XML downloaded. Original source retained.');
+   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-DIV binary checked. Structure readback passed.':'Corrected 1099-DIV XML downloaded. Original source retained.');
   }finally{committing=false;}
  },'secondary']]);
 }
