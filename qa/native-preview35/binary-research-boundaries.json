@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-10-15T23:39:55.720083+00:00",
+  "original_licensed_app_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "original_pure_leaf_machinecode_cpu_cases": 6168,
+  "pure_functions": 4,
+  "emulator": "Private Unicorn x86-64 CPU, original unchanged function bodies, owned objects/stack, no external calls or success stubs",
+  "not_original_program_execution": true,
+  "private_vendor_material_published": false,
+  "supplier_progress": [
+    "Exact registry alias FormSet selection and complete alias-cache framing",
+    "Actual stored Form UUID to fresh App-owned selected MC node projection",
+    "Actual link receiver/containing owner and link setter/event consumer boundaries"
+  ],
+  "original_native_active_inventory_authenticated": false,
+  "original_complete_recalculation_chain": false,
+  "license_or_activation_bypass": false
+}

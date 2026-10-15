@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-10-15T23:39:55.720083+00:00",
+  "version": "2026.10.16-preview.35",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "actual_native_GUI": true,
+  "both_new_full_source_system_saves": [
+    8458,
+    8460
+  ],
+  "complete_files_independently_inverse_raw_checked": true,
+  "actual86module_wage_comparison_system_audit": true,
+  "wage_audit_bytes": 124641,
+  "all17returns16metadata0states_exact": true,
+  "normal_exit_relaunch": true,
+  "saved_refund_retained": 344,
+  "readonly_DMG_all817_paths_equal": true
+}

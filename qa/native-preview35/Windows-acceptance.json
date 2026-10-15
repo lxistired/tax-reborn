@@ -1,0 +1,18 @@
+{
+  "at_utc": "2026-10-15T23:39:55.720083+00:00",
+  "version": "2026.10.16-preview.35",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "CI": "https://github.com/lxistired/tax-reborn/actions/runs/38823376459",
+  "actual_Setup_installed": true,
+  "actual_installed_frozen": 21,
+  "actual_native_GUI": 22,
+  "both_new_full_source_system_saves": [
+    8458,
+    8460
+  ],
+  "both_complete_source_files_reopened_and_inverse_raw_checked": true,
+  "normal_exit_relaunch": true,
+  "saved_refund_retained": 344,
+  "installed_JS_Pyodide_two_cells_and8_refusals": true,
+  "original_resources_used": false
+}

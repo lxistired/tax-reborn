@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-10-15T23:46:17.512828+00:00",
+  "version": "2026.10.16-preview.35",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "source_checks": "source-acceptance.json",
+  "main_App_checks": "main-App-stored-cell-acceptance.json",
+  "Windows": "Windows-acceptance.json",
+  "Mac": "Mac-acceptance.json",
+  "Android": "Android-acceptance.json",
+  "all338web_assets_byte_equal_source_and_three_native_packages": true,
+  "all_three_native_complete_existing_cell_corrections_byte_equal": true,
+  "current_saved_IRS_returns_retained": true,
+  "complete_original_tax_compatibility": false,
+  "complete_original_recalculation": false,
+  "release_state": "Native tested; source archive and publication pending"
+}

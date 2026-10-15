@@ -1,0 +1,31 @@
+{
+  "at_utc": "2026-10-15T23:46:17.512828+00:00",
+  "version": "2026.10.16-preview.35",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "actual_original_signer_device_update": true,
+  "installed_APK_bytes": 50204969,
+  "installed_APK_SHA256": "9956a68fff676f2f1abde3de37c3a6c7c3ae2024a4a61bf356ccb153504a9fe5",
+  "original_signer_SHA256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "original_install_appId_firstInstallTime_retained": true,
+  "actual_native_GUI_cells": [
+    1,
+    3
+  ],
+  "actual_system_saved_whole_bytes": [
+    8458,
+    8460
+  ],
+  "all_three_native_outputs_equal_two_main_App_modes": true,
+  "installed_APK_actual_JS_Pyodide_two_cells_and8_refusals": true,
+  "actual86module_wage_comparison_system_save_and_complete_current_IRS_readback": true,
+  "wage_audit_bytes": 124641,
+  "complete_before_after_backup_all7_sections_equal": true,
+  "backup_bytes": 33114,
+  "backup_SHA256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+  "normal_exit_reopen_before_final_comparison_passed": true,
+  "saved_refund_retained": 344,
+  "existing_wireless_settings_unchanged": true,
+  "new_network_listener_opened": false,
+  "original_licensed_runtime": 0,
+  "original_taxpayer_fixtures": 0
+}

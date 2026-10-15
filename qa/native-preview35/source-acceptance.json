@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-10-15T23:39:55.720083+00:00",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "host_tests": 805,
+  "actual_Pyodide_executed": 694,
+  "explicit_skips": 2,
+  "actual_two_main_App_storage_modes": true,
+  "complete_current_return_result_metadata_and_persist_reload_unchanged": true,
+  "late_response_refusals": 12,
+  "browser_download_cancel_is_simulated": true,
+  "original_registry_private_main_App_two_modes_passed": true,
+  "original_registry_resources_published": false,
+  "original_taxpayer_fixture": false,
+  "original_licensed_app_executions": 0,
+  "full_original_tax_compatibility": false
+}
