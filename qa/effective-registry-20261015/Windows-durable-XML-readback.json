@@ -1,0 +1,22 @@
+{
+  "saved_record_counts": [
+    1,
+    1,
+    1
+  ],
+  "refund": 344,
+  "saved_interest_unchanged": "140.50",
+  "one_attachment_three_distinct_paths": [
+    "0/0/0",
+    "0/0/1",
+    "0/0/2"
+  ],
+  "selected_corrected_XML_byte_exact": true,
+  "all_passed": true,
+  "synthetic_only": true,
+  "original_runtime": 0,
+  "full_original_tax_compatibility": false,
+  "selected_corrected_XML_sha256": "92c66497790fec09d7fa3738282ce4e1304bfa6711262042ac7702ff65c4e3e2",
+  "selected_corrected_XML_file_attributes": 32,
+  "readback_source": "native_SQLite"
+}

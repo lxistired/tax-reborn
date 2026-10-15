@@ -1,0 +1,14 @@
+{
+  "version": "2026.10.15-preview.23",
+  "production_commit": "c333e66",
+  "system_save_dialog": true,
+  "cancellation_retains_local_draft": true,
+  "read_after_normal_App_quit": true,
+  "saved_bytes": 1584,
+  "saved_sha256": "72152f599fcf095c1e166cf4432031cd753507e63a6d45bfe884d4b18d3ee1ca",
+  "same_as_initial_Android_system_export": true,
+  "desktop_save_transport": "same-origin POST; CSP unchanged; atomic durable disk write",
+  "original_native_executions": 0,
+  "original_saved_return_fixtures": 0,
+  "checked_at_utc": "2026-10-15T06:55:58.904122+00:00"
+}

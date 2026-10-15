@@ -1,0 +1,17 @@
+{
+  "version": "2026.10.15-preview.23",
+  "production_commit": "c333e66",
+  "installed_apk_full_byte_match": true,
+  "apk_bytes": 49270803,
+  "apk_sha256": "4a3dbbbb5d94120e038f7bff84be3814fe6627f8a0a07169bd2ee4f612c51c2e",
+  "original_first_install_time_preserved": true,
+  "device_UI_test_pending": false,
+  "checked_at_utc": "2026-10-15T06:57:05.707888+00:00",
+  "saved_refund_restored_USD": 344,
+  "original_sources_restored": 2,
+  "actual_native_system_source_export": true,
+  "exported_source_bytes": 1583,
+  "exported_source_SHA256": "9d3c597da6bacf09327e277064c61eab6a87f505364d86d72421aaefab2ee512",
+  "exported_source_byte_exact": true,
+  "initial23_native_income_and_correction_core_files_byte_identical": 24
+}

@@ -1,0 +1,82 @@
+{
+  "version": "2026.10.15-preview.23",
+  "status": "final native acceptance passed; upload/public download tracked separately",
+  "host_tests_passed": 648,
+  "Mac_final_production_commit": "c333e66",
+  "Android_final_production_commit": "c333e66",
+  "Windows_current_build_commit": "3ff58cc",
+  "Windows_build_run": "https://github.com/lxistired/tax-reborn/actions/runs/38695765619",
+  "Windows_3ff58cc_vs_Mac_Android": "test-only stand-in change; production source identical",
+  "fixture_origin": "independently authored stream/XPRF only",
+  "workflow": "ordered two-registry income review -> actual IRS calculation344USD -> save/reopen; explicit indexed table scalar correction with whole-source preservation",
+  "final_binary_export_bytes": 1584,
+  "expected_final_binary_export_sha256": "72152f599fcf095c1e166cf4432031cd753507e63a6d45bfe884d4b18d3ee1ca",
+  "Android_initial_feature_and_final_transport_build": "Initial23 actual three-income review/save, true system force-stop+relaunch and full binary correction; final same-signer APK installed byte-exact, saved344 and sources retained, actual native original-source export byte-exact.24 income/correction core modules identical across builds.",
+  "Mac_final_normal_quit_durable_file_verified": true,
+  "Android_installed_final_same_signer": true,
+  "Android_initial23_genuine_process_cold_restart": true,
+  "screenshots": [
+    {
+      "path": "android-derived-values-after-system-save.png",
+      "sha256": "0cc7f489d93255f91a302290e9b58495683ee0a4f0574d4f41f7fd8209d910ea"
+    },
+    {
+      "path": "android-final-POST-reopened-344.png",
+      "sha256": "bf61981c318fd96ff5cacf5fcab2964369f9cc1a3054abc702e497a02ffb2be9"
+    },
+    {
+      "path": "android-final-POST-sources-retained.png",
+      "sha256": "34192d2817acb1176088383f08ad3ce957a2ce9ac1819a0d68c86c7f7060aef3"
+    },
+    {
+      "path": "android-genuine-cold-reopen-344.png",
+      "sha256": "ef02e88133a900ac5d5a8ac602fd7d5d2fb5c3d0b29183171469668039581468"
+    },
+    {
+      "path": "mac-durable-source-correction.png",
+      "sha256": "74801c8467b66fbcaea5a173328e48345b83288c4dbdf05d329f89a90ab5ced4"
+    },
+    {
+      "path": "mac-reviewed-three-incomes-344.png",
+      "sha256": "e3f71d30996c953d09707c993f33c119ff0bb5e4d499eea69b6f383da1be52eb"
+    },
+    {
+      "path": "offline-duplicate-refused.png",
+      "sha256": "98b81e6c381969e5ff8a322a5fc32939b9c650e21eb14ead8dbcf41116e3d9cb"
+    },
+    {
+      "path": "offline-saved-reload-344.png",
+      "sha256": "4973da0512d7e32aebdcb4b2c9af11826b7c49786e516e085f01579cb887827e"
+    },
+    {
+      "path": "offline-selected-sources.png",
+      "sha256": "1761f1261b133d77fa62eececba5fb23d086b44a01a8e60036f4853643c138e0"
+    },
+    {
+      "path": "windows-native-binary-income-reopened-344.png",
+      "sha256": "ef38499a47df8c06c88bfb84bb26a27a39fa6fe32a77a95ff57adf621783959b"
+    },
+    {
+      "path": "windows-native-derived-table-boundary-and-values.png",
+      "sha256": "a253b337ef5d349b85821eb27a24e347cd1f8992666f3059d6abe256e3b73333"
+    },
+    {
+      "path": "windows-native-effective-registry-sources.png",
+      "sha256": "0aa1a2248efa52a2161928ff0cc39010b90b32adead672cd817b7b7a043157cc"
+    }
+  ],
+  "original_runtime_executions": 0,
+  "original_saved_return_fixtures": 0,
+  "whole_original_tax_compatibility": false,
+  "original_engine_parity": false,
+  "native_row_rebuild_supported": false,
+  "derived_ValueForm_persistent_tail_App_integrated": false,
+  "published_installers": false,
+  "checked_at_utc": "2026-10-15T07:14:00.479958+00:00",
+  "Windows_actual_Setup_installed": true,
+  "Windows_actual_native_GUI_all_passed": true,
+  "Windows_actual_native_GUI_checks": 29,
+  "Windows_installed_frozen_checks": 21,
+  "Windows_durable_XML_survives_normal_App_close": true,
+  "Windows_system_saved_binary_byte_exact_with_Mac_and_initial23_Android": true
+}

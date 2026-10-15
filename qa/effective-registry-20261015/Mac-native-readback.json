@@ -1,0 +1,32 @@
+{
+  "saved_record_counts": [
+    1,
+    1,
+    1
+  ],
+  "refund": 344,
+  "saved_interest_unchanged": "140.50",
+  "one_attachment_three_distinct_paths": [
+    "0/0/0",
+    "0/0/1",
+    "0/0/2"
+  ],
+  "selected_corrected_XML_byte_exact": false,
+  "all_passed": true,
+  "synthetic_only": true,
+  "original_runtime": 0,
+  "full_original_tax_compatibility": false,
+  "native_SQLite_readback": true,
+  "actual_binary_source_hash": "a6783d222341fdd2cd83cd5a9efadffc928458f36637c865e6402e17a3a029b7",
+  "original_engine_executed": false,
+  "ordered_effective_registry": true,
+  "split_visible_hidden_sources_verified": true,
+  "system_saved_corrected_binary_sha256": "72152f599fcf095c1e166cf4432031cd753507e63a6d45bfe884d4b18d3ee1ca",
+  "nonempty_tables_children_links_retained": true,
+  "changed_WAGES": "1234.57",
+  "other_parsed_facts_preserved": true,
+  "derived_value_table_header_preserved": true,
+  "indexed_zero_and_unused_payload_preserved": true,
+  "unknown_array_income_import_blocked": true,
+  "native_row_rebuild_supported": false
+}

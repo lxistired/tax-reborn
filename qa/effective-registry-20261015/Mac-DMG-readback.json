@@ -1,0 +1,9 @@
+{
+  "DMG_readonly_mounted": true,
+  "every_tested_App_file_matches_DMG": true,
+  "files": 415,
+  "symlinks": 73,
+  "DMG_sha256": "e251cd619bdd7b77be23e4fdb0a0fa5a3bb86ea8bb7a68d69b18b24401cf0338",
+  "production_commit": "c333e66",
+  "checked_at_utc": "2026-10-15T07:00:33.502433+00:00"
+}
