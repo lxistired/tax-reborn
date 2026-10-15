@@ -743,7 +743,7 @@ async function showTaxMLImport(){
   el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
   el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
   el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')),
-  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'),button('Load Mac monetary container sample',()=>loadClearContainerSample(id,openedRevision,true),'secondary'))));
+  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'),button('Load Mac monetary container sample',()=>loadClearContainerSample(id,openedRevision,true),'secondary'),button('Load Mac decimal source sample',()=>loadClearContainerSample(id,openedRevision,true,true),'secondary'))));
  const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
   if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
@@ -768,11 +768,11 @@ async function loadBinarySample(name,id,atRevision){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. The sample is attached; no income was added.');
  showTaxMLCandidates(row,inspected,id,atRevision);
 }
-async function loadClearContainerSample(id,atRevision,mac=false){
+async function loadClearContainerSample(id,atRevision,mac=false,scalar=false){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. Reopen the import.');
- const response=await fetch(mac?'samples/mac-taxml-request.json':'samples/plaintext-container-request.json');if(!response.ok)throw Error('The cleartext sample is missing from the installed package.');
+ const response=await fetch(scalar?'samples/mac-scalar-request.json':mac?'samples/mac-taxml-request.json':'samples/plaintext-container-request.json');if(!response.ok)throw Error('The cleartext sample is missing from the installed package.');
  const request=await response.json(),decode=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
- const file=new File([decode(request.base64)],mac?'synthetic-Mac-monetary-container.zip':'synthetic-cleartext-container.zip',{type:'application/zip'}),profile=new File([JSON.stringify(request.profile)],'synthetic-container-profile.json',{type:'application/json'}),carriers=request.carriers.map((item,i)=>new File([decode(item.base64)],'synthetic-container-registry-'+i+'.xprf'));
+ const file=new File([decode(request.base64)],scalar?'synthetic-Mac-decimal-container.zip':mac?'synthetic-Mac-monetary-container.zip':'synthetic-cleartext-container.zip',{type:'application/zip'}),profile=new File([JSON.stringify(request.profile)],'synthetic-container-profile.json',{type:'application/json'}),carriers=request.carriers.map((item,i)=>new File([decode(item.base64)],'synthetic-container-registry-'+i+'.xprf'));
  const inspected=await window.taxMLImport.inspect(file,profile,carriers,'cleartext_persistence_container',true);
  if(currentId!==id||revision!==atRevision)throw Error('This return changed while opening the source.');
  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile,carriers,container:'cleartext_persistence_container'}};
@@ -820,8 +820,28 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set
  for(const candidate of inspected.setup_candidates||[]){
   holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},'Filing-status source setup'),el('small',{},'Form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Review the five source checkboxes':'Source selection is unresolved'))),button('Review filing-status setup',()=>reviewBinaryFilingStatus(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small'})));
  }
- if(inspected.binary_archive)holder.append(button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'));
+ if(inspected.scalar_fields?.length)holder.append(button('Inspect / edit decimal fields',()=>showMacDecimalFields(row,inspected,returnId,atRevision),'secondary'));
+ if(inspected.binary_archive)holder.append(button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'));
  modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
+}
+function showMacDecimalFields(source,inspected,returnId,atRevision){
+ const fields=inspected.scalar_fields,holder=el('div'),detail=el('div');
+ const select=el('select',{'aria-label':'Decimal source field'},...fields.map((field,index)=>el('option',{value:String(index)},field.field_id+' · '+field.form_id+' #'+field.file_copy+' · entity '+field.entity_uuid.slice(0,8))));
+ const input=el('input',{type:'text',inputmode:'decimal','aria-label':'Decimal source value'});
+ const confirmed=el('input',{type:'checkbox','aria-label':'Confirm decimal source correction'});
+ function render(){const field=fields[Number(select.value)];input.value=field.text;input.disabled=!field.can_edit_source;confirmed.checked=false;
+  detail.replaceChildren(el('p',{},'Stored value '+field.text+' · decimal coefficient '+field.coefficient+' · one fractional digit'),el('small',{},'Entity '+field.entity_uuid+' · file copy '+field.file_copy+' · field '+field.field_id),el('p',{},field.can_edit_source?'One existing field can be corrected in a separate source copy.':'Read only. The source profile or stored flags do not authorize editing.'));}
+ select.addEventListener('change',render);input.addEventListener('input',()=>{confirmed.checked=false;});render();
+ holder.append(el('p',{class:'intro'},'These source fields store decimal coefficients with one fractional digit. They are not money and are not added to your income or tax calculation.'),select,detail,el('div',{class:'field'},el('label',{},'Decimal source value'),input),el('label',{class:'check-field'},confirmed,el('span',{},'I checked this source correction. The original program and derived values have not been recalculated.')));
+ modal('Decimal source fields',holder,[['Download corrected container',async()=>{
+  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
+  const field=fields[Number(select.value)];if(input.value===field.text)throw Error('Change the selected decimal value first.');
+  const output=await window.taxMLImport.correctedScalar(field,input.value,confirmed.checked);
+  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the source.');
+  const suffix=output.export_container==='cleartext_persistence_container'?'.zip':'.xml';
+  if(!await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+suffix))return;
+  notify('Corrected source checked and saved. Other fields retained; income and current return unchanged.');
+ },'primary']]);
 }
 async function showSourceCalculation(inspected,returnId=currentId,demo=null){
  const request=demo?.source||window.taxMLImport.sourceRequest(inspected);
@@ -838,6 +858,27 @@ async function showSourceCalculation(inspected,returnId=currentId,demo=null){
   activeSourceComparison=widget;
   widget.setSource(request,demo?{profileId:demo.source_profile_id,calculationCarriers:demo.calculation_carriers,reviewDefaults:demo.reviewed_context}:{});
  }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
+}
+async function showRawInterestCalculation(inspected,returnId=currentId){
+ const request=window.taxMLImport.sourceRequest(inspected);
+ if(currentId!==returnId)throw Error('Reopen the source from the intended return.');
+ const container=el('div'),dialog=modal('Source interest L4 / L8A comparison',container);
+ let closed=false,transport=null,widget=null;
+ const cleanup=()=>{closed=true;if(activeSourceComparison===widget)activeSourceComparison=null;widget?.destroy();transport?.close();};dialogCleanup=cleanup;
+ try{
+  const module=await import('./raw-interest-flow.js');if(closed)return;
+  transport=module.createRawInterestWorker();
+  widget=await module.mountRawInterest(container,{execute:transport.run,saveAudit:downloadBlob,getCurrentSource:()=>{if(currentId!==returnId)throw Error('The current return changed. Reopen the source comparison.');return clone(request);}});
+  if(closed){widget.destroy();transport.close();return;}
+  activeSourceComparison=widget;widget.setSource();
+ }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
+}
+function showLocalComparisonOptions(){
+ modal('Choose a local calculation comparison',el('div',{},
+  el('p',{class:'intro'},'Open and inspect your own binary source to compare its bounded interest L4 / L8A path. Select your complete local original calculation resources in the next step. No original resources or source examples are included.'),
+  button('Open binary source for L4 / L8A comparison',showTaxMLImport,'primary'),
+  el('p',{},'The existing independent wage example remains available separately.'),
+  button('Try the independent wage comparison example',showSourceCalculationExample,'secondary')));
 }
 async function showSourceCalculationExample(){
  const returnId=currentId;
@@ -1010,7 +1051,7 @@ function reviewTaxMLDividend(source,candidate,returnId,atRevision,onAdded=null){
 async function showDocuments(){
  try{if(!hasSaved)await saveReturn();}catch{return;}
  const id=currentId,holder=el('div'),files=el('input',{type:'file',accept:'image/*,application/pdf',multiple:true,'aria-label':'Attach local documents'}),camera=el('input',{type:'file',accept:'image/*',capture:'environment','aria-label':'Capture a document photo'}),list=el('div',{class:'doc-list'}),extractReady=typeof window.extractTaxDocument==='function';
- holder.append(el('p',{class:'intro'},'Photo, PDF and inspected TaxML copies stay in this browser/device. Attachments are separate from your return JSON backup.'),el('div',{class:'capture-controls'},el('label',{},'Choose files',files),el('label',{},'Camera photo',camera)),el('div',{class:'inline-actions'},button('Open TaxML / binary .tax',showTaxMLImport,'secondary',{disabled:!window.taxMLImport}),button('Try local calculation comparison',showSourceCalculationExample,'secondary')),el('div',{class:'note'},extractReady?'Local extraction offers editable W-2 candidates. Compare the amounts with the document and confirm them before adding a record. No cloud upload is performed.':'Enter document amounts manually. Local extraction is not available in this build; no cloud upload is performed.'),list);
+ holder.append(el('p',{class:'intro'},'Photo, PDF and inspected TaxML copies stay in this browser/device. Attachments are separate from your return JSON backup.'),el('div',{class:'capture-controls'},el('label',{},'Choose files',files),el('label',{},'Camera photo',camera)),el('div',{class:'inline-actions'},button('Open TaxML / binary .tax',showTaxMLImport,'secondary',{disabled:!window.taxMLImport}),button('Try local calculation comparison',showLocalComparisonOptions,'secondary')),el('div',{class:'note'},extractReady?'Local extraction offers editable W-2 candidates. Compare the amounts with the document and confirm them before adding a record. No cloud upload is performed.':'Enter document amounts manually. Local extraction is not available in this build; no cloud upload is performed.'),list);
  modal('Your local documents',holder);
  async function refresh(){
   for(const url of documentURLs)URL.revokeObjectURL(url);documentURLs=[];

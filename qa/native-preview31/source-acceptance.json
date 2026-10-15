@@ -1,0 +1,53 @@
+{
+  "at_utc": "2026-10-15T17:41:26.337030+00:00",
+  "version": "2026.10.16-preview.31",
+  "host_tests": 754,
+  "actual_Pyodide_tests": {
+    "discovered": 645,
+    "executed": 643,
+    "skipped": 2,
+    "failures": 0,
+    "errors": 0
+  },
+  "Mac_scalar_actual_UI": [
+    "HTTP/SQLite desktop",
+    "390px Pyodide/IndexedDB"
+  ],
+  "Mac_scalar_complete_ZIP": {
+    "bytes": 2241,
+    "sha256": "1da9b78f366be589372251a598ba28bc03922d03adc70337d114f93a09c32412",
+    "entities": 2,
+    "copies": 7,
+    "source_fields": 47,
+    "other46_fields_retained": true,
+    "income_candidates_unchanged": 7,
+    "other4_local_records_exact": true,
+    "independent_stdlib_ZIP_and_XML_readback": true
+  },
+  "source_interest_actual_UI": {
+    "four_source_cases": true,
+    "L4_L8A_default": [
+      "1822.68",
+      "1823"
+    ],
+    "all8": [
+      "1945.68",
+      "1946"
+    ],
+    "Override_retained": "999",
+    "absent_storage_proposal_only": true,
+    "same_source_audit_download_bytes": 1036476,
+    "audit_private_not_distributed": true,
+    "source_and_IRS_return_unchanged": true,
+    "actual_async_freshness_groups": 11,
+    "actual_cold_offline_reload": true,
+    "cached_static_assets": 352,
+    "390px_no_horizontal_overflow": true,
+    "original_resource_inputs_bundled": false,
+    "mobile_memory_validation": false
+  },
+  "native31_status": "packages under validation; release not yet published",
+  "original_runtime": 0,
+  "original_taxpayer_fixtures": 0,
+  "whole_original_compatibility": false
+}

@@ -11,7 +11,8 @@ param(
     [switch]$WholeNumbers,
     [switch]$PersistentObjects,
     [switch]$CleartextContainer,
-    [switch]$MacTaxML
+    [switch]$MacTaxML,
+    [switch]$MacScalar
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -795,8 +796,26 @@ try {
         $receipt.native_Mac_TaxML_source_passed=$true
         $checks.Add('Mac monetary source2entities/7storedcopies loaded; U32fileCopy70000 retained separately fromcopyNum1; actual system fullZIP saved afterWAGES1234.56to1234.57. Manifest4otherlocalrecords and all XML except selected text exact; normal restart kept existing344return.')
     }
+    if($MacScalar) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load Mac decimal source sample')
+        Click-Observed (Wait-Named 'Inspect / edit decimal fields')
+        Set-Owned-Edit 'Decimal source value' '0.8'
+        Click-Observed (Wait-Control 'CheckBox' 'Confirm decimal source correction' $true)
+        Click-Observed (Wait-Named 'Download corrected container')
+        $scalarCopy=Join-Path $OutputDir 'windows-native-Mac-decimal-corrected.zip'; Save-Native-Export $scalarCopy 100
+        Save-Screenshot 'windows-native-Mac-decimal-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        $scalarReadback=python scripts/verify_mac_scalar_native.py $scalarCopy
+        if($LASTEXITCODE -ne 0) { throw 'Mac decimal source failed complete ZIP and independent exact XML readback.' }
+        $scalarReadback | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-Mac-decimal-readback.json')
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_Mac_decimal_source_passed=$true
+        $checks.Add('Existing decimal0.7to0.8 source-only edit system-saved whole2241B ZIP; all46other fields,7income candidates, Manifest and4otherlocalrecords exact; existing344return retained after normal relaunch. No native import or original recalculation claimed.')
+    }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')
+        Click-Observed (Wait-Named 'Try the independent wage comparison example')
         Click-Observed (Wait-Named 'Inspect source and resources')
         Wait-Named 'Loaded values and confirmed context' 120 $false | Out-Null
         Click-Observed (Wait-Named 'Run local source comparison')

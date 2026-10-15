@@ -15,7 +15,7 @@
   let profile;try{profile=JSON.parse(await profileFile.text());}catch{throw Error('The selected wire profile is not valid JSON.');}
   let carriers=[];
   for(const carrier of registryFiles){if(!(carrier instanceof Blob)||!carrier.size||carrier.size>32*1024*1024)throw Error('Choose registry files smaller than 32 MB each.');const bytes=new Uint8Array(await carrier.arrayBuffer());carriers.push({base64:encoded(bytes),sha256:await hash(bytes)});}
-  if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3','tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5','tax-reborn-binary-entity-profile-v6','tax-reborn-taxml-native-mac-profile-v1'].includes(profile.format)){
+  if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3','tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5','tax-reborn-binary-entity-profile-v6','tax-reborn-taxml-native-mac-profile-v1','tax-reborn-taxml-native-mac-profile-v2'].includes(profile.format)){
    const order=profile.registry_order,byHash=new Map(carriers.map(item=>[item.sha256,item]));
    if(!Array.isArray(order)||order.length!==carriers.length||new Set(order).size!==order.length||byHash.size!==carriers.length||order.some(identity=>typeof identity!=='string'||!byHash.has(identity)))throw Error('The profile must bind every selected registry exactly once, in its explicit order.');
    carriers=order.map(identity=>byHash.get(identity));
@@ -25,6 +25,7 @@
   const result=await window.taxLocalEngine('taxml_inspect',request);
   documentContexts.set(result,request);
   for(const candidate of result.candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256});
+  for(const field of result.scalar_fields||[])sourceContexts.set(field,{request,scalarHash:field.receipt.field_sha256});
   for(const candidate of result.setup_candidates||[])sourceContexts.set(candidate,{request,candidateHash:candidate.receipt.candidate_sha256,filingStatus:candidate.filing_status,receipt:JSON.parse(JSON.stringify(candidate.receipt))});
   return result;
  }
@@ -35,6 +36,12 @@
   const names=candidate.record_type==='dividends'?dividendMoney:candidate.record_type==='interest'?interestMoney:requiredMoney.slice(0,6);
   const amounts=Object.fromEntries(names.map(name=>[name,String(values?.[name]??'').trim()]));
   return window.taxLocalEngine('taxml_export',{inspection:context.request,expected_candidate_sha256:context.candidateHash,amounts,confirmed});
+ }
+ async function correctedScalar(field,value,confirmed){
+  const context=sourceContexts.get(field);
+  if(!context?.scalarHash||field.can_edit_source!==true)throw Error('Reopen a supported decimal source field before export.');
+  if(confirmed!==true)throw Error('Check and confirm the decimal source correction first.');
+  return window.taxLocalEngine('taxml_export',{inspection:context.request,expected_scalar_sha256:context.scalarHash,value:String(value),confirmed});
  }
  async function editBinary(inspected,changes,confirmed){
   const inspection=documentContexts.get(inspected);
@@ -90,5 +97,5 @@
   return{row,metadata};
  }
  function sourceRequest(inspected){const request=documentContexts.get(inspected);if(!request||request.container!=='binary_entity')throw Error('Reopen and inspect the binary source first.');return JSON.parse(JSON.stringify(request));}
- window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,editBinary,requiredMoney,interestMoney,dividendMoney};
+ window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

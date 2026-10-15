@@ -1,0 +1,59 @@
+// Independent read-only L4/L8A workflow. Original resources are selected locally.
+import {createSourceCalculationWorker} from './source-calculation.js';
+const PROGRAM_SHA='5e8db09dc9c4126c0cd85fe11ee7b02965a3b9e88db1075ba32efc4269e0bc2f';
+const FIELD_SHA='e94b97bbcbe5fe316cb423d9012a91c4d7069cd71016fb567e8ca63a761a2126';
+const canonical=value=>JSON.stringify(value,(_,item)=>item&&typeof item==='object'&&!Array.isArray(item)?Object.fromEntries(Object.keys(item).sort().map(k=>[k,item[k]])):item);
+const clone=value=>JSON.parse(canonical(value));
+const digest=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
+function encoded(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text);}
+const money=value=>value===null||value===undefined?'No Used value':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:2,maximumFractionDigits:2}).format(Number(value));
+function node(tag,text,attrs={}){const n=document.createElement(tag);if(text!==undefined)n.textContent=text;for(const[k,v]of Object.entries(attrs)){if(k==='class')n.className=v;else n.setAttribute(k,v);}return n;}
+export function createRawInterestWorker(){return createSourceCalculationWorker(new URL('./raw-interest-runtime/raw-interest-worker.js',import.meta.url));}
+export async function mountRawInterest(container,{execute,getCurrentSource,saveAudit}={}){
+ if(typeof execute!=='function'||typeof getCurrentSource!=='function')throw Error('A current inspected source and local Worker are required.');
+ const state={destroyed:false,busy:false,revision:0,resources:null,inspection:null,inspectionPair:null,result:null,resultPair:null,source:null,operation:0};
+ container.replaceChildren();container.classList.add('source-calculation-panel','raw-interest-flow');
+ const intro=node('p','Compare the source interest calculation through Schedule B L4 and Form 1040 L8A. This is not final tax, refund or amount owed. The App IRS worksheet and source document remain unchanged.',{class:'intro'});
+ const warning=node('div','Local comparison preview · the original app is not run · source files remain unchanged · phone memory testing is pending.',{class:'note warning'});
+ const program=node('input',undefined,{type:'file','aria-label':'Choose complete local fdittx resource'}),field=node('input',undefined,{type:'file','aria-label':'Choose same-source fdif01 resource'});
+ const files=node('div','Choose both complete local files. Their content and connection to your source will be checked.',{class:'note'});
+ const inspect=node('button','Inspect same-source interest inputs',{type:'button',class:'button secondary'}),ack=node('input',undefined,{type:'checkbox','aria-label':'Confirm bounded L4 L8A source comparison'});
+ const ackLabel=node('label',undefined,{class:'check-field'});ackLabel.append(ack,node('span','I checked this source, the current Used/Override states and the listed limits. Run only this L4/L8A comparison.'));
+ const run=node('button','Compare source L4 / L8A',{type:'button',class:'button primary'}),download=node('button','Save L4 / L8A comparison audit',{type:'button',class:'button secondary'});
+ const status=node('p','Select the local resources, then inspect.',{role:'status','aria-live':'polite'}),error=node('div','',{class:'dialog-error',role:'alert'}),preview=node('div'),resultView=node('div');
+ const label1=node('label','Complete local fdittx.3pe');label1.append(program);const label2=node('label','Same-source fdif01.3pe');label2.append(field);
+ container.append(intro,warning,label1,label2,files,inspect,preview,ackLabel,run,status,error,resultView,download);
+ function controls(){if(state.destroyed)return;program.disabled=field.disabled=inspect.disabled=state.busy;run.disabled=state.busy||!state.inspection||!ack.checked;download.disabled=state.busy||!state.result;}
+ function clear(message='Inputs changed. Inspect and confirm them again.') {state.revision++;state.inspection=null;state.inspectionPair=null;state.result=null;state.resultPair=null;ack.checked=false;if(state.destroyed)return;preview.replaceChildren();resultView.replaceChildren();status.textContent=message;error.textContent='';controls();}
+ function busy(value,token){if(value){state.operation++;state.busy=true;}else{if(token!==undefined&&token!==state.operation)return;state.busy=false;}controls();return state.operation;}
+ function fail(issue){if(state.destroyed)return;error.textContent=issue.message||String(issue);status.textContent='Comparison not completed. Correct the source or resources, then inspect again.';}
+ function currentSource(){return clone(getCurrentSource());}
+ function currentPair(){if(!state.resources)throw Error('Choose both complete local resource files first.');return{source:currentSource(),local_resource:state.resources.program,field_resource:state.resources.field};}
+ function ensure(revision,pair,confirmed=false){if(state.destroyed)return false;let now;try{now=currentPair();}catch{clear();return false;}if(revision!==state.revision||canonical(now)!==canonical(pair)||(confirmed&&!ack.checked)){clear('The source or resources changed. The previous comparison is unavailable; inspect again.');return false;}return true;}
+ async function readFiles(){clear('Checking local resource content…');state.resources=null;const revision=state.revision,p=program.files[0],f=field.files[0];if(!p||!f){files.textContent='Choose both complete local files.';return;}const operation=busy(true);
+  try{if(!p.size||p.size>32*1024*1024||!f.size||f.size>32*1024*1024)throw Error('Choose nonempty complete resource files smaller than 32 MB each.');
+   const pb=new Uint8Array(await p.arrayBuffer());if(state.destroyed||revision!==state.revision)return;const fb=new Uint8Array(await f.arrayBuffer());if(state.destroyed||revision!==state.revision)return;const ph=await digest(pb);if(state.destroyed||revision!==state.revision)return;const fh=await digest(fb);
+   if(state.destroyed||revision!==state.revision)return;
+   if(ph!==PROGRAM_SHA||fh!==FIELD_SHA)throw Error('The selected local resources do not match the fixed approved content hashes.');
+   state.resources={program:{base64:encoded(pb),sha256:ph},field:{base64:encoded(fb),sha256:fh}};files.textContent=p.name+' · '+pb.length+' bytes · '+ph+'\n'+f.name+' · '+fb.length+' bytes · '+fh;status.textContent='Local resource hashes match. Inspect their binding to this source.';
+  }catch(issue){if(!state.destroyed&&revision===state.revision)fail(issue);}finally{busy(false,operation);}
+ }
+ program.onchange=field.onchange=()=>{readFiles();};
+ ack.onchange=()=>{if(!ack.checked){state.result=null;state.resultPair=null;resultView.replaceChildren();state.revision++;}controls();};
+ function showInspection(value){preview.replaceChildren(node('h3','Current source values'),node('p','Source SHA-256 · '+value.source_sha256));const table=node('table',undefined,{class:'source-comparison-table'}),head=node('tr');for(const text of['Field','Current Used amount','Storage state'])head.append(node('th',text));table.append(head);
+  for(const item of value.current_fields){const row=node('tr');row.append(node('td',item.field==='L4'?'FSCHB · L4':'F1040 · L8A'),node('td',money(item.value)),node('td',item.status+' · Used '+Number(item.Used)+' · Override '+Number(item.Override)));table.append(row);}preview.append(table,node('p','File-copy identifier and runtime copy number remain separate. No storage was created.'));
+  const details=node('details'),summary=node('summary','Read-only limits and source identity');details.append(summary);for(const limit of value.limitations)details.append(node('p',limit));details.append(node('pre',JSON.stringify({summary_path:value.summary_path,current_fields:value.current_fields},null,2)));preview.append(details);
+ }
+ inspect.onclick=async()=>{if(state.busy||state.destroyed)return;clear('Inspecting this source and both resources…');let pair;try{pair=currentPair();}catch(issue){fail(issue);return;}const revision=state.revision;const operation=busy(true);
+  try{const value=await execute('raw_interest_inspect',pair);if(!ensure(revision,pair))return;state.inspection=value;state.inspectionPair=pair;showInspection(value);status.textContent='Same-source inspection finished. Review the values and limits, then confirm.';}catch(issue){if(!state.destroyed&&revision===state.revision)fail(issue);}finally{busy(false,operation);}
+ };
+ run.onclick=async()=>{if(state.busy||state.destroyed)return;if(!state.inspection||!ack.checked){fail(Error('Inspect and confirm the current source first.'));return;}let pair;try{pair=currentPair();}catch(issue){fail(issue);return;}if(canonical(pair)!==canonical(state.inspectionPair)){clear('The source changed. Inspect and confirm it again.');return;}const revision=state.revision,inspection=state.inspection;state.result=null;state.resultPair=null;resultView.replaceChildren();error.textContent='';const operation=busy(true);status.textContent='Running local source programs… The first run may take about 30 seconds on a desktop.';
+  try{const out=await execute('raw_interest_compare',{pair,inspection_token:inspection.inspection_token,confirmed:true});if(!ensure(revision,pair,true))return;state.result=out;state.resultPair=pair;const projection=out.result.F1040_L8A_projection,l4=out.result.result.roots['15174'],l8=projection.proposed_L8A,action=l8.assignments.map(x=>({'override8_keeps_storage':'Existing source override retained','null_enterable_keeps_storage':'Blank proposal retains current source value','computed_Used1_even_zero':'Computed proposal; zero remains a present value'}[x.action]||'Unsupported assignment state')).join(', ');resultView.replaceChildren(node('h3','Bounded interest comparison'),node('p','Proposed FSCHB L4 · '+money(l4),{'data-result':'L4'}),node('p','Proposed F1040 L8A · '+money(l8.visible_value),{'data-result':'L8A'}),node('p','L8A assignment status · '+action,{'data-result':'assignment'}),node('p','Current L8A Override is retained when its source flag is set. This result does not run the remaining F1040 sequence or write the proposed graph values to the source.'),node('p','Comparison only. Your source file and current tax return have not been changed.'));status.textContent='Comparison finished for this exact inspected source.';
+  }catch(issue){if(!state.destroyed&&revision===state.revision)fail(issue);}finally{busy(false,operation);}
+ };
+ download.onclick=async()=>{if(state.busy||state.destroyed||!state.result)return;const revision=state.revision,pair=state.resultPair;if(!ensure(revision,pair,true))return;const report=state.result;const operation=busy(true);error.textContent='';
+  try{const blob=new Blob([JSON.stringify({format:'tax-reborn-private-L4-L8A-audit-v1',inspection:state.inspection,comparison:report},null,2)],{type:'application/json'}),name='Tax-Reborn-L4-L8A-comparison.json';if(saveAudit)await saveAudit(blob,name);else{const a=node('a',undefined,{download:name,href:URL.createObjectURL(blob)});a.click();setTimeout(()=>URL.revokeObjectURL(a.href),0);}if(!ensure(revision,pair,true)){if(!state.destroyed)status.textContent='The saved audit belongs to the earlier source snapshot. Inspect the changed source again.';return;}status.textContent='Audit save requested for this source snapshot.';}catch(issue){if(!state.destroyed)fail(issue);}finally{busy(false,operation);}
+ };
+ controls();
+ return{setSource(){if(state.destroyed)return;clear();state.source=currentSource();},invalidate(){clear();},getResult(){if(!state.result||!ensure(state.revision,state.resultPair,true))return null;return clone(state.result);},destroy(){state.destroyed=true;state.revision++;state.resources=null;state.inspection=null;state.inspectionPair=null;state.result=null;container.replaceChildren();}};
+}

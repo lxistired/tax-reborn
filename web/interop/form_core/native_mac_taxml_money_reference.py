@@ -12,10 +12,12 @@ from decimal import Decimal
 import hashlib,re
 from xml.parsers import expat
 from .native_taxml_names_reference import (
-    field_names,formset_names,ordinary_xml_id,source_report,BASE_URL,
+    field_names,formset_names,field_template,ordinary_xml_id,source_report,BASE_URL,
 )
 from .field_template_reference import UnsupportedProfile
 from .taxml_money_reference import MoneyValue,render_taxml_money
+from .native_document_filter_reference import selected_filter
+from .native_taxml_decimal_reference import render_dec1,parse_dec1
 
 TD=BASE_URL+'TaxDataType'
 ROOT=BASE_URL+'TaxReturns'
@@ -67,6 +69,7 @@ class MoneyDocument:
     registry:object
     contexts:tuple
     fields:tuple
+    filter_profile:str='null_filter'
 
 class _Node:
     def __init__(self,name,attrs,start,open_end):
@@ -138,20 +141,22 @@ def monetary_field_attributes(names):
     PII/cache/filter suppliers remain outside this helper. An isPII attribute
     is refused by this profile rather than being manufactured from a callback.
     """
-    if names.kind not in (11,12) or names.compiled_format!=0:
-        _fail('Only current metadata cent/dollar format0 is source-bound here')
-    out={'tpsType':'cent'if names.kind==11 else'dollar','tpsSubType':'default'}
+    if names.kind not in (11,12,13) or names.compiled_format!=0:
+        _fail('Only current metadata cent/dollar/dec1 format0 is source-bound here')
+    out={'tpsType':{11:'cent',12:'dollar',13:'dec1'}[names.kind],'tpsSubType':'default'}
     for key,value in [('cidForm',names.cid_form),('cidTable',names.cid_table),('cidField',names.cid_field)]:
         if value:out[key]=value
     return out
 
-def load_money_document(wire,registry,contexts):
+def load_money_document(wire,registry,contexts,*,filter_profile='null_filter'):
     """Read all bytes in the explicitly selected ordinary Mac XML subset.
 
     Caller supplies exact envelope facts and copied-form inventory, not field
     ordinals/types/CID strings. The latter always derive from the same registry.
     Unknown XML objects or attributes block this finite operation globally.
     """
+    policy=selected_filter(filter_profile)
+    if filter_profile=='sanitizer_filter':_fail('Sanitized field/default semantics remain outside this monetary source profile')
     if type(contexts)is not tuple or not contexts:_fail('Explicit entity contexts required')
     root=_parse(wire);_structural(root,ROOT+' TaxReturns',{})
     if len(root.children)!=len(contexts):_fail('Unbound entity count')
@@ -188,6 +193,8 @@ def load_money_document(wire,registry,contexts):
                 if identity in copies:_fail('Duplicate form/file-copy context')
                 copies.add(identity);ha['tpsType']='form';_structural(formnode,names.namespace+' '+name,ha)
                 if type(fc.field_ids)is not tuple or len(set(fc.field_ids))!=len(fc.field_ids):_fail('Unique full field IDs required')
+                template,_=field_template(registry,form)
+                declared={f.identifier:f for f in template.fields}
                 bindings={}
                 for fid in fc.field_ids:
                     n=field_names(registry,form,fid);bindings[n.element_name]=n
@@ -195,7 +202,12 @@ def load_money_document(wire,registry,contexts):
                 for fn in formnode.children:
                     label=fn.name.removeprefix(names.namespace+' ')
                     if fn.name!=names.namespace+' '+label or label not in bindings or label in seen:_fail('Unbound or duplicate field element')
-                    seen.add(label);n=bindings[label];attrs=monetary_field_attributes(n)
+                    seen.add(label);n=bindings[label]
+                    if declared[n.field_identifier].attributes!=0:
+                        _fail('Selected ordinary scalar metadata attributes must be zero; native pass excludes bit0x40')
+                    attrs=monetary_field_attributes(n)
+                    if policy is not None and policy.debug_slot_return:
+                        attrs.update({'field':str(n.current_ordinal),'elem':'0'})
                     _structural(fn,names.namespace+' '+n.element_name,attrs)
                     if len(fn.children)!=1:_fail('Itemization, aliases or attached child readers require separate context')
                     v=fn.children[0]
@@ -205,28 +217,29 @@ def load_money_document(wire,registry,contexts):
                     # own runtime semantics and block this selected profile.
                     if v.attrs not in ({},{'used':'false'}):_fail('Nonordinary value flags or change-data require separate context')
                     rx=_CENT if n.kind==11 else _DOLLAR
-                    if not rx.fullmatch(v.text):_fail('Unsupported exact monetary text')
+                    if n.kind==13:parse_dec1(v.text)
+                    elif not rx.fullmatch(v.text):_fail('Unsupported exact monetary text')
                     amount=Decimal(v.text)
                     if n.kind==12 and amount!=amount.to_integral_value():_fail('Fractional whole-dollar value')
-                    if abs(amount)>Decimal(10**9):_fail('Selected finite ordinary currency bound exceeded')
+                    if n.kind!=13 and abs(amount)>Decimal(10**9):_fail('Selected finite ordinary currency bound exceeded')
                     raw=wire[v.open_end:v.end_start]
                     if raw!=v.text.encode('ascii'):_fail('Escaped, commented or normalized monetary text cannot be patched')
                     key=(ea['uuid'],fs.identifier,form.identifier,int(ha['fileCopyNum']),n.field_identifier)
                     if key in keys:_fail('Duplicate complete monetary field identity')
                     keys.add(key);unused=v.attrs.get('used')=='false'
                     fields.append(MoneyField(key,n.current_ordinal,n.kind,v.text,amount,tuple(fn.attrs.items()),tuple(v.attrs.items()),v.open_end,v.end_start,not unused,('unused_value',)if unused else(),n.field_source,source_report(n.mapping_source)))
-    return MoneyDocument(wire,hashlib.sha256(wire).hexdigest(),registry,contexts,tuple(fields))
+    return MoneyDocument(wire,hashlib.sha256(wire).hexdigest(),registry,contexts,tuple(fields),filter_profile)
 
 def patch_money_document(document,key,new_coefficient):
     """One existing ordinary value, exact other bytes, complete guarded reparse."""
     if type(document)is not MoneyDocument:_fail('Loaded finite monetary document required')
     if hashlib.sha256(document.source_bytes).hexdigest()!=document.source_sha256:_fail('Changed source identity')
-    checked=load_money_document(document.source_bytes,document.registry,document.contexts)
+    checked=load_money_document(document.source_bytes,document.registry,document.contexts,filter_profile=document.filter_profile)
     matches=[f for f in checked.fields if f.key==key]
     if len(matches)!=1 or not matches[0].can_edit:_fail('One existing Used1 ordinary monetary field required')
-    field=matches[0];text=render_taxml_money(MoneyValue(field.kind,new_coefficient))
+    field=matches[0];text=render_dec1(new_coefficient)if field.kind==13 else render_taxml_money(MoneyValue(field.kind,new_coefficient))
     corrected=document.source_bytes[:field.text_start]+text.encode('ascii')+document.source_bytes[field.text_end:]
-    reopened=load_money_document(corrected,document.registry,document.contexts)
+    reopened=load_money_document(corrected,document.registry,document.contexts,filter_profile=document.filter_profile)
     expected=[(f.key,text if f.key==key else f.text,f.attributes,f.value_attributes)for f in checked.fields]
     actual=[(f.key,f.text,f.attributes,f.value_attributes)for f in reopened.fields]
     if actual!=expected:_fail('Complete monetary XML readback differs outside selected text')

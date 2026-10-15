@@ -1,0 +1,50 @@
+{
+  "entities": 2,
+  "files": {
+    "blocked-request.json": {
+      "bytes": 7365,
+      "sha256": "618a805a0e087bdbd79de1a498ae7a5322f8469d50faa24b73620ead3bf298b5"
+    },
+    "null-request.json": {
+      "bytes": 7219,
+      "sha256": "d15cb0b04fa779d1c6f65163838cb237dd2d8aa60e3a33a719ed2ab878d919af"
+    },
+    "owned-mac-scalar-blocked.zip": {
+      "bytes": 2291,
+      "sha256": "4d0bf8b2303091df8e1eea3bf33c628d2d1837a3342d79e0272eefbcfea4c528"
+    },
+    "owned-mac-scalar.xml": {
+      "bytes": 9386,
+      "sha256": "d1b0a5218c76061bea1558a204e01c9ad170d2e39c38af7aecbc34140b8e933f"
+    },
+    "owned-mac-scalar.xprf": {
+      "bytes": 2454,
+      "sha256": "9414c86da20cd5b44cca0344ccc5d32ef059be3484ae6e69055bd777809e4589"
+    },
+    "owned-mac-scalar.zip": {
+      "bytes": 2243,
+      "sha256": "a4131c9bdad18c1cf869fe59de2f518869658dd04aef7a43620848546b3c9046"
+    },
+    "plaintext-request.json": {
+      "bytes": 16807,
+      "sha256": "071d99208843397825935f22ec2ef7a79f6a415011256b0f2bdeb240de04a326"
+    },
+    "profile.json": {
+      "bytes": 732,
+      "sha256": "cf61c60071dde467c440a0e4fb1e7ab203471b94fe6274d52a1e5897a051420f"
+    },
+    "request.json": {
+      "bytes": 7301,
+      "sha256": "93f6d8d58326175ab7bfdd6e30897ee5670fc592df5e8fe5321895bf875d8840"
+    }
+  },
+  "form_copies": 7,
+  "format": "tax-reborn-owned-mac-decimal-fixture-v1",
+  "fraction_digits": 1,
+  "native_factory_acceptance": false,
+  "number_kind": "decimal_coefficient",
+  "original_runtime_executions": 0,
+  "profile_mode": "Explicit controller_filter; separate explicit null_filter source",
+  "scalar_fields": 3,
+  "vendor_bytes_included": false
+}

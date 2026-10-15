@@ -146,6 +146,13 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_mac_taxml_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Installed Mac monetary TaxML workflow failed' }
+      - name: Load the installed source-interest reader and reject owned invalid resources
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_raw_interest_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed source-interest reader failed module loading or resource identity checks' }
       - name: Exercise payment vouchers using the installed worker and read back actual PDFs
         shell: pwsh
         run: |
@@ -169,7 +176,7 @@ jobs:
         run: |
           $options=@{}
           if ('${{ inputs.focused }}' -eq 'true') { $options.MixedOnly=$true }
-          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -WholeNumbers -PersistentObjects -CleartextContainer -MacTaxML -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -WholeNumbers -PersistentObjects -CleartextContainer -MacTaxML -MacScalar -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
       - name: Upload real packages and verification evidence
         if: always()
         uses: actions/upload-artifact@v7

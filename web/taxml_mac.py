@@ -15,6 +15,7 @@ from interop.form_core import native_taxml_names_reference as names
 from interop.form_core import native_mac_taxml_money_reference as money
 
 PROFILE = 'tax-reborn-taxml-native-mac-profile-v1'
+SCALAR_PROFILE = 'tax-reborn-taxml-native-mac-profile-v2'
 HEADERS = {'checksum', 'dataVersion', 'sharedForAllDataVersion',
            'sharedForFSDataVersion', 'formsetAttribute', 'showSmartWorksheets',
            'implementationVersion'}
@@ -24,7 +25,7 @@ REQUIRED_HEADERS = {'checksum', 'dataVersion', 'formsetAttribute',
 
 def is_request(request):
     return (isinstance(request, dict) and isinstance(request.get('profile'), dict)
-            and request['profile'].get('format') == PROFILE)
+            and request['profile'].get('format') in (PROFILE, SCALAR_PROFILE))
 
 
 def _uuid(value):
@@ -45,11 +46,16 @@ def _context(request):
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected Mac source profile.')
     profile = request['profile']
-    if not isinstance(profile, dict) or set(profile) != {
-            'format', 'tax_year', 'registry_order', 'entity_name', 'formsets'}:
+    keys = {'format', 'tax_year', 'registry_order', 'entity_name', 'formsets'}
+    if isinstance(profile, dict) and profile.get('format') == SCALAR_PROFILE:
+        keys.add('filter_profile')
+    if not isinstance(profile, dict) or set(profile) != keys:
         raise ValueError('Invalid Mac TaxML profile.')
-    if profile['format'] != PROFILE or type(profile['tax_year']) is not int or profile['tax_year'] != 2025:
+    if profile['format'] not in (PROFILE, SCALAR_PROFILE) or type(profile['tax_year']) is not int or profile['tax_year'] != 2025:
         raise ValueError('Only the explicitly bound 2025 Mac TaxML profile is supported.')
+    filter_profile = profile.get('filter_profile', 'null_filter')
+    if type(filter_profile) is not str or filter_profile not in ('null_filter', 'controller_filter'):
+        raise ValueError('Choose an explicit null_filter or controller_filter source mode.')
     if profile['entity_name'] != 'USIndividualTaxReturn':
         raise ValueError('Only the selected individual-return source envelope is supported.')
     supplied = request['carriers']
@@ -164,6 +170,8 @@ def _context(request):
                     label = fieldnode.name.removeprefix(prefix)
                     if fieldnode.name != prefix + label or label not in fields:
                         raise ValueError('An unbound full field ID or namespace remains in the source.')
+                    if profile['format'] == PROFILE and fields[label].kind == 13:
+                        raise ValueError('Decimal source fields require the explicit Mac scalar v2 profile.')
                     if fields[label].attributes != 0:
                         raise ValueError('Nonordinary compiled field attributes require separate semantics.')
                     present.append(fields[label].identifier)
@@ -172,7 +180,7 @@ def _context(request):
                                  if k not in ('tpsType', 'tpsPrefix', 'cidFormSet'))
             sets.append(money.FormSetContext(fs, header_pairs, tuple(copies)))
         contexts.append(money.EntityContext(profile['entity_name'], tuple(entity.attrs.items()), tuple(sets)))
-    document = money.load_money_document(payload, registry, tuple(contexts))
+    document = money.load_money_document(payload, registry, tuple(contexts), filter_profile=filter_profile)
     return data, payload, member, report, registry, document
 
 
@@ -192,6 +200,8 @@ def inspect_context(request):
                 inventory[identity] = (f'{ei}/{si}/{fi}', attrs, form.compiled_form)
                 groups[identity] = []
     for field in document.fields:
+        if request['profile']['format'] == SCALAR_PROFILE and field.kind == 13:
+            continue  # Known stored decimal facts stay outside income amounts.
         groups.setdefault(field.key[:4], []).append(field)
     for identity, fields in groups.items():
         entity_uuid, fsid, fid, copy = identity
@@ -261,6 +271,31 @@ def inspect_context(request):
             'Review only the supported W-2, 1099-INT and 1099-DIV boxes. Enter owner and employer or payer explicitly.',
             'Unknown objects, flags or source amounts block review. Missing amounts never establish zero.']}
     _attach_container_scope(result, report)
+    if request['profile']['format'] == SCALAR_PROFILE:
+        from interop.form_core.native_taxml_decimal_reference import parse_dec1
+        result['source_filter_profile'] = document.filter_profile
+        result['scalar_fields'] = []
+        for field in document.fields:
+            if field.kind != 13:
+                continue
+            key = [field.key[0], field.key[1].hex(), field.key[2].hex(), field.key[3], field.key[4].hex()]
+            fact = {'key': key, 'field_id': names.ordinary_xml_id(field.key[4]),
+                'form_id': names.ordinary_xml_id(field.key[2]), 'file_copy': field.key[3],
+                'entity_uuid': field.key[0], 'current_ordinal': field.current_ordinal,
+                'kind': 13, 'number_kind': 'decimal_coefficient', 'fraction_digits': 1,
+                'text': field.text, 'coefficient': str(parse_dec1(field.text)),
+                'attributes': dict(field.attributes), 'value_attributes': dict(field.value_attributes),
+                'field_metadata_source': {'carrier_sha256': field.field_metadata_source.carrier_key.hex(),
+                    'resource_id': field.field_metadata_source.resource_id, 'metadata_type': field.field_metadata_source.metadata_type},
+                'mapping_source': field.mapping_source, 'can_review': False,
+                'can_edit_source': bool(field.can_edit and not field.unresolved and not result['unresolved_facts']
+                    and (report is None or report['manifest_metadata_edit_authorized']))}
+            fact['receipt'] = {'source_sha256': source_sha, 'wire_profile_sha256': profile_sha,
+                'field_sha256': canonical_hash({'source_sha256': source_sha, 'profile_sha256': profile_sha,
+                    'key': key, 'ordinal': field.current_ordinal, 'kind': field.kind, 'text': field.text,
+                    'attributes': fact['attributes'], 'value_attributes': fact['value_attributes']})}
+            result['scalar_fields'].append(fact)
+        result['warnings'].append('Decimal source fields are stored coefficients with one fractional digit. They are not imported as money or used in the App tax calculation.')
     return result, payload, document
 
 
@@ -269,6 +304,8 @@ def inspect_request(request):
 
 
 def export_request(request):
+    if isinstance(request, dict) and 'expected_scalar_sha256' in request:
+        return export_scalar_request(request)
     from taxml_preparation import decode_blob, BOX_KEYS, INTEREST_FIELDS, DIVIDEND_FIELDS
     if not isinstance(request, dict) or set(request) != {'inspection', 'expected_candidate_sha256', 'amounts', 'confirmed'} or request['confirmed'] is not True:
         raise ValueError('Review and confirm the exact corrected Mac source amounts first.')
@@ -321,3 +358,46 @@ def export_request(request):
     if report is not None:
         result['container_report'] = report
     return result
+
+
+def export_scalar_request(request):
+    """One existing dec1 text value, whole-source preservation and full readback."""
+    from taxml_preparation import decode_blob
+    from interop.form_core.native_taxml_decimal_reference import parse_dec1
+    if not isinstance(request, dict) or set(request) != {'inspection', 'expected_scalar_sha256', 'value', 'confirmed'} or request['confirmed'] is not True:
+        raise ValueError('Review and confirm the exact decimal source field first.')
+    inspection = request['inspection']
+    if not is_request(inspection) or inspection['profile']['format'] != SCALAR_PROFILE:
+        raise ValueError('Decimal source edits require the explicit Mac scalar v2 profile.')
+    result, payload, document = inspect_context(inspection)
+    matches = [f for f in result['scalar_fields'] if f['receipt']['field_sha256'] == request['expected_scalar_sha256']]
+    if len(matches) != 1 or not matches[0]['can_edit_source']:
+        raise ValueError('The decimal source field is stale, read only or unresolved.')
+    selected = matches[0]
+    coefficient = parse_dec1(request['value'])
+    encoded = selected['key']
+    key = (encoded[0], bytes.fromhex(encoded[1]), bytes.fromhex(encoded[2]), encoded[3], bytes.fromhex(encoded[4]))
+    before = [(f.key, f.current_ordinal, f.kind, f.text, f.attributes, f.value_attributes) for f in document.fields]
+    payload, corrected = money.patch_money_document(document, key, coefficient)
+    expected = [(k, o, t, request['value'] if k == key else text, a, v) for k, o, t, text, a, v in before]
+    def verify(loaded):
+        actual = [(f.key, f.current_ordinal, f.kind, f.text, f.attributes, f.value_attributes) for f in loaded.fields]
+        if actual != expected:
+            raise ValueError('Complete source readback changed another field or stored identity.')
+    verify(corrected)
+    output, container, mime, report = payload, 'plaintext_xml', 'application/xml', None
+    if inspection['container'] == 'cleartext_persistence_container':
+        import taxml_container
+        original = decode_blob(inspection['base64'], 10 * 1024 * 1024)
+        output, report = taxml_container.corrected_container(original, result['container_report']['selected_taxml_member'], payload)
+        _, _, _, _, _, reopened = _context({**inspection, 'base64': base64.b64encode(output).decode()})
+        verify(reopened)
+        container, mime = 'cleartext_persistence_container', 'application/zip'
+    return {'format': 'tax-reborn-corrected-container-v1' if report else 'tax-reborn-corrected-taxml-v1',
+        'base64': base64.b64encode(output).decode(), 'mime': mime,
+        'source_sha256': result['source_sha256'], 'output_sha256': wire.digest(output),
+        'edited_fields': [selected['field_id']], 'edited_scalar_key': selected['key'],
+        'number_kind': 'decimal_coefficient', 'fraction_digits': 1,
+        'full_return_recalculated': False, 'tax_values_imported': False,
+        'original_program_acceptance_verified': False, 'export_container': container,
+        'original_source_retained': True, **({'container_report': report} if report is not None else {})}

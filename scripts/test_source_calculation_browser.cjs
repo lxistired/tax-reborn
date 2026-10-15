@@ -12,6 +12,7 @@ let browser;const errors=[],external=[];
  const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));await page.goto(origin+'/?offline=1');await page.waitForFunction(()=>!document.querySelector('#save-button').disabled,{timeout:120000});
  await page.getByRole('button',{name:'Documents',exact:true}).first().click();
  await page.getByRole('button',{name:'Try local calculation comparison',exact:true}).click();
+ await page.getByRole('button',{name:'Try the independent wage comparison example',exact:true}).click();
  const before=await page.evaluate(()=>JSON.stringify(normalizeInput(data)));
  await page.getByRole('button',{name:'Inspect source and resources',exact:true}).click();await page.locator('[data-sc=review]').waitFor({state:'visible',timeout:120000});
  await page.getByRole('button',{name:'Run local source comparison',exact:true}).click();await page.locator('[data-sc=error]').filter({hasText:'Confirm the listed context'}).waitFor();

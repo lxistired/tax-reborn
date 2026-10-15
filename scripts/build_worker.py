@@ -5,7 +5,7 @@ No eval/blob scripts or external URLs. Original vendor files/notices remain
 unmodified. Worker static fetch can read app-only CacheStorage if offline.
 """
 from pathlib import Path
-import hashlib,json,shutil
+import hashlib,json,re,shutil
 ROOT=Path(__file__).resolve().parents[1];web=ROOT/'web'
 # The packaged worker uses the same independent codec as host acceptance.
 # This is generated from our source, never from private binary evidence.
@@ -17,6 +17,8 @@ samples=web/'samples/binary-tax';samples.mkdir(parents=True,exist_ok=True)
 sample_assets=['samples/plaintext-container-request.json','samples/plaintext-container-blocked-request.json','samples/mac-taxml-request.json','samples/mac-taxml-blocked-request.json']
 for source_name,target_name in [('request.json','mac-taxml-request.json'),('blocked-request.json','mac-taxml-blocked-request.json')]:
  shutil.copy2(ROOT/'fixtures/mac-taxml'/source_name,web/'samples'/target_name)
+for source_name,target_name in [('request.json','mac-scalar-request.json'),('blocked-request.json','mac-scalar-blocked-request.json')]:
+ shutil.copy2(ROOT/'fixtures/mac-scalar-taxml'/source_name,web/'samples'/target_name);sample_assets.append('samples/'+target_name)
 for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
@@ -61,3 +63,13 @@ print('OCR bundle:',(web/'ocr-worker.js').stat().st_size,'bytes')
 # The read-only comparison uses its own pinned worker and byte manifest.
 import subprocess,sys
 subprocess.run([sys.executable,str(ROOT/'scripts/build_source_comparison.py')],check=True)
+
+# Rebuild the separate source-interest reader without any original resources.
+subprocess.run([sys.executable,str(ROOT/'scripts/build_raw_interest_worker.py')],check=True)
+
+# The availability panel must inspect the cache used by the service worker.
+cache_version=re.search(r"const VERSION='([^']+)';",(web/'service-worker.js').read_text()).group(1)
+readiness=web/'offline-readiness.js'
+updated,count=re.subn(r"const VERSION='[^']+';",lambda _:"const VERSION='"+cache_version+"';",readiness.read_text(),count=1)
+if count!=1:raise ValueError('Expected one offline availability cache version')
+readiness.write_text(updated)
