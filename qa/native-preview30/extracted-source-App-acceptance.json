@@ -1,0 +1,81 @@
+{
+  "at_utc": "2026-10-15T16:56:54.492265+00:00",
+  "source_commit": "99fdfc169256a95708bbcd3706192ea4073f5bfa",
+  "all1937Git_blobs_exact": true,
+  "actual_extracted_HTTP_SQLite_and_Pyodide_IndexedDB_UI": {
+    "checked_at_utc": "2026-10-15T16:56:22.889Z",
+    "all_passed": true,
+    "feature": "Mac monetary source to reviewed IRS records and complete cleartext container export",
+    "checks": [
+      {
+        "mode": "HTTP-SQLite",
+        "complete_container_report_rendered": true,
+        "real_UI_file_inputs": true,
+        "three_form_types_reviewed_from_one_attachment": true,
+        "copy_1_kept_distinct": true,
+        "prior_record_retained": true,
+        "reload_and_JSON_restore_passed": true,
+        "duplicate_rejected": true,
+        "selected_complete_container_system_download": true,
+        "full_readback": {
+          "complete_stdlib_ZIP_CRC_passed": true,
+          "members": 5,
+          "untouched_local_records_exact": 4,
+          "manifest_bytes_unchanged": true,
+          "other_form_XML_bytes_unchanged": true,
+          "complete_XML_exact_except_selected_text": true,
+          "entities": 2,
+          "form_copies": 7,
+          "source_bytes": 2150,
+          "output_bytes": 2149,
+          "source_sha256": "23306c725ed4c94d5cb041828e0e08019374703b5f4588296de0b909231db009",
+          "output_sha256": "fec1dd6aac75de30b4d88181bb9c4cafc7441dbd64bde515d40248eb532c90b0",
+          "edited_field": "interest_income",
+          "edited_amount": "101.24",
+          "original_program_execution": 0,
+          "whole_original_tax_compatibility": false
+        },
+        "other_forms_byte_identical": true,
+        "refund": 344,
+        "original_runtime": 0,
+        "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+      },
+      {
+        "mode": "Pyodide-IndexedDB",
+        "complete_container_report_rendered": true,
+        "real_UI_file_inputs": true,
+        "three_form_types_reviewed_from_one_attachment": true,
+        "copy_1_kept_distinct": true,
+        "prior_record_retained": true,
+        "reload_and_JSON_restore_passed": true,
+        "duplicate_rejected": true,
+        "selected_complete_container_system_download": true,
+        "full_readback": {
+          "complete_stdlib_ZIP_CRC_passed": true,
+          "members": 5,
+          "untouched_local_records_exact": 4,
+          "manifest_bytes_unchanged": true,
+          "other_form_XML_bytes_unchanged": true,
+          "complete_XML_exact_except_selected_text": true,
+          "entities": 2,
+          "form_copies": 7,
+          "source_bytes": 2150,
+          "output_bytes": 2149,
+          "source_sha256": "23306c725ed4c94d5cb041828e0e08019374703b5f4588296de0b909231db009",
+          "output_sha256": "fec1dd6aac75de30b4d88181bb9c4cafc7441dbd64bde515d40248eb532c90b0",
+          "edited_field": "interest_income",
+          "edited_amount": "101.24",
+          "original_program_execution": 0,
+          "whole_original_tax_compatibility": false
+        },
+        "other_forms_byte_identical": true,
+        "refund": 344,
+        "original_runtime": 0,
+        "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+      }
+    ],
+    "synthetic_only": true,
+    "full_original_tax_compatibility": false,
+    "physical_phone_acceptance": false
+  }
+}
