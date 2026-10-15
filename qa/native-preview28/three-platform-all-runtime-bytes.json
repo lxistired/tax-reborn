@@ -1,0 +1,11 @@
+{
+  "version": "2026.10.15-preview.28",
+  "source_commit": "10da24d5e465ed7e79b8c5862a0b76a477b1efe9",
+  "all158_source_web_files_byte_equal_Windows_portable_Mac_App_actual_installed_Android_APK": true,
+  "total_web_bytes": 63996253,
+  "all3_actual_native_corrected_sources_byte_equal": true,
+  "native_source_bytes": 8110,
+  "native_source_SHA256": "c5bdc13fb5bdd8cb435e4e2eaad2fdb21077b5024a28e89e8b1bbcbc0e30ba26",
+  "Windows_focused_GUI_checks": 14,
+  "Windows_installed_frozen_checks": 21
+}

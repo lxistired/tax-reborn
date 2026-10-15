@@ -1,0 +1,12 @@
+{
+  "actual_native_SQLite_readonly": true,
+  "normal_UI_quit_and_reopen_observed": true,
+  "current_complete_input_SHA_equals_previous27": true,
+  "current_complete_input_SHA256": "a9ee318a9c40906f4e78e99e67b5fc9ba41f513e97999de172d0b0b8048e62ef",
+  "independent_IRS_recalculation_equals_saved": true,
+  "saved_refund_USD": 344,
+  "saved_returns": 17,
+  "version": "2026.10.15-preview.28",
+  "source_only_edit_did_not_change_current_return": true,
+  "source_commit": "10da24d5e465ed7e79b8c5862a0b76a477b1efe9"
+}

@@ -1,0 +1,66 @@
+{
+  "version": "2026.10.15-preview.28",
+  "native_production_commit": "10da24d5e465ed7e79b8c5862a0b76a477b1efe9",
+  "host_tests": 720,
+  "actual_Pyodide_tests": {
+    "total": 611,
+    "executed": 609,
+    "skipped": 2
+  },
+  "independent_source_review": {
+    "host_inputs": 48,
+    "actual_Pyodide_inputs": 48,
+    "retained_v1_v5_full_JSON_baselines_exact": 11,
+    "manifest_SHA256": "8a9f5c9b44b677c8e19e83feaf607b3ee931a7775268dd40606586420ba4ce96"
+  },
+  "actual_browser": {
+    "desktop": true,
+    "mobile390": true,
+    "complete_source_export": true,
+    "four_income_reviews_saved_reloaded_344": true
+  },
+  "Windows": {
+    "installer_built": true,
+    "installer_actually_installed": true,
+    "installed_frozen_checks": 21,
+    "focused_native_GUI_checks": 14,
+    "actual_new_source_UI_system_save_and_normal_relaunch": true,
+    "CI": "https://github.com/lxistired/tax-reborn/actions/runs/38741378611"
+  },
+  "Mac_ARM64": {
+    "DMG_built": true,
+    "frozen_checks": 21,
+    "actual_new_source_UI_system_save_and_normal_relaunch": true,
+    "complete_existing_input_SHA_matches_previous27": true,
+    "DMG_all610_paths_equal_tested_App": true
+  },
+  "Android": {
+    "APK_built": true,
+    "original_signer_upgrade_actually_installed": true,
+    "installed_APK_pulled_and_exact_bytes": true,
+    "original_install_time_retained": true,
+    "actual_new_source_UI_system_save": true,
+    "actual_fresh_complete_JSON_backup_and_IRS_readback": true,
+    "current_complete_input_SHA_matches_previous27": true,
+    "separate_manual_force_stop_repeated": false
+  },
+  "three_native_complete_source_exports": {
+    "bytes": 8110,
+    "sha256": "c5bdc13fb5bdd8cb435e4e2eaad2fdb21077b5024a28e89e8b1bbcbc0e30ba26",
+    "byte_equal": true,
+    "FormSets": 2,
+    "forms": 8,
+    "links": 8,
+    "Entity_objects": 3,
+    "FormSet_objects_each": 2,
+    "all_stored_body_bytes_retained": true
+  },
+  "all158_web_assets_byte_equal_three_native_packages": true,
+  "current_saved_IRS_refund_USD": 344,
+  "original_native_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "full_original_tax_compatibility": false,
+  "active_native_metadata_executed": false,
+  "original_full_recalculation_executed": false,
+  "publication_and_anonymous_package_readback": "pending, separate from completed native acceptance"
+}

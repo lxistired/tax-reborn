@@ -1,0 +1,27 @@
+{
+  "product": "Tax Reborn",
+  "project_number": "000002",
+  "version": "2026.10.15-preview.28",
+  "platform": "darwin",
+  "architecture": "arm64",
+  "python_version": "3.14.5",
+  "frozen_smoke": "frozen-smoke-darwin-arm64.json",
+  "developer_id_signed": false,
+  "notarized": false,
+  "windows_installer_built": false,
+  "third_party_notices_verified": true,
+  "license_component_count": 21,
+  "requirements": {
+    "pywebview": "6.2.1",
+    "pyinstaller": "6.22.3",
+    "Pillow": "12.3.0",
+    "pypdf": "6.10.0"
+  },
+  "artifacts": [
+    {
+      "file": "Tax-Reborn-2026.10.15-preview.28-macOS-arm64.dmg",
+      "bytes": 72493966,
+      "sha256": "61f60cc76884793b999f45f7c1e274a7394cbe75139182196da232c31ddd382f"
+    }
+  ]
+}
