@@ -42,7 +42,7 @@ def build(destination):
     manifest=dict(vendor_resources_included=False,original_runtime_executions=0,
         record_order_attachment='value/group2; not record-row data',
         empty_value_note='explicit4-byte source preserved; native2-byte empty Store not emitted',entries=entries)
-    (destination/'typed-value-manifest.json').write_text(json.dumps(manifest,sort_keys=True,indent=2)+'\n')
+    (destination/'typed-value-manifest.json').write_bytes((json.dumps(manifest,sort_keys=True,indent=2)+'\n').encode('utf-8'))
     return manifest
 
 if __name__=='__main__':print(json.dumps(build(ROOT/'fixtures/binary-tax'),indent=2))
