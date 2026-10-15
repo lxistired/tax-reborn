@@ -132,10 +132,11 @@ def smoke_test(report_path=None):
             # Origin is rejected before reading a body. Sending an unread
             # large body can make Windows reset the connection before the
             # client observes that rejection; verify the policy without it.
+            status,before_rejection=request('GET','/api/returns/'+ident);assert status==200
             status,rejected=request('POST','/api/returns',origin='https://foreign.example')
             assert status==400 and rejected=={'error':'Foreign Origin is not allowed'}
             status,unchanged=request('GET','/api/returns/'+ident)
-            assert status==200 and unchanged==reopened
+            assert status==200 and unchanged==before_rejection
             status,_=request('GET','/api/returns',host='foreign.example');assert status==400
             status,_=request('GET','/../server.py');assert status==404
             checks.append('Foreign Origin, DNS-rebinding Host and file traversal rejected')
