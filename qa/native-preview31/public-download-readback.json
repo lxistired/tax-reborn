@@ -1,0 +1,106 @@
+{
+  "format": "tax-reborn-independent-public-download-verification-v1",
+  "all_passed": true,
+  "checked_at_utc": "2026-10-15T18:14:00.580763+00:00",
+  "repository": "lxistired/tax-reborn",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.31",
+  "release_id": 414120300,
+  "tag": "v2026.10.16-preview.31",
+  "published_at_utc": "2026-10-15T18:11:37Z",
+  "draft": false,
+  "prerelease": true,
+  "tag_resolved_source_commit": "d98ba7bbb3872a53b290901c37b5e4b22ff96c50",
+  "anonymous_release_API_GET": true,
+  "anonymous_tag_ref_GET": true,
+  "authenticated_requests": 0,
+  "authorization_headers": 0,
+  "cookie_handlers": 0,
+  "complete_asset_GET_count": 9,
+  "total_complete_asset_bytes": 393574941,
+  "all_complete_downloads_byte_identical_to_approved_release_files": true,
+  "all_SHA256_digests_match_local_and_public_API": true,
+  "assets": [
+    {
+      "name": "SHA256SUMS.txt",
+      "asset_id": 644729511,
+      "http_status": 200,
+      "bytes": 850,
+      "sha256": "e3fbff3015def70b547d8d9042ea8a8a94298df12d1429952a33a345333d5ae7",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.31-Android.apk",
+      "asset_id": 644726855,
+      "http_status": 200,
+      "bytes": 50124867,
+      "sha256": "3089e7130c2fb8c00be61f7112bfd182699aa7b4e38fc6ca52c216cea633ae1c",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.31-Windows-x64-Setup.exe",
+      "asset_id": 644726854,
+      "http_status": 200,
+      "bytes": 58099223,
+      "sha256": "ef5841d8965613f4f13a5be751404fdaf825f59f4222098b09543bcf831f7df0",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.31-Windows-x64-portable.zip",
+      "asset_id": 644726856,
+      "http_status": 200,
+      "bytes": 71961703,
+      "sha256": "6f12613c6e1eb7997b31425ac6be22417fe00f164d713d6f41c1c646ac0d9092",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.31-macOS-arm64.dmg",
+      "asset_id": 644726857,
+      "http_status": 200,
+      "bytes": 72781611,
+      "sha256": "de225ac76eb34c28c2548c0254e4fbabda7ecd01ce75a25de6ba3354b4dd6efc",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.31-source.zip",
+      "asset_id": 644726859,
+      "http_status": 200,
+      "bytes": 140209300,
+      "sha256": "06030e96fb6e7eba4446c6e3044d4315c354b0cbe2086346f90f973b35d9f800",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "platform-acceptance.json",
+      "asset_id": 644729418,
+      "http_status": 200,
+      "bytes": 3240,
+      "sha256": "009db2fef96703e612a260ce94ae064fcd789fd8c749dd613b5f7f98b0978b8a",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "preview31-artifacts.json",
+      "asset_id": 644729471,
+      "http_status": 200,
+      "bytes": 1176,
+      "sha256": "9e4cf71b0be2d2afb588e0eb94e27390046b3e61835e0ae4ac900c987e1f12c5",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    },
+    {
+      "name": "source-manifest.json",
+      "asset_id": 644729368,
+      "http_status": 200,
+      "bytes": 392971,
+      "sha256": "28c256dabe4a042b9d1bf183eee8a45a44423a9a94f2de5fe306fc84f6a46d1f",
+      "anonymous_complete_GET": true,
+      "whole_file_bytes_equal": true
+    }
+  ],
+  "scope": "Independent public download integrity verification. Native functional acceptance and extracted-source execution are recorded separately; this verification does not execute the downloaded programs."
+}

@@ -1,0 +1,9 @@
+{
+  "version": "2026.10.16-preview.31",
+  "source_commit": "d98ba7bbb3872a53b290901c37b5e4b22ff96c50",
+  "Git_blobs": 2119,
+  "whole_archive_CRC_passed": true,
+  "all_source_files_exact_Git_blobs": true,
+  "bytes": 140209300,
+  "sha256": "06030e96fb6e7eba4446c6e3044d4315c354b0cbe2086346f90f973b35d9f800"
+}

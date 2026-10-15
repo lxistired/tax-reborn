@@ -1,0 +1,80 @@
+{
+  "checked_at_utc": "2026-10-15T18:09:08.614Z",
+  "all_passed": true,
+  "checks": [
+    {
+      "mode": "HTTP-SQLite",
+      "real_file_inputs": true,
+      "explicit_controller_profile": true,
+      "selection_across_entities_copies": true,
+      "invalid_two_fractional_digits_refused": true,
+      "retry_error_cleared": true,
+      "complete_container_system_download": true,
+      "readback": {
+        "all_passed": true,
+        "output_bytes": 2241,
+        "output_sha256": "1da9b78f366be589372251a598ba28bc03922d03adc70337d114f93a09c32412",
+        "entities": 2,
+        "copies": 7,
+        "all_fields": 47,
+        "decimal_fields": 3,
+        "decimal_values": [
+          "0.8",
+          "1.2",
+          "-0.3"
+        ],
+        "current_ordinal": 9,
+        "income_candidates_unchanged": 7,
+        "untouched_local_records_exact": 4,
+        "independent_stdlib_ZIP_CRC_and_exact_XML_except_one_field": true,
+        "original_manifest_exact": true,
+        "native_program_acceptance": false
+      },
+      "entire_current_return_and_result_unchanged": true,
+      "persisted_return_unchanged": true,
+      "reload_unchanged": true,
+      "unknown_manifest_readonly": true,
+      "builtin_sample": true,
+      "native_runtime": 0
+    },
+    {
+      "mode": "Pyodide-IndexedDB",
+      "real_file_inputs": true,
+      "explicit_controller_profile": true,
+      "selection_across_entities_copies": true,
+      "invalid_two_fractional_digits_refused": true,
+      "retry_error_cleared": true,
+      "complete_container_system_download": true,
+      "readback": {
+        "all_passed": true,
+        "output_bytes": 2241,
+        "output_sha256": "1da9b78f366be589372251a598ba28bc03922d03adc70337d114f93a09c32412",
+        "entities": 2,
+        "copies": 7,
+        "all_fields": 47,
+        "decimal_fields": 3,
+        "decimal_values": [
+          "0.8",
+          "1.2",
+          "-0.3"
+        ],
+        "current_ordinal": 9,
+        "income_candidates_unchanged": 7,
+        "untouched_local_records_exact": 4,
+        "independent_stdlib_ZIP_CRC_and_exact_XML_except_one_field": true,
+        "original_manifest_exact": true,
+        "native_program_acceptance": false
+      },
+      "entire_current_return_and_result_unchanged": true,
+      "persisted_return_unchanged": true,
+      "reload_unchanged": true,
+      "unknown_manifest_readonly": true,
+      "builtin_sample": true,
+      "native_runtime": 0
+    }
+  ],
+  "synthetic_only": true,
+  "all_inputs_UI": true,
+  "foreground_windows": 0,
+  "whole_original_tax_compatibility": false
+}
