@@ -742,7 +742,7 @@ async function showTaxMLImport(){
   el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
   el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
   el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')),
-  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'))));
+  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'))));
  const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
   if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
@@ -771,6 +771,18 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set
  const holder=el('div',{},el('p',{class:'intro'},'Review each supported income form or filing-status setup separately. The original source stays attached; every change needs your confirmation.'),
   ...(inspected.warnings||[]).map(warning=>el('div',{class:'note warning'},warning)),
   el('small',{},'Source SHA-256 · '+inspected.source_sha256));
+ if(inspected.registry_binding){
+  const binding=inspected.registry_binding;
+  holder.append(el('p',{},'The profile fixes the order of '+binding.registry_order.length+' registry files. Visible and hidden field definitions are selected separately.'),
+   el('details',{},el('summary',{},'Selected registry sources'),
+    ...binding.selected_templates.map(template=>{
+     const origins=new Map(template.fields.map(field=>{
+      const description=(field.hidden?'Hidden':'Visible')+' fields · '+field.source_carrier_sha256.slice(0,12)+' · resource '+field.source_resource_id;
+      return [description,description];
+     }));
+     return el('div',{class:'note'},el('strong',{},template.form_id+' · metadata selection version '+template.selection_version),el('ul',{},[...origins.values()].map(text=>el('li',{},text))));
+    })));
+ }
  if(inspected.unresolved_facts?.length)holder.append(el('div',{class:'note warning'},'Income additions are blocked by '+inspected.unresolved_facts.length+' unresolved source facts. Filing-status setup is checked separately.'),el('details',{},el('summary',{},'Show unresolved source facts'),el('ul',{},inspected.unresolved_facts.map(item=>el('li',{},item.path+' · '+item.code+(item.detail?' · '+item.detail:''))))));
  if(!inspected.candidates?.length)holder.append(el('div',{class:'empty-state'},'No supported W-2, 1099-INT or 1099-DIV candidates were found. The source was not imported as a return.'));
  for(const candidate of inspected.candidates||[]){
@@ -810,13 +822,17 @@ function showBinaryFields(source,inspected,returnId,atRevision){
  function render(){
   const form=forms[Number(selected.value)];details.replaceChildren();if(!form)return;
   details.append(el('p',{},form.fields.length+' stored fields · '+form.tables+' table records · '+form.children+' child forms · '+form.links.length+' links'));
+  for(const table of form.table_headers||[]){
+   const boundary=table.table_kind==='value_table'?' · saved last-used record '+table.saved_last_used_record_index:'';
+   details.append(el('div',{class:'note'},el('strong',{},'Preserved table '+table.identifier),el('p',{},table.table_kind+' · fields '+table.first_field_ordinal+'–'+table.last_field_ordinal+boundary),el('small',{},'Read only. Existing indexed values and the saved record boundary are retained. Adding, removing or reordering rows is not supported.')));
+  }
   if(form.links.length)details.append(el('details',{},el('summary',{},'Preserved links'),el('ul',{},form.links.map(link=>el('li',{},link.form_id+' #'+link.file_copy+' → '+link.field_id+'['+link.element+'] · '+(link.resolved?'resolved':'descriptor retained'))))));
   for(const fact of form.fields){
    const key=JSON.stringify([form.path,fact.ordinal,fact.element]),label=(fact.field_id||'Field '+fact.ordinal)+' ['+fact.element+']';
    if(fact.editable){
     const input=el('input',{type:'text',inputmode:'decimal',value:changes.get(key)?.value??fact.text,'aria-label':'Binary '+label,onInput:event=>{confirmed.checked=false;const value=event.currentTarget.value;if(value===fact.text)changes.delete(key);else changes.set(key,{path:form.path,ordinal:fact.ordinal,element:fact.element,value});}});
     details.append(el('div',{class:'field'},el('label',{},label),input,el('small',{},'Stored kind '+fact.kind+' · attributes '+fact.specific_attributes)));
-   }else details.append(el('div',{class:'field'},el('strong',{},label),el('span',{},fact.text??fact.status),el('small',{},'Read only · stored kind '+fact.kind+' · raw '+fact.raw64)));
+   }else details.append(el('div',{class:'field'},el('strong',{},label),el('span',{},fact.text??fact.status),el('small',{},'Read only · stored kind '+fact.kind+' · attributes '+fact.specific_attributes+' · raw '+fact.raw64)));
   }
  }
  selected.addEventListener('change',render);render();

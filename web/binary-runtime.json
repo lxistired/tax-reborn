@@ -5,7 +5,10 @@
     "interop/form_core/__init__.py",
     "interop/form_core/cx_string_wire_reference.py",
     "interop/form_core/document_semantics_reference.py",
+    "interop/form_core/effective_registry_fields_reference.py",
+    "interop/form_core/effective_wire_bridge_reference.py",
     "interop/form_core/entity_formset_reference.py",
+    "interop/form_core/field_template_reference.py",
     "interop/form_core/form_header_map_reference.py",
     "interop/form_core/form_string_wire_reference.py",
     "interop/form_core/native_amount.py",
@@ -14,22 +17,27 @@
     "interop/form_core/selected_form_record_reference.py",
     "interop/form_core/string_registry_reference.py",
     "interop/form_core/string_wire_reference.py",
-    "interop/form_core/value_hash_wire_reference.py"
+    "interop/form_core/value_hash_wire_reference.py",
+    "interop/form_core/value_table_header_reference.py"
   ],
   "sha256": {
     "interop/__init__.py": "dcf34f5f8f82a02aee6d8b801cb22e93a976e49f64aca9e98d3019b68e5624b7",
     "interop/form_core/__init__.py": "754fb9f647b675a801619af1c057604503c4b8b8d89889f5f5d2566b1fdc9af5",
     "interop/form_core/cx_string_wire_reference.py": "e01d803d508097c6ecabbc598f34a68c0d9331b54c36f31d8e4c8ff9d7fcd283",
-    "interop/form_core/document_semantics_reference.py": "b6857b326ca06dc545be9b67372927350d88be032ec53cf812ffed3d878f738c",
+    "interop/form_core/document_semantics_reference.py": "1d9d5c9ea526b4a51fa7c378dfd8d1e0ff6776d1ee153fa305dbc2d3ac558df8",
+    "interop/form_core/effective_registry_fields_reference.py": "3a949d17bb38e346998a5ffe344efec8fe98ebbc13c10950fe4a640bda4fd2c5",
+    "interop/form_core/effective_wire_bridge_reference.py": "7b9ee43b3036cc8a021b361bf359f52bafead8052c9fd7c851d1c90cdad856c4",
     "interop/form_core/entity_formset_reference.py": "38c957f7a5d6426cc90cd461ed0413c74fd08d3568d2b89c9f4371ea3b7c93b8",
+    "interop/form_core/field_template_reference.py": "8062d453ed9867660150b332afced0b05bb99f7487382a6bd779d2abd91efbe9",
     "interop/form_core/form_header_map_reference.py": "0d1683694987d668508bff665e7b8d8ee052bb65c2ef926c90d522d16cb0e240",
     "interop/form_core/form_string_wire_reference.py": "e528a1de52b8ebdbe9f98d75d8c8305190dd7010001c1f97f3d2748a21123623",
     "interop/form_core/native_amount.py": "f14768515c093bf46f282dd826dd87aa5b5e69bd18b586d9d0925bfdc363debe",
-    "interop/form_core/native_document_reference.py": "c7be414654261f65482c7b1c0c92cfca590edf24284734122280137b20fe409c",
+    "interop/form_core/native_document_reference.py": "647e8337d6fbcd88fc8b3dd5b81a73fafcdefe871a9cabba72e1c4abb52170e1",
     "interop/form_core/native_mode4_reference.py": "3b05436814e31a97a1562e36f4254e2022fa590c2b96ab433ac234b10d693905",
     "interop/form_core/selected_form_record_reference.py": "ce3102f521a65539823ec74148aa1403a4c1c408ad94a1a57210863fd68e5855",
     "interop/form_core/string_registry_reference.py": "7728b2b0dbb6dffbff08694a14b60e63d43d0c8bfaeb91f9dddec8339f189aae",
     "interop/form_core/string_wire_reference.py": "a878c53c72fdfc9133dceb52516d6baca90e2c899cd51417a697e6c14210c774",
-    "interop/form_core/value_hash_wire_reference.py": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462"
+    "interop/form_core/value_hash_wire_reference.py": "4371f6185685e5639650fcdba09d2e3cced9e6edbca4660ccc0a3103d5142462",
+    "interop/form_core/value_table_header_reference.py": "211cd339a7bc94608dd80da54fa8edc509f71a33f4e77f866d4fa98cfd522bad"
   }
 }

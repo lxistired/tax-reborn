@@ -15,6 +15,8 @@ from .form_header_map_reference import (Header,Parent,load_header,store_header,
 from .value_hash_wire_reference import (Hash,load_form_core_bytes,store_hash)
 from .native_mode4_reference import store_selected_section
 from .string_wire_reference import Table
+from .value_table_header_reference import (TableHeader as BoundTableHeader,
+ load_table_header,store_table_header)
 
 @dataclass(frozen=True)
 class TableRecord:
@@ -22,6 +24,8 @@ class TableRecord:
  word28:int=0
  word2a:int=0
  metadata:dict=field(default_factory=dict,compare=False)
+ table_kind:str='base_e1'
+ last_used_record_index:object=None
 @dataclass(frozen=True)
 class LinkRecord:
  form_id:bytes
@@ -65,6 +69,9 @@ class TemplateContext:
  max_formsets:int=64
  max_forms:int=65534
  max_depth:int=64
+ # The owning form factory selects table class; wire length never selects it.
+ table_factories:dict=field(default_factory=dict)
+ default_table_factory:object='base_e1'
 
 STRING_KINDS=frozenset((4,5,6,7,8,9,21,24))
 def is_string_kind(kind):
@@ -97,6 +104,12 @@ def _context(c):
  if any(type(v) is not int or v<0 for v in (c.max_formsets,c.max_forms,c.max_depth)) or c.max_formsets>65534 or c.max_forms>1000000 or c.max_depth>64:
   raise UnsupportedProfile('Finite context limits: FormSets<=65534/forms<=1000000/depth<=64')
  if type(c.preserve_unresolved_links) is not bool:raise UnsupportedProfile('Explicit unresolved-link policy')
+ if not isinstance(c.table_factories,dict) or c.default_table_factory not in (None,'base_e1','value_table'):
+  raise UnsupportedProfile('Explicit supported table factories required')
+ for key,kind in c.table_factories.items():
+  if type(key) is not tuple or len(key)!=2 or any(type(x) is not bytes for x in key) or kind not in ('base_e1','value_table'):
+   raise UnsupportedProfile('Table factory keys require FormSet/Form byte IDs and a supported kind')
+  for identifier in key:valid_id(identifier)
 
 def _entity(h):
  if not isinstance(h,EntityHeader) or h.kind!=0x45 or h.platform!=7 or h.schema!=18 or not 95<=h.release<=100:
@@ -142,16 +155,22 @@ def _id(wire,p,*,nonempty=False):
  if n>32 or p+n>len(wire) or(nonempty and not n):raise UnsupportedProfile('Complete ID in selected0..32 range')
  value=wire[p:p+n];valid_id(value);return value,p+n
 
-def _table_load(w):
- if not w or w[0]!=0xe1:raise UnsupportedProfile('Native Table Header tag E1 required (error200)')
- identifier,p=_id(w,1)
- if p+4!=len(w):raise UnsupportedProfile('Exact E1 metadata record; no invented table rows')
- a,b=struct.unpack_from('>2H',w,p);return TableRecord(identifier,a,b,{'source_wire':w})
+def _table_kind(c,fsid,fid):
+ kind=c.table_factories.get((fsid,fid),c.default_table_factory)
+ if kind not in ('base_e1','value_table'):raise UnsupportedProfile('Declare the owning form table factory before reading or writing tables')
+ return kind
 
-def _table_store(t):
+def _table_load(w,*,table_kind='base_e1',entity_schema=18):
+ try:record=load_table_header(w,entity_schema=entity_schema,table_kind=table_kind)
+ except ValueError as error:raise UnsupportedProfile(str(error)) from error
+ return TableRecord(record.identifier,record.word28,record.word2a,{'source_wire':w},
+                    table_kind=table_kind,last_used_record_index=record.last_used_record_index)
+
+def _table_store(t,*,table_kind='base_e1',entity_schema=18):
  if not isinstance(t,TableRecord):raise UnsupportedProfile('Explicit TableRecord')
- valid_id(t.identifier)
- return b'\xe1'+struct.pack('>H',len(t.identifier))+t.identifier+struct.pack('>2H',u16(t.word28),u16(t.word2a))
+ if t.table_kind!=table_kind:raise UnsupportedProfile('Table record must match its declared owning form factory')
+ try:return store_table_header(BoundTableHeader(t.identifier,t.word28,t.word2a,t.last_used_record_index),entity_schema=entity_schema,table_kind=table_kind)
+ except ValueError as error:raise UnsupportedProfile(str(error)) from error
 
 def _link_description(l):return (l.form_id,l.file_copy,l.field_id,l.element_index)
 def _link_load(w):
@@ -245,7 +264,8 @@ def load_document_bytes(wire,buffers,*,template_context):
   registry[h.file_copy]=Parent(h.identifier,h.file_copy,h.word7c)
   p=start+core.consumed
   tables_ranges,p=_read_index(wire,p,0xe0,end)
-  tables=tuple(_table_load(wire[a:b]) for a,b in tables_ranges)
+  tables=tuple(_table_load(wire[a:b],table_kind=_table_kind(c,fsid,h.identifier),
+                          entity_schema=eh.header.schema) for a,b in tables_ranges)
   child_ranges,p=_read_index(wire,p,0xc8,end)
   children=tuple(load_form(a,b,fsid,registry,depth+1,path+(i,)) for i,(a,b) in enumerate(child_ranges))
   link_ranges,p=_read_index(wire,p,0xd7,end)
@@ -319,7 +339,8 @@ def store_document_bytes(doc,buffers,*,template_context):
   for at in (valuepos,valuepos+len(h.wire),valuepos+len(h.wire),valuepos+len(h.wire)+len(s.string_section)):
    m=append_position(m,at).mapping
   data=bytearray(header+s.table_id_wire+store_map(m,pos).wire+h.wire+s.string_section)
-  data.extend(_write_index(0xe0,base+len(data),tuple(_table_store(t) for t in f.tables)))
+  data.extend(_write_index(0xe0,base+len(data),tuple(_table_store(t,
+       table_kind=_table_kind(c,fsid,f.header.identifier),entity_schema=doc.entity_header.schema) for t in f.tables)))
   cb=base+len(data);at=cb+5+4*(len(f.children)+1);children=[]
   for child in f.children:
    w=store_form(child,at,fsid);children.append(w);at+=len(w)

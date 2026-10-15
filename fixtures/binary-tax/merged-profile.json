@@ -1,0 +1,31 @@
+{
+  "format": "tax-reborn-binary-entity-profile-v2",
+  "registry_order": [
+    "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+    "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b"
+  ],
+  "tax_year": 2025,
+  "template_versions": {
+    "OWNED2025MERGED": 2025
+  },
+  "templates": [
+    {
+      "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+      "form_id": "FW2",
+      "formset_id": "OWNED2025MERGED",
+      "resource_id": 1
+    },
+    {
+      "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+      "form_id": "F1099I",
+      "formset_id": "OWNED2025MERGED",
+      "resource_id": 2
+    },
+    {
+      "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+      "form_id": "F1099D",
+      "formset_id": "OWNED2025MERGED",
+      "resource_id": 3
+    }
+  ]
+}

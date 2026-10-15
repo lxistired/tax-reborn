@@ -193,6 +193,8 @@ def build_fixtures(destination):
     (destination / 'manifest.json').write_bytes(
         (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode('utf-8'))
     build_setup_fixture(destination)
+    build_merged_fixture(destination)
+    build_value_table_fixture(destination)
     return manifest
 
 
@@ -233,6 +235,116 @@ def build_setup_fixture(destination):
             ('filing-status-profile.json',(json.dumps(profile,indent=2,sort_keys=True)+'\n').encode()),
             ('filing-status-request.json',(json.dumps(request,indent=2,sort_keys=True)+'\n').encode())]:
         (destination/filename).write_bytes(data)
+
+
+def owned_xprf(resources):
+    """Wrap independently authored decoded resource payloads, without a tool."""
+    header=b'XPRF\0\1\x10\x0c\x0a\0\0\0'+struct.pack('<I',len(resources))
+    position=16+12*len(resources);directory=[];records=[]
+    for (typ,rid),data in resources.items():
+        record=struct.pack('<IIH',len(data)+10,len(data),0)+data
+        directory.append(struct.pack('<HHII',typ,rid,position,len(record)))
+        records.append(record);position+=len(record)
+    return header+b''.join(directory)+b''.join(records)
+
+
+def merged_registry_inputs(*, value_table=False):
+    """Two owned carriers select visible/hidden blocks from different homes."""
+    old, *_ = registry_inputs()
+    fsid='OWNED2025MERGED'
+    def metadata(name,version='1',full=True):
+        values=[name.encode(),fsid.encode(),version.encode(),b'1']
+        if full:
+            values += [b'0']*15
+            values[16]=b'5'
+        return struct.pack('<H',len(values))+b''.join(bytes([len(s)])+s for s in values)
+    def fields(values):
+        return struct.pack('<H',len(values))+b''.join(b'\xff'+f.field_id.encode().ljust(32,b' ')+struct.pack('<BBI',f.kind,f.format,f.attributes) for f in values)
+    alpha={(18000,1):metadata('FW2',full=False),
+        (1900,1):fields(old['FW2'].fields[:4]),
+        (18000,2):metadata('F1099I'),(1900,2):fields(old['F1099I'].fields),
+        (18000,3):metadata('F1099D'),(1900,3):fields(old['F1099D'].fields),
+        (18000,4):metadata('OWNED_UNUSED'),}
+    beta={(18000,1):metadata('FW2'),(18001,1):metadata('FW2',full=False),
+        (1901,1):fields(old['FW2'].fields[4:]),
+        (18000,2):metadata('OWNED_UNUSED',version='2')}
+    if value_table:
+        # One independently authored indexed amount. The current record's
+        # presence is independent of both its numeric payload and row index.
+        array=wire.Field(field_id='OWNED_AMOUNT',ordinal=12,kind=11,format=0,attributes=0x40)
+        beta[1901,1]=fields((*old['FW2'].fields[4:],array))
+    blobs=[owned_xprf(alpha),owned_xprf(beta)]
+    shas=[digest(blob) for blob in blobs]
+    selected={(fsid,'FW2'):(shas[1],1),(fsid,'F1099I'):(shas[0],2),(fsid,'F1099D'):(shas[0],3)}
+    registry=wire.Registry.from_effective_xprf(list(zip(blobs,shas)),selected)
+    templates={name:registry.resolve(fs,name,identity) for (fs,name),identity in selected.items()}
+    context=TemplateContext(template_versions={fsid.encode():2025},
+        field_ids={(fsid.encode(),name.encode()):{f.ordinal:f.field_id.encode() for f in template.fields} for name,template in templates.items()},
+        current_table_ids={},preserve_unresolved_links=True)
+    profile=dict(format='tax-reborn-binary-entity-profile-v2',tax_year=2025,
+        template_versions={fsid:2025},registry_order=shas,
+        templates=[dict(formset_id=fs,form_id=name,carrier_sha256=identity[0],resource_id=identity[1]) for (fs,name),identity in selected.items()])
+    carriers=[dict(base64=base64.b64encode(blob).decode(),sha256=sha) for blob,sha in zip(blobs,shas)]
+    return fsid,templates,context,profile,carriers,registry.binding_report
+
+
+def value_table_inputs():
+    fsid,templates,context,profile,carriers,report=merged_registry_inputs(value_table=True)
+    context=replace(context,table_factories={(fsid.encode(),b'FW2'):'value_table'},
+                    default_table_factory=None)
+    profile={**profile,'format':'tax-reborn-binary-entity-profile-v3',
+        'table_factories':[dict(formset_id=fsid,form_id='FW2',table_kind='value_table')]}
+    return fsid,templates,context,profile,carriers,report
+
+
+def value_table_document(templates,fsid):
+    doc=document(templates,nested=True)
+    forms=list(doc.formsets[0].forms);wages=forms[0]
+    ordinal=next(f.ordinal for f in templates['FW2'].fields if f.field_id=='OWNED_AMOUNT')
+    # Preserve explicit source metadata. This does not simulate the original
+    # runtime's Build/UUID callbacks or recompute a last-used record index.
+    rows=(Node(kind_byte=11,raw=2500,field_index=ordinal,element_index=1,
+               exponent_byte=7,specific_attributes=3),
+          Node(kind_byte=11,raw=0,field_index=ordinal,element_index=3,
+               exponent_byte=7,specific_attributes=3),
+          Node(kind_byte=11,raw=99999,field_index=ordinal,element_index=4,
+               exponent_byte=7,specific_attributes=2))
+    nodes=tuple(node for buffer in wages.hash_state.buffers for node in buffer.nodes)+rows
+    forms[0]=replace(wages,hash_state=hash_for_nodes(nodes),
+        tables=(TableRecord(b'OWNED_ROWS',ordinal,ordinal,table_kind='value_table',
+                            last_used_record_index=3),))
+    return replace(doc,formsets=(replace(doc.formsets[0],
+        header=replace(doc.formsets[0].header,identifier=fsid.encode()),forms=tuple(forms)),))
+
+
+def build_value_table_fixture(destination):
+    fsid,templates,context,profile,carriers,report=value_table_inputs()
+    doc=value_table_document(templates,fsid)
+    blob=store_document_bytes(doc,buffers(),template_context=context)
+    request=dict(base64=base64.b64encode(blob).decode(),container='binary_entity',
+        profile=profile,carriers=carriers,profile_acknowledged=True)
+    for name,data in [('value-table.taxbin',blob),
+            ('value-table-request.json',(json.dumps(request,indent=2,sort_keys=True)+'\n').encode()),
+            ('value-table-profile.json',(json.dumps(profile,indent=2,sort_keys=True)+'\n').encode()),
+            *[(f'value-table-{name}.xprf',base64.b64decode(value['base64'])) for name,value in zip(('alpha','beta'),carriers)]]:
+        (Path(destination)/name).write_bytes(data)
+
+
+def build_merged_fixture(destination):
+    fsid,templates,context,profile,carriers,report=merged_registry_inputs()
+    destination=Path(destination)
+    for name,nested in [('merged',False),('merged-nested',True)]:
+        doc=document(templates,nested=nested)
+        doc=replace(doc,formsets=tuple(replace(fs,header=replace(fs.header,identifier=fsid.encode())) for fs in doc.formsets))
+        blob=store_document_bytes(doc,buffers(),template_context=context)
+        request=dict(base64=base64.b64encode(blob).decode(),container='binary_entity',
+            profile=profile,carriers=carriers,profile_acknowledged=True)
+        (destination/(name+'.taxbin')).write_bytes(blob)
+        (destination/(name+'-request.json')).write_bytes((json.dumps(request,indent=2,sort_keys=True)+'\n').encode())
+    for name,data in [('merged-profile.json',(json.dumps(profile,indent=2,sort_keys=True)+'\n').encode()),
+            ('merged-registry-report.json',(json.dumps(report,indent=2,sort_keys=True)+'\n').encode()),
+            *[(f'merged-{name}.xprf',base64.b64decode(value['base64'])) for name,value in zip(('alpha','beta'),carriers)]]:
+        (destination/name).write_bytes(data)
 
 
 def main():

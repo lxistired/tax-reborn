@@ -16,6 +16,8 @@ def main():
     p.add_argument('--data-dir', required=True)
     p.add_argument('--name', default='Synthetic Windows binary income migration')
     p.add_argument('--corrected-binary')
+    p.add_argument('--effective-registry', action='store_true')
+    p.add_argument('--value-table', action='store_true')
     p.add_argument('--output', required=True)
     args = p.parse_args()
     store = server.Store(args.data_dir)
@@ -37,13 +39,23 @@ def main():
         assert Decimal(actual) == Decimal(expected), (name, actual)
         normalized['data']['w2'][0][name] = expected
     receipt = verify(normalized)
-    request = json.loads((ROOT/'fixtures/binary-tax/income-request.json').read_text())
+    income_name = 'merged' if args.effective_registry else 'income'
+    request = json.loads((ROOT/'fixtures/binary-tax'/f'{income_name}-request.json').read_text())
     source_hash = hashlib.sha256(base64.b64decode(request['base64'])).hexdigest()
     records = [record['metadata']['w2_records'][0], record['metadata']['income_document_records']['interest'][0], record['metadata']['income_document_records']['dividends'][0]]
     assert all(item['source_document']['taxml_receipt']['source_sha256'] == source_hash for item in records)
     receipt.update(native_SQLite_readback=True, actual_binary_source_hash=source_hash, original_engine_executed=False, full_original_tax_compatibility=False)
+    if args.effective_registry:
+        report = binary_tax.inspect_request(request)['registry_binding']
+        w2 = next(t for t in report['selected_templates'] if t['form_id']=='FW2')
+        sources = {f['field_id']: f for f in w2['fields']}
+        assert sources['WAGES']['source_carrier_sha256'] == request['carriers'][0]['sha256']
+        assert sources['FEDTAX']['source_carrier_sha256'] == request['carriers'][1]['sha256']
+        assert all(row['source_document']['taxml_receipt']['wire_profile_sha256'] == binary_tax.prep.canonical_hash(request['profile']) for row in records)
+        receipt.update(ordered_effective_registry=True,split_visible_hidden_sources_verified=True)
     if args.corrected_binary:
-        nested = json.loads((ROOT/'fixtures/binary-tax/nested-request.json').read_text())
+        nested_name = 'value-table' if args.value_table else 'merged-nested' if args.effective_registry else 'nested'
+        nested = json.loads((ROOT/'fixtures/binary-tax'/f'{nested_name}-request.json').read_text())
         inspected = binary_tax.inspect_request(nested)
         form = inspected['binary_archive']['forms'][0]
         fact = next(v for v in form['fields'] if v['field_id'] == 'WAGES')
@@ -51,6 +63,15 @@ def main():
         actual = Path(args.corrected_binary).read_bytes()
         assert actual == base64.b64decode(output['base64']), 'System-saved binary differs from the verified full-structure correction'
         receipt.update(system_saved_corrected_binary_sha256=hashlib.sha256(actual).hexdigest(), nonempty_tables_children_links_retained=True, changed_WAGES='1234.57', other_parsed_facts_preserved=True)
+        if args.value_table:
+            reread=binary_tax.inspect_request({**nested,'base64':base64.b64encode(actual).decode()})
+            owner=reread['binary_archive']['forms'][0]
+            assert owner['table_headers'][0]['table_kind']=='value_table'
+            assert owner['table_headers'][0]['saved_last_used_record_index']==3
+            values=[f for f in owner['fields'] if f['declared_array']]
+            assert [(v['element'],v['raw64'],v['specific_attributes']) for v in values]==[(1,'2500',3),(3,'0',3),(4,'99999',2)]
+            assert all(not c['can_review'] for c in reread['candidates'])
+            receipt.update(derived_value_table_header_preserved=True,indexed_zero_and_unused_payload_preserved=True,unknown_array_income_import_blocked=True,native_row_rebuild_supported=False)
     Path(args.output).write_text(json.dumps(receipt, indent=2)+'\n')
     print(json.dumps(receipt))
 

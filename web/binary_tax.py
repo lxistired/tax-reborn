@@ -21,6 +21,8 @@ from interop.form_core.native_document_reference import (
 from interop.form_core.string_wire_reference import read as read_string
 
 PROFILE = 'tax-reborn-binary-entity-profile-v1'
+EFFECTIVE_PROFILE = 'tax-reborn-binary-entity-profile-v2'
+VALUE_TABLE_PROFILE = 'tax-reborn-binary-entity-profile-v3'
 MAX_BYTES = 10 * 1024 * 1024
 
 
@@ -48,9 +50,16 @@ def _context(request):
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected data profile.')
     profile = request['profile']
-    if not isinstance(profile, dict) or set(profile) != {
-        'format', 'tax_year', 'templates', 'template_versions'
-    } or profile['format'] != PROFILE or profile['tax_year'] != 2025:
+    effective = isinstance(profile, dict) and profile.get('format') in (EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE)
+    value_tables = isinstance(profile, dict) and profile.get('format') == VALUE_TABLE_PROFILE
+    keys = {'format', 'tax_year', 'templates', 'template_versions'}
+    if effective:
+        keys.add('registry_order')
+    if value_tables:
+        keys.add('table_factories')
+    if (not isinstance(profile, dict) or set(profile) != keys
+            or profile['format'] not in (PROFILE, EFFECTIVE_PROFILE, VALUE_TABLE_PROFILE)
+            or type(profile['tax_year']) is not int or profile['tax_year'] != 2025):
         raise ValueError('Choose an explicit supported 2025 binary data profile.')
     selected, _ = prep.validate_profile({
         'format': 'tax-reborn-taxml-wire-profile-v1', 'tax_year': 2025,
@@ -76,19 +85,45 @@ def _context(request):
             raise ValueError('Duplicate registry identity.')
         seen.add(item['sha256'])
         carriers.append((prep.decode_blob(item['base64'], 32 * 1024 * 1024), item['sha256']))
-    if seen != {identity[0] for identity in selected.values()}:
-        raise ValueError('Selected templates must exactly match the registry files.')
-    registry = wire.Registry.from_xprf(carriers)
+    if effective:
+        order = profile['registry_order']
+        if (not isinstance(order, list) or order != [identity for _, identity in carriers]
+                or len(set(order)) != len(order)):
+            raise ValueError('Bind the exact ordered registry files in the v2 profile.')
+        if not {identity[0] for identity in selected.values()} <= seen:
+            raise ValueError('A selected primary template registry is missing.')
+        registry = wire.Registry.from_effective_xprf(carriers, selected)
+    else:
+        if seen != {identity[0] for identity in selected.values()}:
+            raise ValueError('Selected templates must exactly match the registry files.')
+        registry = wire.Registry.from_xprf(carriers)
     ids = {}
     for key, identity in selected.items():
         template = registry.resolve(*key, identity)
         ids[(key[0].encode('ascii'), key[1].encode('ascii'))] = {
             field.ordinal: field.field_id.encode('ascii') for field in template.fields
         }
+    factories = {}
+    if value_tables:
+        declarations = profile['table_factories']
+        if not isinstance(declarations, list) or len(declarations) > len(selected):
+            raise ValueError('Declare the owning form factory for supported table records.')
+        for entry in declarations:
+            if not isinstance(entry, dict) or set(entry) != {'formset_id','form_id','table_kind'}:
+                raise ValueError('Invalid explicit table factory declaration.')
+            if (not isinstance(entry['formset_id'], str) or not isinstance(entry['form_id'], str)
+                    or entry['table_kind'] not in ('base_e1','value_table')):
+                raise ValueError('Choose a supported explicit table factory.')
+            key = entry['formset_id'], entry['form_id']
+            if key not in selected or key in factories:
+                raise ValueError('Table factories must uniquely bind selected form templates.')
+            factories[key] = entry['table_kind']
     context = TemplateContext(
         template_versions={key.encode('ascii'): val for key, val in versions.items()},
         field_ids=ids, current_table_ids=OwnedTableIDs(),
         preserve_unresolved_links=True,
+        table_factories={(fs.encode('ascii'),form.encode('ascii')):kind for (fs,form),kind in factories.items()},
+        default_table_factory=None if value_tables else 'base_e1',
     )
     source = prep.decode_blob(request['base64'], MAX_BYTES)
     buffers = _buffers()
@@ -113,6 +148,7 @@ def _field_fact(form, node, spec):
             'kind': node.kind_byte, 'raw64': str(node.raw),
             'value_header': node.header, 'specific_attributes': node.specific_attributes,
             'exponent_byte': node.exponent_byte, 'field_id': spec.field_id if spec else None,
+            'declared_array': spec.is_array if spec else None,
             'text': None, 'status': 'unbound_metadata', 'editable': False}
     if spec is None or spec.kind != node.kind_byte:
         return fact
@@ -218,6 +254,9 @@ def _inspect(request):
             'formset_id': fsid, 'form_id': _text(form.header.identifier),
             'file_copy': form.header.file_copy, 'fields': facts,
             'tables': len(form.tables), 'children': len(form.children),
+            'table_headers': [{'identifier': _text(t.identifier), 'table_kind': t.table_kind,
+                'first_field_ordinal': t.word28, 'last_field_ordinal': t.word2a,
+                'saved_last_used_record_index': t.last_used_record_index} for t in form.tables],
             'links': [{'form_id': _text(link.form_id), 'file_copy': link.file_copy,
                        'field_id': _text(link.field_id), 'element': link.element_index,
                        'resolved': link.resolved} for link in form.links]})
@@ -237,6 +276,10 @@ def _inspect(request):
                     if name == 'F1099I' else tuple((box, field, prep.BOX_KEYS[box]) for box, field in wire.BOX_FIELDS))
         named = {}
         for fact in facts:
+            # Repeated array elements are retained as indexed source values.
+            # They are not competing scalar income facts and are not imported.
+            if fact['declared_array']:
+                continue
             if fact['field_id'] in named:
                 raise ValueError('Ambiguous repeated scalar field in the binary source.')
             if fact['field_id']:
@@ -293,6 +336,7 @@ def _inspect(request):
         'tax_year': 2025, 'source_sha256': source_hash, 'wire_profile_sha256': profile_hash,
         'root_qname_bound': True, 'candidates': candidates, 'unresolved_facts': unresolved,
         'setup_candidates': setup_candidates,
+        'registry_binding': registry.binding_report,
         'tax_values_imported': False, 'full_return_imported': False,
         'original_program_acceptance_verified': False,
         'binary_archive': {'forms': archive_forms, 'formsets': len(document.formsets),

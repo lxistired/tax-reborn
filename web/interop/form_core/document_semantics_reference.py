@@ -65,7 +65,8 @@ def document_semantic_snapshot(doc):
   return {'header':_plain(f.header),'serialized_header_wire':_header_wire(f),
    'table_id':f.table_id,'hash':hash_semantic_snapshot(f.hash_state),
    'strings':string_table_semantic_snapshot(f.string_table),
-   'tables':[{'identifier':t.identifier.hex(),'word28':t.word28,'word2a':t.word2a} for t in f.tables],
+   'tables':[{'identifier':t.identifier.hex(),'word28':t.word28,'word2a':t.word2a,
+              'table_kind':t.table_kind,'last_used_record_index':t.last_used_record_index} for t in f.tables],
    'children':[form(ch) for ch in f.children],'links':[_link(l) for l in f.links]}
  return {'entity_header':_plain(doc.entity_header),
   'formsets':[{'header':_plain(fs.header),'forms':[form(f) for f in fs.forms]} for fs in doc.formsets]}

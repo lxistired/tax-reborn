@@ -15,13 +15,34 @@ The nested sample has a nonempty E1 table header, a child form and four forward/
 | Area | Implemented behavior | Boundary |
 |---|---|---|
 | Document | C0 entity, multiple DC formsets, C7/C8 indices and ordinary form records | Platform 7, schema 18, release-format95–100, swap disabled, unstreamed values, explicit template versions |
-| Nonempty records | E0/E1 headers, recursive C8 children, D7 descriptors, forward/back links and per-form string IDs | Native table callbacks/controller execution remain unobserved. The independent nonempty-table writer follows recovered reader grammar; current native StoreTables itself writes empty E0. |
+| Nonempty records | E0/E1 base headers or explicitly declared derived `ValueTable` headers, recursive C8 children, D7 descriptors, forward/back links and per-form string IDs | Existing indexed values and the derived table's saved last-used record index are preserved. Runtime row allocation, persistent-record UUID objects, row insertion/deletion and native row rebuilding remain unsupported. |
 | Values | 23-byte nodes, raw64, separate FV presence/override/computed attributes and linked indices | Unknown types remain raw or are refused. Numeric kinds11/12 use separately verified scales. |
 | Capacity | 16,000 hash buckets;2,700 nodes per runtime buffer; multiple buffers;65,535 string slots in16,250-slot blocks; multiple chunks;65,000-byte compression frames | Independent safety budgets; no universal legacy/compact/swap/other-compressor support |
 | Source editing | Immutable original, selected numeric edits and complete supported-structure readback | Does not run the original engine or refresh derived source totals. Unknown serialized facts that cannot be retained stop export. |
 | Income | Bound W-2,1099-INT and1099-DIV records enter the actual App after review | Unknown present tax facts block additions. No ownership or complete-return inference. |
 
 Stream scalars are big-endian; packed nodes and index arrays are little-endian. Source, profile and registry identities are checked separately. Compression and string packing may normalize storage. Semantic readback is not universal byte parity.
+
+The ordinary native value-form factory builds a derived value table. Its table
+reader consumes an additional unsigned16 saved-record boundary for Entity schema
+13 or newer; its current writer writes that boundary after the base header.
+The v3 profile requires an explicit per-form `table_factories` declaration; the
+v1/v2 base-E1 profiles continue to refuse this extra data. Entity schema alone
+does not identify the table class: the native form factory selects it. The new
+indexed-table sample retains a used amount, a present zero, an unused nonzero
+payload, a derived table boundary, one child form and four links during a scalar
+source correction. The editor shows the boundary and indexed values as read
+only. Unknown present array values block income additions. This does not create
+native runtime records, persistent UUID objects or recalculate the boundary.
+The original schema comes from the C0 header; it is separate from the tax year
+and release number.
+
+Profiles v2/v3 also bind the exact priority order of multiple registry files.
+Metadata version selection and visible/hidden field origins are resolved before
+loading stored field ordinals. The profile's template checksum remains supplied
+by the caller; it is not inferred from the wire or replaced by a metadata version.
+The App shows each field block's source identity and retains all selected files
+for reopening. No original registry data is bundled with the App.
 
 ## Reproduce
 

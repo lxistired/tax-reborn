@@ -13,8 +13,13 @@
   if(!Array.isArray(registryFiles)||!registryFiles.length||registryFiles.length>8)throw Error('Choose 1 to 8 caller-owned XPRF registry files.');
   if(acknowledged!==true)throw Error('Review and acknowledge the selected wire profile before inspection.');
   let profile;try{profile=JSON.parse(await profileFile.text());}catch{throw Error('The selected wire profile is not valid JSON.');}
-  const carriers=[];
+  let carriers=[];
   for(const carrier of registryFiles){if(!(carrier instanceof Blob)||!carrier.size||carrier.size>32*1024*1024)throw Error('Choose registry files smaller than 32 MB each.');const bytes=new Uint8Array(await carrier.arrayBuffer());carriers.push({base64:encoded(bytes),sha256:await hash(bytes)});}
+  if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3'].includes(profile.format)){
+   const order=profile.registry_order,byHash=new Map(carriers.map(item=>[item.sha256,item]));
+   if(!Array.isArray(order)||order.length!==carriers.length||new Set(order).size!==order.length||byHash.size!==carriers.length||order.some(identity=>typeof identity!=='string'||!byHash.has(identity)))throw Error('The profile must bind every selected registry exactly once, in its explicit order.');
+   carriers=order.map(identity=>byHash.get(identity));
+  }
   const bytes=new Uint8Array(await file.arrayBuffer());
   const request={base64:encoded(bytes),container,profile,carriers,profile_acknowledged:acknowledged};
   const result=await window.taxLocalEngine('taxml_inspect',request);

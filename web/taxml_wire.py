@@ -117,9 +117,36 @@ class Template:
     fields: tuple
 
 
+def read_xprf_resources(data, expected_sha):
+    """Validate an entire caller-owned ordinary XPRF directory before use."""
+    if not isinstance(data, bytes) or len(data) < 16 or len(data) > 128 * 1024 * 1024:
+        raise WireError("xprf_size_or_type")
+    if not isinstance(expected_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
+        raise WireError("carrier_identity_required")
+    if digest(data) != expected_sha:
+        raise WireError("carrier_identity_mismatch")
+    if data[:10] != b"XPRF\0\1\x10\x0c\x0a\0":
+        raise WireError("unsupported_xprf_profile")
+    count = struct.unpack_from("<I", data, 12)[0]
+    end = 16 + 12 * count
+    if count > 100000 or end > len(data):
+        raise WireError("xprf_directory_bound")
+    records = {}
+    for i in range(count):
+        typ, rid, offset, size = struct.unpack_from("<HHII", data, 16 + 12 * i)
+        if (typ, rid) in records or size < 10 or offset < end or offset + size > len(data):
+            raise WireError("xprf_record_bound_or_duplicate")
+        record = data[offset:offset + size]
+        if struct.unpack_from("<IIH", record) != (size, size - 10, 0):
+            raise WireError("xprf_record_header")
+        records[typ, rid] = record[10:]
+    return records
+
+
 class Registry:
     def __init__(self, templates=()):
         self.entries = {}
+        self.binding_report = None
         for template in templates:
             if len({f.field_id for f in template.fields}) != len(template.fields):
                 raise WireError("ambiguous_field_dictionary", template.form_id)
@@ -144,27 +171,7 @@ class Registry:
         """
         templates = []
         for data, expected_sha in carriers:
-            if not isinstance(data, bytes) or len(data) < 16 or len(data) > 128 * 1024 * 1024:
-                raise WireError("xprf_size_or_type")
-            if not isinstance(expected_sha, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_sha):
-                raise WireError("carrier_identity_required")
-            if digest(data) != expected_sha:
-                raise WireError("carrier_identity_mismatch")
-            if data[:10] != b"XPRF\0\1\x10\x0c\x0a\0":
-                raise WireError("unsupported_xprf_profile")
-            count = struct.unpack_from("<I", data, 12)[0]
-            end = 16 + 12 * count
-            if count > 100000 or end > len(data):
-                raise WireError("xprf_directory_bound")
-            records = {}
-            for i in range(count):
-                typ, rid, offset, size = struct.unpack_from("<HHII", data, 16 + 12 * i)
-                if (typ, rid) in records or size < 10 or offset < end or offset + size > len(data):
-                    raise WireError("xprf_record_bound_or_duplicate")
-                record = data[offset:offset + size]
-                if struct.unpack_from("<IIH", record) != (size, size - 10, 0):
-                    raise WireError("xprf_record_header")
-                records[typ, rid] = record[10:]
+            records = read_xprf_resources(data, expected_sha)
             for (typ, rid), body in records.items():
                 if typ != 18000:
                     continue
@@ -208,6 +215,22 @@ class Registry:
                         fields.append(Field(name, len(fields) + 1, kind, fmt, attrs, hidden))
                 templates.append(Template(strings[1], strings[0], expected_sha, rid, tuple(fields)))
         return cls(templates)
+
+    @classmethod
+    def from_effective_xprf(cls, carriers, selected):
+        """Explicit ordered modern registration; a supplied checksum stays external.
+
+        Complete caller-owned carrier bytes are verified here, before the
+        independent selector sees any resource. Selected identities must match
+        real effective ID primaries. Legacy single-RID selection is separate.
+        """
+        from interop.form_core.effective_wire_bridge_reference import build_effective_templates
+        complete = [(sha, read_xprf_resources(data, sha)) for data, sha in carriers]
+        templates, report = build_effective_templates(complete, selected,
+            field_factory=Field, template_factory=Template)
+        result = cls(templates)
+        result.binding_report = report
+        return result
 
 
 def decode_flags(attributes):

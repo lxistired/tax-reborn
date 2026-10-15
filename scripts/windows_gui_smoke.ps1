@@ -2,7 +2,8 @@ param(
     [Parameter(Mandatory=$true)][string]$Executable,
     [Parameter(Mandatory=$true)][string]$OutputDir,
     [Parameter(Mandatory=$true)][string]$DataDir,
-    [switch]$MixedOnly
+    [switch]$MixedOnly,
+    [switch]$EffectiveRegistry
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -575,7 +576,17 @@ try {
     Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
     Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
     Click-Observed (Wait-Named 'Try independently generated binary samples')
-    Click-Observed (Wait-Named 'Load binary income sample')
+    $binaryOptions=@()
+    if($EffectiveRegistry) {
+        $binaryOptions=@('--effective-registry','--value-table')
+        Click-Observed (Wait-Named 'Load income sample with two registries')
+        Click-Observed (Wait-Named 'Selected registry sources')
+        $effectiveProfile=Get-Content 'fixtures/binary-tax/merged-profile.json' -Raw | ConvertFrom-Json
+        Wait-Named ('Visible fields · '+$effectiveProfile.registry_order[0].Substring(0,12)+' · resource 1') | Out-Null
+        Wait-Named ('Hidden fields · '+$effectiveProfile.registry_order[1].Substring(0,12)+' · resource 1') | Out-Null
+        Save-Screenshot 'windows-native-effective-registry-sources.png'
+        Click-Observed (Wait-Named 'Selected registry sources')
+    } else { Click-Observed (Wait-Named 'Load binary income sample') }
     foreach($label in @('W-2','1099-INT','1099-DIV')) {
         Click-Observed (Wait-Named ('Review '+$label+' candidate'))
         if($label -eq 'W-2') {
@@ -597,20 +608,35 @@ try {
     Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
     Close-App; Launch-App; Wait-Named '$344' 120 $false | Out-Null
     Save-Screenshot 'windows-native-binary-income-reopened-344.png'
-    python scripts/verify_binary_native.py --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-binary-income-readback.json')
+    python scripts/verify_binary_native.py @binaryOptions --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-binary-income-readback.json')
     if($LASTEXITCODE -ne 0) { throw 'Saved binary income and source receipts failed readback' }
     Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
-    Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load nested binary sample')
+    Click-Observed (Wait-Named 'Try independently generated binary samples')
+    if($EffectiveRegistry) {
+        Click-Observed (Wait-Named 'Load source with indexed table values')
+        Wait-Named 'Income additions are blocked by 2 unresolved source facts. Filing-status setup is checked separately.' | Out-Null
+    }
+    else { Click-Observed (Wait-Named 'Load nested binary sample') }
     Click-Observed (Wait-Named 'Inspect / edit binary fields')
+    if($EffectiveRegistry) {
+        Wait-Named 'value_table · fields 12–12 · saved last-used record 3' | Out-Null
+        Wait-Named 'OWNED_AMOUNT [3]' 90 $false | Out-Null
+        Save-Screenshot 'windows-native-derived-table-boundary-and-values.png'
+    }
     Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
     Click-Observed (Wait-Named 'Confirm binary source corrections'); Click-Observed (Wait-Named 'Download corrected binary')
     $binaryCopy=Join-Path $OutputDir 'windows-native-nested-corrected.taxbin'; Save-Native-Export $binaryCopy 100
     Save-Screenshot 'windows-native-binary-structures-exported.png'
     Click-Observed (Wait-Named 'Close dialog'); Close-App
-    python scripts/verify_binary_native.py --data-dir $DataDir --corrected-binary $binaryCopy --output (Join-Path $OutputDir 'windows-native-binary-final-readback.json')
+    python scripts/verify_binary_native.py @binaryOptions --data-dir $DataDir --corrected-binary $binaryCopy --output (Join-Path $OutputDir 'windows-native-binary-final-readback.json')
     if($LASTEXITCODE -ne 0) { throw 'System-saved full binary correction failed independent structure readback' }
     Launch-App; Wait-Named '$344' 120 $false | Out-Null
     $receipt.native_binary_income_and_recursive_source_passed=$true
+    if($EffectiveRegistry) {
+        $receipt.native_effective_registry_passed=$true
+        $receipt.native_derived_value_table_preservation_passed=$true
+        $checks.Add('Ordered two-carrier field selection preserved visible/hidden sources; reviewed income344 saved and cold-reopened; actual system binary export retained nested tables/child/links with complete readback.')
+    }
     $checks.Add('Binary income decoded, three forms reviewed, real344 USD recalculated and saved/relaunched; system-saved nested binary edit retained child/table/link/other facts by independent readback.')
 
     Remove-Item Env:TAX_REBORN_OWNED_DATADIR

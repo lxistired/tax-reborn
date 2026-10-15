@@ -1,0 +1,439 @@
+{
+  "checksum_inferred_from_wire": false,
+  "membership": [
+    {
+      "forms": [
+        {
+          "form_id": "F1099D",
+          "homes": [
+            {
+              "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+              "metadata_payload_sha256": "7dd3f8e1681b59e49fa1b9cdbc948bc0c68fd216854aaf4fd2e9441459c83419",
+              "metadata_type": 18000,
+              "resource_id": 3
+            }
+          ],
+          "primary": {
+            "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+            "metadata_payload_sha256": "7dd3f8e1681b59e49fa1b9cdbc948bc0c68fd216854aaf4fd2e9441459c83419",
+            "metadata_type": 18000,
+            "resource_id": 3
+          },
+          "selection_version": 1
+        },
+        {
+          "form_id": "F1099I",
+          "homes": [
+            {
+              "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+              "metadata_payload_sha256": "cb59972d81db24a02c5d2ca23d78a7ac4140e0c1d4967bb06fd3168ca4b2f666",
+              "metadata_type": 18000,
+              "resource_id": 2
+            }
+          ],
+          "primary": {
+            "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+            "metadata_payload_sha256": "cb59972d81db24a02c5d2ca23d78a7ac4140e0c1d4967bb06fd3168ca4b2f666",
+            "metadata_type": 18000,
+            "resource_id": 2
+          },
+          "selection_version": 1
+        },
+        {
+          "form_id": "FW2",
+          "homes": [
+            {
+              "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+              "metadata_payload_sha256": "03ff2c712a688ac6fe4c0620bed1da4cb809a3f47f78ba6fc866f8effe8cfeb8",
+              "metadata_type": 18000,
+              "resource_id": 1
+            },
+            {
+              "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+              "metadata_payload_sha256": "449e6f2e0c14526f873aa16afb0c81f63628596e17d93719aceb732c4398bc07",
+              "metadata_type": 18000,
+              "resource_id": 1
+            },
+            {
+              "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+              "metadata_payload_sha256": "449e6f2e0c14526f873aa16afb0c81f63628596e17d93719aceb732c4398bc07",
+              "metadata_type": 18001,
+              "resource_id": 1
+            }
+          ],
+          "primary": {
+            "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+            "metadata_payload_sha256": "03ff2c712a688ac6fe4c0620bed1da4cb809a3f47f78ba6fc866f8effe8cfeb8",
+            "metadata_type": 18000,
+            "resource_id": 1
+          },
+          "selection_version": 1
+        },
+        {
+          "form_id": "OWNED_UNUSED",
+          "homes": [
+            {
+              "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+              "metadata_payload_sha256": "45b824dd051ffff7325a745d509c191f758e63e20c963e4a5211896b53d5d444",
+              "metadata_type": 18000,
+              "resource_id": 2
+            }
+          ],
+          "primary": {
+            "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+            "metadata_payload_sha256": "45b824dd051ffff7325a745d509c191f758e63e20c963e4a5211896b53d5d444",
+            "metadata_type": 18000,
+            "resource_id": 2
+          },
+          "selection_version": 2
+        }
+      ],
+      "formset_id": "OWNED2025MERGED",
+      "homes": [],
+      "primary": null,
+      "selection_version": 1
+    }
+  ],
+  "native_current_registry_verified": false,
+  "original_execution_count": 0,
+  "registry_order": [
+    "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+    "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b"
+  ],
+  "selected_templates": [
+    {
+      "fields": [
+        {
+          "declared_attributes_u32": 4,
+          "field_id": "NAME",
+          "format": 0,
+          "hidden": false,
+          "kind": 7,
+          "ordinal": 1,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 1,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1900,
+          "source_row_sha256": "fc720b59f6bba31417cf28f4672103bc73f59fb867c9fbfae740094bbce53d4c"
+        },
+        {
+          "declared_attributes_u32": 4,
+          "field_id": "CA",
+          "format": 0,
+          "hidden": false,
+          "kind": 7,
+          "ordinal": 2,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 2,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1900,
+          "source_row_sha256": "196df8226a2ad8b5e6c1454c671bd7cd6dbc577eb4c9038cc5a8c481ebb736d7"
+        },
+        {
+          "declared_attributes_u32": 4,
+          "field_id": "CA2",
+          "format": 0,
+          "hidden": false,
+          "kind": 7,
+          "ordinal": 3,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 3,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1900,
+          "source_row_sha256": "8584e4478df47d043216ac248c4a62f3edb86a0770b4e540402626e5c28cebf8"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "WAGES",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 4,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 4,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1900,
+          "source_row_sha256": "2f528e4a2bd33e19c3f0940f2b3b5598b3c0d2c9a7901c7240c3097018d4c7bc"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "FEDTAX",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 5,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 1,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "0df58ed691befb62402d1fa42079cd8242ace3d33f4e507491635f0fd51c324d"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "SSWAGES",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 6,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 2,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "65d3be73e27ebec9cb09d651e9c83b247b4419361dc30489e2937f57e1d6301f"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "SSTAX",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 7,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 3,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "ea20d3772d8d3110e1db4a5b48aaf06d0613c07e3a02ceb8b14f5d241eec76b4"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "MEDWAGES",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 8,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 4,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "c1d8f91dfe218ea9b648bcaf1e163d7f2b7d8b45c7176dd8fd61497de845f358"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "MEDTAX",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 9,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 5,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "2ca4dd5c6f3854bd9f381ad1fbcb5d6d88fe53acbd52395414608cfb157a0027"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "SSTIPS",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 10,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 6,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "420021b9ae742a5c0064ca9f20f0dc9b38f4af03d95d431aef93e3622891e4f9"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "DCB",
+          "format": 0,
+          "hidden": true,
+          "kind": 11,
+          "ordinal": 11,
+          "source_carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+          "source_dictionary_ordinal": 7,
+          "source_metadata_type": 18000,
+          "source_resource_id": 1,
+          "source_resource_type": 1901,
+          "source_row_sha256": "207c97c6b587dde3f76cb8d8b132c44230b772fcf44af219a74d3703deb06722"
+        }
+      ],
+      "form_id": "FW2",
+      "formset_id": "OWNED2025MERGED",
+      "primary": {
+        "carrier_sha256": "ce9377f36c396815c9ab9e13c5b08eb74e4453a3da26101a87a91a8ac803510b",
+        "metadata_payload_sha256": "03ff2c712a688ac6fe4c0620bed1da4cb809a3f47f78ba6fc866f8effe8cfeb8",
+        "metadata_type": 18000,
+        "resource_id": 1
+      },
+      "selection_version": 1
+    },
+    {
+      "fields": [
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L1",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 1,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 1,
+          "source_metadata_type": 18000,
+          "source_resource_id": 2,
+          "source_resource_type": 1900,
+          "source_row_sha256": "8596c8b0e2f1cb19cb2e4cf30e0fa356474a8eb18e970b73c6f7196d0b93bc93"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L3",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 2,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 2,
+          "source_metadata_type": 18000,
+          "source_resource_id": 2,
+          "source_resource_type": 1900,
+          "source_row_sha256": "78cc0419797d9db85bb764a319916b356e9763bb0856520eb9b234e361b3d50c"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "EXINT",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 3,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 3,
+          "source_metadata_type": 18000,
+          "source_resource_id": 2,
+          "source_resource_type": 1900,
+          "source_row_sha256": "29a1808218db2922e49059c809bc403fbabb5b3a14778f9ec213318f8e28bc71"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L4",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 4,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 4,
+          "source_metadata_type": 18000,
+          "source_resource_id": 2,
+          "source_resource_type": 1900,
+          "source_row_sha256": "48af0ba23dacd976db47799e092f6e7eb6cca61127ed7cecfc294761ce175fe3"
+        }
+      ],
+      "form_id": "F1099I",
+      "formset_id": "OWNED2025MERGED",
+      "primary": {
+        "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+        "metadata_payload_sha256": "cb59972d81db24a02c5d2ca23d78a7ac4140e0c1d4967bb06fd3168ca4b2f666",
+        "metadata_type": 18000,
+        "resource_id": 2
+      },
+      "selection_version": 1
+    },
+    {
+      "fields": [
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L1B",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 1,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 1,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "1eb5722282db59869751e3567340ec4c9f64893c562750851587a8d7c8b137fa"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "QDIV",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 2,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 2,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "ae7c4ea246b5d84c14fc64a9e1516d3564fa267dfb88ecdf1261c3fcaa529874"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L1C",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 3,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 3,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "ee6ef44025d25b3ae633286750ad65a53a4df5c7c50394c67ed383d9da6c80b4"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L2C",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 4,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 4,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "221cddf3e7b5e2cb3934a5f30bbb1fade006fa6b1f6329080de315ce8ec8b330"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L1CTX",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 5,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 5,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "fd9190a78edc9fa831d8ce9ad94c88896601f3a7ad63e50a438808ecd6363cbf"
+        },
+        {
+          "declared_attributes_u32": 132,
+          "field_id": "L2",
+          "format": 0,
+          "hidden": false,
+          "kind": 11,
+          "ordinal": 6,
+          "source_carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+          "source_dictionary_ordinal": 6,
+          "source_metadata_type": 18000,
+          "source_resource_id": 3,
+          "source_resource_type": 1900,
+          "source_row_sha256": "fe148e393c6d5b8bdee6cc545e0dc27608cea8b02d8e4256507c5178493f8a2d"
+        }
+      ],
+      "form_id": "F1099D",
+      "formset_id": "OWNED2025MERGED",
+      "primary": {
+        "carrier_sha256": "a9f0bc9c64e6ec1b9ca101f171d13504a3141439f8f811533fbd6cb4e6c769f2",
+        "metadata_payload_sha256": "7dd3f8e1681b59e49fa1b9cdbc948bc0c68fd216854aaf4fd2e9441459c83419",
+        "metadata_type": 18000,
+        "resource_id": 3
+      },
+      "selection_version": 1
+    }
+  ],
+  "source": "explicit prepared effective registry; carrier identity verification belongs to caller"
+}
