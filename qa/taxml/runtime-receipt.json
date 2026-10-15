@@ -57,5 +57,5 @@
   "federal_can_prepare": false,
   "all_income_reported": false,
   "no_original_tax_roundtrip_claim": true,
-  "worker_source_sha256": "3351b953d07a6aef921fd4ba8193759e243279907078516e706b400d0cb3c387"
+  "worker_source_sha256": "0f2fec7f5eae593ea41f9d9e3c65cd77e1725dab00b3c7820aadc416a7fd97d2"
 }
