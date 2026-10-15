@@ -38,7 +38,39 @@ public final class MainActivity extends Activity {
         transfers=getSharedPreferences("local_transfers",MODE_PRIVATE);
         restoreTransfers(state);
         view = new WebView(this);
-        setContentView(view);
+        android.widget.FrameLayout content = new android.widget.FrameLayout(this);
+        content.setBackgroundColor(android.graphics.Color.WHITE);
+        content.addView(view,new android.widget.FrameLayout.LayoutParams(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT));
+        if(android.os.Build.VERSION.SDK_INT>=30){
+            // Target35 enforces edge-to-edge on Android15. Keep the WebView's
+            // tappable header/footer outside system bars, cutouts and the IME.
+            // https://developer.android.com/develop/ui/views/layout/edge-to-edge
+            getWindow().setDecorFitsSystemWindows(false);
+            content.setOnApplyWindowInsetsListener((root,insets)->{
+                android.graphics.Insets bars=insets.getInsets(
+                    android.view.WindowInsets.Type.systemBars()|
+                    android.view.WindowInsets.Type.displayCutout());
+                android.graphics.Insets keyboard=insets.getInsets(android.view.WindowInsets.Type.ime());
+                root.setPadding(bars.left,bars.top,bars.right,Math.max(bars.bottom,keyboard.bottom));
+                return android.view.WindowInsets.CONSUMED;
+            });
+        }else{
+            content.setFitsSystemWindows(true);
+        }
+        setContentView(content);
+        content.post(()->{
+            if(android.os.Build.VERSION.SDK_INT>=30){
+                android.view.WindowInsetsController controller=getWindow().getInsetsController();
+                if(controller!=null){
+                    int light=android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS|
+                        android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
+                    controller.setSystemBarsAppearance(light,light);
+                }
+            }
+            content.requestApplyInsets();
+        });
         WebSettings settings = view.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
