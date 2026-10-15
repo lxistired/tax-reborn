@@ -1,0 +1,14 @@
+{
+  "checked_at_utc": "2026-10-15T02:17Z",
+  "successful": true,
+  "native_Python": {
+    "tests": 601,
+    "failures": 0,
+    "errors": 0,
+    "elapsed_seconds": 67.908
+  },
+  "binary_core_acceptance_cases_included": 9,
+  "original_runtime_executions": 0,
+  "original_saved_tax_fixtures": 0,
+  "scope": "Full host source tests including HTTP/SQLite; new independent binary core tests use authored bytebuffers, not original saved returns."
+}

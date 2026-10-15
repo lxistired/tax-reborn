@@ -1,0 +1,41 @@
+{
+  "recorded_at_utc": "2026-10-15T02:16Z",
+  "original_byte_contracts_independently_reviewed": {
+    "compression": "Independent mode4 output matches one installed resource payload exactly (3161 decoded bytes,403 compressed bytes). F0 framing and generated CRC table verified. This is one resource/profile, not universal encoder equality or a saved .tax fixture.",
+    "serialization": "Actual compaction/access/table ID repair, C4/CB headers, C9 relative index, modern wide/noncompact ValueHash with23byte nodes and F0 compressed StringTable. One independently authored bytebuffer is read without writer-sidecar, edited/written/read again. Subtables/children/links/outercontainer and original saved-return acceptance remain in progress.",
+    "field_ownership": "Windows normal successful FormSet creation selects the ordinary scalar-write class; original registration inserts that same Form pointer into two containers. ID key comparison is exact32 raw bytes plus unsigned copy number. Alternate cached classes and deeper initialization branches remain open.",
+    "calculation": "Actual current-input cache query replaces one supplied callback in a bounded payment-voucher dependency replay. Typed cache and instance-vector cache have distinct semantics; scalar reads do not populate the instance vector. Mapping, rendering, original transaction order and global invalidation remain explicit gaps. Hidden PR1040 and __POR__ fields are integer kind10; a Boolean supplier callback does not establish their native conversion.",
+    "node_dispatch": "Original RTTI/slots, three constructors and actual Calculated/Input/Constant node dispatch bodies bound. Actual evaluators, converters and native dependency execution remain open."
+  },
+  "source_profile_only": true,
+  "StringTable_compressed_F0_recovered": true,
+  "native_compressor_exactness": "one installed resource/profile",
+  "complete_original_tax_compatibility": false,
+  "original_runtime_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "vendor_binaries_resources_decompiler_outputs_kept_private": true,
+  "App_tax_scope_not_expanded_by_static_evidence": true,
+  "public_installer_release_changed": false,
+  "latest_public_release": "2026.10.14-preview.12",
+  "Preview20_release_gate": "physical Android install/data retention/native UI not verified; no upload or full-release claim",
+  "independent_component": {
+    "path": "interop/form_core",
+    "single_byte_buffer_reader": true,
+    "value_hash_is_no_longer_prepared_opaque_bytes": true,
+    "runtime_modules": 7,
+    "native_Python_acceptance_cases": 9,
+    "real_Pyodide_acceptance_cases": 9,
+    "profile": "modern18+/wide/noncompact/BEscalars/LEnodes-and-index/swapfalse/one64nodebuffer/128buckets/one512byteStringTable64handles",
+    "included_in_installers": false,
+    "whole_form_compatibility": false
+  },
+  "regression": {
+    "native_host_tests_passed": 601,
+    "Pyodide_tests_run": 505,
+    "Pyodide_tests_executed": 504,
+    "Pyodide_tests_skipped": 1,
+    "failures": 0,
+    "errors": 0,
+    "new_binary_core_tests_included": 9
+  }
+}
