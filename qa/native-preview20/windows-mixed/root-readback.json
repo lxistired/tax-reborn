@@ -1,0 +1,86 @@
+{
+  "checked_at_utc": "2026-10-15T01:13:47.230271+00:00",
+  "existing_package_build_run": 38658225018,
+  "actual_native_GUI_run": 38664116326,
+  "existing_package_Setup_hash_verified": true,
+  "installed_executable_hash_matches_previous_package": true,
+  "source_test_commit": "0d934cc8dc6ec1cc7561a36940758fede6ab30a0",
+  "application_production_commit": "aba516074eee9ff4501832a2747da8692e8a995f",
+  "root_XML_byte_readback_passed": true,
+  "XML_after_normal_App_close_verified": true,
+  "actual_downloaded_XML_sha256": "92c66497790fec09d7fa3738282ce4e1304bfa6711262042ac7702ff65c4e3e2",
+  "native_reopened_screenshot_visually_checked": true,
+  "prior_attempts": [
+    {
+      "run": 38662991989,
+      "state": "failure",
+      "reason": "Native picker supplied2registries instead of3; source identity guard refused import. Test helper corrected folder/basenames and3files readback before inspection.",
+      "App_closed_unexpectedly": false
+    },
+    {
+      "run": 38663429146,
+      "state": "success",
+      "XML_after_App_close_separately_tested": false
+    }
+  ],
+  "artifact_files": [
+    {
+      "name": "windows-native-mixed-three-forms-added.png",
+      "bytes": 110841,
+      "sha256": "32c1a5ff10d9af59985791f5ba721ceffff3d1bd742d8f844244c9d862589b3b"
+    },
+    {
+      "name": "windows-native-gui-smoke.json",
+      "bytes": 861,
+      "sha256": "6b8a450bb407a0a5594d08448d6826101fb88e728ce886273d82db3d49e6e1b5"
+    },
+    {
+      "name": "existing-package-receipt.json",
+      "bytes": 310,
+      "sha256": "3f3d11ab7e47b22e204b6116418e2a4b5a1b4bd86c0f67fe428ab90324bdc8be"
+    },
+    {
+      "name": "windows-native-mixed-selected-corrected.xml",
+      "bytes": 2081,
+      "sha256": "92c66497790fec09d7fa3738282ce4e1304bfa6711262042ac7702ff65c4e3e2"
+    },
+    {
+      "name": "windows-native-mixed-durable-export-readback.json",
+      "bytes": 3443,
+      "sha256": "850b7ec09865413db59f1b4712bf4fad9db81fc421d8424bf66e9cd2b7f14c6d"
+    },
+    {
+      "name": "windows-native-mixed-readback.json",
+      "bytes": 475,
+      "sha256": "9c06973bfa77f786e0e4593cedb6bbc3bfd179814316004652c6a88787b8b299"
+    },
+    {
+      "name": "windows-native-mixed-duplicate-corrected.png",
+      "bytes": 109857,
+      "sha256": "fc3737b9c815cb16067002502ebbb0988236e83cafd1d78d9c292a01346e7b53"
+    },
+    {
+      "name": "windows-native-mixed-reopened-344.png",
+      "bytes": 58489,
+      "sha256": "f6f1b56343058597824738a24cd917bd0065ca84c43d70e14ea22d3278e45ecf"
+    },
+    {
+      "name": "windows-native-initial.png",
+      "bytes": 54351,
+      "sha256": "11f047c808ba976b2a2a1fd9f32cc08d3f7af9be67c10ac92a22cb530e881730"
+    },
+    {
+      "name": "windows-native-mixed-final-readback.json",
+      "bytes": 3443,
+      "sha256": "850b7ec09865413db59f1b4712bf4fad9db81fc421d8424bf66e9cd2b7f14c6d"
+    },
+    {
+      "name": "windows-native-PDF-save-as.png",
+      "bytes": 26916,
+      "sha256": "425cffebd79c4dda41fa1b934e83d650e4d1cc6a88f1754e5befe04a3abcfac3"
+    }
+  ],
+  "original_TurboTax_execution_count": 0,
+  "original_saved_tax_fixtures": 0,
+  "release_published": false
+}

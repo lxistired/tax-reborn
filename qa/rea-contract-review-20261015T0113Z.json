@@ -1,0 +1,16 @@
+{
+  "checked_at_utc": "2026-10-15T01:13:47.230494+00:00",
+  "original_byte_contracts_independently_reviewed": {
+    "strings": "Registry creation, first write, conditional default table registration, and actual version2/raw0f StringTable wire. Metadata big endian, record handles/slots little endian; load clears old state and valid handles remain usable with live counter0. Higher file caller, v1 and F0 still open.",
+    "calculation": "Original status-class field producer, installed routing/account/date diagnostics and complete197edge compiled local dependency wire. Eight-section existing IAT transitions replayed in both directions; current owner feedback also keeps normal FV1 vs override FV9 distinct. Actual UI edit attributes and global order remain unproven.",
+    "execution": "Actual CSC pop to concrete CalcEngineMgr owner and callback bridge bound to original PE bytes and RTTI. Complete retained over10MiB REA facets checked. 7b81a0 is a4-byte config setter, not execution; actual node evaluation and typed output writeback remain active."
+  },
+  "independent_authored_StringTable_real_byte_roundtrip": true,
+  "source_profile_only": true,
+  "StringTable_compressed_F0_recovered": false,
+  "complete_original_tax_compatibility": false,
+  "original_runtime_executions": 0,
+  "validated_original_saved_tax_fixtures": 0,
+  "vendor_binaries_resources_decompiler_outputs_kept_private": true,
+  "App_tax_scope_not_expanded_by_static_evidence": true
+}

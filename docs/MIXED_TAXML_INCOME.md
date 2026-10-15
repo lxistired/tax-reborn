@@ -58,7 +58,16 @@ acceptance and public downloads are recorded separately in
 [candidate20 acceptance](../qa/native-preview20/candidate-acceptance-state.json).
 Windows Setup installation,21 frozen checks and23 existing native GUI checks
 pass. Its actual installed JS/Pyodide worker passes the new mixed-income flow;
-the Windows mixed-form GUI has not been separately exercised. Android retains
+the same existing Preview20 package now also passes the separate actual native
+[mixed-form GUI run](https://github.com/lxistired/tax-reborn/actions/runs/38664116326).
+Three XPRF registries are selected through the system Open dialog, all three
+income candidates are individually reviewed, and saved source paths/amounts
+survive normal close/relaunch. A repeated add is refused, and system Save As
+exports byte-exact selected interest corrections while W-2/DIV and the saved
+draft remain unchanged. The exported file also survives normal App close.
+See [root readback](../qa/native-preview20/windows-mixed/root-readback.json)
+and [actual reopened screenshot](../qa/native-preview20/windows-mixed/windows-native-mixed-reopened-344.png).
+Android retains
 the original signer and its120 extracted assets and actual JS/Pyodide mixed flow
 pass. Its physical installation, data retention and GUI remain pending while
 USB is absent. All four candidate packages are generated and hash-verified;

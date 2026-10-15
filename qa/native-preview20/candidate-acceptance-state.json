@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-15T00:20:19.676899+00:00",
+  "checked_at_utc": "2026-10-15T01:13:47.230015+00:00",
   "version": "2026.10.15-preview.20",
   "production_source_commit": "aba516074eee9ff4501832a2747da8692e8a995f",
   "source_host_tests_passed": 592,
@@ -22,13 +22,22 @@
     "CI_conclusion": "success",
     "generated_in_CI": true,
     "local_artifact_readback_pending": false,
-    "actual_mixed_form_GUI_separately_verified": false,
+    "actual_mixed_form_GUI_separately_verified": true,
     "installed_Setup_verified": true,
     "frozen_checks_passed": 21,
     "native_GUI_checks_passed": 23,
     "actual_installed_JS_Pyodide_mixed_income_passed": true,
     "portable_executable_matches_installed": true,
-    "artifact_hashes_verified": true
+    "artifact_hashes_verified": true,
+    "additional_mixed_GUI_CI_run": 38664116326,
+    "existing_package_rebuilt": false,
+    "system_picker_three_registry_readback": true,
+    "three_income_types_saved_relaunch_passed": true,
+    "repeated_source_import_rejected": true,
+    "selected_XML_system_export_exact": true,
+    "selected_XML_survives_normal_App_close": true,
+    "mixed_GUI_checks_passed": 4,
+    "installed_executable_SHA_matches_previously_tested_package": true
   },
   "Android": {
     "generated": true,
