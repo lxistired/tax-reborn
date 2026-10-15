@@ -34,8 +34,8 @@
   "original_engine_executed": false,
   "native_field_remapping_executed": false,
   "whole_original_tax_compatibility": false,
-  "release_uploaded": false,
-  "public_download_verified": false,
+  "release_uploaded": true,
+  "public_download_verified": true,
   "screenshots": [
     {
       "path": "android-after-complete-export-344.png",
@@ -110,5 +110,9 @@
   "Windows_final_changed_flow_GUI_checks": 9,
   "Windows_installed_frozen_checks": 21,
   "three_final_native_system_exports_identical": true,
-  "Windows_unreachable_source_refused_before_income_review": true
+  "Windows_unreachable_source_refused_before_income_review": true,
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.15-preview.24",
+  "public_assets_verified": 9,
+  "public_complete_download_bytes": 374113237,
+  "public_readback_file": "public-download-readback.json"
 }
