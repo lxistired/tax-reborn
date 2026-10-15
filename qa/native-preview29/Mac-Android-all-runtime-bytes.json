@@ -3,5 +3,6 @@
   "runtime_source_commit": "b9c5105de1d15f314669a20d1257689a23c5be83",
   "all_source_web_files_exact_tested_Mac_and_pulled_installed_Android_APK": 164,
   "total_bytes": 64035141,
-  "Windows_comparison_pending": true
+  "Windows_comparison_pending": false,
+  "completed_three_platform_receipt": "three-platform-all-runtime-bytes.json"
 }

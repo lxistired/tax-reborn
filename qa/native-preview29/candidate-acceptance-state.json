@@ -1,6 +1,6 @@
 {
   "version": "2026.10.15-preview.29",
-  "stage": "three real native changed flows/system exports passed; source ZIP/public release gates pending",
+  "stage": "Published29: all3 native changed flows, exact9 anonymous complete downloads and extracted source actual Chrome/WASM workflows passed",
   "host_tests": 727,
   "actual_Pyodide": {
     "executed": 616,
@@ -14,10 +14,12 @@
   "Windows_new_UI_passed": true,
   "Mac_new_UI_passed": true,
   "Android_same_signer_installed_and_new_UI_passed": true,
-  "published": false,
+  "published": true,
   "original_runtime": 0,
   "original_taxpayer_fixture": 0,
   "native_default_encrypted_file_supported": false,
   "whole_original_tax_compatibility": false,
-  "unmodeled_manifest_metadata_readonly_refusal_actual_UI_and_worker": true
+  "unmodeled_manifest_metadata_readonly_refusal_actual_UI_and_worker": true,
+  "source_archive_full_validation_passed": true,
+  "anonymous_all9_complete_downloads_exact": true
 }
