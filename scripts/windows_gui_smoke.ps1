@@ -705,6 +705,34 @@ try {
     $checks.Add('Native legacy foreign address without selector loaded with fresh readiness and system-exported1040/1040-V packet; stale cached state/ZIP gaps did not block current address.')
     $receipt.native_legacy_foreign_address_migration_passed=$true
     }
+    # Exercise the new setup migration through the installed GUI, not a seeded
+    # return or an injected worker command. Keep it separate from income tests.
+    Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
+    Set-Owned-Edit 'Return name' 'Synthetic Windows22 filing-status migration'
+    Click-Observed (Wait-Named 'Wages & salaries · W-2'); Click-Observed (Wait-Named '+ Add another W-2')
+    Set-Owned-Edit 'Employer name' 'Synthetic Windows22 Employer'
+    Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '60000'
+    Wait-Named '$5,075' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+    Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load filing-status sample')
+    Click-Observed (Wait-Named 'Review filing-status setup')
+    Wait-Named 'FS5 · Qualifying surviving spouse · unused' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Confirm filing-status source and replacement'); Click-Observed (Wait-Named 'Apply reviewed filing status')
+    Wait-Named '$2,946' 120 $false | Out-Null
+    Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' | Out-Null
+    Close-App; Launch-App; Wait-Named '$2,946' 120 $false | Out-Null
+    Click-Observed (Wait-Named 'Reviewed filing-status source history')
+    Save-Screenshot 'windows-native-filing-status-cold-reopen.png'
+    python scripts/verify_setup_native.py --data-dir $DataDir --output (Join-Path $OutputDir 'windows-native-filing-status-readback.json')
+    if($LASTEXITCODE -ne 0) { throw 'Native filing-status source or calculation did not survive normal restart' }
+    Click-Observed (Wait-Named 'View setup source'); Click-Observed (Wait-Named 'Inspect / correct source')
+    Click-Observed (Wait-Named 'Review filing-status setup')
+    Click-Observed (Wait-Named 'Confirm filing-status source and replacement'); Click-Observed (Wait-Named 'Apply reviewed filing status')
+    Wait-Named 'This source already supplied return setup' 120 $false | Out-Null
+    Save-Screenshot 'windows-native-filing-status-duplicate-refused.png'
+    $receipt.native_filing_status_binary_review_passed=$true
+    $checks.Add('Installed binary filing-status review changed Single to MFJ, real tax5075 to2946; saved source history survived cold restart, source/registry reopened and duplicate application was refused.')
     $receipt.native_gui_tested=$true; $receipt.all_passed=$true
 } catch {
     $receipt.error=$_.Exception.Message
