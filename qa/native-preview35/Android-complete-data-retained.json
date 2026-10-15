@@ -1,0 +1,16 @@
+{
+  "at_utc": "2026-10-15T23:49:05.569253+00:00",
+  "actual_before_after_and_normal_reopen_system_backups_equal": true,
+  "bytes": 33114,
+  "sha256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+  "all7_sections": [
+    "format",
+    "id",
+    "data",
+    "result",
+    "metadata",
+    "states",
+    "updated_at"
+  ],
+  "normal_phone_GUI_relaunch_refund344_visible": true
+}

@@ -27,5 +27,6 @@
   "existing_wireless_settings_unchanged": true,
   "new_network_listener_opened": false,
   "original_licensed_runtime": 0,
-  "original_taxpayer_fixtures": 0
+  "original_taxpayer_fixtures": 0,
+  "complete_before_after_and_final_normal_reopen_backup_byte_equal": true
 }

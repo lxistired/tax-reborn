@@ -12,5 +12,14 @@
   "current_saved_IRS_returns_retained": true,
   "complete_original_tax_compatibility": false,
   "complete_original_recalculation": false,
-  "release_state": "Native tested; source archive and publication pending"
+  "release_state": "Published; all9 complete public downloads and extracted source App verified",
+  "published_at": "2026-10-15T23:55:22Z",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.35",
+  "public_all9_byte_equal": true,
+  "public_total_bytes": 394993727,
+  "source_archive_git_blobs": 2252,
+  "source_archive_all_CRCs_verified": true,
+  "source_archive_actual_main_App_both_modes_and_separate_wage": true,
+  "source_commit": "2e07b6bc1de44a82f5b7babad3acc4df22891ff0",
+  "goal_complete": false
 }

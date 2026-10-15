@@ -1,0 +1,76 @@
+{
+  "at_utc": "2026-10-15T23:55:59.496624+00:00",
+  "published_at": "2026-10-15T23:55:22Z",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.35",
+  "runtime_commit": "40555f6d08903bf6212020816a8fce13f620bcc4",
+  "source_commit": "2e07b6bc1de44a82f5b7babad3acc4df22891ff0",
+  "all9_complete_anonymous_GET_byte_equal": true,
+  "total_bytes": 394993727,
+  "files": [
+    {
+      "name": "build-manifest-android.json",
+      "bytes": 456,
+      "sha256": "fedbc780f3a61827c205321bed9cda5df16155490838db63555cb5ec8a691af3",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "build-manifest-darwin-arm64.json",
+      "bytes": 728,
+      "sha256": "ab1f7a811f6615f18f403109d3c24ea68067640b7bc07a0a68b890541a27e3cf",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "build-manifest-win32-x64.json",
+      "bytes": 956,
+      "sha256": "df571ac863f65c0c217fbf2f98ca4ba6fce87b961fe19ae37c54466fe861b96a",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 870,
+      "sha256": "0e5498f722140a05db524435e5949822e473eb0368b46b41dfef1dcf7c706f6c",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.35-Android.apk",
+      "bytes": 50204969,
+      "sha256": "9956a68fff676f2f1abde3de37c3a6c7c3ae2024a4a61bf356ccb153504a9fe5",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.35-macOS-arm64.dmg",
+      "bytes": 72903937,
+      "sha256": "6b72d627822653d2210a653e29a95b6a724c10aa278ddb7b39b6860c6af9e69b",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.35-source.zip",
+      "bytes": 141644509,
+      "sha256": "204e5d7df4bd9041d790f297ed2bbe84937dfe9d56ebce16acfd40f9895649bc",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.35-Windows-x64-portable.zip",
+      "bytes": 72105812,
+      "sha256": "624f5a07f188400b51aa062f186ee2c978729203fbbbe787b5c2633aa6c5b984",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.35-Windows-x64-Setup.exe",
+      "bytes": 58131490,
+      "sha256": "27be200ad4dc3334dceb49cf55dca9ffa018cdd8ff1732972ad7ef11ce878409",
+      "complete_anonymous_GET": true,
+      "local_tested_file_byte_equal": true
+    }
+  ],
+  "credentials_in_download_requests": false,
+  "original_program_compatibility_claimed": false
+}

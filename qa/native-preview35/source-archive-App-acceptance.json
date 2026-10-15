@@ -1,0 +1,15 @@
+{
+  "source_archive": {
+    "source_commit": "2e07b6bc1de44a82f5b7babad3acc4df22891ff0",
+    "Git_blobs": 2252,
+    "CRCs_passed": true,
+    "bytes": 141644509,
+    "sha256": "204e5d7df4bd9041d790f297ed2bbe84937dfe9d56ebce16acfd40f9895649bc"
+  },
+  "actual_complete_source_http_SQLite_and390px_Pyodide": true,
+  "both_cells_complete_saved_files_and_inverse_raw_full_snapshot": true,
+  "actual_separate_wage_comparison_CSP_Worker_Pyodide": true,
+  "current_return_unchanged": true,
+  "original_resources_included": false,
+  "original_app_runtime": 0
+}
