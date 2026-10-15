@@ -1,0 +1,27 @@
+The following is a diff from the previous accessibility tree for Window: "Tax Reborn" with ~ and + representing changed and added elements, respectively. Removed elements are summarized by ID range.
+Removed element IDs: 81-82, 97-108, 123-134
++				164 container (expanded) Secondary Actions: Collapse
++					165 summary Reviewed filing-status source history, Value: on
++						166 text Reviewed filing-status source history
++					167 text Single → Married filing jointly · 2026-10-15T04:50:17.613Z
++					168 text Source synthetic-filing-status.taxbin · 2cb431f3122d96e6d0a4d3a5ab2393971260b1c265b4f6388392391713e15205
++					169 button View setup source
++				170 checkbox This person is blind, Value: 0
++				171 text This person is blind
++				172 checkbox Someone else can claim this person as a dependent, Value: 0
++				173 text Someone else can claim this person as a dependent
++				174 checkbox This person has an eligible SSN, Value: 1
++				175 text This person has an eligible SSN
++				176 checkbox This person has a valid SSN or ITIN A valid ITIN does not satisfy SSN-specific credit requirements., Value: 1
++				177 text This person has a valid SSN or ITIN
++				178 text A valid ITIN does not satisfy SSN-specific credit requirements.
++				179 checkbox This person is blind, Value: 0
++				180 text This person is blind
++				181 checkbox Someone else can claim this person as a dependent, Value: 0
++				182 text Someone else can claim this person as a dependent
++				183 checkbox This person has an eligible SSN, Value: 1
++				184 text This person has an eligible SSN
++				185 checkbox This person has a valid SSN or ITIN A valid ITIN does not satisfy SSN-specific credit requirements., Value: 1
++				186 text This person has a valid SSN or ITIN
++				187 text A valid ITIN does not satisfy SSN-specific credit requirements.
+The focused UI element is 165 summary Reviewed filing-status source history, Value: on

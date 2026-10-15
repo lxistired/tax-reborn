@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-15T04:47:02.283383+00:00",
+  "checked_at_utc": "2026-10-15T05:23:31.308641+00:00",
   "candidate_version": "2026.10.15-preview.22",
   "source_feature": "reviewed binary filing-status migration to current return and calculation",
   "inputs": "independently authored binary stream and XPRF; no original saved return",
@@ -26,21 +26,62 @@
   },
   "screenshots": [
     {
+      "path": "Android22-cold-duplicate-refused.png",
+      "sha256": "fb1f5571d88b65a308a9cb4ee925db7febd37ed9548c13d02a9058a319689b81"
+    },
+    {
+      "path": "Android22-process-cold-reopen.png",
+      "sha256": "5ec7890e6f6a822d312a468c8acf317c5bdb3736bcc2f66acbd9899180282420"
+    },
+    {
+      "path": "Android22-saved-history.png",
+      "sha256": "322e4528736e224856a02279aad3ed4d4c16a7e543769727f08e1c60be433a4c"
+    },
+    {
+      "path": "Mac22-saved-cold-reopen.png",
+      "sha256": "ef85062c737c46d675b652f898d70f301dc3ce4444b2de9890bbfdb19b3c4405"
+    },
+    {
       "path": "offline-saved-history.png",
       "sha256": "6747877d12f8f76992c46545ead831a6472051f9c4af47b2885502c87da8907f"
+    },
+    {
+      "path": "windows-native-filing-status-cold-reopen.png",
+      "sha256": "f8886eb9a7cef2653f86067c581f0d6abcaaed3aa51301648ea62dec2133871c"
+    },
+    {
+      "path": "windows-native-filing-status-duplicate-refused.png",
+      "sha256": "c75d89a4a2e4054d72d55c59262e6aebea7eadf92d31a04062210e73bc5757e7"
     }
   ],
   "AX_readback": {
     "path": "offline-saved-history.ax.txt",
     "sha256": "265cc66bbd835fc919fd097fdccb7159cd0820d111ce17f3cc573f374aa4e36a"
   },
-  "Windows_new_package_built": false,
-  "Mac_new_package_built": false,
-  "Android_new_package_built": false,
-  "three_platform_new_native_acceptance": false,
+  "Windows_new_package_built": true,
+  "Mac_new_package_built": true,
+  "Android_new_package_built": true,
+  "three_platform_new_native_acceptance": true,
   "published_new_installers": false,
   "last_published_installer_version": "2026.10.15-preview.21",
   "original_runtime_execution": 0,
   "original_saved_return_fixtures": 0,
-  "whole_tax_compatibility": false
+  "whole_tax_compatibility": false,
+  "Mac_native_changed_flow_passed": true,
+  "Mac_actual_normal_cold_relaunch": true,
+  "Windows_baseline_native_build_run": 38683346109,
+  "Windows_baseline_GUI_checks_passed": 27,
+  "Windows_specific_filing_status_native_test": "passed existing-candidate installed GUI and SQLite verification",
+  "Android_same_signer_install": "verified installed-base APK bytes and retained original data inode/first install",
+  "Android_system_bar_overlap_fix": "built, installed and device UI verified",
+  "Windows_native_changed_flow_passed": true,
+  "Android_native_changed_flow_passed": true,
+  "Android_genuine_process_cold_restart": true,
+  "Android_system_bar_and_IME_overlap_fixed_and_device_verified": true,
+  "Windows_setup_GUI_run": 38685162081,
+  "Windows_build_run": 38683346109,
+  "Mac_DMG_all_files_match_tested_App": true,
+  "Mac_DMG_regular_files": 385,
+  "Mac_DMG_symlinks": 73,
+  "publication_note": "Pre-publication native acceptance snapshot. See the separate public-download-readback.json receipt after release publication."
 }

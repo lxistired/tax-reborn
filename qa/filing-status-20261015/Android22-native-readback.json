@@ -1,0 +1,31 @@
+{
+  "checked_at_utc": "2026-10-15T05:17:09.468260+00:00",
+  "installed_version": "2026.10.15-preview.22",
+  "installed_base_apk_sha256": "c9a440da8ffb629fb6143be496740a77f4280671e9b33f3f1d0ae473198a17aa",
+  "matches_installer_bytes": true,
+  "same_original_signer_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+  "original_data_inode": 125815,
+  "first_install_time_retained": "2026-10-13 13:31:14",
+  "previous_saved_returns_visible": true,
+  "actual_UI_wages_USD": 60000,
+  "actual_UI_tax_before_USD": 5075,
+  "actual_UI_tax_after_USD": 2946,
+  "actual_UI_filing_status": "mfj",
+  "source_history_saved_and_restored": true,
+  "cold_process_restart": {
+    "UI_action": "Android application info -> force stop only Tax Reborn -> Home -> launch icon",
+    "previous_PID": "27513",
+    "after_stop_no_process": true,
+    "after_stop_package_stopped_flag": true,
+    "restarted_PID": "5989",
+    "state_restored": true
+  },
+  "system_bars_and_keyboard_insets_UI_verified": true,
+  "new_network_debug_port_enabled": false,
+  "original_TLS_reused": true,
+  "original_engine_executed": false,
+  "original_tax_fixture": false,
+  "whole_tax_compatibility": false,
+  "source_file_and_registry_reopened_after_cold_restart": true,
+  "duplicate_source_refused_after_cold_restart": true
+}

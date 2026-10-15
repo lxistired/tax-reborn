@@ -1,0 +1,17 @@
+{
+  "checked_at_utc": "2026-10-15T04:51:14.586324+00:00",
+  "actual_native_app_version": "2026.10.15-preview.22",
+  "saved_return_id": "20853661-ec9c-442a-8a90-03038bfc1780",
+  "saved_returns_count": 16,
+  "previous_15_saved_returns_retained": true,
+  "filing_status": "mfj",
+  "wages_USD": "60000",
+  "amount_owed_USD": 2946,
+  "reviewed_source_sha256": "2cb431f3122d96e6d0a4d3a5ab2393971260b1c265b4f6388392391713e15205",
+  "setup_receipt_retained": true,
+  "eligibility_confirmations_not_asserted": true,
+  "actual_normal_quit_and_cold_relaunch": true,
+  "original_engine_executed": false,
+  "original_saved_fixture": false,
+  "whole_tax_compatibility": false
+}
