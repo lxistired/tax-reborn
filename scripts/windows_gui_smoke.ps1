@@ -582,8 +582,10 @@ try {
         Click-Observed (Wait-Named 'Load income sample with two registries')
         Click-Observed (Wait-Named 'Selected registry sources')
         $effectiveProfile=Get-Content 'fixtures/binary-tax/merged-profile.json' -Raw | ConvertFrom-Json
-        Wait-Named ('Visible fields · '+$effectiveProfile.registry_order[0].Substring(0,12)+' · resource 1') | Out-Null
-        Wait-Named ('Hidden fields · '+$effectiveProfile.registry_order[1].Substring(0,12)+' · resource 1') | Out-Null
+        # Expanding details exposes these real UIA text elements below the
+        # small runner viewport. Presence is distinct from viewport visibility.
+        Wait-Named ('Visible fields · '+$effectiveProfile.registry_order[0].Substring(0,12)+' · resource 1') 90 $false | Out-Null
+        Wait-Named ('Hidden fields · '+$effectiveProfile.registry_order[1].Substring(0,12)+' · resource 1') 90 $false | Out-Null
         Save-Screenshot 'windows-native-effective-registry-sources.png'
         Click-Observed (Wait-Named 'Selected registry sources')
     } else { Click-Observed (Wait-Named 'Load binary income sample') }
@@ -619,7 +621,7 @@ try {
     else { Click-Observed (Wait-Named 'Load nested binary sample') }
     Click-Observed (Wait-Named 'Inspect / edit binary fields')
     if($EffectiveRegistry) {
-        Wait-Named 'value_table · fields 12–12 · saved last-used record 3' | Out-Null
+        Wait-Named 'value_table · fields 12–12 · saved last-used record 3' 90 $false | Out-Null
         Wait-Named 'OWNED_AMOUNT [3]' 90 $false | Out-Null
         Save-Screenshot 'windows-native-derived-table-boundary-and-values.png'
     }

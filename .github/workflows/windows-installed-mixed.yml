@@ -4,13 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       build_run_id:
-        description: Successful native-build run that produced the existing candidate
+        description: Native-build run that produced the existing candidate artifacts
         required: true
         default: '38658225018'
       setup_sha256:
         description: Independently verified existing Setup SHA256
         required: true
         default: 'e9412b950bfc199c6516a61d0c1567edcc4b94a470c141dc21f133aa3c880975'
+      effective_registry:
+        description: Verify ordered registries and derived value-table preservation
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -56,7 +60,9 @@ jobs:
       - name: Operate installed native file pickers, reviews, save, restart and selected XML export
         shell: pwsh
         run: |
-          ./scripts/windows_gui_smoke.ps1 -MixedOnly -Executable "$env:RUNNER_TEMP/TaxRebornExistingInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-mixed" -DataDir "$env:RUNNER_TEMP/TaxRebornMixedSyntheticGUI"
+          $options=@{}
+          if ('${{ inputs.effective_registry }}' -eq 'true') { $options.EffectiveRegistry=$true }
+          ./scripts/windows_gui_smoke.ps1 -MixedOnly @options -Executable "$env:RUNNER_TEMP/TaxRebornExistingInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-mixed" -DataDir "$env:RUNNER_TEMP/TaxRebornMixedSyntheticGUI"
       - name: Upload actual verification evidence
         if: always()
         uses: actions/upload-artifact@v7
