@@ -1,0 +1,20 @@
+{
+  "source_profile": "Mac stored monetary XML with 2 entities and 7 copies",
+  "real_pyodide_worker": true,
+  "real_reviewed_source_contract": true,
+  "complete_container_output": true,
+  "members": 5,
+  "stored_documents": 3,
+  "unreferenced_members": 1,
+  "output_bytes": 2154,
+  "output_sha256": "84653b0b5c56247e3749fb7fb08469c61b1aaaeb2a40c27801a0ff8719c422ca",
+  "manifest_bytes_unchanged": true,
+  "other_local_records_byte_identical": true,
+  "other_form_amounts_unchanged": true,
+  "malformed_container_refusals": 2,
+  "missing_confirmation_refused": true,
+  "unmodeled_manifest_metadata_review_and_both_export_paths_refused": true,
+  "native_default_encrypted_file_supported": false,
+  "original_engine_executed": false,
+  "whole_original_tax_compatibility": false
+}

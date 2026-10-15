@@ -1,0 +1,17 @@
+{
+  "at_utc": "2026-10-15T16:48:56.645797+00:00",
+  "data_complete_equal": true,
+  "result_complete_equal": true,
+  "other_sections_equal": {
+    "format": true,
+    "id": true,
+    "data": true,
+    "result": true,
+    "metadata": true,
+    "states": true,
+    "updated_at": true
+  },
+  "refund": 344,
+  "source_origin": "fresh actual system-saved JSON backup after Preview30 installed and whole-source export completed",
+  "full_original_tax_compatibility": false
+}
