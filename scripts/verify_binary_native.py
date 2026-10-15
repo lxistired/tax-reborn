@@ -22,10 +22,20 @@ def main():
     rows = [row for row in store.list() if row['name'] == args.name]
     assert len(rows) == 1, 'Expected one saved binary migration return'
     record = store.get(rows[0]['id'])
-    # Existing numeric verifier predates normalized two-place binary amounts.
-    assert Decimal(record['data']['w2'][0]['federal_withholding']) == Decimal('123')
     normalized = json.loads(json.dumps(record))
-    normalized['data']['w2'][0]['federal_withholding'] = '123'
+    # The saved record can retain the binary source's two-place amounts or
+    # the reviewer's equivalent input (for example 0 versus 0.00). Verify every
+    # W-2 amount numerically before adapting a copy for the older XML checker.
+    expected_w2 = {
+        'wages': '1234.56', 'federal_withholding': '123',
+        'social_security_wages': '1234.56', 'social_security_withholding': '76.54',
+        'medicare_wages': '1234.56', 'medicare_withholding': '17.90',
+        'social_security_tips': '0', 'dependent_care_benefits': '0',
+    }
+    for name, expected in expected_w2.items():
+        actual = record['data']['w2'][0][name]
+        assert Decimal(actual) == Decimal(expected), (name, actual)
+        normalized['data']['w2'][0][name] = expected
     receipt = verify(normalized)
     request = json.loads((ROOT/'fixtures/binary-tax/income-request.json').read_text())
     source_hash = hashlib.sha256(base64.b64decode(request['base64'])).hexdigest()

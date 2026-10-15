@@ -188,8 +188,10 @@ def build_fixtures(destination):
         vendor_resources_included=False, original_saved_return=False,
         original_runtime_executions=0, original_program_acceptance_verified=False,
         expected_income_app_refund=344, entries=entries)
-    (destination / 'manifest.json').write_text(
-        json.dumps(manifest, indent=2, sort_keys=True) + '\n', encoding='utf-8')
+    # The fixture contract compares bytes across Windows and Unix. Avoid the
+    # platform text newline translation, as for the request JSON above.
+    (destination / 'manifest.json').write_bytes(
+        (json.dumps(manifest, indent=2, sort_keys=True) + '\n').encode('utf-8'))
     return manifest
 
 
