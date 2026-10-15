@@ -25,7 +25,15 @@ class NativeSaveHTTP(unittest.TestCase):
     def callback(self,*args):
         self.calls.append(args);return {'saved':True,'bytes':len(base64.b64decode(args[2]))}
     def test_ordinary_server_has_no_native_save_capability(self):
-        self.assertEqual(self.request(dict(filename='owned',mime='text/plain',base64='eA=='))[0],404)
+        # The ordinary server rejects this endpoint before reading any body.
+        # A bodyless request tests that boundary without racing a Windows TCP
+        # reset while an intentionally unconsumed payload is still arriving.
+        connection=http.client.HTTPConnection('127.0.0.1',self.http.server_port,timeout=10)
+        connection.request('POST','/api/native-save',body=None,
+            headers={'Origin':self.origin,'Content-Type':'application/json','Content-Length':'0'})
+        response=connection.getresponse()
+        self.assertEqual(response.status,404);response.read();connection.close()
+        self.assertFalse(self.calls)
     def test_actual_local_payload_and_cancel_result(self):
         self.http.desktop_export=self.callback
         status,result=self.request(dict(filename='owned.taxbin',mime='application/octet-stream',base64='AP8='))
