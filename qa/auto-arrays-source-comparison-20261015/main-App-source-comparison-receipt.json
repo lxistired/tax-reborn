@@ -1,0 +1,28 @@
+{
+  "actual_main_App": true,
+  "actual_CSP": true,
+  "actual_dedicated_Worker": true,
+  "actual_local_Pyodide": true,
+  "local_assets_only": true,
+  "current_complete_return_recalculated": true,
+  "current_return_sha256": "1fa46edbb9e21d6e82bbf058301d6009193f0a3dfc605d6b2fc71ec02673645e",
+  "source_sha256": "4f92de7341ab8276a071df1c3c739517b7715afedf2f91132ce4acb98d6652dc",
+  "source_profile_sha256": "c2adf30d82a8e6c810d07ca9e744a52a0e42fbfb46254d84b770a70ad48e89b8",
+  "rendered_USD_rows": [
+    "Total tax$0.00$1,279.00$1,279.00",
+    "Payments$0.00$100.00$100.00",
+    "Signed balance (+ due / − overpaid)$0.00$1,179.00$1,179.00"
+  ],
+  "review_and_pair_ack_required": true,
+  "context_edit_clears_both_confirmations_and_old_result": true,
+  "worker_terminated_on_dialog_close": true,
+  "current_return_unchanged": true,
+  "system_download_readback": true,
+  "download_sha256": "b3d4c114e5c3282e76604733ffb99db952d6b414d1c701f2e23ec7e03680fd8c",
+  "desktop_and_390px_viewports": true,
+  "real_mobile_device": false,
+  "original_engine_executed": false,
+  "original_taxpayer_fixture_count": 0,
+  "whole_original_tax_compatibility": false,
+  "errors": []
+}

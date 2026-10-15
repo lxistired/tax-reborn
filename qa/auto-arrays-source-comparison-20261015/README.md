@@ -1,0 +1,11 @@
+# Preview.25 actual platform acceptance
+
+All three native builds use production commit240dae12e5659ead7224da31c0c389d988d2db98. The follow-up Windows run changes only its automation driver; it re-installs the exact original Setup hash and passes all33 native GUI checks. The21 installed frozen checks pass separately.
+
+The complete source edit uses independently authored files, automatic visible/hidden table definitions, saved104/current4 field remapping, nonempty table, child forms, four links, typed UUID bodies and all three persistent-object groups. Actual Windows, Mac and Android system-save files are identical:2906 bytes, SHA256179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25.
+
+The new read-only comparison is exercised in each actual installed App. Every comparison audit is saved through that platform's system picker and independently read back. Mac/Windows full input is read from native SQLite. Android's full input is independently recovered from a second actual system-saved return backup. Recomputing that entire current input reproduces the saved344-dollar refund and its input hash. The demo source has different input and a1279-dollar tax,100-dollar payment,1179-dollar signed balance. The App shows that difference and requires both confirmations. These figures do not establish engine parity.
+
+Android upgrades under the original signer, retains the October13 first-install time, existing return and source attachments. This batch performs no separate manual force-stop test. Its initial incorrect keyboard entry is explicitly rejected by full-file verification; the accepted file follows a visible correction and a second system save. Mac's readonly DMG is byte-compared with the actual tested App and its saved return reopens after normal quit.
+
+694 host checks pass. Real Pyodide executes583 checks, with2 explicitly skipped out of585. Independent browser freshness/identity checks and four-income save/reload acceptance are separate evidence files. Original licensed runtime executions and real original saved-return fixtures remain zero. Whole original `.tax` compatibility, native row reconstruction, the complete original interpreter/scheduler, tax-result parity and electronic filing are not established. Publication and complete anonymous release downloads are recorded in a separate receipt after upload.

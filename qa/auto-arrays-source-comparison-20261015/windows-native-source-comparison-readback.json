@@ -1,0 +1,42 @@
+{
+  "actual_system_file_readback": true,
+  "bytes": 124641,
+  "sha256": "e3e368cbc120942a33ce6c7802b8c4b2fe3673065563c7b606b4332780523cdc",
+  "full_saved_return_SHA_matches": true,
+  "complete_current_IRS_result_recalculated": true,
+  "current_return_sha256": "bca02205bcde5437aa48ef20da1c74d405eb971cf2b86065ca8900a8f780156c",
+  "actual_saved_refund": 344,
+  "current_blocking_issues_preserved": true,
+  "comparison": {
+    "current_app_summary": {
+      "total_tax": "0",
+      "amount_owed": "0",
+      "refund": "344",
+      "payments": "344",
+      "taxable_income": "0"
+    },
+    "source_total_tax": "1279",
+    "source_amount_owed": "1179",
+    "source_payments": "100",
+    "source_signed_balance": "1179",
+    "current_app_signed_balance": "-344",
+    "total_tax_difference": "1279",
+    "amount_owed_difference": "1179",
+    "payments_difference": "-244",
+    "signed_balance_difference": "1523",
+    "balance_definition": "total tax minus payments; positive owed, negative overpaid",
+    "source_signed_balance_is_comparison_derived": true,
+    "source_refund_not_calculated": true,
+    "current_App_result_unchanged": true,
+    "current_App_summary_source": "calculated_from_complete_current_App_return",
+    "current_App_return_sha256": "bca02205bcde5437aa48ef20da1c74d405eb971cf2b86065ca8900a8f780156c",
+    "source_current_return_pair_acknowledged": true,
+    "source_profile_sha256": "c2adf30d82a8e6c810d07ca9e744a52a0e42fbfb46254d84b770a70ad48e89b8",
+    "identical_input_context_or_engine_parity_asserted": false
+  },
+  "source_and_saved_return_unchanged": true,
+  "comparison_only": true,
+  "synthetic_only": true,
+  "original_engine_executed": false,
+  "whole_original_tax_compatibility": false
+}

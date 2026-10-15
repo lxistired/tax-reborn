@@ -1,0 +1,78 @@
+{
+  "system_saved_complete_ValueForm_bytes": 2906,
+  "system_saved_sha256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "source_full_ID_WAGES": true,
+  "source_ordinal": 104,
+  "current_ordinal": 4,
+  "saved_field_maps_and_all_three_object_groups_retained": true,
+  "typed_UUID_bodies_retained": true,
+  "all_four_tails_moved_bytes": [
+    2,
+    2,
+    2,
+    2
+  ],
+  "nonempty_table_child_and_four_links_retained": true,
+  "other_parsed_facts_preserved": true,
+  "full_file_readback": true,
+  "original_engine_executed": false,
+  "native_field_remap_executed": false,
+  "whole_original_tax_compatibility": false,
+  "synthetic_only": true,
+  "automatic_arrays_from_same_registry": true,
+  "manual_array_lists": false,
+  "original_array_source_report_preserved": true,
+  "selected_array_sources": {
+    "formset_id": "OWNED2025MERGED",
+    "form_id": "FW2",
+    "blocks": [
+      {
+        "attribute_type": 2000,
+        "present": true,
+        "resource_id": 1,
+        "metadata_type": 18000,
+        "payload_bytes": 43,
+        "payload_sha256": "e0aaec97a47f73dcde8c56425cc173610afea716bba96c7fb5ea8dc02fbb7fe0",
+        "consumed": 43,
+        "records": [
+          {
+            "identifier_hex": "4f574e45445f524f575320202020202020202020202020202020202020202020",
+            "first_field": 12,
+            "last_field": 12,
+            "element_limit": 10,
+            "flags": 49,
+            "byte27": 2,
+            "global_index": 1,
+            "encoded_id_hex": "ff4f574e45445f524f575320202020202020202020202020202020202020202020",
+            "source_metadata_hex": "0c000c000a003102"
+          }
+        ],
+        "carrier_sha256": "14d690017e6b63935e1501a2a11e0f9f8e59567f0d2931b07cc0d9b0bf85e7b6"
+      },
+      {
+        "attribute_type": 2001,
+        "present": true,
+        "resource_id": 3,
+        "metadata_type": 18000,
+        "payload_bytes": 17,
+        "payload_sha256": "3029c4ed650bd8be0cae18662d112575c6bba238ca9b60f1f3c7e7b1b0e5f88f",
+        "consumed": 17,
+        "records": [
+          {
+            "identifier_hex": "48494444454e2020202020202020202020202020202020202020202020202020",
+            "first_field": 12,
+            "last_field": 12,
+            "element_limit": 25,
+            "flags": 97,
+            "byte27": 1,
+            "global_index": 2,
+            "encoded_id_hex": "0648494444454e",
+            "source_metadata_hex": "0c000c0019006101"
+          }
+        ],
+        "carrier_sha256": "228e1ea894116f473d44b9d8a7969780052e88f4840aa114398cfd0da967789f"
+      }
+    ]
+  },
+  "selected_source_profile_sha256": "5ea55eeb0df0bebf2c7770e06f4ef42ce2641cb0ea8651756e83e8f641758d6f"
+}

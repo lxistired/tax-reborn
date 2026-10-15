@@ -1,0 +1,19 @@
+{
+  "production_source_commit": "240dae12e5659ead7224da31c0c389d988d2db98",
+  "build_and_installed_runtime_run": 38709674119,
+  "build_run_early_GUI_failure": "Unchanged old financial test keyboard did not edit6500 to7000; no application crash; native ValuePattern test helper used for replay. Product bytes unchanged.",
+  "GUI_test_only_commit": "c8b436f0975fd02adec210a6acdae887a1051696",
+  "complete_existing_package_GUI_run": 38711020823,
+  "GUI_checks": 33,
+  "GUI_all_passed": true,
+  "Setup_sha256": "a2775a59646ba3c8a21a2660eaa3e02d8587d5467cc1f66e87d810b3d1ab0d88",
+  "Setup_reinstalled_exact_hash": true,
+  "rebuilt": false,
+  "installed_frozen_checks": 21,
+  "host_tests_passed": 694,
+  "actual_installed_worker_flows_all_passed": true,
+  "native_auto_array_2906B_export_exact": true,
+  "native_source_comparison_full_saved_return_SHA_and_IRS_readback": true,
+  "original_native_execution": 0,
+  "whole_original_compatibility": false
+}

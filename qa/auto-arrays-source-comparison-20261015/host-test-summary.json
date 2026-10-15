@@ -1,0 +1,8 @@
+{
+  "tests": 694,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "successful": true,
+  "scope": "actual host unittest suite, including finite source comparison boundary tests; native GUI recorded separately"
+}

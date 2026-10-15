@@ -1,0 +1,19 @@
+{
+  "running_PID": "8736",
+  "installed_baseAPK_path": "/data/app/~~NvJ95C91V0iPPMb4IW5ISg==/io.github.lxistired.taxreborn-RRhu2nTYjj9eYZq_QJSHrQ==/base.apk",
+  "installed_APK_bytes": 49937029,
+  "installed_APK_sha256": "27e7dc14c05c6cb35d0a5509ffbaf866abde87ffface648d9fe14c37b75b4727",
+  "installed_bytes_exactly_equal_built": true,
+  "native_UI_acceptance_pending": false,
+  "same_original_signer_verified": true,
+  "first_install_time_preserved": "2026-10-13 13:31:14",
+  "last_update_time": "2026-10-15 17:01:36",
+  "existing_return_and_attachments_retained": true,
+  "actual_system_binary_save_and_complete_readback_passed": true,
+  "actual_source_comparison_and_system_audit_save_passed": true,
+  "actual_system_full_current_return_backup_and_independent_IRS_replay": true,
+  "separate_manual_force_stop_test_performed": false,
+  "temporary_TCP_5555_closed": true,
+  "existing_wireless_TLS_debugging_preserved": true,
+  "synthetic_data_only": true
+}

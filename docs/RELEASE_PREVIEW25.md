@@ -1,25 +1,15 @@
-# Preview.25 candidate
+# Preview.25 — automatic table sources and local calculation comparison
 
-This candidate integrates automatic table definitions and the local source
-calculation comparison into the existing working App.
+Preview.25 integrates both workflows into the existing working App and its Windows, Mac and Android packages. Existing tax calculations, saved returns and source attachments remain available.
 
-- Binary v5 reads visible and hidden table definitions independently from the
-  same ordered, verified registry as its fields. Manual array lists are removed
-  from this profile. Scalar corrections retain complete saved-form sections,
-  nonempty table values, child forms, four links and typed UUID bodies.
-- Documents now opens a read-only comparison workflow. It recomputes the full
-  current IRS return and compares tax, payments and signed balance with the
-  supported source-derived calculation. Source/current/profile identity and
-  explicit confirmations guard the run and audit export.
-- Native system export is used for comparison audits. Input changes invalidate
-  results, stale pending replies are refused, and closing the dialog terminates
-  its dedicated worker.
+- Binary v5 reads visible and hidden table definitions independently from the same ordered, verified registry as its fields. It refuses manual array lists for this profile. A full-ID scalar correction preserves complete saved-form sections, all three persistent-object groups, nonempty table values, child forms, four links and typed UUID bodies.
+- Documents opens the read-only local calculation comparison. It recomputes the entire current IRS return and compares tax, payments and signed balance with the supported source-derived calculation. Source/current/profile identity and two explicit confirmations guard the run and saved audit. Input changes invalidate the result; stale replies and downloads are refused. Closing the dialog terminates its dedicated worker.
+- All three actual installed Apps save the corrected binary and comparison audit through their native system picker. The accepted complete binary exports match byte-for-byte:2906 bytes, SHA256179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25. Mac/Windows current inputs are independently read from SQLite; Android's complete current input is recovered through an actual system-saved return backup. Each audit's current-input hash and recomputed344-dollar refund match.
 
-The new source carrier limit is nine; original resource files are user-selected
-local inputs and are not distributed. Independent samples are labeled. This is
-not full TurboTax engine parity, arbitrary `.tax` acceptance or original runtime
-validation. Original taxpayer fixture and licensed runtime counts remain zero.
+Windows passes21 installed frozen checks and33 native GUI checks. Its original build's old keyboard-based test did not change a field; the test-only replay uses the native value helper, re-installs the identical Setup and passes without rebuilding product bytes. Mac's readonly DMG matches the actual tested App and normal relaunch retains the saved return. Android upgrades with the original signer and keeps the October13 first-install time and existing data. A wrong initial Android keyboard entry was caught by complete-file verification and corrected before accepting the second export. No separate manual Android force-stop test is claimed in this batch.
 
-Generation, installation, actual platform testing, publication and public
-readback are separate release gates. This file describes the candidate until
-those gates are recorded in the release acceptance evidence.
+694 host checks pass. Real Pyodide executes583 checks with2 explicit skips out of585. [Actual receipts and screenshots](../qa/auto-arrays-source-comparison-20261015/acceptance.json) distinguish these checks from publication and complete anonymous download verification.
+
+The local original-resource-backed profile accepts nine exact, user-selected resource files, which are never distributed. The in-App demo is independently authored and labeled. Its source input differs from the saved current return; their tax/balance difference is visible and explicitly acknowledged. Original licensed runtime execution and real original saved-return fixture counts remain zero. This release does not establish arbitrary original `.tax` acceptance, native row reconstruction, complete interpreter/scheduler recovery, original calculation parity or electronic filing.
+
+Mac ARM64 DMG is not notarized; Windows is x64; Android is a development-signed APK, API26+, target35, with no INTERNET permission. Corresponding source includes authentic AGPL/OpenTax notices and source.

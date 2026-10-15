@@ -1,0 +1,5 @@
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: complete LE array payload"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.form_core.field_template_reference.UnsupportedProfile: selected primary SHA/RID differs from effective registry"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.derived_form.string_wire_reference.UnsupportedProfile: D2 field-map header required"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: Source array shape requires unsupported native recovery against actual definitions."}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.derived_form.string_wire_reference.UnsupportedProfile: Opaque object relocation requires class-specific source evidence or same base"}

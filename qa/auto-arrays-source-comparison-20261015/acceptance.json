@@ -1,0 +1,84 @@
+{
+  "version": "2026.10.15-preview.25",
+  "status": "All final native changed workflows passed; publication and anonymous download recorded separately",
+  "production_source_commit": "240dae12e5659ead7224da31c0c389d988d2db98",
+  "Windows_GUI_test_only_commit": "c8b436f0975fd02adec210a6acdae887a1051696",
+  "host_tests_passed": 694,
+  "real_Pyodide_tests": {
+    "total": 585,
+    "executed": 583,
+    "skipped": 2,
+    "failures": 0
+  },
+  "Windows_build_and_installed_runtime_run": "https://github.com/lxistired/tax-reborn/actions/runs/38709674119",
+  "Windows_full_existing_package_GUI_run": "https://github.com/lxistired/tax-reborn/actions/runs/38711020823",
+  "Windows_GUI_checks": 33,
+  "Windows_installed_frozen_checks": 21,
+  "Windows_exact_setup_reinstalled_without_rebuild": true,
+  "Mac_actual_v5_auto_array_edit_native_save_and_normal_quit_readback": true,
+  "Mac_readonly_DMG_matches_tested_App": true,
+  "Mac_saved_return_and_attachments_reopened": true,
+  "Android_same_signer_upgrade_and_existing_data_retention": true,
+  "Android_actual_v5_auto_array_edit_and_native_system_save_readback": true,
+  "Android_actual_comparison_system_audit_and_full_return_backup_readback": true,
+  "Android_25_separate_manual_force_stop_test": false,
+  "all_three_native_corrected_binary_bytes": 2906,
+  "all_three_native_corrected_binary_SHA256": "179560f55862259878bdb45f8efe076e25c841d4425055618a579a2befa58b25",
+  "all_three_full_file_exports_byte_identical": true,
+  "field_remap": {
+    "saved": 104,
+    "current": 4,
+    "full_ID_selected": true
+  },
+  "nonempty_table_child_four_links_typed_UUIDs_and_all_three_object_groups_preserved": true,
+  "automatic_visible_hidden_array_sources_independently_selected": true,
+  "manual_array_lists_disallowed_for_v5": true,
+  "comparison_current_input_complete_and_independently_recalculated": true,
+  "comparison_current_refund_USD": 344,
+  "comparison_source_tax_USD": 1279,
+  "comparison_source_payments_USD": 100,
+  "comparison_source_signed_balance_USD": 1179,
+  "comparison_current_signed_balance_USD": -344,
+  "comparison_signed_balance_delta_USD": 1523,
+  "comparison_input_context_differs_and_is_explicitly_acknowledged": true,
+  "comparison_read_only_and_no_source_writeback": true,
+  "comparison_licenced_original_resources_distributed": false,
+  "original_runtime_executions": 0,
+  "validated_original_saved_return_fixtures": 0,
+  "whole_original_tax_compatibility": false,
+  "Android_initial_amount_entry_correction": "An initial keyboard entry produced12345.7; full file verification rejected it. The visible field was re-entered as1234.57 with native paste; a second actual system-saved file is the accepted2906-byte file. No serializer failure or accepted incorrect amount.",
+  "screenshots": [
+    {
+      "path": "android-source-comparison-result.png",
+      "sha256": "8453efec37c7cd9562d21b25c59a7166c5a19067d9b2075e6188fe1bd84d3512"
+    },
+    {
+      "path": "android-upgrade-retained-344.png",
+      "sha256": "ebee01a6d1e5e7ab660f0d773a9402de1f24b9aa5d2e27e43b8e1e050bd207db"
+    },
+    {
+      "path": "mac-automatic-array-sources.png",
+      "sha256": "eb1ebc9a13729b6abd65f3e4c3a6d63cf3db5863fb9ba20184de6492b13ea2cc"
+    },
+    {
+      "path": "mac-reopened-retained-344.png",
+      "sha256": "fd2bcc53bf0576d235d8cf8d38efb24da889722ab1a9e3f6271fbc8257071888"
+    },
+    {
+      "path": "mac-source-comparison-result.png",
+      "sha256": "fe706656263001ca690085891234cc534c84483eaabd3eb5cda18032981fc28d"
+    },
+    {
+      "path": "main-App-source-comparison.png",
+      "sha256": "ae373b6be924a1606fd9f113773dfcfa1aebb1f0f4ef6a80d44942fa4e0c03c2"
+    },
+    {
+      "path": "windows-native-automatic-table-sources.png",
+      "sha256": "170debfb889a4b4470edfcf0a3e74559195f68af696fa826493922d115fb1451"
+    },
+    {
+      "path": "windows-native-local-source-comparison.png",
+      "sha256": "6f9a12ac340f92cd6fbfa5291168a254205c0b79c26cf545d52d597b4ea8eb81"
+    }
+  ]
+}

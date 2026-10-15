@@ -1,0 +1,7 @@
+{
+  "readonly_DMG_matches_actual_tested_App": true,
+  "regular_files": 509,
+  "symlinks": 73,
+  "production_source_commit": "240dae12e5659ead7224da31c0c389d988d2db98",
+  "DMG_sha256": "082dde544e5b3d91b791549b0914edc7fa27c04ecd7ee36a8ec0d58cbe826b00"
+}
