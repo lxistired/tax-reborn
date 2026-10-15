@@ -77,8 +77,10 @@ def validate_profile(profile):
 
 
 def validate_native_profile(profile):
-    keys = {'format', 'tax_year', 'entity_name', 'formset_name', 'formset_headers', 'template'}
-    if not isinstance(profile, dict) or set(profile) != keys or profile['format'] != 'tax-reborn-taxml-native-windows-profile-v1':
+    version = profile.get('format') if isinstance(profile, dict) else None
+    multiple = version == 'tax-reborn-taxml-native-windows-profile-v2'
+    keys = {'format', 'tax_year', 'entity_name', 'formset_name', 'formset_headers', 'templates' if multiple else 'template'}
+    if not isinstance(profile, dict) or set(profile) != keys or version not in ('tax-reborn-taxml-native-windows-profile-v1', 'tax-reborn-taxml-native-windows-profile-v2'):
         raise ValueError('Choose an explicit current Windows TaxML profile.')
     if type(profile['tax_year']) is not int or profile['tax_year'] != 2025:
         raise ValueError('This import requires tax year 2025.')
@@ -91,7 +93,9 @@ def validate_native_profile(profile):
     # with the independently supplied XML formset name.
     selected, _ = validate_profile({'format': 'tax-reborn-taxml-wire-profile-v1', 'tax_year': 2025,
         'root_qname': native.ROOT, 'namespace_profile': {k: [''] for k in ('formset', 'form', 'field')},
-        'templates': [profile['template']]})
+        'templates': profile['templates'] if multiple else [profile['template']]})
+    if multiple and (len(selected)>3 or len({key[0] for key in selected})!=1 or any(key[1] not in {'FW2','F1099I','F1099D'} for key in selected)):
+        raise ValueError('A mixed profile must bind supported income forms in one internal formset.')
     return selected
 
 
@@ -100,7 +104,7 @@ def _inspect(request):
         raise ValueError('Invalid local TaxML inspection request.')
     if request['profile_acknowledged'] is not True:
         raise ValueError('Review and acknowledge the selected wire profile before inspection.')
-    modern = isinstance(request['profile'], dict) and request['profile'].get('format') == 'tax-reborn-taxml-native-windows-profile-v1'
+    modern = isinstance(request['profile'], dict) and request['profile'].get('format') in ('tax-reborn-taxml-native-windows-profile-v1','tax-reborn-taxml-native-windows-profile-v2')
     if modern:
         selected, namespaces = validate_native_profile(request['profile']), None
     else:
@@ -203,20 +207,22 @@ def _inspect(request):
 
 def _inspect_native(request, source, payload, archive_member, registry, selected):
     profile = request['profile']
-    key, identity = next(iter(selected.items()))
-    template = registry.resolve(*key, identity)
-    bindings = []
-    for field in template.fields:
-        binding = native.FieldBinding(field.field_id, field.kind, field.format)
-        try:
-            binding.expected_headers()
-        except native.NativeWireError:
-            continue  # A present unsupported field still blocks the reader.
-        if not field.hidden and not field.is_array:
-            bindings.append(binding)
-    native_profile = native.Profile(profile['entity_name'], 2025, profile['formset_name'],
-        tuple(profile['formset_headers'].items()), key[1], tuple(bindings), identity[0]).validate()
-    document = native.read_native_taxml(payload, native_profile)
+    native_profiles, form_identities = [], {}
+    for key, identity in selected.items():
+        template = registry.resolve(*key, identity)
+        bindings = []
+        for field in template.fields:
+            binding = native.FieldBinding(field.field_id, field.kind, field.format)
+            try:
+                binding.expected_headers()
+            except native.NativeWireError:
+                continue  # A present unsupported field still blocks the reader.
+            if not field.hidden and not field.is_array:
+                bindings.append(binding)
+        native_profiles.append(native.Profile(profile['entity_name'], 2025, profile['formset_name'],
+            tuple(profile['formset_headers'].items()), key[1], tuple(bindings), identity[0]).validate())
+        form_identities[key[1]] = identity
+    document = native.read_native_taxml_profiles(payload, native_profiles)
     root = wire.xml(payload)
     leaves, paths = {}, {}
     for ei, entity in enumerate(root):
@@ -231,7 +237,7 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
                 if not isinstance(form.tag, str):
                     continue
                 try:
-                    owner = (uid, str(int(form.attrib.get('copyNum', '0'))),
+                    owner = (uid, wire.qname(formset.tag)[1], wire.qname(form.tag)[1], str(int(form.attrib.get('copyNum', '0'))),
                         str(int(form.attrib.get('fileCopyNum', '0'))), str(int(form.attrib.get('porIndex', '0'))))
                 except ValueError:
                     continue
@@ -250,7 +256,8 @@ def _inspect_native(request, source, payload, archive_member, registry, selected
     profile_hash, source_hash = canonical_hash(profile), wire.digest(source)
     for form in document.forms:
         owner = dict(form.owner)
-        form_path = paths.get((owner['entity_uuid'], owner['copyNum'], owner['fileCopyNum'], owner['porIndex']), '')
+        form_path = paths.get((owner['entity_uuid'], owner['formset_name'], owner['form_name'], owner['copyNum'], owner['fileCopyNum'], owner['porIndex']), '')
+        identity = form_identities[owner['form_name']]
         fields = {f.field_name: f for f in form.fields}
         problems = list(form.unresolved)
         is_interest = owner['form_name'] == 'F1099I'

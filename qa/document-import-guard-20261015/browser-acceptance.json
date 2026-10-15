@@ -1,5 +1,5 @@
 {
-  "checked_at_utc": "2026-10-14T23:00:12.860Z",
+  "checked_at_utc": "2026-10-15T00:01:21.274Z",
   "all_passed": true,
   "checks": [
     "HTTP/SQLite W-2 re-upload refused; saved record and tax totals retained after reload",

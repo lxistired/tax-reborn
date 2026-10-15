@@ -176,9 +176,30 @@ async function main(){
  await assert.rejects(()=>context.taxMLImport.correctedSource({...dc},divValues,true));
  await assert.rejects(()=>context.taxMLImport.correctedSource(dc,{...divValues,qualified:'1200.32'},true));
  const dividendAcceptance={worker_inspection:true,actual_QDIV_and_L2_binding:true,payer_scope_and_qualified_eligibility_required:true,subsets_not_added_to_income:true,INT_DIV_withholding_aggregated_before_rounding:true,six_box_snapshot_retained:true,source_snapshot_tamper_blocked:true,row_edit_clears_review:true,corrected_XML_reparsed:true,outside_value_spans_byte_identical:true,refund:divTax.summary.refund,can_prepare:divTax.can_prepare,original_program_acceptance_verified:false};
+ // Several source form types share one XML entity and the same copy number.
+ const mixedFile=new File([fs.readFileSync(path.join(fixtureRoot,'synthetic-mixed-income.xml'))],'synthetic-mixed-income.xml',{type:'application/xml'});
+ const mixedProfile=new File([fs.readFileSync(path.join(fixtureRoot,'synthetic-mixed-income-profile.json'))],'synthetic-mixed-income-profile.json',{type:'application/json'});
+ const mixedRegistries=['synthetic-modern-windows-w2.xprf','synthetic-native-interest.xprf','synthetic-native-dividend.xprf'].map(n=>new File([fs.readFileSync(path.join(fixtureRoot,n))],n));
+ const mixed=await context.taxMLImport.inspect(mixedFile,mixedProfile,mixedRegistries,'plaintext_xml',true);
+ assert.equal(mixed.candidates.length,3);assert.ok(mixed.candidates.every(c=>c.can_review));
+ assert.equal(JSON.stringify(mixed.candidates.map(c=>c.receipt.form_path)),JSON.stringify(['0/0/0','0/0/1','0/0/2']));
+ const mixedData=JSON.parse(JSON.stringify(schema.default_return)),mixedMeta=context.taxRecordMetadata.empty();
+ mixedData.interest.push({payer:'Existing synthetic bank',taxable:'30.00',tax_exempt:'0',federal_withholding:'0'});mixedMeta.income_document_records.interest.push(context.taxIncomePreparation.newRecord());
+ for(const c of mixed.candidates){
+  const type=c.record_type,values={...c.amounts,payer:'Synthetic mixed payer',employer:'Synthetic mixed employer',owner:'taxpayer',social_security_tips:'0',dependent_care_benefits:'0',supported_scope:true,qualified_eligibility:true};
+  const prepared=type==='w2'?await context.taxMLImport.reviewedRecord(c,values,source,true,schema.capabilities.row_templates.w2):type==='interest'?await context.taxMLImport.reviewedInterest(c,values,source,true):await context.taxMLImport.reviewedDividend(c,values,source,true);
+  mixedData[type].push(prepared.row);(type==='w2'?mixedMeta.w2_records:mixedMeta.income_document_records[type]).push(prepared.metadata);
+ }
+ const mixedSaved=await context.taxRecordMetadata.normalize(mixedData,mixedMeta),mixedTax=await command('calculate',mixedData);
+ assert.equal(mixedTax.lines['1a'],1235);assert.equal(mixedTax.lines['2b'],171);assert.equal(mixedTax.lines['3b'],1200);assert.equal(mixedTax.lines['7a'],1000);assert.equal(mixedTax.summary.refund,344);
+ const mixedINT=mixed.candidates.find(c=>c.record_type==='interest'),mixedCorrected=await context.taxMLImport.correctedSource(mixedINT,{...mixedINT.amounts,interest_income:'101.24'},true);
+ const mixedOriginal=Buffer.from(await mixedFile.arrayBuffer()).toString(),mixedOutput=Buffer.from(mixedCorrected.base64,'base64').toString();
+ for(const name of ['FW2','F1099D']){const start=mixedOriginal.indexOf('<'+name+' '),end=mixedOriginal.indexOf('</'+name+'>')+name.length+3;assert.ok(mixedOutput.includes(mixedOriginal.slice(start,end)));}
+ assert.equal((await command('taxml_inspect',{base64:Buffer.from(mixedOutput).toString('base64'),container:'plaintext_xml',profile:JSON.parse(await mixedProfile.text()),carriers:await Promise.all(mixedRegistries.map(async f=>{const b=Buffer.from(await f.arrayBuffer());return{base64:b.toString('base64'),sha256:require('node:crypto').createHash('sha256').update(b).digest('hex')};})),profile_acknowledged:true})).candidates.find(c=>c.record_type==='interest').amounts.interest_income,'101.24');
+ const mixedIncomeAcceptance={three_types_one_source:true,distinct_same_copy_owners:true,explicit_carrier_per_form:true,reviewed_rows_and_source_snapshots:true,actual_calculation_refund:344,selected_corrected_XML_preserves_other_forms:true,original_runtime:0};
  const receipt={runtime:'actual pinned Pyodide via integrated worker source',successful:true,legacy_assertion_counter:25,
   document_duplicate_guard:{record_types:['W-2','1099-INT','1099-DIV'],reuploaded_source_and_changed_profile_blocked:true,separate_form_and_archive_member_allowed:true,manual_same_amount_not_confused_with_source_identity:true,source_metadata_unchanged:true},
-  interest_acceptance:interestAcceptance,dividend_acceptance:dividendAcceptance,
+  interest_acceptance:interestAcceptance,dividend_acceptance:dividendAcceptance,mixed_income_acceptance:mixedIncomeAcceptance,
   current_windows_native_shape_and_corrected_source_verified:true,corrected_XML_outside_value_spans_byte_identical:true,
   zero_copy_blocked_without_actual_multicopy_factory_binding:true,
   additional_encoding_input_probes:encodingCases.length,

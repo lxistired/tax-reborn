@@ -41,6 +41,15 @@
     "can_prepare": false,
     "original_program_acceptance_verified": false
   },
+  "mixed_income_acceptance": {
+    "three_types_one_source": true,
+    "distinct_same_copy_owners": true,
+    "explicit_carrier_per_form": true,
+    "reviewed_rows_and_source_snapshots": true,
+    "actual_calculation_refund": 344,
+    "selected_corrected_XML_preserves_other_forms": true,
+    "original_runtime": 0
+  },
   "current_windows_native_shape_and_corrected_source_verified": true,
   "corrected_XML_outside_value_spans_byte_identical": true,
   "zero_copy_blocked_without_actual_multicopy_factory_binding": true,

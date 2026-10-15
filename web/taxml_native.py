@@ -177,10 +177,26 @@ def _read_field(e,binding,namespace):
     return FieldFact(binding.name,binding.metadata_kind,binding.metadata_format,text,tuple(e.attrib.items()),tuple(value_attrs.items()),decimal,date,tuple(problems))
 
 def read_native_taxml(data,profile):
-    profile.validate();root=_xml(data);problems=[];forms=[];identities=set();entity_ids=set()
-    if root.tag!=ROOT or root.attrib:return NativeBook(data,hashlib.sha256(data).hexdigest(),profile.owned_registry_sha256,(),('unbound_root',))
+    return read_native_taxml_profiles(data,(profile,))
+
+def read_native_taxml_profiles(data,profiles):
+    """Read several explicitly bound form types in one shared XML context.
+
+    Each form has its own registry and fields. Unknown siblings remain global
+    blockers; matching copy numbers on different form types do not alias.
+    """
+    if not isinstance(profiles,(tuple,list)) or not 1<=len(profiles)<=100:raise NativeWireError('bounded explicit form profiles required')
+    for item in profiles:item.validate()
+    profile=profiles[0]
+    context=(profile.entity_name,profile.tax_year,profile.formset_name,dict(profile.formset_headers))
+    if any((p.entity_name,p.tax_year,p.formset_name,dict(p.formset_headers))!=context for p in profiles):raise NativeWireError('mixed unbound XML contexts')
+    by_name={p.form_name:p for p in profiles}
+    if len(by_name)!=len(profiles):raise NativeWireError('ambiguous form profile identity')
+    registry_hash=profile.owned_registry_sha256 if len(profiles)==1 else hashlib.sha256('\n'.join(p.form_name+':'+p.owned_registry_sha256 for p in sorted(profiles,key=lambda p:p.form_name)).encode()).hexdigest()
+    root=_xml(data);problems=[];forms=[];identities=set();entity_ids=set()
+    if root.tag!=ROOT or root.attrib:return NativeBook(data,hashlib.sha256(data).hexdigest(),registry_hash,(),('unbound_root',))
     if root.text and root.text.strip():problems.append('mixed_root_text')
-    bindings={x.name:x for x in profile.fields};fs_uri=BASE+profile.formset_name
+    fs_uri=BASE+profile.formset_name
     for entity in root:
         if entity.tag!=qname(profile.entity_name):problems.append('unbound_entity_namespace_or_type');continue
         if set(entity.attrib)!={'taxYear','uuid','tpsEngineVersion'} or entity.attrib.get('taxYear')!=str(profile.tax_year) or entity.attrib.get('tpsEngineVersion')!=CURRENT_ENGINE_VERSION:problems.append('unbound_entity_header');continue
@@ -196,11 +212,13 @@ def read_native_taxml(data,profile):
             for form in fs:
                 pending=[];attrs=dict(form.attrib)
                 if (form.text and form.text.strip()) or (form.tail and form.tail.strip()):pending.append('mixed_form_text')
-                if form.tag!='{'+fs_uri+'}'+profile.form_name:problems.append('unmapped_form_or_namespace');continue
+                form_profile=next((p for p in profiles if form.tag=='{'+fs_uri+'}'+p.form_name),None)
+                if form_profile is None:problems.append('unmapped_form_or_namespace');continue
+                bindings={x.name:x for x in form_profile.fields}
                 if attrs.get('tpsType')!='form' or set(attrs)-{'tpsType','copyNum','fileCopyNum','porIndex'} or not {'fileCopyNum','porIndex'}<=set(attrs):pending.append('unbound_form_header')
                 try:copy=_integer(attrs,'copyNum');filecopy=_integer(attrs,'fileCopyNum');order=_integer(attrs,'porIndex')
                 except NativeWireError:pending.append('bad_copy_header');copy=filecopy=order='unresolved'
-                key=(canonical,profile.formset_name,profile.form_name,copy,filecopy)
+                key=(canonical,profile.formset_name,form_profile.form_name,copy,filecopy)
                 if key in identities:problems.append('duplicate_form_copy_identity')
                 identities.add(key)
                 # Same logical copy but differing fileCopyNum remains ambiguous.
@@ -213,7 +231,7 @@ def read_native_taxml(data,profile):
                     if binding is None:pending.append('unmapped_field_or_record');continue
                     if local in seen:pending.append('duplicate_field_identity')
                     seen.add(local);facts.append(_read_field(e,binding,fs_uri))
-                owner=(('entity_uuid',canonical),('tax_year',str(profile.tax_year)),('formset_name',profile.formset_name),('form_name',profile.form_name),('copyNum',copy),('fileCopyNum',filecopy),('porIndex',order))
+                owner=(('entity_uuid',canonical),('tax_year',str(profile.tax_year)),('formset_name',profile.formset_name),('form_name',form_profile.form_name),('copyNum',copy),('fileCopyNum',filecopy),('porIndex',order))
                 forms.append(FormFacts(owner,tuple(attrs.items()),tuple(facts),tuple(pending)))
     if not forms:problems.append('no_bound_forms')
-    return NativeBook(data,hashlib.sha256(data).hexdigest(),profile.owned_registry_sha256,tuple(forms),tuple(dict.fromkeys(problems)))
+    return NativeBook(data,hashlib.sha256(data).hexdigest(),registry_hash,tuple(forms),tuple(dict.fromkeys(problems)))

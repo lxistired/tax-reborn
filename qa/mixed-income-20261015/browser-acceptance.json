@@ -1,0 +1,37 @@
+{
+  "checked_at_utc": "2026-10-15T00:06:30.749Z",
+  "all_passed": true,
+  "checks": [
+    {
+      "mode": "HTTP-SQLite",
+      "real_UI_file_inputs": true,
+      "three_form_types_reviewed_from_one_attachment": true,
+      "copy_1_kept_distinct": true,
+      "prior_record_retained": true,
+      "reload_and_JSON_restore_passed": true,
+      "duplicate_rejected": true,
+      "selected_corrected_XML_saved": true,
+      "other_forms_byte_identical": true,
+      "refund": 344,
+      "original_runtime": 0,
+      "deferred_dialog_focus_keeps_active_input": true
+    },
+    {
+      "mode": "Pyodide-IndexedDB",
+      "real_UI_file_inputs": true,
+      "three_form_types_reviewed_from_one_attachment": true,
+      "copy_1_kept_distinct": true,
+      "prior_record_retained": true,
+      "reload_and_JSON_restore_passed": true,
+      "duplicate_rejected": true,
+      "selected_corrected_XML_saved": true,
+      "other_forms_byte_identical": true,
+      "refund": 344,
+      "original_runtime": 0,
+      "deferred_dialog_focus_keeps_active_input": true
+    }
+  ],
+  "synthetic_only": true,
+  "full_original_tax_compatibility": false,
+  "physical_phone_acceptance": false
+}
