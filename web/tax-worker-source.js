@@ -3,6 +3,14 @@
 let engineReady;
 let pdfReady;
 let taxmlReady;
+function taxWorkerError(error) {
+  const message=String(error?.message||error);
+  if(error?.name!=='PythonError')return message;
+  const type=String(error.type||''),last=message.trimEnd().split('\n').pop()||'',prefix=type+': ';
+  if(['ValueError','UnsupportedProfile'].includes(type.split('.').pop())&&last.startsWith(prefix)&&last.length>prefix.length)return last.slice(prefix.length);
+  console.error('Local engine exception',message);
+  return 'Local processing could not complete. Keep the source file and try again.';
+}
 function ready() {
   if (!engineReady) engineReady = (async () => {
     const py = await loadPyodide({indexURL: new URL('vendor/pyodide/', self.location.href).href});
@@ -79,7 +87,7 @@ json.dumps({"text": chr(10).join(page.extract_text() or "" for page in _doc.page
       const result = JSON.parse(await py.runPythonAsync(code));
       self.postMessage({id, result});
     } catch (error) {
-      self.postMessage({id, error: String(error.message || error)});
+      self.postMessage({id, error: taxWorkerError(error)});
     }
   });
 };
