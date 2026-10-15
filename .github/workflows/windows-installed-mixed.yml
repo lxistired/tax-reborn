@@ -16,6 +16,15 @@ on:
         type: boolean
         default: false
 
+      expanded_source:
+        description: Verify complete saved forms, automatic arrays and local calculation comparison
+        type: boolean
+        default: false
+      full_gui:
+        description: Include the unchanged financial interview and PDF workflows
+        type: boolean
+        default: false
+
 permissions:
   contents: read
   actions: read
@@ -62,7 +71,9 @@ jobs:
         run: |
           $options=@{}
           if ('${{ inputs.effective_registry }}' -eq 'true') { $options.EffectiveRegistry=$true }
-          ./scripts/windows_gui_smoke.ps1 -MixedOnly @options -Executable "$env:RUNNER_TEMP/TaxRebornExistingInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-mixed" -DataDir "$env:RUNNER_TEMP/TaxRebornMixedSyntheticGUI"
+          if ('${{ inputs.full_gui }}' -ne 'true') { $options.MixedOnly=$true }
+          if ('${{ inputs.expanded_source }}' -eq 'true') { $options.EffectiveRegistry=$true; $options.CompleteValueForm=$true; $options.AutomaticArrays=$true; $options.SourceComparison=$true }
+          ./scripts/windows_gui_smoke.ps1 @options -Executable "$env:RUNNER_TEMP/TaxRebornExistingInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-mixed" -DataDir "$env:RUNNER_TEMP/TaxRebornMixedSyntheticGUI"
       - name: Upload actual verification evidence
         if: always()
         uses: actions/upload-artifact@v7

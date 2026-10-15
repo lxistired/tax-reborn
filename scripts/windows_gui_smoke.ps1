@@ -296,14 +296,7 @@ try {
     Click-Observed (Wait-Named 'Save')
     Wait-Named 'Saved on this device' | Out-Null
     Click-Observed (Wait-Named 'Wages & salaries · W-2')
-    $field = Wait-Edit 'Box 2 · Federal income tax withheld'
-    $scroll=$null
-    if($field.TryGetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern,[ref]$scroll)) { ([System.Windows.Automation.ScrollItemPattern]$scroll).ScrollIntoView() }
-    $field.SetFocus()
-    [System.Windows.Forms.SendKeys]::SendWait('^a')
-    [System.Windows.Forms.SendKeys]::SendWait('7000{TAB}')
-    $value=$field.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty)
-    if([string]$value -ne '7000') { throw "Actual withholding input is not the intended value 7000: $value" }
+    Set-Owned-Edit 'Box 2 · Federal income tax withheld' '7000'
     # Focusing a low W2 field can scroll the whole interview and put the refund
     # header above the viewport. Read its real value, then bring header/Save back.
     Wait-Named '$1,913' 120 $false | Out-Null
