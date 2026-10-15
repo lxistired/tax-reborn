@@ -734,7 +734,7 @@ async function showTaxMLImport(){
  const source=el('input',{type:'file',accept:'.xml,.tax,.tax2025,.taxbin,.bin,.zip,application/xml,text/xml,application/zip,application/octet-stream','aria-label':'Choose plaintext TaxML or .tax container'});
  const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose explicit TaxML wire profile'});
  const carriers=el('input',{type:'file',multiple:true,accept:'.xprf,application/octet-stream','aria-label':'Choose caller-owned XPRF registries'});
- const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Explicitly declared plaintext ZIP'),el('option',{value:'binary_entity'},'Binary tax data — supported profile'));
+ const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Plaintext ZIP — extract corrected XML'),el('option',{value:'cleartext_persistence_container'},'Cleartext container — preserve complete archive'),el('option',{value:'binary_entity'},'Binary tax data — supported profile'));
  const acknowledged=el('input',{type:'checkbox','aria-label':'Acknowledge the selected unverified wire profile'});
  holder.append(el('p',{class:'intro'},'Open local TaxML or supported binary tax data with your own registry files and an explicit profile. Review W-2, 1099-INT and 1099-DIV amounts before adding them. Binary corrections retain supported child forms, table records, links and unedited fields. Protected and unsupported files are refused.'),
   el('div',{class:'note warning'},'The selected wire profile is supplied by you. Original TurboTax loading and calculation are unverified. Unknown fields and source facts block adding a candidate.'),
@@ -743,7 +743,7 @@ async function showTaxMLImport(){
   el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
   el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
   el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')),
-  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'))));
+  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'))));
  const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
   if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
@@ -768,10 +768,26 @@ async function loadBinarySample(name,id,atRevision){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. The sample is attached; no income was added.');
  showTaxMLCandidates(row,inspected,id,atRevision);
 }
+async function loadClearContainerSample(id,atRevision){
+ if(currentId!==id||revision!==atRevision)throw Error('This return changed. Reopen the import.');
+ const response=await fetch('samples/plaintext-container-request.json');if(!response.ok)throw Error('The cleartext sample is missing from the installed package.');
+ const request=await response.json(),decode=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
+ const file=new File([decode(request.base64)],'synthetic-cleartext-container.zip',{type:'application/zip'}),profile=new File([JSON.stringify(request.profile)],'synthetic-container-profile.json',{type:'application/json'}),carriers=request.carriers.map((item,i)=>new File([decode(item.base64)],'synthetic-container-registry-'+i+'.xprf'));
+ const inspected=await window.taxMLImport.inspect(file,profile,carriers,'cleartext_persistence_container',true);
+ if(currentId!==id||revision!==atRevision)throw Error('This return changed while opening the source.');
+ const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile,carriers,container:'cleartext_persistence_container'}};
+ await documentOperation('readwrite',store=>store.put(row));
+ if(currentId!==id||revision!==atRevision)throw Error('This return changed. The source remains attached; no income was added.');
+ showTaxMLCandidates(row,inspected,id,atRevision);
+}
 function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set()){
  const holder=el('div',{},el('p',{class:'intro'},'Review each supported income form or filing-status setup separately. The original source stays attached; every change needs your confirmation.'),
   ...(inspected.warnings||[]).map(warning=>el('div',{class:'note warning'},warning)),
   el('small',{},'Source SHA-256 · '+inspected.source_sha256));
+ if(inspected.container_report){
+  const report=inspected.container_report;
+  holder.append(el('div',{class:'note'},el('strong',{},'Complete cleartext container'),el('p',{},report.members+' ZIP members · '+report.documents.length+' stored documents · '+report.unreferenced_members+' extra members. Corrections preserve the original manifest and every unselected local record.'),el('p',{},'Selected TaxML: '+report.selected_taxml_member),el('p',{},'Encrypted original files are unsupported. Other stored documents are preserved without treating them as active tax data.')));
+ }
  if(inspected.registry_binding){
   const binding=inspected.registry_binding;
   holder.append(el('p',{},'The profile fixes the order of '+binding.registry_order.length+' registry files. Visible and hidden field definitions are selected separately.'),
@@ -895,7 +911,7 @@ function showBinaryFields(source,inspected,returnId,atRevision){
  },'primary']]);
 }
 function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
- const binary=candidate.source_format==='binary_entity',copyLabel=binary?'Download corrected binary':'Download corrected XML',copyExtension=binary?'.taxbin':'.xml';
+ const binary=candidate.source_format==='binary_entity',archive=candidate.source_format==='cleartext_persistence_container',copyLabel=binary?'Download corrected binary':archive?'Download corrected container':'Download corrected XML',copyExtension=binary?'.taxbin':archive?'.zip':'.xml';
  const holder=el('div'),inputs={};
  holder.append(el('p',{class:'intro'},'Check each amount against the original 2025 W-2. This adds a separate record and keeps existing W-2s. Source flags do not establish who owns this W-2.'),
   el('div',{class:'note warning'},'Select taxpayer or spouse. For Boxes 7 and 10, a missing source value remains blank. Enter zero only after verifying that the original W-2 is blank or zero.'));
@@ -909,7 +925,7 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
  }
  const confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML W-2 amounts and ownership'});
  holder.append(fields,el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, the owner, employer and every amount against the original W-2.')),
-  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':'Download corrected XML writes only Boxes 1–6 to a separate plaintext XML copy. Other source bytes are retained. Owner, employer, Boxes 7 and 10 are added to this App only. The original return is not recalculated.')));
+  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':archive?'Download corrected container saves the complete cleartext ZIP, checks every member and preserves all other stored documents. Source tax totals are not recalculated. ':'Download corrected XML writes only Boxes 1–6 to a separate plaintext XML copy. Other source bytes are retained. Owner, employer, Boxes 7 and 10 are added to this App only. The original return is not recalculated.')));
  let committing=false;
  modal('Review TaxML W-2 candidate',holder,[['Add reviewed W-2',async()=>{
   if(committing)return;committing=true;
@@ -929,20 +945,20 @@ function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const bytes=Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0));
    if(!await downloadBlob(new Blob([bytes],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;
-   notify(binary?'Corrected binary copy checked. Complete structure readback passed; derived source values were not recalculated.':'Corrected XML copy downloaded. Original source retained; no full-return recalculation.');
+   notify(binary?'Corrected binary copy checked. Complete structure readback passed; derived source values were not recalculated.':archive?'Complete corrected container checked and saved. Other source members retained; current return unchanged.':'Corrected XML copy downloaded. Original source retained; no full-return recalculation.');
   }finally{committing=false;}
  },'secondary']]);
 }
 const interestTaxMLFields=[['interest_income','Box 1 · Interest income'],['treasury_interest','Box 3 · U.S. savings bonds and Treasury interest'],['tax_exempt_interest','Box 8 · Tax-exempt interest'],['federal_withholding','Box 4 · Federal income tax withheld']];
 function reviewTaxMLInterest(source,candidate,returnId,atRevision,onAdded=null){
- const binary=candidate.source_format==='binary_entity',copyLabel=binary?'Download corrected binary':'Download corrected XML',copyExtension=binary?'.taxbin':'.xml';
+ const binary=candidate.source_format==='binary_entity',archive=candidate.source_format==='cleartext_persistence_container',copyLabel=binary?'Download corrected binary':archive?'Download corrected container':'Download corrected XML',copyExtension=binary?'.taxbin':archive?'.zip':'.xml';
  const holder=el('div'),inputs={},payer=el('input',{type:'text',value:candidate.payer||'','aria-label':'1099-INT payer name'}),fields=grid(el('div',{class:'field'},el('label',{},'Payer / bank name'),payer));
  holder.append(el('p',{class:'intro'},'Check the four amounts against your original 2025 1099-INT. Boxes 1 and 3 are added together before federal rounding; Box 8 remains tax-exempt and Box 4 is federal withholding. Existing income records are kept.'));
  for(const[name,label]of interestTaxMLFields){const input=inputs[name]=el('input',{type:'text',inputmode:'decimal',class:'money',value:candidate.amounts[name]??'','aria-label':label});fields.append(el('div',{class:'field'},el('label',{},label),el('div',{class:'money-wrap'},el('span',{},'$'),input),el('small',{},'Source '+candidate.sources[name].field_id+' · '+candidate.sources[name].wire_text)));}
  const scope=el('input',{type:'checkbox','aria-label':'Confirm supported 1099-INT situation'}),confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML 1099-INT amounts and household'});
  holder.append(fields,el('label',{class:'check-field'},scope,el('span',{},'I verified there is no early-withdrawal penalty, investment expense, foreign tax, private-activity bond interest, market discount, bond-premium adjustment, nominee allocation or education-related savings-bond exclusion to import.')),
   el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, this household, the payer and every amount against the original 1099-INT.')),
-  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':'Download corrected XML writes these four amounts to a separate plaintext XML copy. The payer is entered in this App only. The original return is not recalculated. State exclusions need a separate state-workspace review.')));
+  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':archive?'Download corrected container saves the complete cleartext ZIP, checks every member and preserves all other stored documents. Source tax totals are not recalculated. ':'Download corrected XML writes these four amounts to a separate plaintext XML copy. The payer is entered in this App only. The original return is not recalculated. State exclusions need a separate state-workspace review.')));
  const values=()=>({...Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value])),payer:payer.value,supported_scope:scope.checked});let committing=false;
  modal('Review TaxML 1099-INT candidate',holder,[['Add reviewed 1099-INT',async()=>{
   if(committing)return;committing=true;
@@ -958,20 +974,20 @@ function reviewTaxMLInterest(source,candidate,returnId,atRevision,onAdded=null){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
-   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-INT binary checked. Structure readback passed.':'Corrected 1099-INT XML downloaded. Original source retained.');
+   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-INT binary checked. Structure readback passed.':archive?'Complete corrected 1099-INT container checked and saved. Other source members retained.':'Corrected 1099-INT XML downloaded. Original source retained.');
   }finally{committing=false;}
  },'secondary']]);
 }
 const dividendTaxMLFields=[['ordinary','Box 1a · Total ordinary dividends'],['qualified','Box 1b · Qualified dividends'],['capital_gain_distributions','Box 2a · Total capital gain distributions'],['unrecaptured_1250_gain','Box 2b · Unrecaptured section 1250 gain'],['collectibles_gain','Box 2d · Collectibles (28%) gain'],['federal_withholding','Box 4 · Federal income tax withheld']];
 function reviewTaxMLDividend(source,candidate,returnId,atRevision,onAdded=null){
- const binary=candidate.source_format==='binary_entity',copyLabel=binary?'Download corrected binary':'Download corrected XML',copyExtension=binary?'.taxbin':'.xml';
+ const binary=candidate.source_format==='binary_entity',archive=candidate.source_format==='cleartext_persistence_container',copyLabel=binary?'Download corrected binary':archive?'Download corrected container':'Download corrected XML',copyExtension=binary?'.taxbin':archive?'.zip':'.xml';
  const holder=el('div'),inputs={},payer=el('input',{type:'text',value:candidate.payer||'','aria-label':'1099-DIV payer name'}),fields=grid(el('div',{class:'field'},el('label',{},'Payer / bank name'),payer));
  holder.append(el('p',{class:'intro'},'Check the six amounts against your original 2025 1099-DIV. Box 1b is part of Box 1a. Boxes 2b and 2d are part of Box 2a and are not added again to income. Box 4 is federal withholding. Existing income records are kept.'));
  for(const[name,label]of dividendTaxMLFields){const input=inputs[name]=el('input',{type:'text',inputmode:'decimal',class:'money',value:candidate.amounts[name]??'','aria-label':label});fields.append(el('div',{class:'field'},el('label',{},label),el('div',{class:'money-wrap'},el('span',{},'$'),input),el('small',{},'Source '+candidate.sources[name].field_id+' · '+candidate.sources[name].wire_text)));}
  const qualified=el('input',{type:'checkbox','aria-label':'Confirm qualified dividend eligibility'}),scope=el('input',{type:'checkbox','aria-label':'Confirm supported 1099-DIV situation'}),confirmed=el('input',{type:'checkbox','aria-label':'Confirm all TaxML 1099-DIV amounts and household'});
  holder.append(fields,el('label',{class:'check-field'},qualified,el('span',{},'I verified the Box 1b qualified dividends meet the holding-period and other qualified-dividend requirements, or entered an explicit zero.')),el('label',{class:'check-field'},scope,el('span',{},'I verified these six boxes cover this record: there are no QSBS exclusions, FIRPTA distributions, nondividend distributions, section 199A dividends, investment expenses, foreign taxes, liquidation distributions, exempt-interest or private-activity bond dividends, or nominee allocations to import. Boxes 2b and 2d match the original form.')),
   el('label',{class:'check-field'},confirmed,el('span',{},'I checked tax year 2025, this household, the payer and every amount against the original 1099-DIV.')),
-  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':'Download corrected XML writes these six amounts to a separate plaintext XML copy. The payer is entered in this App only. The original return is not recalculated. Other distribution types need a separate supported workflow; this import does not establish them.')));
+  el('p',{class:'note'},(binary?'Download corrected binary writes supported source amounts to a separate copy, checks every parsed field and structure by reading it again, and retains the original. Derived source values are not recalculated. ':archive?'Download corrected container saves the complete cleartext ZIP, checks every member and preserves all other stored documents. Source tax totals are not recalculated. ':'Download corrected XML writes these six amounts to a separate plaintext XML copy. The payer is entered in this App only. The original return is not recalculated. Other distribution types need a separate supported workflow; this import does not establish them.')));
  const values=()=>({...Object.fromEntries(Object.entries(inputs).map(([name,input])=>[name,input.value])),payer:payer.value,supported_scope:scope.checked,qualified_eligibility:qualified.checked});let committing=false;
  modal('Review TaxML 1099-DIV candidate',holder,[['Add reviewed 1099-DIV',async()=>{
   if(committing)return;committing=true;
@@ -987,7 +1003,7 @@ function reviewTaxMLDividend(source,candidate,returnId,atRevision,onAdded=null){
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
    const corrected=await window.taxMLImport.correctedSource(candidate,values(),confirmed.checked);
    if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the import.');
-   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-DIV binary checked. Structure readback passed.':'Corrected 1099-DIV XML downloaded. Original source retained.');
+   if(!await downloadBlob(new Blob([Uint8Array.from(atob(corrected.base64),c=>c.charCodeAt(0))],{type:corrected.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+copyExtension))return;notify(binary?'Corrected 1099-DIV binary checked. Structure readback passed.':archive?'Complete corrected 1099-DIV container checked and saved. Other source members retained.':'Corrected 1099-DIV XML downloaded. Original source retained.');
   }finally{committing=false;}
  },'secondary']]);
 }

@@ -1,6 +1,7 @@
 """Local TaxML candidates with explicit caller bindings; no whole-return import.
 
-This adapter never decrypts a container and never writes an original .tax file.
+This adapter never decrypts a container. Selected cleartext source copies retain
+the complete archive; original-program acceptance remains unverified.
 Registry bytes and the wire profile are supplied by the user for each inspection.
 Unknown facts stay blocking. The federal engine receives only reviewed rows.
 """
@@ -130,8 +131,12 @@ def _inspect(request):
     for key, identity in selected.items():
         registry.resolve(*key, identity)
     archive_member = None
+    container_report = None
     if request['container'] == 'plaintext_xml':
         payload = data
+    elif request['container'] == 'cleartext_persistence_container':
+        import taxml_container
+        payload, archive_member, container_report = taxml_container.inspect_source(data)
     elif request['container'] == 'declared_plaintext_zip':
         archive = wire.read_archive(data, declared_plaintext=True)
         documents = [d for d in archive.documents if d['taxml_type']]
@@ -142,7 +147,9 @@ def _inspect(request):
     else:
         raise ValueError('Select plaintext XML or explicitly declared plaintext ZIP. Encrypted or unknown containers are unsupported.')
     if modern:
-        return _inspect_native(request, data, payload, archive_member, registry, selected)
+        result, payload, leaves = _inspect_native(request, data, payload, archive_member, registry, selected)
+        _attach_container_scope(result, container_report)
+        return result, payload, leaves
     document = wire.read_taxml(payload, registry, profiles=selected,
         namespace_profile=namespaces, root_qname=request['profile']['root_qname'])
     unresolved = list(document.unresolved)
@@ -205,7 +212,22 @@ def _inspect(request):
             'Check tax year 2025 and every amount against the original W-2 before adding a record.']}
     leaves = {value['key']: {'qname': document.elements[value['key']][0].tag,
         'text': value['source_text']} for value in document.values}
+    _attach_container_scope(result, container_report)
     return result, payload, leaves
+
+
+def _attach_container_scope(result, report):
+    if report is None:
+        return
+    result['container_report'] = report
+    result['source_container'] = 'cleartext_persistence_container'
+    result['warnings'].append('Only explicitly cleartext containers are supported. Other stored documents remain unexamined source content; the native default encrypted format is unsupported.')
+    result['unresolved_facts'].extend(report['blocking_metadata_facts'])
+    for candidate in result['candidates']:
+        candidate['source_format'] = 'cleartext_persistence_container'
+        if not report['manifest_metadata_edit_authorized']:
+            candidate['can_review'] = False
+            candidate['can_edit_source'] = False
 
 
 def _inspect_native(request, source, payload, archive_member, registry, selected):
@@ -372,6 +394,27 @@ def export_request(request):
     matching = [c for c in readback['candidates'] if c['receipt']['form_path'] == candidate['receipt']['form_path']]
     if len(matching) != 1 or not matching[0]['can_review'] or any(Decimal(matching[0]['amounts'][n]) != Decimal(v) for n, v in normalized.items()):
         raise ValueError('Corrected XML did not pass field readback.')
+    if request['inspection']['container'] == 'cleartext_persistence_container':
+        import taxml_container
+        source = decode_blob(request['inspection']['base64'], 10 * 1024 * 1024)
+        output, report = taxml_container.corrected_container(source, candidate['receipt']['archive_member'], corrected)
+        full_readback = inspect_request({**request['inspection'], 'base64': base64.b64encode(output).decode()})
+        if full_readback['unresolved_facts'] or len(full_readback['candidates']) != len(inspected['candidates']):
+            raise ValueError('The complete corrected container failed candidate readback.')
+        expected = {c['receipt']['form_path']: c for c in inspected['candidates']}
+        for current in full_readback['candidates']:
+            original = expected.get(current['receipt']['form_path'])
+            if original is None or not current['can_review']:
+                raise ValueError('A corrected container candidate changed ownership.')
+            wanted = {**original['amounts'], **normalized} if current['receipt']['form_path'] == candidate['receipt']['form_path'] else original['amounts']
+            if set(current['amounts']) != set(wanted) or any(Decimal(current['amounts'][key]) != Decimal(value) for key, value in wanted.items()):
+                raise ValueError('The complete corrected container changed other source amounts.')
+        return {'format': 'tax-reborn-corrected-container-v1', 'base64': base64.b64encode(output).decode(),
+            'mime': 'application/zip', 'source_sha256': inspected['source_sha256'],
+            'output_sha256': wire.digest(output), 'edited_fields': names,
+            'full_return_recalculated': False, 'original_program_acceptance_verified': False,
+            'export_container': 'cleartext_persistence_container', 'container_report': report,
+            'original_source_retained': True}
     return {'format': 'tax-reborn-corrected-taxml-v1', 'base64': base64.b64encode(corrected).decode(),
         'mime': 'application/xml', 'source_sha256': inspected['source_sha256'],
         'output_sha256': wire.digest(corrected), 'edited_fields': names,

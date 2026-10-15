@@ -1,0 +1,3 @@
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.container.raw_zip_reference.UnsupportedProfile: Bounded complete ZIP byte buffer"}
+{"name":"PythonError","type":"UnsupportedProfile","last":"interop.container.raw_zip_reference.UnsupportedProfile: One exact terminal ZIP end record, without trailing data"}
+{"name":"PythonError","type":"ValueError","last":"ValueError: The reviewed candidate is missing, ambiguous or unresolved."}

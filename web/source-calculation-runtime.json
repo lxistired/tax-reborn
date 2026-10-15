@@ -47,6 +47,21 @@
       "sha256": "dcf34f5f8f82a02aee6d8b801cb22e93a976e49f64aca9e98d3019b68e5624b7"
     },
     {
+      "path": "interop/container/__init__.py",
+      "bytes": 73,
+      "sha256": "e9bfa7268baea99b99384b7b11d5c5365ee231d970b2c9705929777a79ce1b91"
+    },
+    {
+      "path": "interop/container/clear_container_reference.py",
+      "bytes": 7279,
+      "sha256": "7be32af3eb3676309d3b949481ebd62ef9c72f6a3f50cf5b98efab0c63763433"
+    },
+    {
+      "path": "interop/container/raw_zip_reference.py",
+      "bytes": 8131,
+      "sha256": "2e33c48ae52cba7a894cc37d787fe8c07789f24da7113d6e87064d493dcbf0a0"
+    },
+    {
       "path": "interop/derived_form/__init__.py",
       "bytes": 72,
       "sha256": "88dbe6fc2d54e51512e8337acf9b4ffc9afa5beb40331435c0fbcd936e174a03"
@@ -367,14 +382,19 @@
       "sha256": "c5b7bc5a746369f70fc67eca2b783e0f951a8536f44dc5e09607fe07ae5d08a6"
     },
     {
+      "path": "taxml_container.py",
+      "bytes": 4945,
+      "sha256": "235ede6ca8c0aa3bdc8f5483ff45f5971fc1f21fea7cefa84e5569095ed16be8"
+    },
+    {
       "path": "taxml_native.py",
       "bytes": 14609,
       "sha256": "8a63de82c63fb4eb60b068c1198ad0a1a08413b57d5415707bc1a889d75e5ade"
     },
     {
       "path": "taxml_preparation.py",
-      "bytes": 25753,
-      "sha256": "c17056300008ceb93b4f6721b245df607411c42b7ccd16337b64843642c0a258"
+      "bytes": 28821,
+      "sha256": "0c7dc2d43291fba93322ddda52462554af4b120ecbd7df9256153948d9494364"
     },
     {
       "path": "taxml_wire.py",

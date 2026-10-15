@@ -9,7 +9,8 @@ param(
     [switch]$SourceComparison,
     [switch]$TypedValues,
     [switch]$WholeNumbers,
-    [switch]$PersistentObjects
+    [switch]$PersistentObjects,
+    [switch]$CleartextContainer
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -755,6 +756,24 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_Entity_FormSet_persistent_document_passed=$true
         $checks.Add('Actual system8110B full source export retained2FormSets/8forms/nonemptytables/children/8links, all eight value tails plus Entity14B146147/bothFS148151 original raw objects after movement; saved344 return survived normal close/reopen.')
+    }
+    if($CleartextContainer) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load plaintext container sample')
+        Wait-Named 'Complete cleartext container' 120 $false | Out-Null
+        Save-Screenshot 'windows-native-cleartext-container-members.png'
+        Click-Observed (Wait-Named 'Review W-2 candidate')
+        Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '1234.57'
+        Click-Observed (Wait-Named 'Confirm all TaxML W-2 amounts and ownership'); Click-Observed (Wait-Named 'Download corrected container')
+        $containerCopy=Join-Path $OutputDir 'windows-native-cleartext-container-corrected.zip'; Save-Native-Export $containerCopy 100
+        Save-Screenshot 'windows-native-cleartext-container-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        $containerReadback=python scripts/verify_clear_container_native.py fixtures/plaintext-container/synthetic-cleartext-container.zip $containerCopy
+        if($LASTEXITCODE -ne 0) { throw 'Complete cleartext container system export failed independent ZIP/TaxML/raw-local-record readback.' }
+        $containerReadback | Set-Content -Encoding utf8 (Join-Path $OutputDir 'windows-native-cleartext-container-readback.json')
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_cleartext_container_passed=$true
+        $checks.Add('Actual native cleartext container5members/3documents loaded; W2correction1234.56to1234.57 system-saved wholeZIP; originalmanifest,4otherlocalrecords,INT/DIV XML preserved; saved344current return retained after normal close/reopen. Default encrypted original files remain unsupported.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

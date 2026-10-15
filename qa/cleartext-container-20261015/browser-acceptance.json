@@ -1,0 +1,70 @@
+{
+  "checked_at_utc": "2026-10-15T14:21:53.066Z",
+  "all_passed": true,
+  "feature": "complete explicit cleartext container source workflow",
+  "checks": [
+    {
+      "mode": "HTTP-SQLite",
+      "complete_container_report_rendered": true,
+      "real_UI_file_inputs": true,
+      "three_form_types_reviewed_from_one_attachment": true,
+      "copy_1_kept_distinct": true,
+      "prior_record_retained": true,
+      "reload_and_JSON_restore_passed": true,
+      "duplicate_rejected": true,
+      "selected_complete_container_system_download": true,
+      "full_readback": {
+        "complete_stdlib_ZIP_CRC_passed": true,
+        "members": 5,
+        "untouched_local_records_exact": 4,
+        "manifest_bytes_unchanged": true,
+        "other_form_XML_bytes_unchanged": true,
+        "source_bytes": 1585,
+        "output_bytes": 1584,
+        "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+        "output_sha256": "b1bf57a27f3485cb7d51b0259a4b0e459b94d2e1e27a97da4097516d554d838d",
+        "edited_field": "interest_income",
+        "edited_amount": "101.24",
+        "original_program_execution": 0,
+        "whole_original_tax_compatibility": false
+      },
+      "other_forms_byte_identical": true,
+      "refund": 344,
+      "original_runtime": 0,
+      "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+    },
+    {
+      "mode": "Pyodide-IndexedDB",
+      "complete_container_report_rendered": true,
+      "real_UI_file_inputs": true,
+      "three_form_types_reviewed_from_one_attachment": true,
+      "copy_1_kept_distinct": true,
+      "prior_record_retained": true,
+      "reload_and_JSON_restore_passed": true,
+      "duplicate_rejected": true,
+      "selected_complete_container_system_download": true,
+      "full_readback": {
+        "complete_stdlib_ZIP_CRC_passed": true,
+        "members": 5,
+        "untouched_local_records_exact": 4,
+        "manifest_bytes_unchanged": true,
+        "other_form_XML_bytes_unchanged": true,
+        "source_bytes": 1585,
+        "output_bytes": 1584,
+        "source_sha256": "336391504dc690c27b1ef906c4f3b4a23451012922f712bc55633bd86c25536d",
+        "output_sha256": "b1bf57a27f3485cb7d51b0259a4b0e459b94d2e1e27a97da4097516d554d838d",
+        "edited_field": "interest_income",
+        "edited_amount": "101.24",
+        "original_program_execution": 0,
+        "whole_original_tax_compatibility": false
+      },
+      "other_forms_byte_identical": true,
+      "refund": 344,
+      "original_runtime": 0,
+      "unmodeled_manifest_metadata_readonly_no_review_or_export": true
+    }
+  ],
+  "synthetic_only": true,
+  "full_original_tax_compatibility": false,
+  "physical_phone_acceptance": false
+}

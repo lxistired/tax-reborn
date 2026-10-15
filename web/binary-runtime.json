@@ -2,6 +2,9 @@
   "format": "tax-reborn-binary-runtime-v1",
   "modules": [
     "interop/__init__.py",
+    "interop/container/__init__.py",
+    "interop/container/clear_container_reference.py",
+    "interop/container/raw_zip_reference.py",
     "interop/derived_form/__init__.py",
     "interop/derived_form/cx_string_wire_reference.py",
     "interop/derived_form/document_semantics_reference.py",
@@ -51,6 +54,9 @@
   ],
   "sha256": {
     "interop/__init__.py": "dcf34f5f8f82a02aee6d8b801cb22e93a976e49f64aca9e98d3019b68e5624b7",
+    "interop/container/__init__.py": "e9bfa7268baea99b99384b7b11d5c5365ee231d970b2c9705929777a79ce1b91",
+    "interop/container/clear_container_reference.py": "7be32af3eb3676309d3b949481ebd62ef9c72f6a3f50cf5b98efab0c63763433",
+    "interop/container/raw_zip_reference.py": "2e33c48ae52cba7a894cc37d787fe8c07789f24da7113d6e87064d493dcbf0a0",
     "interop/derived_form/__init__.py": "88dbe6fc2d54e51512e8337acf9b4ffc9afa5beb40331435c0fbcd936e174a03",
     "interop/derived_form/cx_string_wire_reference.py": "e01d803d508097c6ecabbc598f34a68c0d9331b54c36f31d8e4c8ff9d7fcd283",
     "interop/derived_form/document_semantics_reference.py": "fa2f3a3dd09f5d749be1ddd16a100d0cfa16a1c3b43c8c532ea75506f9c65e90",

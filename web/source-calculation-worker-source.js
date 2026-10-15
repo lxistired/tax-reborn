@@ -20,13 +20,13 @@ function ready(){
     const manifest=await response.json();
     if(manifest.format!=='tax-reborn-local-source-runtime-v1'||!Array.isArray(manifest.files)||manifest.files.length>100)throw Error('Unsupported local comparison runtime.');
     const files=await Promise.all(manifest.files.map(async row=>{
-      if(!/^(?:[a-z_0-9-]+\.(?:py|json)|interop\/(?:__init__|(?:form_core|derived_form)\/[a-z_0-9]+)\.py)$/.test(row.path))throw Error('Invalid local runtime path.');
+      if(!/^(?:[a-z_0-9-]+\.(?:py|json)|interop\/(?:__init__|(?:form_core|derived_form|container)\/[a-z_0-9]+)\.py)$/.test(row.path))throw Error('Invalid local runtime path.');
       const response=await fetch(new URL(row.path,base));if(!response.ok)throw Error('Missing local comparison file: '+row.path);
       const bytes=new Uint8Array(await response.arrayBuffer());
       if(await digest(bytes)!==row.sha256)throw Error('Local comparison runtime hash mismatch.');
       return [row.path,bytes];
     }));
-    py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');
+    py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');py.FS.mkdirTree('/home/pyodide/interop/container');
     for(const [path,bytes] of files)py.FS.writeFile('/home/pyodide/'+path,bytes);
     await py.runPythonAsync('import sys,json\nsys.path.insert(0,"/home/pyodide")\nimport source_calculation_command,tax_engine');
     return py;
