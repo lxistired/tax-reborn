@@ -123,6 +123,7 @@ def persistent_report(document):
     from interop.derived_form.entity_objects_reference import typed_body as entity_body
     from interop.form_core.metadata_formset_body_reference import NAME as METADATA_NAME
     from interop.derived_form.metadata_entity_body_reference import NAME as ENTITY_METADATA_NAME
+    from interop.form_core.instance_map_formset_body_reference import NAME as INSTANCE_MAP_NAME
     def report(value,scope):
         if value is None:return None
         rows=[]
@@ -132,7 +133,12 @@ def persistent_report(document):
                 body_bytes=len(obj.body),body_sha256=hashlib.sha256(obj.body).hexdigest(),
                 source_position=obj.source_record_position,relocatable=typed is not None,
                 original_bytes_retained=True,active_native_value=False)
-            if typed is not None and ((scope=='formset' and obj.class_name==METADATA_NAME)
+            if typed is not None and scope=='formset' and obj.class_name==INSTANCE_MAP_NAME:
+                row.update(kind='stored_instance_map',class_id=0x14f,
+                    rows=[dict(tps_address_hex=pair.tps_address.hex(),mef_xpath_hex=pair.mef_xpath.hex()) for pair in typed.rows],
+                    native_cleanup_executed=False,native_14D_transfer_executed=False,
+                    native_current_cache_verified=False)
+            elif typed is not None and ((scope=='formset' and obj.class_name==METADATA_NAME)
                     or (scope=='entity' and obj.class_name==ENTITY_METADATA_NAME)):
                 row.update(kind='stored_metadata',version=typed.version,
                     rows=[dict(path_hex=r.path.hex(),text_hex=r.text.hex()) for r in typed.rows],

@@ -1,12 +1,14 @@
 """Actual CF paired map / CE FormSet persistent-object envelope, raw body I/O.
 
-Only exact source-bound148 canonical UUID and151 metadata bodies can move.
+Only source-bound148 UUID,151 metadata and finite nonempty version1 type14F
+stored instance-map bodies can move, retaining the same parsed source owner.
 All other body classes remain opaque and require unchanged stream positions.
 No native factory, event, UUID refresh or metadata set_value/fixup is executed.
 """
 from dataclasses import dataclass
 import struct,re
 from ..form_core.metadata_formset_body_reference import NAME as METADATA_NAME,load_named_metadata_body,preserve_metadata_body
+from ..form_core.instance_map_formset_body_reference import NAME as INSTANCE_MAP_NAME,typed_raw_body_or_none
 from ..form_core.field_template_reference import UnsupportedProfile
 
 UUID_NAME=b'zccPersistentFormSetUUID'
@@ -38,6 +40,7 @@ def _u32(value):
  return value
 
 def typed_body(class_name,body):
+ if class_name==INSTANCE_MAP_NAME:return typed_raw_body_or_none(body)
  if class_name==METADATA_NAME:return load_named_metadata_body(class_name,body)
  if class_name==UUID_NAME:
   if type(body)is not bytes or len(body)!=37 or body[0]!=36 or not UUID_PATTERN.fullmatch(body[1:]):raise UnsupportedProfile('Canonical complete FormSet148 UUID body; native normalization/generation not supplied')

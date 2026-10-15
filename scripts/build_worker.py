@@ -19,7 +19,9 @@ for source_name,target_name in [('request.json','mac-taxml-request.json'),('bloc
  shutil.copy2(ROOT/'fixtures/mac-taxml'/source_name,web/'samples'/target_name)
 for source_name,target_name in [('request.json','mac-scalar-request.json'),('blocked-request.json','mac-scalar-blocked-request.json')]:
  shutil.copy2(ROOT/'fixtures/mac-scalar-taxml'/source_name,web/'samples'/target_name);sample_assets.append('samples/'+target_name)
-for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json'):
+for source_name,target_name in [('request.json','mac-date-request.json'),('blocked-request.json','mac-date-blocked-request.json')]:
+ shutil.copy2(ROOT/'fixtures/mac-date-taxml'/source_name,web/'samples'/target_name);sample_assets.append('samples/'+target_name)
+for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json','instance-map-income-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)

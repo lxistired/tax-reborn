@@ -132,6 +132,15 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_persistent_document_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Installed complete Entity/FormSet source workflow failed' }
+      - name: Exercise complete stored instance-map sources using installed assets
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_instance_map_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed stored instance-map source workflow failed' }
+          python scripts/verify_instance_map_native.py dist/windows/instance-map-corrected.taxbin --output dist/windows/installed-instance-map-readback.json
+          if ($LASTEXITCODE -ne 0) { throw 'Installed stored instance-map full document readback failed' }
       - name: Exercise complete cleartext containers using the installed worker
         shell: pwsh
         run: |
@@ -146,6 +155,18 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_mac_taxml_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Installed Mac monetary TaxML workflow failed' }
+      - name: Exercise date source edits using installed JS and WebAssembly
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_mac_date_runtime.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed date source workflow failed' }
+          foreach ($index in @(0,4,8)) {
+            $value = @{'0'='02/29/2000';'4'='12-31';'8'='2025-12'}[[string]$index]
+            python scripts/verify_mac_date_native.py "dist/windows/mac-date-$index-corrected.zip" --index $index --value $value
+            if ($LASTEXITCODE -ne 0) { throw 'Installed date source whole ZIP readback failed' }
+          }
       - name: Load the installed source-interest reader and reject owned invalid resources
         shell: pwsh
         run: |
@@ -176,7 +197,7 @@ jobs:
         run: |
           $options=@{}
           if ('${{ inputs.focused }}' -eq 'true') { $options.MixedOnly=$true }
-          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -WholeNumbers -PersistentObjects -CleartextContainer -MacTaxML -MacScalar -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
+          ./scripts/windows_gui_smoke.ps1 -EffectiveRegistry -CompleteValueForm -AutomaticArrays -TypedValues -WholeNumbers -PersistentObjects -InstanceMaps -CleartextContainer -MacTaxML -MacScalar -MacDate -SourceComparison @options -Executable "$env:RUNNER_TEMP/TaxRebornInstalledPreview/Tax Reborn.exe" -OutputDir "$PWD/dist/windows" -DataDir "$env:RUNNER_TEMP/TaxRebornSyntheticGUI"
       - name: Upload real packages and verification evidence
         if: always()
         uses: actions/upload-artifact@v7

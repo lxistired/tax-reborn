@@ -1,0 +1,64 @@
+{
+  "version": "2026.10.16-preview.33",
+  "at_utc": "2026-10-15T20:53:45.749315+00:00",
+  "scope": "Existing source date/day/month corrections and complete nonempty stored FormSet14F byte preservation; independent IRS return retained",
+  "host_tests": 783,
+  "actual_Pyodide_executed": 672,
+  "explicit_skips": 2,
+  "actual_main_HTTP_SQLite_and_390px_Pyodide_IndexedDB": true,
+  "dates": {
+    "stored_entities": 2,
+    "form_copies": 7,
+    "all_source_fields": 53,
+    "date_fields": 9,
+    "three_complete_exports_bytes": [
+      2290,
+      2290,
+      2291
+    ],
+    "three_export_SHA256": [
+      "36a739775bcafb3b5982f800dfaca948d4909a59ab94fdac15539a269f37df94",
+      "3d05857a331f1e1294347b17090b60519b9a3c1bcb037d863e9c91b11ddbb05c",
+      "8c8555e8bc75c3dcaeaffcfa089a587431ace6884914a74a4b3d8e5abb418bc3"
+    ],
+    "complete_other_fields_and4localrecords_and_Manifest_exact": true,
+    "old51_complete_API_JSON_and_bytes_exact_in_independent_review": true,
+    "independent_real_Worker_requests": 63,
+    "independent_positive": 6,
+    "independent_refused": 57,
+    "native_date_load_executed": false
+  },
+  "instance_maps": {
+    "complete_corrected_binary_bytes": 8360,
+    "SHA256": "da0b62b035b3f1332719b9f38428c98eea6d7c0fd48e6f8ee0ae4d6777711a54",
+    "FormSets": 2,
+    "forms": 8,
+    "links": 8,
+    "nonempty_tables_and_child_forms": true,
+    "stored_maps": 2,
+    "stored_pair_rows": 6,
+    "both_0F_F0_bodies_exact": true,
+    "all_persistent_layers_moved_by": 2,
+    "same_stored_owners_retained": true,
+    "unknown_version_and_count0_stay_opaque": true,
+    "known_nonempty_corruption_refused": true,
+    "native_cleanup_executed": false,
+    "native_14D_transfer_executed": false,
+    "native_current_cache_verified": false
+  },
+  "UI_late_reply_guards": {
+    "binary_date_decimal_actual_Worker_results_invalidated_on_input_selection_confirmation_revocation_and_close": true,
+    "independent_actual_refusals": 24,
+    "ordinary_complete_downloads_SHA_unchanged": 10,
+    "independent_immutable_review_manifest_SHA256": "ae50f6902565d02d13135185598c1c020a413cc0a6416da27fb16ab542aa4dcf"
+  },
+  "full_current_return_metadata_result_and_persistence_reload_unchanged": true,
+  "source_only": true,
+  "native_preview33_built": true,
+  "native_preview33_installed": false,
+  "release_preview33_published": false,
+  "original_runtime": 0,
+  "original_taxpayer_fixture": 0,
+  "whole_original_compatibility": false,
+  "full_original_recalculation": false
+}

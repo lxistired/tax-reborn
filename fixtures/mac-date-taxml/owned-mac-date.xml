@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TaxReturns xmlns="http://www.intuit.com/Ctg/Pta/TurboTax/TaxReturns" xmlns:td="http://www.intuit.com/Ctg/Pta/TurboTax/TaxDataType">
+ <!-- INDEPENDENT SAMPLE: no original saved return or native execution. -->
+ <USIndividualTaxReturn xmlns="http://www.intuit.com/Ctg/Pta/TurboTax/USIndividualTaxReturn" taxYear="2025" uuid="11111111-1111-4111-8111-111111111111" tpsEngineVersion="9.15.0">
+  <OwnedUSIndividual2025 xmlns="http://www.intuit.com/Ctg/Pta/TurboTax/OwnedUSIndividual2025" checksum="owned-checksum-2025-v1" dataVersion="2025.1" sharedForAllDataVersion="owned-all-1" sharedForFSDataVersion="owned-fs-1" formsetAttribute="7" showSmartWorksheets="false" implementationVersion="owned-1" uuid="00000000-0000-4000-8000-000000000001" tpsType="formset" tpsPrefix="ownedmac" cidFormSet="OwnedCIDFormSet2025">
+   <FW2 tpsType="form" copyNum="1" fileCopyNum="70000" porIndex="1" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000011170">
+    <WAGES field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_WAGES"><td:value>1234.56</td:value></WAGES>
+    <FEDTAX field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_FEDTAX"><td:value>123.00</td:value></FEDTAX>
+    <SSWAGES field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSWAGES"><td:value>1234.56</td:value></SSWAGES>
+    <SSTAX field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTAX"><td:value>76.54</td:value></SSTAX>
+    <MEDWAGES field="5" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDWAGES"><td:value>1234.56</td:value></MEDWAGES>
+    <MEDTAX field="6" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDTAX"><td:value>17.90</td:value></MEDTAX>
+    <SSTIPS field="7" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTIPS"><td:value>0.00</td:value></SSTIPS>
+    <DCB field="8" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DCB"><td:value>0.00</td:value></DCB>
+    <DATE field="9" elem="0" tpsType="date" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DATE"><td:value>01/02/2000</td:value></DATE>
+    <DAY field="10" elem="0" tpsType="day" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DAY"><td:value>02-29</td:value></DAY>
+    <MONTH field="11" elem="0" tpsType="month" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MONTH"><td:value>2000-02</td:value></MONTH>
+   </FW2>
+   <FW2 tpsType="form" copyNum="2" fileCopyNum="70001" porIndex="2" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000011171">
+    <WAGES field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_WAGES"><td:value>50000.01</td:value></WAGES>
+    <FEDTAX field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_FEDTAX"><td:value>4000.02</td:value></FEDTAX>
+    <SSWAGES field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSWAGES"><td:value>50000.01</td:value></SSWAGES>
+    <SSTAX field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTAX"><td:value>3100.01</td:value></SSTAX>
+    <MEDWAGES field="5" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDWAGES"><td:value>50000.01</td:value></MEDWAGES>
+    <MEDTAX field="6" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDTAX"><td:value>725.01</td:value></MEDTAX>
+    <SSTIPS field="7" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTIPS"><td:value>5.01</td:value></SSTIPS>
+    <DCB field="8" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DCB"><td:value>10.01</td:value></DCB>
+    <DATE field="9" elem="0" tpsType="date" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DATE"><td:value>01/02/2000</td:value></DATE>
+    <DAY field="10" elem="0" tpsType="day" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DAY"><td:value>02-29</td:value></DAY>
+    <MONTH field="11" elem="0" tpsType="month" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MONTH"><td:value>2000-02</td:value></MONTH>
+   </FW2>
+   <F1099I tpsType="form" copyNum="1" fileCopyNum="71000" porIndex="3" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000011558">
+    <L1 field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L1"><td:value>100.23</td:value></L1>
+    <L3 field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L3"><td:value>40.27</td:value></L3>
+    <EXINT field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_EXINT"><td:value>12.34</td:value></EXINT>
+    <L4 field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L4"><td:value>20.45</td:value></L4>
+   </F1099I>
+   <F1099D tpsType="form" copyNum="1" fileCopyNum="72000" porIndex="4" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000011940">
+    <L1B field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1B"><td:value>1200.31</td:value></L1B>
+    <QDIV field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_QDIV"><td:value>300.15</td:value></QDIV>
+    <L1C field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1C"><td:value>1000.25</td:value></L1C>
+    <L2C field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L2C"><td:value>150.05</td:value></L2C>
+    <L1CTX field="5" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1CTX"><td:value>100.05</td:value></L1CTX>
+    <L2 field="6" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L2"><td:value>200.49</td:value></L2>
+   </F1099D>
+  </OwnedUSIndividual2025>
+ </USIndividualTaxReturn>
+ <USIndividualTaxReturn xmlns="http://www.intuit.com/Ctg/Pta/TurboTax/USIndividualTaxReturn" taxYear="2025" uuid="22222222-2222-4222-8222-222222222222" tpsEngineVersion="9.15.0">
+  <OwnedUSIndividual2025 xmlns="http://www.intuit.com/Ctg/Pta/TurboTax/OwnedUSIndividual2025" checksum="owned-checksum-2025-v1" dataVersion="2025.1" sharedForAllDataVersion="owned-all-1" sharedForFSDataVersion="owned-fs-1" formsetAttribute="7" showSmartWorksheets="false" implementationVersion="owned-1" uuid="00000000-0000-4000-8000-000000000002" tpsType="formset" tpsPrefix="ownedmac" cidFormSet="OwnedCIDFormSet2025">
+   <FW2 tpsType="form" copyNum="1" fileCopyNum="80000" porIndex="1" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000013880">
+    <WAGES field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_WAGES"><td:value>80000.10</td:value></WAGES>
+    <FEDTAX field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_FEDTAX"><td:value>8000.01</td:value></FEDTAX>
+    <SSWAGES field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSWAGES"><td:value>80000.10</td:value></SSWAGES>
+    <SSTAX field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTAX"><td:value>4960.01</td:value></SSTAX>
+    <MEDWAGES field="5" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDWAGES"><td:value>80000.10</td:value></MEDWAGES>
+    <MEDTAX field="6" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MEDTAX"><td:value>1160.01</td:value></MEDTAX>
+    <SSTIPS field="7" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_SSTIPS"><td:value>0.00</td:value></SSTIPS>
+    <DCB field="8" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DCB"><td:value>0.00</td:value></DCB>
+    <DATE field="9" elem="0" tpsType="date" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DATE"><td:value>01/02/2000</td:value></DATE>
+    <DAY field="10" elem="0" tpsType="day" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_DAY"><td:value>02-29</td:value></DAY>
+    <MONTH field="11" elem="0" tpsType="month" tpsSubType="default" cidForm="OwnedFW2" cidField="Owned_MONTH"><td:value>2000-02</td:value></MONTH>
+   </FW2>
+   <F1099I tpsType="form" copyNum="1" fileCopyNum="81000" porIndex="2" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000013c68">
+    <L1 field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L1"><td:value>250.10</td:value></L1>
+    <L3 field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L3"><td:value>30.20</td:value></L3>
+    <EXINT field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_EXINT"><td:value>0.00</td:value></EXINT>
+    <L4 field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099I" cidField="Owned_L4"><td:value>25.00</td:value></L4>
+   </F1099I>
+   <F1099D tpsType="form" copyNum="1" fileCopyNum="82000" porIndex="3" formCopyAttributes="3" uuid="00000000-0000-4000-8000-000000014050">
+    <L1B field="1" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1B"><td:value>100.00</td:value></L1B>
+    <QDIV field="2" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_QDIV"><td:value>20.00</td:value></QDIV>
+    <L1C field="3" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1C"><td:value>30.00</td:value></L1C>
+    <L2C field="4" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L2C"><td:value>0.00</td:value></L2C>
+    <L1CTX field="5" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L1CTX"><td:value>0.00</td:value></L1CTX>
+    <L2 field="6" elem="0" tpsType="cent" tpsSubType="default" cidForm="OwnedF1099D" cidField="Owned_L2"><td:value>4.00</td:value></L2>
+   </F1099D>
+  </OwnedUSIndividual2025>
+ </USIndividualTaxReturn>
+</TaxReturns>

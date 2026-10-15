@@ -17,6 +17,7 @@ from .native_taxml_names_reference import (
 from .field_template_reference import UnsupportedProfile
 from .taxml_money_reference import MoneyValue,render_taxml_money
 from .native_document_filter_reference import selected_filter
+from .native_taxml_date_reference import parse_date_wire_text
 from .native_taxml_decimal_reference import render_dec1,parse_dec1
 
 TD=BASE_URL+'TaxDataType'
@@ -141,9 +142,9 @@ def monetary_field_attributes(names):
     PII/cache/filter suppliers remain outside this helper. An isPII attribute
     is refused by this profile rather than being manufactured from a callback.
     """
-    if names.kind not in (11,12,13) or names.compiled_format!=0:
+    if names.kind not in (4,5,6,11,12,13) or names.compiled_format!=0:
         _fail('Only current metadata cent/dollar/dec1 format0 is source-bound here')
-    out={'tpsType':{11:'cent',12:'dollar',13:'dec1'}[names.kind],'tpsSubType':'default'}
+    out={'tpsType':{4:'date',5:'day',6:'month',11:'cent',12:'dollar',13:'dec1'}[names.kind],'tpsSubType':'default'}
     for key,value in [('cidForm',names.cid_form),('cidTable',names.cid_table),('cidField',names.cid_field)]:
         if value:out[key]=value
     return out
@@ -217,11 +218,12 @@ def load_money_document(wire,registry,contexts,*,filter_profile='null_filter'):
                     # own runtime semantics and block this selected profile.
                     if v.attrs not in ({},{'used':'false'}):_fail('Nonordinary value flags or change-data require separate context')
                     rx=_CENT if n.kind==11 else _DOLLAR
-                    if n.kind==13:parse_dec1(v.text)
+                    if n.kind in (4,5,6):parse_date_wire_text(v.text,kind=n.kind)
+                    elif n.kind==13:parse_dec1(v.text)
                     elif not rx.fullmatch(v.text):_fail('Unsupported exact monetary text')
-                    amount=Decimal(v.text)
+                    amount=None if n.kind in (4,5,6) else Decimal(v.text)
                     if n.kind==12 and amount!=amount.to_integral_value():_fail('Fractional whole-dollar value')
-                    if n.kind!=13 and abs(amount)>Decimal(10**9):_fail('Selected finite ordinary currency bound exceeded')
+                    if n.kind not in (4,5,6,13) and abs(amount)>Decimal(10**9):_fail('Selected finite ordinary currency bound exceeded')
                     raw=wire[v.open_end:v.end_start]
                     if raw!=v.text.encode('ascii'):_fail('Escaped, commented or normalized monetary text cannot be patched')
                     key=(ea['uuid'],fs.identifier,form.identifier,int(ha['fileCopyNum']),n.field_identifier)
@@ -237,7 +239,9 @@ def patch_money_document(document,key,new_coefficient):
     checked=load_money_document(document.source_bytes,document.registry,document.contexts,filter_profile=document.filter_profile)
     matches=[f for f in checked.fields if f.key==key]
     if len(matches)!=1 or not matches[0].can_edit:_fail('One existing Used1 ordinary monetary field required')
-    field=matches[0];text=render_dec1(new_coefficient)if field.kind==13 else render_taxml_money(MoneyValue(field.kind,new_coefficient))
+    field=matches[0]
+    if field.kind in (4,5,6):_fail('Date text needs the separate date patch API')
+    text=render_dec1(new_coefficient)if field.kind==13 else render_taxml_money(MoneyValue(field.kind,new_coefficient))
     corrected=document.source_bytes[:field.text_start]+text.encode('ascii')+document.source_bytes[field.text_end:]
     reopened=load_money_document(corrected,document.registry,document.contexts,filter_profile=document.filter_profile)
     expected=[(f.key,text if f.key==key else f.text,f.attributes,f.value_attributes)for f in checked.fields]

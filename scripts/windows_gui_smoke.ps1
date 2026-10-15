@@ -12,7 +12,9 @@ param(
     [switch]$PersistentObjects,
     [switch]$CleartextContainer,
     [switch]$MacTaxML,
-    [switch]$MacScalar
+    [switch]$MacScalar,
+    [switch]$MacDate,
+    [switch]$InstanceMaps
 )
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient, UIAutomationTypes, System.Drawing, System.Windows.Forms
@@ -760,6 +762,22 @@ try {
         $receipt.native_Entity_FormSet_persistent_document_passed=$true
         $checks.Add('Actual system8110B full source export retained2FormSets/8forms/nonemptytables/children/8links, all eight value tails plus Entity14B146147/bothFS148151 original raw objects after movement; saved344 return survived normal close/reopen.')
     }
+    if($InstanceMaps) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load stored instance-map sample')
+        Click-Observed (Wait-Named 'Inspect / edit binary fields')
+        Set-Owned-Edit 'Binary WAGES [0]' '1234.57'
+        Click-Observed (Wait-Control 'CheckBox' 'Confirm binary source corrections' $true)
+        Click-Observed (Wait-Named 'Download corrected binary')
+        $mapCopy=Join-Path $OutputDir 'windows-native-instance-map-corrected.taxbin'; Save-Native-Export $mapCopy 100
+        Save-Screenshot 'windows-native-instance-map-corrected.png'
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        python scripts/verify_instance_map_native.py $mapCopy --output (Join-Path $OutputDir 'windows-native-instance-map-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Stored instance-map source failed complete system file readback.' }
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_stored_instance_map_source_passed=$true
+        $checks.Add('Actual system8360B binary source read/edit/export retains both complete0F/F0 stored maps/6pairs,2FormSets/8forms/tables/children/8links and every original object body after2byte movement; current344return survives normal relaunch. Native cache cleanup/migration not executed.')
+    }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
         Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load plaintext container sample')
@@ -812,6 +830,27 @@ try {
         Launch-App; Wait-Named '$344' 120 $false | Out-Null
         $receipt.native_Mac_decimal_source_passed=$true
         $checks.Add('Existing decimal0.7to0.8 source-only edit system-saved whole2241B ZIP; all46other fields,7income candidates, Manifest and4otherlocalrecords exact; existing344return retained after normal relaunch. No native import or original recalculation claimed.')
+    }
+    if($MacDate) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load Mac date source sample')
+        Click-Observed (Wait-Named 'Inspect / edit date fields')
+        foreach($case in @(@{Index=0; Value='02/29/2000'},@{Index=4; Value='12-31'},@{Index=8; Value='2025-12'})) {
+            $selector=Wait-Control 'ComboBox' 'Date source field'; $selector.SetFocus()
+            [System.Windows.Forms.SendKeys]::SendWait('{HOME}'+('{DOWN}'*$case.Index)+'{TAB}')
+            Set-Owned-Edit 'Date source value' $case.Value
+            Click-Observed (Wait-Control 'CheckBox' 'Confirm date source correction' $true)
+            Click-Observed (Wait-Named 'Download corrected container')
+            $dateCopy=Join-Path $OutputDir ('windows-native-Mac-date-'+$case.Index+'-corrected.zip'); Save-Native-Export $dateCopy 100
+            Save-Screenshot ('windows-native-Mac-date-'+$case.Index+'-corrected.png')
+            $dateReadback=python scripts/verify_mac_date_native.py $dateCopy --index $case.Index --value $case.Value
+            if($LASTEXITCODE -ne 0) { throw 'Date source failed full ZIP, all53fields and exact selected identity readback.' }
+            $dateReadback | Set-Content -Encoding utf8 (Join-Path $OutputDir ('windows-native-Mac-date-'+$case.Index+'-readback.json'))
+        }
+        Click-Observed (Wait-Named 'Close dialog'); Close-App
+        Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_Mac_date_source_passed=$true
+        $checks.Add('Actual native date/day/month source correction at3stored identities system-saved3fullZIPs; all53fields, twoentities/sevencopies, Manifest and4otherlocalrecords independently readback. Existing344return retained after normal relaunch; no original date load or tax recalculation claimed.')
     }
     if($SourceComparison) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Try local calculation comparison')

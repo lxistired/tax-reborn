@@ -743,7 +743,7 @@ async function showTaxMLImport(){
   el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
   el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
   el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')),
-  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'),button('Load Mac monetary container sample',()=>loadClearContainerSample(id,openedRevision,true),'secondary'),button('Load Mac decimal source sample',()=>loadClearContainerSample(id,openedRevision,true,true),'secondary'))));
+  el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load stored instance-map sample',()=>loadBinarySample('instance-map-income',id,openedRevision),'secondary'),button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'),button('Load Mac monetary container sample',()=>loadClearContainerSample(id,openedRevision,true),'secondary'),button('Load Mac decimal source sample',()=>loadClearContainerSample(id,openedRevision,true,true),'secondary'),button('Load Mac date source sample',()=>loadClearContainerSample(id,openedRevision,true,false,true),'secondary'))));
  const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
   if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
@@ -768,11 +768,11 @@ async function loadBinarySample(name,id,atRevision){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. The sample is attached; no income was added.');
  showTaxMLCandidates(row,inspected,id,atRevision);
 }
-async function loadClearContainerSample(id,atRevision,mac=false,scalar=false){
+async function loadClearContainerSample(id,atRevision,mac=false,scalar=false,date=false){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. Reopen the import.');
- const response=await fetch(scalar?'samples/mac-scalar-request.json':mac?'samples/mac-taxml-request.json':'samples/plaintext-container-request.json');if(!response.ok)throw Error('The cleartext sample is missing from the installed package.');
+ const response=await fetch(date?'samples/mac-date-request.json':scalar?'samples/mac-scalar-request.json':mac?'samples/mac-taxml-request.json':'samples/plaintext-container-request.json');if(!response.ok)throw Error('The cleartext sample is missing from the installed package.');
  const request=await response.json(),decode=value=>Uint8Array.from(atob(value),c=>c.charCodeAt(0));
- const file=new File([decode(request.base64)],scalar?'synthetic-Mac-decimal-container.zip':mac?'synthetic-Mac-monetary-container.zip':'synthetic-cleartext-container.zip',{type:'application/zip'}),profile=new File([JSON.stringify(request.profile)],'synthetic-container-profile.json',{type:'application/json'}),carriers=request.carriers.map((item,i)=>new File([decode(item.base64)],'synthetic-container-registry-'+i+'.xprf'));
+ const file=new File([decode(request.base64)],date?'synthetic-Mac-date-container.zip':scalar?'synthetic-Mac-decimal-container.zip':mac?'synthetic-Mac-monetary-container.zip':'synthetic-cleartext-container.zip',{type:'application/zip'}),profile=new File([JSON.stringify(request.profile)],'synthetic-container-profile.json',{type:'application/json'}),carriers=request.carriers.map((item,i)=>new File([decode(item.base64)],'synthetic-container-registry-'+i+'.xprf'));
  const inspected=await window.taxMLImport.inspect(file,profile,carriers,'cleartext_persistence_container',true);
  if(currentId!==id||revision!==atRevision)throw Error('This return changed while opening the source.');
  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile,carriers,container:'cleartext_persistence_container'}};
@@ -821,27 +821,55 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set
   holder.append(el('div',{class:'return-card'},el('div',{},el('strong',{},'Filing-status source setup'),el('small',{},'Form '+candidate.receipt.form_path+' · '+(candidate.can_review?'Review the five source checkboxes':'Source selection is unresolved'))),button('Review filing-status setup',()=>reviewBinaryFilingStatus(row,candidate,returnId,atRevision),'secondary',{class:'button secondary small'})));
  }
  if(inspected.scalar_fields?.length)holder.append(button('Inspect / edit decimal fields',()=>showMacDecimalFields(row,inspected,returnId,atRevision),'secondary'));
+ if(inspected.date_fields?.length)holder.append(button('Inspect / edit date fields',()=>showMacDateFields(row,inspected,returnId,atRevision),'secondary'));
  if(inspected.binary_archive)holder.append(button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'),button('Compare proposed interest adjustments',()=>showRawInterestCalculation(inspected,returnId,true),'secondary'));
  modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
+}
+function showMacDateFields(source,inspected,returnId,atRevision){
+ const fields=inspected.date_fields,holder=el('div'),detail=el('div');
+ const select=el('select',{'aria-label':'Date source field'},...fields.map((field,index)=>el('option',{value:String(index)},field.field_id+' · '+field.form_id+' #'+field.file_copy+' · entity '+field.entity_uuid.slice(0,8))));
+ const input=el('input',{type:'text',inputmode:'text','aria-label':'Date source value',autocomplete:'off'});
+ const confirmed=el('input',{type:'checkbox','aria-label':'Confirm date source correction'});
+ let closed=false,epoch=0;
+ function render(){const field=fields[Number(select.value)];input.value=field.text;input.disabled=!field.can_edit_source;input.placeholder=field.text_format;confirmed.checked=false;epoch++;
+  detail.replaceChildren(el('p',{},'Stored '+field.text_kind+' '+field.text+' · required format '+field.text_format),el('small',{},'Entity '+field.entity_uuid+' · file copy '+field.file_copy+' · field '+field.field_id),
+   el('p',{},field.kind===5?'Month and day only. February 29 is allowed; no birth year is inferred.':field.kind===6?'Year and month only. No day is imported.':'Use MM/DD/YYYY exactly. Years 1900–9999 are supported; no automatic date conversion is applied.'),
+   el('p',{},field.can_edit_source?'Correct one existing field in a separate source copy.':'Read only. The stored flags or source profile do not authorize editing.'));}
+ select.addEventListener('change',render);input.addEventListener('input',()=>{confirmed.checked=false;epoch++;});confirmed.addEventListener('change',()=>{epoch++;});render();
+ holder.append(el('p',{class:'intro'},'These are stored source dates. Editing them does not change the people, income or tax calculation in your current return. Original-program loading and recalculation remain unverified.'),select,detail,
+  el('div',{class:'field'},el('label',{},'Date source value'),input),el('label',{class:'check-field'},confirmed,el('span',{},'I checked this source date and its required format.')));
+ modal('Date source fields',holder,[['Download corrected container',async()=>{
+  if(closed||currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
+  const field=fields[Number(select.value)],value=input.value,started=epoch;
+  if(value===field.text)throw Error('Change the selected date value first.');
+  const output=await window.taxMLImport.correctedDate(field,value,confirmed.checked);
+  if(closed||epoch!==started||!confirmed.checked||currentId!==returnId||revision!==atRevision)throw Error('The source selection or current return changed. Reopen and confirm the source.');
+  const suffix=output.export_container==='cleartext_persistence_container'?'.zip':'.xml';
+  if(!await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+suffix))return;
+  if(!closed&&epoch===started&&confirmed.checked&&currentId===returnId&&revision===atRevision)notify('Corrected date source checked and saved. Other fields, original source and current return retained.');
+ },'primary']]);
+ dialogCleanup=()=>{closed=true;epoch++;};
 }
 function showMacDecimalFields(source,inspected,returnId,atRevision){
  const fields=inspected.scalar_fields,holder=el('div'),detail=el('div');
  const select=el('select',{'aria-label':'Decimal source field'},...fields.map((field,index)=>el('option',{value:String(index)},field.field_id+' · '+field.form_id+' #'+field.file_copy+' · entity '+field.entity_uuid.slice(0,8))));
  const input=el('input',{type:'text',inputmode:'decimal','aria-label':'Decimal source value'});
  const confirmed=el('input',{type:'checkbox','aria-label':'Confirm decimal source correction'});
- function render(){const field=fields[Number(select.value)];input.value=field.text;input.disabled=!field.can_edit_source;confirmed.checked=false;
+ let closed=false,epoch=0;
+ function render(){const field=fields[Number(select.value)];input.value=field.text;input.disabled=!field.can_edit_source;confirmed.checked=false;epoch++;
   detail.replaceChildren(el('p',{},'Stored value '+field.text+' · decimal coefficient '+field.coefficient+' · one fractional digit'),el('small',{},'Entity '+field.entity_uuid+' · file copy '+field.file_copy+' · field '+field.field_id),el('p',{},field.can_edit_source?'One existing field can be corrected in a separate source copy.':'Read only. The source profile or stored flags do not authorize editing.'));}
- select.addEventListener('change',render);input.addEventListener('input',()=>{confirmed.checked=false;});render();
+ select.addEventListener('change',render);input.addEventListener('input',()=>{confirmed.checked=false;epoch++;});confirmed.addEventListener('change',()=>{epoch++;});render();
  holder.append(el('p',{class:'intro'},'These source fields store decimal coefficients with one fractional digit. They are not money and are not added to your income or tax calculation.'),select,detail,el('div',{class:'field'},el('label',{},'Decimal source value'),input),el('label',{class:'check-field'},confirmed,el('span',{},'I checked this source correction. The original program and derived values have not been recalculated.')));
  modal('Decimal source fields',holder,[['Download corrected container',async()=>{
-  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
-  const field=fields[Number(select.value)];if(input.value===field.text)throw Error('Change the selected decimal value first.');
-  const output=await window.taxMLImport.correctedScalar(field,input.value,confirmed.checked);
-  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the source.');
+  if(closed||currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
+  const field=fields[Number(select.value)],value=input.value,started=epoch;if(value===field.text)throw Error('Change the selected decimal value first.');
+  const output=await window.taxMLImport.correctedScalar(field,value,confirmed.checked);
+  if(closed||epoch!==started||!confirmed.checked||currentId!==returnId||revision!==atRevision)throw Error('The source selection or current return changed. Reopen and confirm the source.');
   const suffix=output.export_container==='cleartext_persistence_container'?'.zip':'.xml';
   if(!await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected'+suffix))return;
-  notify('Corrected source checked and saved. Other fields retained; income and current return unchanged.');
+  if(!closed&&epoch===started&&confirmed.checked&&currentId===returnId&&revision===atRevision)notify('Corrected source checked and saved. Other fields retained; income and current return unchanged.');
  },'primary']]);
+ dialogCleanup=()=>{closed=true;epoch++;};
 }
 async function showSourceCalculation(inspected,returnId=currentId,demo=null){
  const request=demo?.source||window.taxMLImport.sourceRequest(inspected);
@@ -910,14 +938,16 @@ function savedObjectGroup(group,label){
  return el('details',{},el('summary',{},'Saved '+label+' objects · '+group.objects.length),
   el('p',{},'Read only. These stored objects are preserved and checked after export. They do not supply active metadata or run the original program.'),
   el('ul',{},group.objects.map(obj=>el('li',{},el('strong',{},obj.class_name),
-   el('p',{},obj.kind==='stored_metadata'?'Stored metadata · '+obj.rows.length+' ordered rows, including repeated paths':obj.kind==='stored_identifier'?'Stored identifier · original bytes retained':'Uninterpreted saved body · movement blocked'),
+   el('p',{},obj.kind==='stored_metadata'?'Stored metadata · '+obj.rows.length+' ordered rows, including repeated paths':obj.kind==='stored_instance_map'?'Stored instance-address map · '+obj.rows.length+' byte pairs. Active cache and original cleanup have not run.':obj.kind==='stored_identifier'?'Stored identifier · original bytes retained':'Uninterpreted saved body · movement blocked'),
    el('small',{},obj.body_bytes+' saved bytes · SHA-256'),el('code',{class:'binary-raw-id'},obj.body_sha256)))));
 }
 function showBinaryFields(source,inspected,returnId,atRevision){
  const forms=inspected.binary_archive.forms,changes=new Map(),holder=el('div'),details=el('div');
+ let closed=false,epoch=0;
  const selected=el('select',{'aria-label':'Binary form'},...forms.map((form,i)=>el('option',{value:String(i)},form.path.join('/')+' · '+form.form_id+' #'+form.file_copy)));
  const confirmed=el('input',{type:'checkbox','aria-label':'Confirm binary source corrections'});
  function render(){
+  epoch++;
   const form=forms[Number(selected.value)];details.replaceChildren();if(!form)return;
   details.append(el('p',{},form.fields.length+' stored fields · '+form.tables+' table records · '+form.children+' child forms · '+form.links.length+' links'));
   for(const table of form.table_headers||[]){
@@ -935,21 +965,23 @@ function showBinaryFields(source,inspected,returnId,atRevision){
   for(const fact of form.fields){
    const key=JSON.stringify([form.path,fact.ordinal,fact.element]),label=(fact.field_id||'Field '+fact.ordinal)+' ['+fact.element+']';
    if(fact.editable){
-    const input=el('input',{type:'text',inputmode:'decimal',value:changes.get(key)?.value??fact.text,'aria-label':'Binary '+label,onInput:event=>{confirmed.checked=false;const value=event.currentTarget.value;if(value===fact.text)changes.delete(key);else changes.set(key,{path:form.path,...(fact.address_kind==='field_id'?{field_id:fact.field_id}:{ordinal:fact.ordinal}),element:fact.element,value});}});
+    const input=el('input',{type:'text',inputmode:'decimal',value:changes.get(key)?.value??fact.text,'aria-label':'Binary '+label,onInput:event=>{epoch++;confirmed.checked=false;const value=event.currentTarget.value;if(value===fact.text)changes.delete(key);else changes.set(key,{path:form.path,...(fact.address_kind==='field_id'?{field_id:fact.field_id}:{ordinal:fact.ordinal}),element:fact.element,value});}});
     details.append(el('div',{class:'field'},el('label',{},label),input,el('small',{},(fact.number_kind==='whole_number'?'Whole number · saved template range '+(fact.template_bounds.minimum??'unbounded')+' to '+(fact.template_bounds.maximum??'unbounded'):'Stored kind '+fact.kind+' · attributes '+fact.specific_attributes)+(fact.current_ordinal===undefined?'':' · saved/current field numbers '+fact.ordinal+'/'+fact.current_ordinal))));
    }else details.append(el('div',{class:'field'},el('strong',{},label),el('span',{},fact.text??fact.status),el('small',{},'Read only · stored kind '+fact.kind+' · attributes '+fact.specific_attributes+' · raw '+fact.raw64)));
   }
  }
- selected.addEventListener('change',render);render();
+ selected.addEventListener('change',render);confirmed.addEventListener('change',()=>{epoch++;});render();
  holder.append(el('p',{class:'intro'},'Edit supported numeric source fields. Child forms, table records, links and all unedited parsed values are checked after the complete file is written and read again.'),el('div',{class:'note warning'},'This creates a separate corrected binary copy. It does not run the original calculation engine or update derived values. Unsupported structures stop export.'),selected,details,el('label',{class:'check-field'},confirmed,el('span',{},'I checked all source corrections and understand that derived values have not been recalculated.')));
  modal('Binary source fields',holder,[['Download corrected binary',async()=>{
-  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
+  if(closed||currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the source.');
   if(!changes.size)throw Error('Change at least one supported numeric value.');
+  const started=epoch;
   const output=await window.taxMLImport.editBinary(inspected,[...changes.values()],confirmed.checked);
-  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed during export. Reopen the source.');
+  if(closed||epoch!==started||!confirmed.checked||currentId!==returnId||revision!==atRevision)throw Error('The source selection or current return changed. Reopen and confirm the source.');
   if(!await downloadBlob(new Blob([Uint8Array.from(atob(output.base64),c=>c.charCodeAt(0))],{type:output.mime}),String(source.name).replace(/\.[^.]*$/,'')+'-corrected.taxbin'))return;
-  notify('Corrected binary checked. Complete structure readback passed; original source retained.');
+  if(!closed&&epoch===started&&confirmed.checked&&currentId===returnId&&revision===atRevision)notify('Corrected binary checked. Complete structure readback passed; original source retained.');
  },'primary']]);
+ dialogCleanup=()=>{closed=true;epoch++;};
 }
 function reviewTaxMLW2(source,candidate,returnId,atRevision,onAdded=null){
  const binary=candidate.source_format==='binary_entity',archive=candidate.source_format==='cleartext_persistence_container',copyLabel=binary?'Download corrected binary':archive?'Download corrected container':'Download corrected XML',copyExtension=binary?'.taxbin':archive?'.zip':'.xml';
