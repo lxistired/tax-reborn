@@ -64,4 +64,37 @@ class DurableDesktopExport(unittest.TestCase):
             self.assertEqual(path.read_bytes(),b'prior export')
             self.assertEqual([p.name for p in path.parent.iterdir()],['selected.taxbin'])
 
+    def test_windows_picker_and_origin_read_use_existing_ui_thread(self):
+        class Func:
+            def __class_getitem__(cls,item):return lambda callback:callback
+        class Owner:
+            InvokeRequired=True
+            inside=False
+            def Invoke(self,callback):
+                self.inside=True
+                try:return callback()
+                finally:self.inside=False
+        owner=Owner();window=FakeWindow(None);window.uid='owned-window'
+        window.gui=SimpleNamespace(BrowserView=SimpleNamespace(instances={window.uid:owner}))
+        def read_url():
+            self.assertTrue(owner.inside)
+            return window.url
+        def dialog(*args,**kwargs):
+            self.assertTrue(owner.inside)
+            return None
+        window.get_current_url=read_url;window.create_file_dialog=dialog
+        with patch('desktop_export.sys.platform','win32'),patch.dict(sys.modules,{'System':SimpleNamespace(Func=Func,Object=object)}):
+            self.assertTrue(self.run_export(window)['cancelled'])
+
+    def test_windows_ui_thread_does_not_invoke_itself(self):
+        class Func:
+            def __class_getitem__(cls,item):return lambda callback:callback
+        class Owner:
+            InvokeRequired=False
+            def Invoke(self,callback):raise AssertionError('UI thread must not invoke itself')
+        window=FakeWindow(None);window.uid='owned-window'
+        window.gui=SimpleNamespace(BrowserView=SimpleNamespace(instances={window.uid:Owner()}))
+        with patch('desktop_export.sys.platform','win32'),patch.dict(sys.modules,{'System':SimpleNamespace(Func=Func,Object=object)}):
+            self.assertTrue(self.run_export(window)['cancelled'])
+
 if __name__=='__main__':unittest.main()

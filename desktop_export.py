@@ -4,6 +4,7 @@ import binascii
 import os
 from pathlib import Path
 import re
+import sys
 import tempfile
 from urllib.parse import urlsplit
 
@@ -15,11 +16,6 @@ class DesktopExport:
         self._window=None
 
     def save_file(self,filename,mime,encoded):
-        window=self._window
-        current=urlsplit(window.get_current_url()) if window else None
-        if (current is None or current.scheme!=self._origin.scheme
-                or current.netloc!=self._origin.netloc):
-            raise ValueError('Local application origin required for exports.')
         if (not isinstance(filename,str) or not filename or len(filename)>240
                 or not isinstance(mime,str) or len(mime)>160
                 or not isinstance(encoded,str) or len(encoded)>20_000_000):
@@ -31,7 +27,22 @@ class DesktopExport:
             raise ValueError('Local export size is unsupported.')
         safe_name=re.sub(r'[\\/\x00-\x1f<>:"|?*]','_',filename)
         import webview
-        chosen=window.create_file_dialog(webview.SAVE_DIALOG,save_filename=safe_name)
+        def select_destination():
+            window=self._window
+            current=urlsplit(window.get_current_url()) if window else None
+            if (current is None or current.scheme!=self._origin.scheme
+                    or current.netloc!=self._origin.netloc):
+                raise ValueError('Local application origin required for exports.')
+            return window.create_file_dialog(webview.SAVE_DIALOG,save_filename=safe_name)
+        # Windows requires the native picker on its existing STA UI thread.
+        # Cocoa's public dialog method already schedules onto its main thread.
+        if sys.platform=='win32':
+            from System import Func, Object
+            owner=self._window.gui.BrowserView.instances[self._window.uid]
+            chosen=(owner.Invoke(Func[Object](select_destination))
+                    if owner.InvokeRequired else select_destination())
+        else:
+            chosen=select_destination()
         if not chosen:return {'cancelled':True,'saved':False}
         selected=chosen[0] if isinstance(chosen,(tuple,list)) else chosen
         if not isinstance(selected,str) or not selected:
