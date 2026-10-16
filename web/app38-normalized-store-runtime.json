@@ -946,9 +946,9 @@
       "sha256": "ad667267e96fbf820d148addeb3713d7c1b1c431e8613372144a43df69ec1d8e"
     },
     {
-      "bytes": 9729,
+      "bytes": 10305,
       "path": "app38_normalized_store_source_interface.py",
-      "sha256": "e067b0c72476ffe6fb45e4082810c1f5cb578ff4e431bf9e819139b8845650c9"
+      "sha256": "9c399ac3f9496e171351761fa73b19a5cba1473fe7cea9bd4d5952b9366cbf8f"
     },
     {
       "bytes": 15561,
@@ -956,9 +956,9 @@
       "sha256": "7dc9a743870465d574f98c66aad800c3f434d442b390f686d4cfb191f7ddfab5"
     },
     {
-      "bytes": 27220,
+      "bytes": 31194,
       "path": "reference_document_normalized_store_reference.py",
-      "sha256": "37f70f4afa6cc41cd168e75a25e4e5733ea407148b5b350bc3e5e16b6fa845d5"
+      "sha256": "6b038b00cc3bb9a6ac34afe78c7beb8b92072e93ee23af7df77491a037ed9fbe"
     }
   ],
   "format": "tax-reborn-normalized-store-runtime-v1",

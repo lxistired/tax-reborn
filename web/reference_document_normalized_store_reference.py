@@ -38,7 +38,9 @@ class ReferenceNormalizedStoreResult:
     e1_range_remaps: tuple
     preserved_D7: int
     preserved_kind22: int
+    preserved_stored_kind3_group_scalars: int
     preserved_stored_strings: int
+    preserved_stored_kind7_array_elements: int
     preserved_calculated_numeric: int
     preserved_array_elements: int
     mode: str = 'document normalized-store; not native Load/Resolve/SetLinkedForm/FixupFields'
@@ -132,6 +134,30 @@ def _kind22_is_link_proven(full, node, validated_link_fields, form):
     return full in validated_link_fields
 
 
+def _kind3_current_group_anchor(current, target_ordinal):
+    """Require the current complete registry to resolve a kind3 group anchor.
+
+    Current REA evidence for ``zccForm::FindGroupBox`` shows a reverse scan
+    from the supplied field ordinal through the compiled form records, ending
+    only at a record whose type byte is 1 or 2.  The function does not inspect
+    a FormValue raw payload.  This helper deliberately proves only that the
+    destination registry can perform that lookup; it does not infer source
+    group membership or a kind3 payload meaning.
+    """
+    if type(target_ordinal) is not int or target_ordinal < 1:
+        _reject('kind3 requires a nonzero current ordinal')
+    by_ordinal = {value.ordinal: value for value in current.values()}
+    if len(by_ordinal) != len(current):
+        _reject('kind3 requires one-to-one complete current registry')
+    for ordinal in range(1, target_ordinal + 1):
+        if ordinal not in by_ordinal:
+            _reject('kind3 requires a gap-free current registry through its target ordinal')
+    for ordinal in range(target_ordinal, 0, -1):
+        if by_ordinal[ordinal].kind in (1, 2):
+            return ordinal
+    _reject('kind3 current group anchor is not present in the complete registry')
+
+
 def _normalize_form(form, current, validated_link_fields, bindings):
     """Rekey only source-bound nodes whose stored payload is independently retained.
 
@@ -149,7 +175,7 @@ def _normalize_form(form, current, validated_link_fields, bindings):
     binding_by_key = {(value.source_field_index, value.element_index): value for value in bindings}
     if len(binding_by_key) != len(bindings):
         _reject('ambiguous source-bound node bindings')
-    nodes, changes, kind22, strings, calculated, array_values = [], [], 0, 0, 0, 0
+    nodes, changes, kind22, group_scalars, strings, string_arrays, calculated, array_values = [], [], 0, 0, 0, 0, 0, 0
     for block in form.hash_state.buffers:
         for node in block.nodes:
             full = source.get(node.field_index)
@@ -165,7 +191,15 @@ def _normalize_form(form, current, validated_link_fields, bindings):
                 _reject('override or unproved specific-attribute bits need native lifecycle semantics')
             if (node.kind_byte, node.flag10) != (target.kind, target.format):
                 _reject('kind/format conversion is outside document normalized-store')
-            if node.kind_byte in (10, 12, 13):
+            if node.kind_byte == 3:
+                if (node.element_index != 0 or node.specific_attributes != 1 or
+                        node.exponent_byte != 0 or node.flag11 != 0 or
+                        binding.native_action != 'requires_additional_scalar_codec' or
+                        binding.can_correct_source_scalar):
+                    _reject('only existing ordinary unedited kind3 group scalar storage is proved')
+                _kind3_current_group_anchor(current, target.ordinal)
+                group_scalars += 1
+            elif node.kind_byte in (10, 12, 13):
                 if node.element_index != 0:
                     _reject('array-element normalization is not proved for this value kind')
             elif node.kind_byte == 11:
@@ -188,8 +222,19 @@ def _normalize_form(form, current, validated_link_fields, bindings):
                         _reject('array element lacks complete declared array identity')
                     array_values += 1
             elif node.kind_byte == 7:
-                if node.element_index or node.specific_attributes != 1:
-                    _reject('only ordinary Used scalar kind7 storage is proved')
+                # A kind7 value refers to an already-persisted StringTable
+                # record.  An existing array element is safe only when the
+                # source-bound registry declares this precise field/element
+                # pair and its finite range.  It does not allocate a row,
+                # create/modify a string record, or claim an original
+                # Store/Load lifecycle; the raw handle/table reference stays
+                # byte-identical while the hash key is rekeyed.
+                if node.specific_attributes != 1:
+                    _reject('only ordinary Used kind7 storage is proved')
+                if node.element_index and (not binding.array_index or
+                                           binding.element_limit is None or
+                                           node.element_index > binding.element_limit):
+                    _reject('kind7 array element lacks complete declared array identity')
                 if node.raw >> 32 or (node.raw & 0xffff) != form.table_id:
                     _reject('kind7 raw table/handle packing is not a local stored-string reference')
                 try:
@@ -197,6 +242,8 @@ def _normalize_form(form, current, validated_link_fields, bindings):
                 except Exception as error:
                     raise NormalizedStoreRejected('kind7 string handle is not a valid stored string') from error
                 strings += 1
+                if node.element_index:
+                    string_arrays += 1
             elif node.kind_byte == 22:
                 if not _kind22_is_link_proven(full, node, validated_link_fields, form):
                     _reject('kind22 needs a same-form D7 full-ID owner proof')
@@ -215,10 +262,10 @@ def _normalize_form(form, current, validated_link_fields, bindings):
     tail = _rebuild_tail(form.derived_tail, entries)
     if len(tail.source_wire) != len(form.derived_tail.source_wire):
         _reject('D2 rewrite changed derived-tail length')
-    return replace(form, hash_state=rebuilt, derived_tail=tail), tuple(changes), kind22, strings, calculated, array_values
+    return replace(form, hash_state=rebuilt, derived_tail=tail), tuple(changes), kind22, group_scalars, strings, string_arrays, calculated, array_values
 
 
-def _patch_parent(form, current_by_path, form_by_copy):
+def _patch_parent(form, current_by_path, form_by_copy, parent_id_by_copy):
     header = form.header
     if header.parent is None:
         if header.parent_field_index or header.parent_field_id:
@@ -227,13 +274,24 @@ def _patch_parent(form, current_by_path, form_by_copy):
     parent_path = form_by_copy.get(header.parent.file_copy)
     if parent_path is None:
         _reject('child parent is not an earlier same-FormSet document form')
+    if parent_id_by_copy.get(header.parent.file_copy) != header.parent.identifier:
+        _reject('child parent form_id/file_copy has no earlier same-FormSet target')
     parent_current = current_by_path[parent_path]
-    full = _full(header.parent_field_id)
-    if not header.parent_field_index or full not in parent_current:
-        _reject('child parent field must have a full-ID current mapping')
-    target = parent_current[full].ordinal
     raw = form.metadata.get('source_header_wire')
     offset = _header_parent_index_offset(raw)
+    # Original LoadHeader accepts a present parent with a zero-length parent
+    # field ID only when its serialized field ordinal is also zero.  This
+    # declares a parent relationship without a field reference.  The parent
+    # target must still resolve inside this FormSet, but no ordinal is inferred
+    # or rewritten; the exact raw C4/CB header stays in place.
+    if not header.parent_field_index:
+        if header.parent_field_id or header.parent_element or offset is None or raw[offset:offset + 2] != b'\0\0':
+            _reject('parent-without-field must use the exact zero-ID/zero-ordinal header form')
+        return form, None
+    full = _full(header.parent_field_id)
+    if full not in parent_current:
+        _reject('child parent field must have a full-ID current mapping')
+    target = parent_current[full].ordinal
     if offset is None or int.from_bytes(raw[offset:offset + 2], 'big') != header.parent_field_index:
         _reject('raw/typed parent field index mismatch')
     patched = raw[:offset] + target.to_bytes(2, 'big') + raw[offset + 2:]
@@ -416,7 +474,7 @@ def normalize_document_store_bytes(wire_bytes, buffers, *, template_context, cur
     validate_document_hashes(original.document)
     context = _resolved_link_context(_complete_context(original.context, current_fields), current_fields)
     current_by_path = _current_by_form(original, current_fields)
-    doc, parent_remaps, node_remaps, e1_remaps, e1, d7, kind22, strings, calculated, array_values = original.document, [], [], [], 0, 0, 0, 0, 0, 0
+    doc, parent_remaps, node_remaps, e1_remaps, e1, d7, kind22, group_scalars, strings, string_arrays, calculated, array_values = original.document, [], [], [], 0, 0, 0, 0, 0, 0, 0, 0
     for formset_index, fs in enumerate(original.document.formsets):
         form_by_copy = {}
         target_current_by_copy = {}
@@ -436,11 +494,11 @@ def normalize_document_store_bytes(wire_bytes, buffers, *, template_context, cur
             if path[0] != formset_index:
                 continue
             e1_migrated, e1_rows = _migrate_e1_ranges(form, current_by_path[path])
-            patched, parent = _patch_parent(e1_migrated, current_by_path, form_by_copy)
-            normalized, nodes, count22, count_strings, count_calculated, count_arrays = _normalize_form(patched, current_by_path[path], validated_links[path], original.bindings.get(path))
+            patched, parent = _patch_parent(e1_migrated, current_by_path, form_by_copy, {copy: parent.identifier for copy, parent in registry.items()})
+            normalized, nodes, count22, count_groups, count_strings, count_string_arrays, count_calculated, count_arrays = _normalize_form(patched, current_by_path[path], validated_links[path], original.bindings.get(path))
             doc = wire.replace_form(doc, path, normalized)
             if parent is not None: parent_remaps.append((path,) + parent)
-            node_remaps.extend((path,) + row for row in nodes); kind22 += count22; strings += count_strings; calculated += count_calculated; array_values += count_arrays
+            node_remaps.extend((path,) + row for row in nodes); kind22 += count22; group_scalars += count_groups; strings += count_strings; string_arrays += count_string_arrays; calculated += count_calculated; array_values += count_arrays
             e1_remaps.extend((path,) + row for row in e1_rows)
             form_by_copy[normalized.header.file_copy] = path
         for path, form in wire.walk_forms(doc):
@@ -467,7 +525,9 @@ def normalize_document_store_bytes(wire_bytes, buffers, *, template_context, cur
                        for block in after.hash_state.buffers for node in block.nodes}
         for block in before.hash_state.buffers:
             for node in block.nodes:
-                if node.kind_byte not in (7, 11) and not node.element_index:
+                if node.kind_byte not in (3, 7, 10, 11, 12, 13):
+                    continue
+                if node.element_index and node.kind_byte not in (7, 11):
                     continue
                 full = source[node.field_index]; target = current_by_path[path][full].ordinal
                 landed = after_nodes.get((target, node.element_index))
@@ -478,4 +538,4 @@ def normalize_document_store_bytes(wire_bytes, buffers, *, template_context, cur
                     _reject('stored string/numeric payload changed during normalized serialization')
     return ReferenceNormalizedStoreResult(output, original, readback, hashlib.sha256(wire_bytes).hexdigest(),
                                           hashlib.sha256(output).hexdigest(), tuple(parent_remaps), tuple(node_remaps),
-                                          e1, tuple(e1_remaps), d7, kind22, strings, calculated, array_values)
+                                          e1, tuple(e1_remaps), d7, kind22, group_scalars, strings, string_arrays, calculated, array_values)

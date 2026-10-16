@@ -18,13 +18,14 @@ import os
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-APP_WEB = HERE
+APP_WEB = Path(os.environ.get('TAX_REBORN_BINARY_TAX_ROOT', str(HERE)))
 # The browser/packaged runtime contains the independently authored codec and
 # interop closure beside this adapter. Caller-owned source and registry bytes
 # are supplied per request; no private filesystem default is permitted.
 import sys
-if str(APP_WEB) not in sys.path:
-    sys.path.insert(0, str(APP_WEB))
+for path in (APP_WEB, HERE):
+    if str(path) not in sys.path:
+        sys.path.insert(0, str(path))
 import binary_tax
 from interop.derived_form.source_bound_document_reference import load_source_bound_document_bytes
 from interop.derived_form.source_bound_value_document_reference import walk_forms
@@ -88,6 +89,8 @@ def _summary(bound, result, independent):
         'E1_endpoint_remaps': len(result.e1_range_remaps),
         'D7_exact_preserved': result.preserved_D7,
         'stored_kind7_exactly_preserved': result.preserved_stored_strings,
+        'stored_kind7_array_elements_exactly_preserved': result.preserved_stored_kind7_array_elements,
+        'stored_kind3_group_scalars_exactly_preserved': result.preserved_stored_kind3_group_scalars,
         'kind22_preserved_under_D7_proof': result.preserved_kind22,
         'ordinary_array_elements_exactly_preserved': result.preserved_array_elements,
         'output_readback_sha256': hashlib.sha256(independent.document.source_bytes).hexdigest(),
@@ -135,6 +138,8 @@ def normalize_binary_entity_source(request):
             'E1_two_big_endian_endpoints_only': len(result.e1_range_remaps),
             'D7_descriptor_bytes_exactly_preserved_after_target_identity_validation': result.preserved_D7,
             'ordinary_stored_kind7_and_StringTable_exactly_preserved': result.preserved_stored_strings,
+            'existing_ordinary_kind7_array_hash_entries_rekeyed_without_row_or_string_lifecycle': result.preserved_stored_kind7_array_elements,
+            'existing_ordinary_kind3_group_scalars_rekeyed_with_current_registry_anchor_only': result.preserved_stored_kind3_group_scalars,
             'existing_ordinary_array_hash_entries_rekeyed_without_row_lifecycle': result.preserved_array_elements,
         },
         'constraints': [
