@@ -917,7 +917,13 @@ try {
         # The review must really close; background controls alone do not prove
         # that the selected owner passed the modal validation.
         Wait-Gone 'Review TaxML W-2 candidate' 30
-        # Add reviewed W-2 now navigates to the native W-2 interview.
+        # The import controller reopens its inspection summary after a successful add.
+        # Close it and prove the overlay is gone before interacting with the
+        # visible native interview; a background UIA node is not user-path proof.
+        Wait-Named 'TaxML inspection results' 30 | Out-Null
+        Click-Observed (Wait-Named 'Close dialog')
+        Wait-Gone 'TaxML inspection results' 30
+        # Add reviewed W-2 now leaves the native W-2 interview unobscured.
         $wages=Wait-Edit 'Box 1 · Wages, tips, other compensation'
         if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '50000') { throw 'Reviewed encrypted W-2 did not set 50000 wages.' }
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
@@ -974,6 +980,13 @@ try {
         Wait-Named 'Review W-2 candidate' 120 | Out-Null
         Save-Screenshot 'windows-native-default-encrypted-source-reopened.png'
         Click-Observed (Wait-Named 'Close dialog')
+        Wait-Gone 'TaxML inspection results' 30
+        Click-Observed (Wait-Named 'Wages & salaries · W-2')
+        $wages=Wait-Edit 'Box 1 · Wages, tips, other compensation'
+        if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '60000') { throw 'Visible reopened W-2 did not show saved60000 wages.' }
+        $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
+        if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw 'Visible reopened W-2 did not show saved5000 withholding.' }
+        Wait-Named '$75' 120 $false | Out-Null
         Save-Screenshot 'windows-native-default-encrypted-w2-reopened.png'
         $receipt.native_default_encrypted_sample_passed=$true
         $receipt.native_default_encrypted_w2_source_document_reopened=$true
