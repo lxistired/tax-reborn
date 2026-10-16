@@ -10,6 +10,7 @@ param(
     [switch]$TypedValues,
     [switch]$WholeNumbers,
     [switch]$PersistentObjects,
+    [switch]$DefaultEncrypted,
     [switch]$CleartextContainer,
     [switch]$MacTaxML,
     [switch]$MacScalar,
@@ -842,6 +843,77 @@ try {
         $receipt.native_stored_link_diagnostic_complete_system_save_passed=$true
         $receipt.original_resource_MC_positive_not_tested=$true
         $checks.Add('Native independently authored complete713B source checked D2/FV/D7/2150 relationships; system-saved read-only audit independently reopened. Normal restart retained existing344return. Source-MC original-resource positive is not covered by this Windows test.')
+    }
+    if($DefaultEncrypted) {
+        # This invokes the installed application's public fictional sample button.
+        # It is deliberately separate from the filesystem-picker evidence: the
+        # sample carries no vendor archive or private compatibility material.
+        Scroll-Top; Click-Observed (Wait-Named 'My returns'); Click-Observed (Wait-Named '+ New return')
+        Set-Owned-Edit 'Return name' 'Synthetic Windows default encrypted W-2'
+        Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples')
+        Click-Observed (Wait-Named 'Try encrypted fictional example')
+        # These are UIA labels emitted by the installed WebView.  Waiting for
+        # the inventory heading and its member selector avoids treating a
+        # background fetch or an old dialog as a successful import.
+        Wait-Named 'Default encrypted source inventory' 120 | Out-Null
+        Wait-Control 'ComboBox' 'Choose decrypted entity member' | Out-Null
+        Save-Screenshot 'windows-native-default-encrypted-inventory.png'
+        Click-Observed (Wait-Control 'CheckBox' 'Confirm selected entity wire profile and registry order' $true)
+        Click-Observed (Wait-Named 'Inspect selected entity locally')
+        Wait-Named 'TaxML inspection results' 120 | Out-Null
+        Click-Observed (Wait-Named 'Review W-2 candidate')
+        Wait-Named 'Review TaxML W-2 candidate' 120 | Out-Null
+        $owner=Wait-Control 'ComboBox' 'Whose W-2 is this?'; $owner.SetFocus()
+        # The public fixture’s review is explicitly taxpayer-owned.  HOME
+        # selects the first real owner instead of relying on a previous
+        # selection or silently choosing spouse.
+        [System.Windows.Forms.SendKeys]::SendWait('{HOME}{TAB}')
+        Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '50000'
+        Set-Owned-Edit 'Box 2 · Federal income tax withheld' '5000'
+        # Keep the related wage bases consistent with the reviewed income.
+        Set-Owned-Edit 'Box 3 · Social Security wages' '50000'
+        Set-Owned-Edit 'Box 5 · Medicare wages and tips' '50000'
+        Click-Observed (Wait-Control 'CheckBox' 'Confirm all TaxML W-2 amounts and ownership' $true)
+        Click-Observed (Wait-Named 'Add reviewed W-2')
+        # Add reviewed W-2 closes the review dialog and navigates to the native W-2 interview.
+        $wages=Wait-Edit 'Box 1 · Wages, tips, other compensation'
+        if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '50000') { throw 'Reviewed encrypted W-2 did not set 50000 wages.' }
+        $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
+        if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw 'Reviewed encrypted W-2 did not set 5000 withholding.' }
+        Wait-Named '$1,125' 120 $false | Out-Null
+        Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '60000'
+        Set-Owned-Edit 'Box 3 · Social Security wages' '60000'
+        Set-Owned-Edit 'Box 5 · Medicare wages and tips' '60000'
+        Wait-Named '$75' 120 $false | Out-Null
+        Scroll-Top; Click-Observed (Wait-Named 'Save'); Wait-Named 'Saved on this device' 120 | Out-Null
+        Save-Screenshot 'windows-native-default-encrypted-w2-saved.png'
+        Close-App
+        python scripts/verify_default_encrypted_windows_native.py --data-dir $DataDir --name 'Synthetic Windows default encrypted W-2' --output (Join-Path $OutputDir 'windows-native-default-encrypted-sqlite-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Default-encrypted W-2 SQLite readback failed after normal application close.' }
+        Launch-App
+        $wages=Wait-Edit 'Box 1 · Wages, tips, other compensation'
+        if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '60000') { throw '60000 encrypted-source reviewed W-2 did not survive normal restart.' }
+        $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
+        if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw '5000 encrypted-source reviewed withholding did not survive normal restart.' }
+        Wait-Named '$75' 120 $false | Out-Null
+        # The public sample’s attachment must be reopened from the saved
+        # workspace.  The packaged configuration action supplies only public
+        # fictional material and never adds another W-2.
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Reopen encrypted source')
+        Click-Observed (Wait-Named 'Use packaged fictional configuration')
+        Click-Observed (Wait-Named 'Inspect saved archive')
+        Wait-Named 'Default encrypted source inventory' 120 | Out-Null
+        Wait-Control 'ComboBox' 'Choose decrypted entity member' | Out-Null
+        Click-Observed (Wait-Control 'CheckBox' 'Confirm selected entity wire profile and registry order' $true)
+        Click-Observed (Wait-Named 'Inspect selected entity locally')
+        Wait-Named 'TaxML inspection results' 120 | Out-Null
+        Wait-Named 'Review W-2 candidate' 120 | Out-Null
+        Save-Screenshot 'windows-native-default-encrypted-source-reopened.png'
+        Click-Observed (Wait-Named 'Close dialog')
+        Save-Screenshot 'windows-native-default-encrypted-w2-reopened.png'
+        $receipt.native_default_encrypted_sample_passed=$true
+        $checks.Add('Actual installed WebView opened the public fictional default-encrypted source, preserved its inventory, reviewed one coherent W-2 at50000/5000, verified1125refund, changed wages and wage bases to60000, verified75due, saved, closed, reopened and SQLite-read back the source record. The saved attachment then reopened through the packaged fictional configuration and reader without adding another W-2. This is synthetic type0 import only; original archive compatibility and encrypted writing are not claimed.')
     }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
