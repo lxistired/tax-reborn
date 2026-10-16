@@ -4,6 +4,7 @@ const canonical = value => JSON.stringify(value, (_, item) => item && typeof ite
 const clone = value => JSON.parse(canonical(value));
 const digest = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(x => x.toString(16).padStart(2, '0')).join('');
 const decode = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
+const encode = bytes => { let binary = ''; for (let start = 0; start < bytes.length; start += 16384) binary += String.fromCharCode(...bytes.subarray(start, start + 16384)); return btoa(binary); };
 const node = (tag, text, attrs = {}) => { const element = document.createElement(tag); if (text !== undefined) element.textContent = text; Object.assign(element, attrs); return element; };
 
 export function createNormalizedStoreWorker() {
@@ -76,8 +77,11 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
     try {
       assertCurrentSource();
       const bytes = decode(outputRequest.source.base64), blob = new Blob([bytes], {type: 'application/octet-stream'});
-      if (saveSource) await saveSource(blob, 'Tax-Reborn-normalized-source.taxbin'); else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source.taxbin'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
-      status.textContent = 'Source copy saved. Choose that saved file above for independent re-inspection.';
+      let confirmed = null;
+      if (saveSource) confirmed = await saveSource(blob, 'Tax-Reborn-normalized-source.taxbin');
+      else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source.taxbin'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+      if (confirmed === false) { status.textContent = 'Source copy save canceled. Choose a saved file only if the file was actually written.'; return; }
+      status.textContent = confirmed === true ? 'Source copy save confirmed. Choose that saved file above for independent re-inspection.' : 'Source copy download requested. Choose the file only after it is actually written, then re-inspect it above.';
     } catch (issue) { fail(issue); }
   };
   chooseDownloaded.onchange = async () => {
@@ -87,7 +91,7 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
       const file = chooseDownloaded.files[0], bytes = new Uint8Array(await file.arrayBuffer()), expected = outputRequest.source.sha256;
       if (bytes.length !== outputRequest.source.bytes && bytes.length !== result.normalized_source.bytes) throw Error('The selected file size does not match the normalized source.');
       const actual = await digest(bytes); if (actual !== expected) throw Error('The selected file SHA-256 does not match the normalized source.');
-      const selected = {source: {...clone(outputRequest.source), base64: btoa(String.fromCharCode(...bytes)), sha256: actual}};
+      const selected = {source: {...clone(outputRequest.source), base64: encode(bytes), sha256: actual}};
       const fresh = await execute('app38_fresh_read', selected); assertCurrentSource();
       if (!fresh.readback?.whole_document_readback || fresh.readback.document_sha256 !== actual || fresh.native_Load_executed || fresh.native_FixupFields_executed) throw Error('The selected saved file did not pass independent full readback.');
       result = {...result, downloaded_file_readback: fresh.readback, downloaded_file_name: file.name};
@@ -98,11 +102,12 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
     finally { if (!closed) setBusy(false); }
   };
   saveAudit.onclick = async () => {
+    try {
       if (!result?.downloaded_file_readback) return;
       assertCurrentSource();
-    try {
       const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
       if (saveReport) await saveReport(blob, 'Tax-Reborn-normalized-source-readback.json'); else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source-readback.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
+      assertCurrentSource();
       status.textContent = 'Readback report save requested.';
     } catch (issue) { fail(issue); }
   };
