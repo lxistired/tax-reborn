@@ -141,6 +141,17 @@ function Select-Observed-Option($combo,[string]$label) {
     }
     throw 'Native combo box did not select required option: '+$label
 }
+function Focus-Visible($item,[string]$label) {
+    $scroll=$null
+    if($item.TryGetCurrentPattern([System.Windows.Automation.ScrollItemPattern]::Pattern,[ref]$scroll)) { ([System.Windows.Automation.ScrollItemPattern]$scroll).ScrollIntoView() }
+    else { $item.SetFocus() }
+    $until=(Get-Date).AddSeconds(5)
+    while((Get-Date) -lt $until) {
+        if(!$item.Current.IsOffscreen -and !$item.Current.BoundingRectangle.IsEmpty) { return }
+        Start-Sleep -Milliseconds 100
+    }
+    throw 'Native control did not become visible for evidence screenshot: '+$label
+}
 function Wait-Gone([string]$name,[int]$seconds=30) {
     $until=(Get-Date).AddSeconds($seconds)
     while((Get-Date) -lt $until) {
@@ -987,6 +998,9 @@ try {
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
         if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw 'Visible reopened W-2 did not show saved5000 withholding.' }
         Wait-Named '$75' 120 $false | Out-Null
+        # Capture the visible saved owner, Box1/Box2 amounts, and sticky result;
+        # an offscreen UIA value alone is not evidence of the user-visible state.
+        Focus-Visible $wages 'saved W-2 Box 1 wages'
         Save-Screenshot 'windows-native-default-encrypted-w2-reopened.png'
         $receipt.native_default_encrypted_sample_passed=$true
         $receipt.native_default_encrypted_w2_source_document_reopened=$true
