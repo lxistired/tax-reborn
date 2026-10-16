@@ -39,6 +39,7 @@ async function inspectBinaryEntity(page){
   assert.match(body,/Binary source fields/);
   assert.match(body,/nonempty supported structures/);
   assert.doesNotMatch(body,/No supported W-2, 1099-DIV or 1099-INT candidates were found/);
+  assert.match(body,/Review (1099-INT|1099-DIV|W-2) candidate/);
   return body;
 }
 (async()=>{
