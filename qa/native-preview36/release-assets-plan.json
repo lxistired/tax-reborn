@@ -13,10 +13,9 @@
       "name": "Tax-Reborn-2026.10.16-preview.36-source.zip",
       "kind": "source",
       "status": "generated and extracted-tested privately",
-      "sha256": "59a25c35b02eb4008e37ef63764c44f30a8a5941b2d055e127eece477019713e",
-      "bytes": 142302816,
       "tracked_file_count": 2323,
       "source_commit_record": "source-manifest-preview36.json#source_commit",
+      "hash_and_bytes_record": "source-manifest-preview36.json#zip_sha256,zip_bytes",
       "requirements": ["exact tracked Git blobs", "per-file CRC", "full-file SHA256", "extracted App HTTP/SQLite and Pyodide/IndexedDB readback"]
     },
     {

@@ -17,8 +17,7 @@
     "source_archive": {
       "all_passed": true,
       "tracked_file_count": 2323,
-      "zip_bytes": 142302816,
-      "zip_sha256": "59a25c35b02eb4008e37ef63764c44f30a8a5941b2d055e127eece477019713e",
+      "hash_and_bytes_record": "source-manifest-preview36.json#zip_sha256,zip_bytes",
       "git_blob_and_per_file_crc_exact": true,
       "forbidden_payloads": 0,
       "extracted_stored_link_unit_tests": 7,
