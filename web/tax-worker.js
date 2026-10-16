@@ -123,10 +123,10 @@ self.onmessage = event => {
           code=`import base64,json
 from interop.container import default_encrypted_import
 _default_taxml_request=json.loads(_tax_input_json)
-if not isinstance(_default_taxml_request,dict) or set(_default_taxml_request)!={'base64','compatibility','is_previous_year_return','profile','carriers'}:
+if not isinstance(_default_taxml_request,dict) or set(_default_taxml_request)!={'base64','compatibility','is_previous_year_return','profile','carriers','profile_acknowledged'}:
  raise ValueError('Invalid default encrypted TaxML request.')
 _raw=base64.b64decode(_default_taxml_request['base64'],validate=True)
-_taxml_result=default_encrypted_import.inspect_default_taxml_mapping(_raw,compatibility=_default_taxml_request['compatibility'],is_previous_year_return=_default_taxml_request['is_previous_year_return'],profile=_default_taxml_request['profile'],carriers=_default_taxml_request['carriers'])
+_taxml_result=default_encrypted_import.inspect_default_taxml_mapping(_raw,compatibility=_default_taxml_request['compatibility'],is_previous_year_return=_default_taxml_request['is_previous_year_return'],profile=_default_taxml_request['profile'],carriers=_default_taxml_request['carriers'],profile_acknowledged=_default_taxml_request['profile_acknowledged'])
 json.dumps(_taxml_result,allow_nan=False)`
         } else if(command==='default_encrypted_inspect') {
           code=`import base64,hashlib,json

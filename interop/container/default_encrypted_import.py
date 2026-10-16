@@ -10,6 +10,7 @@ import copy
 
 from interop.container.clear_container_reference import TYPES
 from interop.container.default_encrypted_reference import (
+    DefaultCryptoConfig,
     EncryptedContainerError, load_default_encrypted_container,
     load_local_compatibility_config, read_entities,
 )
@@ -34,7 +35,7 @@ def inspect_default_taxml(source, *, compatibility_path, is_previous_year_return
     import taxml_preparation
     request = {'base64': base64.b64encode(taxml[0].payload).decode(),
                'container': 'plaintext_xml', 'profile': copy.deepcopy(profile),
-               'carriers': copy.deepcopy(carriers), 'profile_acknowledged': True}
+               'carriers': copy.deepcopy(carriers), 'profile_acknowledged': profile_acknowledged}
     result = taxml_preparation.inspect_request(request)
     return {
         'format': 'tax-reborn-default-encrypted-taxml-import-v1',
@@ -51,9 +52,11 @@ def inspect_default_taxml(source, *, compatibility_path, is_previous_year_return
     }
 
 
-def inspect_default_taxml_mapping(source, *, compatibility, is_previous_year_return, profile, carriers):
+def inspect_default_taxml_mapping(source, *, compatibility, is_previous_year_return, profile, carriers, profile_acknowledged):
     """Worker-safe variant: consume an already parsed local config mapping."""
-    config = load_default_encrypted_container.__globals__["DefaultCryptoConfig"].from_mapping(compatibility)
+    if profile_acknowledged is not True:
+        raise EncryptedContainerError('Review and acknowledge the selected TaxML wire profile before inspection')
+    config = DefaultCryptoConfig.from_mapping(compatibility)
     container = load_default_encrypted_container(
         source, compatibility=config, is_previous_year_return=is_previous_year_return)
     taxml = tuple(document for document in container.documents if document.entity_type == TYPES[0])
@@ -62,7 +65,7 @@ def inspect_default_taxml_mapping(source, *, compatibility, is_previous_year_ret
     import taxml_preparation
     request = {'base64': base64.b64encode(taxml[0].payload).decode(),
                'container': 'plaintext_xml', 'profile': copy.deepcopy(profile),
-               'carriers': copy.deepcopy(carriers), 'profile_acknowledged': True}
+               'carriers': copy.deepcopy(carriers), 'profile_acknowledged': profile_acknowledged}
     result = taxml_preparation.inspect_request(request)
     return {
         'format': 'tax-reborn-default-encrypted-taxml-import-v1',

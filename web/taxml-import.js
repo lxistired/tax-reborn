@@ -14,11 +14,12 @@
   documentContexts.set(result,{file,compatibility,is_previous_year_return:isPreviousYearReturn===true});
   return result;
  }
- async function inspectDefaultEncryptedTaxML(file,compatibility,isPreviousYearReturn,profileFile,registryFiles){
+ async function inspectDefaultEncryptedTaxML(file,compatibility,isPreviousYearReturn,profileFile,registryFiles,profileAcknowledged){
   if(!(file instanceof Blob)||!file.size||file.size>64*1024*1024)throw Error('Choose a nonempty default encrypted .tax file smaller than 64 MB.');
   if(!compatibility||typeof compatibility!=='object')throw Error('Choose the local default-container compatibility configuration.');
   if(!(profileFile instanceof Blob)||profileFile.size>1024*1024)throw Error('Choose a wire-profile JSON file smaller than 1 MB.');
   if(!Array.isArray(registryFiles)||!registryFiles.length||registryFiles.length>9)throw Error('Choose 1 to 9 caller-owned XPRF registry files.');
+  if(profileAcknowledged!==true)throw Error('Review and acknowledge the selected wire profile before inspection.');
   let profile;try{profile=JSON.parse(await profileFile.text());}catch{throw Error('The selected wire profile is not valid JSON.');}
   let carriers=[];for(const carrier of registryFiles){if(!(carrier instanceof Blob)||!carrier.size||carrier.size>32*1024*1024)throw Error('Choose registry files smaller than 32 MB each.');const bytes=new Uint8Array(await carrier.arrayBuffer());carriers.push({base64:encoded(bytes),sha256:await hash(bytes)});}
   if(['tax-reborn-binary-entity-profile-v2','tax-reborn-binary-entity-profile-v3','tax-reborn-binary-entity-profile-v4','tax-reborn-binary-entity-profile-v5','tax-reborn-binary-entity-profile-v6','tax-reborn-taxml-native-mac-profile-v1','tax-reborn-taxml-native-mac-profile-v2','tax-reborn-taxml-native-mac-profile-v3'].includes(profile.format)){
@@ -26,7 +27,7 @@
    if(!Array.isArray(order)||order.length!==carriers.length||new Set(order).size!==order.length||byHash.size!==carriers.length||order.some(identity=>typeof identity!=='string'||!byHash.has(identity)))throw Error('The profile must bind every selected registry exactly once in its explicit order.');
    carriers=order.map(identity=>byHash.get(identity));
   }
-  const bytes=new Uint8Array(await file.arrayBuffer()),result=await window.taxLocalEngine('default_encrypted_taxml_inspect',{base64:encoded(bytes),compatibility,is_previous_year_return:isPreviousYearReturn===true,profile,carriers});
+  const bytes=new Uint8Array(await file.arrayBuffer()),result=await window.taxLocalEngine('default_encrypted_taxml_inspect',{base64:encoded(bytes),compatibility,is_previous_year_return:isPreviousYearReturn===true,profile,carriers,profile_acknowledged:profileAcknowledged});
   documentContexts.set(result,{file,compatibility,is_previous_year_return:isPreviousYearReturn===true,profile,carriers});
   const inspection=result.taxml_inspection;for(const candidate of inspection.candidates||[])sourceContexts.set(candidate,{request:inspection,candidateHash:candidate.receipt.candidate_sha256});
   return result;

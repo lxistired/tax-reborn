@@ -786,7 +786,7 @@ async function loadDefaultEncryptedSample(id,atRevision){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed while opening the fictional encrypted example.');
  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:null,default_encrypted:{branch:inspection.branch,encrypted_source_sha256:inspection.encrypted_source_sha256,inventory:inspection.inventory,unreferenced_members:inspection.unreferenced_members}};
  await documentOperation('readwrite',store=>store.put(row));
- showDefaultEncryptedInventory(row,inspection,id,atRevision,config);
+ showDefaultEncryptedInventory(row,inspection,id,atRevision,config,{profile,carriers:[carrier0,carrier1],label:'public fictional sample profile + ordered registries'});
 }
 function showDefaultEncryptedReopen(source,returnId){
  const compatibility=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose local default encrypted compatibility configuration'}),previousYear=el('input',{type:'checkbox','aria-label':'This is a previous-year default encrypted return'}),holder=el('div',{},el('p',{class:'intro'},'Reopen the saved encrypted source by choosing the same local compatibility configuration. The key and IV stay local and are never saved with this workspace.'),el('div',{class:'field'},el('label',{},'Local compatibility configuration',compatibility)),el('label',{class:'check-field'},previousYear,el('span',{},'Use the previous-year compatibility branch.')));
@@ -799,27 +799,29 @@ function showDefaultEncryptedReopen(source,returnId){
   showDefaultEncryptedInventory(source,inspection,returnId,revision,config);
  },'primary']]);
 }
-function showDefaultEncryptedInventory(source,inspection,returnId,atRevision,compatibility){
+function showDefaultEncryptedInventory(source,inspection,returnId,atRevision,compatibility,preset=null){
  const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
  const selected=el('select',{'aria-label':'Choose decrypted entity member'},...(inspection.documents||[]).map((item,index)=>el('option',{value:String(index)},item.entity_key+' · '+item.decoded_bytes+' bytes')));
  const memberFormat=el('select',{'aria-label':'Choose decrypted member format'},el('option',{value:'binary_entity'},'Owned binary entity'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'));
- const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose entity wire profile'}),carriers=el('input',{type:'file',multiple:true,accept:'.xprf,.3pe,application/octet-stream','aria-label':'Choose ordered entity registries'}),detail=el('div');
+ const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose entity wire profile'}),carriers=el('input',{type:'file',multiple:true,accept:'.xprf,.3pe,application/octet-stream','aria-label':'Choose ordered entity registries'}),profileAcknowledged=el('input',{type:'checkbox','aria-label':'Confirm selected entity wire profile and registry order'}),detail=el('div');
+ const presetNote=preset?el('div',{class:'note'},'Preset ready: '+preset.label+'. The app will use this known public sample unless you choose replacement files.'):null;
  function render(){const item=inspection.documents[Number(selected.value)];detail.replaceChildren(el('p',{},item.entity_type+' · '+item.entity_key),el('small',{},item.parsed?.format==='json-member'?'Structured member retained for review.':'Opaque binary member retained byte-for-byte; choose the matching caller-owned profile and registries to inspect it.'),el('code',{class:'binary-raw-id'},'Decoded SHA-256 '+item.decoded_sha256));}
  selected.addEventListener('change',render);render();
- const holder=el('div',{},el('p',{class:'intro'},'The encrypted archive was decoded with the selected local compatibility branch. Every manifest member and unrecognized archive member remains accounted for. Original-compatible writing and engine execution are not claimed.'),el('p',{},'Branch: '+inspection.branch+' · encrypted source SHA-256 '+inspection.encrypted_source_sha256),el('div',{class:'note'},'Retained members: '+(inspection.unreferenced_members||[]).join(', ')),el('details',{},el('summary',{},'Archive member inventory'),el('ul',{},(inspection.inventory||[]).map(item=>el('li',{},item.member_name+' · '+item.role+' · '+(item.decoded_bytes===null?'ciphertext retained':item.decoded_bytes+' decoded bytes')+' · ciphertext SHA-256 '+item.ciphertext_sha256)))),el('hr'),el('label',{},'Decoded entity member',selected),el('div',{class:'field'},el('label',{},'Member format (choose explicitly)',memberFormat)),el('p',{class:'note'},'The app does not infer TaxML XML versus binary data from a member name. Choose the format you own, then provide the matching profile and ordered registries.'),detail,el('div',{class:'field'},el('label',{},'Entity wire profile',profile)),el('div',{class:'field'},el('label',{},'Ordered entity registries',carriers)),el('div',{class:'inline-actions'},button('Inspect selected entity locally',async()=>{
+ const holder=el('div',{},el('p',{class:'intro'},'The encrypted archive was decoded with the selected local compatibility branch. Every manifest member and unrecognized archive member remains accounted for. Original-compatible writing and engine execution are not claimed.'),presetNote,el('p',{},'Branch: '+inspection.branch+' · encrypted source SHA-256 '+inspection.encrypted_source_sha256),el('div',{class:'note'},'Retained members: '+(inspection.unreferenced_members||[]).join(', ')),el('details',{},el('summary',{},'Archive member inventory'),el('ul',{},(inspection.inventory||[]).map(item=>el('li',{},item.member_name+' · '+item.role+' · '+(item.decoded_bytes===null?'ciphertext retained':item.decoded_bytes+' decoded bytes')+' · ciphertext SHA-256 '+item.ciphertext_sha256)))),el('hr'),el('label',{},'Decoded entity member',selected),el('div',{class:'field'},el('label',{},'Member format (choose explicitly)',memberFormat)),el('p',{class:'note'},'The app does not infer TaxML XML versus binary data from a member name. Choose the format you own, then provide the matching profile and ordered registries.'),detail,el('div',{class:'field'},el('label',{},'Entity wire profile',profile)),el('div',{class:'field'},el('label',{},'Ordered entity registries',carriers)),el('label',{class:'check-field'},profileAcknowledged,el('span',{},'I reviewed this profile and registry order for this source.')),el('div',{class:'inline-actions'},button('Inspect selected entity locally',async()=>{
   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the encrypted source.');
-  const item=inspection.documents[Number(selected.value)],profileFile=profile.files[0],registryFiles=[...carriers.files];
+  const item=inspection.documents[Number(selected.value)],profileFile=profile.files[0]||preset?.profile,registryFiles=carriers.files.length?[...carriers.files]:(preset?.carriers||[]);
   if(!profileFile||!registryFiles.length)throw Error('Choose the matching caller-owned profile and ordered registries first.');
+  if(!profileAcknowledged.checked)throw Error('Review and acknowledge the selected wire profile before inspection.');
   const container=memberFormat.value;
   let file,inspected;
   if(container==='plaintext_xml'){
    if(item.entity_type!=='/tax/income/individual/taxreturn/taxml')throw Error('Choose the decrypted TaxML member for plaintext XML inspection.');
-   const bridge=await window.taxMLImport.inspectDefaultEncryptedTaxML(source.file,compatibility,inspection.branch==='previous',profileFile,registryFiles);
+   const bridge=await window.taxMLImport.inspectDefaultEncryptedTaxML(source.file,compatibility,inspection.branch==='previous',profileFile,registryFiles,profileAcknowledged.checked);
    if(bridge.selected_taxml_member!==item.entity_key)throw Error('The selected member is not the archive TaxML document.');
    file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/xml'});inspected=bridge.taxml_inspection;
   }else{
    file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/octet-stream'});
-   inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container,true);
+   inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container,profileAcknowledged.checked);
   }
   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed while inspecting the decrypted entity.');
   const row={id:crypto.randomUUID(),returnId:returnId,file,name:item.entity_key,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile:profileFile,carriers:registryFiles,container,encrypted_source_document_id:source.id,encrypted_source_sha256:inspection.encrypted_source_sha256}};
