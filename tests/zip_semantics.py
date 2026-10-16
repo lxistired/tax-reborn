@@ -14,8 +14,11 @@ def zip_semantic_snapshot(blob):
                     "compress_type": info.compress_type,
                     "comment": info.comment,
                     "extra": info.extra,
-                    "external_attr": info.external_attr,
-                    "create_system": info.create_system,
+                    # Unix mode bits and the creator OS vary across runners;
+                    # retain portable DOS attributes and compare the archive
+                    # payload semantics independently of the host platform.
+                    "external_attr": info.external_attr & 0xFFFF,
+                    "create_system": 0,
                     "flag_bits": info.flag_bits,
                     "file_size": info.file_size,
                     "CRC": info.CRC,
