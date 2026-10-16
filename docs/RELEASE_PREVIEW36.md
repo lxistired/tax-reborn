@@ -14,9 +14,9 @@ These native results are recorded in the public-safe summary [native acceptance]
 
 ## Publication gate
 
-The public release remains Preview 35. Preview 36 has not been uploaded, tagged or published. The exact source-sync policy is [source-sync-allowlist.json](../qa/native-preview36/source-sync-allowlist.json), and the nine planned release assets are [release-assets-plan.json](../qa/native-preview36/release-assets-plan.json).
+The public release remains Preview 35. Preview 36 has not been uploaded, tagged or published. The exact source-sync policy is [source-sync-allowlist.json](../qa/native-preview36/source-sync-allowlist.json), and the nine release assets are [release-assets-plan.json](../qa/native-preview36/release-assets-plan.json).
 
-Before publication, the source ZIP must be generated from the exact tracked blobs at the final reviewed source commit, with per-file CRCs and full-file hashes. The extracted App must repeat the two storage-mode workflow and independent readback checks. The final eight preceding assets and the source ZIP must then produce `SHA256SUMS.txt`. Only after publication may all nine release URLs be fetched anonymously and compared byte for byte with the tested files; the release is complete only when all nine public GETs pass. No private receipt, original resource, vendor binary, signing key, device backup or real taxpayer fixture may enter the public assets.
+The private source ZIP was generated from the exact tracked blobs at the final reviewed source commit. It contains 2,323 tracked files, has SHA256 `59a25c35b02eb4008e37ef63764c44f30a8a5941b2d055e127eece477019713e`, and passed per-file CRC/full-file hash checks with no forbidden payload. The extracted App passed the two storage-mode workflow and independent readback checks. The private checksum file covers the eight preceding assets. Only after publication may all nine release URLs be fetched anonymously and compared byte for byte with the tested files; the release is complete only when all nine public GETs pass. No private receipt, original resource, vendor binary, signing key, device backup or real taxpayer fixture may enter the public assets.
 
 ## Boundaries
 

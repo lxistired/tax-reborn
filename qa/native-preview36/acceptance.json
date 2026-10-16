@@ -1,11 +1,11 @@
 {
   "schema": 1,
-  "at_utc": "2026-10-16T02:30:18Z",
+  "at_utc": "2026-10-16T02:43:11Z",
   "version": "2026.10.16-preview.36",
   "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
-  "qa_docs_commit_parent": "a393951",
+  "qa_docs_commit_parent": "external-manifest:source-manifest-preview36.json#source_commit",
   "cache": "tax-reborn-ui-2025-preview-56",
-  "candidate_state": "native-tested candidate; source archive and public readback pending",
+  "candidate_state": "native-tested candidate; source archive and extracted App tested; public readback pending",
   "source": {
     "all_passed": true,
     "host_checks": 812,
@@ -13,7 +13,18 @@
     "actual_pyodide_skips": 2,
     "storage_modes": ["HTTP/SQLite", "Pyodide/IndexedDB"],
     "main_app_file_input_worker_report_download_and_independent_readback": true,
-    "saved_return_unchanged": true
+    "saved_return_unchanged": true,
+    "source_archive": {
+      "all_passed": true,
+      "tracked_file_count": 2323,
+      "zip_bytes": 142302816,
+      "zip_sha256": "59a25c35b02eb4008e37ef63764c44f30a8a5941b2d055e127eece477019713e",
+      "git_blob_and_per_file_crc_exact": true,
+      "forbidden_payloads": 0,
+      "extracted_stored_link_unit_tests": 7,
+      "extracted_app_http_sqlite": true,
+      "extracted_app_pyodide_indexeddb": true
+    }
   },
   "native": {
     "macos_arm64": {

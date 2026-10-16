@@ -3,7 +3,8 @@
   "version": "2026.10.16-preview.36",
   "release_tag": "v2026.10.16-preview.36",
   "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
-  "qa_docs_commit_parent": "a393951",
+  "qa_docs_commit_parent": "external-manifest:source-manifest-preview36.json#source_commit",
+  "source_archive_manifest": "work/turbotax-re/root-source-link-App-20261016T0003Z/native36-packages/source-manifest-preview36.json",
   "publication_state": "not published",
   "anonymous_get_and_local_byte_readback_required": true,
   "source_zip_must_be_built_from_exact_git_tracked_blobs": true,
@@ -11,7 +12,11 @@
     {
       "name": "Tax-Reborn-2026.10.16-preview.36-source.zip",
       "kind": "source",
-      "status": "not generated",
+      "status": "generated and extracted-tested privately",
+      "sha256": "59a25c35b02eb4008e37ef63764c44f30a8a5941b2d055e127eece477019713e",
+      "bytes": 142302816,
+      "tracked_file_count": 2323,
+      "source_commit_record": "source-manifest-preview36.json#source_commit",
       "requirements": ["exact tracked Git blobs", "per-file CRC", "full-file SHA256", "extracted App HTTP/SQLite and Pyodide/IndexedDB readback"]
     },
     {
@@ -69,7 +74,10 @@
     {
       "name": "SHA256SUMS.txt",
       "kind": "checksums",
-      "status": "not generated",
+      "status": "prepared privately; publication and anonymous GET verification pending",
+      "private_name": "SHA256SUMS-preview36.txt",
+      "private_bytes": 870,
+      "private_sha256": "8a48543d802ec6fa0fd03ee02b4a57b40cc5230e05361697d4d680810f8a5f3a",
       "requirements": ["all eight preceding assets", "final published bytes", "anonymous GET verification"]
     }
   ]
