@@ -5,7 +5,9 @@
   "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
   "qa_docs_commit_parent": "external-manifest:source-manifest-preview36.json#source_commit",
   "cache": "tax-reborn-ui-2025-preview-56",
-  "candidate_state": "native-tested candidate; source archive and extracted App tested; public readback pending",
+  "candidate_state": "published prerelease; source archive, extracted App and public readback accepted",
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.36",
+  "public_download_readback": "qa/native-preview36/public-download-readback.json",
   "source": {
     "all_passed": true,
     "host_checks": 812,

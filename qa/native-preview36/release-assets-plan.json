@@ -5,7 +5,9 @@
   "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
   "qa_docs_commit_parent": "external-manifest:source-manifest-preview36.json#source_commit",
   "source_archive_manifest": "work/turbotax-re/root-source-link-App-20261016T0003Z/native36-packages/source-manifest-preview36.json",
-  "publication_state": "not published",
+  "publication_state": "published prerelease; nine anonymous full GETs passed",
+  "public_release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.36",
+  "public_download_readback": "qa/native-preview36/public-download-readback.json",
   "anonymous_get_and_local_byte_readback_required": true,
   "source_zip_must_be_built_from_exact_git_tracked_blobs": true,
   "assets": [
