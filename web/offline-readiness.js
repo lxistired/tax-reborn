@@ -1,6 +1,6 @@
 'use strict';
 (function(){
- const VERSION='tax-reborn-ui-2025-preview-55';
+ const VERSION='tax-reborn-ui-2025-preview-56';
  const SHELL=['./','index.html','style.css','app.js','local-api.js','investment-corrections.js','tax-worker.js','native-file-bridge.js','document-import.js','taxml-import.js','taxml_wire.py','taxml_native.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','state-workspace.js','state-worker.js','offline-readiness.js','ocr-worker.js','manifest.webmanifest','icon.svg','icon-192.png','icon-512.png'];
  const BOOT=['index.html','style.css','app.js','local-api.js','investment-corrections.js','tax-worker.js','offline-readiness.js'];
  const OCR_CORE=['tesseract-core','tesseract-core-lstm','tesseract-core-simd','tesseract-core-simd-lstm'].flatMap(name=>['vendor/tesseract/'+name+'.wasm.js','vendor/tesseract/'+name+'.wasm']);

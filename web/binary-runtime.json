@@ -39,6 +39,7 @@
     "interop/form_core/entity_formset_reference.py",
     "interop/form_core/entity_stored_instance_map_reference.py",
     "interop/form_core/field_limits_body_reference.py",
+    "interop/form_core/field_link_2150_reference.py",
     "interop/form_core/field_template_reference.py",
     "interop/form_core/form_header_map_reference.py",
     "interop/form_core/form_string_wire_reference.py",
@@ -101,6 +102,7 @@
     "interop/form_core/entity_formset_reference.py": "38c957f7a5d6426cc90cd461ed0413c74fd08d3568d2b89c9f4371ea3b7c93b8",
     "interop/form_core/entity_stored_instance_map_reference.py": "7effe0501df549f90536a39aac0c8f30b108ef7d9ba79adbef11d40c6a0ef383",
     "interop/form_core/field_limits_body_reference.py": "367ee888358464152a6fd9d5b55bc21ebeed3b6d2dde64d9c66343ab38c6faeb",
+    "interop/form_core/field_link_2150_reference.py": "57b104577b1e8f0309c1df62c65068db543b28fcdb5798f9151cc39e15610e3a",
     "interop/form_core/field_template_reference.py": "8062d453ed9867660150b332afced0b05bb99f7487382a6bd779d2abd91efbe9",
     "interop/form_core/form_header_map_reference.py": "0d1683694987d668508bff665e7b8d8ee052bb65c2ef926c90d522d16cb0e240",
     "interop/form_core/form_string_wire_reference.py": "e528a1de52b8ebdbe9f98d75d8c8305190dd7010001c1f97f3d2748a21123623",
@@ -174,6 +176,11 @@
       "path": "source_stored_cell.py",
       "bytes": 12796,
       "sha256": "5f505ea80dd14d8a12d9889f9fb64c5bdf3b2b9f38229870100491dd22ce4156"
+    },
+    {
+      "path": "source_link_diagnostics.py",
+      "bytes": 8875,
+      "sha256": "6b28d35adfdfc211975b1187041a4f3cae42d23d3d21a36ec652b18ebb552393"
     }
   ]
 }

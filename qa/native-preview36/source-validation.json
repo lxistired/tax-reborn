@@ -1,0 +1,14 @@
+{
+  "all_passed": true,
+  "host_checks": 812,
+  "actual_Pyodide_executed": 701,
+  "actual_Pyodide_skips": 2,
+  "complete_source_main_App_storage_modes": [
+    "HTTP/SQLite",
+    "Pyodide/IndexedDB"
+  ],
+  "new_native_package_acceptance": "in progress; not established by this record",
+  "original_licensed_runtime_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "full_original_tax_compatibility": false
+}

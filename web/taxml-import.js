@@ -111,5 +111,6 @@
   return{row,metadata};
  }
  function sourceRequest(inspected){const request=documentContexts.get(inspected);if(!request||request.container!=='binary_entity')throw Error('Reopen and inspect the binary source first.');return JSON.parse(JSON.stringify(request));}
- window.taxMLImport={sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,correctedStoredCell,editBinary,requiredMoney,interestMoney,dividendMoney};
+ async function storedLinkDiagnostics(inspected){return window.taxLocalEngine('source_link_diagnostics',sourceRequest(inspected));}
+ window.taxMLImport={storedLinkDiagnostics,sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,correctedStoredCell,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

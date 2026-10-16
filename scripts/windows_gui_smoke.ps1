@@ -828,6 +828,21 @@ try {
         $receipt.native_source_stored_cell_complete_two_exports_passed=$true
         $receipt.native_source_stored_cell_original_resources_used=$false
     }
+    if($InstanceMaps) {
+        Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
+        Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load saved-link check sample')
+        Click-Observed (Wait-Named 'Check stored links'); Click-Observed (Wait-Named 'Run link check')
+        Wait-Named '1 saved link(s) checked · 1 consistent within this source.' 120 $false | Out-Null
+        Save-Screenshot 'windows-native-stored-link-check.png'
+        Click-Observed (Wait-Named 'Download read-only check')
+        $linkCopy=Join-Path $OutputDir 'windows-native-stored-link-audit.json'; Save-Native-Export $linkCopy 100
+        python scripts/verify_stored_link_audit.py $linkCopy --output (Join-Path $OutputDir 'windows-native-stored-link-readback.json')
+        if($LASTEXITCODE -ne 0) { throw 'Native saved-link audit failed independent complete source readback' }
+        Click-Observed (Wait-Named 'Close dialog'); Close-App; Launch-App; Wait-Named '$344' 120 $false | Out-Null
+        $receipt.native_stored_link_diagnostic_complete_system_save_passed=$true
+        $receipt.original_resource_MC_positive_not_tested=$true
+        $checks.Add('Native independently authored complete713B source checked D2/FV/D7/2150 relationships; system-saved read-only audit independently reopened. Normal restart retained existing344return. Source-MC original-resource positive is not covered by this Windows test.')
+    }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
         Click-Observed (Wait-Named 'Try independently generated binary samples'); Click-Observed (Wait-Named 'Load plaintext container sample')

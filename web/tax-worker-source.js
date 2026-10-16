@@ -3,6 +3,25 @@
 let engineReady;
 let pdfReady;
 let taxmlReady;
+let sourceMCReady;
+const sourceMCRuntimeSHA='0f5b412fba280a37f920dd4b6314ea3c8507938c8afd4e01799967884f3854ba';
+async function sourceMCFiles(py) {
+ if(!sourceMCReady)sourceMCReady=(async()=>{
+  const base=new URL('./',self.location.href);
+  const digest=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');
+  const resource=async name=>{const r=await fetch(new URL(name,base));if(!r.ok)throw Error('Local source-value report resource missing: '+name);return new Uint8Array(await r.arrayBuffer());};
+  const raw=await resource('source-mc-runtime.json');
+  if(await digest(raw)!==sourceMCRuntimeSHA)throw Error('Local source-value runtime manifest changed');
+  const manifest=JSON.parse(new TextDecoder().decode(raw));
+  const rows=manifest.modules;
+  if(manifest.format!=='tax-reborn-source-mc-runtime-v1'||manifest.command!=='source_mc_input_diagnose'||manifest.python_module_limit!==32||!Array.isArray(rows)||rows.length!==28||new Set(rows.map(r=>r.path)).size!==rows.length||rows.filter(r=>r.path.endsWith('.py')).length>32||rows.some(r=>!r||typeof r.path!=='string'||!(/^(?:source_mc_input\.py|source_mc\/[A-Za-z_0-9]+\.py|source-mc-authority\.json)$/.test(r.path))||!Number.isSafeInteger(r.bytes)||r.bytes<1||r.bytes>1048576||!(/^[0-9a-f]{64}$/.test(r.sha256))))throw Error('Invalid local source-value runtime allowlist');
+  const bytes=await Promise.all(rows.map(async row=>{const value=await resource(row.path);if(value.length!==row.bytes||await digest(value)!==row.sha256)throw Error('Local source-value runtime changed: '+row.path);return value;}));
+  py.FS.mkdirTree('/home/pyodide/source_mc');
+  rows.forEach((row,i)=>py.FS.writeFile('/home/pyodide/'+row.path,bytes[i]));
+  await py.runPythonAsync('import source_mc_input');
+ })();
+ return sourceMCReady;
+}
 function taxWorkerError(error) {
   const message=String(error?.message||error);
   if(error?.name!=='PythonError')return message;
@@ -39,9 +58,9 @@ self.onmessage = event => {
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
-      else if (['taxml_inspect','taxml_export','binary_tax_edit','source_stored_cell_correct'].includes(command)) {
+      else if (['taxml_inspect','taxml_export','binary_tax_edit','source_stored_cell_correct','source_link_diagnostics','source_mc_input_diagnose'].includes(command)) {
         if (!taxmlReady) taxmlReady = (async()=>{
-          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py'];
+          const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','source_link_diagnostics.py'];
           const response=await fetch(new URL('binary-runtime.json',base));
           if(!response.ok)throw Error('Local binary tax-data manifest missing');
           const manifest=await response.json();
@@ -50,10 +69,13 @@ self.onmessage = event => {
           const text=await Promise.all(names.map(async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw Error('Local TaxML inspector resource missing: '+name);return response.text();}));
           py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');py.FS.mkdirTree('/home/pyodide/interop/container');
           names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,text[index]));
-          await py.runPythonAsync('import taxml_preparation, binary_tax, source_stored_cell');
+          await py.runPythonAsync('import taxml_preparation, binary_tax, source_stored_cell, source_link_diagnostics');
         })();
         await taxmlReady;
-        code=command==='taxml_inspect'?'json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':command==='binary_tax_edit'?'json.dumps(binary_tax.edit_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_stored_cell_correct'?'json.dumps(source_stored_cell.correct_request(json.loads(_tax_input_json)), allow_nan=False)':'json.dumps(taxml_preparation.export_request(json.loads(_tax_input_json)), allow_nan=False)';
+        if(command==='source_mc_input_diagnose') {
+          await sourceMCFiles(py);
+          code='json.dumps(source_mc_input.diagnose_request(json.loads(_tax_input_json)), allow_nan=False)';
+        } else code=command==='taxml_inspect'?'json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':command==='binary_tax_edit'?'json.dumps(binary_tax.edit_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_stored_cell_correct'?'json.dumps(source_stored_cell.correct_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_link_diagnostics'?'json.dumps(source_link_diagnostics.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':'json.dumps(taxml_preparation.export_request(json.loads(_tax_input_json)), allow_nan=False)';
       }
       else if (['pdf','packet_pdf','masked_pdf','paper_status','document_text'].includes(command)) {
         if (!pdfReady) pdfReady = (async () => {

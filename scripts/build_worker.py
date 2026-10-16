@@ -21,19 +21,19 @@ for source_name,target_name in [('request.json','mac-scalar-request.json'),('blo
  shutil.copy2(ROOT/'fixtures/mac-scalar-taxml'/source_name,web/'samples'/target_name);sample_assets.append('samples/'+target_name)
 for source_name,target_name in [('request.json','mac-date-request.json'),('blocked-request.json','mac-date-blocked-request.json')]:
  shutil.copy2(ROOT/'fixtures/mac-date-taxml'/source_name,web/'samples'/target_name);sample_assets.append('samples/'+target_name)
-for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json','instance-map-income-request.json','entity-instance-map-v1-income-request.json','entity-instance-map-v2-income-request.json','entity-instance-map-v3-income-request.json'):
+for name in ('income-request.json','nested-request.json','filing-status-request.json','merged-request.json','merged-nested-request.json','value-table-request.json','derived-income-request.json','derived-array-request.json','derived-opaque-request.json','auto-array-income-request.json','auto-array-used-request.json','auto-array-opaque-request.json','typed-value-income-request.json','typed-value-empty-request.json','typed-value-opaque-request.json','whole-number-income-request.json','persistent-document-income-request.json','instance-map-income-request.json','entity-instance-map-v1-income-request.json','entity-instance-map-v2-income-request.json','entity-instance-map-v3-income-request.json','owned-existing-link-request.json'):
  source=ROOT/'fixtures/binary-tax'/name
  if not source.is_file():raise FileNotFoundError('Generate independent binary samples before bundling: '+str(source))
  shutil.copy2(source,samples/name);sample_assets.append('samples/binary-tax/'+name)
 shutil.copy2(ROOT/'fixtures/source-cell/request.json',samples/'source-cell-request.json');sample_assets.append('samples/binary-tax/source-cell-request.json')
-application_modules=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py']
+application_modules=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','source_link_diagnostics.py']
 (web/'binary-runtime.json').write_text(json.dumps({'format':'tax-reborn-binary-runtime-v1',
  'modules':binary_modules,'sha256':{name:hashlib.sha256((web/name).read_bytes()).hexdigest() for name in binary_modules},
  'application_sources':[{'path':name,'bytes':(web/name).stat().st_size,'sha256':hashlib.sha256((web/name).read_bytes()).hexdigest()}for name in application_modules]},indent=2)+'\n')
 manifest=web/'offline-assets.json'
 if manifest.exists():
  data=json.loads(manifest.read_text());assets=data if isinstance(data,list) else data['assets']
- assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','binary-runtime.json']))
+ assets[:]=sorted(set(assets+binary_modules+sample_assets+['binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','source_link_diagnostics.py','binary-runtime.json']))
  manifest.write_text(json.dumps(data,indent=2)+'\n')
 prefix=r'''// Generated from pinned local runtime plus independently written worker source.
 // A dedicated worker may not inherit its parent ServiceWorker's request handler.
@@ -51,6 +51,16 @@ self.fetch=async function(resource,options){
  }
 };
 '''
+# Source diagnostics are a separate exact runtime; the binary codec manifest stays unchanged.
+import subprocess,sys
+subprocess.run([sys.executable,str(ROOT/'scripts/build_source_mc.py')],check=True)
+# Keep the offline application's reported package version in step with VERSION.
+import re
+local_api=web/'local-api.js'
+version=(ROOT/'VERSION').read_text().strip()
+updated,count=re.subn(r"(const caps = \{product:'Tax Reborn',project_number:'000002',version:')[^']+(')",lambda match:match[1]+version+match[2],local_api.read_text())
+if count!=1:raise ValueError('Expected one offline application version field')
+local_api.write_text(updated)
 files=['vendor/pyodide/pyodide.js','vendor/pyodide/pyodide.asm.js','tax-worker-source.js']
 parts=[prefix]+[f'\n// Source: {name}\n'+(web/name).read_text()+'\n' for name in files]
 (web/'tax-worker.js').write_text('\n'.join(parts))

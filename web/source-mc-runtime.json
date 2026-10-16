@@ -1,0 +1,150 @@
+{
+  "format": "tax-reborn-source-mc-runtime-v1",
+  "command": "source_mc_input_diagnose",
+  "python_module_limit": 32,
+  "modules": [
+    {
+      "path": "source_mc_input.py",
+      "bytes": 1147,
+      "sha256": "ad1c7fa138d4eeb7ad7e01d46d132f116f6c1e7245ad1811256d9f23fd4ae2e4"
+    },
+    {
+      "path": "source_mc/MC_input_query_reference.py",
+      "bytes": 3913,
+      "sha256": "5e76cca27c6da6cb07ca3064db58544df1be05366734a573fd2f925dc45f6c4a"
+    },
+    {
+      "path": "source_mc/MC_leaf_selection_reference.py",
+      "bytes": 2949,
+      "sha256": "8d7ac51b426110e97d9b06a5e1df6a9348b41eeca8b362f1814ff08424b1eb1e"
+    },
+    {
+      "path": "source_mc/MC_path_UUID_reference.py",
+      "bytes": 2413,
+      "sha256": "03569bd72e5c2100866efc1a0e5fec00542024ad1c8aa1a475e23e34161f95a2"
+    },
+    {
+      "path": "source_mc/__init__.py",
+      "bytes": 79,
+      "sha256": "e8ba062adc4ec6c2c941af9d9a335affb5ba2dd7852bad1b6fb569fb723ae1d4"
+    },
+    {
+      "path": "source_mc/actual_summary_arrays_reference.py",
+      "bytes": 4357,
+      "sha256": "1d397afa147240a8c87487c09f1b11fbf7014a38115c2e722f65f3ab26d75750"
+    },
+    {
+      "path": "source_mc/compiled_identity_runtime_adapter.py",
+      "bytes": 2476,
+      "sha256": "a8fe80c54a153783c4fb4cd9beb3e1e3b9aaf94522dffae4da50a3bf17d7b901"
+    },
+    {
+      "path": "source_mc/current_mapping_numeric_reference.py",
+      "bytes": 3126,
+      "sha256": "3940920756b1ab79a4f5a37d35082a8497cfda4e7ecad40ce36664e9912070e2"
+    },
+    {
+      "path": "source_mc/current_numeric_leaf_reference.py",
+      "bytes": 8144,
+      "sha256": "95bc97faabeda1f164be870337fcd1802003d6f9dd1152469983c0cc7db75d30"
+    },
+    {
+      "path": "source_mc/current_string_input_reference.py",
+      "bytes": 1514,
+      "sha256": "783c358331691d2a1758506b0ebae65204c637986ed539086de8df4d3e34f1f5"
+    },
+    {
+      "path": "source_mc/finite_interest_prefix_reference.py",
+      "bytes": 8951,
+      "sha256": "3ab599fe9a74d6b289862aa0fe72c5169ca7aa65abff24a5c9625f048156aa21"
+    },
+    {
+      "path": "source_mc/form_uuid_initialization_reference.py",
+      "bytes": 3105,
+      "sha256": "a63c092dabe02e47079d3fc32be7a2a5fbf45b13a80b4aa0dcc28dfb12062f7f"
+    },
+    {
+      "path": "source_mc/interest_snapshot_reference.py",
+      "bytes": 10985,
+      "sha256": "8b3cf6a985a834d654edf9d8792d64564de0f996ad0d2b8fa802c12ffe919f88"
+    },
+    {
+      "path": "source_mc/normal_Mef_components_reference.py",
+      "bytes": 4270,
+      "sha256": "394fcf39efb14e0241ebcd321d4f8bd2f92a29b038d2ef1815550c8b8fcb3425"
+    },
+    {
+      "path": "source_mc/normal_query_address_reference.py",
+      "bytes": 4836,
+      "sha256": "c9bb8fb14b50fa5c09d6d848325d31c94d0d8543d13fde0f01ae01738faa273a"
+    },
+    {
+      "path": "source_mc/numeric_current_input_reference.py",
+      "bytes": 4714,
+      "sha256": "b011176ef5a2561e038ee295379e8866d055ab40e16c77aec777fbca38202b12"
+    },
+    {
+      "path": "source_mc/owned_MC_nodes_reference.py",
+      "bytes": 8722,
+      "sha256": "a914d57ac12726defaf1239fe1b55798079fa1102f0d5297a94e2b3e362a6033"
+    },
+    {
+      "path": "source_mc/owned_current_MC_value_reference.py",
+      "bytes": 6011,
+      "sha256": "d42de7a5e516804c0d98b3e9cf76ae715dfca5a9c107958e1486e3db012ee445"
+    },
+    {
+      "path": "source_mc/postcopy_cache_reference.py",
+      "bytes": 5739,
+      "sha256": "dceb38cb79264e15619fc7dead07284654998db8aff6054e37f9a5c9f07b88ab"
+    },
+    {
+      "path": "source_mc/raw_numeric_input_reference.py",
+      "bytes": 4142,
+      "sha256": "0297e5ad1cfaaabd84e594744e407b4f37cadb2ea58a0b40bb157701c087b9c2"
+    },
+    {
+      "path": "source_mc/raw_tke_nodes_reference.py",
+      "bytes": 12033,
+      "sha256": "a7c8f8d074a7826bf87a5d3b3c1f4e182bbd01257fa07531436d31d2c1537b46"
+    },
+    {
+      "path": "source_mc/raw_tke_xml_reference.py",
+      "bytes": 4954,
+      "sha256": "642d2a3eb2d7da5efb1323becc99bb444252a85fbec505b04143fecbcf601abe"
+    },
+    {
+      "path": "source_mc/source_child_form_uuid_reference.py",
+      "bytes": 1681,
+      "sha256": "124130b4256464878e7e786bf488434e7f64525dc4ffb0171acac25dc843b36c"
+    },
+    {
+      "path": "source_mc/source_current_supplier.py",
+      "bytes": 18488,
+      "sha256": "cba21e7f34d6c1b5ff29ef9390d011dac03bd15831735792afb56653cfed634d"
+    },
+    {
+      "path": "source_mc/strict_actual_array_interest_reference.py",
+      "bytes": 5002,
+      "sha256": "4218dd10205ca6a14ab25258e76e3a5f0479052ebc554babf4406f37217dd1fd"
+    },
+    {
+      "path": "source_mc/strict_bint_row_scope_reference.py",
+      "bytes": 7602,
+      "sha256": "fa806d9b9dd0433772faed4e6245d4d133e1942b561fcfd695020e0eeea3cf87"
+    },
+    {
+      "path": "source_mc/summary_child_current_reference.py",
+      "bytes": 8307,
+      "sha256": "439094580bd1168d50860c67d48e08950e80d9c4afe068f62672ce2b001a8fff"
+    },
+    {
+      "path": "source-mc-authority.json",
+      "bytes": 7843,
+      "sha256": "ca53d158123e9aba70f9e44a32eb2a8ff1ba795ea9039eba7afcd1b00bed841b"
+    }
+  ],
+  "original_resource_payloads_bundled": false,
+  "native_GetMultiCopyInputValue_executed": false,
+  "writeback_allowed": false
+}
