@@ -998,6 +998,11 @@ try {
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
         if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw 'Visible reopened W-2 did not show saved5000 withholding.' }
         Wait-Named '$75' 120 $false | Out-Null
+        # The packaged-configuration acknowledgement is a transient WebView
+        # toast. It is not a dialog, but it can cover Box 1 in a screenshot
+        # taken immediately after reopening the source. Wait for it to leave
+        # the native accessibility tree before capturing the visible values.
+        Wait-Gone 'Packaged fictional configuration and ordered registries are ready for this sample.' 30
         # Capture the visible saved owner, Box1/Box2 amounts, and sticky result;
         # an offscreen UIA value alone is not evidence of the user-visible state.
         Focus-Visible $wages 'saved W-2 Box 1 wages'
