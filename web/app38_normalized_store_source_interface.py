@@ -89,6 +89,7 @@ def _summary(bound, result, independent):
         'D7_exact_preserved': result.preserved_D7,
         'stored_kind7_exactly_preserved': result.preserved_stored_strings,
         'kind22_preserved_under_D7_proof': result.preserved_kind22,
+        'ordinary_array_elements_exactly_preserved': result.preserved_array_elements,
         'output_readback_sha256': hashlib.sha256(independent.document.source_bytes).hexdigest(),
     }
 
@@ -122,7 +123,7 @@ def normalize_binary_entity_source(request):
     if output_sha256 != result.output_sha256 or result.source_sha256 != source_sha256:
         _reject('Normalization receipt source or output identity mismatch.')
     return {
-        'format': 'tax-reborn-normalized-binary-entity-source-v1',
+        'format': 'tax-reborn-normalized-binary-entity-source-v2',
         'mode': result.mode,
         'source': {'container': 'binary_entity', 'sha256': source_sha256, 'bytes': len(source_bytes)},
         'normalized_source': {'base64': base64.b64encode(result.wire).decode('ascii'),
@@ -134,6 +135,7 @@ def normalize_binary_entity_source(request):
             'E1_two_big_endian_endpoints_only': len(result.e1_range_remaps),
             'D7_descriptor_bytes_exactly_preserved_after_target_identity_validation': result.preserved_D7,
             'ordinary_stored_kind7_and_StringTable_exactly_preserved': result.preserved_stored_strings,
+            'existing_ordinary_array_hash_entries_rekeyed_without_row_lifecycle': result.preserved_array_elements,
         },
         'constraints': [
             'No external field map, prepared document, arrays, D2 map, native-ready state, or result object is accepted.',

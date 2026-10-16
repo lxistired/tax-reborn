@@ -914,8 +914,8 @@ async function showSourceMCInput(source,inspected,returnId=currentId){
  const request=window.taxMLImport.sourceRequest(inspected);
  if(currentId!==returnId)throw Error('Reopen the source from the intended return.');
  if(request.profile?.format!=='tax-reborn-binary-entity-profile-v5')throw Error('This stored-interest reader requires the supported automatic-table source profile.');
- const sourceFile=source.file,sourceName=source.name,sourceBinding=source.binding_files,profileFile=sourceBinding?.profile,carrierFiles=[...(sourceBinding?.carriers||[])],sourceContainer=sourceBinding?.container;
- const sourceUnchanged=()=>source.file===sourceFile&&source.name===sourceName&&source.binding_files===sourceBinding&&sourceBinding?.profile===profileFile&&sourceBinding?.container===sourceContainer&&sourceBinding?.carriers?.length===carrierFiles.length&&carrierFiles.every((file,i)=>sourceBinding.carriers[i]===file);
+ const sourceFile=source.file,sourceName=source.name,sourceBinding=source.binding_files,profileFile=sourceBinding?.profile,carrierFiles=[...(sourceBinding?.carriers||[])],sourceContainer=sourceBinding?.container,atRevision=revision;
+ const sourceUnchanged=()=>currentId===returnId&&revision===atRevision&&source.file===sourceFile&&source.name===sourceName&&source.binding_files===sourceBinding&&sourceBinding?.profile===profileFile&&sourceBinding?.container===sourceContainer&&sourceBinding?.carriers?.length===carrierFiles.length&&carrierFiles.every((file,i)=>sourceBinding.carriers[i]===file);
  const container=el('div'),dialog=modal('Stored source interest input',container);
  let closed=false,widget=null;
  const cleanup=()=>{closed=true;if(activeSourceComparison===widget)activeSourceComparison=null;widget?.destroy();};dialogCleanup=cleanup;
@@ -950,8 +950,8 @@ async function showMCInterestComparison(source,inspected,returnId=currentId){
 async function showNormalizedStore(source,inspected,returnId=currentId){
  const request=window.taxMLImport.sourceRequest(inspected);
  if(currentId!==returnId)throw Error('Reopen the source from the intended return.');
- const sourceFile=source.file,sourceName=source.name,sourceBinding=source.binding_files,profileFile=sourceBinding?.profile,carrierFiles=[...(sourceBinding?.carriers||[])],sourceContainer=sourceBinding?.container;
- const sourceUnchanged=()=>source.file===sourceFile&&source.name===sourceName&&source.binding_files===sourceBinding&&sourceBinding?.profile===profileFile&&sourceBinding?.container===sourceContainer&&sourceBinding?.carriers?.length===carrierFiles.length&&carrierFiles.every((file,i)=>sourceBinding.carriers[i]===file);
+ const sourceFile=source.file,sourceName=source.name,sourceBinding=source.binding_files,profileFile=sourceBinding?.profile,carrierFiles=[...(sourceBinding?.carriers||[])],sourceContainer=sourceBinding?.container,atRevision=revision;
+ const sourceUnchanged=()=>currentId===returnId&&revision===atRevision&&source.file===sourceFile&&source.name===sourceName&&source.binding_files===sourceBinding&&sourceBinding?.profile===profileFile&&sourceBinding?.container===sourceContainer&&sourceBinding?.carriers?.length===carrierFiles.length&&carrierFiles.every((file,i)=>sourceBinding.carriers[i]===file);
  const container=el('div'),dialog=modal('Create normalized source copy',container);
  let closed=false,widget=null,transport=null;
  const cleanup=()=>{closed=true;widget?.destroy();transport?.close();};dialogCleanup=cleanup;

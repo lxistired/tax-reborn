@@ -17,26 +17,35 @@ export function createNormalizedStoreWorker() {
 export function mountNormalizedStore(container, {execute, getSource, saveReport = null, saveSource = null} = {}) {
   if (!container || typeof execute !== 'function' || typeof getSource !== 'function') throw Error('A local normalized-source adapter is required.');
   if (saveReport !== null && typeof saveReport !== 'function' || saveSource !== null && typeof saveSource !== 'function') throw Error('A valid local save adapter is required.');
-  let closed = false, busy = false, result = null, sourceRequest = null, outputRequest = null;
+  let closed = false, busy = false, result = null, sourceRequest = null, outputRequest = null, sourceKey = null;
   const root = node('section'); root.className = 'source-normalized-store';
   root.append(
     node('h3', 'Save a normalized copy of this source'),
-    node('p', 'This creates a complete local copy of the selected source and checks it again after download. The current return and original source stay unchanged.'),
+    node('p', 'This creates a complete local copy of the selected source. It checks the copy before saving, then lets you choose the saved file for an independent re-inspection. The current return and original source stay unchanged.'),
   );
   const acknowledge = node('input', undefined, {type: 'checkbox'});
   const ackLabel = node('label'); ackLabel.className = 'check-field'; ackLabel.append(acknowledge, node('span', 'I understand this is a separate source copy. It does not recalculate the current return.'));
   const run = node('button', 'Create normalized source copy', {type: 'button', className: 'button primary'});
   const save = node('button', 'Save normalized .taxbin', {type: 'button', className: 'button secondary', disabled: true});
   const saveAudit = node('button', 'Save readback report', {type: 'button', className: 'button secondary', disabled: true});
+  const chooseDownloaded = node('input', undefined, {type: 'file', accept: '.taxbin,application/octet-stream', disabled: true, 'aria-label': 'Choose the saved normalized source for independent re-inspection'});
+  const chooseLabel = node('label'); chooseLabel.append(node('span', 'Choose the saved normalized source for independent re-inspection'), chooseDownloaded);
+  chooseLabel.className = 'check-field'; chooseLabel.hidden = true;
   const status = node('p', 'Review the scope, then create the copy.', {role: 'status'});
   const error = node('p', '', {role: 'alert', className: 'dialog-error'});
   const output = node('div');
   const details = node('details'); details.append(node('summary', 'Developer validation details'));
-  root.append(ackLabel, node('div', undefined, {className: 'inline-actions'}), status, error, output, details);
+  root.append(ackLabel, node('div', undefined, {className: 'inline-actions'}), chooseLabel, status, error, output, details);
   const actions = root.querySelector('.inline-actions'); actions.append(run, save, saveAudit); container.append(root);
-  const setBusy = value => { busy = value; run.disabled = value || !acknowledge.checked; acknowledge.disabled = value; save.disabled = value || !result; saveAudit.disabled = value || !result; };
+  const setBusy = value => { busy = value; run.disabled = value || !acknowledge.checked; acknowledge.disabled = value; save.disabled = value || !result; chooseDownloaded.disabled = value || !result; saveAudit.disabled = value || !result?.downloaded_file_readback; };
   acknowledge.onchange = () => { if (!busy) setBusy(false); };
-  const fail = issue => { if (closed) return; result = null; output.replaceChildren(); details.replaceChildren(node('summary', 'Developer validation details')); error.textContent = String(issue?.message || issue); status.textContent = 'No source or current return values were changed.'; setBusy(false); };
+  const fail = issue => { if (closed) return; result = null; outputRequest = null; sourceKey = null; chooseDownloaded.value = ''; chooseDownloaded.disabled = true; chooseLabel.hidden = true; output.replaceChildren(); details.replaceChildren(node('summary', 'Developer validation details')); error.textContent = String(issue?.message || issue); status.textContent = 'No source or current return values were changed.'; setBusy(false); };
+  const keyOf = request => JSON.stringify({base64: request.base64, container: request.container, profile: request.profile, carriers: request.carriers});
+  const assertCurrentSource = () => {
+    const current = clone(getSource());
+    if (!sourceKey || keyOf(current) !== sourceKey) throw Error('The return, source bytes, profile, or carrier order changed. Reopen and inspect the source.');
+    return current;
+  };
   run.onclick = async () => {
     if (closed || busy) return;
     if (!acknowledge.checked) { error.textContent = 'Confirm the separate-copy scope first.'; return; }
@@ -44,31 +53,53 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
     try {
       const request = clone(getSource());
       if (request?.container !== 'binary_entity' || !request.profile || !Array.isArray(request.carriers)) throw Error('Open and inspect one complete binary source first.');
-      const sourceBytes = decode(request.base64); request.sha256 = await digest(sourceBytes); sourceRequest = request;
+      const sourceBytes = decode(request.base64); request.sha256 = await digest(sourceBytes); sourceRequest = request; sourceKey = keyOf(request);
       const normalized = await execute('app38_normalize', {source: request});
+      assertCurrentSource();
       const normalizedBytes = decode(normalized.normalized_source.base64);
       if (normalizedBytes.length !== normalized.normalized_source.bytes || await digest(normalizedBytes) !== normalized.normalized_source.sha256) throw Error('The normalized source identity check failed.');
       outputRequest = {source: {...clone(request), base64: normalized.normalized_source.base64, sha256: normalized.normalized_source.sha256}};
-      status.textContent = 'The normalized source was created. Running a fresh independent readback…';
+      status.textContent = 'The normalized source was created. Running a fresh independent readback before saving…';
       const fresh = await execute('app38_fresh_read', outputRequest);
+      assertCurrentSource();
       if (!fresh.readback?.whole_document_readback || fresh.readback.document_sha256 !== normalized.normalized_source.sha256 || fresh.native_Load_executed || fresh.native_FixupFields_executed) throw Error('The downloaded source did not pass independent full readback.');
-      result = {format: 'tax-reborn-normalized-store-app38-receipt-v1', source: normalized.source, normalized_source: {sha256: normalized.normalized_source.sha256, bytes: normalized.normalized_source.bytes}, normalization: normalized.readback, fresh_readback: fresh.readback, native_Load_executed: false, native_FixupFields_executed: false, original_execution_count: 0};
-      output.append(node('p', `Complete normalized source ready · ${normalized.normalized_source.bytes} bytes · ${normalized.normalized_source.sha256}`), node('p', `Fresh readback confirmed ${fresh.readback.form_count} form(s) and the exact downloaded bytes.`));
+      result = {format: 'tax-reborn-normalized-store-app38-receipt-v2', source: normalized.source, normalized_source: {sha256: normalized.normalized_source.sha256, bytes: normalized.normalized_source.bytes}, normalization: normalized.readback, fresh_readback_before_save: fresh.readback, native_Load_executed: false, native_FixupFields_executed: false, original_execution_count: 0};
+      chooseLabel.hidden = false;
+      output.append(node('p', `Complete normalized source ready · ${normalized.normalized_source.bytes} bytes · ${normalized.normalized_source.sha256}`), node('p', `Readback before saving confirmed ${fresh.readback.form_count} form(s) and the exact source bytes.`), node('p', 'Save the source copy, then choose that saved file here for independent re-inspection.'));
       details.append(node('pre', JSON.stringify(result, null, 2)));
-      status.textContent = 'Readback passed. Save the source copy and report if you need them outside this return.';
+      status.textContent = 'Readback before saving passed. Save the source copy, then choose it for independent re-inspection.';
     } catch (issue) { fail(issue); }
     finally { if (!closed) setBusy(false); }
   };
   save.onclick = async () => {
     if (!result || !outputRequest) return;
     try {
+      assertCurrentSource();
       const bytes = decode(outputRequest.source.base64), blob = new Blob([bytes], {type: 'application/octet-stream'});
       if (saveSource) await saveSource(blob, 'Tax-Reborn-normalized-source.taxbin'); else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source.taxbin'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
-      status.textContent = 'Normalized source save requested. The current return and original source remain unchanged.';
+      status.textContent = 'Source copy saved. Choose that saved file above for independent re-inspection.';
     } catch (issue) { fail(issue); }
   };
+  chooseDownloaded.onchange = async () => {
+    if (closed || busy || !chooseDownloaded.files?.length || !outputRequest) return;
+    setBusy(true); error.textContent = ''; status.textContent = 'Reading the saved file and inspecting its bytes independently…';
+    try {
+      const file = chooseDownloaded.files[0], bytes = new Uint8Array(await file.arrayBuffer()), expected = outputRequest.source.sha256;
+      if (bytes.length !== outputRequest.source.bytes && bytes.length !== result.normalized_source.bytes) throw Error('The selected file size does not match the normalized source.');
+      const actual = await digest(bytes); if (actual !== expected) throw Error('The selected file SHA-256 does not match the normalized source.');
+      const selected = {source: {...clone(outputRequest.source), base64: btoa(String.fromCharCode(...bytes)), sha256: actual}};
+      const fresh = await execute('app38_fresh_read', selected); assertCurrentSource();
+      if (!fresh.readback?.whole_document_readback || fresh.readback.document_sha256 !== actual || fresh.native_Load_executed || fresh.native_FixupFields_executed) throw Error('The selected saved file did not pass independent full readback.');
+      result = {...result, downloaded_file_readback: fresh.readback, downloaded_file_name: file.name};
+      output.append(node('p', `Independent re-inspection passed for the selected saved file · ${fresh.readback.form_count} form(s) · ${actual}`));
+      details.replaceChildren(node('summary', 'Developer validation details'), node('pre', JSON.stringify(result, null, 2)));
+      status.textContent = 'Saved file re-inspection passed. You may save the report.';
+    } catch (issue) { fail(issue); }
+    finally { if (!closed) setBusy(false); }
+  };
   saveAudit.onclick = async () => {
-    if (!result) return;
+      if (!result?.downloaded_file_readback) return;
+      assertCurrentSource();
     try {
       const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
       if (saveReport) await saveReport(blob, 'Tax-Reborn-normalized-source-readback.json'); else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source-readback.json'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }

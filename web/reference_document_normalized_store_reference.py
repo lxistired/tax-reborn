@@ -169,17 +169,24 @@ def _normalize_form(form, current, validated_link_fields, bindings):
                 if node.element_index != 0:
                     _reject('array-element normalization is not proved for this value kind')
             elif node.kind_byte == 11:
-                # The persisted numeric payload is retained only for an
-                # ordinary Used scalar.  Attribute bit2 is known to originate
-                # from a calculated-input route, but its persistent Store/Load
-                # policy is not closed; nonzero array elements need their own
-                # shape and lifecycle proof.
-                if node.element_index:
-                    _reject('array-element normalization is not yet proved for kind11')
+                # A ValueTable persists record scalars as ordinary FormValue
+                # hash entries keyed by (field ordinal, element ordinal).  This
+                # mode retains one already-present ordinary Used numeric value;
+                # it never allocates a record, changes row presence, or applies
+                # an original Store/Load lifecycle.  The source-bound binding
+                # must establish both the compiled-array membership and its
+                # finite element limit.  Attribute bit2 remains outside the
+                # proved persistence policy, whether scalar or array-backed.
                 if node.specific_attributes & 2:
                     _reject('calculated kind11 persistence needs Store/Load evidence')
                 if node.specific_attributes != 1:
-                    _reject('only ordinary Used scalar kind11 storage is proved')
+                    _reject('only ordinary Used kind11 storage is proved')
+                if node.element_index:
+                    if (binding.native_action != 'requires_additional_scalar_codec' or
+                            not binding.array_index or binding.element_limit is None or
+                            node.element_index > binding.element_limit):
+                        _reject('array element lacks complete declared array identity')
+                    array_values += 1
             elif node.kind_byte == 7:
                 if node.element_index or node.specific_attributes != 1:
                     _reject('only ordinary Used scalar kind7 storage is proved')
