@@ -68,14 +68,47 @@ async function negativeImport(page,returnId,archive,expected,configInput){
   await page.getByRole('button',{name:'Close',exact:true}).click();
   return message;
 }
+async function documentHashes(page,returnId){
+  return page.evaluate(async id=>{
+    const digest=async file=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer())),byte=>byte.toString(16).padStart(2,'0')).join('');
+    return Promise.all((await documentsForReturn(id)).map(async row=>({id:row.id,name:row.name,sha256:await digest(row.file),encrypted_source_sha256:row.default_encrypted?.encrypted_source_sha256||null})));
+  },returnId);
+}
 async function runNegativeChecks(page,returnId){
   const config=Buffer.from('{"format":"tax-reborn-default-tax-crypto-v1",');
-  const wrong=await negativeImport(page,returnId,'synthetic-default-binary-array.tax',/compatibility|JSON/i,{name:'wrong-config.json',mimeType:'application/json',buffer:config});
-  const corrupt=await negativeImport(page,returnId,'corrupt.tax',/archive|zip|member|corrupt|invalid|local processing/i);
-  const type1=await negativeImport(page,returnId,'synthetic-identity-protected.tax',/identity|unsupported|protected|local processing/i);
-  const type2=await negativeImport(page,returnId,'synthetic-password-protected.tax',/security|password|unsupported|protected|local processing/i);
+  const wrong=await negativeImport(page,returnId,'synthetic-default-binary-array.tax',/compatibility configuration is not valid JSON/i,{name:'wrong-config.json',mimeType:'application/json',buffer:config});
+  const corrupt=await negativeImport(page,returnId,'corrupt.tax',/compatibility configuration cannot read the selected source/i);
+  const type1=await negativeImport(page,returnId,'synthetic-identity-protected.tax',/encrypted source protection route is not supported/i);
+  const type2=await negativeImport(page,returnId,'synthetic-password-protected.tax',/encrypted source protection route is not supported/i);
   await page.locator('#documents-button').click();await page.getByRole('button',{name:'Reopen encrypted source',exact:true}).click();await page.locator('input[aria-label="Choose local default encrypted compatibility configuration"]').setInputFiles(path.join(fixtureDir,'public-test-compatibility.json'));await page.getByRole('button',{name:'Inspect saved archive',exact:true}).click();await page.getByRole('heading',{name:'Default encrypted source inventory'}).waitFor();
   return {all_passed:true,wrong_config:wrong,corrupt_archive:corrupt,type1_identity:type1,type2_security:type2};
+}
+async function recoverSavedPublicPreset(page,returnId){
+  // This is a separate browser state transition from the four input rejection
+  // checks above. A syntactically valid but wrong public fixture configuration
+  // must fail without changing persisted files; the packaged action must clear
+  // that manual selection before it can reopen the saved public source.
+  const before=await documentHashes(page,returnId);
+  if(await page.getByRole('heading',{name:'Default encrypted source inventory'}).count())await page.getByRole('button',{name:'Close',exact:true}).click();
+  await page.locator('#documents-button').click();
+  await page.getByRole('button',{name:'Reopen encrypted source',exact:true}).click();
+  const wrong=JSON.parse(fs.readFileSync(path.join(fixtureDir,'public-test-compatibility.json'),'utf8'));
+  wrong.current.manifest.key_base64='/'+wrong.current.manifest.key_base64.slice(1);
+  await page.locator('input[aria-label="Choose local default encrypted compatibility configuration"]').setInputFiles({name:'wrong-public-test-compatibility.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(wrong))});
+  await page.getByRole('button',{name:'Inspect saved archive',exact:true}).click();
+  await page.waitForTimeout(500);
+  const failure=await page.locator('.dialog-error').textContent();
+  assert.match(failure||'',/compatibility configuration cannot read the selected source/i);
+  assert.deepEqual(await documentHashes(page,returnId),before,'wrong manual public config changed persisted document identities');
+  const manual=page.locator('input[aria-label="Choose local default encrypted compatibility configuration"]');
+  assert.notEqual(await manual.inputValue(),'','manual compatibility selection was not retained for the recovery check');
+  await page.getByRole('button',{name:'Use packaged fictional configuration',exact:true}).click();
+  await page.getByText('Packaged fictional configuration and ordered registries are ready for this sample.',{exact:true}).waitFor();
+  assert.equal(await manual.inputValue(),'','packaged preset did not clear the failed manual compatibility selection');
+  await page.getByRole('button',{name:'Inspect saved archive',exact:true}).click();
+  await page.getByRole('heading',{name:'Default encrypted source inventory'}).waitFor();
+  const result=await inspectBinaryEntity(page);
+  return {all_passed:true,safe_manual_error:failure,document_hashes_unchanged:true,packaged_preset_cleared_manual:true,inventory_and_acknowledged_reader:true,result};
 }
 async function reopenEncryptedSource(page,returnId){
   await page.getByRole('button',{name:'Close',exact:true}).click();
@@ -155,7 +188,7 @@ async function saveAndReopen(page,launchContext,context,server,offline,returnId,
   const checks=[];
   for(const offline of [false,true]){
     const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'tax-default-import-'));const server=await startServer(scratch);const profileDir=fs.mkdtempSync(path.join(os.tmpdir(),'tax-default-import-profile-'));const launchContext=()=>chromium.launchPersistentContext(profileDir,{headless:true,acceptDownloads:true,...(process.env.TAX_REBORN_BROWSER?{executablePath:process.env.TAX_REBORN_BROWSER}:{})});let context=await launchContext();const page=await context.newPage();page.setDefaultTimeout(120000);
-    try{await page.goto(`http://127.0.0.1:${server.port}/${offline?'?offline=1':''}`);const id=await openReturn(page);const inventory=await inspectInventory(page,id,'synthetic-default-binary-array.tax');const negatives=await runNegativeChecks(page,id);const results=await inspectBinaryEntity(page);const persisted=await page.evaluate(async returnId=>{const digest=async file=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer())),byte=>byte.toString(16).padStart(2,'0')).join('');const rows=await documentsForReturn(returnId);return Promise.all(rows.map(async row=>({id:row.id,name:row.name,container:row.binding_files?.container||null,sha256:await digest(row.file),default_encrypted:row.default_encrypted||null})));},id);assert.ok(persisted.some(row=>row.name==='main.entity'&&row.container==='binary_entity'&&row.sha256===sourceHash));assert.ok(persisted.some(row=>row.name==='synthetic-default-binary-array.tax'&&row.default_encrypted?.encrypted_source_sha256));await reviewCandidates(page);const preSave=await page.evaluate(()=>({w2:data.w2.length,interest:data.interest.length,dividends:data.dividends.length}));const saved=await saveAndReopen(page,launchContext,context,server,offline,id,scratch);context=null;checks.push({mode:offline?'Pyodide-IndexedDB':'HTTP-SQLite',all_passed:true,inventory_members:inventory.inventory.length,entity_members:inventory.entityCount,negative_checks:negatives,persisted_documents:saved.reopened.docs.length,source_reader_visible:true,reader_structure:results.structure,candidate_buttons:results.candidateButtons,tax_50k_baseline:saved.baseline,tax_60k_after_edit:saved.before,reopened:saved.reopened});}
+    try{await page.goto(`http://127.0.0.1:${server.port}/${offline?'?offline=1':''}`);const id=await openReturn(page);const inventory=await inspectInventory(page,id,'synthetic-default-binary-array.tax');const negatives=await runNegativeChecks(page,id);const recovery=await recoverSavedPublicPreset(page,id);const results=recovery.result;const persisted=await page.evaluate(async returnId=>{const digest=async file=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',await file.arrayBuffer())),byte=>byte.toString(16).padStart(2,'0')).join('');const rows=await documentsForReturn(returnId);return Promise.all(rows.map(async row=>({id:row.id,name:row.name,container:row.binding_files?.container||null,sha256:await digest(row.file),default_encrypted:row.default_encrypted||null})));},id);assert.ok(persisted.some(row=>row.name==='main.entity'&&row.container==='binary_entity'&&row.sha256===sourceHash));assert.ok(persisted.some(row=>row.name==='synthetic-default-binary-array.tax'&&row.default_encrypted?.encrypted_source_sha256));await reviewCandidates(page);const preSave=await page.evaluate(()=>({w2:data.w2.length,interest:data.interest.length,dividends:data.dividends.length}));const saved=await saveAndReopen(page,launchContext,context,server,offline,id,scratch);context=null;checks.push({mode:offline?'Pyodide-IndexedDB':'HTTP-SQLite',all_passed:true,inventory_members:inventory.inventory.length,entity_members:inventory.entityCount,negative_checks:negatives,recovery_check:recovery,persisted_documents:saved.reopened.docs.length,source_reader_visible:true,reader_structure:results.structure,candidate_buttons:results.candidateButtons,tax_50k_baseline:saved.baseline,tax_60k_after_edit:saved.before,reopened:saved.reopened});}
     finally{if(context)await context.close();server.child.kill('SIGTERM');}
   }
   console.log(JSON.stringify({all_passed:true,fixture_scope:'owned synthetic encrypted archive around public binary-tax fixture; no vendor material',checks},null,2));

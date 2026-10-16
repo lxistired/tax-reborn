@@ -6,11 +6,9 @@ on:
       build_run_id:
         description: Native-build run that produced the existing candidate artifacts
         required: true
-        default: '38658225018'
       setup_sha256:
         description: Independently verified existing Setup SHA256
         required: true
-        default: 'e9412b950bfc199c6516a61d0c1567edcc4b94a470c141dc21f133aa3c880975'
       effective_registry:
         description: Verify ordered registries and derived value-table preservation
         type: boolean
@@ -20,9 +18,8 @@ on:
         type: boolean
         default: false
       expected_build_head_sha:
-        description: Optional producing native-build Git head to bind before reuse
-        required: false
-        default: ''
+        description: Producing native-build Git head required before package reuse
+        required: true
 
       expanded_source:
         description: Verify complete saved forms, automatic arrays and local calculation comparison
