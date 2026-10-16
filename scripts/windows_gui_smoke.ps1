@@ -897,9 +897,18 @@ try {
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
         if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw '5000 encrypted-source reviewed withholding did not survive normal restart.' }
         Wait-Named '$75' 120 $false | Out-Null
-        # The public sample’s attachment must be reopened from the saved
-        # workspace.  The packaged configuration action supplies only public
-        # fictional material and never adds another W-2.
+        # This follows the saved W-2 metadata's exact document_id through the
+        # real IndexedDB lookup. A stale metadata reference would surface the
+        # product error instead of this source-document modal.
+        Click-Observed (Wait-Named 'View source document')
+        Wait-Named 'Your source document' 120 | Out-Null
+        Wait-Named 'main.entity' 30 $false | Out-Null
+        Wait-Named 'Download source' 30 | Out-Null
+        Save-Screenshot 'windows-native-default-encrypted-w2-source-reference.png'
+        Click-Observed (Wait-Named 'Close dialog')
+        # The public sample’s outer attachment must also be reopened from the
+        # saved workspace. The packaged configuration action supplies only
+        # public fictional material and never adds another W-2.
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Reopen encrypted source')
         Click-Observed (Wait-Named 'Use packaged fictional configuration')
         Click-Observed (Wait-Named 'Inspect saved archive')
@@ -913,7 +922,8 @@ try {
         Click-Observed (Wait-Named 'Close dialog')
         Save-Screenshot 'windows-native-default-encrypted-w2-reopened.png'
         $receipt.native_default_encrypted_sample_passed=$true
-        $checks.Add('Actual installed WebView opened the public fictional default-encrypted source, preserved its inventory, reviewed one coherent W-2 at50000/5000, verified1125refund, changed wages and wage bases to60000, verified75due, saved, closed, reopened and SQLite-read back the source record. The saved attachment then reopened through the packaged fictional configuration and reader without adding another W-2. This is synthetic type0 import only; original archive compatibility and encrypted writing are not claimed.')
+        $receipt.native_default_encrypted_w2_source_document_reopened=$true
+        $checks.Add('Actual installed WebView opened the public fictional default-encrypted source, preserved its inventory, reviewed one coherent W-2 at50000/5000, verified1125refund, changed wages and wage bases to60000, verified75due, saved, closed, reopened and SQLite-read back the source record. The W-2 metadata document_id reopened its exact persisted main.entity attachment. The saved outer attachment then reopened through the packaged fictional configuration and reader without adding another W-2. This is synthetic type0 import only; original archive compatibility and encrypted writing are not claimed.')
     }
     if($CleartextContainer) {
         Scroll-Top; Click-Observed (Wait-Named 'Documents'); Click-Observed (Wait-Named 'Open TaxML / binary .tax')
