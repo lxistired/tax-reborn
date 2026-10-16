@@ -31,7 +31,7 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
   const saveAudit = node('button', 'Save readback report', {type: 'button', className: 'button secondary', disabled: true});
   const chooseDownloaded = node('input', undefined, {type: 'file', accept: '.taxbin,application/octet-stream', disabled: true, 'aria-label': 'Choose the saved normalized source for independent re-inspection'});
   const chooseLabel = node('label'); chooseLabel.append(node('span', 'Choose the saved normalized source for independent re-inspection'), chooseDownloaded);
-  chooseLabel.className = 'check-field'; chooseLabel.hidden = true;
+  chooseLabel.className = 'source-file-field'; chooseLabel.hidden = true;
   const status = node('p', 'Review the scope, then create the copy.', {role: 'status'});
   const error = node('p', '', {role: 'alert', className: 'dialog-error'});
   const output = node('div');
