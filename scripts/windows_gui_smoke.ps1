@@ -904,6 +904,9 @@ try {
         Ensure-Checked 'Taxpayer and spouse, if applicable, were full-year U.S. residents.'
         Ensure-Checked 'All income for this worksheet has been entered.'
         Ensure-Checked 'I verified that no AMT preference or adjustment requires Form 6251.'
+        # The fictional 50K wage case is above the EITC income range. This is
+        # a case-specific, visible confirmation; product blocking remains on.
+        Ensure-Checked 'I reviewed Earned Income Tax Credit eligibility and EITC does not apply.'
         Wait-Named '$1,125' 120 $false | Out-Null
         Click-Observed (Wait-Named 'Wages & salaries · W-2')
         Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '60000'
