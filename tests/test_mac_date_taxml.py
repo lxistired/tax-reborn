@@ -1,8 +1,9 @@
 """Complete caller-owned date source edits, refusing native-load assumptions."""
 import base64, copy, json, struct, sys, tempfile, unittest
-from zip_semantics import assert_request_json_semantics
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from zip_semantics import (assert_request_json_semantics, assert_zip_semantics_equal,
+                            assert_fixture_manifest_integrity, request_semantics)
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT/'web'), str(ROOT/'scripts')]
 import taxml_mac as mac
@@ -32,12 +33,16 @@ class MacDateTests(unittest.TestCase):
             one,two=build(a),build(b);self.assertEqual(one,two)
             self.assertEqual((one['entities'],one['form_copies'],one['date_fields']),(2,7,9))
             self.assertFalse(one['vendor_bytes_included']);self.assertFalse(one['native_date_load_executed'])
+            fixture_dir = ROOT / 'fixtures/mac-date-taxml'
+            assert_fixture_manifest_integrity(self, fixture_dir)
             for name in one['files']:
-                self.assertEqual((Path(a)/name).read_bytes(),(Path(b)/name).read_bytes())
-                if name.endswith('.json') and name != 'manifest.json':
-                    assert_request_json_semantics(self, Path(a) / name, ROOT / 'fixtures/mac-date-taxml' / name)
+                self.assertEqual((Path(a)/name).read_bytes(), (Path(b)/name).read_bytes())
+                if name.endswith('.zip'):
+                    assert_zip_semantics_equal(self, (Path(a)/name).read_bytes(), (fixture_dir / name).read_bytes())
+                elif name.endswith('.json') and name != 'manifest.json':
+                    assert_request_json_semantics(self, Path(a)/name, fixture_dir / name)
                 else:
-                    self.assertEqual((Path(a)/name).read_bytes(),(ROOT/'fixtures/mac-date-taxml'/name).read_bytes())
+                    self.assertEqual((Path(a)/name).read_bytes(), (fixture_dir / name).read_bytes())
 
     def test_all_dates_separate_from_existing_income(self):
         old=prep.inspect_request(old_request())

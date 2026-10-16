@@ -1,5 +1,5 @@
 """Cross-platform ZIP assertions that ignore deflater byte choices."""
-import base64, copy, json, zipfile
+import base64, copy, hashlib, json, zipfile
 from io import BytesIO
 
 
@@ -44,3 +44,16 @@ def assert_request_json_semantics(testcase, actual_path, expected_path):
     actual = json.loads(actual_path.read_text(encoding="utf-8"))
     expected = json.loads(expected_path.read_text(encoding="utf-8"))
     testcase.assertEqual(request_semantics(actual), request_semantics(expected))
+
+
+def assert_zip_semantics_equal(testcase, actual_blob, expected_blob):
+    testcase.assertEqual(zip_semantic_snapshot(actual_blob), zip_semantic_snapshot(expected_blob))
+
+
+def assert_fixture_manifest_integrity(testcase, fixture_dir):
+    manifest_path = fixture_dir / "manifest.json"
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    for name, expected in manifest["files"].items():
+        blob = (fixture_dir / name).read_bytes()
+        testcase.assertEqual(len(blob), expected["bytes"], name)
+        testcase.assertEqual(hashlib.sha256(blob).hexdigest(), expected["sha256"], name)

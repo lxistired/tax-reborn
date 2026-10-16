@@ -7,9 +7,10 @@ import re
 import struct
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from zip_semantics import (assert_request_json_semantics, assert_zip_semantics_equal,
+                            assert_fixture_manifest_integrity, request_semantics)
 import tempfile
 import unittest
-from zip_semantics import assert_request_json_semantics
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT / 'web'), str(ROOT / 'scripts')]
@@ -46,12 +47,16 @@ class MacScalarTests(unittest.TestCase):
             self.assertEqual(one, two)
             self.assertFalse(one['vendor_bytes_included'])
             self.assertEqual((one['entities'], one['form_copies'], one['scalar_fields']), (2, 7, 3))
+            fixture_dir = ROOT / 'fixtures/mac-scalar-taxml'
+            assert_fixture_manifest_integrity(self, fixture_dir)
             for name in one['files']:
                 self.assertEqual((Path(a) / name).read_bytes(), (Path(b) / name).read_bytes())
-                if name.endswith('.json') and name != 'manifest.json':
-                    assert_request_json_semantics(self, Path(a) / name, ROOT / 'fixtures/mac-scalar-taxml' / name)
+                if name.endswith('.zip'):
+                    assert_zip_semantics_equal(self, (Path(a) / name).read_bytes(), (fixture_dir / name).read_bytes())
+                elif name.endswith('.json') and name != 'manifest.json':
+                    assert_request_json_semantics(self, Path(a) / name, fixture_dir / name)
                 else:
-                    self.assertEqual((Path(a) / name).read_bytes(), (ROOT / 'fixtures/mac-scalar-taxml' / name).read_bytes())
+                    self.assertEqual((Path(a) / name).read_bytes(), (fixture_dir / name).read_bytes())
 
     def test_explicit_controller_and_null_both_bind_full_source(self):
         for mode in ('controller_filter', 'null_filter'):

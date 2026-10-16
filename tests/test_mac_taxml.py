@@ -7,9 +7,10 @@ from pathlib import Path
 import struct
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from zip_semantics import (assert_request_json_semantics, assert_zip_semantics_equal,
+                            assert_fixture_manifest_integrity, request_semantics)
 import tempfile
 import unittest
-from zip_semantics import assert_request_json_semantics
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,14 +49,18 @@ class MacTaxMLTests(unittest.TestCase):
             self.assertEqual(one, two)
             self.assertFalse(one['vendor_bytes_included'])
             self.assertEqual((one['entities'], one['form_copies'], one['carrier_resources']), (2, 7, 15))
+            fixture_dir = ROOT / 'fixtures/mac-taxml'
+            assert_fixture_manifest_integrity(self, fixture_dir)
             for name in one['files']:
                 self.assertEqual((Path(a) / name).read_bytes(), (Path(b) / name).read_bytes())
-                if name.endswith('.json') and name != 'manifest.json':
-                    assert_request_json_semantics(self, Path(a) / name, ROOT / 'fixtures/mac-taxml' / name)
+                if name.endswith('.zip'):
+                    assert_zip_semantics_equal(self, (Path(a) / name).read_bytes(), (fixture_dir / name).read_bytes())
+                elif name.endswith('.json') and name != 'manifest.json':
+                    assert_request_json_semantics(self, Path(a) / name, fixture_dir / name)
                 else:
-                    self.assertEqual((Path(a) / name).read_bytes(), (ROOT / 'fixtures/mac-taxml' / name).read_bytes())
+                    self.assertEqual((Path(a) / name).read_bytes(), (fixture_dir / name).read_bytes())
         stored = json.loads((ROOT / 'fixtures/mac-taxml/request.json').read_text())
-        self.assertEqual(stored, request())
+        self.assertEqual(request_semantics(stored), request_semantics(request()))
         self.assertEqual(stored['profile']['formsets'][0]['expected_headers'], HEADERS)
 
     def test_complete_real_xprf_directory_same_registry_names_and_CID(self):
