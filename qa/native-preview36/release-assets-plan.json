@@ -2,6 +2,8 @@
   "schema": 1,
   "version": "2026.10.16-preview.36",
   "release_tag": "v2026.10.16-preview.36",
+  "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
+  "qa_docs_commit_parent": "a393951",
   "publication_state": "not published",
   "anonymous_get_and_local_byte_readback_required": true,
   "source_zip_must_be_built_from_exact_git_tracked_blobs": true,

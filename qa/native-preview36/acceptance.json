@@ -1,8 +1,9 @@
 {
   "schema": 1,
-  "at_utc": "2026-10-16T02:29:33Z",
+  "at_utc": "2026-10-16T02:30:18Z",
   "version": "2026.10.16-preview.36",
-  "source_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
+  "runtime_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
+  "qa_docs_commit_parent": "a393951",
   "cache": "tax-reborn-ui-2025-preview-56",
   "candidate_state": "native-tested candidate; source archive and public readback pending",
   "source": {

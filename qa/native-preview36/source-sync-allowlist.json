@@ -2,7 +2,7 @@
   "schema": 1,
   "mode": "exact_git_path_allowlist",
   "baseline_commit": "94fffdcb1b7f9de2b9a011d60ef608d60cc3e597",
-  "candidate_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
+  "candidate_commit": "a393951",
   "expected_changed_paths": 83,
   "source_only_no_vendor_payload": true,
   "source_zip_requires_reviewed_tree_commit": true,
