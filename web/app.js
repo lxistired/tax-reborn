@@ -803,15 +803,19 @@ async function loadDefaultEncryptedSample(id,atRevision){
  showDefaultEncryptedInventory(row,inspection,id,atRevision,config,{profile,carriers:[carrier0,carrier1],label:'public fictional sample profile + ordered registries'});
 }
 function showDefaultEncryptedReopen(source,returnId){
- let packagedPreset=null;
+ let packagedPreset=null,compatibilityMode='auto';
  const publicPreset=source?.default_encrypted?.preset_id==='public-fictional-default-binary-v1'||source?.default_encrypted?.encrypted_source_sha256===PUBLIC_DEFAULT_SAMPLE_SOURCE_SHA;
- const compatibility=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose local default encrypted compatibility configuration'}),previousYear=el('input',{type:'checkbox','aria-label':'This is a previous-year default encrypted return'}),presetAction=publicPreset?button('Use packaged fictional configuration',async()=>{packagedPreset=await loadPublicDefaultPreset(source);notify('Packaged fictional configuration and ordered registries are ready for this sample.');},'secondary'):null,holder=el('div',{},el('p',{class:'intro'},'Reopen the saved encrypted source by choosing the same local compatibility configuration. The key and IV stay local and are never saved with this workspace.'),publicPreset?el('div',{class:'note'},'This saved source is the public fictional sample. Use its packaged fictional configuration, or choose a matching local configuration for another source.'):null,el('div',{class:'field'},el('label',{},'Local compatibility configuration',compatibility)),presetAction,el('label',{class:'check-field'},previousYear,el('span',{},'Use the previous-year compatibility branch.')));
+ const compatibility=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose local default encrypted compatibility configuration'});
+ compatibility.addEventListener('change',()=>{if(compatibility.files[0]){packagedPreset=null;compatibilityMode='manual';notify('Local compatibility configuration selected.');}});
+ const previousYear=el('input',{type:'checkbox','aria-label':'This is a previous-year default encrypted return'});
+ const presetAction=publicPreset?button('Use packaged fictional configuration',async()=>{packagedPreset=await loadPublicDefaultPreset(source);compatibility.value='';compatibilityMode='packaged';notify('Packaged fictional configuration and ordered registries are ready for this sample.');},'secondary'):null;
+ const holder=el('div',{},el('p',{class:'intro'},'Reopen the saved encrypted source by choosing the same local compatibility configuration. The key and IV stay local and are never saved with this workspace.'),publicPreset?el('div',{class:'note'},'This saved source is the public fictional sample. Use its packaged fictional configuration, or choose a matching local configuration for another source.'):null,el('div',{class:'field'},el('label',{},'Local compatibility configuration',compatibility)),presetAction,el('label',{class:'check-field'},previousYear,el('span',{},'Use the previous-year compatibility branch.')));
  const dialog=modal('Reopen default encrypted source',holder,[['Inspect saved archive',async()=>{
   if(currentId!==returnId)throw Error('This return changed. Reopen the Documents page.');
   if(!compatibility.files[0]&&!packagedPreset&&publicPreset)packagedPreset=await loadPublicDefaultPreset(source);
   if(!compatibility.files[0]&&!packagedPreset)throw Error('Choose the local default-container compatibility configuration.');
-  let config=packagedPreset?.config;try{if(compatibility.files[0])config=JSON.parse(await compatibility.files[0].text());}catch{throw Error('The compatibility configuration is not valid JSON.');}
-  if(publicPreset&&compatibility.files[0]&&!packagedPreset)try{packagedPreset=await loadPublicDefaultPreset(source);}catch{}
+  let config=packagedPreset?.config;try{if(compatibilityMode!=='packaged'&&compatibility.files[0])config=JSON.parse(await compatibility.files[0].text());}catch{throw Error('The compatibility configuration is not valid JSON.');}
+  if(publicPreset&&compatibilityMode==='auto'&&!compatibility.files[0]&&!packagedPreset)try{packagedPreset=await loadPublicDefaultPreset(source);}catch{}
   const inspection=await window.taxMLImport.inspectDefaultEncrypted(source.file,config,previousYear.checked);
   if(currentId!==returnId)throw Error('This return changed while reopening the encrypted source.');
   showDefaultEncryptedInventory(source,inspection,returnId,revision,config,packagedPreset);

@@ -26,6 +26,9 @@ function taxWorkerError(error) {
   const message=String(error?.message||error);
   if(error?.name!=='PythonError')return message;
   const type=String(error.type||'').split('.').pop(),last=message.trimEnd().split('\n').pop()||'';
+  if(type==='CompatibilityConfigError')return 'The selected compatibility configuration is invalid. Choose a valid local configuration.';
+  if(type==='UnsupportedEncryptionRoute')return 'This encrypted source protection route is not supported.';
+  if(type==='EncryptedContainerError')return 'This compatibility configuration cannot read the selected source. Check the original file and selected configuration.';
   const expected=last.match(/^(?:[A-Za-z_]\w*\.)*(ValueError|UnsupportedProfile): (.+)$/);
   if(expected&&expected[1]===type)return expected[2];
   console.error('Local engine exception',message);
