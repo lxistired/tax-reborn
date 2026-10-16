@@ -38,6 +38,9 @@ def _sbox(a: int) -> int:
 
 _SBOX = tuple(_sbox(i) for i in range(256))
 _INV_SBOX = tuple(next(i for i, value in enumerate(_SBOX) if value == wanted) for wanted in range(256))
+# Tables make the bounded reference usable for ordinary encrypted members in
+# Pyodide as well as CPython. They contain only Rijndael field arithmetic.
+_GF = {factor: tuple(_mul(factor, value) for value in range(256)) for factor in (9, 11, 13, 14)}
 
 def _expand_key(key: bytes) -> tuple[bytes, ...]:
     if len(key) not in (16, 24, 32):
@@ -68,28 +71,34 @@ def _inv_sub_bytes(state: list[int]) -> None:
     for i, value in enumerate(state): state[i] = _INV_SBOX[value]
 
 def _inv_mix_columns(state: list[int]) -> None:
+    nine, eleven, thirteen, fourteen = _GF[9], _GF[11], _GF[13], _GF[14]
     for column in range(4):
         i = 4 * column; a0, a1, a2, a3 = state[i:i + 4]
-        state[i] = _mul(14,a0)^_mul(11,a1)^_mul(13,a2)^_mul(9,a3)
-        state[i+1] = _mul(9,a0)^_mul(14,a1)^_mul(11,a2)^_mul(13,a3)
-        state[i+2] = _mul(13,a0)^_mul(9,a1)^_mul(14,a2)^_mul(11,a3)
-        state[i+3] = _mul(11,a0)^_mul(13,a1)^_mul(9,a2)^_mul(14,a3)
+        state[i] = fourteen[a0]^eleven[a1]^thirteen[a2]^nine[a3]
+        state[i+1] = nine[a0]^fourteen[a1]^eleven[a2]^thirteen[a3]
+        state[i+2] = thirteen[a0]^nine[a1]^fourteen[a2]^eleven[a3]
+        state[i+3] = eleven[a0]^thirteen[a1]^nine[a2]^fourteen[a3]
 
-def decrypt_aes_block(block: bytes, key: bytes) -> bytes:
-    if len(block) != _BLOCK: raise CryptoInputError("AES block must be exactly 16 bytes")
-    rounds = _expand_key(key); state = list(block); _add_key(state, rounds[-1])
+def _decrypt_aes_block_expanded(block: bytes, rounds: tuple[bytes, ...]) -> bytes:
+    state = list(block); _add_key(state, rounds[-1])
     for round_key in reversed(rounds[1:-1]):
         _inv_shift_rows(state); _inv_sub_bytes(state); _add_key(state, round_key); _inv_mix_columns(state)
     _inv_shift_rows(state); _inv_sub_bytes(state); _add_key(state, rounds[0])
     return bytes(state)
 
+def decrypt_aes_block(block: bytes, key: bytes) -> bytes:
+    if len(block) != _BLOCK: raise CryptoInputError("AES block must be exactly 16 bytes")
+    return _decrypt_aes_block_expanded(block, _expand_key(key))
+
 def decrypt_aes_cbc_blocks(ciphertext: bytes, key: bytes, iv: bytes) -> bytes:
     if len(iv) != _BLOCK: raise CryptoInputError("AES-CBC IV must be exactly 16 bytes")
     if not ciphertext or len(ciphertext) % _BLOCK: raise CryptoInputError("ciphertext must contain one or more complete AES blocks")
+    rounds = _expand_key(key)
     previous, out = iv, bytearray()
     for start in range(0, len(ciphertext), _BLOCK):
         block = ciphertext[start:start + _BLOCK]
-        out.extend(a ^ b for a, b in zip(decrypt_aes_block(block, key), previous)); previous = block
+        plain = _decrypt_aes_block_expanded(block, rounds)
+        out.extend(a ^ b for a, b in zip(plain, previous)); previous = block
     return bytes(out)
 
 def decrypt_aes_cbc_pkcs7(ciphertext: bytes, key: bytes, iv: bytes) -> bytes:
