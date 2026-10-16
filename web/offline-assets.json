@@ -581,6 +581,7 @@
     "vendor/tesseract/worker.min.js",
     "vendor/tesseract/worker.min.js.LICENSE.txt",
     "source-normalized-store.js",
+    "full-workspace-backup.js",
     "app38-normalized-store-worker.js",
     "app38-normalized-store-runtime.json",
     "app38_normalized_store_source_interface.py",
