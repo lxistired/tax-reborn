@@ -122,6 +122,20 @@ function Wait-Control([string]$type,[string]$label,[bool]$prefix=$false) {
     }
     throw "Native WebView did not expose $type with label $label"
 }
+function Ensure-Checked([string]$label) {
+    $item=Wait-Control 'CheckBox' $label $true
+    $toggle=$null
+    if(!$item.TryGetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern,[ref]$toggle)) { throw 'Required native confirmation has no TogglePattern: '+$label }
+    if(([System.Windows.Automation.TogglePattern]$toggle).Current.ToggleState -eq [System.Windows.Automation.ToggleState]::Off) { Click-Observed $item }
+    $until=(Get-Date).AddSeconds(10)
+    while((Get-Date) -lt $until) {
+        $fresh=Wait-Control 'CheckBox' $label $true
+        $current=$null
+        if($fresh.TryGetCurrentPattern([System.Windows.Automation.TogglePattern]::Pattern,[ref]$current) -and ([System.Windows.Automation.TogglePattern]$current).Current.ToggleState -eq [System.Windows.Automation.ToggleState]::On) { return }
+        Start-Sleep -Milliseconds 100
+    }
+    throw 'Required native confirmation did not remain selected: '+$label
+}
 function Scroll-Top {
     $elements=$script:root.FindAll([System.Windows.Automation.TreeScope]::Descendants,[System.Windows.Automation.Condition]::TrueCondition)
     foreach($element in $elements) {
@@ -881,7 +895,17 @@ try {
         if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '50000') { throw 'Reviewed encrypted W-2 did not set 50000 wages.' }
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
         if([string]$withheld.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '5000') { throw 'Reviewed encrypted W-2 did not set 5000 withholding.' }
+        # A fresh return deliberately starts with four scope confirmations
+        # unset. This controlled fictional case explicitly confirms its own
+        # single taxpayer, full-year residency, complete one-W-2 income, and
+        # no-AMT facts before asserting a tax outcome.
+        Click-Observed (Wait-Named 'Eligibility & other situations')
+        Ensure-Checked 'I verified that this filing status applies to my household.'
+        Ensure-Checked 'Taxpayer and spouse, if applicable, were full-year U.S. residents.'
+        Ensure-Checked 'All income for this worksheet has been entered.'
+        Ensure-Checked 'I verified that no AMT preference or adjustment requires Form 6251.'
         Wait-Named '$1,125' 120 $false | Out-Null
+        Click-Observed (Wait-Named 'Wages & salaries · W-2')
         Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '60000'
         Set-Owned-Edit 'Box 3 · Social Security wages' '60000'
         Set-Owned-Edit 'Box 5 · Medicare wages and tips' '60000'
