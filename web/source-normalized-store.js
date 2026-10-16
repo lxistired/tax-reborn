@@ -4,7 +4,7 @@ const canonical = value => JSON.stringify(value, (_, item) => item && typeof ite
 const clone = value => JSON.parse(canonical(value));
 const digest = async bytes => [...new Uint8Array(await crypto.subtle.digest('SHA-256', bytes))].map(x => x.toString(16).padStart(2, '0')).join('');
 const decode = value => Uint8Array.from(atob(value), char => char.charCodeAt(0));
-const encode = bytes => { let binary = ''; for (let start = 0; start < bytes.length; start += 16384) binary += String.fromCharCode(...bytes.subarray(start, start + 16384)); return btoa(binary); };
+export const encode = bytes => { let binary = ''; for (let start = 0; start < bytes.length; start += 16384) binary += String.fromCharCode(...bytes.subarray(start, start + 16384)); return btoa(binary); };
 const node = (tag, text, attrs = {}) => { const element = document.createElement(tag); if (text !== undefined) element.textContent = text; Object.assign(element, attrs); return element; };
 
 export function createNormalizedStoreWorker() {
@@ -81,7 +81,7 @@ export function mountNormalizedStore(container, {execute, getSource, saveReport 
       if (saveSource) confirmed = await saveSource(blob, 'Tax-Reborn-normalized-source.taxbin');
       else { const a = node('a'); a.href = URL.createObjectURL(blob); a.download = 'Tax-Reborn-normalized-source.taxbin'; a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); }
       if (confirmed === false) { status.textContent = 'Source copy save canceled. Choose a saved file only if the file was actually written.'; return; }
-      status.textContent = confirmed === true ? 'Source copy save confirmed. Choose that saved file above for independent re-inspection.' : 'Source copy download requested. Choose the file only after it is actually written, then re-inspect it above.';
+      status.textContent = 'Source copy save/download requested. Choose the file only after it is actually written, then re-inspect it above.';
     } catch (issue) { fail(issue); }
   };
   chooseDownloaded.onchange = async () => {
