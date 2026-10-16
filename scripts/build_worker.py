@@ -82,6 +82,9 @@ subprocess.run([sys.executable,str(ROOT/'scripts/build_source_comparison.py')],c
 # Rebuild the separate source-interest reader without any original resources.
 subprocess.run([sys.executable,str(ROOT/'scripts/build_raw_interest_worker.py')],check=True)
 
+# Separate owned input-to-interest comparison; legacy raw/comparison files stay unchanged.
+subprocess.run([sys.executable,str(ROOT/'scripts/build_mc_interest_worker.py')],check=True)
+
 # The availability panel must inspect the cache used by the service worker.
 cache_version=re.search(r"const VERSION='([^']+)';",(web/'service-worker.js').read_text()).group(1)
 readiness=web/'offline-readiness.js'

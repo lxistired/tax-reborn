@@ -1,0 +1,92 @@
+{
+  "CS24_resource": {
+    "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+    "resource_type": 13023,
+    "resource_id": 42,
+    "record_sha256": "af16840501a69cf4e03f4189c0dc50e34a0b69ab37b023ff3a352f9db9c495d6",
+    "body_sha256": "e31f1f796a6b8fcbe0572f58bcc6cdaf187c683959b58c6f74f843ebe89d9b5a"
+  },
+  "targets": [
+    {
+      "reference": 14739,
+      "form_id": "FSCHB",
+      "field_id": "TEMPA",
+      "ordinal": 181,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14749,
+      "form_id": "FSCHB",
+      "field_id": "TEMPUAA",
+      "ordinal": 172,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14775,
+      "form_id": "FSCHB",
+      "field_id": "TEMPB",
+      "ordinal": 182,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14801,
+      "form_id": "FSCHB",
+      "field_id": "TEMPUB",
+      "ordinal": 173,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14815,
+      "form_id": "FSCHB",
+      "field_id": "TEMPN",
+      "ordinal": 187,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14825,
+      "form_id": "FSCHB",
+      "field_id": "TEMPUN",
+      "ordinal": 175,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14840,
+      "form_id": "FSCHB",
+      "field_id": "TEMPO",
+      "ordinal": 183,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14851,
+      "form_id": "FSCHB",
+      "field_id": "TEMPUO",
+      "ordinal": 174,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    },
+    {
+      "reference": 14868,
+      "form_id": "FSCHB",
+      "field_id": "TEMPUA",
+      "ordinal": 176,
+      "kind": 11,
+      "format": 0,
+      "template_attributes": 0
+    }
+  ]
+}

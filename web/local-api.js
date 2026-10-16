@@ -93,7 +93,7 @@
   const pending = new Map();
   const uuid = () => crypto.randomUUID();
   const validId = value => typeof value === 'string' && /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/.test(value);
-  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.16-preview.36',tax_year:2025,
+  const caps = {product:'Tax Reborn',project_number:'000002',version:'2026.10.16-preview.37',tax_year:2025,
     jurisdiction:'US federal',currency:'USD',electronic_filing:false,state_returns:"31 full-year resident state drafts",official_product_parity:false,
     storage:'private on-device IndexedDB',requires_account:false,offline:true};
   function engine(command, payload) {

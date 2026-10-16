@@ -1,0 +1,304 @@
+{
+  "format": "tax-reborn-owned-current-MC-authority-v1",
+  "source_profile_format": "tax-reborn-binary-entity-profile-v5",
+  "source_carrier_order": [
+    "bdcb02116b6fb17b2b547f13729b5056899fddba41f257646e802ff82dcb053b",
+    "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+    "d5882e3f0bbc9c72b2715e7d8965ba5d6f058415c3a5107946a287ca49971955",
+    "319eb2d9d8dc06904dd1291eda2901bcf8cd2d6cea8e60f8122826204facdd49",
+    "2e11b74f347f9749fabf3afd0eb2ee6cf0440d18efc5ad35f00e1bc74e2fc526",
+    "6572ed031ff2b1af3b439a61039badadbe06d26195755ee5c90fc670b3754dc1",
+    "e94b97bbcbe5fe316cb423d9012a91c4d7069cd71016fb567e8ca63a761a2126",
+    "cf30494976a27798da761cc12a145104a2ec4b57180cdd84ec88d23f4f2dcb31"
+  ],
+  "local_resource_sha256": "5e8db09dc9c4126c0cd85fe11ee7b02965a3b9e88db1075ba32efc4269e0bc2f",
+  "primary_carrier_sha256": "cf30494976a27798da761cc12a145104a2ec4b57180cdd84ec88d23f4f2dcb31",
+  "compiled_identity": {
+    "primary_resource_type": 18500,
+    "primary_resource_id": 1,
+    "identity_resource_type": 7000,
+    "identity_resource_id": 1,
+    "identity_payload_sha256": "ce51b6c95e9f466a941933966a84ac0f1e4afde4af0cc1a01eea6fffd81c7d10"
+  },
+  "bank_profile": {
+    "array_blocks": [
+      {
+        "attribute_type": 2000,
+        "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+        "payload_sha256": "53ec3cc1b55755f5ccc87f0bee5d24eee2e40e98c4b924f65d4ccd36a0c40028",
+        "records": [
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 4,
+            "flags": 49,
+            "identifier": "BINT",
+            "last_field": 11
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 12,
+            "flags": 49,
+            "identifier": "BOID",
+            "last_field": 20
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 23,
+            "flags": 49,
+            "identifier": "INT",
+            "last_field": 24
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 27,
+            "flags": 49,
+            "identifier": "ADJUST",
+            "last_field": 28
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 32,
+            "flags": 49,
+            "identifier": "BDIV",
+            "last_field": 40
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 41,
+            "flags": 49,
+            "identifier": "DIV",
+            "last_field": 42
+          },
+          {
+            "byte27": 0,
+            "element_limit": 25,
+            "first_field": 57,
+            "flags": 49,
+            "identifier": "TABLE7B",
+            "last_field": 58
+          }
+        ],
+        "resource_id": 42
+      },
+      {
+        "attribute_type": 2001,
+        "carrier_sha256": "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+        "payload_sha256": "a49e2f1045d9884348072a1d87cba032691818814d20f6bac1657a4cfa41bf58",
+        "records": [
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 75,
+            "flags": 49,
+            "identifier": "ALL_STATE_W_2_W_H",
+            "last_field": 75
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 77,
+            "flags": 49,
+            "identifier": "HLYEX2",
+            "last_field": 77
+          },
+          {
+            "byte27": 0,
+            "element_limit": 65520,
+            "first_field": 96,
+            "flags": 49,
+            "identifier": "TEMPGD",
+            "last_field": 96
+          }
+        ],
+        "resource_id": 42
+      }
+    ],
+    "child_identity": [
+      "bdcb02116b6fb17b2b547f13729b5056899fddba41f257646e802ff82dcb053b",
+      8
+    ],
+    "input_fields": [
+      {
+        "field_id": "BPREM",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 38,
+        "reference": 9386,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "BPREMTE",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 40,
+        "reference": 9387,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "BPREMTR",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 39,
+        "reference": 9388,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "HCOPYNUM",
+        "format": 0,
+        "kind": 10,
+        "ordinal": 188,
+        "reference": 9389,
+        "template_attributes": 0
+      },
+      {
+        "field_id": "L2",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 12,
+        "reference": 9390,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "L4",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 14,
+        "reference": 9392,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "CTRY",
+        "format": 0,
+        "kind": 7,
+        "ordinal": 26,
+        "reference": 9393,
+        "template_attributes": 388
+      },
+      {
+        "field_id": "TAX",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 16,
+        "reference": 9395,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "ADJ",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 61,
+        "reference": 9398,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "L1",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 10,
+        "reference": 9400,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "L3",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 13,
+        "reference": 9401,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "L5",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 15,
+        "reference": 9402,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "PNA1",
+        "format": 0,
+        "kind": 7,
+        "ordinal": 9,
+        "reference": 9412,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "STWH",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 44,
+        "reference": 9436,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "STWH2",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 47,
+        "reference": 9438,
+        "template_attributes": 132
+      },
+      {
+        "field_id": "EXINT",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 29,
+        "reference": 9441,
+        "template_attributes": 132
+      }
+    ],
+    "output_fields": [
+      {
+        "field_id": "L1AMT",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 5,
+        "reference": 14475,
+        "template_attributes": 3780
+      },
+      {
+        "field_id": "L3AMT",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 8,
+        "reference": 14480,
+        "template_attributes": 3780
+      },
+      {
+        "field_id": "EXINT",
+        "format": 0,
+        "kind": 11,
+        "ordinal": 9,
+        "reference": 14649,
+        "template_attributes": 1220
+      }
+    ],
+    "summary_identity": [
+      "b100d55f8db5cf46d399082561e5f229f481981082241444c6a175213f5beca3",
+      42
+    ]
+  },
+  "supported_selected_fields": [
+    "L1",
+    "L3",
+    "EXINT"
+  ],
+  "supported_selected_Used_attributes": [
+    1,
+    3,
+    9,
+    11
+  ],
+  "finite_maximum_absolute_USD": "1000000000",
+  "kind11_scale": 2,
+  "finite_guards_are_not_vendor_general_limits": true,
+  "source_program_or_table_payloads_in_authority": false,
+  "native_active_GetMultiCopyInputValue_verified": false,
+  "writeback_allowed": false
+}
