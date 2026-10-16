@@ -1,5 +1,5 @@
 'use strict';
-const VERSION='tax-reborn-ui-2025-preview-58';
+const VERSION='tax-reborn-ui-2025-preview-59';
 const SHELL=['./','./index.html','./style.css','./app.js','./local-api.js','./investment-corrections.js','./income-preparation.js','./tax-worker.js','./native-file-bridge.js','./document-import.js','./taxml-import.js','./taxml_wire.py','./taxml_native.py','./taxml_mac.py','./taxml_xml_edit.py','./taxml_preparation.py','./taxml_container.py','./state-workspace.js','./state-worker.js','./offline-readiness.js','./ocr-worker.js','./manifest.webmanifest','./icon.svg','./icon-192.png','./icon-512.png'];
 let configuredAssets=[];
 const canonical=value=>new URL(value,self.registration.scope).href;
