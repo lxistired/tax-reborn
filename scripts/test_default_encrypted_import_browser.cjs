@@ -40,7 +40,8 @@ async function inspectBinaryEntity(page){
   assert.match(body,/nonempty supported structures/);
   assert.doesNotMatch(body,/No supported W-2, 1099-DIV or 1099-INT candidates were found/);
   assert.match(body,/Review (1099-INT|1099-DIV|W-2) candidate/);
-  return body;
+  const candidateButtons=await page.getByRole('button',{name:/Review (1099-INT|1099-DIV|W-2) candidate/}).allTextContents();
+  return {body,candidateButtons};
 }
 (async()=>{
   const checks=[];
@@ -55,10 +56,11 @@ async function inspectBinaryEntity(page){
       const id=await openReturn(page);
       const inventory=await inspectInventory(page,id,'synthetic-default-binary-array.tax');
       const results=await inspectBinaryEntity(page);
+      const candidateButtons=results.candidateButtons;
       const persisted=await page.evaluate(async returnId=>documentsForReturn(returnId),id);
       assert.ok(persisted.some(row=>row.name==='main.entity'&&row.binding_files?.container==='binary_entity'));
       assert.ok(persisted.some(row=>row.name==='synthetic-default-binary-array.tax'&&row.default_encrypted?.encrypted_source_sha256));
-      checks.push({mode:offline?'Pyodide-IndexedDB':'HTTP-SQLite',all_passed:true,inventory_members:6,entity_members:4,persisted_documents:persisted.length,source_reader_visible:true,source_reader_excerpt:results.slice(0,600)});
+      checks.push({mode:offline?'Pyodide-IndexedDB':'HTTP-SQLite',all_passed:true,inventory_members:6,entity_members:4,persisted_documents:persisted.length,source_reader_visible:true,source_reader_excerpt:results.body.slice(0,600),candidate_buttons:candidateButtons});
     }finally{
       await context.close();await browser.close();server.child.kill('SIGTERM');
     }
