@@ -1,0 +1,77 @@
+name: Existing Windows package default-encrypted GUI acceptance
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Native-build run that produced the frozen candidate artifact
+        required: true
+        default: '38902890753'
+      setup_sha256:
+        description: Expected SHA-256 of that candidate Setup body
+        required: true
+        default: '2011bda4fa3876f14450824db70283907e35374bf5b0657b84de1b97eee0d79c'
+      expected_build_head_sha:
+        description: Expected Git head for the producing native-build run
+        required: true
+        default: 'c2adffa8595fa7e5030f0ff340832d802fc2686e'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  default-encrypted:
+    runs-on: windows-2022
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+      PYTHONIOENCODING: utf-8
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.13'
+      - name: Install readback dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-desktop.txt
+      - name: Verify frozen native-build identity and install its exact Setup body
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OWNED_BUILD_RUN: ${{ inputs.build_run_id }}
+          OWNED_SETUP_SHA: ${{ inputs.setup_sha256 }}
+          EXPECTED_BUILD_HEAD_SHA: ${{ inputs.expected_build_head_sha }}
+        run: |
+          $build = gh api "repos/$env:GITHUB_REPOSITORY/actions/runs/$env:OWNED_BUILD_RUN" | ConvertFrom-Json
+          if ($build.head_sha -ne $env:EXPECTED_BUILD_HEAD_SHA) { throw 'Frozen build Git identity differs from the requested runtime head' }
+          gh run download $env:OWNED_BUILD_RUN --repo $env:GITHUB_REPOSITORY --name Tax-Reborn-Windows-native --dir "$env:RUNNER_TEMP/TaxRebornFrozenDefaultCandidate"
+          if ($LASTEXITCODE -ne 0) { throw 'Frozen candidate artifact download failed' }
+          $setup = Get-ChildItem "$env:RUNNER_TEMP/TaxRebornFrozenDefaultCandidate/*-Windows-x64-Setup.exe"
+          if (@($setup).Count -ne 1) { throw 'Exactly one frozen Setup artifact is required' }
+          $actual = (Get-FileHash $setup.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($actual -ne $env:OWNED_SETUP_SHA.ToLowerInvariant()) { throw 'Frozen Setup body differs from the requested SHA-256' }
+          $manifest = Get-Content "$env:RUNNER_TEMP/TaxRebornFrozenDefaultCandidate/build-manifest-win32-x64.json" -Raw | ConvertFrom-Json
+          $listed = @($manifest.artifacts | Where-Object { $_.file -like '*-Windows-x64-Setup.exe' })
+          if (@($listed).Count -ne 1 -or $listed[0].sha256 -ne $actual) { throw 'Frozen build manifest does not bind this Setup body' }
+          New-Item -ItemType Directory -Force -Path dist/windows-default-encrypted | Out-Null
+          $installedDir = Join-Path $env:RUNNER_TEMP 'TaxRebornFrozenDefaultInstalled'
+          $arguments = '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /DIR="' + $installedDir + '" /LOG="' + $PWD + '\dist\windows-default-encrypted\installer-log.txt"'
+          $installation = Start-Process -FilePath $setup.FullName -ArgumentList $arguments -PassThru -Wait
+          if ($installation.ExitCode -ne 0) { throw 'Frozen Setup installation failed' }
+          $installedExe = Join-Path $installedDir 'Tax Reborn.exe'
+          if (!(Test-Path $installedExe)) { throw 'Frozen Setup did not install the actual executable' }
+          @{ frozen_build_run=$env:OWNED_BUILD_RUN; producing_git_head=$build.head_sha; setup_sha256=$actual; installed_executable_sha256=(Get-FileHash $installedExe -Algorithm SHA256).Hash; rebuilt=$false; exact_artifact_verified=$true; synthetic_only=$true } | ConvertTo-Json | Set-Content dist/windows-default-encrypted/frozen-package-receipt.json
+      - name: Exercise fictional encrypted source with the verified installed native package
+        shell: pwsh
+        run: ./scripts/windows_gui_smoke.ps1 -MixedOnly -DefaultEncrypted -Executable "$env:RUNNER_TEMP/TaxRebornFrozenDefaultInstalled/Tax Reborn.exe" -OutputDir "$PWD/dist/windows-default-encrypted" -DataDir "$env:RUNNER_TEMP/TaxRebornDefaultEncryptedGUI"
+      - name: Upload default-encrypted GUI evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: Tax-Reborn-Windows-default-encrypted-acceptance
+          path: dist/windows-default-encrypted/*
+          if-no-files-found: error
+          retention-days: 30
+          include-hidden-files: true
