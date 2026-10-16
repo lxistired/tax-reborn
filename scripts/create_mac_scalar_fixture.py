@@ -48,13 +48,13 @@ def build(destination=DEST):
         'owned-mac-scalar-blocked.zip':base64.b64decode(blocked['base64'])}
     for name,data in files.items():(destination/name).write_bytes(data)
     for name,value in [('request.json',req),('null-request.json',null),('blocked-request.json',blocked),('plaintext-request.json',request(plaintext=True))]:
-        (destination/name).write_text(json.dumps(value,indent=2,sort_keys=True)+'\n')
-    (destination/'profile.json').write_text(json.dumps(req['profile'],indent=2,sort_keys=True)+'\n')
+        (destination/name).write_bytes((json.dumps(value,indent=2,sort_keys=True)+'\n').encode('utf-8'))
+    (destination/'profile.json').write_bytes((json.dumps(req['profile'],indent=2,sort_keys=True)+'\n').encode('utf-8'))
     manifest={'format':'tax-reborn-owned-mac-decimal-fixture-v1','vendor_bytes_included':False,'original_runtime_executions':0,
         'entities':2,'form_copies':7,'scalar_fields':3,'number_kind':'decimal_coefficient','fraction_digits':1,
         'native_factory_acceptance':False,'profile_mode':'Explicit controller_filter; separate explicit null_filter source',
         'files':{name:{'bytes':p.stat().st_size,'sha256':digest(p.read_bytes())}for p in sorted(destination.iterdir())if p.is_file()and (name:=p.name)not in('manifest.json','README.md')}}
-    (destination/'manifest.json').write_text(json.dumps(manifest,indent=2,sort_keys=True)+'\n');return manifest
+    (destination/'manifest.json').write_bytes((json.dumps(manifest,indent=2,sort_keys=True)+'\n').encode('utf-8'));return manifest
 if __name__=='__main__':
     parser=argparse.ArgumentParser();parser.add_argument('--destination',type=Path,default=DEST)
     print(json.dumps(build(parser.parse_args().destination)))

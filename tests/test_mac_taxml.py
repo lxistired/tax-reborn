@@ -6,8 +6,10 @@ import json
 from pathlib import Path
 import struct
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 import tempfile
 import unittest
+from zip_semantics import assert_request_json_semantics
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -48,7 +50,10 @@ class MacTaxMLTests(unittest.TestCase):
             self.assertEqual((one['entities'], one['form_copies'], one['carrier_resources']), (2, 7, 15))
             for name in one['files']:
                 self.assertEqual((Path(a) / name).read_bytes(), (Path(b) / name).read_bytes())
-                self.assertEqual((Path(a) / name).read_bytes(), (ROOT / 'fixtures/mac-taxml' / name).read_bytes())
+                if name.endswith('.json') and name != 'manifest.json':
+                    assert_request_json_semantics(self, Path(a) / name, ROOT / 'fixtures/mac-taxml' / name)
+                else:
+                    self.assertEqual((Path(a) / name).read_bytes(), (ROOT / 'fixtures/mac-taxml' / name).read_bytes())
         stored = json.loads((ROOT / 'fixtures/mac-taxml/request.json').read_text())
         self.assertEqual(stored, request())
         self.assertEqual(stored['profile']['formsets'][0]['expected_headers'], HEADERS)

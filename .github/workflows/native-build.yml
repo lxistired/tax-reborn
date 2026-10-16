@@ -210,6 +210,13 @@ jobs:
           $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
           node scripts/test_raw_interest_runtime.cjs
           if ($LASTEXITCODE -ne 0) { throw 'Installed source-interest reader failed module loading or resource identity checks' }
+      - name: Exercise installed source MC interest guard paths
+        shell: pwsh
+        run: |
+          $env:TAX_REBORN_RUNTIME_ROOT = Join-Path $env:RUNNER_TEMP 'TaxRebornInstalledPreview/_internal'
+          $env:TAX_REBORN_QA_ROOT = "$PWD/dist/windows"
+          node scripts/test_source_mc_interest_guards.cjs
+          if ($LASTEXITCODE -ne 0) { throw 'Installed source MC interest guard checks failed' }
       - name: Exercise payment vouchers using the installed worker and read back actual PDFs
         shell: pwsh
         run: |

@@ -73,14 +73,14 @@ def build(destination=DEST):
     for name, data in blobs.items(): (destination / name).write_bytes(data)
     for name, value in [('request.json', req), ('null-request.json', request(filter_profile='null_filter')),
                         ('plaintext-request.json', request(plaintext=True)), ('blocked-request.json', blocked)]:
-        (destination / name).write_text(json.dumps(value, indent=2, sort_keys=True)+'\n')
-    (destination / 'profile.json').write_text(json.dumps(req['profile'], indent=2, sort_keys=True)+'\n')
+        (destination / name).write_bytes((json.dumps(value, indent=2, sort_keys=True)+'\n').encode('utf-8'))
+    (destination / 'profile.json').write_bytes((json.dumps(req['profile'], indent=2, sort_keys=True)+'\n').encode('utf-8'))
     manifest = {'format': 'tax-reborn-owned-mac-date-fixture-v1', 'vendor_bytes_included': False,
         'original_runtime_executions': 0, 'entities': 2, 'form_copies': 7, 'date_fields': 9,
         'native_factory_acceptance': False, 'native_date_load_executed': False,
         'files': {p.name: {'bytes': p.stat().st_size, 'sha256': digest(p.read_bytes())}
                   for p in sorted(destination.iterdir()) if p.is_file() and p.name not in ('manifest.json', 'README.md')}}
-    (destination / 'manifest.json').write_text(json.dumps(manifest, indent=2, sort_keys=True)+'\n')
+    (destination / 'manifest.json').write_bytes((json.dumps(manifest, indent=2, sort_keys=True)+'\n').encode('utf-8'))
     return manifest
 
 if __name__ == '__main__':

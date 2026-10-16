@@ -1,6 +1,8 @@
 """Complete caller-owned date source edits, refusing native-load assumptions."""
 import base64, copy, json, struct, sys, tempfile, unittest
+from zip_semantics import assert_request_json_semantics
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 ROOT = Path(__file__).resolve().parents[1]
 sys.path[:0] = [str(ROOT/'web'), str(ROOT/'scripts')]
 import taxml_mac as mac
@@ -32,7 +34,10 @@ class MacDateTests(unittest.TestCase):
             self.assertFalse(one['vendor_bytes_included']);self.assertFalse(one['native_date_load_executed'])
             for name in one['files']:
                 self.assertEqual((Path(a)/name).read_bytes(),(Path(b)/name).read_bytes())
-                self.assertEqual((Path(a)/name).read_bytes(),(ROOT/'fixtures/mac-date-taxml'/name).read_bytes())
+                if name.endswith('.json') and name != 'manifest.json':
+                    assert_request_json_semantics(self, Path(a) / name, ROOT / 'fixtures/mac-date-taxml' / name)
+                else:
+                    self.assertEqual((Path(a)/name).read_bytes(),(ROOT/'fixtures/mac-date-taxml'/name).read_bytes())
 
     def test_all_dates_separate_from_existing_income(self):
         old=prep.inspect_request(old_request())
