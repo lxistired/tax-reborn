@@ -1,0 +1,52 @@
+{
+  "all_passed": true,
+  "actual_installed_General_JS_and_Pyodide": true,
+  "independent_kernel_fixtures": {
+    "all_passed": true,
+    "cases": [
+      {
+        "raw_cents": 0,
+        "source_attrs": 1,
+        "amount": "0.00",
+        "shared_owned_cache": true
+      },
+      {
+        "raw_cents": -12345,
+        "source_attrs": 9,
+        "amount": "-123.45",
+        "shared_owned_cache": true
+      },
+      {
+        "raw_cents": 98765,
+        "source_attrs": 11,
+        "amount": "987.65",
+        "shared_owned_cache": true
+      }
+    ],
+    "empty_map_nonblank": true,
+    "original_source_authentication_tested": false
+  },
+  "source_and_tamper_refusals": [
+    {
+      "name": "no-complete-source",
+      "error": "Exact source, current field and local resources required; supplied amounts/cache/UUID/state are not accepted"
+    },
+    {
+      "name": "independent-invalid-resource",
+      "error": "Local resource content does not match the supported source"
+    },
+    {
+      "name": "installed-tamper-source-mc-runtime.json",
+      "error": "Local source-value runtime manifest changed"
+    },
+    {
+      "name": "installed-tamper-source_mc/owned_current_MC_value_reference.py",
+      "error": "Local source-value runtime changed: source_mc/owned_current_MC_value_reference.py"
+    }
+  ],
+  "IRS_schema_and_calculation_after_invalid_data": true,
+  "original_resource_payloads_used": false,
+  "original_source_positive_not_tested": true,
+  "native_original_engine_tested": false,
+  "complete_original_compatibility": false
+}

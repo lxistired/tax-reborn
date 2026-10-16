@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "version": "2026.10.16-preview.36",
+  "release_tag": "v2026.10.16-preview.36",
+  "publication_state": "not published",
+  "anonymous_get_and_local_byte_readback_required": true,
+  "source_zip_must_be_built_from_exact_git_tracked_blobs": true,
+  "assets": [
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.36-source.zip",
+      "kind": "source",
+      "status": "not generated",
+      "requirements": ["exact tracked Git blobs", "per-file CRC", "full-file SHA256", "extracted App HTTP/SQLite and Pyodide/IndexedDB readback"]
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.36-Windows-x64-Setup.exe",
+      "kind": "native",
+      "status": "built and privately accepted",
+      "sha256": "a12f26ed7636a80a8c328316d0a647a7d70ec44ebf9e775e3b4b7aa170a9000b",
+      "bytes": 58165064
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.36-Windows-x64-portable.zip",
+      "kind": "native",
+      "status": "built and privately accepted",
+      "sha256": "a1458709057fe28f04170b41f922f2acda0081d32397aac28366feb354227680",
+      "bytes": 72190086
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.36-macOS-arm64.dmg",
+      "kind": "native",
+      "status": "built and privately accepted",
+      "sha256": "c99042e20dfee30bc083ce8c807d30823aca57a1e68ae4d8c5a16ef1abc0727d",
+      "bytes": 73071662
+    },
+    {
+      "name": "Tax-Reborn-2026.10.16-preview.36-Android.apk",
+      "kind": "native",
+      "status": "built and privately accepted",
+      "sha256": "2a17b10c19bd41ab443a39ffba06a436d7274698d11612af857c74447a6c20ba",
+      "bytes": 50285820
+    },
+    {
+      "name": "build-manifest-android.json",
+      "kind": "manifest",
+      "status": "prepared privately",
+      "source": "native36-packages/build-manifest-android.json",
+      "bytes": 456,
+      "sha256": "29009c3866c0dafe5ee35b3a8bf0f8fe6e3bf899888a8e0181e833f1b6dc5241"
+    },
+    {
+      "name": "build-manifest-darwin-arm64.json",
+      "kind": "manifest",
+      "status": "prepared privately",
+      "source": "native36-packages/build-manifest-darwin-arm64.json",
+      "bytes": 728,
+      "sha256": "f106c83d51e4800c60fb8a31c19516a5433cc284227dd4c4f95122cdca59a5cb"
+    },
+    {
+      "name": "build-manifest-win32-x64.json",
+      "kind": "manifest",
+      "status": "prepared privately",
+      "source": "Windows36-CI/build-manifest-win32-x64.json",
+      "bytes": 956,
+      "sha256": "dd2b5dde31d18edbf5f4db4418e8882120ff9b203dbf5134ad7622d4e7d17b78"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "kind": "checksums",
+      "status": "not generated",
+      "requirements": ["all eight preceding assets", "final published bytes", "anonymous GET verification"]
+    }
+  ]
+}

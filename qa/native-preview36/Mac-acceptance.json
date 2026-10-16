@@ -1,0 +1,90 @@
+{
+  "all_passed": true,
+  "new_actual_Mac_native_source_value": {
+    "all_passed": true,
+    "report_bytes": 31638,
+    "report_sha256": "b3d39ad5d517ba99df0cde13bc6ffc403e30e9eb2441a914eb7ebcb9f748ecf0",
+    "actual_complete_source_sha256": "15a5d7ae31be3d7707271effa9551375445acbc92409e3100d9c79535feedecc",
+    "independent_actual_D2_source_ordinal": 210,
+    "current_ordinal": 10,
+    "kind": 11,
+    "attrs": 9,
+    "independent_signed_cents_amount": "-123.45",
+    "saved_FormUUID149_matches_MC_key": true,
+    "not_RecordUUID_or_native_inventory": true,
+    "no_MC_diagnostic_API_or_source_mc_import_used_as_oracle": true,
+    "fresh_App_reader_only": true,
+    "writeback_allowed": false
+  },
+  "new_actual_Mac_native_stored_link": {
+    "all_passed": true,
+    "independently_reopened_complete_source": true,
+    "source_bytes": 713,
+    "source_sha256": "7cf7e9d0ea0a8be8500cd7466497e5d8d26998c1981e81db0a7af6f9b874c679",
+    "actual_D2_FV_D7_header_facts": true,
+    "diagnostic_API_used_as_oracle": false,
+    "native_inventory_verified": false,
+    "writeback_allowed": false,
+    "audit_bytes": 3708,
+    "audit_sha256": "5a01620840a7c072916993cee140195434862b235d83cd6bde71e0defc09b6db"
+  },
+  "actual_installed_General_Pyodide_MC_kernel_and_guards": {
+    "all_passed": true,
+    "actual_installed_General_JS_and_Pyodide": true,
+    "independent_kernel_fixtures": {
+      "all_passed": true,
+      "cases": [
+        {
+          "raw_cents": 0,
+          "source_attrs": 1,
+          "amount": "0.00",
+          "shared_owned_cache": true
+        },
+        {
+          "raw_cents": -12345,
+          "source_attrs": 9,
+          "amount": "-123.45",
+          "shared_owned_cache": true
+        },
+        {
+          "raw_cents": 98765,
+          "source_attrs": 11,
+          "amount": "987.65",
+          "shared_owned_cache": true
+        }
+      ],
+      "empty_map_nonblank": true,
+      "original_source_authentication_tested": false
+    },
+    "source_and_tamper_refusals": [
+      {
+        "name": "no-complete-source",
+        "error": "Exact source, current field and local resources required; supplied amounts/cache/UUID/state are not accepted"
+      },
+      {
+        "name": "independent-invalid-resource",
+        "error": "Local resource content does not match the supported source"
+      },
+      {
+        "name": "installed-tamper-source-mc-runtime.json",
+        "error": "Local source-value runtime manifest changed"
+      },
+      {
+        "name": "installed-tamper-source_mc/owned_current_MC_value_reference.py",
+        "error": "Local source-value runtime changed: source_mc/owned_current_MC_value_reference.py"
+      }
+    ],
+    "IRS_schema_and_calculation_after_invalid_data": true,
+    "original_resource_payloads_used": false,
+    "original_source_positive_not_tested": true,
+    "native_original_engine_tested": false,
+    "complete_original_compatibility": false
+  },
+  "complete17returns16metadata_unchanged": true,
+  "normal_reopen_GUI_refund": 344,
+  "current_and_original_engine_separate": true,
+  "licensed_original_App_executions": 0,
+  "original_taxpayer_fixtures": 0,
+  "entire_MC_core_report_equals_root_actual_main_Worker": true,
+  "OS_saved_report_full_JSON_except_context_equal": true
+}

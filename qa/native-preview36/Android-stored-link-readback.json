@@ -1,0 +1,12 @@
+{
+  "all_passed": true,
+  "independently_reopened_complete_source": true,
+  "source_bytes": 713,
+  "source_sha256": "7cf7e9d0ea0a8be8500cd7466497e5d8d26998c1981e81db0a7af6f9b874c679",
+  "actual_D2_FV_D7_header_facts": true,
+  "diagnostic_API_used_as_oracle": false,
+  "native_inventory_verified": false,
+  "writeback_allowed": false,
+  "audit_bytes": 3708,
+  "audit_sha256": "fb315a2268d486406e46b4afef34f080435d97e43aff59756b71799d0b3a3a5d"
+}

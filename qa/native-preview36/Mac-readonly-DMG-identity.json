@@ -1,0 +1,8 @@
+{
+  "all_passed": true,
+  "read_only_DMG_mounted": true,
+  "every_file_or_symlink_in_tested_bundle_identical": true,
+  "paths": 855,
+  "DMG_bytes": 73071662,
+  "DMG_sha256": "c99042e20dfee30bc083ce8c807d30823aca57a1e68ae4d8c5a16ef1abc0727d"
+}

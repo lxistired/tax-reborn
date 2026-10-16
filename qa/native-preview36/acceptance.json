@@ -1,0 +1,89 @@
+{
+  "schema": 1,
+  "at_utc": "2026-10-16T02:29:33Z",
+  "version": "2026.10.16-preview.36",
+  "source_commit": "03ce23e85535ccd4140bc9369806b0600b8d0434",
+  "cache": "tax-reborn-ui-2025-preview-56",
+  "candidate_state": "native-tested candidate; source archive and public readback pending",
+  "source": {
+    "all_passed": true,
+    "host_checks": 812,
+    "actual_pyodide_executed": 701,
+    "actual_pyodide_skips": 2,
+    "storage_modes": ["HTTP/SQLite", "Pyodide/IndexedDB"],
+    "main_app_file_input_worker_report_download_and_independent_readback": true,
+    "saved_return_unchanged": true
+  },
+  "native": {
+    "macos_arm64": {
+      "all_passed": true,
+      "source_value_report_bytes": 31638,
+      "source_value_report_sha256": "b3d39ad5d517ba99df0cde13bc6ffc403e30e9eb2441a914eb7ebcb9f748ecf0",
+      "stored_link_source_bytes": 713,
+      "stored_link_source_sha256": "7cf7e9d0ea0a8be8500cd7466497e5d8d26998c1981e81db0a7af6f9b874c679",
+      "stored_link_audit_bytes": 3708,
+      "stored_link_audit_sha256": "5a01620840a7c072916993cee140195434862b235d83cd6bde71e0defc09b6db",
+      "normal_reopen_returns": 17,
+      "normal_reopen_metadata_rows": 16,
+      "normal_reopen_saved_refund": 344,
+      "dmg_paths_byte_exact": 855,
+      "native_resource_positive_original": true,
+      "caller_local_original_resources": "complete fdidt/fdittx plus seven registries; real GUI positive and independently read back"
+    },
+    "windows_x64": {
+      "all_passed": true,
+      "ci_run": "38836155665",
+      "installed_frozen_checks": 21,
+      "native_gui_workflows": 23,
+      "stored_link_os_save_and_independent_readback": true,
+      "web_assets_byte_exact": 371,
+      "original_resource_mc_positive": false,
+      "source_mc_scope": ["kernel", "invalid-resource refusal", "tamper refusal"]
+    },
+    "android": {
+      "all_passed": true,
+      "apk_bytes": 50285820,
+      "apk_sha256": "2a17b10c19bd41ab443a39ffba06a436d7274698d11612af857c74447a6c20ba",
+      "installed_apk_byte_exact": true,
+      "original_signing_certificate_sha256": "2ed9e32eb114247789af4a33d750b1662bab11e1e9e434dd3005c3d529d1ee17",
+      "version_code": 2026101636,
+      "source_value_gui_file_selection_worker_and_system_save": true,
+      "stored_link_gui_file_selection_worker_and_system_save": true,
+      "backup_bytes": 33114,
+      "backup_sha256": "a6151ddc28c36f6a4a9cff95065c8105cf7aa2d294bdf42ffe9ac348f6fd728e",
+      "backup_before_after_all_7_sections_byte_equal": true,
+      "native_resource_positive_original": true,
+      "caller_local_original_resources": "complete fdidt/fdittx plus seven registries; real GUI positive and independently read back"
+    }
+  },
+  "cross_platform": {
+    "web_assets_byte_exact_across_candidate_app_payload_and_native_packages": 371,
+    "stored_link_source_and_audit_readback_consistent": true,
+    "source_value_report_core_json_consistent": true,
+    "current_saved_return_unchanged": true
+  },
+  "boundaries": {
+    "original_licensed_runtime_executions": 0,
+    "original_taxpayer_fixtures": 0,
+    "full_original_tax_compatibility": false,
+    "full_original_engine_parity": false,
+    "electronic_filing": false,
+    "private_data_publication": false,
+    "vendor_payload_publication": false,
+    "note": "Mac and Android source-value acceptance includes a positive real GUI run with complete caller-local fdidt/fdittx resources and seven registries, followed by independent readback. Windows source-value acceptance establishes the independently implemented kernel and invalid-resource/tamper refusal guards only; its positive original-resource MC run remains false. Original licensed runtime executions and original-engine parity remain zero/false on all platforms."
+  },
+  "private_receipts": [
+    {
+      "name": "Mac36-actual-acceptance-private.json",
+      "sha256": "c28e3cce02610f4e4d8bdca18273335a00efd5c8a0a3d03cc51df6f6beff4552"
+    },
+    {
+      "name": "Windows36-acceptance-private.json",
+      "sha256": "494bb2ac0a1426c65e2385a884a0487d87e31356c933cfe33e97928cd65f1505"
+    },
+    {
+      "name": "Android36-current-acceptance-private.json",
+      "sha256": "8105529ce7d3f09664ca635d291bfdcd819501a7bc0d56b6869e0218196a3fa3"
+    }
+  ]
+}

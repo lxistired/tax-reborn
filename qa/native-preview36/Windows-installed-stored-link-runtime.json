@@ -1,0 +1,21 @@
+{
+  "all_passed": true,
+  "actual_JS_and_Pyodide": true,
+  "actual_WeakMap_request": true,
+  "complete_owned_source_bytes": 713,
+  "full_diagnostic_equal": true,
+  "refusals": [
+    "detached_inspection",
+    "native_inventory_verified",
+    "trusted_profile",
+    "prepared_descriptor",
+    "owner_present",
+    "changed_carrier_bytes",
+    "manual_arrays"
+  ],
+  "same_worker_recovered_after_bad_input": true,
+  "source_profile_carriers_unchanged": true,
+  "native_inventory_verified": false,
+  "writeback_allowed": false,
+  "original_resource_payload": false
+}
