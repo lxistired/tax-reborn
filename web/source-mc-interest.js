@@ -80,8 +80,9 @@ export function mountMCInterest(container,{execute,getSource,getInspection,saveR
     paragraph('Current stored L8A · '+money(L8A.assignments[0]?.before?.amount??null)+' · Used '+Number(!!(L8A.assignments[0]?.before?.attributes&1))+' · Override '+Number(!!(L8A.assignments[0]?.before?.attributes&8)),'current-L8A'),
     paragraph('L8A assignment status · '+L8A.assignments.map(x=>({'override8_keeps_storage':'Existing Override retained','computed_Used1_even_zero':'Computed proposed value; zero remains present','null_enterable_keeps_storage':'Blank proposal retains existing source storage'}[x.action]||x.action)).join(', '),'assignment'),
     paragraph('Stored hidden HCOPYNUM · '+(hidden.supplied_value??'No Used value')+' · source header copy number · '+owner.child_runtime_copy_number_U16,'copy-boundary'),
-    node('p','The hidden HCOPYNUM is read separately from the header copy number. The original filter can exclude a mismatched copy. The saved form identity is not a restored Record UUID.'),
-    node('p','Only L1 uses this constructed input receiver. The other 16 prefix facts retain their checked source suppliers. Existing INPUT10770 and saved ADJUST are not freshly rebuilt; the EE path is limited to MFS. Native events, queue, TPS output and the remaining tax sequence are not run. Device memory limits are unverified.'));
+    node('p','This compares supported interest inputs through L4 and L8A. Final tax, refund, and balance are not recalculated. The source file and current return stay unchanged.'));
+   const limits=node('details'),limitsText=node('p','Only L1 uses the constructed input receiver. The other 16 prefix facts retain their checked source suppliers. Existing INPUT10770 and saved ADJUST are not freshly rebuilt; the EE path is limited to MFS. Native events, queue, TPS output, and the remaining tax sequence are not run. Device memory limits are unverified.');
+   limits.append(node('summary','Developer validation details'),limitsText);content.append(limits);
    status.textContent='L4 / L8A compared. No source or current return values were changed.';
   }catch(e){if(!closed&&token===epoch)fail(e);}
   finally{if(!closed&&token===epoch){busy=false;update();}}
