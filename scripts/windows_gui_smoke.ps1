@@ -122,6 +122,33 @@ function Wait-Control([string]$type,[string]$label,[bool]$prefix=$false) {
     }
     throw "Native WebView did not expose $type with label $label"
 }
+function Select-Observed-Option($combo,[string]$label) {
+    # Native WebView exposes the blank owner placeholder as the first option.
+    # Select Taxpayer explicitly and verify UIA's actual selection rather than
+    # treating focus movement as a submitted W-2 owner.
+    Click-Observed $combo
+    [System.Windows.Forms.SendKeys]::SendWait('{HOME}{DOWN}{ENTER}')
+    $until=(Get-Date).AddSeconds(10)
+    while((Get-Date) -lt $until) {
+        $selection=$null
+        if($combo.TryGetCurrentPattern([System.Windows.Automation.SelectionPattern]::Pattern,[ref]$selection)) {
+            $picked=([System.Windows.Automation.SelectionPattern]$selection).Current.GetSelection()
+            if(@($picked).Count -eq 1 -and $picked[0].Current.Name -eq $label) { return }
+        }
+        $value=$null
+        if($combo.TryGetCurrentPattern([System.Windows.Automation.ValuePattern]::Pattern,[ref]$value) -and ([System.Windows.Automation.ValuePattern]$value).Current.Value -eq $label) { return }
+        Start-Sleep -Milliseconds 100
+    }
+    throw 'Native combo box did not select required option: '+$label
+}
+function Wait-Gone([string]$name,[int]$seconds=30) {
+    $until=(Get-Date).AddSeconds($seconds)
+    while((Get-Date) -lt $until) {
+        if($null -eq (Get-Named $name $false)) { return }
+        Start-Sleep -Milliseconds 100
+    }
+    throw 'Native modal remained open: '+$name
+}
 function Ensure-Checked([string]$label) {
     $item=Wait-Control 'CheckBox' $label $true
     $toggle=$null
@@ -878,11 +905,8 @@ try {
         Wait-Named 'TaxML inspection results' 120 | Out-Null
         Click-Observed (Wait-Named 'Review W-2 candidate')
         Wait-Named 'Review TaxML W-2 candidate' 120 | Out-Null
-        $owner=Wait-Control 'ComboBox' 'Whose W-2 is this?'; $owner.SetFocus()
-        # The public fixture’s review is explicitly taxpayer-owned.  HOME
-        # selects the first real owner instead of relying on a previous
-        # selection or silently choosing spouse.
-        [System.Windows.Forms.SendKeys]::SendWait('{HOME}{TAB}')
+        $owner=Wait-Control 'ComboBox' 'Whose W-2 is this?'
+        Select-Observed-Option $owner 'Taxpayer'
         Set-Owned-Edit 'Box 1 · Wages, tips, other compensation' '50000'
         Set-Owned-Edit 'Box 2 · Federal income tax withheld' '5000'
         # Keep the related wage bases consistent with the reviewed income.
@@ -890,7 +914,10 @@ try {
         Set-Owned-Edit 'Box 5 · Medicare wages and tips' '50000'
         Click-Observed (Wait-Control 'CheckBox' 'Confirm all TaxML W-2 amounts and ownership' $true)
         Click-Observed (Wait-Named 'Add reviewed W-2')
-        # Add reviewed W-2 closes the review dialog and navigates to the native W-2 interview.
+        # The review must really close; background controls alone do not prove
+        # that the selected owner passed the modal validation.
+        Wait-Gone 'Review TaxML W-2 candidate' 30
+        # Add reviewed W-2 now navigates to the native W-2 interview.
         $wages=Wait-Edit 'Box 1 · Wages, tips, other compensation'
         if([string]$wages.GetCurrentPropertyValue([System.Windows.Automation.ValuePattern]::ValueProperty) -ne '50000') { throw 'Reviewed encrypted W-2 did not set 50000 wages.' }
         $withheld=Wait-Edit 'Box 2 · Federal income tax withheld'
