@@ -763,7 +763,7 @@ async function showTaxMLImport(){
   const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type||'application/octet-stream',size:file.size,created:new Date().toISOString(),binding_files:container.value==='default_encrypted_tax'?null:{profile:profileFile,carriers:registryFiles,container:container.value},default_encrypted:container.value==='default_encrypted_tax'?{branch:inspected.branch,encrypted_source_sha256:inspected.encrypted_source_sha256,inventory:inspected.inventory,unreferenced_members:inspected.unreferenced_members}:null};
   await documentOperation('readwrite',store=>store.put(row));
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. The original source remains attached, but no income record was added.');
-  if(container.value==='default_encrypted_tax')showDefaultEncryptedInventory(row,inspected,id,openedRevision);else showTaxMLCandidates(row,inspected,id,openedRevision);
+  if(container.value==='default_encrypted_tax')showDefaultEncryptedInventory(row,inspected,id,openedRevision,defaultConfig);else showTaxMLCandidates(row,inspected,id,openedRevision);
  },'primary']]);
 }
 async function loadBinarySample(name,id,atRevision){
@@ -778,19 +778,41 @@ async function loadBinarySample(name,id,atRevision){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. The sample is attached; no income was added.');
  showTaxMLCandidates(row,inspected,id,atRevision);
 }
-function showDefaultEncryptedInventory(source,inspection,returnId,atRevision){
+function showDefaultEncryptedReopen(source,returnId){
+ const compatibility=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose local default encrypted compatibility configuration'}),previousYear=el('input',{type:'checkbox','aria-label':'This is a previous-year default encrypted return'}),holder=el('div',{},el('p',{class:'intro'},'Reopen the saved encrypted source by choosing the same local compatibility configuration. The key and IV stay local and are never saved with this workspace.'),el('div',{class:'field'},el('label',{},'Local compatibility configuration',compatibility)),el('label',{class:'check-field'},previousYear,el('span',{},'Use the previous-year compatibility branch.')));
+ const dialog=modal('Reopen default encrypted source',holder,[['Inspect saved archive',async()=>{
+  if(currentId!==returnId)throw Error('This return changed. Reopen the Documents page.');
+  if(!compatibility.files[0])throw Error('Choose the local default-container compatibility configuration.');
+  let config;try{config=JSON.parse(await compatibility.files[0].text());}catch{throw Error('The compatibility configuration is not valid JSON.');}
+  const inspection=await window.taxMLImport.inspectDefaultEncrypted(source.file,config,previousYear.checked);
+  if(currentId!==returnId)throw Error('This return changed while reopening the encrypted source.');
+  showDefaultEncryptedInventory(source,inspection,returnId,revision,config);
+ },'primary']]);
+}
+function showDefaultEncryptedInventory(source,inspection,returnId,atRevision,compatibility){
  const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
  const selected=el('select',{'aria-label':'Choose decrypted entity member'},...(inspection.documents||[]).map((item,index)=>el('option',{value:String(index)},item.entity_key+' · '+item.decoded_bytes+' bytes')));
+ const memberFormat=el('select',{'aria-label':'Choose decrypted member format'},el('option',{value:'binary_entity'},'Owned binary entity'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'));
  const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose entity wire profile'}),carriers=el('input',{type:'file',multiple:true,accept:'.xprf,.3pe,application/octet-stream','aria-label':'Choose ordered entity registries'}),detail=el('div');
  function render(){const item=inspection.documents[Number(selected.value)];detail.replaceChildren(el('p',{},item.entity_type+' · '+item.entity_key),el('small',{},item.parsed?.format==='json-member'?'Structured member retained for review.':'Opaque binary member retained byte-for-byte; choose the matching caller-owned profile and registries to inspect it.'),el('code',{class:'binary-raw-id'},'Decoded SHA-256 '+item.decoded_sha256));}
  selected.addEventListener('change',render);render();
- const holder=el('div',{},el('p',{class:'intro'},'The encrypted archive was decoded with the selected local compatibility branch. Every manifest member and unrecognized archive member remains accounted for. Original-compatible writing and engine execution are not claimed.'),el('p',{},'Branch: '+inspection.branch+' · encrypted source SHA-256 '+inspection.encrypted_source_sha256),el('div',{class:'note'},'Retained members: '+(inspection.unreferenced_members||[]).join(', ')),el('details',{},el('summary',{},'Archive member inventory'),el('ul',{},(inspection.inventory||[]).map(item=>el('li',{},item.member_name+' · '+item.role+' · '+(item.decoded_bytes===null?'ciphertext retained':item.decoded_bytes+' decoded bytes')+' · ciphertext SHA-256 '+item.ciphertext_sha256)))),el('hr'),el('label',{},'Decoded entity',selected),detail,el('div',{class:'field'},el('label',{},'Entity wire profile',profile)),el('div',{class:'field'},el('label',{},'Ordered entity registries',carriers)),el('div',{class:'inline-actions'},button('Inspect selected entity locally',async()=>{
+ const holder=el('div',{},el('p',{class:'intro'},'The encrypted archive was decoded with the selected local compatibility branch. Every manifest member and unrecognized archive member remains accounted for. Original-compatible writing and engine execution are not claimed.'),el('p',{},'Branch: '+inspection.branch+' · encrypted source SHA-256 '+inspection.encrypted_source_sha256),el('div',{class:'note'},'Retained members: '+(inspection.unreferenced_members||[]).join(', ')),el('details',{},el('summary',{},'Archive member inventory'),el('ul',{},(inspection.inventory||[]).map(item=>el('li',{},item.member_name+' · '+item.role+' · '+(item.decoded_bytes===null?'ciphertext retained':item.decoded_bytes+' decoded bytes')+' · ciphertext SHA-256 '+item.ciphertext_sha256)))),el('hr'),el('label',{},'Decoded entity member',selected),el('div',{class:'field'},el('label',{},'Member format (choose explicitly)',memberFormat)),el('p',{class:'note'},'The app does not infer TaxML XML versus binary data from a member name. Choose the format you own, then provide the matching profile and ordered registries.'),detail,el('div',{class:'field'},el('label',{},'Entity wire profile',profile)),el('div',{class:'field'},el('label',{},'Ordered entity registries',carriers)),el('div',{class:'inline-actions'},button('Inspect selected entity locally',async()=>{
   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the encrypted source.');
   const item=inspection.documents[Number(selected.value)],profileFile=profile.files[0],registryFiles=[...carriers.files];
   if(!profileFile||!registryFiles.length)throw Error('Choose the matching caller-owned profile and ordered registries first.');
-  const file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/octet-stream'}),inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,'binary_entity',true);
+  const container=memberFormat.value;
+  let file,inspected;
+  if(container==='plaintext_xml'){
+   if(item.entity_type!=='/tax/income/individual/taxreturn/taxml')throw Error('Choose the decrypted TaxML member for plaintext XML inspection.');
+   const bridge=await window.taxMLImport.inspectDefaultEncryptedTaxML(source.file,compatibility,inspection.branch==='previous',profileFile,registryFiles);
+   if(bridge.selected_taxml_member!==item.entity_key)throw Error('The selected member is not the archive TaxML document.');
+   file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/xml'});inspected=bridge.taxml_inspection;
+  }else{
+   file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/octet-stream'});
+   inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container,true);
+  }
   if(currentId!==returnId||revision!==atRevision)throw Error('This return changed while inspecting the decrypted entity.');
-  const row={id:crypto.randomUUID(),returnId:returnId,file,name:item.entity_key,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile:profileFile,carriers:registryFiles,container:'binary_entity',encrypted_source_document_id:source.id,encrypted_source_sha256:inspection.encrypted_source_sha256}};
+  const row={id:crypto.randomUUID(),returnId:returnId,file,name:item.entity_key,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile:profileFile,carriers:registryFiles,container,encrypted_source_document_id:source.id,encrypted_source_sha256:inspection.encrypted_source_sha256}};
   await documentOperation('readwrite',store=>store.put(row));showTaxMLCandidates(row,inspected,returnId,revision);
  },'primary'),button('Download selected decoded member',()=>{const item=inspection.documents[Number(selected.value)];return downloadBlob(new Blob([decode(item.payload_base64)],{type:'application/octet-stream'}),item.entity_key);},'secondary')));
  modal('Default encrypted source inventory',holder);
@@ -816,7 +838,8 @@ function storedSourceOwnerText(owner){
  return parts.join(' · ');
 }
 function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set()){
- const holder=el('div',{},el('p',{class:'intro'},'Review each supported income form or filing-status setup separately. The original source stays attached; every change needs your confirmation.'),
+ const structure=inspected.binary_archive?.forms?.reduce((total,form)=>({forms:total.forms+1,fields:total.fields+(form.fields?.length||0),table_records:total.table_records+(form.tables||0),child_forms:total.child_forms+(form.children||0),links:total.links+(form.links?.length||0)}),{forms:0,fields:0,table_records:0,child_forms:0,links:0});
+ const holder=el('div',{},el('p',{class:'intro'},'Review each supported income form or filing-status setup separately. The original source stays attached; every change needs your confirmation.'),structure?el('div',{class:'note','data-testid':'reader-structure-summary'},'Reader structure: '+structure.forms+' forms · '+structure.fields+' fields · '+structure.table_records+' tables · '+structure.child_forms+' child forms · '+structure.links+' saved links.'):null,
   ...(inspected.warnings||[]).map(warning=>el('div',{class:'note warning'},warning)),
   el('small',{},'Source SHA-256 · '+inspected.source_sha256));
  if(inspected.container_report){
@@ -1098,7 +1121,7 @@ function showBinaryFields(source,inspected,returnId,atRevision){
  function render(){
   epoch++;
   const form=forms[Number(selected.value)];details.replaceChildren();if(!form)return;
-  details.append(el('p',{},form.fields.length+' stored fields · '+form.tables+' table records · '+form.children+' child forms · '+form.links.length+' links'));
+  details.append(el('p',{},form.fields.length+' stored fields · '+form.tables+' tables · '+form.children+' child forms · '+form.links.length+' links'));
   for(const table of form.table_headers||[]){
    const boundary=table.table_kind==='value_table'?' · saved last-used record '+table.saved_last_used_record_index:'';
    details.append(el('div',{class:'note'},el('strong',{},'Preserved table '+table.identifier),el('p',{},table.table_kind+' · fields '+table.first_field_ordinal+'–'+table.last_field_ordinal+boundary),el('small',{},'Read only. Existing indexed values and the saved record boundary are retained. Adding, removing or reordering rows is not supported.')));
@@ -1239,7 +1262,7 @@ async function showDocuments(){
   const rows=await documentsForReturn(id);list.replaceChildren();
   if(!rows.length){list.append(el('div',{class:'empty-state'},'No local documents attached.'));return;}
   for(const row of rows){const url=URL.createObjectURL(row.file);documentURLs.push(url);
-   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):row.type==='application/pdf'?'PDF':'TaxML'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady||!(/^(image\/|application\/pdf$)/.test(row.type))}),...(row.binding_files?[button('Open source',()=>showLocalSource({return_id:id,document_id:row.id}),'secondary',{class:'button secondary small'})]:[]),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
+   list.append(el('div',{class:'document-card'},el('div',{class:'document-thumb'},row.type.startsWith('image/')?el('img',{src:url,alt:row.name}):row.type==='application/pdf'?'PDF':'TaxML'),el('div',{class:'document-info'},el('strong',{},row.name),el('small',{},(row.size/1024).toFixed(0)+' KB · local copy'),el('div',{class:'inline-actions'},button('Extract W-2 fields',async event=>{const target=event.currentTarget;target.disabled=true;try{await reviewExtractedW2(row,id);}finally{target.disabled=false;}},'secondary',{class:'button secondary small',disabled:!extractReady||!(/^(image\/|application\/pdf$)/.test(row.type))}),...(row.binding_files?[button('Open source',()=>showLocalSource({return_id:id,document_id:row.id}),'secondary',{class:'button secondary small'})]:[]),...(row.default_encrypted?[button('Reopen encrypted source',()=>showDefaultEncryptedReopen(row,id),'secondary',{class:'button secondary small'})]:[]),button('Download',()=>downloadBlob(row.file,row.name),'secondary',{class:'button secondary small'}),button('Remove',async()=>{await documentOperation('readwrite',store=>store.delete(row.id));await refresh();},'danger',{class:'button danger small'})))));
   }
  }
  async function attach(input){

@@ -6,7 +6,7 @@ empty intuitIdentity and no security block.  It reads, inventories and retains
 all ZIP members but does not write a vendor archive or run a vendor engine.
 """
 from __future__ import annotations
-import base64, hashlib, re
+import base64, hashlib, json, re
 from dataclasses import dataclass
 import xml.etree.ElementTree as ET
 from .aes_cbc_reference import CryptoInputError, decrypt_aes_cbc_pkcs7
@@ -56,6 +56,15 @@ class DefaultCryptoConfig:
         if type(is_previous_year_return) is not bool:
             raise CompatibilityConfigError('Current or previous branch must be explicit')
         return (self.previous_manifest,self.previous_member) if is_previous_year_return else (self.current_manifest,self.current_member)
+
+def load_local_compatibility_config(path):
+    """Read a caller-selected config locally; never include its material in a result."""
+    try:
+        with open(path, 'r', encoding='utf-8') as handle:
+            value=json.load(handle)
+    except (OSError, UnicodeError, json.JSONDecodeError) as exc:
+        raise CompatibilityConfigError('Compatibility configuration could not be read locally') from exc
+    return DefaultCryptoConfig.from_mapping(value)
 
 @dataclass(frozen=True)
 class EncryptedDocument:

@@ -58,7 +58,7 @@ self.onmessage = event => {
       let code;
       if (command === 'calculate') code = 'json.dumps(tax_engine.calculate_return(json.loads(_tax_input_json)), allow_nan=False)';
       else if (command === 'schema') code = 'json.dumps({"default_return": tax_engine.default_return(), "demos": tax_engine.demo_returns(), "capabilities": presentation_schema.capabilities()}, allow_nan=False)';
-      else if (['taxml_inspect','taxml_export','binary_tax_edit','source_stored_cell_correct','source_link_diagnostics','source_mc_input_diagnose'].includes(command)) {
+      else if (['taxml_inspect','taxml_export','binary_tax_edit','source_stored_cell_correct','source_link_diagnostics','source_mc_input_diagnose','default_encrypted_inspect','default_encrypted_taxml_inspect'].includes(command)) {
         if (!taxmlReady) taxmlReady = (async()=>{
           const base=new URL('./',self.location.href),names=['taxml_wire.py','taxml_native.py','taxml_mac.py','taxml_xml_edit.py','taxml_preparation.py','taxml_container.py','binary_tax.py','binary_derived.py','source_integer.py','source_stored_cell.py','source_link_diagnostics.py'];
           const response=await fetch(new URL('binary-runtime.json',base));
@@ -69,10 +69,40 @@ self.onmessage = event => {
           const text=await Promise.all(names.map(async name=>{const response=await fetch(new URL(name,base));if(!response.ok)throw Error('Local TaxML inspector resource missing: '+name);return response.text();}));
           py.FS.mkdirTree('/home/pyodide/interop/form_core');py.FS.mkdirTree('/home/pyodide/interop/derived_form');py.FS.mkdirTree('/home/pyodide/interop/container');
           names.forEach((name,index)=>py.FS.writeFile('/home/pyodide/'+name,text[index]));
-          await py.runPythonAsync('import taxml_preparation, binary_tax, source_stored_cell, source_link_diagnostics');
+          await py.runPythonAsync('import taxml_preparation, binary_tax, source_stored_cell, source_link_diagnostics\nfrom interop.container import default_encrypted_import');
         })();
         await taxmlReady;
-        if(command==='source_mc_input_diagnose') {
+        if(command==='default_encrypted_taxml_inspect') {
+          code=`import base64,json
+from interop.container import default_encrypted_import
+_default_taxml_request=json.loads(_tax_input_json)
+if not isinstance(_default_taxml_request,dict) or set(_default_taxml_request)!={'base64','compatibility','is_previous_year_return','profile','carriers'}:
+ raise ValueError('Invalid default encrypted TaxML request.')
+_raw=base64.b64decode(_default_taxml_request['base64'],validate=True)
+_taxml_result=default_encrypted_import.inspect_default_taxml_mapping(_raw,compatibility=_default_taxml_request['compatibility'],is_previous_year_return=_default_taxml_request['is_previous_year_return'],profile=_default_taxml_request['profile'],carriers=_default_taxml_request['carriers'])
+json.dumps(_taxml_result,allow_nan=False)`
+        } else if(command==='default_encrypted_inspect') {
+          code=`import base64,hashlib,json
+from interop.container.default_encrypted_reference import load_default_encrypted_container,read_entities
+_default_request=json.loads(_tax_input_json)
+if not isinstance(_default_request,dict) or set(_default_request)!={'base64','compatibility','is_previous_year_return'}:
+ raise ValueError('Invalid default encrypted .tax request.')
+_raw=base64.b64decode(_default_request['base64'],validate=True)
+_container=load_default_encrypted_container(_raw,compatibility=_default_request['compatibility'],is_previous_year_return=_default_request['is_previous_year_return'])
+def _ack(payload,document):
+ try:
+  value=json.loads(payload.decode('utf-8'))
+  return {'format':'json-member','value':value}
+ except (UnicodeDecodeError,json.JSONDecodeError):
+  return {'format':'opaque-binary','decoded_bytes':len(payload),'decoded_sha256':hashlib.sha256(payload).hexdigest()}
+_decoded=read_entities(_container,_ack)
+_inventory=_container.inventory()
+_documents=[]
+for document,(_,parsed) in zip(_container.documents,_decoded):
+ item={'entity_type':document.entity_type,'entity_type_code':document.entity_type_code,'entity_key':document.entity_key,'decoded_sha256':hashlib.sha256(document.payload).hexdigest(),'decoded_bytes':len(document.payload),'parsed':parsed,'payload_base64':base64.b64encode(document.payload).decode('ascii')}
+ _documents.append(item)
+json.dumps({'format':'tax-reborn-default-encrypted-inspection-v1','branch':_container.branch,'encrypted_source_sha256':_container.encrypted_source_sha256,'inventory':_inventory,'documents':_documents,'unreferenced_members':[name.decode('utf-8','strict') for name in _container.unreferenced_members]},allow_nan=False)`
+        } else if(command==='source_mc_input_diagnose') {
           await sourceMCFiles(py);
           code='json.dumps(source_mc_input.diagnose_request(json.loads(_tax_input_json)), allow_nan=False)';
         } else code=command==='taxml_inspect'?'json.dumps(taxml_preparation.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':command==='binary_tax_edit'?'json.dumps(binary_tax.edit_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_stored_cell_correct'?'json.dumps(source_stored_cell.correct_request(json.loads(_tax_input_json)), allow_nan=False)':command==='source_link_diagnostics'?'json.dumps(source_link_diagnostics.inspect_request(json.loads(_tax_input_json)), allow_nan=False)':'json.dumps(taxml_preparation.export_request(json.loads(_tax_input_json)), allow_nan=False)';
