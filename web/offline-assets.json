@@ -579,6 +579,12 @@
     "vendor/tesseract/tesseract.min.js",
     "vendor/tesseract/tesseract.min.js.LICENSE.txt",
     "vendor/tesseract/worker.min.js",
-    "vendor/tesseract/worker.min.js.LICENSE.txt"
+    "vendor/tesseract/worker.min.js.LICENSE.txt",
+    "source-normalized-store.js",
+    "app38-normalized-store-worker.js",
+    "app38-normalized-store-runtime.json",
+    "app38_normalized_store_source_interface.py",
+    "normalized_store_reference.py",
+    "reference_document_normalized_store_reference.py"
   ]
 }

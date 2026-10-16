@@ -831,7 +831,7 @@ function showTaxMLCandidates(row,inspected,returnId,atRevision,completed=new Set
  if(inspected.scalar_fields?.length)holder.append(button('Inspect / edit decimal fields',()=>showMacDecimalFields(row,inspected,returnId,atRevision),'secondary'));
  if(inspected.date_fields?.length)holder.append(button('Inspect / edit date fields',()=>showMacDateFields(row,inspected,returnId,atRevision),'secondary'));
  if(inspected.source_stored_amount_cells?.length)holder.append(button('Source stored cell correction',()=>showSourceStoredCells(row,inspected,returnId,atRevision),'secondary'));
- if(inspected.binary_archive)holder.append(button('Check stored links',()=>showStoredLinkDiagnostics(row,inspected,returnId,atRevision),'secondary'),button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'),button('Compare proposed interest adjustments',()=>showRawInterestCalculation(inspected,returnId,true),'secondary'),button('Read stored source interest input',()=>showSourceMCInput(row,inspected,returnId),'secondary'),button('Compare stored input through L4 / L8A',()=>showMCInterestComparison(row,inspected,returnId),'secondary'));
+ if(inspected.binary_archive)holder.append(button('Check stored links',()=>showStoredLinkDiagnostics(row,inspected,returnId,atRevision),'secondary'),button('Inspect / edit binary fields',()=>showBinaryFields(row,inspected,returnId,atRevision),'secondary'),button('Compare local source calculation',()=>showSourceCalculation(inspected,returnId),'secondary'),button('Compare source interest L4 / L8A',()=>showRawInterestCalculation(inspected,returnId),'secondary'),button('Compare proposed interest adjustments',()=>showRawInterestCalculation(inspected,returnId,true),'secondary'),button('Read stored source interest input',()=>showSourceMCInput(row,inspected,returnId),'secondary'),button('Compare stored input through L4 / L8A',()=>showMCInterestComparison(row,inspected,returnId),'secondary'),button('Create normalized source copy',()=>showNormalizedStore(row,inspected,returnId),'secondary'));
  modal('TaxML inspection results',holder,[['Download original source',()=>downloadBlob(row.file,row.name),'secondary']]);
 }
 function showMacDateFields(source,inspected,returnId,atRevision){
@@ -945,6 +945,21 @@ async function showMCInterestComparison(source,inspected,returnId=currentId){
    getInspection:()=>clone(inspected),
    getContext:()=>{if(currentId!==returnId)throw Error('The current return changed. Reopen the source.');return {return_id:currentId,revision,input:normalizeInput(clone(data)),metadata:clone(metadata),result:clone(result),calculated_revision:calculatedRevision};}});
   if(closed){widget.destroy();transport.close();return;}activeSourceComparison=widget;
+ }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
+}
+async function showNormalizedStore(source,inspected,returnId=currentId){
+ const request=window.taxMLImport.sourceRequest(inspected);
+ if(currentId!==returnId)throw Error('Reopen the source from the intended return.');
+ const sourceFile=source.file,sourceName=source.name,sourceBinding=source.binding_files,profileFile=sourceBinding?.profile,carrierFiles=[...(sourceBinding?.carriers||[])],sourceContainer=sourceBinding?.container;
+ const sourceUnchanged=()=>source.file===sourceFile&&source.name===sourceName&&source.binding_files===sourceBinding&&sourceBinding?.profile===profileFile&&sourceBinding?.container===sourceContainer&&sourceBinding?.carriers?.length===carrierFiles.length&&carrierFiles.every((file,i)=>sourceBinding.carriers[i]===file);
+ const container=el('div'),dialog=modal('Create normalized source copy',container);
+ let closed=false,widget=null,transport=null;
+ const cleanup=()=>{closed=true;widget?.destroy();transport?.close();};dialogCleanup=cleanup;
+ try{
+  const module=await import('./source-normalized-store.js');if(closed)return;
+  transport=module.createNormalizedStoreWorker();
+  widget=module.mountNormalizedStore(container,{execute:transport.run,saveReport:downloadBlob,saveSource:downloadBlob,getSource:()=>{if(currentId!==returnId||!sourceUnchanged())throw Error('The current source files or return changed. Reopen and inspect the source.');return window.taxMLImport.sourceRequest(inspected);}});
+  if(closed){widget.destroy();transport.close();return;}
  }catch(error){cleanup();if(container.isConnected)dialog.error.textContent=error.message;}
 }
 function showLocalComparisonOptions(){
