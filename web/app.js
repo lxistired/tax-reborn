@@ -734,7 +734,9 @@ async function showTaxMLImport(){
  const source=el('input',{type:'file',accept:'.xml,.tax,.tax2025,.taxbin,.bin,.zip,application/xml,text/xml,application/zip,application/octet-stream','aria-label':'Choose plaintext TaxML or .tax container'});
  const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose explicit TaxML wire profile'});
  const carriers=el('input',{type:'file',multiple:true,accept:'.xprf,.3pe,application/octet-stream','aria-label':'Choose caller-owned XPRF registries'});
- const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Plaintext ZIP — extract corrected XML'),el('option',{value:'cleartext_persistence_container'},'Cleartext container — preserve complete archive'),el('option',{value:'binary_entity'},'Binary tax data — supported profile'));
+ const compatibility=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose local default encrypted compatibility configuration'});
+ const previousYear=el('input',{type:'checkbox','aria-label':'This is a previous-year default encrypted return'});
+ const container=el('select',{'aria-label':'TaxML container declaration'},el('option',{value:''},'Choose the known file format'),el('option',{value:'plaintext_xml'},'Plaintext TaxML XML'),el('option',{value:'declared_plaintext_zip'},'Plaintext ZIP — extract corrected XML'),el('option',{value:'cleartext_persistence_container'},'Cleartext container — preserve complete archive'),el('option',{value:'binary_entity'},'Binary tax data — supported profile'),el('option',{value:'default_encrypted_tax'},'Default encrypted .tax — local compatibility config'));
  const acknowledged=el('input',{type:'checkbox','aria-label':'Acknowledge the selected unverified wire profile'});
  holder.append(el('p',{class:'intro'},'Open local TaxML or supported binary tax data with your own registry files and an explicit profile. Review W-2, 1099-INT and 1099-DIV amounts before adding them. Binary corrections retain supported child forms, table records, links and unedited fields. Protected and unsupported files are refused.'),
   el('div',{class:'note warning'},'The selected wire profile is supplied by you. Original TurboTax loading and calculation are unverified. Unknown fields and source facts block adding a candidate.'),
@@ -742,18 +744,26 @@ async function showTaxMLImport(){
   el('div',{class:'field'},el('label',{},'Known file format'),container),
   el('div',{class:'field'},el('label',{},'Explicit root / namespace / template profile'),profile),
   el('div',{class:'field'},el('label',{},'Your XPRF registry files'),carriers),
+  el('div',{class:'field'},el('label',{},'Local default encrypted compatibility configuration',compatibility)),
+  el('label',{class:'check-field'},previousYear,el('span',{},'Use the previous-year compatibility branch when this is a previous-year return.')),
   el('label',{class:'check-field'},acknowledged,el('span',{},'I selected this wire profile and understand that compatibility with the original program is unverified.')),
   el('details',{},el('summary',{},'Try independently generated binary samples'),el('p',{},'Fictional source data for testing this complete local workflow. These are not original TurboTax files.'),el('div',{class:'inline-actions'},button('Load binary income sample',()=>loadBinarySample('income',id,openedRevision),'secondary'),button('Load nested binary sample',()=>loadBinarySample('nested',id,openedRevision),'secondary'),button('Load filing-status sample',()=>loadBinarySample('filing-status',id,openedRevision),'secondary'),button('Load income sample with two registries',()=>loadBinarySample('merged',id,openedRevision),'secondary'),button('Load nested sample with two registries',()=>loadBinarySample('merged-nested',id,openedRevision),'secondary'),button('Load source with indexed table values',()=>loadBinarySample('value-table',id,openedRevision),'secondary'),button('Load complete saved-form sample',()=>loadBinarySample('derived-income',id,openedRevision),'secondary'),button('Load saved-form array sample',()=>loadBinarySample('derived-array',id,openedRevision),'secondary'),button('Load preserved-object sample',()=>loadBinarySample('derived-opaque',id,openedRevision),'secondary'),button('Load automatic table sample',()=>loadBinarySample('auto-array-income',id,openedRevision),'secondary'),button('Load saved value-note sample',()=>loadBinarySample('typed-value-income',id,openedRevision),'secondary'),button('Load whole-number sample',()=>loadBinarySample('whole-number-income',id,openedRevision),'secondary'),button('Load saved document objects',()=>loadBinarySample('persistent-document-income',id,openedRevision),'secondary'),button('Load independent stored-cell example',()=>loadBinarySample('source-cell',id,openedRevision),'secondary'),button('Load saved-link check sample',()=>loadBinarySample('owned-existing-link',id,openedRevision),'secondary'),button('Load stored instance-map sample',()=>loadBinarySample('instance-map-income',id,openedRevision),'secondary'),...[1,2,3].map(version=>button('Load Entity map v'+version+' sample',()=>loadBinarySample('entity-instance-map-v'+version+'-income',id,openedRevision),'secondary')) ,button('Load plaintext container sample',()=>loadClearContainerSample(id,openedRevision),'secondary'),button('Load Mac monetary container sample',()=>loadClearContainerSample(id,openedRevision,true),'secondary'),button('Load Mac decimal source sample',()=>loadClearContainerSample(id,openedRevision,true,true),'secondary'),button('Load Mac date source sample',()=>loadClearContainerSample(id,openedRevision,true,false,true),'secondary'))));
  const dialog=modal('Inspect local TaxML',holder,[['Inspect locally',async()=>{
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. Reopen the import before inspecting.');
   if(!container.value)throw Error('Declare the known file format explicitly. Unknown or encrypted files cannot be imported.');
   const file=source.files[0],profileFile=profile.files[0],registryFiles=[...carriers.files];
-  const inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container.value,acknowledged.checked);
+  if(!(file instanceof Blob)||!file.size)throw Error('Choose the local source file first.');
+  let inspected,defaultConfig=null;
+  if(container.value==='default_encrypted_tax'){
+   if(!compatibility.files[0])throw Error('Choose the local default-container compatibility configuration.');
+   try{defaultConfig=JSON.parse(await compatibility.files[0].text());}catch{throw Error('The compatibility configuration is not valid JSON.');}
+   inspected=await window.taxMLImport.inspectDefaultEncrypted(file,defaultConfig,previousYear.checked);
+  }else inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,container.value,acknowledged.checked);
   if(currentId!==id||revision!==openedRevision||!dialog.body.isConnected)throw Error('This return or import window changed. No income record was added.');
-  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type||'application/octet-stream',size:file.size,created:new Date().toISOString(),binding_files:{profile:profileFile,carriers:registryFiles,container:container.value}};
+  const row={id:crypto.randomUUID(),returnId:id,file,name:file.name,type:file.type||'application/octet-stream',size:file.size,created:new Date().toISOString(),binding_files:container.value==='default_encrypted_tax'?null:{profile:profileFile,carriers:registryFiles,container:container.value},default_encrypted:container.value==='default_encrypted_tax'?{branch:inspected.branch,encrypted_source_sha256:inspected.encrypted_source_sha256,inventory:inspected.inventory,unreferenced_members:inspected.unreferenced_members}:null};
   await documentOperation('readwrite',store=>store.put(row));
   if(currentId!==id||revision!==openedRevision)throw Error('This return changed. The original source remains attached, but no income record was added.');
-  showTaxMLCandidates(row,inspected,id,openedRevision);
+  if(container.value==='default_encrypted_tax')showDefaultEncryptedInventory(row,inspected,id,openedRevision);else showTaxMLCandidates(row,inspected,id,openedRevision);
  },'primary']]);
 }
 async function loadBinarySample(name,id,atRevision){
@@ -767,6 +777,23 @@ async function loadBinarySample(name,id,atRevision){
  await documentOperation('readwrite',store=>store.put(row));
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. The sample is attached; no income was added.');
  showTaxMLCandidates(row,inspected,id,atRevision);
+}
+function showDefaultEncryptedInventory(source,inspection,returnId,atRevision){
+ const decode=value=>Uint8Array.from(atob(value),character=>character.charCodeAt(0));
+ const selected=el('select',{'aria-label':'Choose decrypted entity member'},...(inspection.documents||[]).map((item,index)=>el('option',{value:String(index)},item.entity_key+' · '+item.decoded_bytes+' bytes')));
+ const profile=el('input',{type:'file',accept:'.json,application/json','aria-label':'Choose entity wire profile'}),carriers=el('input',{type:'file',multiple:true,accept:'.xprf,.3pe,application/octet-stream','aria-label':'Choose ordered entity registries'}),detail=el('div');
+ function render(){const item=inspection.documents[Number(selected.value)];detail.replaceChildren(el('p',{},item.entity_type+' · '+item.entity_key),el('small',{},item.parsed?.format==='json-member'?'Structured member retained for review.':'Opaque binary member retained byte-for-byte; choose the matching caller-owned profile and registries to inspect it.'),el('code',{class:'binary-raw-id'},'Decoded SHA-256 '+item.decoded_sha256));}
+ selected.addEventListener('change',render);render();
+ const holder=el('div',{},el('p',{class:'intro'},'The encrypted archive was decoded with the selected local compatibility branch. Every manifest member and unrecognized archive member remains accounted for. Original-compatible writing and engine execution are not claimed.'),el('p',{},'Branch: '+inspection.branch+' · encrypted source SHA-256 '+inspection.encrypted_source_sha256),el('div',{class:'note'},'Retained members: '+(inspection.unreferenced_members||[]).join(', ')),el('details',{},el('summary',{},'Archive member inventory'),el('ul',{},(inspection.inventory||[]).map(item=>el('li',{},item.member_name+' · '+item.role+' · '+(item.decoded_bytes===null?'ciphertext retained':item.decoded_bytes+' decoded bytes')+' · ciphertext SHA-256 '+item.ciphertext_sha256)))),el('hr'),el('label',{},'Decoded entity',selected),detail,el('div',{class:'field'},el('label',{},'Entity wire profile',profile)),el('div',{class:'field'},el('label',{},'Ordered entity registries',carriers)),el('div',{class:'inline-actions'},button('Inspect selected entity locally',async()=>{
+  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed. Reopen the encrypted source.');
+  const item=inspection.documents[Number(selected.value)],profileFile=profile.files[0],registryFiles=[...carriers.files];
+  if(!profileFile||!registryFiles.length)throw Error('Choose the matching caller-owned profile and ordered registries first.');
+  const file=new File([decode(item.payload_base64)],item.entity_key,{type:'application/octet-stream'}),inspected=await window.taxMLImport.inspect(file,profileFile,registryFiles,'binary_entity',true);
+  if(currentId!==returnId||revision!==atRevision)throw Error('This return changed while inspecting the decrypted entity.');
+  const row={id:crypto.randomUUID(),returnId:returnId,file,name:item.entity_key,type:file.type,size:file.size,created:new Date().toISOString(),binding_files:{profile:profileFile,carriers:registryFiles,container:'binary_entity',encrypted_source_document_id:source.id,encrypted_source_sha256:inspection.encrypted_source_sha256}};
+  await documentOperation('readwrite',store=>store.put(row));showTaxMLCandidates(row,inspected,returnId,revision);
+ },'primary'),button('Download selected decoded member',()=>{const item=inspection.documents[Number(selected.value)];return downloadBlob(new Blob([decode(item.payload_base64)],{type:'application/octet-stream'}),item.entity_key);},'secondary')));
+ modal('Default encrypted source inventory',holder);
 }
 async function loadClearContainerSample(id,atRevision,mac=false,scalar=false,date=false){
  if(currentId!==id||revision!==atRevision)throw Error('This return changed. Reopen the import.');

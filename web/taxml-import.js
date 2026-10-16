@@ -7,6 +7,13 @@
  const documentContexts=new WeakMap();
  const hash=async bytes=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
  function encoded(bytes){let text='';for(let i=0;i<bytes.length;i+=16384)text+=String.fromCharCode(...bytes.subarray(i,i+16384));return btoa(text);}
+ async function inspectDefaultEncrypted(file,compatibility,isPreviousYearReturn){
+  if(!(file instanceof Blob)||!file.size||file.size>64*1024*1024)throw Error('Choose a nonempty default encrypted .tax file smaller than 64 MB.');
+  if(!compatibility||typeof compatibility!=='object')throw Error('Choose the local default-container compatibility configuration.');
+  const bytes=new Uint8Array(await file.arrayBuffer()),result=await window.taxLocalEngine('default_encrypted_inspect',{base64:encoded(bytes),compatibility,is_previous_year_return:isPreviousYearReturn===true});
+  documentContexts.set(result,{file,compatibility,is_previous_year_return:isPreviousYearReturn===true});
+  return result;
+ }
  async function inspect(file,profileFile,registryFiles,container,acknowledged){
   if(!(file instanceof Blob)||!file.size||file.size>10*1024*1024)throw Error('Choose a nonempty tax-data file smaller than 10 MB.');
   if(!(profileFile instanceof Blob)||profileFile.size>1024*1024)throw Error('Choose a wire-profile JSON file smaller than 1 MB.');
@@ -112,5 +119,5 @@
  }
  function sourceRequest(inspected){const request=documentContexts.get(inspected);if(!request||request.container!=='binary_entity')throw Error('Reopen and inspect the binary source first.');return JSON.parse(JSON.stringify(request));}
  async function storedLinkDiagnostics(inspected){return window.taxLocalEngine('source_link_diagnostics',sourceRequest(inspected));}
- window.taxMLImport={storedLinkDiagnostics,sourceRequest,inspect,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,correctedStoredCell,editBinary,requiredMoney,interestMoney,dividendMoney};
+ window.taxMLImport={storedLinkDiagnostics,sourceRequest,inspect,inspectDefaultEncrypted,reviewedRecord,reviewedInterest,reviewedDividend,reviewedFilingStatus,correctedSource,correctedScalar,correctedDate,correctedStoredCell,editBinary,requiredMoney,interestMoney,dividendMoney};
 })();

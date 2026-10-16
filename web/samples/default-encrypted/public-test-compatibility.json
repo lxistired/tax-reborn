@@ -1,0 +1,23 @@
+{
+  "current": {
+    "manifest": {
+      "iv_base64": "EBESExQVFhcYGRobHB0eHw==",
+      "key_base64": "ABEiM0RVZneImaq7zN3u/wARIjNEVWZ3iJmqu8zd7v8="
+    },
+    "member": {
+      "iv_base64": "QEFCQ0RFRkdISUpLTE1OTw==",
+      "key_base64": "ICEiIyQlJicoKSorLC0uLzAxMjM0NTY3ODk6Ozw9Pj8="
+    }
+  },
+  "format": "tax-reborn-default-tax-crypto-v1",
+  "previous": {
+    "manifest": {
+      "iv_base64": "cHFyc3R1dnd4eXp7fH1+fw==",
+      "key_base64": "UFFSU1RVVldYWVpbXF1eX2BhYmNkZWZnaGlqa2xtbm8="
+    },
+    "member": {
+      "iv_base64": "oKGio6SlpqeoqaqrrK2urw==",
+      "key_base64": "gIGCg4SFhoeIiYqLjI2Oj5CRkpOUlZaXmJmam5ydnp8="
+    }
+  }
+}

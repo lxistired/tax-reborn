@@ -586,6 +586,13 @@
     "app38-normalized-store-runtime.json",
     "app38_normalized_store_source_interface.py",
     "normalized_store_reference.py",
-    "reference_document_normalized_store_reference.py"
+    "reference_document_normalized_store_reference.py",
+    "samples/default-encrypted/public-test-compatibility.json",
+    "samples/default-encrypted/synthetic-default-current.tax",
+    "samples/default-encrypted/synthetic-default-previous.tax",
+    "samples/default-encrypted/synthetic-default-binary-array.tax",
+    "samples/default-encrypted/synthetic-default-binary-profile.json",
+    "samples/default-encrypted/synthetic-default-binary-carrier-0.xprf",
+    "samples/default-encrypted/synthetic-default-binary-carrier-1.xprf"
   ]
 }
