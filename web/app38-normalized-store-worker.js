@@ -7,7 +7,7 @@ globalThis.loadPyodide=loadPyodide.loadPyodide;
 
 // App38 worker: complete caller-local source in, complete normalized source out.
 // No original resource bytes are bundled. Every Python module is hash checked.
-const FIXED_MANIFEST_SHA = '2b24bece36865b61e2f7c6dea77bede981456a961e5c768a3aa73a2632eac056';
+const FIXED_MANIFEST_SHA = '92929014ae15378fe0e40b34adeba20642024bf9d5e29e89b77b6b2804743dc5';
 const digest = async data => [...new Uint8Array(await crypto.subtle.digest('SHA-256', data))].map(x => x.toString(16).padStart(2, '0')).join('');
 let runtime;
 function ready() {
