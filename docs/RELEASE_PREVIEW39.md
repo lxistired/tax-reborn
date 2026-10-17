@@ -1,6 +1,6 @@
 # Tax Reborn Preview.39 — experimental prerelease
 
-**Status on 2026-10-17:** publication is authorized and development remains paused. This source record is prepared for the Preview.39 GitHub draft. Until the draft is made public, Preview.38 remains the current published prerelease. The final public-release readback will be recorded separately.
+**Status on 2026-10-17:** [Preview.39 is published as an experimental prerelease](https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.39). Development remains paused. The final anonymous public-release readback is recorded separately.
 
 ## Candidate scope
 
