@@ -1,0 +1,94 @@
+{
+  "all_passed": true,
+  "anonymous_full_get": true,
+  "asset_count": 9,
+  "assets": [
+    {
+      "asset": "preview39-artifacts.json",
+      "bytes": 2184,
+      "http_status": 200,
+      "sha256": "2cff5f310a90bbb493a6bfef75b269fe8d0c38b273a7e0e432d6cffefc22e1ed",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/preview39-artifacts.json"
+    },
+    {
+      "asset": "SHA256SUMS.txt",
+      "bytes": 850,
+      "http_status": 200,
+      "sha256": "31c60af3b59ae35f422766dfdc7100eb34debcaf2bc17ea07d1a3a0ed0975a5e",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/SHA256SUMS.txt"
+    },
+    {
+      "asset": "Tax-Reborn-2026.10.16-preview.39-Windows-x64-Setup.exe",
+      "bytes": 58215061,
+      "http_status": 200,
+      "sha256": "2011bda4fa3876f14450824db70283907e35374bf5b0657b84de1b97eee0d79c",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/Tax-Reborn-2026.10.16-preview.39-Windows-x64-Setup.exe"
+    },
+    {
+      "asset": "Tax-Reborn-2026.10.16-preview.39-Windows-x64-portable.zip",
+      "bytes": 72854261,
+      "http_status": 200,
+      "sha256": "5b06f4b550c54340cc6b4ea36be8e5e745270dfa6afe22d6ebafb2cf8266c08b",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/Tax-Reborn-2026.10.16-preview.39-Windows-x64-portable.zip",
+      "zip_crc": "passed",
+      "zip_entries": 971
+    },
+    {
+      "asset": "Tax-Reborn-2026.10.16-preview.39-macOS-arm64.dmg",
+      "bytes": 73783474,
+      "http_status": 200,
+      "sha256": "123b31547c84cdceb2666225e9b5991be40ae0b1ffb8c319d6c01dd310d8158d",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/Tax-Reborn-2026.10.16-preview.39-macOS-arm64.dmg"
+    },
+    {
+      "asset": "Tax-Reborn-2026.10.16-preview.39-Android.apk",
+      "bytes": 50955866,
+      "http_status": 200,
+      "sha256": "b343f0208ab7a0a28aa186ec985229848bc7974e1bcc50ccaa94de415610e138",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/Tax-Reborn-2026.10.16-preview.39-Android.apk",
+      "zip_crc": "passed",
+      "zip_entries": 636
+    },
+    {
+      "asset": "Tax-Reborn-2026.10.16-preview.39-source.zip",
+      "bytes": 142921780,
+      "http_status": 200,
+      "sha256": "f09ede7ca22772b3854245f2149e106c8777b57c167552cbf4132e3504c35a11",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/Tax-Reborn-2026.10.16-preview.39-source.zip",
+      "zip_crc": "passed",
+      "zip_entries": 2717
+    },
+    {
+      "asset": "source-manifest.json",
+      "bytes": 832447,
+      "http_status": 200,
+      "sha256": "07781ddadcf1bb00bdb88c7480575d0caa20eaf72c3148c5b5a2d2e18b3b4f6b",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/source-manifest.json"
+    },
+    {
+      "asset": "platform-acceptance.json",
+      "bytes": 1889,
+      "http_status": 200,
+      "sha256": "3f833051900d3fa44c75094a9770ca4ab1cb95bb8d991bca7bc2330c7a32fe04",
+      "sha256_matches_expected": true,
+      "url": "https://github.com/lxistired/tax-reborn/releases/download/v2026.10.16-preview.39/platform-acceptance.json"
+    }
+  ],
+  "authorization_header_used": false,
+  "release_commit": "98842ed082249cdaf70d7344c4ca29da3193b1d4",
+  "release_tag": "v2026.10.16-preview.39",
+  "release_url": "https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.39",
+  "runtime_base_commit": "2eb2f4963b1e9ffe85867ec3ba839436055edeee",
+  "schema": 1,
+  "temporary_downloads_removed": true,
+  "total_bytes": 399567812,
+  "zip_crc_scope": "Windows portable ZIP, Android APK, and Source ZIP"
+}

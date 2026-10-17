@@ -1,6 +1,6 @@
 # Tax Reborn Preview.39 — experimental prerelease
 
-**Status on 2026-10-17:** [Preview.39 is published as an experimental prerelease](https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.39). Development remains paused. The final anonymous public-release readback is recorded separately.
+**Status on 2026-10-17:** [Preview.39 is published as an experimental prerelease](https://github.com/lxistired/tax-reborn/releases/tag/v2026.10.16-preview.39). Development remains paused. All nine assets passed anonymous full-download byte/SHA-256 readback; the Windows portable ZIP, Android APK and Source ZIP also passed CRC checks. See the [public readback record](../qa/native-preview39/public-download-readback.json).
 
 ## Candidate scope
 
@@ -21,19 +21,11 @@ The Windows focused native check used the already-produced Preview.39 runtime pa
 
 The browser regression ran the same candidate runtime in both HTTP/SQLite and actual Pyodide/IndexedDB modes. It checks four refusals, a wrong-manual-config error with unchanged saved document hashes, packaged-preset recovery, inventory, acknowledgement, reader output, W-2 edit, save, and reopen. Its receipt is private. These checks use owned fictional fixtures and public fictional configuration values only.
 
-Cache-63 Mac and Android packages were generated and their package/signing identities were recorded. Their final evidence is an **inventory increment** for this encrypted-source route: Mac reopened the saved source and showed its inventory; Android reopened the saved source, selected the public profile and ordered carriers, and showed the reader structure. Neither record is a new complete native import/edit/save/reopen chain for Preview.39. No platform package is staged for release here.
+Cache-63 Mac and Android packages were generated and their package/signing identities were recorded. Their final evidence is an **inventory increment** for this encrypted-source route: Mac reopened the saved source and showed its inventory; Android reopened the saved source, selected the public profile and ordered carriers, and showed the reader structure. Neither record is a new complete native import/edit/save/reopen chain for Preview.39. The existing Windows, macOS and Android packages are published with those scopes stated explicitly.
 
-## Publication gates still open
+## Public release readback
 
-Before the authorized draft is made public, the release process must record:
-
-1. freeze an exact candidate source commit and Source ZIP;
-2. confirm each proposed package's embedded runtime identity against the approved release source; QA and documentation changes alone do not require a runtime rebuild;
-3. complete any platform acceptance still needed for the declared release scope;
-4. upload assets, perform anonymous full-download hash/CRC readback, and record those results; and
-5. final release review and public publication.
-
-Until publication completes, the local Source ZIP and asset manifest are staging materials. They do not represent an anonymous public Preview.39 download.
+The published tag points to source commit `98842ed082249cdaf70d7344c4ca29da3193b1d4`. All nine assets returned HTTP 200 to anonymous full downloads and matched their expected byte counts and SHA-256 hashes. The Windows portable ZIP, Android APK and Source ZIP passed CRC checks. The [public readback record](../qa/native-preview39/public-download-readback.json) contains the canonical URLs and checksums.
 
 ## Safety and product boundary
 
