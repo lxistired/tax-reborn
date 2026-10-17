@@ -1,6 +1,6 @@
-# Tax Reborn Preview.39 — unpublished experimental-preview candidate
+# Tax Reborn Preview.39 — experimental prerelease
 
-**Status on 2026-10-17:** this is a release-staging record, not a published release. There is no Preview.39 tag, release page, uploaded asset, or anonymous public-download readback. Preview.38 remains the current public prerelease.
+**Status on 2026-10-17:** publication is authorized and development remains paused. This source record is prepared for the Preview.39 GitHub draft. Until the draft is made public, Preview.38 remains the current published prerelease. The final public-release readback will be recorded separately.
 
 ## Candidate scope
 
@@ -25,15 +25,15 @@ Cache-63 Mac and Android packages were generated and their package/signing ident
 
 ## Publication gates still open
 
-A future release requires all of the following after explicit approval:
+Before the authorized draft is made public, the release process must record:
 
 1. freeze an exact candidate source commit and Source ZIP;
 2. confirm each proposed package's embedded runtime identity against the approved release source; QA and documentation changes alone do not require a runtime rebuild;
 3. complete any platform acceptance still needed for the declared release scope;
 4. upload assets, perform anonymous full-download hash/CRC readback, and record those results; and
-5. receive a new user task that authorizes publication.
+5. final release review and public publication.
 
-Until then, the local Source ZIP and asset manifest are staging materials only. They do not represent a public Preview.39 download.
+Until publication completes, the local Source ZIP and asset manifest are staging materials. They do not represent an anonymous public Preview.39 download.
 
 ## Safety and product boundary
 
